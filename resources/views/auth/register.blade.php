@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('content')
     <div class="text-center">
-        <h1><i class="fas fa-chalkboard-teacher pr-3 d-inline"></i>YouTubeまとめ×コミュニケーション</h1>
+        <h1><i class="fab fa-telegram fa-lg pr-3"></i>Postコミュニケーション</h1>
     </div>
     <div class="text-center mt-3">
-        <p class="text-left d-inline-block">新規ユーザ登録すると、<br>あなたのチャンネル作成／動画登録等ができるようになります。</p>
+        <p class="text-left d-inline-block">新規ユーザ登録すると投稿で<br>コミュニケーションができるようになります。</p>
     </div>
     <div class="text-center">
-        <h3 class="login_title text-left d-inline-block mt-5">新規ユーザー登録</h3>
+        <h3 class="login_title text-left d-inline-block mt-5">新規ユーザ登録</h3>
     </div>
     <div class="row mt-5 mb-5">
         <div class="col-sm-6 offset-sm-3">
