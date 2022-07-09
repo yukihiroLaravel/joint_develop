@@ -10,7 +10,10 @@
     <body>
         @include('commons.header')
         <div class="container">
-            @yield('content')
+         @include('commons.error_messages')  
+        @yield('content')
+           
+    </ul>
         </div>
         @include('commons.footer')
 
