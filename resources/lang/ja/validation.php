@@ -51,7 +51,7 @@ return [
         'array' => ':attributeの項目数は、:value個より大きくなければなりません。',
     ],
     'gte' => [
-        'numeric' => 'numeric' => ':attributeは、:value以上でなければなりません。',
+        'numeric' => ':attributeは、:value以上でなければなりません。',
         'file' => ':attributeは、:value KB以上でなければなりません。',
         'string' => ':attributeは、:value文字以上でなければなりません。',
         'array' => ':attributeの項目数は、:value個以上でなければなりません。',
