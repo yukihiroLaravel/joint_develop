@@ -9,13 +9,20 @@
      <div class="text-center">
           <h3 class="login_title text-left d-inline-block mt-5">ログイン</h3>
      </div>
+<<<<<<< Updated upstream
      <div>
      </div>
+=======
+>>>>>>> Stashed changes
      <div class="row mt-5 mb-5">
          <div class="col-sm-6 offset-sm-3">
          @include('commons.error_messages')
             <form method="POST" action="{{ route('login.post') }}">
+<<<<<<< Updated upstream
                   @csrf
+=======
+                 @csrf
+>>>>>>> Stashed changes
                  <div class="form-group">
                     <label for="email">メールアドレス</label>
                     <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}">
