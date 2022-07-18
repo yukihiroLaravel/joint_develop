@@ -10,6 +10,7 @@
     <body>
         @include('commons.header')
         <div class="container">
+           
             @yield('content')
         </div>
         @include('commons.footer')

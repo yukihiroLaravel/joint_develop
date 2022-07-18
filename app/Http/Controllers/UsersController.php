@@ -22,7 +22,7 @@ class UsersController extends Controller
     }
     public function update(EditRequest $request, $id)
     {
-        dd($request);
+        
         $user = User::findOrFail($id);
         $user->save();
         // dd($request);
