@@ -2,7 +2,7 @@
 @section('content')
     
         <div class="text-center">
-            <h1><i class="fab fa-chalkboard-teacher pr-3 d-inline"></i>Topic Posts</h1>
+            <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
         </div>
         
         <div class="text-center mt-3">
