@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Validation\Rule;                //追加
 class EditRequest extends FormRequest
 {
     /**
@@ -23,12 +23,10 @@ class EditRequest extends FormRequest
      */
     public function rules()
     {
-        
         return [
             'name' => ['required','string','max:255'],
-            'email' => ['required','string','email','unique:users','max:255'],
-            'password' => ['required','string','min:5','confirmed'],
-            'password_confirmation' => ['required'],
+            'email' => ['required','string','email','max:255',Rule::unique('users')->ignore($this->id)],
+            'password' => ['required','string','min:8','confirmed'],
         ];
     }
     public function attributes()
@@ -43,15 +41,13 @@ class EditRequest extends FormRequest
     public function messages() 
     {
         return [
-            'name.required' => ':attribute の入力をお願いします',
-            'email.required' => ':attribute の入力をお願いします',
-            'email.unique:users' => ':attribute がすでに使われています',
-            'password.required' => ':attribute の入力をお願いします',
-            'password.confirmed' => ':attribute が一致しません',    
+            'name.required' => '名前は、必ず指定してください。',
+            'email.required' => ':attribute は、必ず指定してください。',
+            'email.unique:users' => ':attribute がすでに使われています。',
+            'password.required' => ':attribute は、必ず指定してください。',
+            'password.min:8' => ':attribute は、8文字以上にしてください。',    
+            'password.confirmed' => 'パスワードとパスワード確認が一致しません。',    
+
         ];
     }
-
-
-
-    // public $redirect = "/Requests/EditRequest/";
 }

@@ -10,30 +10,34 @@ class UsersController extends Controller
 {
     public function edit($id)
     {
-        // $user = \Auth::user,
         $user = User::findOrFail($id);
-        $data=[
-            'user' => $user,
-            'email' => $user->email,
-            'password' => $user->password,
-            'confirmPassword' => $user->confirmPassword,
-        ];
-        return view('users.edit', $data);
+        return view('users.edit', [
+            'user' => $user
+        ]);
     }
+
     public function update(EditRequest $request, $id)
     {
         
         $user = User::findOrFail($id);
-        $user->save();
-        // dd($request);
-        return back();
-    }
-    public function destroy($id) 
-    {
-        $user = User::findOrFail($id);
-        if (\Auth::id() === $user->user_id) {
-            $user->delete();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        
+        //新規パスワードの確認
+        
+        $password = $user->password;
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+        if(password_verify($password, $hash)){
+            echo "パスワードを変更しました。";
         }
+
+        
+        $user->save();
         return back();
+        // return view('users'.{$id})
+        // return redirect ('/');
+        // ->with('success','パスワードの変更が終了しました');
     }
+    
 }
