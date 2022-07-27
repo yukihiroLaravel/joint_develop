@@ -13,7 +13,7 @@ class PostsTableSeeder extends Seeder
     {
         DB::table('posts')->insert([
             'content' => '楽天イーグルスは夏に強い',
-            'user_id' => 1,
+            'user_id' => 1,  
         ]);
         
         DB::table('posts')->insert([

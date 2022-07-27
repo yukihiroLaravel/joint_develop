@@ -23,6 +23,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        if (env('APP_ENV_CLOUD9') === true) {                       
+            \URL::forceScheme('https');
+        }
     }
 }
