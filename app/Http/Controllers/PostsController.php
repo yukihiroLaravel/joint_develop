@@ -24,11 +24,11 @@ class PostsController extends Controller
     public function update(PostEditRequest $request, $id)
     {
         $post = Post::findOrFail($id);
-        $post->user_id = $request->user_id;
+        // $post->user_id = $request->user_id;
         $post->content = $request->content;
-        dd($post);
+        // dd($post);
         
         $post->save();
-        return view('/');
+        return redirect('/');
     }
 }

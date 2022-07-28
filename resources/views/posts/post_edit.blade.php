@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
   <h2 class="mt-5">投稿を編集する</h2>
+  @include('commons.error_messages')
       <form method="POST" action="{{ route('posts.update', $user->id) }}">
       @csrf
       @method('PUT')
