@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;                //追加
-class EditRequest extends FormRequest
+class UserEditRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,6 @@ class EditRequest extends FormRequest
      */
     public function authorize()
     {
-        // return false;
         return true;
     }
     /**
@@ -32,21 +31,12 @@ class EditRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name' => 'ユーザ名',
-            'email' => 'メールアドレス',
-            'password' => 'パスワード',
-            'password_confirmation' => 'パスワードの確認',
+
         ];
     }
     public function messages() 
     {
         return [
-            'name.required' => '名前は、必ず指定してください。',
-            'email.required' => ':attribute は、必ず指定してください。',
-            'email.unique:users' => ':attribute がすでに使われています。',
-            'password.required' => ':attribute は、必ず指定してください。',
-            'password.min:8' => ':attribute は、8文字以上にしてください。',    
-            'password.confirmed' => 'パスワードとパスワード確認が一致しません。',    
 
         ];
     }
