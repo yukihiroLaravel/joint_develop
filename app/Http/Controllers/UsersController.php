@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\EditRequest;
+use App\Http\Requests\UserEditRequest;
 class UsersController extends Controller
 {
     public function edit($id)
@@ -16,7 +16,7 @@ class UsersController extends Controller
         ]);
     }
 
-    public function update(EditRequest $request, $id)
+    public function update(UserEditRequest $request, $id)
     {
         $user = User::findOrFail($id);
         $user->name = $request->name;
@@ -25,5 +25,6 @@ class UsersController extends Controller
     
         $user->save();
         return back();
+        
     }
 }
