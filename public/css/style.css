@@ -7,3 +7,7 @@
 .navbar-nav .nav-link:hover {
   color: #cbd3da;
 }
+
+.pagination {
+  text-align: center;
+}
