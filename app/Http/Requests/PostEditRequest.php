@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;          //追加
-
 class PostEditRequest extends FormRequest
 {
     /**
@@ -26,13 +25,13 @@ class PostEditRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => ['required','string','max:255'],
+            'content' => ['required','string','max:140'],
         ];
     }
-    public function messages()
-    {
-        return [
-            'content.required' => '投稿は、必ず指定してください。',
-        ];
-    }
+    // public function messages()
+    // {
+    //     return [
+    //         'content.required' => '投稿は、必ず指定してください。',
+    //     ];
+    // }
 }

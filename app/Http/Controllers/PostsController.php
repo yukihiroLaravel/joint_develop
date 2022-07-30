@@ -9,14 +9,12 @@ use App\Http\Requests\PostEditRequest;
 
 class PostsController extends Controller
 {
-    //
     public function edit($id)
     {
         $user = \Auth::user();
         $post = Post::findOrFail($id);
 
-
-        return view('posts.post_edit', [
+        return view('posts.edit', [
             'user' => $user,
             'post' => $post,
         ]);
@@ -24,10 +22,8 @@ class PostsController extends Controller
     public function update(PostEditRequest $request, $id)
     {
         $post = Post::findOrFail($id);
-        // $post->user_id = $request->user_id;
         $post->content = $request->content;
-        // dd($post);
-        
+
         $post->save();
         return redirect('/');
     }
