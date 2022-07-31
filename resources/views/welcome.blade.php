@@ -2,31 +2,14 @@
 @extends('layouts.app')
 @section('content')
     <div class="center jumbotron bg-info">
-            <div class="text-center text-white mt-2 pt-1">
-                <h1><i class="pr-3"></i>Topic Posts</h1>
-            </div>
-        </div>
-        
+        <div class="text-center text-white mt-2 pt-1">
+            <h1><i class="pr-3"></i>Topic Posts</h1>
+        </div>    
     </div>
-    <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
-    @foreach ($posts as $post)
-        <ul class="list-unstyled">
-            <li class="mb-3 text-center">
-                <div class="text-left d-inline-block w-75 mb-2">
-                    <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
-                    <p class="mt-3 mb-0 d-inline-block"><a href="">{{ $post->user->name }}</a></p>
-                </div>
-                <div class="">
-                <div class="text-left d-inline-block w-75">
-                    <p class="mb-2">{{ $post->content }}</p>
-                    <p class="text-muted">{{ $post->created_at }}</p>
-                </div>
-
-                        
-                </div>
-            </li>
-        </ul>
-    @endforeach
+    <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5> 
+    <ul class="list-unstyled">
+    @include('posts.post', ['posts' => $posts])
+    </ul>       
     <div class="d-flex justify-content-center">
         {{ $posts->links() }}
     </div>
