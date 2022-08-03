@@ -2,11 +2,11 @@
 @section('content')
   <h2 class="mt-5">投稿を編集する</h2>
   @include('commons.error_messages')
-      <form method="POST" action="{{ route('posts.update', $user->id) }}">
+      <form method="POST" action="{{ route('posts.update', $post->id) }}">
       @csrf
       @method('PUT')
           <div class="form-group">
-              <textarea id="user_id" class="form-control" name="content" rows="5" value="{{ old('content') }}"></textarea>
+              <textarea id="content" class="form-control" name="content" rows="5" value="{{ old('content') }}"></textarea>
           </div>
           <button type="submit" class="btn btn-primary">更新する</button>
       </form>
