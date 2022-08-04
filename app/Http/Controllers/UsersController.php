@@ -11,9 +11,12 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        return view('users.edit', [
-            'user' => $user
-        ]);
+        if(\Auth::id() === $user->id) {
+            return view('users.edit', [
+                'user' => $user
+            ]);
+        }
+        return back();
     }
 
     public function update(UserEditRequest $request, $id)
@@ -25,6 +28,5 @@ class UsersController extends Controller
     
         $user->save();
         return back();
-        
     }
 }

@@ -4,11 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
-// use App\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\PostEditRequest;
 
 class PostsController extends Controller
 {
+    public function index()
+    {
+        $posts = Post::orderBy('id', 'desc')->paginate(10);
+        return view('welcome', [ 
+            'posts' => $posts,    
+        ]);
+    }
     public function edit($id)
     {
         $user = \Auth::user();
@@ -22,7 +29,6 @@ class PostsController extends Controller
         }
         return back();
     }
-    
     public function update(PostEditRequest $request, $id)
     {
         $post = Post::findOrFail($id);
@@ -30,7 +36,6 @@ class PostsController extends Controller
             $post->content = $request->content;
             $post->save();
         }
-
         return redirect('/');
     }
 }
