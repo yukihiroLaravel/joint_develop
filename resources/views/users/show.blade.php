@@ -9,15 +9,9 @@
                 <div class="card-body">
                     <img class="rounded-circle img-fluid" src="" alt="">
                         <div class="mt-3">
-                            
                             @auth
-                                <a class="nav-link" href=""><i class="mr-1"></i>ユーザ情報の編集</a></li>
+                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                             @endauth
-    
-                            @guest 
-                                <li class="nav-item">
-                                <a class="nav-link" href=""></a></li>
-                            @endguest 
                         </div>
                 </div>
             </div>
@@ -28,7 +22,9 @@
                 <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
             </ul>
-                    @include('posts.post', ['posts' => $posts])
+            <ul class="list-unstyled">
+                @include('posts.post', ['posts' => $posts])
+            </ul>  
         </div>
     </div>
     
