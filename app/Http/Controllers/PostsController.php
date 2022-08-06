@@ -20,7 +20,6 @@ class PostsController extends Controller
     {
         $user = \Auth::user();
         $post = Post::findOrFail($id);
-
         if (\Auth::id() === $post->user_id) {
             return view('posts.edit', [
                 'user' => $user,
