@@ -25,8 +25,6 @@ class PostsController extends Controller
                 'user' => $user,
                 'post' => $post,
             ]);
-        }else{
-            return redirect('User::findOrFail($id');
         }
         return back();
     }
