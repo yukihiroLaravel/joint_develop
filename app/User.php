@@ -53,7 +53,6 @@ class User extends Authenticatable
     {
         $existing = $this->is_following($userId);
         $myself = $this->id == $userId;
-
         if (!$existing && !$myself) {
             $this->followings()->attach($userId);
         }
@@ -62,9 +61,12 @@ class User extends Authenticatable
     {
         $existing = $this->is_following($userId);
         $myself = $this->id == $userId;
-
         if ($existing && !$myself) {
             $this->followings()->detach($userId);
         }
+    }
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
     }
 }

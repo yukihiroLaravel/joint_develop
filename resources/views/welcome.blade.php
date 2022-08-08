@@ -1,8 +1,16 @@
+
 @extends('layouts.app')
 @section('content')
     <div class="center jumbotron jumbotron-extend bg-info">
-        <div class="text-center text-white">
+        <div class="text-center text-white mt-2 pt-1">
             <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
-        </div>
+        </div>    
     </div>
+    <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5> 
+    <ul class="list-unstyled">
+    @include('posts.post', ['posts' => $posts])
+    </ul>       
+    <div class="d-flex justify-content-center">
+        {{ $posts->links() }}
+    </div>  
 @endsection
