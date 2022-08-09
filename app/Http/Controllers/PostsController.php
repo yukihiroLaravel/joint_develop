@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\PostRequest;
 use App\Http\Controllers\Controller;
 use App\Post;
 
@@ -16,4 +17,13 @@ class PostsController extends Controller
                 'posts' => $posts,    
         ]);
     }
+    public function store(PostRequest $request)
+    {
+        $post = new Post;
+        $post->content = $request->content;
+        $post->user_id = \Auth::id();        
+        $post->save();
+        return redirect('/');
+    }
+
 }
