@@ -10,6 +10,7 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    
     public function counts($user) {
         $count_followings = $user->followings()->count();
         $count_followers = $user->followers()->count();

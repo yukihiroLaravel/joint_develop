@@ -11,6 +11,7 @@ class UserFollowController extends Controller
         \Auth::user()->follow($id);
         return back();
     }
+    
     public function destroy($id)
     {
         \Auth::user()->unfollow($id);

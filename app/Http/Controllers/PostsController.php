@@ -16,6 +16,7 @@ class PostsController extends Controller
             'posts' => $posts,    
         ]);
     }
+
     public function edit($id)
     {
         $user = \Auth::user();
@@ -28,6 +29,7 @@ class PostsController extends Controller
         }
         return back();
     }
+    
     public function update(PostEditRequest $request, $id)
     {
         $post = Post::findOrFail($id);
