@@ -17,6 +17,7 @@ class PostsController extends Controller
             'posts' => $posts,    
         ]);
     }
+    
     public function store(PostRequest $request)
     {
         $post = new Post;
