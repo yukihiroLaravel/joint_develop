@@ -19,6 +19,7 @@ class PostsTableSeeder extends Seeder
         DB::table('posts')->insert([
             'content' => 'ソフトバンク',
             'user_id' => 2,
+            'created_at' => new DateTime()
         ]);
         
         DB::table('posts')->insert([
