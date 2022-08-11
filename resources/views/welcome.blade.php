@@ -7,8 +7,11 @@
         </div>    
     </div>
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5> 
+    @if(Auth::check())
+        @include('posts.new_post')
+    @endif
     <ul class="list-unstyled">
-    @include('posts.post', ['posts' => $posts])
+        @include('posts.post', ['posts' => $posts])
     </ul>       
     <div class="d-flex justify-content-center">
         {{ $posts->links() }}
