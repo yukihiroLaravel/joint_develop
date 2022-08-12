@@ -56,7 +56,7 @@ class User extends Authenticatable
     {
         $existing = $this->is_following($userId);
         $myself = $this->id == $userId;
-        if (!$existing && !$myself) {
+        if (!$existing || !$myself) {
             $this->followings()->attach($userId);
         }
     }

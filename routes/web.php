@@ -21,10 +21,6 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::group(['prefix' => 'users/{id}'], function () {
-    Route::get('followings', 'UsersController@followings')->name('followings');
-    Route::get('followers', 'UsersController@followers')->name('followers');
-});
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'users_{id}'], function () {
         Route::post('follow', 'UserFollowController@store')->name('follow');
