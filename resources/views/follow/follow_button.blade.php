@@ -3,12 +3,12 @@
         <form action="{{ route('unfollow', $user->id) }}" method="POST">
             @csrf
             @method('DELETE')
-            <button type="submit" class="btn btn-danger">フォローを外す</button>
+            <button type="submit" class="btn btn-danger w-100 mt-4">フォローを外す</button>
         </form>
     @else
         <form action="{{ route('follow', $user->id) }}" method="POST">
             @csrf
-            <button type="submit" class="btn btn-success">フォロー</button>
+            <button type="submit" class="btn btn-success w-100 mt-4">フォロー</button>
         </form>
     @endif
 @endif

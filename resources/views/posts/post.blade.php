@@ -8,7 +8,6 @@
             <div class="text-left d-inline-block w-75">
                 <p class="mb-2">{!! nl2br(e($post->content)) !!}</p>
                 <p class="text-muted">{{ $post->created_at }}</p>
-                @include('follow.follow_button',['user'=>$post->user])
             </div>      
         </div>
     </li>
