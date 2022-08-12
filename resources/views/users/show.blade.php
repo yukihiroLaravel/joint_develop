@@ -10,11 +10,13 @@
                     <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 400)}}" alt="">
                         <div class="mt-3">
                             @auth
-                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                             @endauth
                         </div>
+                    </div>
                 </div>
-            </div>
+                
+                @include('follow.follow_button',['user'=>$user])
         </aside>
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
