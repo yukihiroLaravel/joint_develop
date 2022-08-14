@@ -44,8 +44,14 @@
                 </div>
                 <div class="modal-footer d-flex justify-content-between">
                     <form action="{{ route('withdrawal') }}" method="POST">
+                        @csrf
                         <button type="submit" class="btn btn-danger">退会する</button>
                     </form>
                     <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 @endsection

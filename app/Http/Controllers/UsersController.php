@@ -42,9 +42,9 @@ class UsersController extends Controller
         ];
         return view('users.show',$data);
     }
-    public function destroy($id)
+    public function destroy()
     {
-        $user = User::find($id);
+        $user = \Auth::user();
         $user->delete();
         return redirect('/');
     }
