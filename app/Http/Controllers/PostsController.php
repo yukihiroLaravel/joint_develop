@@ -17,7 +17,7 @@ class PostsController extends Controller
             'posts' => $posts,    
         ]);
     }
-    
+
     public function store(PostRequest $request)
     {
         $post = new Post;
@@ -39,6 +39,7 @@ class PostsController extends Controller
         }
         return back();
     }
+    
     public function update(PostEditRequest $request, $id)
     {
         $post = Post::findOrFail($id);
