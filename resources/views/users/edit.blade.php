@@ -28,9 +28,24 @@
         </div>
         
         <div class="d-flex justify-content-between">
-            <button class="btn btn-danger">退会する</button>
+            <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">退会する</a>
             <button type="submit" class="btn btn-primary">更新する</button>
         </div>
     </form>
+
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>確認</h4>
+                </div>
+                <div class="modal-body">
+                    <label>本当に退会しますか？</label>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <form action="{{ route('withdrawal') }}" method="POST">
+                        <button type="submit" class="btn btn-danger">退会する</button>
+                    </form>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
 
 @endsection
