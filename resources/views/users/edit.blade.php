@@ -43,7 +43,8 @@
                     <label>本当に退会しますか？</label>
                 </div>
                 <div class="modal-footer d-flex justify-content-between">
-                    <form action="{{ route('withdrawal') }}" method="POST">
+                    <form action="{{ route('users.delete', $user->id) }}" method="POST">
+                        @method('DELETE')
                         @csrf
                         <button type="submit" class="btn btn-danger">退会する</button>
                     </form>
@@ -52,6 +53,4 @@
             </div>
         </div>
     </div>
-
-
 @endsection
