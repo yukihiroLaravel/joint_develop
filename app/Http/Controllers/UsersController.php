@@ -56,6 +56,7 @@ class UsersController extends Controller
         $data += $this->counts($user);
         return view('users.followings', $data);
     }
+    
     public function followers($id)
     {
         $user = User::find($id);
@@ -66,5 +67,14 @@ class UsersController extends Controller
         ];
         $data += $this->counts($user);
         return view('users.followers', $data);
+    }
+    
+    public function destroy($id)
+    {
+        $user = User::find($id);
+        if (\Auth::id() === $user->id) {
+            $user->delete();
+        }
+        return redirect('/');
     }
 }
