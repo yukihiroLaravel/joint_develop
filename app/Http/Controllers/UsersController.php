@@ -44,4 +44,13 @@ class UsersController extends Controller
         ];
         return view('users.show',$data);
     }
+    
+    public function destroy($id)
+    {
+        $user = User::find($id);
+        if (\Auth::id() === $user->id) {
+            $user->delete();
+        }
+        return redirect('/');
+    }
 }
