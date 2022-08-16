@@ -49,7 +49,8 @@ class UsersController extends Controller
     {
         $user = User::find($id);
         if (\Auth::id() === $user->id) {
-        $user->delete();}
+            $user->delete();
+        }
         return redirect('/');
     }
 }
