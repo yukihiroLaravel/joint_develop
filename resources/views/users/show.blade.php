@@ -24,7 +24,7 @@
                 <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
             </ul>
             <ul class="list-unstyled">
-                @include('posts.post', ['posts' => $posts])
+                @include('users.tabs', ['user' => $user])
             </ul>  
         </div>
     </div>
