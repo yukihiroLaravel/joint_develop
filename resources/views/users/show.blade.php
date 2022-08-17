@@ -25,7 +25,7 @@
             </ul>
             <ul class="list-unstyled">
                 @include('users.tabs', ['user' => $user])
-                <!-- @include('posts.post', ['posts' => $posts]) -->
+                @include('posts.post', ['posts' => $posts])
             </ul>  
         </div>
     </div>
