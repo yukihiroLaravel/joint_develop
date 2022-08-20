@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="row">
+<div class="row">
         <aside class="col-sm-4 mb-5">
             <div class="card bg-info">
                 <div class="card-header">
@@ -19,14 +19,10 @@
         </aside>
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
-                <li class="nav-item"><a href="" class="nav-link">タイムライン</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
+                <li class="nav-item nav-link"><a href="{{ route('user.show', [$user->id]) }}">タイムライン</a></li>
+                <li class="nav-item nav-link"><a href="#" class="nav-link">フォロー中</a></li>
+                <li class="nav-item nav-link"><a href="#" class="nav-link">フォロワー</a></li>
             </ul>
-            <ul class="list-unstyled">
-                @include('users.tabs', ['user' => $user])
-                @include('users.tabs', ['posts' => $posts])
-            </ul>  
         </div>
-    </div>
+</div>
 @endsection
