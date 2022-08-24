@@ -43,18 +43,15 @@ class UsersController extends Controller
             'posts' => $posts,
         ];
         return view('users.show',$data);
-        
     }
 
     public function followings($id)
     {
         $user = User::find($id);
-        $following = $user->user;
         $followings = $user->followings()->paginate(9);
         $data = [
             'user' => $user,
-            'following' => $following,
-            'followings' => $followings,
+            'users' => $followings,
         ];
         $data += $this->counts($user);
         return view('users.followings', $data); 
@@ -63,12 +60,10 @@ class UsersController extends Controller
     public function followers($id)
     {
         $user = User::find($id);
-        $follower = $user->user;
         $followers = $user->followers()->paginate(9);
         $data = [
             'user' => $user,
-            'follower' => $follower,
-            'followers' => $followers,
+            'users' => $followers,
         ];
         $data += $this->counts($user);
         return view('users.followers', $data);
