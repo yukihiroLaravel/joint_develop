@@ -31,7 +31,6 @@ class PostsController extends Controller
             $request->session()->flash('error_content', '投稿が失敗しました');
         }
         return redirect('/');
-       
     }
 
     public function edit($id)
