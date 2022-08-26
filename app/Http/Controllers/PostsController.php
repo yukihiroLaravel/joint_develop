@@ -20,11 +20,18 @@ class PostsController extends Controller
 
     public function store(PostRequest $request)
     {
-        $post = new Post;
-        $post->content = $request->content;
-        $post->user_id = \Auth::id();        
-        $post->save();
+        try{
+            
+            $post = new Post;
+            $post->content = $request->content;
+            $post->user_id = \Auth::id();        
+            $post->save();
+            $request->session()->flash('content', '投稿を作成しました');
+        } catch(\Exception $e) { 
+            $request->session()->flash('error_content', '投稿が失敗しました');
+        }
         return redirect('/');
+       
     }
 
     public function edit($id)
