@@ -22,10 +22,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('follow', 'UserFollowController@store')->name('follow');
         Route::delete('unfollow', 'UserFollowController@destroy')->name('unfollow');
     });
-});
-Route::group(['prefix' => 'users/{id}'], function() {
-    Route::get('followings', 'UsersController@followings')->name('followings');
-    Route::get('followers', 'UsersController@followers')->name('followers');
+    Route::group(['prefix' => 'users/{id}'], function() {
+        Route::get('followings', 'UsersController@followings')->name('followings');
+        Route::get('followers', 'UsersController@followers')->name('followers');
+    });
 });
 
 Route::get('/', 'PostsController@index');

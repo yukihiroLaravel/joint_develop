@@ -38,7 +38,7 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $posts = $user->posts()->orderBy('id', 'desc')->paginate(9);
-        $data=[
+        $data= [
             'user' => $user,
             'posts' => $posts,
         ];
