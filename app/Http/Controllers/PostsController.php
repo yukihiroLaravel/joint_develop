@@ -20,8 +20,8 @@ class PostsController extends Controller
 
     public function store(PostRequest $request)
     {
-        try{
-            
+        try {
+            //throw new \Exception;
             $post = new Post;
             $post->content = $request->content;
             $post->user_id = \Auth::id();        
