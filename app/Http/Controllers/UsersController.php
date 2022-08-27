@@ -24,14 +24,19 @@ class UsersController extends Controller
 
     public function update(UserEditRequest $request, $id)
     {
-        $user = User::findOrFail($id);
-        if(\Auth::id() === $user->id) {
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = bcrypt($request->password);
-            $user->save();
+        try {
+            $user = User::findOrFail($id);
+            if(\Auth::id() === $user->id) {
+                $user->name = $request->name;
+                $user->email = $request->email;
+                $user->password = bcrypt($request->password);
+                $user->save();
+            }
+            $request->session()->flash('content', 'ユーザ情報が変更されました');
+        } catch(Throwable $e) {
+            $request->session()->flash('error_content', 'ユーザ情報が変更されませんでした');
         }
-        return back();
+        return redirect(route('user.show', $id));
     }
     
     public function show($id)

@@ -43,13 +43,9 @@ class PostsController extends Controller
     public function update(PostEditRequest $request, $id)
     {
         $post = Post::findOrFail($id);
-        try{
-            \Auth::id() === $post->user_id; 
+        if (\Auth::id() === $post->user_id) {
             $post->content = $request->content;
             $post->save();
-            $request->session()->flash('content', 'ユーザ情報が編集されました');
-        } catch(Throwable $e) {
-            $request->session()->flash('error_content', 'ユーザー情報が編集されませんでした');
         }
         return redirect('/');
     }
