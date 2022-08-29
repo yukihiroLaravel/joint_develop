@@ -49,6 +49,7 @@ class PostsController extends Controller
     public function update(PostEditRequest $request, $id)
     {
         try { 
+            
             $post = Post::findOrFail($id);
                 if (\Auth::id() === $post->user_id) {
                     $post->content = $request->content;
