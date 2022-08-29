@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+@include('commons.flash_message')
 <div class="row">
     @include('users.users')
     <div class="col-sm-8">
