@@ -1,5 +1,5 @@
-<div class="w-75 m-auto">@include('commons.error_messages')</div>
-    <div class="text-center mb-3">
+<div class="w-75 m-auto">@include('commons.error_messages')</div>  
+<div class="text-center mb-3">
         <form method="post" action="{{ route('posts.store') }}" class="d-inline-block w-75">
             @csrf
             <div class="form-group">
@@ -9,4 +9,4 @@
                 </div>
             </div>
         </form>
-    </div>
+</div>
