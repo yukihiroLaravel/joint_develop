@@ -21,7 +21,6 @@ class PostsController extends Controller
     public function store(PostRequest $request)
     {
         try {
-            
             $post = new Post;
             $post->content = $request->content;
             $post->user_id = \Auth::id();        
