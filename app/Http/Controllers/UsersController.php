@@ -24,25 +24,54 @@ class UsersController extends Controller
 
     public function update(UserEditRequest $request, $id)
     {
-        $user = User::findOrFail($id);
-        if(\Auth::id() === $user->id) {
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = bcrypt($request->password);
-            $user->save();
+        try {
+            $user = User::findOrFail($id);
+            if(\Auth::id() === $user->id) {
+                $user->name = $request->name;
+                $user->email = $request->email;
+                $user->password = bcrypt($request->password);
+                $user->save();
+            }
+            $request->session()->flash('content', 'ユーザ情報が変更されました');
+        } catch(Throwable $e) {
+            $request->session()->flash('error_content', 'ユーザ情報が変更されませんでした');
         }
-        return back();
+        return redirect(route('user.show', $id));
     }
     
     public function show($id)
     {
         $user = User::findOrFail($id);
         $posts = $user->posts()->orderBy('id', 'desc')->paginate(9);
-        $data=[
+        $data= [
             'user' => $user,
             'posts' => $posts,
         ];
         return view('users.show',$data);
+    }
+
+    public function followings($id)
+    {
+        $user = User::find($id);
+        $followings = $user->followings()->paginate(9);
+        $data = [
+            'user' => $user,
+            'users' => $followings,
+        ];
+        $data += $this->counts($user);
+        return view('users.followings', $data); 
+    }
+
+    public function followers($id)
+    {
+        $user = User::find($id);
+        $followers = $user->followers()->paginate(9);
+        $data = [
+            'user' => $user,
+            'users' => $followers,
+        ];
+        $data += $this->counts($user);
+        return view('users.followers', $data);
     }
     
     public function destroy($id)

@@ -12,7 +12,7 @@
         @include('posts.new_post')
     @endif
     <ul class="list-unstyled">
-        @include('posts.post', ['posts' => $posts])
+        @include('posts.post')
     </ul>       
     <div class="d-flex justify-content-center">
         {{ $posts->links() }}
