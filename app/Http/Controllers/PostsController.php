@@ -29,13 +29,19 @@ class PostsController extends Controller
 
     public function edit($id)
     {
-        $user = \Auth::user();
-        $post = Post::findOrFail($id);
-        if (\Auth::id() === $post->user_id) {
-            return view('posts.edit', [
-                'user' => $user,
-                'post' => $post,
-            ]);
+        try {
+                throw new \Exception; 
+                $user = \Auth::user();
+                $post = Post::findOrFail($id);
+                if (\Auth::id() === $post->user_id) {
+                    return view('posts.edit', [
+                        'user' => $user,
+                        'post' => $post,
+                    ]);
+                }
+                $request->session()->flash('content', '投稿を変更しました');
+        } catch(\Exception $e) {
+                $request->session()->flash('error_content', '投稿の編集が失敗しました');
         }
         return back();
     }
