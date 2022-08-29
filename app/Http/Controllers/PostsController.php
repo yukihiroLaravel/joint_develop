@@ -20,39 +20,44 @@ class PostsController extends Controller
 
     public function store(PostRequest $request)
     {
-        $post = new Post;
-        $post->content = $request->content;
-        $post->user_id = \Auth::id();        
-        $post->save();
+        try {
+            
+            $post = new Post;
+            $post->content = $request->content;
+            $post->user_id = \Auth::id();        
+            $post->save();
+            $request->session()->flash('content', '投稿を作成しました');
+        } catch(\Exception $e) { 
+            $request->session()->flash('error_content', '投稿が失敗しました');
+        }
         return redirect('/');
     }
 
     public function edit($id)
     {
-        try {
-                throw new \Exception; 
-                $user = \Auth::user();
-                $post = Post::findOrFail($id);
-                if (\Auth::id() === $post->user_id) {
-                    return view('posts.edit', [
-                        'user' => $user,
-                        'post' => $post,
-                    ]);
-                }
-                $request->session()->flash('content', '投稿を変更しました');
-        } catch(\Exception $e) {
-                $request->session()->flash('error_content', '投稿の編集が失敗しました');
+        $user = \Auth::user();
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            return view('posts.edit', [
+                'user' => $user,
+                'post' => $post,
+            ]);
         }
         return back();
     }
     
     public function update(PostEditRequest $request, $id)
     {
-        $post = Post::findOrFail($id);
-        if (\Auth::id() === $post->user_id) {
-            $post->content = $request->content;
-            $post->save();
-        }
-        return redirect('/');
+        try { 
+            $post = Post::findOrFail($id);
+                if (\Auth::id() === $post->user_id) {
+                    $post->content = $request->content;
+                    $post->save();
+                }
+            $request->session()->flash('content', '投稿を編集しました');
+            } catch(\Exception $e) {
+            $request->session()->flash('error_content', '投稿の編集が失敗しました');
+            }
+            return redirect('/');
     }
 }
