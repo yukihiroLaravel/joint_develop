@@ -4,7 +4,7 @@
 <div class="row">
     @include('users.users')
     <div class="col-sm-8">
-        @include('users.tabs')
+        @include('users.tabs',['user' => $user,'posts' => $posts])
         <ul class="list-unstyled">
             @include('posts.post')
         </ul>
