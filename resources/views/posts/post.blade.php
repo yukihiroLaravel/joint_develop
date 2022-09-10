@@ -7,9 +7,15 @@
         <div class="new-line">
             <div class="text-left d-inline-block w-75">
                 <p class="mb-2">{!! nl2br(e($post->content)) !!}</p>
+                @php
+                $countFavoriteUsers = $post->favoriteUsers()->count();
+                @endphp
+                <div>
+                    <span class="badge badge-pill badge-success">{{ $countFavoriteUsers }} いいね!</span>
+                </div>
                 <p class="text-muted">{{ $post->created_at }}</p>
-                @include('favorite.favorite_button',['post' => $post])
+                @include('favorite.favorite_button')
             </div>      
-        </div>
+        </div>  
     </li>
 @endforeach

@@ -2,9 +2,9 @@
 @section('content')
 @include('commons.flash_message')
 <div class="row">
-    @include('users.users')
+    @include('users.users',['posts' => $posts])
     <div class="col-sm-8">
-        @include('users.tabs',['user' => $user,'posts' => $posts])
+        @include('users.tabs')
         <ul class="list-unstyled">
             @include('posts.post')
         </ul>

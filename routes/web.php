@@ -29,7 +29,12 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::get('/', 'PostsController@index');
-Route::get('users/{id}', 'UsersController@show')->name('user.show');
+
+Route::group(['prefix' => 'user/{id}'],function(){
+    Route::get('/', 'UsersController@show')->name('user.show');
+    Route::get('favorites', 'UsersController@favorites')->name('favorites');
+});
+
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('users')->group(function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
@@ -41,11 +46,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit');
         Route::put('{id}', 'PostsController@update')->name('posts.update');
     });   
+    Route::group(['prefix' => 'posts/{id}'],function(){
+        Route::post('favorite', 'FavoriteController@store')->name('favorite');
+        Route::delete('unfavorite', 'FavoriteController@destroy')->name('unfavorite');
+    });
 });
 
-Route::group(['prefix' => 'posts/{id}'],function(){
-    Route::post('favorite', 'FavoriteController@store')->name('favorite');
-    Route::delete('unfavorite', 'FavoriteController@destroy')->name('unfavorite');
-});
-Route::get('users/{id}/favorites', 'UsersController@favorites')->name('users.favorites');
 
