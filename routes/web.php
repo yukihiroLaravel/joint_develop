@@ -27,7 +27,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('followers', 'UsersController@followers')->name('followers');
     });
 });
-
+Route::get('search', 'PostsController@search')->name('post.search');
 Route::get('/', 'PostsController@index');
 Route::get('users/{id}', 'UsersController@show')->name('user.show');
 Route::group(['middleware' => 'auth'], function () {

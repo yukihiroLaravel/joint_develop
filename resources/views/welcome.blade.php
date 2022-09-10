@@ -8,6 +8,7 @@
     </div>
     <h5 class="text-center mb-3">プロ野球チームについて140字以内で会話しよう！</h5> 
     <div class="w-75 m-auto">@include('commons.flash_message')</div>
+    @include('searchs.search')
     @if(Auth::check())
         @include('posts.new_post')
     @endif
