@@ -65,13 +65,15 @@ class PostsController extends Controller
         $search = $request->input('search');
         $query = Post::query();
         if($search) {
+            $spaceConversion = mb_convert_kana($search, 's');
+            $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
             foreach($wordArraySearched as $search) {
             $query->where('content', 'like', '%'.$search. '%');
             }
         }
             $data = $query->orderBy('created_at', 'desc')->paginate(10);
-            return view('welcome', [
-                'data' => $data,
+            return view('searchs.results',[ 
+                'data' => $data,   
             ]);
-    }
+        }
 }
