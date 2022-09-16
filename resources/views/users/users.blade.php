@@ -1,7 +1,8 @@
+
 <aside class="col-sm-4 mb-5">
     <div class="card bg-info">
-        <div class="card-header">
-            <h3 class="card-title text-light">{{ $user->name }}</h3>
+        <div class="card-header row">
+            <h3 class="card-title text-light ml-3">{{ $user->name }}</h3>
         </div>
         <div class="card-body">
             <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 400)}}" alt="">
