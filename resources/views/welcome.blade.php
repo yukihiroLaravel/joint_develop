@@ -1,7 +1,7 @@
 
 @extends('layouts.app')
 @section('content')
-    <div class="center jumbotron jumbotron-extend bg-info">
+    <div class="center jumbotron jumbotron-extend bg-info" data-aos="flip-down" data-aos-duration="1000">
         <div class="text-center text-white mt-2 pt-1">
             <h1><i class="fas fa-baseball-ball fa-lg pr-3"></i>Base Talk</h1>
         </div>    
