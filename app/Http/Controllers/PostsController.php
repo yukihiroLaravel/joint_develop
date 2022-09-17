@@ -54,9 +54,9 @@ class PostsController extends Controller
                 $post->save();
             }
             $request->session()->flash('content', '投稿を編集しました');
-            } catch(\Exception $e) {
-                $request->session()->flash('error_content', '投稿の編集が失敗しました');
-            }
-            return redirect('/');
+        } catch(\Exception $e) {
+            $request->session()->flash('error_content', '投稿の編集が失敗しました');
+        }
+        return redirect('/');
     }
 }
