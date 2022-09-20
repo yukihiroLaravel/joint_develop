@@ -151,5 +151,6 @@ return [
         'email' => 'メールアドレス',
         'password' => 'パスワード',
         'content' => '投稿',
+        'search' => '検索',
     ]
 ];
