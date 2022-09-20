@@ -8,8 +8,3 @@
 .new-line{
   word-break: break-all;
 }
-
-.search_box{
-  position:relative;
-  bottom:100%;
-}
