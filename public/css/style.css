@@ -1,10 +1,169 @@
 .navbar-nav .nav-link{
   color: #fff !important; 
 }
-.navbar-nav .nav-link:hover {
-  color: #cbd3da!important;
+.nav-font {
+  font-family: 'Raleway', Arial, sans-serif
 }
+
+/* .navbar-nav .nav-link:hover {
+  color: #cbd3da!important;
+} */
 
 .new-line{
   word-break: break-all;
+}
+
+
+/* --------------   headerのラインの装飾   ---------------- */
+.line {
+  font-family: 'Raleway', Arial, sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.line * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+.line li {
+  display: inline-block;
+  list-style: outside none none;
+  margin: 0.5em 1.5em;
+  padding: 0;
+}
+.line a {
+  padding: 0.3em 0;
+  color: rgba(255, 255, 255, 0.5);
+  position: relative;
+  text-decoration: none;
+  display: inline-block;
+}
+.line a:before,
+.line a:after {
+  height: 3px;
+  position: absolute;
+  content: '';
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+  background-color: #b7b3d6;
+  width: 0;
+}
+.line a:before {
+  top: 0;
+  left: 0;
+}
+.line a:after {
+  bottom: 0;
+  right: 0;
+}
+.line a:hover,
+.line a:hover:before,
+.line a:hover:after {
+  font-size: 17px;
+  width: 100%;
+}
+
+
+/* --------------   tabsのラインの装飾   ---------------- */
+.tabs-line * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+.tabs-line li {
+  display: inline-block;
+  list-style: outside none none;
+  margin: 0.4em 0.8em;
+  padding: 0;
+}
+.tabs-line a {
+  padding: 0 0.7em;
+  color: rgba(9, 9, 9, 0.5);
+  position: relative;
+  text-decoration: none;
+  display: inline-block;
+}
+.tabs-line a:before {
+  position: absolute;
+  content: '';
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+  opacity: 0;
+  left: 15%;
+  right: 15%;
+  top: 0;
+  bottom: 0;
+  border-left: 3px solid #27ae60;
+  border-right: 3px solid #27ae60;
+}
+.tabs-line a:hover,
+.tabs-line .current a {
+  color: #033102;
+}
+.tabs-line a:hover:before,
+.tabs-line .current a:before {
+  opacity: 1;
+  left: 0;
+  right: 0;
+}
+
+
+
+
+/* --------------   postのラインの装飾   ---------------- */
+.post-line {
+  font-family: 'Raleway', Arial, sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.post-line * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+.post-line li {
+  display: inline-block;
+  list-style: outside none none;
+  margin: 0 2em;
+  padding: 0;
+}
+.post-line a {
+  display: inline-block;
+  padding: 0.5em 17px;
+  color: rgba(17, 17, 17, 0.5);
+  position: relative;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+.post-line a:before {
+  left: 20%;
+  right: 20%;
+  top: 50%;
+  content: '';
+  border-left: 12px solid #9b59b6;
+  border-right: 12px solid #9b59b6;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  height: 3px;
+  opacity: 0;
+  position: absolute;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+.post-line a:hover,
+.post-line .current a {
+  color: #1a1818;
+  font-size: 17px;
+}
+.post-line a:hover:before,
+.post-line .current a:before {
+  left: 0;
+  right: 0;
+  opacity: 1;
 }
