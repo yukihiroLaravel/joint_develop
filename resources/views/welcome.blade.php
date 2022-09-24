@@ -3,7 +3,7 @@
 @section('content')
     <div class="center jumbotron jumbotron-extend bg-info" data-aos="zoom-out" data-aos-duration="1000">
         <div class="text-center text-white mt-2 pt-1">
-            <h1 data-aos="zoom-out" data-aos-duration="3000"><i class="fas fa-baseball-ball fa-lg pr-3"></i>Base Talk</h1>
+            <h1 class="t-text" data-aos="zoom-out" data-aos-duration="3000"><i class="fas fa-baseball-ball fa-sm pr-3"></i>Base Talk</h1>
             @include('searchs.search')
         </div>
     </div>
