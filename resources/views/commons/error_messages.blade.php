@@ -4,4 +4,4 @@
             <li class="ml-4">{{ $error }}</li>
         @endforeach
     </ul>
-@endif]
+@endif
