@@ -15,13 +15,14 @@
 Route::get('signup','Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup','Auth\RegisterController@register')->name('signup.post');
 
+//トップページ
+Route::get('/', 'PostsController@index');
 //ログイン、ログアウト
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::get('/', 'UsersController@index');
-
 //ユーザー詳細
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');});
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
