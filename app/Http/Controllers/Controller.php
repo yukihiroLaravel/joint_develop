@@ -14,6 +14,7 @@ class Controller extends BaseController
     public function userCounts($user)
     {
         $countPosts = $user->posts()->count();
+        
         return [
             'countPosts' => $countPosts,
         ];
