@@ -24,7 +24,20 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'text' => 'required | max:140'
+            'text' => 'required|max:140'
         ];
     }
+
+    /**
+     * エラーメッセージの編集
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'text.required' => '本文は必ず入力してください。',
+        ];
+    }
+
 }
