@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
     <div class="center jumbotron bg-info">
         <div class="text-center text-white mt-2 pt-1">
@@ -6,5 +7,8 @@
         </div>
     </div>
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
+    @if(Auth::check())
+        @include('posts.create')
+    @endif
     @include('posts.posts',['posts' => $posts])
 @endsection
