@@ -16,7 +16,7 @@ Route::get('signup','Auth\RegisterController@showRegistrationForm')->name('signu
 Route::post('signup','Auth\RegisterController@register')->name('signup.post');
 
 //トップページ
-Route::get('/', 'PostsController@index');
+Route::get('/', 'PostsController@index')->name('home');
 
 //ログイン、ログアウト
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -30,6 +30,8 @@ Route::prefix('users')->group(function () {
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
+    //新規投稿機能
+    Route::post('posts', 'PostsController@store')->name('post.store');
     // ユーザー編集
     Route::prefix('users')->group(function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
@@ -38,3 +40,8 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 
+// //ログイン後
+// Route::group(['middleware' => 'auth'], function () {
+//     //新規投稿機能
+//     Route::post('posts', 'PostsController@store')->name('post.store');
+// });

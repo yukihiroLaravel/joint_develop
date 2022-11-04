@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Post;
+use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
 {
@@ -16,5 +17,16 @@ class PostsController extends Controller
             'posts' => $posts,
         ]);
   
+    }
+
+
+    public function store(PostRequest $request)
+    {
+        $post = new Post;
+        $post->user_id = \Auth::id();
+        $post->text = $request->text;
+        $post->save();
+
+        return redirect(route('home'));
     }
 }
