@@ -27,3 +27,14 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
 });
+
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    // ユーザー編集
+    Route::prefix('users')->group(function () {
+        Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
+        Route::put('{id}', 'UsersController@update')->name('users.update');
+    });
+});
+
+
