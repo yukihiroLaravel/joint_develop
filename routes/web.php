@@ -38,10 +38,3 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{id}', 'UsersController@update')->name('users.update');
     });
 });
-
-
-// //ログイン後
-// Route::group(['middleware' => 'auth'], function () {
-//     //新規投稿機能
-//     Route::post('posts', 'PostsController@store')->name('post.store');
-// });
