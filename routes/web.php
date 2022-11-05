@@ -38,3 +38,4 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{id}', 'UsersController@update')->name('users.update');
     });
 });
+
