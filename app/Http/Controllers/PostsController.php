@@ -29,4 +29,36 @@ class PostsController extends Controller
 
         return redirect(route('home'));
     }
+
+    /**
+     * 投稿編集画面の表示
+     * @param int $id
+     * @return view
+     */
+    public function showEdit($id)
+    {
+        $user = \Auth::user();
+        $post = Post::findOrFail($id);
+        
+        $data=[
+            'user' => $user,
+            'post' => $post,
+        ];
+        return view('posts.edit',$data);
+    }
+
+    /**
+     * 投稿編集を実行
+     * @param int $id
+     * @return view
+     */
+    public function update(PostRequest $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        $post->user_id = \Auth::id();
+        $post->text = $request->text;
+        $post->save();
+
+        return redirect(route('home'));
+    }
 }

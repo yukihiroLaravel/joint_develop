@@ -30,6 +30,12 @@ Route::prefix('users')->group(function () {
 
 //ログイン後
 Route::group(['middleware' => 'auth'], function () {
-    //新規投稿機能
-    Route::post('posts', 'PostsController@store')->name('post.store');
+    Route::prefix('posts')->group(function () {
+        //新規投稿機能
+        Route::post('', 'PostsController@store')->name('post.store');
+        //投稿編集画面の表示
+        Route::get('edit/{id}','PostsController@showEdit')->name('post.edit');
+        //投稿編集機能
+        Route::put('{id}','PostsController@update')->name('post.update');
+    });
 });
