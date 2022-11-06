@@ -28,8 +28,14 @@ Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
 });
 
-//ログイン後
+// ログイン後
 Route::group(['middleware' => 'auth'], function () {
     //新規投稿機能
     Route::post('posts', 'PostsController@store')->name('post.store');
+    // ユーザー編集
+    Route::prefix('users')->group(function () {
+        Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
+        Route::put('{id}', 'UsersController@update')->name('users.update');
+    });
 });
+

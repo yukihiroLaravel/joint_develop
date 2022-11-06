@@ -10,7 +10,7 @@
                     <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 300) }}" alt="ユーザの画像">
                     @if (Auth::id() === $user->id) 
                         <div class="mt-3">
-                            <a href="#" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                         </div>
                     @endif
                 </div>
