@@ -23,12 +23,16 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-//ユーザー詳細
+
 Route::prefix('users')->group(function () {
+    //ユーザー詳細
     Route::get('{id}', 'UsersController@show')->name('user.show');
+    //ユーザー編集
+    Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
+    Route::put('{id}', 'UsersController@update')->name('users.update');
 });
 
-//ログイン後
+// ログイン後
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
         //新規投稿機能
@@ -39,3 +43,4 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{id}','PostsController@update')->name('post.update');
     });
 });
+
