@@ -11,12 +11,11 @@ class PostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('id','desc')->paginate(10);
+        $posts = Post::orderBy('id', 'desc')->paginate(10);
 
-        return view('welcome',[
+        return view('welcome', [
             'posts' => $posts,
         ]);
-  
     }
 
 
@@ -39,23 +38,27 @@ class PostsController extends Controller
     {
         $user = \Auth::user();
         $post = Post::findOrFail($id);
-        
-        $data=[
+        $data = [
             'user' => $user,
             'post' => $post,
         ];
-        return view('posts.edit',$data);
+        if(\Auth::id() === $post->user_id) {
+            return view('posts.edit', $data);
+        } else {
+            \Session::flash('err_msg', 'アクセス権限がありません。');
+            return redirect(route('home'));
+        }
     }
 
     /**
      * 投稿編集を実行
+     * @param PostRequest $request
      * @param int $id
      * @return view
      */
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
-        $post->user_id = \Auth::id();
         $post->text = $request->text;
         $post->save();
 

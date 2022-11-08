@@ -7,6 +7,9 @@
         </div>
     </div>
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
+    @if (session('err_msg'))
+        <p class="text-danger">{{ session('err_msg') }}</p>
+    @endif
     @if(Auth::check())
         @include('posts.create')
     @endif
