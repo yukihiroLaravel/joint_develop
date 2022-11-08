@@ -2,7 +2,7 @@ FROM node:16-slim as node-builder
 
 COPY . ./app
 
-FROM php:7.4.3-apache
+FROM php:7.4.30-apache
 
 RUN apt-get update && apt-get install -y \
   zip \
