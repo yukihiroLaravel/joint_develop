@@ -42,12 +42,13 @@ class PostsController extends Controller
             'user' => $user,
             'post' => $post,
         ];
-        if(\Auth::id() === $post->user_id) {
+
+        if (\Auth::id() === $post->user_id) {
             return view('posts.edit', $data);
-        } else {
-            \Session::flash('err_msg', 'アクセス権限がありません。');
-            return redirect(route('home'));
         }
+
+        \Session::flash('err_msg', 'アクセス権限がありません。');
+        return redirect(route('home'));
     }
 
     /**
@@ -59,9 +60,13 @@ class PostsController extends Controller
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
-        $post->text = $request->text;
-        $post->save();
+        if (\Auth::id() === $post->user_id) {
+            $post->text = $request->text;
+            $post->save();
+            return redirect(route('home'));
+        }
 
+        \Session::flash('err_msg', 'アクセス権限がありません。');
         return redirect(route('home'));
     }
 }
