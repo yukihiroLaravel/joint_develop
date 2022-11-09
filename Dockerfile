@@ -30,4 +30,4 @@ RUN composer install
 RUN chown -Rf www-data:www-data ./
 
 RUN echo "Running migrations..."
-RUN php artisan migrate:fresh --seed --force
+RUN php artisan migrate:fresh --force
