@@ -9,8 +9,7 @@ RUN apt-get update && apt-get install -y \
   unzip \
   git
 
-RUN docker-php-ext-install -j "$(nproc)" opcache && docker-php-ext-enable opcache
-RUN docker-php-ext-install pdo_pgsql
+RUN docker-php-ext-install -j "$(nproc)" opcache pdo_pgsql && docker-php-ext-enable opcache pdo_pgsql
 
 RUN sed -i 's/80/8080/g' /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf
 RUN sed -i 's#/var/www/html#/var/www/html/public#g' /etc/apache2/sites-available/000-default.conf
