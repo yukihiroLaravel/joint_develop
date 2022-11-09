@@ -27,3 +27,12 @@ COPY . ./
 COPY --from=node-builder /app/public ./public
 RUN composer install
 RUN chown -Rf www-data:www-data ./
+
+echo "Caching config..."
+php artisan config:cache
+
+echo "Caching routes..."
+php artisan route:cache
+
+echo "Running migrations..."
+php artisan migrate:fresh --seed
