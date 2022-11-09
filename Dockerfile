@@ -25,14 +25,15 @@ COPY --from=composer:2.0 /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 COPY . ./
 COPY --from=node-builder /app/public ./public
+
 RUN composer install
 RUN chown -Rf www-data:www-data ./
 
-echo "Caching config..."
-php artisan config:cache
+RUN echo "Caching config..."
+RUN php artisan config:cache
 
-echo "Caching routes..."
-php artisan route:cache
+RUN echo "Caching routes..."
+RUN php artisan route:cache
 
-echo "Running migrations..."
-php artisan migrate:fresh --seed
+RUN echo "Running migrations..."
+RUN php artisan migrate:fresh --seed
