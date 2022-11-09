@@ -29,11 +29,5 @@ COPY --from=node-builder /app/public ./public
 RUN composer install
 RUN chown -Rf www-data:www-data ./
 
-RUN echo "Caching config..."
-RUN php artisan config:cache
-
-RUN echo "Caching routes..."
-RUN php artisan route:cache
-
 RUN echo "Running migrations..."
 RUN php artisan migrate:fresh --seed
