@@ -29,7 +29,8 @@ COPY --from=node-builder /app/public ./public
 RUN composer install
 RUN chown -Rf www-data:www-data ./
 
-RUN php -m
+RUN php artisan tinker
+RUN DB::connection();
 
 RUN echo "Running migrations..."
 RUN php artisan migrate --force
