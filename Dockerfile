@@ -1,4 +1,4 @@
-FROM FROM php:7.4.9-fpm
+FROM php:7.4.30-fpm
 
 COPY . .
 
