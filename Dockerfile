@@ -29,7 +29,7 @@ COPY --from=node-builder /app/public ./public
 RUN composer install
 RUN chown -Rf www-data:www-data ./
 
-RUN php artisan config:cache
-RUN php artisan route:cache
+RUN php -m
+
 RUN echo "Running migrations..."
 RUN php artisan migrate --force
