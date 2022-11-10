@@ -18,6 +18,7 @@ RUN sed -i 's#/var/www/html#/var/www/html/public#g' /etc/apache2/sites-available
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 RUN echo "extension=pdo_pgsql" >> "$PHP_INI_DIR/php.ini"
+RUN cat "$PHP_INI_DIR/php.ini"
 
 RUN echo "ServerName localhost" | tee /etc/apache2/conf-available/fqdn.conf
 RUN a2enconf fqdn
