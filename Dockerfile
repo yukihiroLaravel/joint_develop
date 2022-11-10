@@ -17,7 +17,7 @@ RUN sed -i 's/80/8080/g' /etc/apache2/sites-available/000-default.conf /etc/apac
 RUN sed -i 's#/var/www/html#/var/www/html/public#g' /etc/apache2/sites-available/000-default.conf
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
-RUN echo "extension=pdo_pgsql" | tee "$PHP_INI_DIR/php.ini"
+RUN echo "extension=pdo_pgsql" | tee -a "$PHP_INI_DIR/php.ini"
 RUN cat "$PHP_INI_DIR/php.ini"
 
 RUN echo "ServerName localhost" | tee /etc/apache2/conf-available/fqdn.conf
