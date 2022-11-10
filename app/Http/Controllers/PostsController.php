@@ -11,12 +11,11 @@ class PostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('id','desc')->paginate(10);
+        $posts = Post::orderBy('id', 'desc')->paginate(10);
 
-        return view('welcome',[
+        return view('welcome', [
             'posts' => $posts,
         ]);
-  
     }
 
 
@@ -30,6 +29,7 @@ class PostsController extends Controller
         return redirect(route('home'));
     }
 
+<<<<<<< HEAD
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
@@ -39,3 +39,46 @@ class PostsController extends Controller
         return back();
     }
 }
+=======
+    /**
+     * 投稿編集画面の表示
+     * @param int $id
+     * @return view
+     */
+    public function showEdit($id)
+    {
+        $user = \Auth::user();
+        $post = Post::findOrFail($id);
+        $data = [
+            'user' => $user,
+            'post' => $post,
+        ];
+
+        if (\Auth::id() === $post->user_id) {
+            return view('posts.edit', $data);
+        }
+
+        \Session::flash('err_msg', 'アクセス権限がありません。');
+        return redirect(route('home'));
+    }
+
+    /**
+     * 投稿編集を実行
+     * @param PostRequest $request
+     * @param int $id
+     * @return view
+     */
+    public function update(PostRequest $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            $post->text = $request->text;
+            $post->save();
+            return redirect(route('home'));
+        }
+
+        \Session::flash('err_msg', 'アクセス権限がありません。');
+        return redirect(route('home'));
+    }
+}
+>>>>>>> develop_dsr
