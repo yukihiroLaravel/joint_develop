@@ -1,4 +1,4 @@
-FROM richarvey/nginx-php-fpm:1.7.2
+FROM FROM php:7.4.9-fpm
 
 COPY . .
 
