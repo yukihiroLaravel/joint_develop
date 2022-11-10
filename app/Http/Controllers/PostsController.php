@@ -29,17 +29,6 @@ class PostsController extends Controller
         return redirect(route('home'));
     }
 
-<<<<<<< HEAD
-    public function destroy($id)
-    {
-        $post = Post::findOrFail($id);
-        if (\Auth::id() === $post->user_id) {
-            $post->delete();
-        }
-        return back();
-    }
-}
-=======
     /**
      * 投稿編集画面の表示
      * @param int $id
@@ -80,5 +69,13 @@ class PostsController extends Controller
         \Session::flash('err_msg', 'アクセス権限がありません。');
         return redirect(route('home'));
     }
+
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            $post->delete();
+        }
+        return back();
+    }
 }
->>>>>>> develop_dsr
