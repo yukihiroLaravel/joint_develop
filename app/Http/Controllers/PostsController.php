@@ -69,4 +69,13 @@ class PostsController extends Controller
         \Session::flash('err_msg', 'アクセス権限がありません。');
         return redirect(route('home'));
     }
+
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            $post->delete();
+        }
+        return back();
+    }
 }
