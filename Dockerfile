@@ -32,5 +32,4 @@ COPY --from=node-builder /app/public ./public
 RUN composer install
 RUN chown -Rf www-data:www-data ./
 
-RUN echo "Running migrations..."
-RUN php artisan migrate --force
+CMD ["/start.sh"]
