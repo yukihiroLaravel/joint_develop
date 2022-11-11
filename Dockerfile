@@ -1,20 +1,36 @@
-FROM php:7.4.30-fpm
+FROM node:16-slim as node-builder
 
-COPY . .
+COPY . ./app
 
-# Image config
-ENV SKIP_COMPOSER 1
-ENV WEBROOT /var/www/html/public
-ENV PHP_ERRORS_STDERR 1
-ENV RUN_SCRIPTS 1
-ENV REAL_IP_HEADER 1
+FROM php:7.4.30-apache
 
-# Laravel config
-ENV APP_ENV production
-ENV APP_DEBUG false
-ENV LOG_CHANNEL stderr
+RUN apt-get update && apt-get install -y \
+  zip \
+  unzip \
+  git \
+  libpq-dev
 
-# Allow composer to run as root
-ENV COMPOSER_ALLOW_SUPERUSER 1
+RUN docker-php-ext-install pdo pgsql pdo_pgsql bcmath
+RUN docker-php-ext-install -j "$(nproc)" opcache && docker-php-ext-enable opcache
 
-CMD ["/start.sh"]
+RUN sed -i 's/80/8080/g' /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf
+RUN sed -i 's#/var/www/html#/var/www/html/public#g' /etc/apache2/sites-available/000-default.conf
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+
+RUN echo "extension=pdo_pgsql" | tee -a "$PHP_INI_DIR/php.ini"
+RUN cat "$PHP_INI_DIR/php.ini"
+
+RUN echo "ServerName localhost" | tee /etc/apache2/conf-available/fqdn.conf
+RUN a2enconf fqdn
+
+COPY --from=composer:2.0 /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www/html
+COPY . ./
+COPY --from=node-builder /app/public ./public
+
+RUN composer install
+RUN chown -Rf www-data:www-data ./
+
+RUN echo "Running migrations..."
+RUN php artisan migrate --force
