@@ -30,6 +30,8 @@ Route::prefix('users')->group(function () {
     //ユーザー編集
     Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
     Route::put('{id}', 'UsersController@update')->name('users.update');
+    //ユーザー退会
+    Route::post('{id}/delete', 'UsersController@delete')->name('users.delete');
 });
 
 // ログイン後
