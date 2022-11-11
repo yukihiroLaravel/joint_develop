@@ -32,4 +32,4 @@ COPY --from=node-builder /app/public ./public
 RUN composer install
 RUN chown -Rf www-data:www-data ./
 
-CMD ["/start.sh"]
+RUN sh scripts/00-laravel-deploy.sh
