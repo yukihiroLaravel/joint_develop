@@ -1,0 +1,19 @@
+[project]
+id = "laravel-fly-io-test"
+name = "Laravel Fly.io Test"
+version = "1.0.0"
+
+[build]
+exclude = [
+    "/README.md",
+    "/.git",
+    "/vendor",
+    "/node_modules"
+]
+builder = "heroku/buildpacks:20"
+[[build.buildpacks]]
+uri = "heroku/php"
+[[build.buildpacks]]
+uri = "heroku/procfile@1.0.1"
+[[build.buildpacks]]
+uri = "heroku/nodejs"
