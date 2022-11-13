@@ -6,7 +6,7 @@
         </button>
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
-            <ul class="navbar-nav">
+            <ul class="navbar-nav line">
                 @if (Auth::check())
                     <li class="nav-item"><a href="{{ route('user.show', Auth::id()) }}" class="nav-link">{{ Auth::user()->name}}</a></li>
                     <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link">ログアウト</a></li>

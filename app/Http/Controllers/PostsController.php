@@ -77,5 +77,5 @@ class PostsController extends Controller
             return view('searchs.results',[ 
                 'data' => $data,
             ]);
-    }
+        }
 }
