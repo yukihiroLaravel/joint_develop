@@ -44,6 +44,23 @@ class UsersController extends Controller
             return redirect('/users/'. $user->id);
         }
     }
+
+    /**
+     *ユーザー退会
+     * @param int $id
+     * @return view
+     */
+    public function delete($id){
+        $user = User::findOrFail($id);
+        if(\Auth::id() === $user->id) {
+            $user->delete();
+
+            return redirect(route('home'));
+        }
+
+        \Session::flash('err_msg', 'アクセス権限がありません。');
+        return redirect(route('home'));
+    }
 }
 
 
