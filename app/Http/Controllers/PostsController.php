@@ -25,8 +25,7 @@ class PostsController extends Controller
         $post->user_id = \Auth::id();
         $post->text = $request->text;
         $post->save();
-
-        return redirect(route('home'));
+        return redirect()->route('home')->with('successMessage', '投稿しました！');
     }
 
     /**
