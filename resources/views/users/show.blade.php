@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @section('content')
+@if (session('deleteMessage'))
+  <div class="alert alert-success text-center">
+    {{ session('deleteMessage') }}
+  </div> 
+@endif
 <div class="row">
         <aside class="col-sm-4 mb-5">
             <div class="card bg-info">
