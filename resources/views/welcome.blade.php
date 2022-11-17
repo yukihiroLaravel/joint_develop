@@ -10,11 +10,6 @@
     @if (session('err_msg'))
         <p class="text-danger">{{ session('err_msg') }}</p>
     @endif
-    @if (session('successMessage'))
-        <div class="alert alert-success text-center">
-            {{ session('successMessage') }}
-        </div> 
-    @endif
     @if(Auth::check())
         @include('posts.create')
     @endif
