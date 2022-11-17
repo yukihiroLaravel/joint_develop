@@ -6,14 +6,13 @@
             {{ session('successMessage') }}
         </div> 
     @elseif (session('deleteMessage'))
-        <div class="alert alert-success text-center">
+        <div class="alert alert-danger text-center">
             {{ session('deleteMessage') }}
         </div>
     @elseif (session('updateMessage'))
         <div class="alert alert-success text-center">
             {{ session('updateMessage') }}
         </div>
-    @else
     @endif
         @csrf
         <div class="form-group">
