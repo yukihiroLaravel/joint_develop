@@ -5,6 +5,14 @@
         <div class="alert alert-success text-center">
             {{ session('successMessage') }}
         </div> 
+    @elseif (session('deleteMessage'))
+        <div class="alert alert-danger text-center">
+            {{ session('deleteMessage') }}
+        </div>
+    @elseif (session('updateMessage'))
+        <div class="alert alert-success text-center">
+            {{ session('updateMessage') }}
+        </div>
     @endif
         @csrf
         <div class="form-group">
