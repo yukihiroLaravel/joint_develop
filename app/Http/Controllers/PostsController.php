@@ -25,8 +25,7 @@ class PostsController extends Controller
         $post->user_id = \Auth::id();
         $post->text = $request->text;
         $post->save();
-
-        return redirect(route('home'));
+        return redirect()->route('home')->with('successMessage', '投稿しました！');
     }
 
     /**
@@ -63,7 +62,7 @@ class PostsController extends Controller
         if (\Auth::id() === $post->user_id) {
             $post->text = $request->text;
             $post->save();
-            return redirect(route('home'));
+            return redirect(route('home'))->with('updateMessage', '編集しました！');
         }
 
         \Session::flash('err_msg', 'アクセス権限がありません。');
@@ -76,6 +75,6 @@ class PostsController extends Controller
         if (\Auth::id() === $post->user_id) {
             $post->delete();
         }
-        return back();
+        return back()->with('deleteMessage', '削除しました！');
     }
 }
