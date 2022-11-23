@@ -54,13 +54,42 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         if(\Auth::id() === $user->id) {
             $user->delete();
-
             return redirect(route('home'));
         }
 
         \Session::flash('err_msg', 'アクセス権限がありません。');
         return redirect(route('home'));
     }
+
+    /**
+    *フォロー中ユーザーの表示
+    */
+    public function follow($id)
+    {
+        $user = User::find($id);
+        $followings = $user->followings()->paginate(9);
+        $data = [
+            'user' => $user,
+            'users' => $followings,
+        ];
+        $data +=$this->conts($user);
+        return view('users.show', $data);
+    }
+    
+
+    /**
+     * フォロー解除
+     */
+    public function unfollow($id)
+    {
+        $follower = auth()->user();
+        $is_following = $follower->isFollowing($user->id);
+        if($is_following){
+            $follower->unfollow($user->id);
+            return back();
+        }
+    }
+
 }
 
 
