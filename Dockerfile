@@ -15,7 +15,7 @@ ENV TZ="Asia/Tokyo" \
 COPY --from=composer:2.0 /usr/bin/composer /usr/bin/composer
 
 RUN apk update && apk upgrade
-RUN apk add --no-cache git icu-dev libzip-dev libpng-dev zip unzip supervisor tzdata musl musl-utils musl-locales vim \
+RUN apk add --no-cache git icu-dev libzip-dev libpng-dev zip unzip supervisor tzdata musl musl-utils musl-locales vim bash \
   && rm -rf /var/cache/apk/*
 RUN mkdir /var/run/php-fpm
 RUN mkdir /var/log/nginx /var/cache/nginx
