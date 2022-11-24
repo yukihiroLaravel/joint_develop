@@ -46,4 +46,4 @@ RUN ls -a
 EXPOSE 80
 
 
-CMD ["/app/start.sh"]
+CMD ["./start.sh"]
