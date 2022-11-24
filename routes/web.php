@@ -34,7 +34,7 @@ Route::prefix('users')->group(function () {
     Route::post('{id}/delete', 'UsersController@delete')->name('users.delete');
 });
 
-// ログイン後
+// ログイン後投稿関係
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
         //新規投稿機能
@@ -48,3 +48,10 @@ Route::group(['middleware' => 'auth'], function () {
     });
 });
 
+//フォロー機能
+Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('users/{id}')->group(function () {
+    Route::post('follow', 'FollowController@store')->name('follow');
+    Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
+    });
+});

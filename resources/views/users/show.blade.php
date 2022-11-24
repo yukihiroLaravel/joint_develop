@@ -18,6 +18,7 @@
                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                         </div>
                     @endif
+                    @include('users.follow', ['user' => $user])
                 </div>
             </div>
         </aside>

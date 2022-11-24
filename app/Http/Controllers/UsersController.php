@@ -54,13 +54,13 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         if(\Auth::id() === $user->id) {
             $user->delete();
-
             return redirect(route('home'));
         }
 
         \Session::flash('err_msg', 'アクセス権限がありません。');
         return redirect(route('home'));
     }
+
 }
 
 
