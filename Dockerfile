@@ -19,7 +19,7 @@ RUN apk add --no-cache git icu-dev libzip-dev libpng-dev zip unzip supervisor tz
   && rm -rf /var/cache/apk/*
 RUN mkdir /var/run/php-fpm
 RUN mkdir /var/log/nginx /var/cache/nginx
-RUN docker-php-ext-install intl pdo_mysql zip bcmath gd
+RUN docker-php-ext-install intl pdo_pgsql zip bcmath gd
 RUN composer config -g process-timeout 3600
 RUN composer config -g repos.packagist composer https://packagist.org
 
