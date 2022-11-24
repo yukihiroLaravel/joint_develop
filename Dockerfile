@@ -40,7 +40,9 @@ COPY ./ /app/
 RUN chown -R 755 /app/
 RUN chmod -R 777 /app/storage/
 RUN chmod 644 /app/public/.htaccess
+RUN chmod -x /app/start.sh
 
 EXPOSE 80
 
-CMD ["./start.sh"]
+
+CMD ["/app/start.sh"]
