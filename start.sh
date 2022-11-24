@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+cd /app
+
 echo "Running composer"
 composer install --no-dev
 

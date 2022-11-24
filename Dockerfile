@@ -41,9 +41,8 @@ RUN chown -R 755 /app/
 RUN chmod -R 777 /app/storage/
 RUN chmod 644 /app/public/.htaccess
 RUN chmod a+x /app/start.sh
-RUN ls -a
 
 EXPOSE 80
 
 
-CMD ["./start.sh"]
+CMD ["/app/start.sh"]
