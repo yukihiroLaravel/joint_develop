@@ -17,9 +17,15 @@ COPY --from=composer:2.0 /usr/bin/composer /usr/bin/composer
 RUN apk update && apk upgrade
 RUN apk add --no-cache git icu-dev libzip-dev libpng-dev zip unzip supervisor tzdata musl musl-utils musl-locales vim bash \
   && rm -rf /var/cache/apk/*
+
+RUN set -ex \
+	&& apk --no-cache add postgresql-libs postgresql-dev \
+	&& docker-php-ext-install pgsql pdo_pgsql \
+	&& apk del postgresql-dev
+
 RUN mkdir /var/run/php-fpm
 RUN mkdir /var/log/nginx /var/cache/nginx
-RUN docker-php-ext-install intl pdo_pgsql zip bcmath gd
+RUN docker-php-ext-install intl zip bcmath gd
 RUN composer config -g process-timeout 3600
 RUN composer config -g repos.packagist composer https://packagist.org
 
