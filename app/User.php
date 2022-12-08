@@ -53,12 +53,12 @@ class User extends Authenticatable
     }
 
     //多対多リレーション
-    public function followers()
+    public function followings()
     {
         return $this->belongsToMany(User::class, 'follow_user', 'user_id', 'follow_id')->withTimestamps();
     }
     //多対多リレーション逆
-    public function followings()
+    public function followers()
     {
         return $this->belongsToMany(User::class, 'follow_user', 'follow_id', 'user_id')->withTimestamps();
     }

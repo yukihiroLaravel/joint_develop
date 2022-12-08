@@ -19,7 +19,7 @@ class UsersController extends Controller
       ];
       $data += $this->userCounts($user);
       
-      return view('users.show',$data);
+      return view('users.timeline',$data);
    }
 
     public function edit($id)
@@ -61,7 +61,33 @@ class UsersController extends Controller
         return redirect(route('home'));
     }
 
+    /**
+     *フォロー中ユーザーの表示
+     */
+    public function followings($id)
+    {
+        $user = User::findOrFail($id);
+        $followings = $user->followings()->paginate(9);
+        $data = [
+            'user' => $user,
+            'followings' => $followings,
+        ];
+        $data +=$this->userCounts($user);
+        return view('users.followings', $data);
+    }
+
+    /**
+     *フォローワーの表示
+     */
+    public function followers($id)
+    {
+        $user = User::findOrFail($id);
+        $followers = $user->followers()->paginate(9);
+        $data = [
+            'user' => $user,
+            'followers' => $followers,
+        ];
+        $data +=$this->userCounts($user);
+        return view('users.followers', $data);
+    }
 }
-
-
-

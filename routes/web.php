@@ -51,7 +51,16 @@ Route::group(['middleware' => 'auth'], function () {
 //フォロー機能
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('users/{id}')->group(function () {
+    //フォローする
     Route::post('follow', 'FollowController@store')->name('follow');
+    //フォローを外す
     Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
-    });
+     });
+});
+
+Route::prefix('users/{id}')->group(function () {
+    //フォロー中を表示
+    Route::get('followings', 'UsersController@followings')->name('followings');
+    //フォロワーを表示
+    Route::get('followers', 'UsersController@followers')->name('followers');
 });
