@@ -9,23 +9,23 @@ use App\Http\Requests\UserEditRequest;
 
 class UsersController extends Controller
 {
-   public function show($id)
-   {
-      $user = User::findOrFail($id);
-      $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
-      $data=[
-         'user' => $user,
-         'posts' => $posts,
-      ];
-      $data += $this->userCounts($user);
-      
-      return view('users.timeline',$data);
-   }
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
+        $data = [
+            'user' => $user,
+            'posts' => $posts,
+        ];
+        $data += $this->userCounts($user);
+
+        return view('users.timeline', $data);
+    }
 
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        if(\Auth::id() === $user->id) {
+        if (\Auth::id() === $user->id) {
             return view('users.edit', [
                 'user' => $user
             ]);
@@ -36,12 +36,12 @@ class UsersController extends Controller
     public function update(UserEditRequest $request, $id)
     {
         $user = User::findOrFail($id);
-        if(\Auth::id() === $user->id) {
+        if (\Auth::id() === $user->id) {
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
             $user->save();
-            return redirect('/users/'. $user->id);
+            return redirect('/users/' . $user->id);
         }
     }
 
@@ -50,9 +50,10 @@ class UsersController extends Controller
      * @param int $id
      * @return view
      */
-    public function delete($id){
+    public function delete($id)
+    {
         $user = User::findOrFail($id);
-        if(\Auth::id() === $user->id) {
+        if (\Auth::id() === $user->id) {
             $user->delete();
             return redirect(route('home'));
         }
@@ -72,7 +73,7 @@ class UsersController extends Controller
             'user' => $user,
             'followings' => $followings,
         ];
-        $data +=$this->userCounts($user);
+        $data += $this->userCounts($user);
         return view('users.followings', $data);
     }
 
@@ -87,7 +88,23 @@ class UsersController extends Controller
             'user' => $user,
             'followers' => $followers,
         ];
-        $data +=$this->userCounts($user);
+        $data += $this->userCounts($user);
         return view('users.followers', $data);
+    }
+
+    /**
+     * いいね数の表示
+     */
+    public function favorites($id)
+    {
+        $user = User::findOrFail($id);
+        $favorites = $user->favorites()->paginate(9);
+        $data = [
+            'user' => $user,
+            'favorites' => $favorites,
+        ];
+        $data += $this->counts($user);
+
+        return view('posts.posts', $data);
     }
 }

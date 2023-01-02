@@ -45,6 +45,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{id}','PostsController@update')->name('post.update');
         //投稿削除機能
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
+        //いいね
+        Route::post('favorite/{id}', 'FavoriteController@store')->name('favorite');
+        Route::delete('unfavorite/{id}', 'FavoriteController@destroy')->name('unfavorite');
+
     });
 });
 
@@ -63,4 +67,6 @@ Route::prefix('users/{id}')->group(function () {
     Route::get('followings', 'UsersController@followings')->name('followings');
     //フォロワーを表示
     Route::get('followers', 'UsersController@followers')->name('followers');
+    //いいね
+    Route::get('favorites', 'UsersController@favorites')->name('user.favorites');
 });
