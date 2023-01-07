@@ -57,6 +57,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(User::class, 'follow_user', 'user_id', 'follow_id')->withTimestamps();
     }
+
     //多対多リレーション逆
     public function followers()
     {
@@ -64,32 +65,67 @@ class User extends Authenticatable
     }
 
     //フォローしているか判定
-    public function isFollowing($userId)
+    public function isFollowing($postId)
     {
-        return $this->followers()->where('follow_id', $userId)->exists();
+        return $this->followers()->where('follow_id', $postId)->exists();
     }
 
     //フォローする
-    public function follow($userId)
+    public function follow($postId)
     {
-        $existing = $this->isFollowing($userId);
-        $myself = $this->id == $userId;
+        $existing = $this->isFollowing($postId);
+        $myself = $this->id == $postId;
         if (!$existing && !$myself) {
-            $this->followers()->attach($userId);
+            $this->followers()->attach($postId);
         } else {
             return false;
         }
     }
 
     //フォロー解除する
-    public function unfollow($userId)
+    public function unfollow($postId)
     {
-        $existing = $this->isFollowing($userId);
-        $myself = $this->id == $userId;
+        $existing = $this->isFollowing($postId);
+        $myself = $this->id == $postId;
         if ($existing && !$myself) {
-            $this->followers()->detach($userId);
+            $this->followers()->detach($postId);
         } else {
             return false;
         }
     }
+
+    //多対多リレーション。いいね
+    public function favorites()
+    {
+        return $this->belongsToMany(Post::class, 'favorites', 'user_id', 'post_id')->withTimestamps();
+    }
+
+    //いいねしているか判定
+    public function isFavorite($postId)
+    {
+        return $this->favorites()->where('post_id', $postId)->exists();
+    }
+
+    //いいねする
+    public function favorite($postId)
+    {
+        $existing = $this->isFavorite($postId);
+        if ($existing) {
+            return false;
+        } else {
+            $this->favorites()->attach($postId);
+        }
+    }
+
+    //いいね解除する
+    public function unfavorite($postId)
+    {
+        $existing = $this->isFavorite($postId);
+        if ($existing) {
+            $this->favorites()->detach($postId);
+        } else {
+            return false;
+        }
+    }
+    
 }

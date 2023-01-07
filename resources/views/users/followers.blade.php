@@ -3,7 +3,7 @@
 <ul class="list-unstyled">
     @foreach ($followers as $follower)
         @php
-            $follow = $follower->followers;
+            $follow = $follower->followers();
         @endphp
         <li class="mb-3 text-center">
             <div class="text-left d-inline-block w-75 mb-2">

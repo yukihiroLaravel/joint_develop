@@ -11,8 +11,17 @@
 
             <div class="new-line">
                 <div class="text-left d-inline-block w-75">
-                    <p class="mb-2"> {{ $post->text }}</p>
+                    <h5 class="mb-3">{{ $post->text }}</h5>
                     <p class="text-muted">{{ $post->created_at }}</p>
+                    @php
+                        $countFavoriteUsers = $post->favoriteUsers()->count();
+                    @endphp
+                    <div class="btn-group" role="group">
+                        <span class="badge badge-pill badge-secondary">{{ $countFavoriteUsers }} いいね!</span>
+                    </div>
+                    <div class="btn-group">
+                        @include('favorite.favorite_button', ['post' => $post])
+                    </div>
                 </div>
                 @if (Auth::id() === $post->user_id)
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
@@ -21,13 +30,11 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>
-                            <a href="{{ route('post.edit',$post->id) }}" class="btn btn-primary">編集する</a>
+                        <a href="{{ route('post.edit',$post->id) }}" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
-                
             </div>
         </li>
     @endforeach
 </ul>
 <div class="m-auto" style="width: fit-content">{{ $posts->links() }}</div>
-
