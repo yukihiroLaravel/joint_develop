@@ -13,7 +13,7 @@
         <div class="col-sm-6 offset-sm-3">
             <div class="w-100 m-auto">@include('commons.error_messages')</div>
                 <form method="POST" action="{{ route('login.post') }}">
-                @csrf
+                    @csrf
                     <div class="form-group">
                         <label for="email">メールアドレス</label>
                         <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}">
