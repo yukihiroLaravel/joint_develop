@@ -11,6 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+//ログイン時のみ
+Route::group(['middleware'=>'auth'], function () {
+    Route::group(['prefix'=>'users'], function () {
+        Route::get('edit/[id]', 'UsersController@edit')->name('user.edit');
+        Route::put('{id}', 'UsersController@update')->name('user.update');
+
+});
 });
