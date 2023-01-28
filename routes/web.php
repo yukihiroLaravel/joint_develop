@@ -17,7 +17,6 @@ Route::group(['middleware'=>'auth'], function () {
     Route::group(['prefix'=>'users'], function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
         Route::put('{id}', 'UsersController@update')->name('user.update');
-
     });
 });
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');

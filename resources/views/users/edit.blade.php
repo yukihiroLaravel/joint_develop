@@ -23,7 +23,7 @@
 
         <div class="form-group">
             <label for="password_confirmation">パスワードの確認</label>
-            <input class="form-control" type="password" name="password" />
+            <input class="form-control" type="password" name="password_confirmation" />
         </div>
 
         <div class="d-flex justify-content-between">
