@@ -16,9 +16,11 @@ Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('sign
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 // ユーザ情報編集
-    Route::prefix('user')->group(function () {
-        Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
-        Route::post('{id}/edit', 'UsersController@update')->name('user.update');
+Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('users')->group(function () {
+        Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
+        Route::post('{id}/edit', 'UsersController@store')->name('users.store');
     });
+});
 
 Route::get('/', 'UsersController@index');

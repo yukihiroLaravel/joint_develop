@@ -4,7 +4,7 @@
 
 <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
 <div class="w-75 m-auto">@include('commons.error_messages')</div>
-<form method="POST" action="{{ route(user.update) }}">
+<form method="POST" action="{{ route('users.store') }}">
     @csrf
         <input type="hidden" name="id" value="{{ old('name') }}" />
         <div class="form-group">
