@@ -14,9 +14,10 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         if (\Auth::id() == $user->id) {
-        return view('users.edit', ['user' => $user]);
+            return view('users.edit', ['user' => $user]);
         }
-        return redirect('/');
+
+            abort(404);
     }
     public function update (Request $request ,$id)
     {
