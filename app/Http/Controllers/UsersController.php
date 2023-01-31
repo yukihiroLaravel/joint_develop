@@ -7,8 +7,5 @@ use App\User;
 
 class UsersController extends Controller
 {
-    public function index()
-    {   
-        
-    }
+    //TODO ユーザー詳細機能の際に記述
 }
