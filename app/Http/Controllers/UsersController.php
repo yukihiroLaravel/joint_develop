@@ -1,11 +1,37 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\User;
 use Illuminate\Http\Request;
 use App\User;
 
 class UsersController extends Controller
 {
-    //TODO ユーザー詳細機能の際に記述
+    public function index()
+    {
+        return view('welcome');
+    }
+    public function edit ($id)
+    {
+        $user = User::findOrFail($id);
+        if (\Auth::id() == $user->id) {
+            return view('users.edit', ['user' => $user]);
+        }
+
+        abort(404);
+    }
+    public function update (Request $request ,$id)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:8','confirmed'],
+        ]);
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->save();
+        return back();
+    }
 }
