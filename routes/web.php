@@ -11,7 +11,6 @@
 |
 */
 
-
 //ログイン時のみ
 Route::group(['middleware'=>'auth'], function () {
     Route::group(['prefix'=>'users'], function () {
@@ -23,4 +22,11 @@ Route::group(['middleware'=>'auth'], function () {
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
-Route::get('/', 'UsersController@index');
+
+//投稿一覧表示
+Route::get('/', 'PostsController@index');
+
+//ログイン
+Route::get('login','Auth\LoginController@showLoginForm')->name('login');
+Route::post('login','Auth\LoginController@login')->name('login.post');
+
