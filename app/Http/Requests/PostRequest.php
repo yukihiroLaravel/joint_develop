@@ -24,7 +24,7 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'required'
+            'content' => 'required|max:140'
         ];
     }
 
@@ -34,4 +34,13 @@ class PostRequest extends FormRequest
             'content' => '投稿'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'content.required' => '投稿は、必ず入力してください。',
+        ];
+
+    }
+
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Http\Requests\PostRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\App;
 
 class PostsController extends Controller
 {
@@ -19,20 +21,26 @@ class PostsController extends Controller
 
     public function edit($id)
     {
-        $user = \Auth::user();
         $post = Post::findOrFail($id);
-        $data =[
-            'user' => $user,
-            'post' => $post,
-        ];
-        return view('posts.edit', $data);
+        if (Auth::id() === $post->user_id) {
+            return view('posts.edit', [
+                'post' => $post,
+            ]);
+        }
+
+        return App::abort(404);
     }
 
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
-        $post->content = $request->content;
-        $post->save();
-        return redirect("/");
+        if (Auth::id() === $post->user_id) {
+            $post->content = $request->content;
+            $post->save();
+            return redirect("/");
+        }
+
+        return App::abort(404);
     }
+
 }
