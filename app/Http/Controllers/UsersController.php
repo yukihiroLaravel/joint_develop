@@ -35,7 +35,6 @@ class UsersController extends Controller
             $user->password = bcrypt($request->password);
             $user->save();
         }
-
         return back();
     }
 }
