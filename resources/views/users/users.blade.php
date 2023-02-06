@@ -1,7 +1,7 @@
-<!-- 修正が必要 -->
+<!-- 修正が必要
 
-<!-- <h2 class="mt-5 mb-5">チャンネル一覧</h2> -->
-<!-- <div class="movies row mt-5 text-center"> -->
+<h2 class="mt-5 mb-5">チャンネル一覧</h2>
+<div class="movies row mt-5 text-center">
     @foreach ($users as $user)
         @php
             $post = $user->posts->last();
@@ -15,18 +15,18 @@
                 <a href="{{ route('user.show', $user->id) }}">＠{{ $user->name }}
                     <div>
                         @if ($post)
-                            <!-- <iframe width="290" height="163.125" src="{{ 'https://www.youtube.com/embed/'.$movie->youtube_id }}?controls=1&loop=1&playlist={{ $movie->youtube_id }}" frameborder="0"></iframe> -->
+                            <iframe width="290" height="163.125" src="{{ 'https://www.youtube.com/embed/'.$movie->youtube_id }}?controls=1&loop=1&playlist={{ $movie->youtube_id }}" frameborder="0"></iframe>
                         @else
-                            <!-- <iframe width="290" height="163.125" src="https://www.youtube.com/embed/" frameborder="0"></iframe> -->
+                            <iframe width="290" height="163.125" src="https://www.youtube.com/embed/" frameborder="0"></iframe>
                         @endif
                     </div>
                     <p>
-                        <!-- @if (isset($movie->title))
+                        @if (isset($movie->title))
                             {{ $movie->title }}
-                        @endif -->
+                        @endif
                     </p>
                 </div>
             </div>
     @endforeach
 </div>
-{{ $users->links('pagination::bootstrap-4') }}
+{{ $users->links('pagination::bootstrap-4') }} -->

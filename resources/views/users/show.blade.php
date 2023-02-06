@@ -1,4 +1,4 @@
-<!-- 修正が必要？ -->
+<!-- 修正が必要？
 @extends('layouts.app')
 @section('content')
     <div class="row">
@@ -25,4 +25,4 @@
             @include('posts.posts', ['user' => $user, 'posts' => $posts])
         </div>
     </div>
-@endsection
+@endsection -->
