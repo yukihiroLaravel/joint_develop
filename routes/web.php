@@ -33,4 +33,3 @@ Route::get('/', 'PostsController@index');
 Route::group(['prefix'=>'users'], function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
 });
-
