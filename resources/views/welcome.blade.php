@@ -8,7 +8,7 @@
 <h5 class="text-center mb-3">"○○"について140字以内で会話しよう!</h5>
     @include('commons.error_messages')
      <div class="text-center mb-3">
-        <form method="" action="" class="d-inline-block w-75">
+        <form method="" action="" class="d-inline-block w-75" >
             <div class="form-group">
                 @if(Auth::check())
                     <textarea class="form-control" name="" rows=""></textarea>
