@@ -4,26 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
-{
-    use AuthenticatesUsers;
-    
-    public function index()
-    {
-        return view('welcome');
-    }
+{   
 
     public function edit($id)
     {   
-        $user = \Auth::user();
         $user = User::findOrFail($id);
-        return view('users.edit', [
-            'user' => $user,
-        ]);
+        if (\Auth::id() === $user->id) {
+            return view('users.edit', [
+                'user' => $user,
+            ]);
+        }
+        return App::abort(404);
     }
 
     protected function store(UserRequest $request, $id)
@@ -34,7 +30,8 @@ class UsersController extends Controller
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
             $user->save();
+            return redirect("/");
         }
-        return back();
+        return App::abort(404);
     }
 }
