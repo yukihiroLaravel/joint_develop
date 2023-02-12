@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
 {
@@ -18,25 +19,19 @@ class PostsController extends Controller
 
     public function edit($id)
     {
-        $user = \Auth::user();
         $post = Post::findOrFail($id);
-        $posts = $user->posts()->orderBy('id','desc')->paginate(10);
         $data = [
-            'user' => $user,
             'post' => $post,
-            'posts' => $posts,
         ];
 
         return view('posts.edit',$data);
     }
 
-    public function updata(PostRequest $request,$id)
+    public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
-        $post->id = $request->id;
         $post->content = $request->content;
-        $post->user_id = $request->user()->id;
         $post->save();
-        return back();
+        return redirect('/');
     }
 }
