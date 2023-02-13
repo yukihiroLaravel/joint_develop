@@ -31,9 +31,9 @@ class PostsController extends Controller
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
-        if(\Auth::id() === $post->user_id){
-        $post->content = $request->content;
-        $post->save();
+        if (\Auth::id() === $post->user_id) {
+            $post->content = $request->content;
+            $post->save();
         }
         return redirect('/');
     }
