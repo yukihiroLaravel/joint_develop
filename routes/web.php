@@ -22,6 +22,11 @@ Route::group(['middleware'=>'auth'], function () {
         Route::put('{id}', 'UsersController@update')->name('user.update');
         Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
     });
+    //投稿編集・更新
+    Route::group(['prefix'=>'post'],function(){
+        Route::get('{id}/edit','PostsController@edit')->name('post.edit');
+        Route::put('{id}','PostsController@update')->name('post.update');
+    });
 });
 //新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
