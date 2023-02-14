@@ -22,7 +22,7 @@ Route::group(['middleware'=>'auth'], function () {
         Route::put('{id}', 'UsersController@update')->name('user.update');
         Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
     });
-    // ログイン後
+// ログイン後
     Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
 });
 //新規登録

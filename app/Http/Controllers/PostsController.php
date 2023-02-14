@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
 {
@@ -22,5 +23,26 @@ class PostsController extends Controller
             $post->delete();
         }
         return back();
+    }
+
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            return view('posts.edit',[
+                'post' => $post,
+            ]);
+        }
+        return back();
+    }
+
+    public function update(PostRequest $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            $post->content = $request->content;
+            $post->save();
+        }
+        return redirect('/');
     }
 }
