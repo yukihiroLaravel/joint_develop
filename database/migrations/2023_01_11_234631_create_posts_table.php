@@ -20,7 +20,7 @@ class CreatePostsTable extends Migration
             $table->timestamps();
             // $table->softDeletes();
             // 外部キー制約
-            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
