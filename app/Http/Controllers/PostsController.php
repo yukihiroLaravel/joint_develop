@@ -43,4 +43,14 @@ class PostsController extends Controller
         return App::abort(404);
     }
 
+    public function destroy(PostRequest $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        if (Auth::id() === $post->user_id) {
+            $post->delete();
+            $post->save();
+            return redirect("/");
+        }
+        return App::abort(404);
+    }
 }
