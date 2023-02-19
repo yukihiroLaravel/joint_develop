@@ -43,13 +43,13 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
-    // フォロー → フォロワー
+    // フォローしているuser → フォロされているuser
     public function follows()
     {
         return $this->belongsToMany(User::class, 'follow_users', 'following_id', 'followed_id')->withTimestamps();
     }
 
-    // フォロワー → フォロー
+    // フォロされているuser → フォローしているuser
     public function followers()
     {
         return $this->belongsToMany(User::class, 'follow_users', 'followed_id', 'following_id')->withTimestamps();
@@ -58,14 +58,16 @@ class User extends Authenticatable
     public function follow($followedId)
     {
         $exist = $this->isFollow($followedId);
-        if ($exist) {
+        $itsMe = $this->id === $followedId;
+        if ($exist || $itsMe) {
             return false;
         } else {
-            $this->Follows()->attach($followedId);
+            $this->follows()->attach($followedId);
             return true;
         }
     }
-    public function unfollow($followedId)
+
+    public function unFollow($followedId)
     {
         $exist = $this->isFollow($followedId);
         if ($exist) {
@@ -75,6 +77,7 @@ class User extends Authenticatable
             return false;
         }
     }
+
     public function isFollow($followedId)
     {
         return $this->follows()->where('followed_id', $followedId)->exists();
