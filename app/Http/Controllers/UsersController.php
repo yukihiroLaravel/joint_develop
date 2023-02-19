@@ -34,4 +34,15 @@ class UsersController extends Controller
         }
         return App::abort(404);
     }
+
+    protected function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        if (\Auth::id() === $user->id) {
+            $user->delete();
+            return redirect("/");
+        }
+        return App::abort(404);
+    }
+
 }
