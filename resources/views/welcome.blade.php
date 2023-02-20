@@ -5,15 +5,15 @@
         <h1><i class="pr-3"></i>Topic Posts</h1>
      </div>
 </div>
-@if (session('flash_message'))
-        <div class='alert alert-danger'>
-            {{ session('flash_message') }}
-        </div>
-@endif
 <h5 class="text-center mb-3">"○○"について140字以内で会話しよう!</h5>
     @include('commons.error_messages')
      <div class="text-center mb-3">
         <form method="" action="" class="d-inline-block w-75" >
+            @if (session('withdrawal_flash_message'))
+                <div class='alert alert-danger'>
+                    {{ session('withdrawal_flash_message') }}
+                </div>
+            @endif
             <div class="form-group">
                 @if(Auth::check())
                     <textarea class="form-control" name="" rows=""></textarea>
