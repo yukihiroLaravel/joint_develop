@@ -24,11 +24,13 @@ Route::group(['middleware'=>'auth'], function () {
         Route::post('follow', 'FollowsController@store')->name('follow');
         ROute::delete('unFollow', 'FollowsController@destroy')->name('unFollow');
     });
-    //投稿編集・更新
-    Route::group(['prefix'=>'post'],function(){
-        Route::get('{id}/edit','PostsController@edit')->name('post.edit');
-        Route::put('{id}','PostsController@update')->name('post.update');
-    });
+//投稿編集・更新
+Route::group(['prefix'=>'post'],function(){
+    Route::get('{id}/edit','PostsController@edit')->name('post.edit');
+    Route::put('{id}','PostsController@update')->name('post.update');
+});    
+// ログイン後
+    Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
 });
 //新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
