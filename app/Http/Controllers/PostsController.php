@@ -9,7 +9,7 @@ use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
 {
-    public function index(PostRequest $request)
+    public function index()
     {   
         $posts = Post::orderBy('created_at','desc')->paginate(10);
 
@@ -22,7 +22,7 @@ class PostsController extends Controller
     {
         $post = new Post;
         $post->content = $request->content;
-        $post->user_id = $request->user_id;
+        $post->user_id = $request->user()->id;
         $post->save();
         return back();
     }
