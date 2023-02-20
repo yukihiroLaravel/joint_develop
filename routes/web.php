@@ -29,6 +29,8 @@ Route::group(['prefix'=>'post'],function(){
     Route::get('{id}/edit','PostsController@edit')->name('post.edit');
     Route::put('{id}','PostsController@update')->name('post.update');
     });
+    // ログイン後
+    Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
 });
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
