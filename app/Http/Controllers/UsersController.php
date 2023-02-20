@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\User;
+use App\Post;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -9,6 +10,17 @@ class UsersController extends Controller
     public function index()
     {
         return view('welcome');
+    }
+
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        $posts = $user->posts()->orderBy('id','desc')->paginate(10);
+        $data = [
+            'user' => $user,
+            'posts' => $posts,
+        ];
+        return view('users.show', $data);
     }
     public function edit ($id)
     {
@@ -31,7 +43,8 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-        return back();
+       
+        return redirect('users/' . $user->id);
     }
 
     public function destroy ($id)

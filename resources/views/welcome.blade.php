@@ -10,6 +10,7 @@
      <div class="text-center mb-3">
         <form method="POST" action="{{ route('posts.store') }}" class="d-inline-block w-75">
             @csrf
+        <form method="" action="" class="d-inline-block w-75" >
             <div class="form-group">
                 @if(Auth::check())
                     <textarea class="form-control" name="content" rows=""></textarea>

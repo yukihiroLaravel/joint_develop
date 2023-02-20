@@ -24,17 +24,26 @@ Route::group(['middleware'=>'auth'], function () {
     Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
     });
     Route::post('post', 'PostsController@store')->name('posts.store');
+//投稿編集・更新
+Route::group(['prefix'=>'post'],function(){
+    Route::get('{id}/edit','PostsController@edit')->name('post.edit');
+    Route::put('{id}','PostsController@update')->name('post.update');
+    });
 });
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 
+
 //投稿一覧表示
 Route::get('/', 'PostsController@index');
 
-//ログイン
-Route::get('login','Auth\LoginController@showLoginForm')->name('login');
-Route::post('login','Auth\LoginController@login')->name('login.post');
+//ユーザ
+Route::group(['prefix'=>'users'], function () {
+    Route::get('{id}', 'UsersController@show')->name('user.show');
+});
+
+
 
 
     
