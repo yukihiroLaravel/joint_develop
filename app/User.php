@@ -43,16 +43,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+
     //このユーザがフォローしている人を取得
     public function followings()
     {
         return $this->belongsToMany(User::class,'followers','user_id','follow_id')->withTimestamps();
     }
+
     //このユーザをフォローしている人を取得
     public function followUsers()
     {
         return $this->belongsToMany(User::class,'followers','follow_id','user_id')->withTimestamps();
     }
+
     //ユーザがフォローする
     public function follow($userId)
     {
@@ -64,6 +67,7 @@ class User extends Authenticatable
             return true;
         }
     }
+
     //ユーザがフォローを外す
     public function unFollow($userId)
     {
@@ -75,6 +79,7 @@ class User extends Authenticatable
             return false;
         }
     }
+
     //フォローしているか判定
     public function isFollow($userId)
     {

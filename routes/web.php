@@ -17,10 +17,12 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 //ログイン時のみ
 Route::group(['middleware'=>'auth'], function () {
-    Route::group(['prefix'=>'users'], function () {
-        Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
-        Route::put('{id}', 'UsersController@update')->name('user.update');
-        Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
+    Route::group(['prefix'=>'users/{id}'], function () {
+        Route::get('/edit', 'UsersController@edit')->name('user.edit');
+        Route::put('', 'UsersController@update')->name('user.update');
+        Route::delete('', 'UsersController@destroy')->name('user.delete');
+        Route::post('follow', 'FollowsController@store')->name('follow');
+        ROute::delete('unFollow', 'FollowsController@destroy')->name('unFollow');
     });
     //投稿編集・更新
     Route::group(['prefix'=>'post'],function(){
