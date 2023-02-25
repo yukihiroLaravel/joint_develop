@@ -19,6 +19,17 @@ class PostsController extends Controller
         ]);
     }
 
+    public function create($id)
+    {
+        $user = \Auth::user($id);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(9);
+        $data = [
+            'user' => $user,
+            'posts' => $posts,
+        ];
+        return view('posts.create', $data);
+    }
+
     public function edit($id)
     {
         $post = Post::findOrFail($id);
