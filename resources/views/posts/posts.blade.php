@@ -12,7 +12,7 @@
                 </div>
                 @if(Auth::check() && Auth::user()->id == $post->user_id)
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                        <form method="POST" action="{{ route('post.destroy', $post->id) }}">
+                        <form method="POST" action="{{ route('post.delete', $post->id) }}">
                             @csrf
                             @method('DELETE')
                             <input type="hidden" name="id" value="DELETE">

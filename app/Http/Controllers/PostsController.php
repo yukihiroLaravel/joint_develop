@@ -22,6 +22,7 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
+        
         if (Auth::id() === $post->user_id) {
             return view('posts.edit', [
                 'post' => $post,
@@ -34,6 +35,7 @@ class PostsController extends Controller
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
+
         if (Auth::id() === $post->user_id) {
             $post->content = $request->content;
             $post->save();
@@ -46,10 +48,12 @@ class PostsController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
-        if (Auth::id() === $post->user_id) {
-            $post->delete();
+
+        if (Auth::id() === $post->user_id) {            
+            $post->forceDelete();
             return redirect("/");
         }
+
         return App::abort(404);
     }
 }
