@@ -19,15 +19,16 @@ class PostsController extends Controller
         ]);
     }
 
-    public function create($id)
+    public function store(PostRequest $request, $id)
     {
-        $user = \Auth::user($id);
-        $posts = $user->posts()->orderBy('id', 'desc')->paginate(9);
-        $data = [
-            'user' => $user,
-            'posts' => $posts,
-        ];
-        return view('posts.create', $data);
+        $post = Post::findOrFail($id);
+        if (Auth::id() === $post->user_id) {
+            $post->content = $request->content;
+            $post->save();
+            return redirect("/");
+        }
+
+        return App::abort(404);
     }
 
     public function edit($id)

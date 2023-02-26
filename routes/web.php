@@ -37,7 +37,6 @@ Route::group (['middleware' => 'auth'], function () {
     });
     // 投稿画面編集
     Route::prefix('posts')->group(function () {
-        Route::get('{id}/create', 'PostsController@create')->name('post.create');
         Route::post('{id}', 'PostsController@store')->name('post.store');
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
