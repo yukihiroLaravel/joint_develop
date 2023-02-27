@@ -2,7 +2,7 @@
 @section('content')
 <div class="center jumbotron bg-info">
      <div class="text-center text-white mt-2 pt-1">
-        <h1><i class="<font-awesome-icon icon = fas fa-weight" aria-hidden="true"></i>ダイエットーーク！</h1>
+        <h1><i class="fas fa-weight" aria-hidden="true"></i>ダイエットーーク！</h1>
      </div>
 </div>
 <h5 class="text-center mb-3">ダイエットのかたり場（140字以内）</h5>
