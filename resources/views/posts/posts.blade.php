@@ -3,8 +3,7 @@
         <li class="mb-3 text-center">
             <div class="d-flex d-inline-block w-75 pb-3 m-auto">
                 <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
-                <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('users.show', $post->user_id) }}">＠{{ $post->user->name }}</a></p>
-                @include('follow.follow_button')
+                <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('users.show', $post->user_id) }}">{{ $post->user->name }}</a></p>
             </div>
             <div class="">
                 <div class="text-left d-inline-block w-75">
