@@ -15,12 +15,14 @@
                 @endif
             </div>
         </div>
+
+        @include('follows.follows_button', ['user'=>$user])
     </aside>
     <div class="col-sm-8">
         <ul class="nav nav-tabs nav-justified mb-3">
-            <li class="nav-item"><a href="" class="nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}">タイムライン</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
+            <li class="nav-item"><a href="{{ route('user.show', $user->id) }}" class="nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}">タイムライン</a></li>
+            <li class="nav-item"><a href="{{ route('user.followings', $user->id) }}" class="nav-link {{ Request::is('users/'. $user->id. '/followings') ? 'active' : '' }}">フォロー中<br><div class="badge badge-secondary">{{ $countFollowings ??'' }}</div></a></li>
+            <li class="nav-item"><a href="{{ route('user.followUsers', $user->id) }}" class="nav-link {{ Request::is('users/'. $user->id. '/followUsers') ? 'active' : '' }}">フォロワー<br><div class="badge badge-secondary">{{ $countFollowUsers ??'' }}</div></a></li>
         </ul>
         @include('posts.posts', ['posts' => $posts])
     </div>

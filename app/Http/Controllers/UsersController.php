@@ -53,4 +53,6 @@ class UsersController extends Controller
         $user->forceDelete();
         return redirect('/');
     }
+
+   
 }

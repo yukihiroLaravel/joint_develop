@@ -22,7 +22,9 @@ Route::group(['middleware'=>'auth'], function () {
         Route::put('', 'UsersController@update')->name('user.update');
         Route::delete('', 'UsersController@destroy')->name('user.delete');
         Route::post('follow', 'FollowsController@store')->name('follow');
-        ROute::delete('unFollow', 'FollowsController@destroy')->name('unFollow');
+        Route::delete('unFollow', 'FollowsController@destroy')->name('unFollow');
+        Route::get('followings', 'FollowsController@followings')->name('user.followings');
+        Route::get('followUsers', 'FollowsController@followUsers')->name('user.followUsers');
     });
 //投稿編集・更新
 Route::group(['prefix'=>'post'],function(){
