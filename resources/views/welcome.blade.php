@@ -9,6 +9,11 @@
     @include('commons.error_messages')
      <div class="text-center mb-3">
         <form method="" action="" class="d-inline-block w-75" >
+            @if (session('withdrawal_flash_message'))
+                <div class='alert alert-danger'>
+                    {{ session('withdrawal_flash_message') }}
+                </div>
+            @endif
             <div class="form-group">
                 @if(Auth::check())
                     <textarea class="form-control" name="" rows=""></textarea>
