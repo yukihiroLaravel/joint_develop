@@ -51,6 +51,6 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $user->forceDelete();
-        return redirect('/');
+        return redirect('/')->with('withdrawal_flash_message','退会しました');
     }
 }
