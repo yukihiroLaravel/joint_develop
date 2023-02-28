@@ -1,23 +1,25 @@
 @extends('layouts.app')
 @section('content')
 <div class="center jumbotron bg-info">
-    <div class="text-center text-white mt-2 pt-1">
-        <h1><i class="pr-3"></i>Topic Posts</h1>
-    </div>
-</div>    
-<h5 class="text-center mb-3">"○○"について140字以内で会話しよう!</h5> 
+     <div class="text-center text-white mt-2 pt-1">
+        <h1><i class="fas fa-weight" aria-hidden="true"></i>ダイエットーーク！</h1>
+     </div>
+</div>
+<h5 class="text-center mb-3">ダイエットのかたり場（140字以内）</h5>
     @include('commons.error_messages')
-    <div class="text-center mb-3">
-        <form method="POST" action="{{ route('posts.store') }}" class="d-inline-block w-75">
-        {{-- フラッシュメッセージ --}}
-            @if (session('successMessage'))
+     <div class="text-center mb-3">
+        <form method="post" action="{{ route('posts.store') }}" class="d-inline-block w-75" > 
+        @csrf
+        @if (session('successMessage'))
                 <div class="alert alert-success text-center">
                     {{ session('successMessage') }}
                 </div>
             @endif
-        {{-- フラッシュメッセージ終わり --}}   
-            @csrf
-            @include('commons.error_messages')
+            @if (session('withdrawal_flash_message'))
+                <div class='alert alert-danger'>
+                    {{ session('withdrawal_flash_message') }}
+                </div>
+            @endif
             <div class="form-group">
                 @if(Auth::check())
                     <textarea class="form-control" name="content" rows="5"></textarea>
