@@ -42,7 +42,7 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-        return back();
+        return redirect(route('user.show', $user->id))->with('flash_message', '更新しました');
     }
 
     public function destroy ($id)
