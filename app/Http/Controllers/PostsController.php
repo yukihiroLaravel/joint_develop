@@ -18,13 +18,13 @@ class PostsController extends Controller
         ]);
     }
 
-    public function store(PostRequest $request )
+    public function store(PostRequest $request)
     {
         $post = new Post;
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
         $post->save();
-        return back();
+        return back()->with('successMessage', '投稿されました。');
     }
 
     public function destroy($id)
