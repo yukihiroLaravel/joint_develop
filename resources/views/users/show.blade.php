@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="row">
+    <div class="row">
         <aside class="col-sm-4 mb-5">
             <div class="card bg-info">
                 <div class="card-header">
@@ -15,6 +15,7 @@
                         @endif
                 </div>
             </div>
+            <div class="text-center mt-4">@include('follow.follow_button')</div>
         </aside>
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
