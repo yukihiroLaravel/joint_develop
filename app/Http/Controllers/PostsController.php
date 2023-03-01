@@ -23,7 +23,7 @@ class PostsController extends Controller
     {
             $post = new Post;
             $post->content = $request->content;
-            $post->user_id = $request->user()->id;
+            $post->user_id = Auth::id();
             $post->save();
             return back();
 
