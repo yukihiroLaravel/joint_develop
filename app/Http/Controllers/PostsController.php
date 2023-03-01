@@ -19,14 +19,13 @@ class PostsController extends Controller
         ]);
     }
 
-    public function store(PostRequest $request, $id)
+    public function store(PostRequest $request)
     {
-        $post = Post::findOrFail($id);
-        if (Auth::id() === $post->user_id) {
+            $post = new Post;
             $post->content = $request->content;
+            $post->user_id = $request->user()->id;
             $post->save();
-            return redirect("/");
-        }
+            return back();
 
         return App::abort(404);
     }
