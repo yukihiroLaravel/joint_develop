@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
-use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
 {
@@ -22,7 +21,7 @@ class PostsController extends Controller
         if (\Auth::id() === $post->user_id) {
             $post->delete();
         }
-        return back();
+        return back()->with('withdrawal_flash_message','削除しました');
     }
 
     public function edit($id)
