@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="row">
+    <div class="row">
         <aside class="col-sm-4 mb-5">
             <div class="card bg-info">
                 <div class="card-header">
@@ -8,13 +8,14 @@
                 </div>
                 <div class="card-body">
                     <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->name, 400) }}" alt="ユーザのアバター画像">
-                        @if (Auth::check() && Auth::user()->id == $user->id)
+                        @if(Auth::check() && Auth::user()->id == $user->id)
                             <div class="mt-3">
                                 <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                             </div>
                         @endif
                 </div>
             </div>
+            <div class="text-center mt-4">@include('follow.follow_button')</div>
         </aside>
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
