@@ -43,7 +43,7 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-       
+
         return redirect('users/' . $user->id);
     }
 
@@ -53,6 +53,4 @@ class UsersController extends Controller
         $user->forceDelete();
         return redirect('/')->with('withdrawal_flash_message','退会しました');
     }
-
-   
 }
