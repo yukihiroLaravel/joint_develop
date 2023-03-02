@@ -24,8 +24,7 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ユーザ
-Route::get('/', 'UsersController@index');
-Route::prefix('users')->group(function (){
+Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('users.show');
 });
 
@@ -37,7 +36,7 @@ Route::group (['middleware' => 'auth'], function () {
         Route::post('{id}', 'UsersController@store')->name('users.store');
     });
     // フォロー
-    Route::group(['prefix' => 'users/{id}'], function(){
+    Route::group(['prefix' => 'users/{id}'], function() {
         Route::post('follow','FollowController@store')->name('follow');
         Route::delete('unFollow','FollowController@destroy')->name('unFollow');
     });
