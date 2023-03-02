@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\User;
+use App\Post;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -42,13 +43,14 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-        return redirect(route('user.show', $user->id))->with('flash_message', '更新しました');
+       
+        return redirect('users/' . $user->id);
     }
 
     public function destroy ($id)
     {
         $user = User::findOrFail($id);
         $user->forceDelete();
-        return redirect('/');
+        return redirect('/')->with('withdrawal_flash_message','退会しました');
     }
 }
