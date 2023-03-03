@@ -37,7 +37,7 @@ class FollowsController extends Controller
         $followUsers = $user->followUsers()->orderBy('id', 'desc')->paginate(10);
         $data = [
             'user'=>$user,
-            'followUsers'=>$followUser,
+            'followUsers'=>$followUsers,
         ];
         $data += $this->userCounts($user);
         return View('users.followUsers',$data);
