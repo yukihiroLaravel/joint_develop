@@ -19,6 +19,17 @@ class PostsController extends Controller
         ]);
     }
 
+    public function store(PostRequest $request)
+    {
+            $post = new Post;
+            $post->content = $request->content;
+            $post->user_id = Auth::id();
+            $post->save();
+            return back();
+
+        return App::abort(404);
+    }
+
     public function edit($id)
     {
         $post = Post::findOrFail($id);
