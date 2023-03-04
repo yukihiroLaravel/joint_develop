@@ -61,7 +61,7 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
 
         if (Auth::id() === $post->user_id) {            
-            $post->forceDelete();
+            $post->delete();
             return redirect("/");
         }
 
