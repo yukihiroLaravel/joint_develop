@@ -41,6 +41,5 @@ class FollowsController extends Controller
         ];
         $data += $this->userCounts($user);
         return View('users.followUsers',$data);
-
     }
 }
