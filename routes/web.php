@@ -24,8 +24,7 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ユーザ
-Route::get('/', 'UsersController@index');
-Route::prefix('users')->group(function (){
+Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('users.show');
 });
 
@@ -38,7 +37,7 @@ Route::group (['middleware' => 'auth'], function () {
         Route::delete('{id}', 'UsersController@destroy')->name('users.delete');
     });
     // フォロー
-    Route::group(['prefix' => 'users/{id}'], function(){
+    Route::group(['prefix' => 'users/{id}'], function() {
         Route::post('follow','FollowController@store')->name('follow');
         Route::delete('unFollow','FollowController@destroy')->name('unFollow');
     });
@@ -47,6 +46,7 @@ Route::group (['middleware' => 'auth'], function () {
         Route::post('', 'PostsController@store')->name('post.store');
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
+        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     });
 });
 
