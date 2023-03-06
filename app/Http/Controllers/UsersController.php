@@ -20,6 +20,7 @@ class UsersController extends Controller
             'user' => $user,
             'posts' => $posts,
         ];
+        $data += $this->userCounts($user);
         return view('users.show', $data);
     }
     public function edit ($id)
@@ -43,7 +44,7 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-       
+
         return redirect('users/' . $user->id);
     }
 
