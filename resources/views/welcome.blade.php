@@ -7,7 +7,14 @@
     </div>
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
     @if(Auth::check())
-        <div class="w-75 m-auto">@include('commons.error_messages')</div>
+    @if (session('message'))
+        <div class="w-75 m-auto">
+            <ul class="alert alert-danger">
+                <li class="ml-4">{{ session('message') }}</li>
+            </ul>
+        </div>
+    @endif
+        <div class="w-75 m-auto">@include('commons.error_messages')
             <div class="text-center mb-3">
                 <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
                     @csrf
