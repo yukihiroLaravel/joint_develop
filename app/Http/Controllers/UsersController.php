@@ -39,7 +39,6 @@ class UsersController extends Controller
                 $user_info_edit_flashMessage = __('flshmsg_user_info.edit_success');
             }
             return redirect("/")->with($user_info_edit_messageKey, $user_info_edit_flashMessage);
-            // return redirect("/");
         }
         return App::abort(404);
     }
@@ -52,10 +51,10 @@ class UsersController extends Controller
             $userquit = [];
             if ($userquit) {
                 $messageKey = 'quit_errorMessage';
-                $flashMessage = __('flshmsg_user_quit.quit_faild');
+                $flashMessage = __('flshmsg_user_info.quit_faild');
             } else {
                 $messageKey = 'quit_successMessage';
-                $flashMessage = __('flshmsg_user_quit.quit_success');
+                $flashMessage = __('flshmsg_user_info.quit_success');
             }
             return redirect("/")->with($messageKey, $flashMessage);
         }
