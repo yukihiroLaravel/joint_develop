@@ -33,10 +33,10 @@ class UsersController extends Controller
             $user_info_edit = [];
             if ($user_info_edit) {
                 $user_info_edit_messageKey = 'infoedit_errorMessage';
-                $user_info_edit_flashMessage = __('userinfo.edit_faild');
+                $user_info_edit_flashMessage = __('flshmsg_user_info.edit_faild');
             } else {
                 $user_info_edit_messageKey = 'infoedit_successMessage';
-                $user_info_edit_flashMessage = __('userinfo.edit_success');
+                $user_info_edit_flashMessage = __('flshmsg_user_info.edit_success');
             }
             return redirect("/")->with($user_info_edit_messageKey, $user_info_edit_flashMessage);
             // return redirect("/");
@@ -52,10 +52,10 @@ class UsersController extends Controller
             $userquit = [];
             if ($userquit) {
                 $messageKey = 'quit_errorMessage';
-                $flashMessage = __('user.quit_faild');
+                $flashMessage = __('flshmsg_user_quit.quit_faild');
             } else {
                 $messageKey = 'quit_successMessage';
-                $flashMessage = __('user.quit_success');
+                $flashMessage = __('flshmsg_user_quit.quit_success');
             }
             return redirect("/")->with($messageKey, $flashMessage);
         }
