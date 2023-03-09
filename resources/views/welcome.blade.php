@@ -6,8 +6,9 @@
         </div>
     </div>
     <h5 class="text-center mb-3">" ゲーム・アニメ音楽 " をオススメしよう！</h5>
+    @include('users.FlashMessages')
     @if(Auth::check())
-        <div class="w-75 m-auto">@include('commons.error_messages')</div>
+        <div class="w-75 m-auto">@include('commons.error_messages')
             <div class="text-center mb-3">
                 <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
                     @csrf
