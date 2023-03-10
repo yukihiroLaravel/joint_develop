@@ -9,9 +9,9 @@
     @if(Auth::check())
         @if (session('message'))
             <div class="w-75 m-auto">
-                <ul class="alert alert-danger">
-                    <li class="ml-4">{{ session('message') }}</li>
-                </ul>
+                <div class="text-center mb-3">
+                    <ul class="alert alert-danger">{{ session('message') }}</ul>
+                </div>
             </div>
         @endif
         <div class="w-75 m-auto">@include('commons.error_messages')</div>
