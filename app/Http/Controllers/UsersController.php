@@ -30,11 +30,37 @@ class UsersController extends Controller
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
             $user->save();
-            return redirect("/");
+            $user_info_edit = [];
+            if ($user_info_edit) {
+                $user_info_edit_messageKey = 'infoedit_errorMessage';
+                $user_info_edit_flashMessage = __('flshmsg_user_info.edit_faild');
+            } else {
+                $user_info_edit_messageKey = 'infoedit_successMessage';
+                $user_info_edit_flashMessage = __('flshmsg_user_info.edit_success');
+            }
+            return redirect("/")->with($user_info_edit_messageKey, $user_info_edit_flashMessage);
         }
         return App::abort(404);
     }
 
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        if (\Auth::id() === $user->id) {
+            $user->delete();
+            $userquit = [];
+            if ($userquit) {
+                $messageKey = 'quit_errorMessage';
+                $flashMessage = __('flshmsg_user_info.quit_faild');
+            } else {
+                $messageKey = 'quit_successMessage';
+                $flashMessage = __('flshmsg_user_info.quit_success');
+            }
+            return redirect("/")->with($messageKey, $flashMessage);
+        }
+        return App::abort(404);
+    }
+    
     public function show($id)
     {
         $user = User::findOrFail($id);

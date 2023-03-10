@@ -2,10 +2,11 @@
 @section('content')
     <div class="center jumbotron bg-info">
         <div class="text-center text-white mt-2 pt-1">
-            <h1><i class="pr-3"></i>Topic Posts</h1>
+            <h1><i class="fas fa-solid fa-headphones"></i>ゲーアニ Music Board</h1>
         </div>
     </div>
-    <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
+    <h5 class="text-center mb-3">" ゲーム・アニメ音楽 " をオススメしよう！</h5>
+    @include('users.FlashMessages')
     @if(Auth::check())
         @if (session('message'))
             <div class="w-75 m-auto">

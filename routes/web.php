@@ -34,6 +34,7 @@ Route::group (['middleware' => 'auth'], function () {
     Route::prefix('users')->group(function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
         Route::post('{id}', 'UsersController@store')->name('users.store');
+        Route::delete('{id}', 'UsersController@destroy')->name('users.delete');
     });
     // フォロー
     Route::group(['prefix' => 'users/{id}'], function() {
