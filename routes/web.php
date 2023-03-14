@@ -26,6 +26,8 @@ Route::group(['middleware'=>'auth'], function () {
         Route::get('followings', 'FollowsController@followings')->name('user.followings');
         Route::get('followUsers', 'FollowsController@followUsers')->name('user.followUsers');
     });
+    Route::post('post', 'PostsController@store')->name('posts.store');
+    
 //投稿編集・更新
 Route::group(['prefix'=>'post'],function(){
     Route::get('{id}/edit','PostsController@edit')->name('post.edit');
