@@ -45,7 +45,7 @@ class UsersController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
 
-        return redirect('users/' . $user->id);
+        return redirect('users/' . $user->id)->with('withdrawal_flash_message','更新しました');
     }
 
     public function destroy ($id)

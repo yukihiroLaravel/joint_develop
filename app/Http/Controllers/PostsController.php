@@ -16,6 +16,16 @@ class PostsController extends Controller
             'posts' => $posts,
         ]);
     }
+    
+    public function store(PostRequest $request)
+    {
+        $post = new Post;
+        $post->content = $request->content;
+        $post->user_id = $request->user()->id;
+        $post->save();
+        return back()->with('successMessage', '投稿されました。');
+    }
+    
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
