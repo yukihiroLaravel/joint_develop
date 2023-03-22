@@ -11,4 +11,11 @@
 |
 */
 
+
+
+// ユーザ新規登録
+    // 新規登録画面表示
+Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+    // 新規登録実行
+Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 Route::get('/', 'UsersController@index');
