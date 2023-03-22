@@ -18,6 +18,5 @@ class UsersTableSeeder extends Seeder
                 'password' => bcrypt('test'.$val)
             ]);
         }
-        
     }
 }
