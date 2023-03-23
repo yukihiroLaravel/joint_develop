@@ -11,11 +11,11 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-     for($val =1; $val <= 13; $val++){
-        DB::table('posts')->insert([
+        for ($val = 1; $val <= 13; $val++) {
+            DB::table('posts')->insert([
             'text' => 'test'.$val,
-            'user_id' => 1+$val,
-        ]);
-     }
+            'user_id' => $val + 1,
+            ]);
+          }
     }
 }
