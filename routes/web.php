@@ -19,3 +19,15 @@ Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('sign
     // 新規登録実行
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 Route::get('/', 'UsersController@index');
+
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    // 動画
+    Route::prefix('user')->group(function () {
+        // Route::get('create', 'UsersController@create')->name('user.create');
+        // Route::post('', 'UsersController@store')->name('user.store');
+        Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
+        Route::put('{id}', 'UsersController@update')->name('user.update');
+        Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
+    });
+});
