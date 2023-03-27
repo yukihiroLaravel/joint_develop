@@ -20,6 +20,7 @@ Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('sign
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 Route::get('/', 'UsersController@index');
 
+<<<<<<< HEAD
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
     // 動画
@@ -31,3 +32,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
     });
 });
+=======
+// ログイン
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login.post');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+>>>>>>> develop_b_yayoi_rab
