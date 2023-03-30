@@ -15,20 +15,20 @@ class PostTableSeeder extends Seeder
     {
         DB::table('postss')->insert([
             'user_id' => 1,
-            'text' => 'test',
+            'text' => 'こちらはダミー投稿です。',
         ]);
         DB::table('postss')->insert([
             'user_id' => 2,
-            'text' => 'test',
+            'text' => 'こちらはダミー投稿です。',
         ]);
 
         DB::table('postss')->insert([
             'user_id' => 3,
-            'text' => 'test',
+            'text' => 'こちらはダミー投稿です。',
         ]);
         DB::table('postss')->insert([
             'user_id' => 4,
-            'text' => 'test',
+            'text' => 'こちらはダミー投稿です。',
         ]);
     }
 }
