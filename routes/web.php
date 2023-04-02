@@ -19,3 +19,9 @@ Route::get('/', function () {
 //ユーザ登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+
+//ユーザー編集、更新
+Route::group(['prefix' => 'users'], function () {
+    Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
+    Route::put('{id}', 'UsersController@update')->name('user.update');
+});
