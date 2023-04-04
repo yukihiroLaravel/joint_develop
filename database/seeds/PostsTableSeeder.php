@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Post;
 
 class PostsTableSeeder extends Seeder
 {
@@ -11,23 +12,12 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('posts')->insert([
-            'user_id' => 1,
-            'text' => 'こちらはダミー投稿です。',
-        ]);
-        DB::table('posts')->insert([
-            'user_id' => 2,
-            'text' => 'こちらはダミー投稿です。',
-        ]);
-
-        DB::table('posts')->insert([
-            'user_id' => 3,
-            'text' => 'こちらはダミー投稿です。',
-        ]);
-        DB::table('posts')->insert([
-            'user_id' => 4,
-            'text' => 'こちらはダミー投稿です。',
-        ]);
+        for ($i = 1; $i <= 15; $i++) {
+            Post::create([
+                'user_id' => 1,
+                'text' => 'テスト投稿です'. $i,
+            ]);
+        }
     }
 }
 
