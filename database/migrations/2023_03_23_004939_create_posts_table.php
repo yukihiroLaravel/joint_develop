@@ -18,7 +18,6 @@ class CreatePostsTable extends Migration
             $table->string('text');
             $table->bigInteger('user_id')->unsigned()->index();
             $table->timestamps();
-            //$table->softDeletes();
            
             // 外部キー制約
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
