@@ -29,3 +29,11 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // 投稿一覧表示
 Route::get('/', 'PostsController@index')->name('posts');
+
+// 投稿関連
+Route::group(['middleware' => 'auth'], function () {
+    // 投稿（新規、編集、更新、削除）
+    Route::prefix('posts')->group(function () {
+        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
+    });
+});
