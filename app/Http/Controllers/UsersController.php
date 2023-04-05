@@ -18,7 +18,6 @@ class UsersController extends Controller
         return view('welcome');
     }
 
-  
     public function edit($id)
     {
         $user = User::findOrFail($id);
@@ -35,7 +34,7 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-        return view('users.edit'); //ユーザ詳細画面のURL
+        return view('welcome'); //ユーザ詳細画面のURL
     }
 
 }
