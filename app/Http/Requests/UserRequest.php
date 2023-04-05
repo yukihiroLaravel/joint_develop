@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\User;
+
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -28,9 +28,17 @@ class UserRequest extends FormRequest
     {
         return [
                 'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(Auth::id())],
+                'email' => ['required', 'string', 'email', 'max:255',
+                            Rule::unique('users')->ignore(Auth::id())],
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
             ];
-        }
-    
+    }
+        
+    public function attributes()
+    {
+        return [
+            'email' => 'メールアドレス',
+            'password' => 'パスワード',
+        ];
+    }
 }

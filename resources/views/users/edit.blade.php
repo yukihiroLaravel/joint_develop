@@ -4,6 +4,7 @@
     <form method="POST" action="{{ route('users.update',$user->id) }}">
     @csrf
     @method('PUT')
+    @include('commons.error_messages')
         <input type="hidden" name="id" value="{{ $user->id }}" />
         <div class="form-group">
             <label for="name">ユーザ名</label>
