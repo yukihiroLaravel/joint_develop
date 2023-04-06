@@ -7,5 +7,4 @@
 </div>
 <h5 class="description text-center">"○○"について140字以内で会話しよう！</h5>
 @include('post.post',['posts' => $posts])
-<!-- @include('post.post') -->
 @endsection
