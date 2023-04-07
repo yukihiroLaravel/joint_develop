@@ -24,5 +24,14 @@ class PostsController extends Controller
         }
         return back();
     }
-    
+    public function edit($id)
+    {
+        $user = \Auth::user();
+        $post = Post::findOrFail($id);
+        $data=[
+            'user' => $user,
+            'post' => $post,
+        ];
+        return view('posts.edit', $data);
+    }
 }
