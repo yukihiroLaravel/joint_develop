@@ -33,12 +33,4 @@ class UserRequest extends FormRequest
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
             ];
     }
-        
-    public function attributes()
-    {
-        return [
-            'email' => 'メールアドレス',
-            'password' => 'パスワード',
-        ];
-    }
 }
