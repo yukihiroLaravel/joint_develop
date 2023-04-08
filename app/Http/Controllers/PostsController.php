@@ -26,6 +26,7 @@ class PostsController extends Controller
     }
     public function edit($id)
     {
+        $user= new User();
         $user = \Auth::user();
         $post = Post::findOrFail($id);
         $data=[
