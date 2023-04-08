@@ -3,31 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\UserRequest;
 
 class UsersController extends Controller
 {
     //
     public function edit($id)
-    { {
-            $user = \Auth::user();
-            $movie = Movie::findOrFail($id);
-            $movies = $user->movies()->orderBy('id', 'desc')->paginate(9);
-            $data = [
-                'user' => $user,
-                'movie' => $movie,
-                'movies' => $movies,
-            ];
-            return view('movies.edit', $data);
-        }
-    }
-    public function update(MovieRequest $request, $id)
     {
-        $movie = Movie::findOrFail($id);
-        $movie->youtube_id = $request->youtube_id;
-        $movie->title = $request->title;
-        $movie->user_id = $request->user()->id;
-        $movie->favorite_flag = $request->favorite_flag ? 1 : 0;
-        $movie->save();
+        $user = \Auth::user();
+        $data = [
+            'user' => $user
+        ];
+        return view('users.edit', $data);
+    }
+    public function update(UserRequest $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        $user->save();
+        dd($user);
         return back();
     }
 }

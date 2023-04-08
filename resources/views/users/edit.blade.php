@@ -1,30 +1,35 @@
 @extends('layouts.app')
 @section('content')
-    <h2 class="mt-5">動画を編集する</h2>
-    <form method="POST" action="{{ route('movie.update', $movie->id) }}">
-        @csrf
-        @method('PUT')
-        <div class="form-group mt-5">
+ <div class="text-center">
+    <h1>ユーザ情報を編集する</h1>
+ </div>
+<div class="row mt-5 mb-5">
+    <div class="col-sm-10 offset-sm-1">
+        @include('commons.error_messages')
+        <form method="POST" action="{{ route('user.update',$user->id) }}">
+            @csrf
+            @method('PUT')
             <div class="form-group">
-                <label for="youtube_id" class="text-success">新規登録YouTube動画 "ID" を入力する</label>
-                <p>例）登録したいYouTube動画のURLが?<span>https://www.youtube.com/watch?v=-bNMq1Nxn5o?なら</span>
-                   <br>"v="の直後にある?"<span class="text-success">-bNMq1Nxn5o</span>"?を入力
-                </p>
-                <input id="youtube_id" type="text" class="form-control" name="youtube_id" value="{{ old('youtube_id', $movie->youtube_id) }}">
+                <label for="name">ユーザー名</label for-"name">
+                <input id="name" type="text" class="form-control" name="name" value="{{ old('name', $user->name) }}">
             </div>
             <div class="form-group">
-                <label for="title" class="mt-3">動画タイトル(※任意)</label>
-                <input id="title" type="text" class="form-control" name="title" value="{{ old('title', $movie->title) }}">
+                <label for="email">メールアドレス</label>
+                <input id="email" type="text" class="form-control" name="email" value="{{ old('email',$user->email) }}">
             </div>
             <div class="form-group">
-                <label for="favorite_flag" class="mt-3">
-                    <input id="favorite_flag" type="checkbox" name="favorite_flag" {{ old('favorite_flag', $movie->favorite_flag) == 1 ? 'checked' : '' }}>
-                    いいね！を許可する
-                </label>
+                <label for="password">パスワード</label>
+                <input id="password" type="password" class="form-control" name="password" value="{{ old('password',$user->password) }}">
             </div>
-            <button type="submit" class="btn btn-primary mt-5 mb-5">登録する</button>
-        </div>
-    </form>
-    <h2 class="mt-5">あなたの登録済み動画</h2>
-    @include('movies.movies', ['movies' => $movies])
+            <div class="form-group">
+                <label for="password">パスワードの確認</label>
+                <input id="password" type="password" class="form-control" name="password" value="{{ old('password',$user->password) }}">
+            </div>
+            <div class="d-flex justify-content-between">
+            <button type="submit" class="mt-3 btn btn-danger ">退会する</button>
+            <button tyoe="submit"class="mt-3 btn btn-primary"><a href="{{ route('user.update',$user->id) }}"class="text-white">更新する</a></button>
+            </div>
+        </form>
+    </div>
+</div>
 @endsection
