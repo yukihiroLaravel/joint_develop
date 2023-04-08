@@ -1,7 +1,9 @@
 @extends('layouts.app')
-@section('content')
-   
+@section('content')  
+ 
+
  <div class="row">
+    
   <aside class="col-sm-4 mb-5">
       <div class="card bg-info">
           <div class="card-header">
@@ -32,15 +34,17 @@
                     <p class="mb-2">{{$user->text}}</p>
                     <p class="text-muted">{{$user->created_at}}</p>
                 </div>
+                @if (\Auth::id() === $user->user_id)
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                        <form method="" action="">
+                        <form method="POST" action="#">
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>
-                        <a href="" class="btn btn-primary">編集する</a>
+                        <a href="#" class="btn btn-primary">編集する</a>
                     </div>
+                @endif
             </div>
         </li>
-</ul>
+      </ul>
 <div class="m-auto" style="width: fit-content"></div>
 
 
@@ -48,6 +52,7 @@
             
   </div>
  </div>
+
 </div>
-   
+ 
  @endsection
