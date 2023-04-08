@@ -12,7 +12,7 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        $posts = $user->posts->get();
+        $posts = $user->posts()->get();
         $data=[
             'user' => $user,
             'posts' => $posts
