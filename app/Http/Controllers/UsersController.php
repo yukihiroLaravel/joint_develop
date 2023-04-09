@@ -15,9 +15,8 @@ class UsersController extends Controller
         $posts = $user->posts()->get();
         $data=[
             'user' => $user,
-            'posts' => $posts
+            'posts' => $posts,
         ];
-   
         return view('users.show',$data);
     }
 }
