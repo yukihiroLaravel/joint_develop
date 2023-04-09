@@ -7,11 +7,10 @@
                   <h3 class="card-title text-light"></h3>
              </div>
              <div class="card-body">
-                  <img class="rounded-circle img-fluid" src="{{ Gravatar::src ($user->email,['size' => 330]) }}"
+                  <img class="rounded-circle img-fluid" src="{{ Gravatar::src ($user->email,['size' => 55]) }}"
                   alt="ユーザのアバター画像">
                   <div class="btn-brock mt-3">
-                       <a href="{{ route('user',$user->id) }}"
-                       class="btn btn-primary">ユーザ情報</a>
+                  <a href="{{ route('users.show',$user->id) }}" class="btn btn-primary">ユーザ情報の編集</a>
                   </div>
              </div>
          </div>
@@ -23,7 +22,7 @@
             <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
             <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
            </ul>
-           @include('posts.posts',['user' =>$user,'posts' => $posts])
+           @include('posts.post',['user' =>$user,'posts' => $posts])
       </div>
    </div>
 @endsection
