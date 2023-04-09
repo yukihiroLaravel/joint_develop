@@ -23,8 +23,7 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
     // Route::get('/', 'UsersController@index');
 
     // ユーザ詳細
-//Route::get('/', 'UsersController@index');
-Route::get('/users/{id}',[App\Http\Controllers\UsersController::class,'show'])->name('users.show');
+Route::get('/', 'UsersController@index');
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('users.show');
 });  
