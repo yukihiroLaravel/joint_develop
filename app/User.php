@@ -39,13 +39,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $dates = ['deleted_at'];
+    protected $dates = [
+        'deleted_at'
+    ];
 
     public function posts()
     {
         return $this->hasMany(Post::class);
     }
 
+    // ユーザ退会と同時にユーザが所有する投稿も削除する内容
     public static function boot()
     {
         parent::boot();
