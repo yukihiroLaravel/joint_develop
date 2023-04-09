@@ -20,6 +20,7 @@ class UsersController extends Controller
 
     public function edit($id)
     {
+        $user = \Auth::user();
         $user = User::findOrFail($id);
         $data=[
             'user' => $user,
@@ -29,6 +30,7 @@ class UsersController extends Controller
 
     public function update(UserRequest $request, $id)
     {
+        $user = \Auth::user();
         $user = User::findOrFail($id);
         $user->name = $request->name;
         $user->email = $request->email;

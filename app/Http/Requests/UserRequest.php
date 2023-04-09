@@ -31,6 +31,13 @@ class UserRequest extends FormRequest
                 'email' => ['required', 'string', 'email', 'max:255',
                             Rule::unique('users')->ignore(Auth::id())],
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
+               
             ];
+    }
+
+    public function messages()
+    {
+        return [
+            'confirmed' =>'パスワードとパスワード確認が、一致していません。'];
     }
 }
