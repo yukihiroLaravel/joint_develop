@@ -8,8 +8,8 @@
          </div>
          <div class="card-body">
             <img class="rounded-circle img-fluid" src="{{ Gravatar::src ($user->email,['size' => 400]) }}" alt="ユーザのアバター画像">
-            <div class="btn-brock mt-3">
-               @if(Auth::check() && Auth::id() == $user->id)
+            @if(Auth::check() && Auth::id() == $user->id)
+            <div class="mt-3">
                <a href="{{ route('users.show',$user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
             </div>
             @endif
