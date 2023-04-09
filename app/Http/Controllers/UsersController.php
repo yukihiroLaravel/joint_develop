@@ -3,11 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\UserRequest;
+use App\Http\Requests\UserRequest;
+use App\Http\Controllers\Controller;
+use App\User;
 
 class UsersController extends Controller
 {
     //
+    public function store($id)
+    {
+        \Auth::user()->users($id);
+        return back();
+    }
+
     public function edit($id)
     {
         $user = \Auth::user();
@@ -23,7 +31,6 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = $request->password;
         $user->save();
-        dd($user);
         return back();
     }
 }

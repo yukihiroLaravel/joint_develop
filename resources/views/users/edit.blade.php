@@ -27,7 +27,7 @@
             </div>
             <div class="d-flex justify-content-between">
             <button type="submit" class="mt-3 btn btn-danger ">退会する</button>
-            <button tyoe="submit"class="mt-3 btn btn-primary"><a href="{{ route('user.update',$user->id) }}"class="text-white">更新する</a></button>
+            <button type="submit"class="mt-3 btn btn-primary">更新する</a></button>
             </div>
         </form>
     </div>
