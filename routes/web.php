@@ -22,6 +22,18 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 // トップページの投稿表示のためコメントアウト
     // Route::get('/', 'UsersController@index');
 
+    // ユーザ詳細
+    Route::get('/', 'UsersController@index');
+    Route::prefix('users')->group(function () {
+        Route::get('{id}', 'UsersController@show')->name('users.show');
+    });
+    // ユーザ詳細・編集・更新
+    Route::group(['middleware' => 'auth'], function () {
+        Route::prefix('users')->group(function () {
+            Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
+            Route::put('{id}', 'UsersController@update')->name('users.update');
+        });    
+    });
 // ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
@@ -35,10 +47,5 @@ Route::group(['middleware' => 'auth'], function () {
     // 投稿（新規、編集、更新、削除）
     Route::prefix('posts')->group(function () {
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
-    });
-    // ユーザ詳細編集・更新
-    Route::prefix('users')->group(function () {
-        Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
-        Route::put('{id}', 'UsersController@update')->name('users.update');
     });
 });

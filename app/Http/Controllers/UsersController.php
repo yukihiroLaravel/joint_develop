@@ -13,6 +13,19 @@ class UsersController extends Controller
 {
     use SoftDeletes;
 
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(9);
+        $data = [
+        'user' => $user,
+        'posts' => $posts,
+        ];
+        $data += $this->userCounts($user);
+
+        return view('users.show', $data);
+    }
+
     public function index()
     {
         return view('welcome');
@@ -36,7 +49,7 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-        return back(); //ユーザ詳細画面のURL
+        return back();
     }
 
 }
