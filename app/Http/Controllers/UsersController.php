@@ -10,20 +10,19 @@ use App\User;
 class UsersController extends Controller
 {
     //
-    public function store($id)
-    {
-        \Auth::user()->users($id);
-        return back();
-    }
 
     public function edit($id)
     {
-        $user = \Auth::user();
-        $data = [
-            'user' => $user
-        ];
-        return view('users.edit', $data);
+        if ($id === \Auth::id()) {
+            $user = \Auth::user();
+            $data = [
+                'user' => $user
+            ];
+            return view('users.edit', $data);
+        }
+        abort(404);
     }
+
     public function update(UserRequest $request, $id)
     {
         $user = User::findOrFail($id);

@@ -25,11 +25,6 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        return [];
-    }
-
-    public function attributes()
-    {
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => [
@@ -37,5 +32,10 @@ class UserRequest extends FormRequest
             ],
             'password' => ['required', 'string', 'password', 'min:8'],
         ];
+    }
+
+    public function attributes()
+    {
+        return [];
     }
 }
