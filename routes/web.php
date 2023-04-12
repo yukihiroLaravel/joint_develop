@@ -10,13 +10,15 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-//トップページの表示
-Route::get('/', 'PostController@index');
-
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-
+//トップページ
+Route::get('/', 'PostController@index');
+//ユーザー
+Route::prefix('users')->group(function () {
+    Route::get('{id}', 'UsersController@show')->name('users.show');
+});
 //ユーザ登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
