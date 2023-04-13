@@ -35,4 +35,12 @@ class PostsController extends Controller
         ];
         return view('posts.edit', $data);
     }
+
+    public function update(Request $request, $id)
+    {
+        $post = \Auth::user();
+        $post = User::findOrFail($id);
+        $post->text = $request->text;
+        $post->save();
+        return back();
 }
