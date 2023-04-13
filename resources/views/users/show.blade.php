@@ -11,6 +11,7 @@
             @if(Auth::check() && Auth::id() == $user->id)
             <div class="mt-3">
                <a href="{{ route('users.show',$user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+               <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">退会する</a>
             </div>
             @endif
          </div>
@@ -25,15 +26,8 @@
       </ul>
       @include('posts.post',['user' =>$user,'posts' => $posts])
    </div>
-   @if(Auth::check() && Auth::id() == $user->id)
-   <div class="d-flex justify-content-between">
-      <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">退会する</a>
-   </div>
-   @endif
 </div>
 @endsection
-
-
 
 <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
     <div class="modal-dialog">
