@@ -23,13 +23,13 @@ Route::prefix('users')->group(function () {
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
-//ログイン後
+// ログイン後
 Route::group(['middleware' => 'auth'], function () {
-    // 投稿
-    Route::prefix('post')->group(function () {
+  // 投稿
+Route::prefix('post')->group(function () {
+    Route::post('', 'PostController@store')->name('post.store');
     Route::delete('{id}', 'PostController@destroy')->name('post.delete');
     Route::get('{id}/edit', 'PostController@edit')->name('post.edit');
     Route::put('{id}', 'PostController@update')->name('post.update');
-    });
-    
+  });
 });
