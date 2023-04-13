@@ -33,23 +33,34 @@ class UsersController extends Controller
 
     public function edit($id)
     {
-        $user = \Auth::user();
+        // $user = \Auth::user();
+
         $user = User::findOrFail($id);
-        $data=[
-            'user' => $user,
-        ];
-        return view('users.edit',$data);
+        if(\Auth::id() == $user->id){
+            $data=[
+                'user' => $user,
+            ];
+            return view('users.edit',$data);
+           
+        };
     }
 
     public function update(UserRequest $request, $id)
     {
-        $user = \Auth::user();
         $user = User::findOrFail($id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->save();
-        return back();
+            if(\Auth::id() == $user->id){
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->save();
+            $posts = $user->posts()->orderBy('id', 'desc')->paginate(9);
+            $data =[
+                'user'=> $user,
+                'posts' => $posts,
+            ];
+            
+            return view('users.show',$data);
+       };
     }
 
 }
