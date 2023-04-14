@@ -28,7 +28,7 @@ class PostsController extends Controller
     {
         $user= new User();
         $user = \Auth::user();
-        $post = Post::findOrFail($id);
+        $post = Post::findOrFail($id); 
         $data=[
             'user' => $user,
             'post' => $post,
@@ -38,9 +38,16 @@ class PostsController extends Controller
 
     public function update(Request $request, $id)
     {
-        $post = \Auth::user();
-        $post = User::findOrFail($id);
+        // $post = \Auth::user();
+        $post = Post::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'text' => 'required|max:255',
+        ]);
+    
+        $post->id = $request->user()->id;
         $post->text = $request->text;
         $post->save();
         return back();
+    }
 }
