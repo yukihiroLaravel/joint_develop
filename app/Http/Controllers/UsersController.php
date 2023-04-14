@@ -7,20 +7,20 @@ use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use App\User;
 
+
+
 class UsersController extends Controller
 {
     //
-
     public function edit($id)
     {
-        if ($id === \Auth::id()) {
+        if ($id == \Auth::id()) {
             $user = \Auth::user();
             $data = [
                 'user' => $user
             ];
             return view('users.edit', $data);
         }
-        abort(404);
     }
 
     public function update(UserRequest $request, $id)
@@ -28,7 +28,7 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = $request->password;
+        $user->password = bcrypt($request->password);
         $user->save();
         return back();
     }

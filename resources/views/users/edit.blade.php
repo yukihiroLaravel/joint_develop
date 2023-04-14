@@ -18,8 +18,8 @@
                 <input id="password" type="password" class="form-control" name="password" value="{{ old('password') }}">
             </div>
             <div class="form-group">
-                <label for="password">パスワードの確認</label>
-                <input id="password" type="password" class="form-control" name="password" value="{{ old('password') }}">
+                <label for="password_confirmation">パスワードの確認</label>
+                <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" value="{{ old('password_confirmation') }}">
             </div>
             <div class="d-flex justify-content-between">
                 <button type="submit" class="mt-3 btn btn-danger ">退会する</button>

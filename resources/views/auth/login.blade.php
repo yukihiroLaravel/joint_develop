@@ -26,6 +26,5 @@
             <div class="mt-2"><a href="{{ route('signup') }}">新規ユーザ登録する？</a></div>
         </form>
     </div>
-</div>
-@endsection
-
+</div> 
+@endsection 
