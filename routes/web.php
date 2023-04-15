@@ -27,7 +27,6 @@ Route::group(['prefix' => 'users'], function () {
   Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
   Route::put('{id}', 'UsersController@update')->name('user.update');
 });
-
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
   // 投稿
