@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\UserRequest;
-use App\Http\Controllers\Controller;
 use App\User;
 use App\Posts;
 
@@ -21,6 +19,7 @@ class UsersController extends Controller
         ];
         return view('users.show', $data);
     }
+
     public function edit($id)
     {
         if ($id == \Auth::id()) {
