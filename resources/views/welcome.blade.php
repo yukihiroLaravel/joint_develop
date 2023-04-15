@@ -20,5 +20,5 @@
         </form>
     </div>
 @endif
-@include('post.post',['posts' => $posts])
+{{-- @include('post.post',['posts' => $posts]) --}}
 @endsection
