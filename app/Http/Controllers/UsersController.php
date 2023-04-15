@@ -29,6 +29,7 @@ class UsersController extends Controller
             ];
             return view('users.edit', $data);
         }
+        abort(404);
     }
 
     public function update(UserRequest $request, $id)
