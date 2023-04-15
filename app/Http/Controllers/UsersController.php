@@ -11,7 +11,6 @@ use App\User;
 
 class UsersController extends Controller
 {
-    //
     public function edit($id)
     {
         if ($id == \Auth::id()) {
