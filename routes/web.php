@@ -24,6 +24,7 @@ Route::prefix('users')->group(function () {
 //ユーザ登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
   // 投稿
