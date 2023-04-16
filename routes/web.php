@@ -18,8 +18,8 @@ Route::get('/', 'PostController@index');
 //ユーザー詳細、編集、更新
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('users.show');
-    Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
-    Route::put('{id}', 'UsersController@update')->name('user.update');
+    Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
+    Route::put('{id}', 'UsersController@update')->name('users.update');
 });
 //ユーザ登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
