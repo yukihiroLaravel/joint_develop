@@ -20,5 +20,4 @@
         </form>
     </div>
 @endif
-@include('post.post',['posts' => $posts])
 @endsection
