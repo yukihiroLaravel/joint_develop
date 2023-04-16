@@ -2,10 +2,10 @@
 @section('content')
     <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
     <form method="POST" action="{{ route('user.update', $user->id) }}">
-        @csrf
-        @method('PUT')
-        @include('commons.error_messages')
-        <div class="form-group">
+    @csrf
+    @method('PUT')
+    @include('commons.error_messages')
+    <div class="form-group">
             <label for="name">ユーザー名</label for-"name">
             <input id="name" type="text" class="form-control" name="name" value="{{ old('name', $user->name) }}">
         </div>
@@ -26,6 +26,6 @@
         <div class="d-flex justify-content-between">
             <button type="submit" class="mt-3 btn btn-danger ">退会する</button>
             <button type="submit"class="mt-3 btn btn-primary">更新する</a></button>
-        </div>
+    </div>
     </form>
 @endsection
