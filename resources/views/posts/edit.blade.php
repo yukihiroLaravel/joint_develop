@@ -5,7 +5,7 @@
         @csrf
         @method('put')
         <div class="form-group">
-            <textarea id="content" class="form-control" name="post_edit" value="{{ old('text',$post->text) }}" row=""></textarea>
+            <textarea id="content" class="form-control" name="post_edit" value="{{ old('text',$post->text) }}" rows="5"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">更新する</button>
     </form>
