@@ -44,10 +44,6 @@ class PostsController extends Controller
 
         $validatedData = $request->validate([
             'text' => 'required|max:255',
-            'email' => ''
-            'id' => ['required', 'string', 'email', 'max:255',
-                    Rule::unique('user')->ignore(Auth::id())
-                ],
         ]);
     
         $post->id = $request->user()->id;
