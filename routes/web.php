@@ -22,10 +22,12 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 // トップページの投稿表示のためコメントアウト
 // Route::get('/', 'UsersController@index');
 
-    // ユーザ詳細
+// ユーザ詳細
 Route::get('/', 'UsersController@index');
+// ユーザ（詳細、編集、更新、削除）
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('users.show');
+    Route::delete('{id}', 'UsersController@destroy')->name('users.delete');
 });  
 
 // ログイン
@@ -44,5 +46,4 @@ Route::group(['middleware' => 'auth'], function () {
     });         
 });
 
-// ユーザ退会
-Route::delete('{id}', 'UsersController@destroy')->name('users.delete');
+
