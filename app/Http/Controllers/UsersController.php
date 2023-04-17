@@ -33,22 +33,19 @@ class UsersController extends Controller
 
     public function edit($id)
     {
-        // $user = \Auth::user();
-
         $user = User::findOrFail($id);
-        if(\Auth::id() == $user->id){
+        if(\Auth::check() && \Auth::id() == $user->id){
             $data=[
                 'user' => $user,
             ];
             return view('users.edit',$data);
-           
         };
     }
 
     public function update(UserRequest $request, $id)
     {
         $user = User::findOrFail($id);
-            if(\Auth::id() == $user->id){
+        if(\Auth::check() && \Auth::id() == $user->id){
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
@@ -58,9 +55,8 @@ class UsersController extends Controller
                 'user'=> $user,
                 'posts' => $posts,
             ];
-            
-            return view('users.show',$data);
-       };
+        return view('users.show',$data);
+        };
     }
 
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Post;
+use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
 
@@ -24,5 +25,34 @@ class PostsController extends Controller
         }
         return back();
     }
+    public function edit($id)
+    {
+        $user= new User();
+        $user = \Auth::user();
+        $post = Post::findOrFail($id); 
+        $data=[
+            'user' => $user,
+            'post' => $post,
+        ];
+        return view('posts.edit', $data);
+    }
+
+    public function update(Request $request, $id)
+    {
+        // $post = \Auth::user();
+        $post = Post::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'text' => 'required|max:255',
+            'email' => ''
+            'id' => ['required', 'string', 'email', 'max:255',
+                    Rule::unique('user')->ignore(Auth::id())
+                ],
+        ]);
     
+        $post->id = $request->user()->id;
+        $post->text = $request->text;
+        $post->save();
+        return back();
+    }
 }
