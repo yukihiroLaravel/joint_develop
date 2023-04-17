@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Post;
+use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
 
@@ -43,6 +44,9 @@ class PostsController extends Controller
 
         $validatedData = $request->validate([
             'text' => 'required|max:255',
+            'id' => ['required', 'string', 'email', 'max:255',
+                    // Rule::unique('user')->ignore(Auth::id())
+                ],
         ]);
     
         $post->id = $request->user()->id;
