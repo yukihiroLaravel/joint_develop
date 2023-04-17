@@ -37,19 +37,12 @@ class PostsController extends Controller
         return view('posts.edit', $data);
     }
 
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, $id)
     {
-        // $post = \Auth::user();
-        $post = Post::findOrFail($id);
-
-        $validatedData = $request->validate([
-            'text' => 'required|max:255',
-            'id' => ['required', 'string', 'email', 'max:255',
-                    // Rule::unique('user')->ignore(Auth::id())
-                ],
-        ]);
-    
+        $post = \Auth::user();
+        $post = Post::findOrFail($id);    
         $post->id = $request->user()->id;
+        $post->user_id = $request->user()->user_id;
         $post->text = $request->text;
         $post->save();
         return back();

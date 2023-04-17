@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class PostRequest extends FormRequest
 {
@@ -25,8 +26,6 @@ class PostRequest extends FormRequest
     {
         return [
             'text' => 'required|max:255',
-            'id' => ['required', 'string', 'email', 'max:255',
-                    Rule::unique('user')->ignore(Auth::id())],
         ];
     }
 }
