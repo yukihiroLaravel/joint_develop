@@ -39,6 +39,8 @@ class UsersController extends Controller
                 'user' => $user,
             ];
             return view('users.edit',$data);
+        }else{
+            abort(404);
         };
     }
 
@@ -55,7 +57,9 @@ class UsersController extends Controller
                 'user'=> $user,
                 'posts' => $posts,
             ];
-        return view('users.show',$data);
+            return view('users.show',$data);
+        }else{
+            abort(404);
         };
     }
 
