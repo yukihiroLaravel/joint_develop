@@ -25,30 +25,4 @@ class PostsController extends Controller
         }
         return back();
     }
-    public function edit($id)
-    {
-        $user= new User();
-        $user = \Auth::user();
-        $post = Post::findOrFail($id); 
-        $data=[
-            'user' => $user,
-            'post' => $post,
-        ];
-        return view('posts.edit', $data);
-    }
-
-    public function update(Request $request, $id)
-    {
-        // $post = \Auth::user();
-        $post = Post::findOrFail($id);
-
-        $validatedData = $request->validate([
-            'text' => 'required|max:255',
-        ]);
-    
-        $post->id = $request->user()->id;
-        $post->text = $request->text;
-        $post->save();
-        return back();
-    }
 }
