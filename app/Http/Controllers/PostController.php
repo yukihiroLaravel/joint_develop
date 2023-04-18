@@ -24,4 +24,22 @@ class PostController extends Controller
         $post->save();
         return back();
     }
+    public function edit($id)
+    {
+        $user = \Auth::user();
+        $posts = Posts::findOrFail($id);
+        $data = [
+            'user' => $user,
+            'posts' => $posts,
+        ];
+        return view('post.edit', $data);
+    }
+    public function update(PostRequest $request, $id)
+    {
+        $post = Posts::findOrFail($id);
+        $post->text = $request->contents;
+        $post->user_id = $request->user()->id;
+        $post->save();
+        return redirect('');
+    }
 }
