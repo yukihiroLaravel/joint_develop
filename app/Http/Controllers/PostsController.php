@@ -34,5 +34,4 @@ class PostsController extends Controller
         }
         return back();
     }
-    
 }
