@@ -32,4 +32,9 @@ Route::group(['middleware' => 'auth'], function () {
       Route::post('', 'PostController@store')->name('post.store');
       Route::delete('{id}', 'PostController@destroy')->name('post.delete');
   });
+  // いいね
+  Route::group(['prefix' => 'users/{id}'],function(){
+      Route::post('follow','FollowController@store')->name('follow');
+      Route::delete('unFollow','FollowController@destroy')->name('unFollow');
+  });
 });
