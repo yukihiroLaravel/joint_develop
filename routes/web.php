@@ -15,7 +15,7 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 //トップページ
 Route::get('/', 'PostController@index');
-//ユーザー詳細、編集、更新、削除
+//ユーザー詳細、編集、更新、退会
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('users.show');
     Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');

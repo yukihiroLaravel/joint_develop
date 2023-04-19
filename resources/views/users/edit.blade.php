@@ -26,4 +26,26 @@
             <button type="submit"class="mt-3 btn btn-primary">更新する</a></button>
         </div>
     </form>
+
+        <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="delete-modal-label">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="delete-modal-label">退会</h4>
+                        <form method="POST" action="{{ route('users.delete', $user->id) }}">
+                            @csrf
+                            @method('DELETE')
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>本当に退会しますか？</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+                        <button type="submit" id="delete-button" class="btn btn-danger">退会する</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 @endsection
