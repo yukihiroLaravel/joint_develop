@@ -15,6 +15,7 @@ class PostController extends Controller
             'posts' => $posts,
         ]);
     }
+
     public function store(PostRequest $request)
     {
         $post = new Posts;
@@ -23,16 +24,21 @@ class PostController extends Controller
         $post->save();
         return back();
     }
+
     public function edit($id)
-    {
+    {   
         $user = \Auth::user();
-        $posts = Posts::findOrFail($id);
-        $data = [
-            'user' => $user,
-            'posts' => $posts,
-        ];
-        return view('post.edit', $data);
+        $post = Posts::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            $data = [
+                'user' => $user,
+                'post' => $post,
+            ];
+            return view('post.edit', $data);
+        }
+            abort(404);
     }
+
     public function update(PostRequest $request, $id)
     {
         $post = Posts::findOrFail($id);
@@ -41,6 +47,7 @@ class PostController extends Controller
         $post->save();
         return redirect('');
     }
+    
     public function destroy($id)
     {
         $post = Posts::findOrFail($id);

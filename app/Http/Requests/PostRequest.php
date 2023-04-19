@@ -24,7 +24,6 @@ class PostRequest extends FormRequest
     {
         return [
             'contents' => 'required|max:140',
-            
         ];
     }
     public function attributes()
@@ -33,5 +32,4 @@ class PostRequest extends FormRequest
             'contents' => '投稿',
         ];
     }
-    
 }
