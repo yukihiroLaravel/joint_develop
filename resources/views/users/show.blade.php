@@ -15,7 +15,8 @@
                     </div>
                 @endif
           </div>
-        </div>
+        </div><br>
+        @include('users.follow_button',['followuser'=>$user])
     </aside>
     <div class="col-sm-8">
       <ul class="nav nav-tabs nav-justified mb-3">
