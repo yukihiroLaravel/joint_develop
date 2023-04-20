@@ -159,4 +159,5 @@ return [
         'password' => 'パスワード',
     ],
 
+    'messages' => [],
 ];
