@@ -23,7 +23,7 @@
         </form>
     </div>
 @endif
-    @include('posts.post', ['posts' => $posts])
+@include('posts.post', ['posts' => $posts])
 @endsection
 
                 
