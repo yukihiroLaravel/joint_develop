@@ -36,7 +36,7 @@ class PostController extends Controller
             ];
             return view('post.edit', $data);
         }
-            abort(404);
+        abort(404);
     }
 
     public function update(PostRequest $request, $id)
