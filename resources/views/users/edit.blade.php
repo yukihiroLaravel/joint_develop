@@ -22,30 +22,40 @@
             <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" value="{{ old('password_confirmation') }}">
         </div>
         <div class="d-flex justify-content-between">
-            <button type="submit" class="mt-3 btn btn-danger ">退会する</button>
+            <a href="#" data-toggle="modal" data-target="#delete-modal" class="btn btn-danger">退会する</a>
             <button type="submit"class="mt-3 btn btn-primary">更新する</a></button>
         </div>
     </form>
 
-        <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="delete-modal-label">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="delete-modal-label">退会</h4>
-                        <form method="POST" action="{{ route('users.delete', $user->id) }}">
-                            @csrf
-                            @method('DELETE')
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>本当に退会しますか？</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
-                        <button type="submit" id="delete-button" class="btn btn-danger">退会する</button>
-                    </div>
-                </div>
+    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="delete-modal-label">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">確認</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
+            <div class="modal-body">
+              <form method="POST" action="{{ route('users.delete', $user->id) }}">
+                @csrf
+                @method('DELETE')
+                <label>本当に退会しますか？</label>
+                <div class="modal-footer">
+                  <button type="submit" id="delete-button" class="btn btn-danger">退会する</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-    </form>
+      </div>
+      このコードはBootstrap 4を使用していることを前提としています。必要に応じて、CSSスタイルシートのリンクを確認してください。また、Laravelフレームワークを使用している場合は、$user->idの箇所を適切な変数に置き換える必要があります。
+      
+      
+      
+      
+      
+      
+      
 @endsection
