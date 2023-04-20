@@ -12,11 +12,6 @@ class UsersController extends Controller
 {
     use SoftDeletes;
 
-    public function index()
-    {
-        return view('welcome');
-    }
-
     public function show($id)
     {
         $user = User::findOrFail($id);
