@@ -41,6 +41,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $dates = [
+        'deleted_at'
+    ];
+
     public function posts()
     {
         return $this->hasMany(Post::class);
@@ -81,5 +85,15 @@ class User extends Authenticatable
     public function isFollow($followedId)
     {
         return $this->follows()->where('followed_id', $followedId)->exists();
+    }
+
+    // ユーザ退会と同時にユーザが所有する投稿も削除する内容
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleted(function ($user) {
+            $user->posts()->delete();
+        });
     }
 }

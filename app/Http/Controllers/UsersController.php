@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
 use App\User;
 
 class UsersController extends Controller
@@ -18,19 +17,14 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         $posts = $user->posts()->orderBy('id', 'desc')->paginate(9);
         $data = [
-        'user' => $user,
-        'posts' => $posts,
+            'user' => $user,
+            'posts' => $posts,
         ];
         $data += $this->userCounts($user);
-
+        
         return view('users.show', $data);
     }
-
-    public function index()
-    {
-        return view('welcome');
-    }
-
+    
     public function edit($id)
     {
         $user = User::findOrFail($id);
@@ -63,4 +57,14 @@ class UsersController extends Controller
         };
     }
 
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        if (\Auth::id() === $user->id) {
+            $user->delete();            
+        }
+        return redirect('/');              
+    }
 }
+        
+
