@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests;
 
+
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
-class PostRequest extends FormRequest
+class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,14 +27,17 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'text' => 'required|max:140',            
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255',
+                            Rule::unique('users')->ignore(Auth::id())],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
 
     public function messages()
     {
         return [
-            'string'  => ':投稿は、:max文字以下にしてください。'
+            'confirmed' =>'パスワードとパスワード確認が、一致していません。'
         ];
     }
 }
