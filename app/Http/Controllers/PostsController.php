@@ -17,6 +17,15 @@ class PostsController extends Controller
         return view('welcome', ['posts' => $posts]);
     }
 
+    public function store(PostRequest $request)
+    {
+        $post = new Post;
+        $post->text = $request->text;
+        $post->user_id = \Auth::id();
+        $post->save();
+        return back();
+    }
+
     public function destroy($id)
     {
         $post = Post::findOrFail($id);

@@ -28,11 +28,18 @@ class PostRequest extends FormRequest
             'text' => 'required|max:140',            
         ];
     }
+    
+    public function attributes()
+    {
+        return [
+            'text' => '投稿',
+        ];
+    }
 
     public function messages()
     {
         return [
-            'string'  => ':投稿は、:max文字以下にしてください。'
+            'string'  => ':attributeは、:max文字以下にしてください。'
         ];
     }
 }
