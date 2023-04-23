@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
-    <form method="POST" action="{{ route('users.update', $user->id) }}">
+    <form method="POST" action="{{ route('users.update', $user->id) }}"> --}}
     @csrf
     @method('PUT')
     @include('commons.error_messages')
@@ -49,13 +49,5 @@
             </div>
           </div>
         </div>
-      </div>
-      このコードはBootstrap 4を使用していることを前提としています。必要に応じて、CSSスタイルシートのリンクを確認してください。また、Laravelフレームワークを使用している場合は、$user->idの箇所を適切な変数に置き換える必要があります。
-      
-      
-      
-      
-      
-      
-      
+      </div>     
 @endsection
