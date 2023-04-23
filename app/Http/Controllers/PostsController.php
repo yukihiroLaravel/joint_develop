@@ -37,25 +37,18 @@ class PostsController extends Controller
 
     public function edit($id)
     {
-        $user= new User();
-        $user = \Auth::user();
         $post = Post::findOrFail($id); 
-        if(\Auth::check() && \Auth::id() == $user->id){
-            $data=[
-                'user' => $user,
-                'post' => $post,
-            ];
-            return view('posts.edit', $data);
+        if(\Auth::id() === $post->user_id){
+            return view('posts.edit', ['post' => $post]);
         }else{
             abort(404);
         };
-
     }
 
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
-        if(\Auth::check() && \Auth::id() == $post->user_id){
+        if(\Auth::id() === $post->user_id){
             $post->text = $request->text;
             $post->save();
             $posts = Post::orderBy('created_at','desc')->paginate(10);
