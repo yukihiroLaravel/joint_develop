@@ -20,13 +20,15 @@ Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('sign
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 // ユーザ（詳細、編集、更新、削除）
-Route::get('/', 'UsersController@index');
 Route::prefix('users/{id}')->group(function () {
     Route::get('/', 'UsersController@show')->name('users.show');
     Route::group(['middleware' => 'auth'], function () {
             Route::get('edit', 'UsersController@edit')->name('users.edit');
             Route::put('/', 'UsersController@update')->name('users.update');
-            Route::delete('/', 'UsersController@destroy')->name('users.delete');  
+            Route::delete('/', 'UsersController@destroy')->name('users.delete');
+            // フォロー機能
+            Route::post('follow', 'FollowController@store')->name('follow');
+            Route::delete('unFollow', 'FollowController@destroy')->name('unFollow');
     });
 });
 

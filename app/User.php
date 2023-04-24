@@ -71,7 +71,7 @@ class User extends Authenticatable
         }
     }
 
-    public function unfollow($followedId)
+    public function unFollow($followedId)
     {
         $exist = $this->isFollow($followedId);
         if ($exist) {
