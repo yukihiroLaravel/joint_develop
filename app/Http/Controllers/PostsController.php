@@ -52,11 +52,7 @@ class PostsController extends Controller
             $post->text = $request->text;
             $post->save();
             $posts = Post::orderBy('created_at','desc')->paginate(10);
-            $data =[
-                'post'=> $post,
-                'posts' => $posts,
-            ];
-            return view('welcome',$data);
+            view('welcome',['posts' => $posts]);
         }else{
             abort(404);
         }
