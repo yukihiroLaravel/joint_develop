@@ -28,9 +28,11 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
   // 投稿
-  Route::prefix('post')->group(function () {
-      Route::post('', 'PostController@store')->name('post.store');
-      Route::delete('{id}', 'PostController@destroy')->name('post.delete');
+Route::prefix('post')->group(function () {
+    Route::post('', 'PostController@store')->name('post.store');
+    Route::delete('{id}', 'PostController@destroy')->name('post.delete');
+    Route::get('{id}/edit', 'PostController@edit')->name('post.edit');
+    Route::put('{id}', 'PostController@update')->name('post.update');
   });
   // いいね
   Route::group(['prefix' => 'users/{id}'],function(){
