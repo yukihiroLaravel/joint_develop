@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Posts;
+use App\Post;
 use App\User;
 use App\Http\Requests\PostRequest;
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = Posts::orderBy('id','desc')->paginate(10);
+        $posts = Post::orderBy('id','desc')->paginate(10);
         return view('welcome', [
             'posts' => $posts,
         ]);

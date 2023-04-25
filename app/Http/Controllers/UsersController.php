@@ -44,6 +44,15 @@ class UsersController extends Controller
         return redirect()->route('users.show', $user->id);
     }
 
+    public function delete($id)
+{
+    $user = User::findOrFail($id);
+    if (\Auth::id() === $user->id) {
+        return view('users.delete', compact('user'));
+    }    
+    abort(404);
+}
+
     public function destroy($id)
     {
         $user = User::findOrFail($id);
