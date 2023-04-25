@@ -15,11 +15,12 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 //トップページ
 Route::get('/', 'PostController@index');
-//ユーザー詳細、編集、更新
+//ユーザー詳細、編集、更新、削除
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('users.show');
     Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
     Route::put('{id}', 'UsersController@update')->name('users.update');
+    Route::delete('{id}', 'UsersController@destroy')->name('users.delete');
 });
 //ユーザ登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
