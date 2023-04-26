@@ -7,7 +7,7 @@
             <div class="card-header">
                 <h3 class="card-title text-light">{{$user->name}}</h3>
             </div>
-            < class="card-body">
+            <div class="card-body">
                 <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 400) }}" alt="">
                 @if (Auth::check() && Auth::user()->id == $user->id)
                     <div class="mt-3">
