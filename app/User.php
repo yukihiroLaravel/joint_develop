@@ -38,10 +38,23 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $dates = [
+        'deleted_at'
+    ];
     
     public function posts()
     {
         return $this->hasMany(Posts::class);
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($user) {
+        $user->posts()->delete();
+    });
     }
 
     public function followings()
