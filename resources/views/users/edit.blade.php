@@ -41,12 +41,12 @@
                             @csrf
                             @method('DELETE')
                             <label>本当に退会しますか？</label>
-                    </div>
                             <div class="modal-footer justify-content-between">
                                 <button type="submit" id="delete-button" class="btn btn-danger">退会する</button>           
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
                             </div>
                         </form>
+                    </div>
                 </div>        
             </div>
         </div>       
