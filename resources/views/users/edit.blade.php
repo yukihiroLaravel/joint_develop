@@ -36,17 +36,17 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                     </div>
-                        <div class="modal-body">
-                            <form method="POST" action="{{ route('users.delete', $user->id) }}">
-                                @csrf
-                                @method('DELETE')
-                                <label>本当に退会しますか？</label>
-                        </div>
-                        <div class="modal-footer justify-content-between">
-                             <button type="submit" id="delete-button" class="btn btn-danger">退会する</button>
-                            </form>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
-                        </div>
+                    <div class="modal-body">
+                        <form method="POST" action="{{ route('users.delete', $user->id) }}">
+                            @csrf
+                            @method('DELETE')
+                            <label>本当に退会しますか？</label>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="submit" id="delete-button" class="btn btn-danger">退会する</button>
+                        </form>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+                    </div>
                 </div>        
             </div>
         </div>       
