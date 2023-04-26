@@ -53,8 +53,8 @@ class User extends Authenticatable
         parent::boot();
 
         static::deleting(function ($user) {
-        $user->posts()->delete();
-    });
+            $user->posts()->delete();
+        });
     }
 
     public function followings()
