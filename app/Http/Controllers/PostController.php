@@ -22,7 +22,7 @@ class PostController extends Controller
         $post->text = $request->contents;
         $post->user_id = $request->user()->id;
         $post->save();
-        return back();
+        return back()->with('successMessage', '投稿に成功しました。');
     }
 
     public function edit($id)
