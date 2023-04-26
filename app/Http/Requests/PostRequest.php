@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class PostRequest extends FormRequest
 {
@@ -24,13 +25,21 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'text' => 'required|max:140'
+            'text' => 'required|max:140',            
         ];
     }
+    
     public function attributes()
     {
         return [
             'text' => '投稿',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'string'  => ':attributeは、:max文字以下にしてください。'
         ];
     }
 }
