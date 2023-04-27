@@ -5,6 +5,11 @@
         <h1><i class="fas fa-chalkboard-teacher pr-3 d-inline"></i>Topic Posts</h1>
     </div>
 </div>
+@if (session('successMessage'))
+    <div class="alert alert-success text-center w-75 mx-auto ">
+        {{ session('successMessage') }}
+    </div>
+@endif
 <h5 class="description text-center">"○○"について140字以内で会話しよう！</h5>
 @if (Auth::check())
     <div class="w-75 m-auto">@include('commons.error_messages')</div>
