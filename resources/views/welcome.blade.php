@@ -6,7 +6,7 @@
     </div>
 </div>
 @if (session('successMessage'))
-    <div class="alert alert-success text-center w-75 m-auto">
+    <div class="alert alert-success text-center w-75 mx-auto mb-3">
         {{ session('successMessage') }}
     </div>
 @endif
