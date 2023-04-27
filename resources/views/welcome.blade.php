@@ -5,6 +5,11 @@
         <h1><i class="fas fa-chalkboard-teacher pr-3 d-inline"></i>Topic Posts</h1>
     </div>
 </div>
+@if (session('withdrawMessage'))
+    <div class="alert alert-danger text-center w-100">
+        {{ session('withdrawMessage') }}
+    </div>
+@endif
 <h5 class="description text-center">"○○"について140字以内で会話しよう！</h5>
 @if (Auth::check())
     <div class="w-75 m-auto">@include('commons.error_messages')</div>
@@ -22,3 +27,9 @@
 @endif
 @include('post.post',['posts' => $posts])
 @endsection
+
+@if (session('successMessage'))
+  <div class="alert alert-success text-center">
+    {{ session('successMessage') }}
+  </div> 
+@endif
