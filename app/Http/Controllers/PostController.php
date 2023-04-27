@@ -45,7 +45,7 @@ class PostController extends Controller
         $post->text = $request->contents;
         $post->user_id = $request->user()->id;
         $post->save();
-        return redirect('');
+        return redirect('')->with('updateMessage', '更新しました！');
     }
     
     public function destroy($id)
