@@ -6,8 +6,13 @@
     </div>
 </div>
 @if (session('alertMessage'))
-    <div class="alert alert-danger text-center w-100">
+    <div class="alert alert-danger text-center w-100 ">
         {{ session('alertMessage') }}
+    </div>
+@endif
+@if (session('successMessage'))
+    <div class="alert alert-success text-center w-75 mx-auto ">
+        {{ session('successMessage') }}
     </div>
 @endif
 <h5 class="description text-center">"○○"について140字以内で会話しよう！</h5>
