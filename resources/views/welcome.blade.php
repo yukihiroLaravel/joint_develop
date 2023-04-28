@@ -6,9 +6,9 @@
     </div>
 </div>
 @if (session('deleteMessage'))
-  <div class="alert alert-danger text-center w-75 mx-auto">
-    {{ session('deleteMessage') }}
-  </div> 
+    <div class="alert alert-danger text-center w-75 mx-auto">
+        {{ session('deleteMessage') }}
+    </div> 
 @elseif (session('successMessage'))
     <div class="alert alert-success text-center w-75 mx-auto ">
         {{ session('successMessage') }}
