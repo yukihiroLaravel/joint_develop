@@ -43,4 +43,13 @@ class UsersController extends Controller
         $user->save();
         return redirect()->route('users.show', $user->id);
     }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        if (\Auth::id() === $user->id) {
+            $user->delete();
+        }    
+        return redirect('/');
+    }
 }

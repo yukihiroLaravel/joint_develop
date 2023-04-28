@@ -22,7 +22,7 @@ class PostController extends Controller
         $post->text = $request->contents;
         $post->user_id = $request->user()->id;
         $post->save();
-        return back();
+        return back()->with('successMessage', '投稿に成功しました。');
     }
 
     public function edit($id)
@@ -54,6 +54,6 @@ class PostController extends Controller
         if (\Auth::id() === $post->user_id) {
             $post->delete();
         }
-        return back()->with('deleteMessage', '削除しました！');
+        return back()->with('deleteMessage', '削除しました。');
     }
 }
