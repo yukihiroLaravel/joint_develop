@@ -5,9 +5,9 @@
         <h1><i class="fas fa-chalkboard-teacher pr-3 d-inline"></i>Topic Posts</h1>
     </div>
 </div>
-@if (session('withdrawMessage'))
+@if (session('alertMessage'))
     <div class="alert alert-danger text-center w-100">
-        {{ session('withdrawMessage') }}
+        {{ session('alertMessage') }}
     </div>
 @endif
 <h5 class="description text-center">"○○"について140字以内で会話しよう！</h5>

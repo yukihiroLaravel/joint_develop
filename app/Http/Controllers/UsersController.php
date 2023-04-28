@@ -50,6 +50,6 @@ class UsersController extends Controller
         if (\Auth::id() === $user->id) {
             $user->delete();
         } 
-            return redirect('/')->with('withdrawMessage', '退会が完了しました');
+        return redirect('/')->with('alertMessage', '退会が完了しました');
     }
 }
