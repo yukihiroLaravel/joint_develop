@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')  
-@if (session('deleteMessage'))
-  <div class="alert alert-danger text-center">
-    {{ session('deleteMessage') }}
+@if (session('alertMessage'))
+  <div class="alert alert-danger text-center w-25 mx-auto">
+    {{ session('alertMessage') }}
   </div> 
 @endif
 <div class="row">

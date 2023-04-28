@@ -5,9 +5,9 @@
         <h1><i class="fas fa-chalkboard-teacher pr-3 d-inline"></i>Topic Posts</h1>
     </div>
 </div>
-@if (session('deleteMessage'))
+@if (session('alertMessage'))
     <div class="alert alert-danger text-center w-75 mx-auto">
-        {{ session('deleteMessage') }}
+        {{ session('alertMessage') }}
     </div> 
 @elseif (session('successMessage'))
     <div class="alert alert-success text-center w-75 mx-auto ">
