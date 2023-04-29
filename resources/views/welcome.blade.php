@@ -9,6 +9,14 @@
   <div class="alert alert-success text-center w-75 mx-auto">
     {{ session('updateMessage') }}
   </div> 
+@elseif (session('alertMessage'))
+    <div class="alert alert-danger text-center w-75 mx-auto">
+        {{ session('alertMessage') }}
+    </div> 
+@elseif (session('successMessage'))
+    <div class="alert alert-success text-center w-75 mx-auto ">
+        {{ session('successMessage') }}
+    </div>
 @endif
 <h5 class="description text-center">"○○"について140字以内で会話しよう！</h5>
 @if (Auth::check())

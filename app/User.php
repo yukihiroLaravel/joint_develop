@@ -39,11 +39,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     
+    protected $dates = [
+        'deleted_at'
+    ];
+
     public function posts()
     {
         return $this->hasMany(Posts::class);
     }
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($user) {
+            $user->posts()->delete();
+        });
+    }
+    
     public function followings()
     {
         return $this->belongsToMany(User::class, 'user_follow', 'user_id', 'follow_id')->withTimestamps();
