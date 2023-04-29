@@ -8,9 +8,8 @@
 @if (session('alertMessage'))
     <div class="alert alert-danger text-center w-75 mx-auto">
         {{ session('alertMessage') }}
-    </div>
-@endif
-@if (session('successMessage'))
+    </div> 
+@elseif (session('successMessage'))
     <div class="alert alert-success text-center w-75 mx-auto ">
         {{ session('successMessage') }}
     </div>
