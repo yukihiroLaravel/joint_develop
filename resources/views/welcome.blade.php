@@ -6,7 +6,7 @@
     </div>
 </div>
 @if (session('alertMessage'))
-    <div class="alert alert-danger text-center w-100 ">
+    <div class="alert alert-danger text-center w-75 mx-auto">
         {{ session('alertMessage') }}
     </div>
 @endif
@@ -32,9 +32,3 @@
 @endif
 @include('post.post',['posts' => $posts])
 @endsection
-
-@if (session('successMessage'))
-  <div class="alert alert-success text-center">
-    {{ session('successMessage') }}
-  </div> 
-@endif
