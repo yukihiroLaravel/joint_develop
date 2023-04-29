@@ -1,6 +1,10 @@
 @extends('layouts.app')
 @section('content')  
- 
+@if (session('alertMessage'))
+  <div class="alert alert-danger text-center w-25 mx-auto">
+    {{ session('alertMessage') }}
+  </div> 
+@endif
 <div class="row">
     <aside class="col-sm-4 mb-5">
         <div class="card bg-info">
