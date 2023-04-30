@@ -49,7 +49,7 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         if (\Auth::id() === $user->id) {
             $user->delete();
-        }    
-        return redirect('/');
+        } 
+        return redirect('/')->with('alertMessage', '退会が完了しました');
     }
 }
