@@ -24,6 +24,9 @@
          <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
       </ul>
       @include('posts.post',['user' =>$user,'posts' => $posts])
+      @if(session('successMessage'))
+         <div class="alert alert-success">{{ session('successMessage') }}</div>
+      @endif   
    </div>
 </div>
 @endsection

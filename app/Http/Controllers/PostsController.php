@@ -19,11 +19,15 @@ class PostsController extends Controller
 
     public function store(PostRequest $request)
     {
+        //$validatedData = $request->validated();
+
         $post = new Post;
         $post->text = $request->text;
         $post->user_id = \Auth::id();
+        //$post ->title = $request->title;
         $post->save();
-        return back();
+
+        return back()->with('successMessage','新規投稿が完了されました。');
     }
 
     public function destroy($id)
@@ -31,7 +35,8 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
         if (\Auth::id() === $post->user_id) {
             $post->delete();
-        }
+            return back()->with('successMessage', '投稿を削除しました');
+        } 
         return back();
     }
 }
