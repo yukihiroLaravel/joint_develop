@@ -24,7 +24,11 @@ Route::prefix('users')->group(function () {
 //ユーザ登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
-
+//フォロー・フォロワー関連
+Route::group(['prefix' => 'users/{id}'],function(){
+  Route::get('followings','FollowController@followings_show')->name('followings');
+  Route::get('followers','FollowController@followers_show')->name('followers');
+});
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
   // 投稿
@@ -34,7 +38,7 @@ Route::prefix('post')->group(function () {
     Route::get('{id}/edit', 'PostController@edit')->name('post.edit');
     Route::put('{id}', 'PostController@update')->name('post.update');
   });
-  // いいね
+  // ログイン後フォロー機能
   Route::group(['prefix' => 'users/{id}'],function(){
       Route::post('follow','FollowController@store')->name('follow');
       Route::delete('unFollow','FollowController@destroy')->name('unFollow');

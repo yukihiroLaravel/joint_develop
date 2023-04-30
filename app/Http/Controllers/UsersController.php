@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use App\User;
 use App\Posts;
 
-
 class UsersController extends Controller
 {
     public function show($id)
@@ -19,6 +18,8 @@ class UsersController extends Controller
             'user' => $user,
             'posts' => $posts,
         ];
+        //testsorce
+        $data += $this->userCounts($user);
         return view('users.show',$data);
     }
 
