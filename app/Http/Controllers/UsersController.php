@@ -36,12 +36,12 @@ class UsersController extends Controller
 
     public function update(UserRequest $request, $id)
     {
-    $user = User::findOrFail($id);
-    $user->name = $request->name;
-    $user->email = $request->email;
-    $user->password = bcrypt($request->password);
-    $user->save();
-    return redirect()->route('users.show', $user->id)->with('successMessage','ユーザー情報が更新されました');
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->save();
+        return redirect()->route('users.show', $user->id)->with('successMessage','ユーザー情報が更新されました');
     }
 
     public function destroy($id)
