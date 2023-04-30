@@ -6,7 +6,7 @@
   </div> 
 @elseif (session('successMessage'))
   <div class="alert alert-success text-center w-25 mx-auto ">
-      {{ session('successMessage') }}
+    {{ session('successMessage') }}
   </div>
 @endif
 <div class="row">
