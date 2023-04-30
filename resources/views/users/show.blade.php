@@ -4,8 +4,8 @@
   <div class="alert alert-danger text-center w-25 mx-auto">
     {{ session('alertMessage') }}
   </div> 
-  @elseif (session('successMessage'))
-  <div class="alert alert-success text-center w-25 mx-auto ">
+@elseif (session('successMessage'))
+  <div class="alert alert-success text-center w-25 mx-auto">
     {{ session('successMessage') }}
   </div>
 @endif
