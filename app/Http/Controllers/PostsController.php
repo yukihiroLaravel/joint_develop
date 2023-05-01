@@ -37,4 +37,27 @@ class PostsController extends Controller
         }
         return back();
     }
+
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id); 
+        if(\Auth::id() === $post->user_id){
+            return view('posts.edit', ['post' => $post]);
+        }else{
+            abort(404);
+        };
+    }
+
+    public function update(PostRequest $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        if(\Auth::id() === $post->user_id){
+            $post->text = $request->text;
+            $post->save();
+            $posts = Post::orderBy('created_at','desc')->paginate(10);
+            return view('welcome',['posts' => $posts]);
+        }else{
+            abort(404);
+        }
+    }
 }
