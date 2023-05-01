@@ -1,5 +1,12 @@
 @extends('layouts.app')
 @section('content')
+
+@if (session('flash_update_message'))
+   <div class="alert alert-success">
+      {{ session('flash_update_message') }}
+   </div>
+@endif
+
 <div class="row">
    <aside class="col-sm-4 mb-5">
       <div class="card bg-info">

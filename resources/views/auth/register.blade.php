@@ -35,11 +35,6 @@
         </div>
     </div>
 
-    <div class="modal-footer d-flex justify-content-between">
-            <button type="submit" class="btn btn-danger" data-target="#testModal">新規登録する</button>
-        </form>
-    </div>
-
     <div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
