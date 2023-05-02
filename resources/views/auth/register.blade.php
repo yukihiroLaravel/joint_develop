@@ -34,19 +34,5 @@
             </form>
         </div>
     </div>
-
-    <div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4>確認</h4>
-                </div>
-                <div class="modal-body">
-                    <label>ユーザー登録が完了しました</label>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>
 @endsection
