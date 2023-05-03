@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
 class User extends Authenticatable
 {
     use Notifiable;
@@ -62,8 +61,8 @@ class User extends Authenticatable
 
     public function follow($followedId)
     {
-        $exist = $this->isFollow($followedId);
-        if ($exist) {
+        $exist = $this->isFollow($followedId);    
+        if ($exist || $followedId === $this->id) {
             return false;
         } else {
             $this->follows()->attach($followedId);
@@ -74,7 +73,7 @@ class User extends Authenticatable
     public function unFollow($followedId)
     {
         $exist = $this->isFollow($followedId);
-        if ($exist) {
+        if ($exist || $followedId !== $this->id) {
             $this->follows()->detach($followedId);
             return true;
         } else {
