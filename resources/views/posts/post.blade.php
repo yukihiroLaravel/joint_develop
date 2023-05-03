@@ -1,3 +1,7 @@
+@if (session('successMessage'))
+<div class="alert alert-success text-center">{{ session('successMessage') }}</div>
+@endif
+
 <ul class="list-unstyled">
     @foreach ($posts as $post)
         @php
