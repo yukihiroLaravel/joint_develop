@@ -67,6 +67,7 @@ class UsersController extends Controller
         \Session::flash('flash_delete_message','ユーザを削除しました。');
         return redirect('/');              
     }
+    
 }
         
 
