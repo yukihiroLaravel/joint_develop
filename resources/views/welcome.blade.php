@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
-<div class="center jumbotron bg-info ">
+<div class="center jumbotron bg-danger ">
     <div class="text-center text-white mt-2 pt-1">
-        <h1><i class="fas fa-chalkboard-teacher pr-3 d-inline"></i>Topic Posts</h1>
+        <h1><i class="fas fa-baseball-ball pr-3 d-inline"></i>大谷翔平選手応援掲示板</h1>
     </div>
 </div>
 @if (session('alertMessage'))
@@ -14,7 +14,7 @@
         {{ session('successMessage') }}
     </div>
 @endif
-<h5 class="description text-center">"○○"について140字以内で会話しよう！</h5>
+<h5 class="description text-center">大谷選手について140字以内で投稿しましょう⚾️</h5>
 @if (Auth::check())
     <div class="w-75 m-auto">@include('commons.error_messages')</div>
     <div class="text-center mb-3">
@@ -23,7 +23,7 @@
             <div class="form-group">
                 <textarea class="form-control" name="contents" rows="4">{{ old('contents') }}</textarea>
                 <div class="text-left mt-3">
-                    <button type="submit" class="btn btn-primary">投稿する</button>
+                    <button type="submit" class="btn btn-success">投稿する</button>
                 </div>
             </div>
         </form>
