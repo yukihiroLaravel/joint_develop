@@ -26,8 +26,8 @@ Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('sign
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 //フォロー・フォロワー関連
 Route::group(['prefix' => 'users/{id}'],function(){
-  Route::get('followings','FollowController@followings_show')->name('followings');
-  Route::get('followers','FollowController@followers_show')->name('followers');
+  Route::get('followings','FollowController@followingsShow')->name('followings');
+  Route::get('followers','FollowController@followersShow')->name('followers');
 });
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {

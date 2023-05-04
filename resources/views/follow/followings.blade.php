@@ -3,11 +3,11 @@
  
 <div class="row">
     <aside class="col-sm-4 mb-5">
-        @include('commons.UserDetailsCard', ['followUser'=>$user])
-        @include('users.follow_button', ['followUser'=>$user])
+        @include('commons.user_details_card', ['followUser' => $user])
+        @include('users.follow_button', ['followUser' => $user])
     </aside>
     <div class="col-sm-8">
-        @include('commons.UserDetailsTab', ['followUser'=>$user])
+        @include('commons.user_details_tab', ['followUser' => $user])
         <ul class="list-unstyled">
             @foreach ($followings as $follow)
                 <li class="mb-3 text-center">

@@ -19,13 +19,10 @@ class FollowController extends Controller
         return back();
     }
 
-
-    //testsors
-
-    public function followings_show($id)
+    public function followingsShow($id)
     {
         $user = User::findOrFail($id);
-        $followings = $user->followings()->orderBy('id','asc')->paginate(10);
+        $followings = $user->followings()->orderBy('id','desc')->paginate(10);
 
         $data = [
             'user' => $user,
@@ -37,10 +34,10 @@ class FollowController extends Controller
         return view('follow.followings',$data);
     }
 
-    public function followers_show($id)
+    public function followersShow($id)
     {
         $user = User::findOrFail($id);
-        $followers = $user->followers()->orderBy('id','asc')->paginate(10);
+        $followers = $user->followers()->orderBy('id','desc')->paginate(10);
 
         $data = [
             'user' => $user,
