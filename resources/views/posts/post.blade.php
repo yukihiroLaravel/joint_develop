@@ -31,5 +31,4 @@
             </li>
     @endforeach
 </ul>
-
 <div class="m-auto" style="width: fit-content">{{ $posts->links() }}</div>
