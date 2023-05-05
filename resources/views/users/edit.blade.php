@@ -23,7 +23,7 @@
         </div>
         <div class="d-flex justify-content-between">
             <a href="#" data-toggle="modal" data-target="#delete-modal" class="btn btn-danger align-self-end">退会する</a>
-            <button type="submit"class="mt-3 btn btn-primary">更新する</a></button>
+            <button type="submit"class="mt-3 btn btn-success">更新する</a></button>
         </div>
     </form>
 
