@@ -51,6 +51,7 @@ class UsersController extends Controller
                 'user'=> $user,
                 'posts' => $posts,
             ];
+            \Session::flash('flash_update_message','編集が完了しました。');
             return view('users.show',$data);
         }else{
             abort(404);
@@ -63,6 +64,7 @@ class UsersController extends Controller
         if (\Auth::id() === $user->id) {
             $user->delete();            
         }
+        \Session::flash('flash_delete_message','ユーザを削除しました。');
         return redirect('/');              
     }
     
