@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-<div class="text-center">
-        <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Post</h1>
+    <div class="text-center">
+        <h1><img src="{{ asset('images/map-japan-icon-black.png') }}" class="icon-img pr-1">”地元のおすすめ発信”掲示板</h1>
     </div>
     <div class="text-center mt-3">
         <p class="text-left d-inline-block">ログインすると投稿で<br>コミュニケーションができるようになります。</p>
