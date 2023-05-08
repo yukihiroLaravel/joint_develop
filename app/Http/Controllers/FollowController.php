@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 
+use App\UserFollow;
+
 class FollowController extends Controller
 {
     public function store($id)
@@ -22,7 +24,12 @@ class FollowController extends Controller
     public function followingsShow($id)
     {
         $user = User::findOrFail($id);
-        $followings = $user->followings()->orderBy('id','desc')->paginate(10);
+
+        $followings = User::select('*')
+            ->join('User_Follow','users.id','=','User_Follow.follow_id')
+            ->where('user_id','=',$id)
+            ->orderBy('user_follow.id','desc')
+            ->paginate(10);
 
         $data = [
             'user' => $user,
@@ -37,7 +44,12 @@ class FollowController extends Controller
     public function followersShow($id)
     {
         $user = User::findOrFail($id);
-        $followers = $user->followers()->orderBy('id','desc')->paginate(10);
+
+        $followers = User::select('*')
+            ->join('User_Follow','users.id','=','User_Follow.user_id')
+            ->where('follow_id','=',$id)
+            ->orderBy('user_follow.id','desc')
+            ->paginate(10);
 
         $data = [
             'user' => $user,
