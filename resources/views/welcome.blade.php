@@ -15,8 +15,6 @@
     </div>
 @endif
 <h5 class="description text-center">大谷選手について140字以内で投稿しましょう⚾️</h5>
-@if (Auth::check())
-    <div class="w-75 m-auto">@include('commons.error_messages')</div>
     <div class="text-center mb-3">
         <form method="get" action="{{ route('post.index') }}" class="d-inline-block w-75">
             <div class="form-group">
@@ -28,6 +26,8 @@
                 </div>
             </div>
         </form>
+@if (Auth::check())
+    <div class="w-75 m-auto">@include('commons.error_messages')</div>
         <form method="post" action="{{ route('post.store') }}" class="d-inline-block w-75">
         @csrf
             <div class="form-group">
