@@ -1,5 +1,5 @@
 <aside class="col-sm-4 mb-5">
-   <div class="card bg-info">
+   <div class="card bg-success">
       <div class="card-header">
          <h3 class="card-title text-light" style="color:white">{{ $user->name }}</h3>
       </div>

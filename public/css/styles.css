@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+.bg-img{
+    background-image: url("../images/map-japan-emoji-shirokuro.png");
+    background-size: 25%;
+    background-repeat: no-repeat;
+    background-position: 70%;
+}
+
+.t-text{
+    text-shadow: 2px 2px 0 black;
+}
+
+.icon-img{
+    width: 7%;
+    height: 7%;
+}
+
+.icon-img-header{
+    width: 5%;
+    height: 5%;
+}
