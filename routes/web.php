@@ -30,6 +30,8 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 Route::group(['middleware' => 'auth'], function () {
   // 投稿
 Route::prefix('post')->group(function () {
+    Route::get('','PostController@index')->name('post.index');
+    Route::post('/search', 'PostController@search')->name('post.search');
     Route::post('', 'PostController@store')->name('post.store');
     Route::delete('{id}', 'PostController@destroy')->name('post.delete');
     Route::get('{id}/edit', 'PostController@edit')->name('post.edit');
