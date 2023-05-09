@@ -42,6 +42,15 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-        return redirect()->route('users.show', $user->id);
+        return redirect()->route('users.show', $user->id)->with('successMessage','ユーザー情報を更新しました。');
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        if (\Auth::id() === $user->id) {
+            $user->delete();
+        } 
+        return redirect('/')->with('alertMessage', '退会が完了しました');
     }
 }
