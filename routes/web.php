@@ -27,6 +27,7 @@ Route::prefix('users')->group(function () {
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
+//投稿検索
 Route::get('','PostController@index')->name('post.index');
 Route::post('/search', 'PostController@search')->name('post.search');
 
