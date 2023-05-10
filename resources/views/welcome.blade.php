@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
-<div class="center jumbotron bg-danger ">
+<div class="center jumbotron bg-danger d-flex justify-content-center align-items-center">
+    <iframe width="550" height="300" src="https://www.youtube.com/embed/Ex8fDyw_0Bk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     <div class="text-center text-white mt-2 pt-1">
         <h1><i class="fas fa-baseball-ball pr-3 d-inline"></i>大谷翔平選手応援掲示板</h1>
     </div>
