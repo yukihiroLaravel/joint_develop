@@ -15,7 +15,7 @@ class PostController extends Controller
         $query = Posts::query();
 
         if (!empty($search)) {
-            $query->where('text', 'LIKE', "%{$search}%");
+                $query->where('text', 'LIKE', "%{$search}%");
         } 
     
         $posts =   $query->orderBy('id','desc')->paginate(10);
