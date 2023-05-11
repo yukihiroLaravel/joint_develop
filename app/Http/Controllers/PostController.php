@@ -19,7 +19,7 @@ class PostController extends Controller
         } 
     
         $posts =   $query->orderBy('id','desc')->paginate(10);
-        return view('welcome', compact('posts','search'));
+        return view('welcome', ['posts' => $posts,'search' => $search]);
     }
 
     public function store(PostRequest $request)
