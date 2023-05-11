@@ -14,7 +14,7 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 //トップページ
-Route::get('/', 'PostController@index');
+Route::get('/', 'PostController@index')->name('post.index');
 //ユーザー詳細、編集、更新,削除
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('users.show');
@@ -30,9 +30,6 @@ Route::group(['prefix' => 'users/{id}'],function(){
   Route::get('followings','FollowController@followingsShow')->name('followings');
   Route::get('followers','FollowController@followersShow')->name('followers');
 });
-//投稿検索
-Route::get('','PostController@index')->name('post.index');
-Route::post('/search', 'PostController@search')->name('post.search');
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
   // 投稿
