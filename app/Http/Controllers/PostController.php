@@ -18,7 +18,7 @@ class PostController extends Controller
                 $query->where('text', 'LIKE', "%{$search}%");
         } 
     
-        $posts =   $query->orderBy('id','desc')->paginate(10);
+        $posts = $query->orderBy('id','desc')->paginate(10);
         return view('welcome', ['posts' => $posts,'search' => $search]);
     }
 
