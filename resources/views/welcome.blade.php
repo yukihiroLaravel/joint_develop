@@ -11,8 +11,8 @@
         </div> 
     @elseif (session('successMessage'))
         <div class="alert alert-success text-center w-75 mx-auto ">
-        {{ session('successMessage') }}
-            </div>
+            {{ session('successMessage') }}
+        </div>
     @endif
     <h5 class="description text-center">大谷選手について140字以内で投稿しましょう⚾️</h5>
     <div class="w-75 m-auto">@include('commons.error_messages')</div>
