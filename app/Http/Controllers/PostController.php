@@ -8,12 +8,18 @@ use App\User;
 use App\Http\Requests\PostRequest;
 class PostController extends Controller
 {
-    public function index()
-    {
-        $posts = Posts::orderBy('id','desc')->paginate(10);
-        return view('welcome', [
-            'posts' => $posts,
-        ]);
+
+    public function index(Request $request)
+    {      
+        $search = $request->input('keyword');
+        $query = Posts::query();
+
+        if (!empty($search)) {
+            $query->where('text', 'LIKE', "%{$search}%");
+        } 
+    
+        $posts = $query->orderBy('id','desc')->paginate(10);
+        return view('welcome', ['posts' => $posts, 'search' => $search]);
     }
 
     public function store(PostRequest $request)
