@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
     <head>
+        <link rel="stylesheet" href="{{ asset('/css/styles.css') }}">
         <meta charset="utf-8">
         <title>大谷翔平選手応援掲示板</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
