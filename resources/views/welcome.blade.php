@@ -1,10 +1,13 @@
 @extends('layouts.app')
 @section('content')
-    <div class="center jumbotron bg-danger ">
-        <div class="text-center text-white mt-2 pt-1">
-            <h1><i class="fas fa-baseball-ball pr-3 d-inline"></i>大谷翔平選手応援掲示板</h1>
+<div class="center jumbotron-fluid bg-danger"> 
+    <div class="text-center text-white pb-5">
+    <h1 class="title-text"><i class="fas fa-baseball-ball pr-3 d-inline"></i>大谷翔平選手応援掲示板</h1>
+        <div class="imagefile">
+        <iframe width="650" height="350" src="https://www.youtube.com/embed/Ex8fDyw_0Bk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
     </div>
+</div>
     @if (session('alertMessage'))
         <div class="alert alert-danger text-center w-75 mx-auto">
             {{ session('alertMessage') }}
