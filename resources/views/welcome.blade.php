@@ -7,6 +7,7 @@
         <iframe width="650" height="350" src="https://www.youtube.com/embed/Ex8fDyw_0Bk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
     </div>
+</div>
     @if (session('alertMessage'))
         <div class="alert alert-danger text-center w-75 mx-auto">
             {{ session('alertMessage') }}
