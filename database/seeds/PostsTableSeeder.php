@@ -16,7 +16,7 @@ class PostsTableSeeder extends Seeder
     {
         for ($i = 1; $i <= 10; $i++) {
             Post::create([
-                'user_id'    => $i,
+                'user_id'    => mt_rand(1,4),
                 'text'       => 'これはテスト投稿' .$i,
                 'created_at' => now(),
                 'updated_at' => now()
