@@ -6,16 +6,15 @@
         </button>
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
-            <ul class="navbar-nav">                    
-                    @if (Auth::check())
-                    <li class="nav-item"><a href="" class="nav-link text-light">ログインユーザ名</a></li>
-                    <li class="nav-item"><a href="" class="nav-link">ログアウト</a></li>
-                    <li class="nav-item"><a href="" class="nav-link">マイページ</a></li>
-                    @else
-                    <li class="nav-item"><a href="" class="nav-link">ログイン</a></li>
-                    <li class="nav-item"><a href="" class="nav-link">新規ユーザ登録</a></li>
-                @endif
-            </ul>       
+                <ul class="navbar-nav">                    
+                     @if (Auth::check())
+                       <li class="nav-item"><a href="" class="nav-link text-light">ログインユーザ名</a></li>
+                       <li class="nav-item"><a href="" class="nav-link">ログアウト</a></li>                   
+                     @else
+                       <li class="nav-item"><a href="" class="nav-link">ログイン</a></li>
+                       <li class="nav-item"><a href="" class="nav-link">新規ユーザ登録</a></li>
+                     @endif
+                </ul>       
         </div>
     </nav>
 </header>
