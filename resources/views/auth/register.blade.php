@@ -11,6 +11,7 @@
 </div>
 <div class="row mt-5 mb-5">
     <div class="col-sm-6 offset-sm-3">
+        @include('commons.error_messages')
         <form method="POST" action="{{ route('signup.post') }}">
             @csrf
             <div class="form-group">
