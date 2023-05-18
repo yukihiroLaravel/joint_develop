@@ -9,9 +9,9 @@
                 <ul class="navbar-nav">                    
                      @if (Auth::check())
                        <li class="nav-item"><a href="" class="nav-link text-light">ログインユーザ名</a></li>
-                       <li class="nav-item"><a href="" class="nav-link">ログアウト</a></li>                   
+                       <li class="nav-item"><a href="{{ route('logout') }}"class="nav-link">ログアウト</a></li>                   
                      @else
-                       <li class="nav-item"><a href="get" class="nav-link">ログイン</a></li>
+                       <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">ログイン</a></li>
                        <li class="nav-item"><a href="" class="nav-link">新規ユーザ登録</a></li>
                      @endif
                 </ul>       
