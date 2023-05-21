@@ -37,13 +37,6 @@
         "classmap": [
             "database/seeds",
             "database/factories"
-        ],
-        "exclude-from-classmap": [
-            "/Tests/",
-            "vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Auth\\RegistersUsers.php"
-        ],
-        "files":[
-            "app\\Vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Auth\\RegistersUsers.php"
         ]
     },
     "autoload-dev": {
