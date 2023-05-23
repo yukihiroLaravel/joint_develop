@@ -22,10 +22,4 @@ class UsersController extends Controller
        $data += $this->userCounts($user);
          return view('users.show',$data);
    }
-
-   public function edit($id)
-   {
-       $user = User::findOrFail($id);
-         
-   }
 }
