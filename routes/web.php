@@ -21,3 +21,11 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // トップページ
 Route::get('/', 'postsController@index');
+
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    // 投稿新規作成（投降削除はこれから実装予定）
+    Route::prefix('/')->group(function () {
+        Route::post('', 'PostsController@store')->name('post.store');
+    });
+});
