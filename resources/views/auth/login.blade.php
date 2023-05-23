@@ -8,12 +8,10 @@
     </div>
     <div class="text-center">
         <h3 class="login_title text-left d-inline-block mt-5">ログイン</h3>
-    </div>
-    <div class="container">                  
-        @include('commons.error_messages')
-    </div>                  
+    </div>           
     <div class="row mt-5 mb-5">
-        <div class="col-sm-6 offset-sm-3">
+        <div class="col-sm-6 offset-sm-3">                          
+            @include('commons.error_messages')                       
             <form method="POST" action="{{ route('login.post') }}">
                 @csrf
                 <div class="form-group">
