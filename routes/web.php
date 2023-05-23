@@ -25,7 +25,7 @@ Route::get('/', 'postsController@index');
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
     // 投稿新規作成（投降削除はこれから実装予定）
-    Route::prefix('post')->group(function () {
+    Route::prefix('posts')->group(function () {
         Route::post('', 'PostsController@store')->name('post.store');
     });
 });
