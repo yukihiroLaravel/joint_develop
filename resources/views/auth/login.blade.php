@@ -8,9 +8,10 @@
     </div>
     <div class="text-center">
         <h3 class="login_title text-left d-inline-block mt-5">ログイン</h3>
-    </div>
+    </div>           
     <div class="row mt-5 mb-5">
-        <div class="col-sm-6 offset-sm-3">
+        <div class="col-sm-6 offset-sm-3">                          
+            @include('commons.error_messages')                       
             <form method="POST" action="{{ route('login.post') }}">
                 @csrf
                 <div class="form-group">
@@ -19,7 +20,7 @@
                 </div>
                 <div class="form-group">
                     <label for="password">パスワード</label>
-                    <input id="password" type="password" class="form-control" name="password" value="{{ old('password') }}">
+                    <input id="password" type="password" class="form-control" name="password">
                 </div>
                 <button type="submit" class="btn btn-primary mt-2">ログイン</button>
             </form>

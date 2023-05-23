@@ -13,17 +13,17 @@ class PostsTableSeeder extends Seeder
     {
       DB::table('posts')->insert([
        'user_id' => '1', 
-       'user_name'=> 'test1',
+       //'user_name'=> 'test1',
        'content' => 'テスト１',
       ]);
       DB::table('posts')->insert([
        'user_id' => '2',
-       'user_name' => 'test2',
+       //'user_name' => 'test2',
        'content' => 'テスト２',
       ]);
       DB::table('posts')->insert([
         'user_id' => '3',
-        'user_name' => 'test3',
+        //'user_name' => 'test3',
         'content' => 'テスト３',
       ]);
     }
