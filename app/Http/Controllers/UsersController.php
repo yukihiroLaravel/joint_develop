@@ -15,8 +15,7 @@ class UsersController extends Controller
 
     public function show($id)
     {
-        # postテーブルが無い為とりあえずuserのみ実装
-        # postテーブル追加後にコメントアウト解除予定
+        // 現在postテーブルが無い為post実装後に本格実装予定
         $user = User::findOrFail($id);
         // $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
         $data=[

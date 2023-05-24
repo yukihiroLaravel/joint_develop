@@ -25,7 +25,11 @@
             <li class="nav-item"><a href="#" class="nav-link">フォロワー</a>
             </li>
         </ul>
+        <ul class="list-unstyled">
+            post実装後はpostカウント予定、現在ユーザーカウント「{{ $countPosts }}」
+            {{-- @include(postテーブル追加後にタイムライン表示予定) --}}
+        </ul>
+
     </div>
 </div>
-{{-- @include(postテーブル追加後にタイムライン表示予定) --}}
 @endsection
