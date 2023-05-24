@@ -27,5 +27,5 @@
         </ul>
     </div>
 </div>
-<!-- @include(postテーブル追加後にタイムライン表示予定) -->
+{{-- @include(postテーブル追加後にタイムライン表示予定) --}}
 @endsection

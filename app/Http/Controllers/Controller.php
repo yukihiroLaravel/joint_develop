@@ -13,17 +13,12 @@ class Controller extends BaseController
 
     public function userCounts($user)
     {
-
-        $countPosts = $user->count();
+        # postテーブルが無い為とりあえずuserのみ実装
+        # postテーブル追加後にコメントアウト解除予定
+        $countPosts = $user/*->posts()*/->count();
         return [
             'countPosts' => $countPosts,
         ];
-
-
-        // $countPosts = $user->posts()->count();
-        // return [
-        //     'countPosts' => $countPosts,
-        // ];
     }
 
 }
