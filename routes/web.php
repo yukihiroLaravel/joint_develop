@@ -19,4 +19,11 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
+// ログイン後
+ 
+Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
+Route::put('{id}', 'UsersController@update')->name('user.update');
+    
+
 Route::get('/', 'UsersController@index');
+
