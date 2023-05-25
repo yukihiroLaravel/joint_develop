@@ -26,7 +26,6 @@
             </li>
         </ul>
         <ul class="list-unstyled">
-            post実装後はpostカウントで本格実装予定「{{ $countPosts }}」
             {{-- @include(postテーブル追加後にタイムライン表示予定) --}}
         </ul>
     </div>
