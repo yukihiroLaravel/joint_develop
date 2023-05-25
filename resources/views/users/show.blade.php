@@ -7,7 +7,7 @@
                     <h3 class="card-title text-light"></h3>
                 </div>
                 <div class="card-body">
-                    <img class="rounded-circle img-fluid" src="{{ Gravator::src(投稿者メルアド,55) }}" alt="ユーザーアバター画像">
+                <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->name, 55) }}" alt="ユーザーアバター画像">
                         <div class="mt-3">
                             <a href="#" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                         </div>
