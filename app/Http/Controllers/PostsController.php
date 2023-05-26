@@ -12,10 +12,9 @@ class PostsController extends Controller
     public function store(PostRequest $request)
     {
         $post = new Post;
-        // postテーブルが未実装のため「text」となるかわからない
-        // postテーブル実装後、こことPostRequest.phpファイルを修正する
-        $post->text = $request->text;
+        // postテーブルが未実装→textか不明(PostRequestも合わせて変更)
         $post->user_id = $request->user()->id;
+        $post->text = $request->text;
         $post->save();
         return back();
     }
