@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-@include('commons.error_messages')
 <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
+@include('commons.error_messages')
     <form method="POST" action="{{ route('update', \Auth::user()->id) }}">
         @csrf
         @method('PUT')
