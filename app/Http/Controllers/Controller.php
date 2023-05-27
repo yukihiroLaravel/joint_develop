@@ -10,12 +10,4 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
-    public function userCounts($user)
-    {
-        $countfillable = $user->fillable()->count();
-        return [
-            'countillable' => $countfillable,
-        ];
-    }
 }
