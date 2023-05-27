@@ -4,10 +4,10 @@
         <aside class="col-sm-4 mb-5">
             <div class="card bg-info">
                 <div class="card-header">
-                    <h3 class="card-title text-light"></h3>
+                    <h3 class="card-title text-light">{{ $user->name }}</h3>
                 </div>
                 <div class="card-body">
-                <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->name, 55) }}" alt="ユーザーアバター画像">
+                <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザーアバター画像">
                         <div class="mt-3">
                             <a href="#" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                         </div>
@@ -23,4 +23,4 @@
         </div>
     </div>
 @include('posts.posts', [ 'user' => $user, 'posts' => $posts,])
-@end section
+@endsection
