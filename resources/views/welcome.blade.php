@@ -14,5 +14,6 @@
             <div class="form-group">                  
             </div>         
         </form>
+        @include('posts.posts', ['posts' => $posts])
     </div>        
 @endsection
