@@ -19,4 +19,5 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
-Route::get('/', 'UsersController@index');
+// トップページ表示
+Route::get('/', 'PostsController@index');
