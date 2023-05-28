@@ -19,12 +19,20 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
+// トップページ
+Route::get('/', 'postsController@index');
+// ユーザー編集、更新
+Route::prefix('users')->group(function () {
+    Route::get('{id}', 'UsersController@show')->name('users.show');
+    Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
+    Route::put('{id}', 'UsersController@update')->name('users.update');
+
+});
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
+    // ユーザ関連
+    Route::resource('users', 'UsersController');
     // 動画
     Route::prefix('tweets')->group(function () {
         Route::get('create', 'TweetsController@create')->name('tweet.create');
