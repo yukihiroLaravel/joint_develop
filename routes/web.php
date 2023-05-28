@@ -24,9 +24,10 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
 });
-
-//ログイン後
+// ログイン後
 Route::group(['middleware' => 'auth'], function () {
+    // 投稿
+    Route::post('posts', 'PostsController@store')->name('post.store');
     //ユーザー編集
     Route::prefix('users')->group(function () {
         Route::get('{id}/edit', 'EditUserController@edit')->name('edit'); 
