@@ -30,13 +30,5 @@ Route::prefix('users')->group(function () {
 
 });
 // ログイン後
-Route::group(['middleware' => 'auth'], function () {
-    // ユーザ関連
-    Route::resource('users', 'UsersController');
-    // 動画
-    Route::prefix('tweets')->group(function () {
-        Route::get('create', 'TweetsController@create')->name('tweet.create');
-        Route::post('', 'TweetsController@store')->name('tweet.store');
-        Route::delete('{id}', 'TweetsController@destroy')->name('tweet.delete');
-    });
+Route::group(['middleware' => 'auth'], function () {    
 });
