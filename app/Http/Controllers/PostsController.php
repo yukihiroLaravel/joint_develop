@@ -13,7 +13,6 @@ class PostsController extends Controller
     {
         $post = new Post;
         $post->user_id = $request->user()->id;
-        // postテーブルが未実装→textか不明(PostRequestも合わせて変更)
         $post->text = $request->text;
         $post->save();
         return back();
