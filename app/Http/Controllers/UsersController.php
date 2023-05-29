@@ -12,22 +12,28 @@ class UsersController extends Controller
 {
     public function edit($id)
     {
-        if ($id == \Auth::id()) {
-        $user = \Auth::user();
-        $data=[
-            'user' => $user,
-        ];
-        return view('users.edit', $data);}
+        if ($id == \Auth::id()) 
+        {
+            $user = User::findOrFail($id);
+            $data=[
+                'user' => $user,
+            ];
+            return view('users.edit', $data);
+        }
+        return view('errors.404');
     }
 
     public function update(UserRequest $request, $id)
     {
-        if ($id == \Auth::id()) {
-        $user = User::findOrFail($id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->save();
-        return redirect('/');}
+        if ($id == \Auth::id()) 
+        {
+            $user = User::findOrFail($id);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->save();
+            return redirect('/');
+        }
+        return view('errors.404');           
     }
 }
