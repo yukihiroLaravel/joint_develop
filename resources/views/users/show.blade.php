@@ -20,9 +20,7 @@
                 <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
             </ul>
-             <ul class="list-unstyled">
               @include('posts.posts', ['posts' => $posts])
-             </ul>
         </div>
 </div>
 @endsection
