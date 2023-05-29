@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\User; 
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 
 class EditUserController extends Controller
 {
@@ -34,7 +33,6 @@ class EditUserController extends Controller
         $user = User::findOrFail($id);
         if ($user->id === \Auth::id() ) {
             $user->delete();
-            Auth::logout();
             return redirect('/');
         }
         return back();
