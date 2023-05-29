@@ -5,6 +5,7 @@
             <h1><i class="pr-3"></i>Topic Posts</h1>
         </div>
     </div>
-    <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
-@include('commons.new_post')
+</div>
+<h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
+@include('posts.posts')
 @endsection
