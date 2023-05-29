@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest; 
 
@@ -16,12 +17,12 @@ class UsersController extends Controller
    public function edit($id)
 {
     $user = \Auth::user();
-    $email = $user->email();
+    $email = $user->email;
     $data=[
         'user' => $user,
         'email' => $email,        
     ];
-    return view('user.edit', $data);
+    return view('users.edit', $data);
 }
 
 
