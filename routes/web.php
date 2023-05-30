@@ -23,10 +23,20 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 // トップページ
 Route::get('/', 'postsController@index');
 // ユーザー編集、更新
-Route::group(['middleware' => 'auth'], function () {  
+Route::group(['middleware' => 'auth'], function () 
+{  
     Route::group(['prefix' => 'users'],function()
     {
         Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
         Route::put('{id}', 'UsersController@update')->name('users.update');
     });
+});
+
+// ユーザ
+Route::prefix('users')->group(function () {
+    Route::get('{id}', 'UsersController@show')->name('user.show');
+});
+
+Route::get('/', function () {
+    return view('welcome');
 });
