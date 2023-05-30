@@ -13,7 +13,7 @@
 
             <div class="form-group">
                 <label for="email">メールアドレス</label>
-                <input class="form-control" value="{{old('email', $user->email)}}" name="eamil"/>
+                <input class="form-control" value="{{old('email', $user->email)}}" name="email"/>
             </div>
 
             <div class="form-group">
