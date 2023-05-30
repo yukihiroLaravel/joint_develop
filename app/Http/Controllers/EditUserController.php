@@ -27,4 +27,14 @@ class EditUserController extends Controller
         $user->save();
         return redirect()->route('user.show', $user->id);
     }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        if ($user->id === \Auth::id() ) {
+            $user->delete();
+            return redirect('/');
+        }
+        return back();
+    }
 }
