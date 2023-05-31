@@ -25,4 +25,14 @@ class PostsController extends Controller
         $post->save();
         return back();
     }
+
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $Post->user_id) {
+            $Post->delete();
+        }
+        return back();
+    }
+
 }
