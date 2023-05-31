@@ -21,3 +21,5 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 // トップページ表示
 Route::get('/', 'PostsController@index');
+
+
