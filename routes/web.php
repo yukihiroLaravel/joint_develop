@@ -22,4 +22,14 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 // トップページ表示
 Route::get('/', 'PostsController@index');
 
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('posts')->group(function () {
+        //新規投稿
+        Route::post('', 'PostsController@store')->name('post.store');
+        //投稿削除
+        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
+    });
+});
+
 
