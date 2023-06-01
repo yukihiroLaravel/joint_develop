@@ -22,6 +22,9 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 // ユーザ
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
+    // フォロー機能（ログイン後）
+    Route::post('{id}', 'FollowController@store')->name('follow');
+    Route::delete('{id}/unFollow', 'FollowController@destroy')->name('unFollow');
 });
 
 Route::get('/', function () {
