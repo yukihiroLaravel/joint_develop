@@ -25,6 +25,12 @@ Route::get('/', 'PostsController@index');
 Route::prefix('users')->group(function(){
     Route::get('{id}','UsersController@show')->name('user.show');
 });
-
-
-
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('posts')->group(function () {
+        //新規投稿
+        Route::post('', 'PostsController@store')->name('post.store');
+        //投稿削除
+        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
+    });
+});
