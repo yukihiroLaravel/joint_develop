@@ -8,7 +8,7 @@
             <ul class="navbar-nav mr-auto"></ul>
                 <ul class="navbar-nav">                    
                      @if (Auth::check())
-                       <li class="nav-item"><a href="" class="nav-link text-light">{{ Auth::user()->name }}</a></li>
+                       <li class="nav-item"><a href="{{ route('user.show', Auth::id()) }}" class="nav-link text-light">{{ Auth::user()->name }}</a></li>
                        <li class="nav-item"><a href="{{ route('logout') }}"class="nav-link">ログアウト</a></li>                   
                      @else
                        <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">ログイン</a></li>
