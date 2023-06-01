@@ -13,7 +13,6 @@
                     <div class="mt-3">
                         <a href="{{ route('edit',Auth::id()) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                     </div>
-                @else
                 @endif
             </div>
         </div>
