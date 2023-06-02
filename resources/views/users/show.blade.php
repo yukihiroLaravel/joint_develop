@@ -1,6 +1,18 @@
 @extends('layouts.app')
 @section('content')
-    <div class="row">
+
+@if (session('successMessage'))
+    <div class="alert alert-success text-center">
+        {{ session('successMessage') }}
+    </div>
+@endif
+@if (session('errorMessage'))
+    <div class="alert alert-danger text-center">
+        {{ session('errorMessage') }}
+    </div> 
+@endif
+
+<div class="row">
         <aside class="col-sm-4 mb-5">
             <div class="card bg-info">
                 <div class="card-header">

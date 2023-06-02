@@ -23,6 +23,6 @@ class PostsController extends Controller
         $post->user_id = $request->user()->id;
         $post->text = $request->text;
         $post->save();
-        return back();
+        return back()->with('successMessage', '投稿しました');
     }
 }

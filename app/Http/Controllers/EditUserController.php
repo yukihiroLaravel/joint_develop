@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User; 
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
+use resources\lang\ja\flash_message; //違う？
 
 class EditUserController extends Controller
 {
@@ -25,7 +26,7 @@ class EditUserController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
-        return redirect()->route('user.show', $user->id);
+        return redirect()->route('user.show', $user->id)->with('successMessage', '更新しました');
     }
 
     public function destroy($id)

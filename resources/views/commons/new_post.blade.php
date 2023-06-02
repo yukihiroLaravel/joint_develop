@@ -1,5 +1,10 @@
 @if (Auth::check())
     <div class="w-75 m-auto">
+        @if (session('successMessage'))
+            <div class="alert alert-success text-center">
+                {{ session('successMessage') }}
+            </div>
+        @endif
         @include('commons.error_messages')
     </div>
     <div class="text-center mb-3">
