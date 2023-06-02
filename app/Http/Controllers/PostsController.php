@@ -25,4 +25,14 @@ class PostsController extends Controller
         $post->save();
         return back()->with('successMessage', '投稿しました');
     }
+
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            $post->delete();
+        }
+        return back();
+    }
+
 }
