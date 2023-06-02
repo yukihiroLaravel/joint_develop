@@ -1,21 +1,5 @@
 @if (Auth::check())
-    <div class="w-75 m-auto">
-        @if (session('successMessage'))
-            <div class="alert alert-success alert-dismissible fade show mx-auto w-75" role="alert">
-                <strong>{{ session('successMessage') }}</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
-        @if (session('errorMessage'))
-            <div class="alert alert-danger alert-dismissible fade show mx-auto w-75" role="alert">
-                <strong>{{ session('errorMessage') }}</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div> 
-        @endif
+    <div class="d-inline-block w-75 m-auto">
         @include('commons.error_messages')
     </div>
     <div class="text-center mb-3">

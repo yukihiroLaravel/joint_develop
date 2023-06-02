@@ -34,8 +34,8 @@ class EditUserController extends Controller
         $user = User::findOrFail($id);
         if ($user->id === \Auth::id() ) {
             $user->delete();
-            return redirect('/');
+            return redirect('/')->with('errorMessage', '退会しました');
         }
-        return back()->with('errorMessage', '退会しました');
+        return back();
     }
 }

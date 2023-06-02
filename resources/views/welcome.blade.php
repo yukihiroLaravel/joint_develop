@@ -6,6 +6,22 @@
         </div>
     </div>
 </div>
+@if (session('successMessage'))
+    <div class="alert alert-success alert-dismissible fade show mx-auto w-75" role="alert">
+        <strong>{{ session('successMessage') }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
+@if (session('errorMessage'))
+    <div class="alert alert-danger alert-dismissible fade show mx-auto w-75" role="alert">
+        <strong>{{ session('errorMessage') }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div> 
+@endif
 <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
 @include('commons.new_post')
 @include('posts.posts')
