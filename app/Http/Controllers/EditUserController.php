@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\User; 
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
-use resources\lang\ja\flash_message; //違う？
 
 class EditUserController extends Controller
 {
