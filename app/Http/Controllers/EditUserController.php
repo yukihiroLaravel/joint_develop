@@ -36,6 +36,6 @@ class EditUserController extends Controller
             $user->delete();
             return redirect('/');
         }
-        return back();
+        return back()->with('errorMessage', '退会しました');
     }
 }
