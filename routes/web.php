@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth'], function ()
     {
         Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
         Route::put('{id}', 'UsersController@update')->name('users.update');
+        Route::delete('{id}', 'UsersController@destroy')->name('users.delete');
     });
 });
 
@@ -37,6 +38,11 @@ Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
 });
 
-Route::get('/', function () {
-    return view('welcome');
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    // 投稿新規作成（投降削除はこれから実装予定）
+    Route::prefix('posts')->group(function () {
+        Route::post('', 'PostsController@store')->name('post.store');
+        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
+    });
 });
