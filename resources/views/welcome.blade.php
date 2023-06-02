@@ -19,6 +19,6 @@
                 </div>
             </form>
         </div>
-    @endif
-    @include('posts.posts',['posts' => $posts])
+    @endif    
+    @include('posts.posts', ['posts' => $posts])
 @endsection
