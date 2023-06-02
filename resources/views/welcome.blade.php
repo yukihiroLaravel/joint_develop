@@ -6,17 +6,17 @@
         </div>
     </div>
 </div>
-@if (session('successMessage'))
+@if (session('greenMessage'))
     <div class="alert alert-success alert-dismissible fade show mx-auto w-75" role="alert">
-        <strong>{{ session('successMessage') }}</strong>
+        <strong>{{ session('greenMessage') }}</strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
 @endif
-@if (session('errorMessage'))
+@if (session('redMessage'))
     <div class="alert alert-danger alert-dismissible fade show mx-auto w-75" role="alert">
-        <strong>{{ session('errorMessage') }}</strong>
+        <strong>{{ session('redMessage') }}</strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>

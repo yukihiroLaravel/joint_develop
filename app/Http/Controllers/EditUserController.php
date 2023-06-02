@@ -25,7 +25,7 @@ class EditUserController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
-        return redirect()->route('user.show', $user->id)->with('successMessage', '更新しました');
+        return redirect()->route('user.show', $user->id)->with('greenMessage', '更新しました');
     }
 
     public function destroy($id)
@@ -33,7 +33,7 @@ class EditUserController extends Controller
         $user = User::findOrFail($id);
         if ($user->id === \Auth::id() ) {
             $user->delete();
-            return redirect('/')->with('errorMessage', '退会しました');
+            return redirect('/')->with('redMessage', '退会しました');
         }
         return back();
     }
