@@ -30,6 +30,7 @@ Route::prefix('users')->group(function () {
 Route::group(['middleware' => 'auth'], function () {
     // 投稿
     Route::post('posts', 'PostsController@store')->name('post.store');
+    Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     //ユーザー編集
     Route::prefix('users/{id}')->group(function () {
         Route::get('edit', 'EditUserController@edit')->name('edit'); 
