@@ -23,7 +23,7 @@ class PostsController extends Controller
         $post->user_id = $request->user()->id;
         $post->text = $request->text;
         $post->save();
-        return back();
+        return back()->with('greenMessage', '投稿しました');
     }
 
     public function destroy($id)
@@ -32,7 +32,7 @@ class PostsController extends Controller
         if (\Auth::id() === $post->user_id) {
             $post->delete();
         }
-        return back();
+        return back()->with('redMessage', '削除しました');
     }
 
 }
