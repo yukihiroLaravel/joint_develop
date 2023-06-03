@@ -19,5 +19,4 @@ class FollowersController extends Controller
         \Auth::user()->unfollow($id);
         return back();
     }
-
 }
