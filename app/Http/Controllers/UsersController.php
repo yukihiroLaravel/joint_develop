@@ -23,4 +23,16 @@ class UsersController extends Controller
        ];
         return view('users.show', $data);
    }
+
+   public function destroy($id)
+   {
+       $user = User::findOrFail($id);
+       if (\Auth::id() === $movie->user_id) {
+           $user->delete();
+       }
+       return back();
+   }
+
 }
+
+
