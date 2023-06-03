@@ -11,6 +11,8 @@
 |
 */
 
+use App\Http\Controllers\FollowersController;
+
 Route::get('/', 'PostsController@index');
 // ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -29,9 +31,14 @@ Route::group(['middleware' => 'auth'], function () {
     // 投稿
     Route::post('posts', 'PostsController@store')->name('post.store');
     //ユーザー編集
+    Route::prefix('users/{id}')->group(function () {
+        Route::get('edit', 'EditUserController@edit')->name('edit'); 
+        Route::put('', 'EditUserController@update')->name('update');
+        Route::delete('', 'EditUserController@destroy')->name('user.delete');
+    });
+    //フォロー機能
     Route::prefix('users')->group(function () {
-        Route::get('{id}/edit', 'EditUserController@edit')->name('edit'); 
-        Route::put('{id}', 'EditUserController@update')->name('update');
-        Route::delete('{id}', 'EditUserController@destroy')->name('user.delete');
+        Route::post('follow/{id}', 'FollowersController@store')->name('follow');
+        Route::delete('unfollow/{id}', 'FollowersController@destroy')->name('unfollow');
     });
 });
