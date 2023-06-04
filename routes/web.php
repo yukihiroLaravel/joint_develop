@@ -36,13 +36,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('edit', 'EditUserController@edit')->name('edit'); 
         Route::put('', 'EditUserController@update')->name('update');
         Route::delete('', 'EditUserController@destroy')->name('user.delete');
-    });
     //フォロー機能
-    Route::prefix('users')->group(function () {
-        Route::post('{id}/follow', 'FollowersController@store')->name('follow');
-        Route::delete('{id}/unfollow', 'FollowersController@destroy')->name('unfollow');
-
-        // Route::post('follow/{id}', 'FollowersController@store')->name('follow');
-        // Route::delete('unfollow/{id}', 'FollowersController@destroy')->name('unfollow');
+        Route::post('follow', 'FollowersController@store')->name('follow');
+        Route::delete('unfollow', 'FollowersController@destroy')->name('unfollow');
     });
 });
