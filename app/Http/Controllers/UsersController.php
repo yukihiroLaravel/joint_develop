@@ -8,7 +8,7 @@ use App\Post;
 use App\Http\Requests\UserRequest;
 
 
-class UserController extends Controller
+class UsersController extends Controller
 {
     public function edit($id)
     {
@@ -35,10 +35,17 @@ class UserController extends Controller
         }
         return redirect('/');
     }
-}
 
-class UsersController extends Controller
-{
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        if ($id == \Auth::id()) 
+        {
+            $user->delete();
+        }
+        return redirect('/');
+    }
+
     public function show($id)
     {
       $user = User::findOrFail($id);
@@ -49,4 +56,5 @@ class UsersController extends Controller
       ];
       return view('users.show',$data);
     }
+
 }

@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth'], function ()
     {
         Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
         Route::put('{id}', 'UsersController@update')->name('users.update');
+        Route::delete('{id}', 'UsersController@destroy')->name('users.delete');
     });
 });
 
@@ -39,10 +40,6 @@ Route::prefix('users')->group(function () {
     Route::post('{id}/follow', 'FollowController@store')->name('follow');
     Route::delete('{id}/unFollow', 'FollowController@destroy')->name('unFollow');
 });
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
