@@ -33,7 +33,7 @@ class UsersController extends Controller
             $user->password = bcrypt($request->password);
             $user->save();            
         }
-        return redirect('/');
+        return redirect('/')->with('flash_message', '更新しました！');    
     }
 
     public function destroy($id)

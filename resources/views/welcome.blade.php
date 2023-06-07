@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @section('content')
+@if (session('flash_message'))
+    <div class="flash_message bg-success text-center  .py-300 .my-0">
+        {{ session('flash_message') }}
+    </div>
+@endif
     <div class="center jumbotron bg-info">
         <div class="text-center text-white mt-2 pt-1">
             <h1><i class="pr-3"></i>Topic Posts</h1>
@@ -22,3 +27,4 @@
     @endif
     @include('posts.posts',['posts' => $posts])
 @endsection
+
