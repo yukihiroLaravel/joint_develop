@@ -29,9 +29,11 @@
                         <div class="mt-3">
                             <a href="{{ route('edit',Auth::id()) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                         </div>
+                    @else
                     @endif
                 </div>
             </div>
+            @include('follow.follow_button')
         </aside>
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
