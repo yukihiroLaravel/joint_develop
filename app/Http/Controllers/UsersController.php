@@ -27,7 +27,7 @@ class UsersController extends Controller
         'posts' => $posts,
        ];
         return view('users.show', $data);
-   }
+   } 
 
 
    public function edit($id)
@@ -52,5 +52,14 @@ class UsersController extends Controller
             $user->save();           
         }     
         return back();   
+   }
+
+   public function destroy($id)
+   {
+       $user = User::findOrFail($id);
+       if (\Auth::id() === $user->id) {
+           $user->delete();
+       }
+       return redirect('/');
    }
 }

@@ -45,6 +45,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('edit', 'UsersController@edit')->name('user.edit');
         //更新
         Route::put('', 'UsersController@update')->name('user.update');
+        //削除
+        Route::delete('', 'UsersController@destroy')->name('user.delete');
     });
 });
 
