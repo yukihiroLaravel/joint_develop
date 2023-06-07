@@ -40,4 +40,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('follow', 'FollowersController@store')->name('follow');
         Route::delete('unfollow', 'FollowersController@destroy')->name('unfollow');
     });
+    // コメント
+    Route::prefix('comments')->group(function () {
+        Route::post('', 'CommentsController@store')->name('comment.store');
+        Route::delete('{id}', 'CommentsController@destroy')->name('comment.delete');
+    });
 });
