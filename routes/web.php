@@ -35,4 +35,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{id}', 'EditUserController@update')->name('update');
         Route::delete('{id}', 'EditUserController@destroy')->name('user.delete');
     });
+    // コメント
+    Route::prefix('comments')->group(function () {
+        Route::post('', 'CommentsController@store')->name('comment.store');
+        Route::delete('{id}', 'CommentsController@destroy')->name('comment.delete');
+    });
 });
