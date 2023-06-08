@@ -29,11 +29,11 @@
                         <a href="" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
-                <div class="card text-left d-inline-block w-75 mb-2 ml-5">
+                <div class="card text-left d-inline-block w-75 mb-2">
                     <h5 class="card-header">コメント</h5>
                     <div class="card-body">
                         @foreach ($post->comments as $comment)
-                            <div class="text-left d-inline-block w-75 ml-3">
+                            <div class="text-left d-inline-block w-75">
                                 <span>
                                     @if($comment->user->email)
                                         <img class="rounded-circle img-fluid" src="{{ Gravatar::src($comment->user->email, 30) }}"

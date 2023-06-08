@@ -5,7 +5,6 @@
             <h1><i class="pr-3"></i>Topic Posts</h1>
         </div>
     </div>
-</div>
 @if (session('greenMessage'))
     <div class="alert alert-success alert-dismissible fade show mx-auto w-75" role="alert">
         <strong>{{ session('greenMessage') }}</strong>
