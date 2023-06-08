@@ -51,7 +51,7 @@ class UsersController extends Controller
             $user->password = bcrypt($request->password);     
             $user->save();           
         }     
-        return back();   
+        return redirect('/')->with('update_flash_message', '更新しました');
    }
 
    public function destroy($id)
@@ -60,6 +60,6 @@ class UsersController extends Controller
        if (\Auth::id() === $user->id) {
            $user->delete();
        }
-       return redirect('/');
+       return redirect('/')->with('delete_flash_message', '退会しました');
    }
 }
