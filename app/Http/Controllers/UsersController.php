@@ -43,7 +43,7 @@ class UsersController extends Controller
         {
             $user->delete();
         }
-        return redirect('/');
+        return redirect('/')->with('withdraw_message', '退会しました');
     }
 
     public function show($id)

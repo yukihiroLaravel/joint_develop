@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @section('content')
+@if (session('withdraw_message'))
+    <div class="withdraw_message bg-danger text-center  .py-300 .my-0">
+        {{ session('withdraw_message') }}
+    </div>
+@endif
 @if (session('flash_message'))
     <div class="flash_message bg-success text-center  .py-300 .my-0">
         {{ session('flash_message') }}
