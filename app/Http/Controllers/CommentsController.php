@@ -13,7 +13,12 @@ class CommentsController extends Controller
 
     public function store(CommentRequest $request)
     {
-        //
+        $comment = new Comment;
+        $comment->comment = $request->comment;
+        $comment->post_id = $request->post_id;
+        $comment->user_id = $request->user()->id;
+        $comment->save();
+        return back()->with('greenMessage', 'コメントしました');
     }
 
     public function destroy($id)

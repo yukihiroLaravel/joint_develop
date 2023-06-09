@@ -32,6 +32,24 @@
                 <div class="card text-left d-inline-block w-75 mb-2">
                     <h5 class="card-header">コメント</h5>
                     <div class="card-body">
+                        @if (Auth::check())
+                            <div class="row actions">
+                                <form class="d-inline-block w-100 m-1 p-1" method="POST" action="{{ route('comment.store') }}">
+                                    @csrf
+                                    <div class="form-group">
+                                        <input type="hidden" name="comments" />
+                                        <input value="{{ $post->id }}" type="hidden" name="post_id" />
+                                        <input value="{{ Auth::id() }}" type="hidden" name="user_id" />
+                                        <textarea class="form-control comment-input" placeholder="コメントを投稿する ..."
+                                            autocomplete="off" type="text" name="comment" rows="2" cols="40"
+                                            value="{{ old('comment') }}"></textarea><br>
+                                        <div class="text-left">
+                                            <button type="submit" class="btn btn-primary">コメントする</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        @endif
                         @foreach ($post->comments as $comment)
                             <div class="text-left d-inline-block w-75">
                                 <span>
@@ -43,7 +61,9 @@
                                         </p>
                                     @endif
                                 </span><br>
-                                <span class="card-text">{!!nl2br(e($comment->comment))!!}</span>
+                                <span class="card-text">
+                                    {!!nl2br(e($comment->comment))!!}
+                                </span>
                                 <p class="text-muted">
                                     {{ $comment->updated_at }}
                                 </p>
