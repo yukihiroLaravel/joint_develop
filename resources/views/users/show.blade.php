@@ -38,15 +38,25 @@
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
                 <li class="nav-item"><a href="{{ route('user.show', $user->id) }}"
-                        class="nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}">タイムライン</a>
+                        class="nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}">タイムライン<br><div class="badge badge-secondary">{{ $countPosts }}</div></a>
                 </li>
-                <li class="nav-item"><a href="#" class="nav-link">フォロー中</a>
+                <li class="nav-item"><a href="{{ route('user.followingList', $user->id)}}" 
+                        class="nav-link {{ Request::is('users/'. $user->id. '/followingList') ? 'active' : '' }}">フォロー中<br><div class="badge badge-secondary">{{ $countFollowings }}</div></a>
                 </li>
-                <li class="nav-item"><a href="#" class="nav-link">フォロワー</a>
+                <li class="nav-item"><a href="{{ route('user.followedList', $user->id)}}"
+                        class="nav-link  {{ Request::is('users/'. $user->id. '/followedList') ? 'active' : '' }}">フォロワー<br><div class="badge badge-secondary">{{ $countFollowers }}</div></a>
                 </li>
             </ul>
             <ul class="list-unstyled">
+            @if (Request::is('users/'. $user->id))
                 @include('posts.posts')
+            @elseif (Request::is('users/'. $user->id. '/followingList'))
+                @include('follow.following_list')
+            @elseif (Request::is('users/'. $user->id. '/followedList'))
+                @include('follow.followed_list')
+            @else
+                @include('posts.posts')
+            @endif
             </ul>
         </div>
     </div>
