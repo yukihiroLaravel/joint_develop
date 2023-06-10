@@ -34,4 +34,25 @@ class PostsController extends Controller
         }
         return back();
     }
-}
+
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            return view('posts.edit',[
+                'post' => $post,
+            ]);
+        }      
+        return back();
+    }
+
+    public function update(PostRequest $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            $post->text = $request->text;
+            $post->save();
+        }
+        return redirect("/");
+    }
+}    
