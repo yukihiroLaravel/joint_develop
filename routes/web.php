@@ -36,6 +36,8 @@ Route::group(['middleware' => 'auth'], function ()
 // ユーザ
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
+    //　ユーザー詳細「フォロー中」
+    Route::get('{id}/followings', 'UsersController@followingsShow')->name('followings');
     // フォロー機能（ログイン後）
     Route::post('{id}/follow', 'FollowController@store')->name('follow');
     Route::delete('{id}/unFollow', 'FollowController@destroy')->name('unFollow');
