@@ -18,7 +18,11 @@ class CommentsController extends Controller
 
     public function destroy($id)
     {
-        //
+        $comment = Comment::find($id);
+        if (\Auth::id() === $comment->user_id) {
+            $comment->delete();
+        }
+        return back();
     }
 
 }
