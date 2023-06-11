@@ -6,13 +6,17 @@
                     <img class="rounded-circle img-fluid" src="{{ Gravatar::src($post->user->email, 55) }}"
                         alt="{{ $post->user->name }}アバター画像">
                     <p class="mt-3 mb-0 d-inline-block">
-                        <a href="{{ route('user.show', $post->user->id) }}">{{$post->user->name}}</a>
+                        <strong>
+                            <a href="{{ route('user.show', $post->user->id) }}">{{$post->user->name}}</a>
+                        </strong>
                     </p>
                 @endif
             </div>
             <div class="">
                 <div class="text-left d-inline-block w-75">
-                    <p class="mb-2">{{ $post->text }}</p>
+                    <strong>
+                        <p class="mb-2">{{ $post->text }}</p>
+                    </strong>
                     <p class="text-muted">{{ $post->updated_at }}</p>
                 </div>
                 @if ($post->user->id === Auth::id() )
@@ -25,6 +29,28 @@
                         <a href="" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
+                <div class="card text-left d-inline-block w-75 mb-2">
+                    <h5 class="card-header">コメント</h5>
+                    <div class="card-body">
+                        @foreach ($post->comments as $comment)
+                            <div class="text-left d-inline-block w-75">
+                                <span>
+                                    @if($comment->user->email)
+                                        <img class="rounded-circle img-fluid" src="{{ Gravatar::src($comment->user->email, 30) }}"
+                                            alt="{{ $comment->user->name }}アバター画像">
+                                        <p class="mt-1 mb-1 d-inline-block">
+                                            <a href="{{ route('user.show', $comment->user->id) }}">{{$comment->user->name}}</a>
+                                        </p>
+                                    @endif
+                                </span><br>
+                                <span class="card-text">{!!nl2br(e($comment->comment))!!}</span>
+                                <p class="text-muted">
+                                    {{ $comment->updated_at }}
+                                </p>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </li>
     </ul>
