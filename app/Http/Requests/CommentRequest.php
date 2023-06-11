@@ -24,14 +24,14 @@ class CommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'comment' => 'required|max:140',
+            'comment.' . $this->post_id => 'required|max:40',
         ];
     }
 
     public function attributes()
     {
         return [
-            'comment' => 'コメント',
+            'comment.' . $this->post_id => 'コメント',
         ];
     }
 
