@@ -12,7 +12,7 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
-        $data=[
+        $data = [
             'user' => $user,
             'posts' => $posts,
         ];
@@ -24,23 +24,23 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $followingUsers = $user->following()->orderBy('id', 'desc')->paginate(10);
-        $data=[
+        $data = [
             'user' => $user,
             'followingUsers' => $followingUsers,
         ];
         $data += $this->userCounts($user);
-        return view('users.show', $data);
+        return view('follow.following_list', $data);
     }
     
     public function showFollowedList($id)
     {
         $user = User::findOrFail($id);
         $followedUsers = $user->followed()->orderBy('id', 'desc')->paginate(10);
-        $data=[
+        $data = [
             'user' => $user,
             'followedUsers' => $followedUsers,
         ];
         $data += $this->userCounts($user);
-        return view('users.show', $data);
+        return view('follow.followed_list', $data);
     }
 }
