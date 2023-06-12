@@ -25,6 +25,8 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 // ユーザ詳細ページ
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
+    Route::get('{id}/followingList', 'UsersController@showFollowingList')->name('user.followingList');
+    Route::get('{id}/followedList', 'UsersController@showFollowedList')->name('user.followedList');
 });
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
