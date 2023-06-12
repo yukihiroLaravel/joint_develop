@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-@include('shared.success')
+@include('commons.success')
 <div class="row">
     <aside class="col-sm-4 mb-5">
         <div class="card bg-info">
