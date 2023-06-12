@@ -7,7 +7,10 @@
     </div>   
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>           
         <div class="w-75 m-auto">@include('commons.error_messages')</div>
-        <div class="text-center mb-3">@include('commons.flash_message')
+        <div class="text-center mb-3">
+            @if( session('flash_msg','cls') )
+                <div class="alert alert-{{ session('cls') }}">{{ session('flash_msg') }}</div>                
+            @endif    
             @if (Auth::check())
                 <form method="POST" action="{{route('post.store')}}" class="d-inline-block w-75">                
                     @csrf

@@ -51,11 +51,11 @@ class UsersController extends Controller
             $user->password = bcrypt($request->password);     
             $user->save();           
         }     
-        return redirect('/')->with('update_flash_message', '更新しました');
-        //return redirect('/')->with([
-            //'flash_msg'=> '更新しました'
-            //'cls'=>'success'
-        //]);
+        //return redirect('/')->with('update_flash_message', '更新しました');
+        return redirect('/')->with([
+            'flash_msg' => '更新しました',
+            'cls' => 'success'
+        ]);
    }
 
    public function destroy($id)
@@ -64,10 +64,10 @@ class UsersController extends Controller
        if (\Auth::id() === $user->id) {
            $user->delete();
        }
-       return redirect('/')->with('delete_flash_message', '退会しました');
-       //return redirect('/')->with([
-        //'flash_msg'=> '退会しました'
-        //'cls'=>'danger'
-    //]);
+       //return redirect('/')->with('delete_flash_message', '退会しました');
+       return redirect('/')->with([
+            'flash_msg' => '退会しました',
+            'cls' => 'danger'
+        ]);
    }
 }
