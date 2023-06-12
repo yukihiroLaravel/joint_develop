@@ -61,11 +61,11 @@ class UsersController extends Controller
    public function destroy($id)
    {
        $user = User::findOrFail($id);
-       if (\Auth::id() === $user->id) {
+        if (\Auth::id() === $user->id) {
            $user->delete();
-       }
-       //return redirect('/')->with('delete_flash_message', '退会しました');
-       return redirect('/')->with([
+        }
+        //return redirect('/')->with('delete_flash_message', '退会しました');
+        return redirect('/')->with([
             'flash_msg' => '退会しました',
             'cls' => 'danger'
         ]);
