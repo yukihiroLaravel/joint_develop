@@ -1,15 +1,6 @@
 @extends('layouts.app')
 @section('content')
-@if (session('withdraw_message'))
-    <div class="withdraw_message bg-danger text-center  .py-300 .my-0">
-        {{ session('withdraw_message') }}
-    </div>
-@endif
-@if (session('flash_message'))
-    <div class="flash_message bg-success text-center  .py-300 .my-0">
-        {{ session('flash_message') }}
-    </div>
-@endif
+@include('shared.success')
     <div class="center jumbotron bg-info">
         <div class="text-center text-white mt-2 pt-1">
             <h1><i class="pr-3"></i>Topic Posts</h1>
