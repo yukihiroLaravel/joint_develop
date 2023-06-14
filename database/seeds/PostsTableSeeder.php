@@ -13,67 +13,67 @@ class PostsTableSeeder extends Seeder
     {
         DB::table('posts')->insert([
             'user_id' => 1,
-            'text' => "テスト\n投稿1\nユーザ1",
+            'text' => 'テスト投稿ユーザー1',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
         DB::table('posts')->insert([
             'user_id' => 2,
-            'text' => "テスト\n投稿2\nユーザ2",
+            'text' => 'テスト投稿ユーザー2',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
         DB::table('posts')->insert([
             'user_id' => 3,
-            'text' => "テスト\n投稿3\nユーザ3",
+            'text' => 'テスト投稿ユーザー3',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
         DB::table('posts')->insert([
             'user_id' => 4,
-            'text' => "テスト\n投稿4\nユーザ4",
+            'text' => 'テスト投稿ユーザー4',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
         DB::table('posts')->insert([
             'user_id' => 1,
-            'text' => "テスト\n投稿5\nユーザ1",
+            'text' => 'テストtext5',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
         DB::table('posts')->insert([
             'user_id' => 1,
-            'text' => "テスト\n投稿6\nユーザ1",
+            'text' => 'text6',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
         DB::table('posts')->insert([
             'user_id' => 2,
-            'text' => "テスト\n投稿7\nユーザ2",
+            'text' => 'text7',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
         DB::table('posts')->insert([
             'user_id' => 2,
-            'text' => "テスト\n投稿8\nユーザ2",
+            'text' => 'text8',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
         DB::table('posts')->insert([
             'user_id' => 3,
-            'text' => "テスト\n投稿9\nユーザ3",
+            'text' => 'text9',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
         DB::table('posts')->insert([
             'user_id' => 3,
-            'text' => "テスト\n投稿10\nユーザ3",
+            'text' => 'text10',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
         DB::table('posts')->insert([
             'user_id' => 4,
-            'text' => "テスト\n投稿11\nユーザ4",
+            'text' => 'text11',
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
