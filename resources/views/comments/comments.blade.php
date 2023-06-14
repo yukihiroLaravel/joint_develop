@@ -14,9 +14,9 @@
                         <input type="hidden" name="comments" />
                         <input value="{{ $post->id }}" type="hidden" name="post_id" />
                         <input value="{{ Auth::id() }}" type="hidden" name="user_id" />
-                        <textarea class="form-control @error('comment.'. $post->id) is-invalid @enderror comment-input" placeholder="コメントを投稿する ..."
-                            autocomplete="off" type="text" name="comment[{{ $post->id }}]" rows="2" cols="40"
-                            value="{{ old('comment.'. $post->id) }}"></textarea><br>
+                        <textarea class="form-control @error('comment.'. $post->id) is-invalid @enderror comment-input"
+                            placeholder="コメントを投稿する ..." autocomplete="off" type="text" name="comment[{{ $post->id }}]"
+                            rows="2" cols="40">{{ old('comment.'. $post->id) }}</textarea><br>
                         <div class="text-left">
                             <button type="submit" class="btn btn-primary">コメントする</button>
                         </div>
