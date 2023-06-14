@@ -1,15 +1,5 @@
 @extends('layouts.app')
 @section('content')
-@if (session('post_message'))
-  <div class="alert alert-success" role="alert">
-    {{ session('post_message')}}
-  </div>
-@endif
-@if (session('delete_message'))
-  <div class="alert alert-danger" role="alert">
-    {{ session('delete_message')}}
-  </div>
-@endif
     <div class="center jumbotron bg-info">
         <div class="text-center text-white mt-2 pt-1">
             <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
@@ -29,6 +19,7 @@
                 </div>
             </form>
         </div>
+    @include('commons.flash_message')
     @endif   
     @include('posts.posts', ['posts' => $posts])      
 @endsection
