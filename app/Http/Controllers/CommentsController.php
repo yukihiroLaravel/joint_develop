@@ -27,7 +27,7 @@ class CommentsController extends Controller
         if (\Auth::id() === $comment->user_id) {
             $comment->delete();
         }
-        return back();
+        return back()->with('redMessage', 'コメント削除しました');
     }
 
 }
