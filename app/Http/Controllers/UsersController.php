@@ -12,7 +12,7 @@ class UsersController extends Controller
 {
    public function index()
    {
-       return view('welcome');
+        return view('welcome');
    }  
 
 
@@ -20,12 +20,12 @@ class UsersController extends Controller
 
    public function show($id)
    {
-       $user = User::findOrFail($id);
-       $posts = $user->posts()->orderBy('id','desc')->paginate(10);
-       $data=[
-        'user' => $user,
-        'posts' => $posts,
-       ];
+        $user = User::findOrFail($id);
+        $posts = $user->posts()->orderBy('id','desc')->paginate(10);
+        $data=[
+            'user' => $user,
+            'posts' => $posts,
+        ];
         return view('users.show', $data);
    } 
 
@@ -60,7 +60,7 @@ class UsersController extends Controller
 
    public function destroy($id)
    {
-       $user = User::findOrFail($id);
+        $user = User::findOrFail($id);
         if (\Auth::id() === $user->id) {
            $user->delete();
         }
