@@ -69,4 +69,16 @@ class UsersController extends Controller
         return view('follow.followings', $data);
     }
 
+    //ユーザー詳細「フォロワー」
+    public function followersShow($id)
+    {
+        $user = User::findOrFail($id);
+        $followers = $user->followers()->orderBy('created_at', 'desc')->paginate(10);
+        $data = [
+            'user' => $user,
+            'followers' => $followers,
+        ];
+        return view('follow.followers', $data);
+    }
+
 }
