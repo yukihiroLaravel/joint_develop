@@ -25,7 +25,7 @@
                 <li class="nav-item"><a href="{{ route('user.following', $user->id) }}" class="nav-link {{ Request::is('users/'. $user->id. 'followingList') ? 'active' : '' }}">フォロー中</a></li>
                 <li class="nav-item"><a href="{{ route('user.follower', $user->id) }}" class="nav-link {{ Request::is('users/'. $user->id. 'followerList') ? 'active' : '' }}">フォロワー</a></li>
             </ul>
-            @include('posts.posts', ['posts' => $posts])
+            @include('follow.follower_list', ['follower' => $followers])
         </div>
      </div>
 @endsection
