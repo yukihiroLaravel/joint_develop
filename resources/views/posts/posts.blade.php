@@ -15,7 +15,7 @@
             <div class="">
                 <div class="text-left d-inline-block w-75">
                     <strong>
-                        <p class="mb-2">{{ $post->text }}</p>
+                        <p class="mb-2">{!!nl2br(e($post->text))!!}</p>
                     </strong>
                     <p class="text-muted">{{ $post->updated_at }}</p>
                 </div>
