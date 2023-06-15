@@ -12,17 +12,17 @@ class UsersController extends Controller
 {
    public function index()
    {
-       return view('welcome');
+        return view('welcome');
    }  
 
    public function show($id)
    {
-       $user = User::findOrFail($id);
-       $posts = $user->posts()->orderBy('id','desc')->paginate(10);
-       $data=[
-        'user' => $user,
-        'posts' => $posts,
-       ];
+        $user = User::findOrFail($id);
+        $posts = $user->posts()->orderBy('id','desc')->paginate(10);
+        $data=[
+            'user' => $user,
+            'posts' => $posts,
+        ];
         return view('users.show', $data);
    } 
 
@@ -46,16 +46,24 @@ class UsersController extends Controller
             $user->password = bcrypt($request->password);     
             $user->save();           
         }     
-        return back();   
+        //return redirect('/')->with('update_flash_message', '更新しました');
+        return redirect('/')->with([
+            'flash_msg' => '更新しました',
+            'cls' => 'success'
+        ]);
    }
 
    public function destroy($id)
    {
-       $user = User::findOrFail($id);
-       if (\Auth::id() === $user->id) {
+        $user = User::findOrFail($id);
+        if (\Auth::id() === $user->id) {
            $user->delete();
-       }
-       return redirect('/');
+        }
+        //return redirect('/')->with('delete_flash_message', '退会しました');
+        return redirect('/')->with([
+            'flash_msg' => '退会しました',
+            'cls' => 'danger'
+        ]);
    }
 
    public function showFollowingList($id)
