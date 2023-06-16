@@ -23,7 +23,11 @@ class CommentsController extends Controller
 
     public function destroy($id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+        if (\Auth::id() === $comment->user_id) {
+            $comment->delete();
+        }
+        return back()->with('redMessage', 'コメント削除しました');
     }
 
 }
