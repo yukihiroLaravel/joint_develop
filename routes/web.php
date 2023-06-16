@@ -36,6 +36,10 @@ Route::group(['middleware' => 'auth'], function ()
 // ユーザ
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
+    //　ユーザー詳細「フォロー中」
+    Route::get('{id}/followings', 'UsersController@followingsShow')->name('followings');
+    //　ユーザー詳細「フォワー」
+    Route::get('{id}/followers', 'UsersController@followersShow')->name('followers');
     // フォロー機能（ログイン後）
     Route::post('{id}/follow', 'FollowController@store')->name('follow');
     Route::delete('{id}/unFollow', 'FollowController@destroy')->name('unFollow');
@@ -47,5 +51,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
         Route::post('', 'PostsController@store')->name('post.store');
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
+        Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
+        Route::put('{id}', 'PostsController@update')->name('post.update');
     });
 });

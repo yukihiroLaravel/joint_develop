@@ -10,4 +10,19 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    //ユーザー詳細のタブに件数を表示するcount関数
+    public function userCounts($user)
+    {
+        $countPosts = $user->posts()->count();
+        $countFollowings = $user->followings()->count();
+        $countFollowers = $user->followers()->count();
+
+        return [
+            'countPosts' => $countPosts,
+            'countFollowings' => $countFollowings,
+            'countFollowers' => $countFollowers,
+        ];
+    }
+
 }
