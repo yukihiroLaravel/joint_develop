@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -26,10 +27,32 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected function redirectTo()
+    protected $redirectTo = '/';
+
+    /**
+     * ログイン後の処理
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return \Illuminate\Http\Response
+     */
+    protected function authenticated(Request $request, $user)
     {
-        session()->flash('greenMessage', 'ログインしました');
-        return '/';
+        return redirect('/')->with('greenMessage', 'ログインしました');
+    }
+
+    /**
+     * ユーザーをログアウトさせる
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return $this->loggedOut($request) ?: redirect('/')->with('redMessage', 'ログアウトしました');
     }
 
     /**

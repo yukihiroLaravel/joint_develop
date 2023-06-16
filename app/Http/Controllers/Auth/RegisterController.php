@@ -81,7 +81,6 @@ class RegisterController extends Controller
      */
     protected function registered(Request $request, $user)
     {
-        // 登録したら、そのユーザーのプロフィール・ページへ移動
-        return redirect('users/' . $user->id)->with('greenMessage', '新規登録しました');
+        return redirect('/')->with('greenMessage', '新規登録しました');
     }
 }
