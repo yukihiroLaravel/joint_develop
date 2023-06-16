@@ -22,8 +22,8 @@
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
                 <li class="nav-item"><a href="{{ route('user.show', $user->id) }}" class="nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}">タイムライン</a></li>
-                <li class="nav-item"><a href="{{ route('user.following', $user->id) }}" class="nav-link {{ Request::is('users/'. $user->id. 'followingList') ? 'active' : '' }}">フォロー中</a></li>
-                <li class="nav-item"><a href="{{ route('user.follower', $user->id) }}" class="nav-link {{ Request::is('users/'. $user->id. 'followerList') ? 'active' : '' }}">フォロワー</a></li>
+                <li class="nav-item"><a href="{{ route('user.following', $user->id) }}" class="nav-link {{ Request::is('users/'. $user->id. '/followingList') ? 'active' : '' }}">フォロー中</a></li>
+                <li class="nav-item"><a href="{{ route('user.follower', $user->id) }}" class="nav-link {{ Request::is('users/'. $user->id. '/followerList') ? 'active' : '' }}">フォロワー</a></li>
             </ul>
             @include('follow.follower_list', ['follower' => $followers])
         </div>
