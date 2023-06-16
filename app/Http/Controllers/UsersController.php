@@ -15,9 +15,6 @@ class UsersController extends Controller
         return view('welcome');
    }  
 
-
-   
-
    public function show($id)
    {
         $user = User::findOrFail($id);
@@ -28,7 +25,6 @@ class UsersController extends Controller
         ];
         return view('users.show', $data);
    } 
-
 
    public function edit($id)
    {
@@ -41,7 +37,6 @@ class UsersController extends Controller
         return back();
    }
    
-
    public function update(UserRequest $request, $id)
    {
         $user = User::findOrFail($id);
@@ -70,4 +65,27 @@ class UsersController extends Controller
             'cls' => 'danger'
         ]);
    }
+
+   public function showFollowingList($id)
+   {
+       $user = User::findOrFail($id);
+       $followings = $user->followings()->orderBy('created_at', 'desc')->paginate(10);
+       $data=[
+        'user' => $user,
+        'followings' => $followings,
+       ];
+        return view('users.followings', $data);
+   }
+
+   public function showFollowerList($id)
+   {
+       $user = User::findOrFail($id);
+       $followers = $user->followers()->orderBy('created_at', 'desc')->paginate(10);
+       $data=[
+        'user' => $user,
+        'followers' => $followers,
+       ];
+        return view('users.follower', $data);
+   }
+
 }

@@ -24,6 +24,8 @@ Route::get('/', 'PostsController@index');
 //ユーザー詳細
 Route::prefix('users/{id}')->group(function(){
     Route::get('','UsersController@show')->name('user.show');
+    Route::get('followingList','UsersController@showFollowingList')->name('user.following');
+    Route::get('followerList','UsersController@showFollowerList')->name('user.follower');
     Route::group(['middleware' => 'auth'], function () {
         //ユーザー編集・更新・削除
         Route::get('edit', 'UsersController@edit')->name('user.edit');
