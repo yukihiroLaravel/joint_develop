@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+@include('commons.success')
 <div class="row">
     <aside class="col-sm-4 mb-5">
         @include('users.user_card', ['followUser'=>$user])
