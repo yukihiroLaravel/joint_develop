@@ -21,7 +21,9 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = \Auth::id();
         $post->save();
-        return back();
+        return back()->with(['flash_msg' => '投稿しました',
+                             'cls' => 'success'
+                            ]);
     }
 
     public function destroy($id)
@@ -30,7 +32,9 @@ class PostsController extends Controller
         if (\Auth::id() === $post->user_id) {
             $post->delete();
         }
-        return back();
+        return back()->with(['flash_msg' => '削除しました',
+                             'cls' => 'danger'
+                            ]);
     }
     public function edit($id)
     {
