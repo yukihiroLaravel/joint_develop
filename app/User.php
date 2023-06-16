@@ -43,17 +43,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
-
+    //フォロー中の多対多　belongsToMany関数（相手のモデル, ‘中間テーブル名’, ‘自モデルの外部キー名’, ‘相手モデルの外部キー名’)
     public function followings()
     {
         return $this->belongsToMany(User::class,'follows', 'user_id', 'followed_user_id');
     }
-    //followersは動作未確認です 
+    
+    //フォロワーの多対多　belongsToMany関数（相手のモデル, ‘中間テーブル名’, ‘自モデルの外部キー名’, ‘相手モデルの外部キー名’)
     public function followers()
     {
         return $this->belongsToMany(User::class, 'follows', 'followed_user_id', 'user_id')->withTimestamps();
     }
 
+    //フォローする
     public function follow($userId)
     {
         $exist = $this->isFollow($userId);
@@ -66,6 +68,7 @@ class User extends Authenticatable
         }
     }
 
+    //フォローを外す
     public function unFollow($userId)
     {
         $exist = $this->isFollow($userId);
@@ -80,6 +83,7 @@ class User extends Authenticatable
         }
     }
 
+    //フォロー中か否か判定
     public function isFollow($userId)
     {
         return $this->followings()->where('followed_user_id', $userId)->exists();
