@@ -33,7 +33,7 @@ class UsersController extends Controller
             $user->password = bcrypt($request->password);
             $user->save();            
         }
-        return redirect('/');
+        return redirect('/')->with('flash_message', '更新しました！');    
     }
 
     public function destroy($id)
@@ -43,7 +43,7 @@ class UsersController extends Controller
         {
             $user->delete();
         }
-        return redirect('/');
+        return redirect('/')->with('withdraw_message', '退会しました');
     }
 
     //ユーザー詳細　paginateは他のタブに合わせて(9)から(10)に変更しました
