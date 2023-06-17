@@ -31,21 +31,14 @@ class LoginController extends Controller
 
     /**
      * ログイン後の処理
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  mixed  $user
-     * @return \Illuminate\Http\Response
      */
-    protected function authenticated(Request $request, $user)
+    protected function authenticated()
     {
         return redirect('/')->with('greenMessage', 'ログインしました');
     }
 
     /**
      * ユーザーをログアウトさせる
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function logout(Request $request)
     {
