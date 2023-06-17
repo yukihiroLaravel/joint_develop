@@ -22,6 +22,7 @@ class UsersController extends Controller
         $data=[
             'user' => $user,
             'posts' => $posts,
+            'list' => 'posts.posts',
         ];
         return view('users.show', $data);
    } 
@@ -69,23 +70,25 @@ class UsersController extends Controller
    public function showFollowingList($id)
    {
        $user = User::findOrFail($id);
-       $followings = $user->followings()->orderBy('created_at', 'desc')->paginate(10);
+       $targets = $user->followings()->orderBy('created_at', 'desc')->paginate(10);
        $data=[
         'user' => $user,
-        'followings' => $followings,
+        'targets' => $targets,
+        'list' => 'follow.followings_list',
        ];
-        return view('users.followings', $data);
+        return view('users.show', $data);
    }
 
    public function showFollowerList($id)
    {
        $user = User::findOrFail($id);
-       $followers = $user->followers()->orderBy('created_at', 'desc')->paginate(10);
+       $targets = $user->followers()->orderBy('created_at', 'desc')->paginate(10);
        $data=[
         'user' => $user,
-        'followers' => $followers,
+        'targets' => $targets,
+        'list' => 'follow.follower_list',
        ];
-        return view('users.follower', $data);
+        return view('users.show', $data);
    }
 
 }
