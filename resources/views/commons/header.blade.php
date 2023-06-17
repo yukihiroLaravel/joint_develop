@@ -16,5 +16,7 @@
                 @endif
             </ul>
         </div>
-    </nav>
+        @include('searchs.search')  
+	</form>
+</div>
 </header>

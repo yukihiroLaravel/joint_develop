@@ -53,3 +53,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{id}', 'PostsController@update')->name('post.update');
     });
 });
+
+// 検索機能
+Route::get('search', 'PostsController@search')->name('post.search');
