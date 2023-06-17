@@ -25,7 +25,7 @@
             </div>
         @endif
         @foreach ($post->comments as $comment)
-            <div class="text-left d-inline-block w-75">
+            <div class="text-left d-inline-block w-75 mb-2">
                 <span>
                     @if($comment->user->email)
                         <img class="rounded-circle img-fluid" src="{{ Gravatar::src($comment->user->email, 30) }}"
@@ -41,6 +41,13 @@
                 <p class="text-muted">
                     {{ $comment->updated_at }}
                 </p>
+                @if ($comment->user->id == Auth::id())
+                    <form method="POST" action="{{ route('comment.delete', $comment->id) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger mb-2">コメント削除</button>
+                    </form>
+                @endif
             </div>
         @endforeach
     </div>
