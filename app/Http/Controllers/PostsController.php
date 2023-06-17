@@ -36,4 +36,24 @@ class PostsController extends Controller
         return back()->with('redMessage', '削除しました');
     }
 
+    public function search(Request $request)
+    {
+        $keywords = preg_split('/[\s　]+/u', $request->input('keywords'));        
+        $posts = Post::where(function ($query) use ($keywords) {
+                foreach ($keywords as $keyword) {
+                    $query->where('text', 'LIKE', "%$keyword%");
+                }
+            }) 
+            ->orWhere(function ($query) use ($keywords) {
+                foreach ($keywords as $keyword) {
+                    $query->whereHas('comments', function ($query) use ($keyword){
+                        $query->where('comment', 'LIKE', "%$keyword%");
+                    });
+                }
+            })
+        ->orderBy('updated_at', 'desc')
+        ->paginate(10);
+        $request->flash();
+        return view('welcome', ['posts' => $posts]);
+    }
 }
