@@ -51,4 +51,23 @@ class PostsController extends Controller
         }
         return redirect('/');
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $query = Post::query();
+
+        if ($search) {
+            $spaceConversion = mb_convert_kana($search, 's');
+            $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
+            foreach($wordArraySearched as $value) {
+                $query->where('content', 'like', '%'.$value.'%');
+            }
+            $posts = $query->paginate(10);
+        }
+        return view('welcome')->with([
+                'posts' => $posts,
+                'search' => $search,
+            ]);
+    }       
 }
