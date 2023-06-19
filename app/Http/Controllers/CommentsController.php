@@ -13,12 +13,21 @@ class CommentsController extends Controller
 
     public function store(CommentRequest $request)
     {
-        //
+        $comment = new Comment;
+        $comment->comment = $request->input('comment.' . $request->post_id);
+        $comment->post_id = $request->post_id;
+        $comment->user_id = $request->user()->id;
+        $comment->save();
+        return back()->with('greenMessage', 'コメントしました');
     }
 
     public function destroy($id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+        if (\Auth::id() === $comment->user_id) {
+            $comment->delete();
+        }
+        return back()->with('redMessage', 'コメント削除しました');
     }
 
 }

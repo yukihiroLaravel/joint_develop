@@ -70,4 +70,12 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+    /**
+     * ユーザー登録後の処理
+     */
+    protected function registered()
+    {
+        return redirect('/')->with('greenMessage', '新規登録しました');
+    }
 }
