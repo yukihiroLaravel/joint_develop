@@ -28,6 +28,10 @@ Route::prefix('users')->group(function () {
     Route::get('{id}/followingList', 'UsersController@showFollowingList')->name('user.followingList');
     Route::get('{id}/followedList', 'UsersController@showFollowedList')->name('user.followedList');
 });
+
+// 検索機能
+Route::get('', 'PostsController@search')->name('search');
+
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
     // 投稿
