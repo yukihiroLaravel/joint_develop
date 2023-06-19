@@ -2,13 +2,32 @@
 @section('content')
 <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
 @include('commons.error_messages')
-    <form method="POST" action="{{ route('update', \Auth::user()->id) }}">
+    <form method="POST" action="{{ route('update', \Auth::user()->id) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="form-group">
             <label for="name">ユーザ名</label>
             <input class="form-control" value="{{ old('name', $user->name) }}" name="name" />
         </div>
+
+{{-- ▼▼▼ここからユーザ画像編集 追加分▼▼▼ --}}
+        <div class="form-group">
+            <label for="profile-image">
+                @if ($user->profile_image === null)
+                    カラムnull→<img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 55) }}"
+                alt="{{ $user->name }}アバター画像">
+                @else
+                    カラム画像データあり→<img class="rounded-circle" src="{{ Storage::url($user->profile_image) }}" alt="プロフィール画像" width="100" height="100">
+                @endif
+                <input id="profile-image" name="profile_image" type="file" class="form-control @error('profile-image') is-invalid @enderror" style="display:none;" value="" accept="image/png, image/jpeg">
+            </label>　画像クリックで編集
+            @error('profile-image')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+{{-- ▲▲▲ここまでユーザ画像編集 追加分▲▲▲ --}}
 
         <div class="form-group">
             <label for="email">メールアドレス</label>
