@@ -51,8 +51,8 @@ class PostsController extends Controller
                     });
                 }
             })
-        ->orderBy('updated_at', 'desc')
-        ->paginate(10);
+            ->orderBy('updated_at', 'desc')
+            ->paginate(10);
         $request->flash();
         return view('welcome', ['posts' => $posts]);
     }
