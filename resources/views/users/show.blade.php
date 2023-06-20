@@ -3,7 +3,7 @@
 @include('commons.success')
 <div class="row">
     <aside class="col-sm-4 mb-5">
-        @include('users.user_card', ['followUser'=>$user])
+        @include('users.user_card')
     </aside>
     <div class="col-sm-8">
         @include('users.user_tab')

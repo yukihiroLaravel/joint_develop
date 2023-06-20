@@ -7,6 +7,6 @@
         <div class="mt-3">
             <a href="" class="btn btn-primary btn-block">ユーザ情報の編集</a>
         </div>
-        @include('users.follow_button', ['followUser'=>$user])
+        @include('users.follow_button')
     </div>
 </div>
