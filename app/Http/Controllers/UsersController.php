@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -55,11 +56,19 @@ class UsersController extends Controller
 
     public function update(UserRequest $request, $id)
     {
+        $updateUser = $request->all();
         $user = User::findOrFail($id);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->save();
+        if ($request->profile_image != null) {
+            // storeメソッドで一意のファイル名を自動生成しつつstorage/app/public/profilesに保存し、そのファイル名（ファイルパス）を$profileImagePathとして生成
+            $profileImagePath = $request->profile_image->store('public/images/profiles');
+            // $updateUserのprofile_imageカラムに$profileImagePath（ファイルパス）を保存
+            $updateUser['profile_image'] = $profileImagePath;
+        }
+        $loginUser = Auth::user();
+        $loginUser->fill($updateUser)->save();
         return redirect()->route('user.show', $user->id)->with('greenMessage', '更新しました');
     }
 

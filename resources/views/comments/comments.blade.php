@@ -28,8 +28,13 @@
             <div class="text-left d-inline-block w-75 mb-2">
                 <span>
                     @if($comment->user->email)
-                        <img class="rounded-circle img-fluid" src="{{ Gravatar::src($comment->user->email, 30) }}"
-                            alt="{{ $comment->user->name }}アバター画像">
+                        @if ($comment->user->profile_image === null)
+                            <img class="rounded-circle img-fluid" src="{{ Gravatar::src($comment->user->email, 55) }}"
+                                alt="{{ $comment->user->name }}アバター画像">
+                        @else
+                            <img class="rounded-circle" src="{{ Storage::url($comment->user->profile_image) }}" alt="アバター画像"
+                                width="55" height="55">
+                        @endif
                         <p class="mt-1 mb-1 d-inline-block">
                             <a href="{{ route('user.show', $comment->user->id) }}">{{$comment->user->name}}</a>
                         </p>

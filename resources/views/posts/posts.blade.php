@@ -3,19 +3,13 @@
         <li class="mb-3 text-center">
             <div class="text-left d-inline-block w-75 mb-2">
                 @if($post->user->email)
-{{-- ▼▼▼ここからユーザ画像編集 追加分▼▼▼ --}}
-@if ($post->user->profile_image === null)
-カラムnull（今までの表示）→<img class="rounded-circle img-fluid" src="{{ Gravatar::src($post->user->email, 55) }}" alt="{{ $post->user->name }}アバター画像">
-@else
-カラム画像データあり→<img class="rounded-circle" src="{{ Storage::url($post->user->profile_image) }}" alt="プロフィール画像" width="50" height="50">
-@endif
-{{-- ▲▲▲ここまでユーザ画像編集 追加分▲▲▲ --}}<br>
-
-{{-- ▼▼▼ここからユーザ画像編集 追加分 その２▼▼▼ --}}
-またはこっち？→<img class="rounded-circle img-fluid" src="{{ asset('storage/images/profiles/'.$post->user->profile_image) }}" alt="プロフィール画像" width="55" height="55">
-{{-- ▲▲▲ここまでユーザ画像編集 追加分 その２▲▲▲ --}}<br>
-                    <img class="rounded-circle img-fluid" src="{{ Gravatar::src($post->user->email, 55) }}"
-                        alt="{{ $post->user->name }}アバター画像">
+                    @if ($post->user->profile_image === null)
+                        <img class="rounded-circle img-fluid" src="{{ Gravatar::src($post->user->email, 55) }}"
+                            alt="{{ $post->user->name }}アバター画像">
+                    @else
+                        <img class="rounded-circle" src="{{ Storage::url($post->user->profile_image) }}" alt="アバター画像" width="55"
+                            height="55">
+                    @endif
                     <p class="mt-3 mb-0 d-inline-block">
                         <strong>
                             <a href="{{ route('user.show', $post->user->id) }}">{{$post->user->name}}</a>
