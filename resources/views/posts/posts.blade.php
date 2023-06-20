@@ -9,6 +9,7 @@
             <div class="text-left d-inline-block w-75">
                 <p class="mb-2">{{$post->text}}</p>
                 <p class="text-muted">{{$post->created_at}}</p>
+                @include('favorite.favorite_button')
             </div>
             @if (Auth::id() === $post->user_id)
                 <div class="d-flex justify-content-between w-75 pb-3 m-auto">

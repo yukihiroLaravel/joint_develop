@@ -27,7 +27,7 @@
             <li class="nav-item"><a href="{{ route('followers', $user->id) }}" class="nav-link {{ Request::is('users/'. $user->id.'/followers') ? 'active' : '' }}">フォロワー<br>
                     <div class="badge badge-secondary">{{ $countFollowers }}</div>
                 </a></li>
-        </ul>
+            <li class="nav-item nav-link"><a href="{{ route('favorites', $user->id) }}" class="{{ Request::is('users/'. $user->id. 'favorites'. $user->id) ? 'active' : '' }}">いいね<span class="ml-2 badge badge-success">{{ $countFavorites }}</span></a></li>        </ul>
         @include('posts.posts', ['posts' => $posts])
     </div>
 </div>

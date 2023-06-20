@@ -36,6 +36,8 @@ Route::group(['middleware' => 'auth'], function ()
 // ユーザ
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
+    //ユーザー詳細イイね
+    Route::get('{id}/favorites', 'UsersController@favorites')->name('favorites');
     //　ユーザー詳細「フォロー中」
     Route::get('{id}/followings', 'UsersController@followingsShow')->name('followings');
     //　ユーザー詳細「フォワー」
@@ -53,5 +55,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
+    });
+    //イイね
+    Route::group(['prefix' => 'posts/{id}'],function(){
+        Route::post('favorite', 'FavoriteController@store')->name('favorite');
+        Route::delete('unfavorite', 'FavoriteController@destroy')->name('unfavorite');
     });
 });
