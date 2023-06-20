@@ -62,9 +62,7 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         if ($request->profile_image != null) {
-            // storeメソッドで一意のファイル名を自動生成しつつstorage/app/public/profilesに保存し、そのファイル名（ファイルパス）を$profileImagePathとして生成
             $profileImagePath = $request->profile_image->store('public/images/profiles');
-            // $updateUserのprofile_imageカラムに$profileImagePath（ファイルパス）を保存
             $updateUser['profile_image'] = $profileImagePath;
         }
         $loginUser = Auth::user();
