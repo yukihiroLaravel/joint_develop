@@ -1,6 +1,6 @@
 <header class="mb-5">
-    <nav class="navbar navbar-expand-sm navbar-dark bg-info">
-        <a class="navbar-brand" href="/">Topic Posts</a>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-warning">
+        <a class="navbar-brand" href="/"><img src="{{ asset('img/logo.png') }}" alt="ロゴ画像" width="40" height="40">Ideal Ramen</a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>
         </button>
