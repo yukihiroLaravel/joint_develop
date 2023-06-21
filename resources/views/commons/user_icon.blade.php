@@ -7,8 +7,8 @@
             <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 400) }}"
                 alt="{{ $user->name }}プロフィール画像">
         @else
-            <img class="rounded-circle" src="{{ Storage::url($user->profile_image) }}" alt="プロフィール画像" img-fluid width="100%"
-                height="auto">
+            <img class="rounded-circle" src="{{ asset('storage/images/profiles/'.$user->profile_image) }}"
+                alt="{{ $user->name }}プロフィール画像" img-fluid width="100%" height="auto">
         @endif
         @if ($user->id === Auth::id() )
             <div class="mt-3">

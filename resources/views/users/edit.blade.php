@@ -12,10 +12,11 @@
         <div class="form-group">
             <label for="profile_image">プロフィール画像</label>
             @if ($user->profile_image === null)
-                <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 55) }}" alt="{{ $user->name }}アバター画像">
+                <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 55) }}"
+                    alt="{{ $user->name }}プロフィール画像">
             @else
-                <img class="rounded-circle" src="{{ Storage::url($user->profile_image) }}" alt="プロフィール画像" width="55"
-                    height="55">
+                <img class="rounded-circle" src="{{ asset('storage/images/profiles/'.$user->profile_image) }}"
+                    alt="{{ $user->name }}プロフィール画像" width="55" height="55">
             @endif
                 <input id="profile_image" name="profile_image" type="file"
                     class="mt-1 pb-5 pt-3 form-control @error('profile_image') is-invalid @enderror" accept="image/png, image/jpeg">

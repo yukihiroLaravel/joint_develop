@@ -48,8 +48,8 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        if ($user->id === \Auth::id() ) {
-            return view('users.edit',['user' => $user]);
+        if ($user->id === \Auth::id()) {
+            return view('users.edit', ['user' => $user]);
         }
         abort(404);
     }
@@ -62,9 +62,10 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         if ($request->profile_image != null) {
-            $file_name = 'profile_'.$id.'.'.$image->getClientOriginalExtension();
-            $save_path = 'public/images/profiles/'.$file_name;
-            Storage::put($save_path, (string) $img->encode());
+            $file_name = $request->file('profile_image')->getClientOriginalName();
+            $request->file('profile_image')->storeAs('public/images/profiles/' . $id, $file_name);
+            $profileImagePath = $id . '/' . $file_name;
+            $updateUser['profile_image'] = $profileImagePath;
         }
         $loginUser = Auth::user();
         $loginUser->fill($updateUser)->save();
@@ -74,7 +75,7 @@ class UsersController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
-        if ($user->id === \Auth::id() ) {
+        if ($user->id === \Auth::id()) {
             $user->delete();
             return redirect('/')->with('redMessage', '退会しました');
         }
