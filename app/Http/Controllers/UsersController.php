@@ -63,10 +63,10 @@ class UsersController extends Controller
     public function followingsShow($id)
     {
         $user = User::findOrFail($id);
-        $followings = $user->followings()->orderBy('created_at', 'desc')->paginate(10);
+        $relations = $user->followings()->orderBy('created_at', 'desc')->paginate(10);
         $data = [
             'user' => $user,
-            'followings' => $followings,
+            'relations' => $relations,
         ];
         $data += $this->userCounts($user);
         return view('follow.followings', $data);
@@ -77,10 +77,10 @@ class UsersController extends Controller
     public function followersShow($id)
     {
         $user = User::findOrFail($id);
-        $followers = $user->followers()->orderBy('created_at', 'desc')->paginate(10);
+        $relations = $user->followers()->orderBy('created_at', 'desc')->paginate(10);
         $data = [
             'user' => $user,
-            'followers' => $followers,
+            'relations' => $relations,
         ];
         $data += $this->userCounts($user);
         return view('follow.followers', $data);
