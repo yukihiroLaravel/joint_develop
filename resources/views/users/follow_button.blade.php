@@ -1,6 +1,6 @@
-@if (Auth::check() && Auth::id() !== $followUser->id)
-    @if (Auth::user()->isFollow($followUser->id))
-        <form method="POST" action="{{ route('unFollow', $followUser->id) }}">
+@if (Auth::check() && Auth::id() !== $user->id)
+    @if (Auth::user()->isFollow($user->id))
+        <form method="POST" action="{{ route('unFollow', $user->id) }}">
             @csrf
             @method('DELETE')
             <div class="mt-3">
@@ -8,7 +8,7 @@
             </div>
         </form>
     @else
-        <form method="POST" action="{{ route('follow', $followUser->id) }}">
+        <form method="POST" action="{{ route('follow', $user->id) }}">
             @csrf
             <div class="mt-3">
                 <button type="submit" class="btn btn-success btn-block">フォロ―する</button>

@@ -34,20 +34,20 @@ Route::group(['middleware' => 'auth'], function ()
 });
 
 // ユーザ
-Route::prefix('users')->group(function () {
-    Route::get('{id}', 'UsersController@show')->name('user.show');
+Route::prefix('users/{id}')->group(function () {
+    Route::get('', 'UsersController@show')->name('user.show');
     //　ユーザー詳細「フォロー中」
-    Route::get('{id}/followings', 'UsersController@followingsShow')->name('followings');
+    Route::get('followings', 'UsersController@followingsShow')->name('followings');
     //　ユーザー詳細「フォワー」
-    Route::get('{id}/followers', 'UsersController@followersShow')->name('followers');
+    Route::get('followers', 'UsersController@followersShow')->name('followers');
     // フォロー機能（ログイン後）
-    Route::post('{id}/follow', 'FollowController@store')->name('follow');
-    Route::delete('{id}/unFollow', 'FollowController@destroy')->name('unFollow');
+    Route::post('{follow', 'FollowController@store')->name('follow');
+    Route::delete('unFollow', 'FollowController@destroy')->name('unFollow');
 });
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
-    // 投稿新規作成（投降削除はこれから実装予定）
+    // 投稿（新規作成、削除、編集、更新）
     Route::prefix('posts')->group(function () {
         Route::post('', 'PostsController@store')->name('post.store');
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
