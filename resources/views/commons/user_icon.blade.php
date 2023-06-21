@@ -5,7 +5,7 @@
     <div class="card-body">
         @if ($user->profile_image === null)
             <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 400) }}"
-                alt="{{ $user->name }}アバター画像">
+                alt="{{ $user->name }}プロフィール画像">
         @else
             <img class="rounded-circle" src="{{ Storage::url($user->profile_image) }}" alt="プロフィール画像" img-fluid width="100%"
                 height="auto">

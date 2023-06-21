@@ -30,9 +30,9 @@
                     @if($comment->user->email)
                         @if ($comment->user->profile_image === null)
                             <img class="rounded-circle img-fluid" src="{{ Gravatar::src($comment->user->email, 55) }}"
-                                alt="{{ $comment->user->name }}アバター画像">
+                                alt="{{ $comment->user->name }}プロフィール画像">
                         @else
-                            <img class="rounded-circle" src="{{ Storage::url($comment->user->profile_image) }}" alt="アバター画像"
+                            <img class="rounded-circle" src="{{ Storage::url($comment->user->profile_image) }}" alt="プロフィール画像"
                                 width="55" height="55">
                         @endif
                         <p class="mt-1 mb-1 d-inline-block">

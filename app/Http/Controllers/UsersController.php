@@ -62,8 +62,9 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         if ($request->profile_image != null) {
-            $profileImagePath = $request->profile_image->store('public/images/profiles');
-            $updateUser['profile_image'] = $profileImagePath;
+            $file_name = 'profile_'.$id.'.'.$image->getClientOriginalExtension();
+            $save_path = 'public/images/profiles/'.$file_name;
+            Storage::put($save_path, (string) $img->encode());
         }
         $loginUser = Auth::user();
         $loginUser->fill($updateUser)->save();
