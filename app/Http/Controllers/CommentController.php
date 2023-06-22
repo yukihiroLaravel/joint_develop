@@ -12,7 +12,7 @@ class CommentController extends Controller
     public function show($id)
     {
         $posts = Post::findOrFail($id);
-        $comments = Comment::orderBy('created_at', 'desc')->paginate(10);
+        $comments = $posts->comments()->orderByDesc('created_at')->paginate(10);
         $data = [
             'posts' => $posts,
             'comments' => $comments,
