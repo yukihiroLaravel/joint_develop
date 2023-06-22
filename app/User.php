@@ -43,6 +43,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+
+    //コメント（ボケ回答）と一対多の関係
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     //フォロー中の多対多　belongsToMany関数（相手のモデル, ‘中間テーブル名’, ‘自モデルの外部キー名’, ‘相手モデルの外部キー名’)
     public function followings()
     {
