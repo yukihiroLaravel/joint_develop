@@ -56,7 +56,6 @@ class UsersController extends Controller
 
     public function update(UserRequest $request, $id)
     {
-        $updateUser = $request->all();
         $user = User::findOrFail($id);
         $user->name = $request->name;
         $user->email = $request->email;
@@ -65,10 +64,8 @@ class UsersController extends Controller
             $file_name = $request->file('profile_image')->getClientOriginalName();
             $request->file('profile_image')->storeAs('public/images/profiles/' . $id, $file_name);
             $profileImagePath = $id . '/' . $file_name;
-            $updateUser['profile_image'] = $profileImagePath;
+            $user->profile_image = $profileImagePath;
         }
-        $loginUser = Auth::user();
-        $loginUser->fill($updateUser)->save();
         $user->save();
         return redirect()->route('user.show', $user->id)->with('greenMessage', '更新しました');
     }
