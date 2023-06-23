@@ -45,8 +45,12 @@
         </div>
 
         <div class="d-flex justify-content-between">
-            <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">退会する</a>
-            <button type="submit" class="btn btn-primary">更新する</button>
+            <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">
+                <i class="fas fa-trash-alt"></i> 退会する
+            </a>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-check-square"></i> 更新する
+            </button>
         </div>
     </form>
 
@@ -63,9 +67,13 @@
                     <form method="POST" action="{{ route('user.delete', \Auth::user()->id) }}" >
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger">退会する</button>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash-alt"></i> 退会する
+                        </button>
                     </form>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <i class="fas fa-times-circle"></i> 閉じる
+                    </button>
                 </div>
             </div>
         </div>

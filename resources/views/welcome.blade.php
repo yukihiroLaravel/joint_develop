@@ -2,7 +2,7 @@
 @section('content')
     <div class="center jumbotron bg-info">
         <div class="text-center text-white mt-2 pt-1">
-            <h1><i class="pr-3"></i>Topic Posts</h1>
+            <h1><i class="fas fa-home pr-3"></i>Topic Posts</h1>
         </div>
     </div>
 @include('commons.flash_message')
@@ -12,7 +12,7 @@
         <div class="input-group">
             <input type="text" name="keywords" value="{{ old('keywords') }}" class="form-control input-group-prepend" placeholder="検索キーワード">
             <span class="input-group-btn input-group-append">
-                <button type="submit" class="btn btn-primary">検索</button>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> 検索</button>
             </span>
         </div>
     </form>

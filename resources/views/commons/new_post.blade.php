@@ -9,7 +9,9 @@
             <div class="form-group">
                 <textarea class="form-control" name="text" rows="4" value="{{ old('text') }}"></textarea>
                 <div class="text-left mt-3">
-                    <button type="submit" class="btn btn-primary">投稿する</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-pen"></i> 投稿する
+                    </button>
                 </div>
             </div>
         </form>
