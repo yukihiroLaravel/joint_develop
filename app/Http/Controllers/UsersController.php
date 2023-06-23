@@ -69,6 +69,7 @@ class UsersController extends Controller
         }
         $loginUser = Auth::user();
         $loginUser->fill($updateUser)->save();
+        $user->save();
         return redirect()->route('user.show', $user->id)->with('greenMessage', '更新しました');
     }
 
