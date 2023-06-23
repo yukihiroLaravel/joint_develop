@@ -18,7 +18,9 @@
                             placeholder="コメントを投稿する ..." autocomplete="off" type="text" name="comment[{{ $post->id }}]"
                             rows="2" cols="40">{{ old('comment.'. $post->id) }}</textarea><br>
                         <div class="text-left">
-                            <button type="submit" class="btn btn-primary">コメントする</button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-reply"></i> コメントする
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -31,7 +33,9 @@
                         <img class="rounded-circle img-fluid" src="{{ Gravatar::src($comment->user->email, 30) }}"
                             alt="{{ $comment->user->name }}アバター画像">
                         <p class="mt-1 mb-1 d-inline-block">
-                            <a href="{{ route('user.show', $comment->user->id) }}">{{$comment->user->name}}</a>
+                            <a href="{{ route('user.show', $comment->user->id) }}">
+                                <i class="fas fa-user-alt"></i> {{$comment->user->name}}
+                            </a>
                         </p>
                     @endif
                 </span><br>
@@ -45,7 +49,9 @@
                     <form method="POST" action="{{ route('comment.delete', $comment->id) }}">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger mb-2">コメント削除</button>
+                        <button type="submit" class="btn btn-danger mb-2">
+                            <i class="fas fa-trash-alt"></i> コメント削除
+                        </button>
                     </form>
                 @endif
             </div>
