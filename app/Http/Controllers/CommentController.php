@@ -20,12 +20,12 @@ class CommentController extends Controller
         return view('posts.comment', $data);
     }
 
-    public function store(CommentRequest $request)
+    public function store(CommentRequest $request,$id)
     {
         $comment = new Comment;
         $comment->body = $request->body;
         $comment->user_id = \Auth::id();
-        $comment->post_id = $request->post_id;
+        $comment->post_id = $id;
         $comment->save();
         return back();
     }

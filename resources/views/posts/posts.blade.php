@@ -7,7 +7,7 @@
         </div>
         <div class="">
             <div class="text-left d-inline-block w-75">
-                <p class="mb-2" style="font-size: 24px;">{{$post->text}}</p>
+                <p class="mb-2 h4">{{$post->text}}</p>
                 <p class="text-muted">{{$post->created_at}}</p>
                 <p class="mt-0 mb-4"><a href="{{ route('comment.show', $post->id) }}">このお題の回答ページ</a></p>
             </div>
