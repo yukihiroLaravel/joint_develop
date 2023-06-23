@@ -53,5 +53,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
+        Route::post('{id}/comments', 'CommentController@store')->name('comment.store');
     });
 });
+
+// 回答投稿ページ 兼 回答一覧ページ
+Route::get('/posts/{id}', 'CommentController@show')->name('comment.show');
