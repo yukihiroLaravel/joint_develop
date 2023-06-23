@@ -16,11 +16,11 @@
                 @csrf
                 <div class="form-group">
                     <label for="email">メールアドレス</label>
-                    <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}">
+                    <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}">
                 </div>
                 <div class="form-group">
                     <label for="password">パスワード</label>
-                    <input id="password" type="password" class="form-control" name="password" value="{{ old('password') }}">
+                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}">
                 </div>
                 <button type="submit" class="btn btn-primary mt-2">ログイン</button>
             </form>

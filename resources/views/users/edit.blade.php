@@ -7,17 +7,18 @@
         @method('PUT')
         <div class="form-group">
             <label for="name">ユーザ名</label>
-            <input class="form-control" value="{{ old('name', $user->name) }}" name="name" />
+            <input class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $user->name) }}" name="name" />
         </div>
 
         <div class="form-group">
             <label for="email">メールアドレス</label>
-            <input class="form-control" value="{{ old('email', $user->email) }}" name="email" />
+            <input class="form-control @error('email') is-invalid @enderror" value="{{ old('email', $user->email) }}" name="email" />
         </div>
 
         <div class="form-group">
             <label for="password">パスワード</label>
-            <input id="password" input class="form-control" type="password" value="{{ old('password') }}" name="password" />
+            <input id="password" input class="form-control @error('password') is-invalid @enderror" type="password"
+                value="{{ old('password') }}" name="password" />
         </div>
 
         <div class="form-group">
