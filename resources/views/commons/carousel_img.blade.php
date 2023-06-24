@@ -1,10 +1,10 @@
 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="{{ asset('img/top1.png') }}" class="d-block w-100" alt="トップ画像１">
+      <img src="{{ asset('img/top1.png') }}" class="d-block w-auto" style="margin:auto; height:400px;" alt="トップ画像１" >
     </div>
     <div class="carousel-item">
-      <img src="{{ asset('img/top2.png') }}" class="d-block w-100" alt="トップ画像２">
+      <img src="{{ asset('img/top2.png') }}" class="d-block w-auto" style="margin:auto; height:400px;" alt="トップ画像２" >
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
