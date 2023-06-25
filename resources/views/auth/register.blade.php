@@ -18,21 +18,34 @@
                 <label for="name">名前</label>
                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
                     value="{{ old('name') }}">
+                @error('name')
+                    <span class="invalid-feedback">{{ $message }}</span>
+                @enderror
             </div>
             <div class="form-group">
                 <label for="email">メールアドレス</label>
                 <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email"
                     value="{{ old('email') }}">
+                @error('email')
+                    <span class="invalid-feedback">{{ $message }}</span>
+                @enderror
             </div>
             <div class="form-group">
                 <label for="password">パスワード</label>
                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
                     name="password" value="{{ old('password') }}">
+                @error('password')
+                    <span class="invalid-feedback">{{ $message }}</span>
+                @enderror
             </div>
             <div class="form-group">
                 <label for="password_confirmation">パスワード確認</label>
-                <input id="password_confirmation" type="password" class="form-control" name="password_confirmation"
-                    value="{{ old('password_confirmation') }}">
+                <input id="password_confirmation" type="password"
+                    class="form-control @error('password_confirmation') is-invalid @enderror"
+                    name="password_confirmation" value="{{ old('password_confirmation') }}">
+                @error('password_confirmation')
+                    <span class="invalid-feedback">{{ $message }}</span>
+                @enderror
             </div>
             <button type="submit" class="btn btn-primary mt-2">新規登録</button>
         </form>

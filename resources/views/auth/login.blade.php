@@ -17,10 +17,16 @@
                 <div class="form-group">
                     <label for="email">メールアドレス</label>
                     <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}">
+                    @error('email')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="password">パスワード</label>
                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}">
+                    @error('password')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
                 </div>
                 <button type="submit" class="btn btn-primary mt-2">ログイン</button>
             </form>
