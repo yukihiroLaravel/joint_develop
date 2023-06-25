@@ -33,7 +33,7 @@ class UsersController extends Controller
             $user->password = bcrypt($request->password);
             $user->save();            
         }
-        return redirect('/');
+        return redirect('/')->with('flash_message', '更新しました！');    
     }
 
     public function destroy($id)
@@ -43,30 +43,47 @@ class UsersController extends Controller
         {
             $user->delete();
         }
-        return redirect('/');
+        return redirect('/')->with('withdraw_message', '退会しました');
     }
 
+    //ユーザー詳細　paginateは他のタブに合わせて(9)から(10)に変更しました
     public function show($id)
     {
-      $user = User::findOrFail($id);
-      $posts = $user->posts()->orderBy('id', 'desc')->paginate(9);
-      $data=[
-        'user' => $user,
-        'posts' => $posts,
-      ];
-      return view('users.show',$data);
+        $user = User::findOrFail($id);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
+        $data=[
+            'user' => $user,
+            'posts' => $posts,
+        ];
+        $data += $this->userCounts($user);
+        return view('users.show',$data);
     }
 
     //ユーザー詳細「フォロー中」
     public function followingsShow($id)
     {
         $user = User::findOrFail($id);
-        $followings = $user->followings()->orderBy('created_at', 'desc')->paginate(10);
+        $relations = $user->followings()->orderBy('created_at', 'desc')->paginate(10);
         $data = [
             'user' => $user,
-            'followings' => $followings,
+            'relations' => $relations,
         ];
+        $data += $this->userCounts($user);
         return view('follow.followings', $data);
+        
+    }
+
+    //ユーザー詳細「フォロワー」
+    public function followersShow($id)
+    {
+        $user = User::findOrFail($id);
+        $relations = $user->followers()->orderBy('created_at', 'desc')->paginate(10);
+        $data = [
+            'user' => $user,
+            'relations' => $relations,
+        ];
+        $data += $this->userCounts($user);
+        return view('follow.followers', $data);
     }
 
 }
