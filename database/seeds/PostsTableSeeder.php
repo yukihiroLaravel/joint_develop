@@ -67,7 +67,7 @@ class PostsTableSeeder extends Seeder
         ]);
         DB::table('posts')->insert([
             'user_id' => 3,
-            'text' => "今おすすめのアニメはこれ!!\n過去一のアニメはこれ!!\nこれから来るアニメはこれ!!生の全てはアニメでしょ？！",
+            'text' => "今おすすめのアニメはこれ!!\n過去一のアニメはこれ!!\nこれから来るアニメはこれ!!\n人生の全てはアニメでしょ？！",
             'created_at' => new DateTime(),
             'updated_at' => new DateTime(),
         ]);
