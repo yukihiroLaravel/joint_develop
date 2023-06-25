@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="text-center">
-        <h1><i class="fas fa-home fa-lg pr-3"></i>Topic Posts</h1>
+        <h1><i class="fas fa-home fa-lg pr-3"></i>おうち時間の過ごし方</h1>
     </div>
     <div class="text-center mt-3">
         <p class="text-left d-inline-block">ログインすると投稿で<br>コミュニケーションができるようになります。</p>
