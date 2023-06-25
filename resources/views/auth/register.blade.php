@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="text-center">
-    <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
+    <h1><i class="fas fa-home fa-lg pr-3"></i>Topic Posts</h1>
 </div>
 <div class="text-center mt-3">
     <p class="text-left d-inline-block">新規ユーザ登録すると投稿で<br>コミュニケーションができるようになります。</p>
@@ -47,7 +47,9 @@
                     <span class="invalid-feedback">{{ $message }}</span>
                 @enderror
             </div>
-            <button type="submit" class="btn btn-primary mt-2">新規登録</button>
+            <button type="submit" class="btn btn-primary mt-2">
+                <i class="fas fa-user-edit"></i> 新規登録
+            </button>
         </form>
     </div>
 </div>
