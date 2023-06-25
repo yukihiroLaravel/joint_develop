@@ -63,3 +63,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('unfavorite', 'FavoriteController@destroy')->name('unfavorite');
     });
 });
+
+// 回答投稿ページ 兼 回答一覧ページ
+Route::get('/posts/{id}', 'CommentController@show')->name('comment.show');
