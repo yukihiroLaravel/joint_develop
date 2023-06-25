@@ -152,7 +152,7 @@ class CommentsTableSeeder extends Seeder
             'updated_at' => new DateTime(),
         ]);
         DB::table('comments')->insert([
-            'comment' => "トイレです。",
+            'comment' => "屋根裏です。",
             'post_id' => 11,
             'user_id' => 2,
             'created_at' => new DateTime(),
@@ -173,7 +173,7 @@ class CommentsTableSeeder extends Seeder
             'updated_at' => new DateTime(),
         ]);
         DB::table('comments')->insert([
-            'comment' => "トイレです。",
+            'comment' => "屋根裏です。",
             'post_id' => 11,
             'user_id' => 2,
             'created_at' => new DateTime(),
