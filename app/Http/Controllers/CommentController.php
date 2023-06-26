@@ -30,6 +30,7 @@ class CommentController extends Controller
         return back();
     }
 
+    //コメント削除
     public function destroy($postId, $commentId)
     {
         $comment = Comment::findOrFail($commentId);
@@ -37,6 +38,30 @@ class CommentController extends Controller
             $comment->delete();
             return back()->with('withdraw_message', '削除しました！');
         }
+    }
+
+    //コメント編集
+    public function edit($postId, $commentId)
+    {
+        $comment = Comment::findOrFail($commentId);
+        if (\Auth::id() === $comment->user_id && $comment->post_id == $postId) {
+            $posts = Post::findOrFail($postId);
+            return view('posts.comment_edit', [
+                'comment' => $comment,
+                'posts' => $posts,
+            ]);
+        }
+    }
+
+    //コメント更新
+    public function update(CommentRequest $request, $postId, $commentId)
+    {
+        $comment = Comment::findOrFail($commentId);
+        if (\Auth::id() === $comment->user_id && $comment->post_id == $postId) {
+            $comment->body = $request->body;
+            $comment->save();
+        }
+        return redirect()->route('comment.show', $postId)->with('withdraw_message', '回答を更新しました！');;
     }
 
 }
