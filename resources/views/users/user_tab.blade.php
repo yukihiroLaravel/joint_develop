@@ -14,4 +14,6 @@
             <div class="badge badge-secondary">{{ $countFollowers }}</div>
         </a>
     </li>
+    <li class="nav-item nav-link"><a href="{{ route('favorites', $user->id) }}" class="{{ Request::is('users/'. $user->id. 'favorites'. $user->id) ? 'active' : '' }}">いいね<span class="ml-2 badge badge-success">{{ $countFavorites }}</span></a></li>        </ul>
+
 </ul>

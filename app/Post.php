@@ -15,6 +15,12 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
+<<<<<<< HEAD
+    public function favoriteUsers()
+    {
+        return $this->belongsToMany(User::class,'favorites','post_id','user_id')->withTimestamps();
+    }
+=======
     //コメント（ボケ回答）と一対多の関係
     public function comments()
     {
@@ -22,4 +28,5 @@ class Post extends Model
     }
 
 
+>>>>>>> develop_c_satsuki_rab
 }

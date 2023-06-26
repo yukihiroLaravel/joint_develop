@@ -17,12 +17,12 @@ class Controller extends BaseController
         $countPosts = $user->posts()->count();
         $countFollowings = $user->followings()->count();
         $countFollowers = $user->followers()->count();
-
+        $countFavorites = $user->favorites()->count();
         return [
             'countPosts' => $countPosts,
             'countFollowings' => $countFollowings,
             'countFollowers' => $countFollowers,
+            'countFavorites' => $countFavorites,
         ];
     }
-
 }

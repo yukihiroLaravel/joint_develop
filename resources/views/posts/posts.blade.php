@@ -9,7 +9,11 @@
             <div class="text-left d-inline-block w-75">
                 <p class="mb-2 h4">{{$post->text}}</p>
                 <p class="text-muted">{{$post->created_at}}</p>
+<<<<<<< HEAD
+                @include('favorite.favorite_button')
+=======
                 <p class="mt-0 mb-4"><a href="{{ route('comment.show', $post->id) }}">このお題の回答ページ</a></p>
+>>>>>>> develop_c_satsuki_rab
             </div>
             @if (Auth::id() === $post->user_id)
                 <div class="d-flex justify-content-between w-75 pb-3 m-auto">

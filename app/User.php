@@ -104,4 +104,55 @@ class User extends Authenticatable
             $user->posts()->delete();
         });
     }
+
+    public function favorites()
+    {
+        return $this->belongsToMany(Post::class,'favorites','user_id','post_id')->withTimestamps();
+    }
+    public function isFavorite($postId)
+    {
+        return $this->favorites()->where('post_id', $postId)->exists();
+    }
+
+    public function favorite($postId)
+{
+    $exist = $this->isFavorite($postId);
+    $isOwner = $this->isPostOwner($postId);
+
+    if ($exist || $isOwner) {
+        return false;
+    } else {
+        $this->favorites()->attach($postId);
+        return true;
+    }
+}
+
+private function isPostOwner($postId)
+{
+    // ロジックを追加して、投稿の所有者であるかどうかを確認する
+    // 例: 投稿モデルにユーザーIDが格納されている場合、ログインユーザーのIDと比較するなど
+    // 以下は例として、$postIdに紐づく投稿の所有者がログインユーザーであるかを判定する仮想的なロジックです
+
+    // ログインユーザーのIDを取得（例：$loggedInUserId）
+    $loggedInUserId = auth()->id();
+
+    // $postIdに紐づく投稿の所有者のIDを取得（例：$postOwnerId）
+    $postOwnerId = Post::find($postId)->user_id;
+
+    // ログインユーザーと投稿の所有者が一致するかを判定
+    return $loggedInUserId === $postOwnerId;
+}
+
+
+    public function unfavorite($postId)
+    {
+        $exist = $this->isFavorite($postId);
+        if ($exist) {
+            $this->favorites()->detach($postId);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

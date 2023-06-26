@@ -43,6 +43,9 @@ Route::prefix('users/{id}')->group(function () {
     // フォロー機能（ログイン後）
     Route::post('{follow', 'FollowController@store')->name('follow');
     Route::delete('unFollow', 'FollowController@destroy')->name('unFollow');
+
+    //ユーザー詳細イイね
+    Route::get('favorites', 'UsersController@favorites')->name('favorites');
 });
 
 // ログイン後
@@ -53,7 +56,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
-        Route::post('{id}/comments', 'CommentController@store')->name('comment.store');
+    });
+    //イイね
+    Route::group(['prefix' => 'posts/{id}'],function(){
+        Route::post('favorite', 'FavoriteController@store')->name('favorite');
+        Route::delete('unfavorite', 'FavoriteController@destroy')->name('unfavorite');
     });
 });
 
