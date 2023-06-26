@@ -30,4 +30,13 @@ class CommentController extends Controller
         return back();
     }
 
+    public function destroy($postId, $commentId)
+    {
+        $comment = Comment::findOrFail($commentId);
+        if (\Auth::id() === $comment->user_id && $comment->post_id == $postId) {
+            $comment->delete();
+            return back()->with('withdraw_message', '削除しました！');
+        }
+    }
+
 }

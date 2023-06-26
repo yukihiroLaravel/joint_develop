@@ -37,7 +37,7 @@
                 </div>
                 @if (Auth::id() === $comment->user_id)
                 <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                    <form method="" action="">
+                    <form method="POST" action="{{ route('comment.delete', [$posts->id, $comment->id]) }}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">削除</button>

@@ -53,7 +53,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
+        // コメント（新規作成、削除、編集、更新）
         Route::post('{id}/comments', 'CommentController@store')->name('comment.store');
+        Route::delete('{postId}/comments/{commentId}', 'CommentController@destroy')->name('comment.delete');
     });
 });
 
