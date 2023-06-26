@@ -7,7 +7,12 @@
             @csrf
             <input type="hidden" name="posts">
             <div class="form-group">
-                <textarea class="form-control" name="text" rows="4" value="{{ old('text') }}"></textarea>
+                <textarea class="form-control @error('text') is-invalid @enderror" name="text" rows="4" value="{{ old('text') }}"></textarea>
+                @error('text')
+                    <span class="invalid-feedback text-left" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
                 <div class="text-left mt-3">
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-pen"></i> 投稿する

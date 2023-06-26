@@ -16,20 +16,44 @@
             @csrf
             <div class="form-group">
                 <label for="name">名前</label>
-                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
+                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+                    value="{{ old('name') }}">
+                @error('name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
             <div class="form-group">
                 <label for="email">メールアドレス</label>
-                <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}">
+                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email"
+                    value="{{ old('email') }}">
+                @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
             <div class="form-group">
                 <label for="password">パスワード</label>
-                <input id="password" type="password" class="form-control" name="password" value="{{ old('password') }}">
+                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
+                    name="password" value="{{ old('password') }}">
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
             <div class="form-group">
                 <label for="password_confirmation">パスワード確認</label>
-                <input id="password_confirmation" type="password" class="form-control" name="password_confirmation"
-                    value="{{ old('password_confirmation') }}">
+                <input id="password_confirmation" type="password"
+                    class="form-control @error('password') is-invalid @enderror"
+                    name="password_confirmation" value="{{ old('password_confirmation') }}">
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
             <button type="submit" class="btn btn-primary mt-2">
                 <i class="fas fa-user-edit"></i> 新規登録

@@ -6,8 +6,13 @@
         @csrf
         @method('PUT')
         <div class="form-group">
-            <label for="name">ユーザ名</label>
-            <input class="form-control" value="{{ old('name', $user->name) }}" name="name" />
+            <label for="name">名前</label>
+            <input class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $user->name) }}" name="name" />
+            @error('name')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
         </div>
         <div class="form-group">
             <label for="profile_image">プロフィール画像</label>
@@ -31,17 +36,35 @@
         </div>
         <div class="form-group">
             <label for="email">メールアドレス</label>
-            <input class="form-control" value="{{ old('email', $user->email) }}" name="email" />
+            <input class="form-control @error('email') is-invalid @enderror" value="{{ old('email', $user->email) }}" name="email" />
+            @error('email')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
         </div>
 
         <div class="form-group">
             <label for="password">パスワード</label>
-            <input id="password" input class="form-control" type="password" value="{{ old('password') }}" name="password" />
-        </div>
+            <input id="password" input class="form-control @error('password') is-invalid @enderror" type="password"
+                value="{{ old('password') }}" name="password" />
+            @error('password')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            </div>
 
         <div class="form-group">
             <label for="password_confirmation">パスワードの確認</label>
-            <input id="password_confirmation" input class="form-control" type="password" name="password_confirmation" />
+            <input id="password_confirmation" input
+                class="form-control @error('password') is-invalid @enderror" type="password"
+                name="password_confirmation" />
+            @error('password')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
         </div>
 
         <div class="d-flex justify-content-between">
