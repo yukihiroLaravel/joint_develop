@@ -150,7 +150,6 @@ return [
         'name' => '名前',
         'email' => 'メールアドレス',
         'password' => 'パスワード',
-        'password_confirmation' => 'パスワード確認',
     ],
 
 ];

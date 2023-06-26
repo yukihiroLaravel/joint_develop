@@ -58,9 +58,9 @@
         <div class="form-group">
             <label for="password_confirmation">パスワードの確認</label>
             <input id="password_confirmation" input
-                class="form-control @error('password_confirmation') is-invalid @enderror" type="password"
+                class="form-control @error('password') is-invalid @enderror" type="password"
                 name="password_confirmation" />
-            @error('password_confirmation')
+            @error('password')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>

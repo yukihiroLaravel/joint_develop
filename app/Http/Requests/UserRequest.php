@@ -27,7 +27,6 @@ class UserRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($this->user())],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'password_confirmation' => ['required', 'string', 'min:8'],
             'profile_image' => 'file|image|mimes:jpeg,png,jpg|max:1024|dimensions:max_width=1000',
         ];
     }
