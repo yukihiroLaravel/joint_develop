@@ -30,4 +30,11 @@ class CommentController extends Controller
         return back();
     }
 
+    //新着ボケ一覧    
+    public function index()
+    {
+        $comments = Comment::with('post')->orderBy('created_at', 'desc')->paginate(10);
+        return view('new', compact('comments'));
+    }
+
 }
