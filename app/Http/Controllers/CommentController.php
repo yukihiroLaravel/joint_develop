@@ -17,7 +17,7 @@ class CommentController extends Controller
             'posts' => $posts,
             'comments' => $comments,
         ];
-        return view('posts.comment', $data);
+        return view('comments.comments', $data);
     }
 
     public function store(CommentRequest $request,$id)
@@ -34,9 +34,13 @@ class CommentController extends Controller
     public function destroy($postId, $commentId)
     {
         $comment = Comment::findOrFail($commentId);
-        if (\Auth::id() === $comment->user_id && $comment->post_id == $postId) {
+        $posts = Post::findOrFail($postId);
+
+        if (\Auth::id() === $comment->user_id && $comment->post_id === $posts->id) {
             $comment->delete();
             return back()->with('withdraw_message', '削除しました！');
+        } else {
+            return view('errors.404');
         }
     }
 
@@ -44,12 +48,15 @@ class CommentController extends Controller
     public function edit($postId, $commentId)
     {
         $comment = Comment::findOrFail($commentId);
-        if (\Auth::id() === $comment->user_id && $comment->post_id == $postId) {
-            $posts = Post::findOrFail($postId);
-            return view('posts.comment_edit', [
+        $posts = Post::findOrFail($postId);
+
+        if (\Auth::id() === $comment->user_id && $comment->post_id === $posts->id) {
+            return view('comments.comment_edit', [
                 'comment' => $comment,
                 'posts' => $posts,
             ]);
+        } else {
+            return view('errors.404');
         }
     }
 
@@ -57,11 +64,16 @@ class CommentController extends Controller
     public function update(CommentRequest $request, $postId, $commentId)
     {
         $comment = Comment::findOrFail($commentId);
-        if (\Auth::id() === $comment->user_id && $comment->post_id == $postId) {
+        $posts = Post::findOrFail($postId);
+
+        if (\Auth::id() === $comment->user_id && $comment->post_id === $posts->id) {
             $comment->body = $request->body;
             $comment->save();
+        
+        return redirect()->route('comment.show', $postId)->with('withdraw_message', '回答を更新しました！');
+        } else {
+            return view('errors.404');
         }
-        return redirect()->route('comment.show', $postId)->with('withdraw_message', '回答を更新しました！');;
     }
 
 }
