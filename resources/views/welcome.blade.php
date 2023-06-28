@@ -17,6 +17,6 @@
         </div>
     </form>
 </div>
-@include('commons.new_post')
+@include('posts.new_post')
 @include('posts.posts')
 @endsection
