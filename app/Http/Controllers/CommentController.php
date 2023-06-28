@@ -17,7 +17,7 @@ class CommentController extends Controller
             'posts' => $posts,
             'comments' => $comments,
         ];
-        return view('posts.comment', $data);
+        return view('comments.comments', $data);
     }
 
     public function store(CommentRequest $request,$id)
@@ -34,7 +34,7 @@ class CommentController extends Controller
     public function index()
     {
         $comments = Comment::with('post')->orderBy('created_at', 'desc')->paginate(10);
-        return view('new', compact('comments'));
+        return view('comments.index', compact('comments'));
     }
 
 }
