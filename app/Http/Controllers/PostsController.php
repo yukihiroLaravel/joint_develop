@@ -22,8 +22,18 @@ class PostsController extends Controller
     {
         $post = new Post;
         $post->user_id = $request->user()->id;
-        $post->text = $request->text;
+        if ($request->text === null) {
+            $post->text = '';
+        } else{
+            $post->text = $request->text;
+        }
         $post->save();
+        $img = $request->file('img_path');
+        if ($img) {
+            $path = $img->storeAs('public/img', $post->id . '.' . $request->img_path->extension());
+            $post->img_path = $path;
+            $post->save();
+        }
         return back()->with('greenMessage', '投稿しました');
     }
 
@@ -38,7 +48,7 @@ class PostsController extends Controller
 
     public function search(Request $request)
     {
-        $keywords = preg_split('/[\s　]+/u', $request->input('keywords'));        
+        $keywords = preg_split('/[\s　]+/u', $request->input('keywords'));
         $posts = Post::where(function ($query) use ($keywords) {
                 foreach ($keywords as $keyword) {
                     $query->where('text', 'LIKE', "%$keyword%");
