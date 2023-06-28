@@ -16,7 +16,9 @@
                                 <i class="fas fa-user-alt"></i> {{$post->user->name}}
                             </a>
                         </strong>
+                        {{ $post->updated_at->format('Y年m月d日H時i分') }}
                     </p>
+                    <p class="text-muted"></p>
                 @endif
             </div>
             <div class="">
@@ -24,7 +26,6 @@
                     <strong>
                         <p class="mb-2">{!!nl2br(e($post->text))!!}</p>
                     </strong>
-                    <p class="text-muted">{{ $post->updated_at }}</p>
                 </div>
                 @if ($post->user->id === Auth::id() )
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
@@ -38,7 +39,103 @@
                         <a href="" class="btn btn-success"><i class="fas fa-edit"></i> 編集する</a>
                     </div>
                 @endif
-                @include('comments.comments')
+                <div class="text-left d-inline-block w-75 mb-2">
+                    <a href="{{ route('comment.show', $post->id) }}">
+                        ...コメントを見る <i class="far fa-comment-dots"></i>
+                    </a>
+                </div>
+
+
+
+
+                
+                            <div class="card text-left d-inline-block w-75 mb-2">
+                                <h5 class="card-header">コメント</h5>
+                                <div class="card-body">
+                                    @if (Auth::check())
+                                        <div class="actions">
+                                            @error('comment.'. $post->id)
+                                                <div class="alert alert-danger w-100 mb-2" role="alert">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                            <form class="d-inline-block w-100 mb-2" method="POST" action="{{ route('comment.store') }}">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <input type="hidden" name="comments" />
+                                                    <input value="{{ $post->id }}" type="hidden" name="post_id" />
+                                                    <input value="{{ Auth::id() }}" type="hidden" name="user_id" />
+                                                    <textarea
+                                                        class="form-control @error('comment.'. $post->id) is-invalid @enderror comment-input"
+                                                        placeholder="コメントを投稿する ..." autocomplete="off" type="text"
+                                                        name="comment[{{ $post->id }}]" rows="2"
+                                                        cols="40">{{ old('comment.'. $post->id) }}</textarea><br>
+                                                    <div class="text-left">
+                                                        <button type="submit" class="btn btn-primary">
+                                                            <i class="fas fa-reply"></i> コメントする
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    @endif
+                                @include('comments.comment_list')
+{{--
+                                @foreach ($post->comments as $comment)
+                                    @php
+                                    $comment = $post->comments->last();
+                                    @endphp
+                                    @if ($loop->iteration % 1 === 1 && $loop->iteration !== 1)
+                                    </div>
+                                    <div class="row text-center mt-3">
+                                    @endif
+                                    <div class="text-left d-inline-block w-75 mb-2">
+                                        <span>
+                                            @if($comment->user->email)
+                                                @if ($comment->user->profile_image === null)
+                                                    <img class="rounded-circle img-fluid" src="{{ Gravatar::src($comment->user->email, 55) }}"
+                                                        alt="{{ $comment->user->name }}プロフィール画像">
+                                                @else
+                                                    <img class="rounded-circle" src="{{ asset('storage/images/profiles/'.$comment->user->profile_image) }}"
+                                                        alt="{{ $comment->user->name }}プロフィール画像" width="55" height="55">
+                                                @endif
+                                                <p class="mt-1 mb-1 d-inline-block">
+                                                    <a href="{{ route('user.show', $comment->user->id) }}">
+                                                        <i class="fas fa-user-alt"></i> {{$comment->user->name}}
+                                                    </a>
+                                                </p>
+                                                {{ $comment->updated_at->format('Y年m月d日H時i分') }}
+                                            @endif
+                                        </span><br>
+                                        <span class="card-text">
+                                            {!!nl2br(e($comment->comment))!!}
+                                        </span>
+                                        @if ($comment->user->id == Auth::id())
+                                            <form method="POST" action="{{ route('comment.delete', $comment->id) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger my-2">
+                                                    <i class="fas fa-trash-alt"></i> コメント削除
+                                                </button>
+                                            </form>
+                                        @endif
+                                    </div>
+                                @endforeach
+
+                                <div class="text-left d-inline-block w-75 mb-2">
+                                    <a href="{{ route('comment.show', $post->id) }}">
+                                        ...さらにコメントを見る <i class="far fa-comment-dots"></i>
+                                    </a>
+                                </div>
+                                </div>
+                            </div>
+--}}
+
+
+
+
+
+
             </div>
         </li>
     </ul>

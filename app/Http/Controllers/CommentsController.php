@@ -11,6 +11,17 @@ use App\Http\Requests\CommentRequest;
 class CommentsController extends Controller
 {
 
+    public function show($id)
+    {
+        $post = Post::findOrFail($id);
+        $comments = $post->comments()->orderBy('id', 'desc')->paginate(10);
+        $data = [
+            'post' => $post,
+            'comments' => $comments,
+        ];
+        return view('comments.comments', $data);
+    }
+
     public function store(CommentRequest $request)
     {
         $comment = new Comment;

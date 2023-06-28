@@ -48,6 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
     // コメント
     Route::prefix('comments')->group(function () {
+        Route::get('{id}', 'CommentsController@show')->name('comment.show');;
         Route::post('', 'CommentsController@store')->name('comment.store');
         Route::delete('{id}', 'CommentsController@destroy')->name('comment.delete');
     });
