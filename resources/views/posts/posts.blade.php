@@ -48,7 +48,6 @@
 
 
 
-                
                             <div class="card text-left d-inline-block w-75 mb-2">
                                 <h5 class="card-header">コメント</h5>
                                 <div class="card-body">
@@ -79,16 +78,11 @@
                                             </form>
                                         </div>
                                     @endif
-                                @include('comments.comment_list')
-{{--
-                                @foreach ($post->comments as $comment)
-                                    @php
-                                    $comment = $post->comments->last();
-                                    @endphp
-                                    @if ($loop->iteration % 1 === 1 && $loop->iteration !== 1)
-                                    </div>
-                                    <div class="row text-center mt-3">
-                                    @endif
+
+
+
+                                    {{-- @include('comments.comment_list') --}}
+                                    @foreach ($post->comments as $comment)
                                     <div class="text-left d-inline-block w-75 mb-2">
                                         <span>
                                             @if($comment->user->email)
@@ -122,14 +116,12 @@
                                     </div>
                                 @endforeach
 
-                                <div class="text-left d-inline-block w-75 mb-2">
-                                    <a href="{{ route('comment.show', $post->id) }}">
-                                        ...さらにコメントを見る <i class="far fa-comment-dots"></i>
-                                    </a>
-                                </div>
+
+
+
                                 </div>
                             </div>
---}}
+
 
 
 
