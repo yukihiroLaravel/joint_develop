@@ -35,6 +35,14 @@ class User extends Authenticatable
      *
      * @var array
      */
+    protected $profile_image;
+        
+    
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
@@ -112,6 +120,11 @@ class User extends Authenticatable
     public function isFavorite($postId)
     {
         return $this->favorites()->where('post_id', $postId)->exists();
+    }
+
+    public function getProfileImageAttribute()
+    {
+        return $this->profile_image ? asset('uploads/' . $this->id . '/' . $this->profile_image) : null;
     }
 
     public function favorite($postId)
