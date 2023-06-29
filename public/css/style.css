@@ -10,7 +10,7 @@
 }
 
 .card-header .btn-outline-info:hover {
-    color: #17a2b8;;
+    color: #17a2b8;
     background-color: #f8f9fa;
 }
 
@@ -18,3 +18,17 @@
     color: #f8f9fa;
     background-color: #343a40;
 }
+
+.card-header .btn-outline-danger:focus {
+    box-shadow: 0 0 0 0.25rem rgba(33,37,41,.5);
+}
+
+.card-header .btn-outline-danger:not(:disabled):not(.disabled):active {
+    color: #f8f9fa;
+    border-color: #343a40;
+    background-color: #6c757d;
+} 
+
+.card-header .btn-outline-danger:not(:disabled):not(.disabled):active:focus {
+    box-shadow: 0 0 0 0.25rem rgba(33,37,41,.5);
+} 
