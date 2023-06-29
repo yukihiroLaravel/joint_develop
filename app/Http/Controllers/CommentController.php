@@ -30,22 +30,19 @@ class CommentController extends Controller
         return back();
     }
 
+    //コメント関連のid（$postId, $commentId）を確認する関数。削除・編集・更新の記述にて使用。
     private function isCommentOwner($postId, $commentId)
     {
         $comment = Comment::findOrFail($commentId);
         $post = Post::findOrFail($postId);
-
-        if (\Auth::id() === $comment->user_id && $comment->post_id === $post->id) {
-            return true;
-        } else {
-            return false;
-        }
+        return \Auth::id() === $comment->user_id && $comment->post_id === $post->id;
     }
 
     //コメント削除
     public function destroy($postId, $commentId)
     {
-        if ($this->isCommentOwner($postId, $commentId)) {
+        $isOwner = $this->isCommentOwner($postId, $commentId);
+        if ($isOwner) {
             $comment = Comment::findOrFail($commentId);
             $comment->delete();
             return back()->with('withdraw_message', '削除しました！');
@@ -57,10 +54,10 @@ class CommentController extends Controller
     //コメント編集
     public function edit($postId, $commentId)
     {
-        if ($this->isCommentOwner($postId, $commentId)) {
+        $isOwner = $this->isCommentOwner($postId, $commentId);
+        if ($isOwner) {
             $comment = Comment::findOrFail($commentId);
             $post = Post::findOrFail($postId);
-
             return view('comments.comment_edit', [
                 'comment' => $comment,
                 'post' => $post,
@@ -73,18 +70,18 @@ class CommentController extends Controller
     //コメント更新
     public function update(CommentRequest $request, $postId, $commentId)
     {
-        if ($this->isCommentOwner($postId, $commentId)) {
+        $isOwner = $this->isCommentOwner($postId, $commentId);
+        if ($isOwner) {
             $comment = Comment::findOrFail($commentId);
             $comment->body = $request->body;
             $comment->save();
-
             return redirect()->route('comment.show', $postId)->with('withdraw_message', '回答を更新しました！');
         } else {
             return view('errors.404');
         }
     }
     
-    //新着ボケ一覧    
+    //新着ボケ一覧
     public function index()
     {
         $comments = Comment::with('post')->orderBy('created_at', 'desc')->paginate(10);
