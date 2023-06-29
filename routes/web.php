@@ -21,7 +21,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 
 // トップページ
-Route::get('/', 'postsController@index');
+Route::get('/', 'postsController@index')->name('top');
 // ユーザー編集、更新
 Route::group(['middleware' => 'auth'], function () 
 {  
@@ -56,6 +56,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
+        Route::post('{id}/comments', 'CommentController@store')->name('comment.store');
     });
     //イイね
     Route::group(['prefix' => 'posts/{id}'],function(){
@@ -66,3 +67,4 @@ Route::group(['middleware' => 'auth'], function () {
 
 // 回答投稿ページ 兼 回答一覧ページ
 Route::get('/posts/{id}', 'CommentController@show')->name('comment.show');
+Route::get('/comments', 'CommentController@index')->name('comment.index');
