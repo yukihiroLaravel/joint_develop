@@ -1,11 +1,12 @@
 @extends('layouts.app')
 @section('content')
-    <div class="center jumbotron bg-info">
+    <div class="center jumbotron bg-warning">
         <div class="text-center text-white mt-2 pt-1">
-            <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
+        <h1><img src="{{ asset('img/icon.png') }}" alt="アイコン" width="60" height="60">理想のラーメンについて語る！<img src="{{ asset('img/icon.png') }}" alt="アイコン" width="60" height="60"></h1>
         </div>
-    </div>   
-    <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>           
+    </div>
+    @include('commons.carousel_img')
+    <h5 class="text-center mb-3">"あなたの理想のラーメン"について140字以内で会話しよう！</h5>           
         <div class="w-75 m-auto">@include('commons.error_messages')</div>
         <div class="text-center mb-3">
             @include('commons.flash_message')  
