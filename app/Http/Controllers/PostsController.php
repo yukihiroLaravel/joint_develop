@@ -58,20 +58,33 @@ class PostsController extends Controller
 
     public function search(Request $request)
     {
-        $search = $request->input('search');
+        $search = $request->input('search');        
         $query = Post::query();
-
         if ($search) {
             $spaceConversion = mb_convert_kana($search, 's');
             $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
-            foreach($wordArraySearched as $value) {
+            foreach($wordArraySearched as $value) {                         
                 $query->where('content', 'like', '%'.$value.'%');
-            }
-            $posts = $query->paginate(10);
-        }
-        return view('welcome')->with([
-                'posts' => $posts,
-                'search' => $search,
-            ]);
+            };
+            $posts = $query->get();
+                       
+            if  (count($posts) > 0) {
+                $posts = $query->paginate(10);                    
+                return view('welcome')->with([
+                    'posts' => $posts,
+                    'search' => $search,
+                ]);
+                                      
+            }else {                 
+                return back()->with([
+                    'flash_msg' => 'キーワードに一致する投稿が見つかりませんでした',
+                    'cls' => 'light'
+                ]);                            
+            }                                            
+        }else {
+            return redirect('/')->with(['flash_msg' => 'キーワードを入力してください',
+            'cls' => 'warning'
+           ]);
+        }        
     }       
 }

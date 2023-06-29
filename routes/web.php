@@ -22,7 +22,7 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 // トップページ表示
 Route::get('/', 'PostsController@index');
 //検索機能
-Route::get('posts', 'PostsController@search')->name('posts.search');
+Route::get('post/search','PostsController@search')->name('posts.search');
 //ユーザー詳細
 Route::prefix('users/{id}')->group(function(){
     Route::get('','UsersController@show')->name('user.show');
