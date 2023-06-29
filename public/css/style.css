@@ -1,0 +1,20 @@
+
+.card-header .btn-outline-info {
+    color: #f8f9fa;
+    border-color: #f8f9fa;
+}
+
+.card-header .btn-outline-danger {
+    color: #343a40;
+    border-color: #343a40;
+}
+
+.card-header .btn-outline-info:hover {
+    color: #17a2b8;;
+    background-color: #f8f9fa;
+}
+
+.card-header .btn-outline-danger:hover {
+    color: #f8f9fa;
+    background-color: #343a40;
+}

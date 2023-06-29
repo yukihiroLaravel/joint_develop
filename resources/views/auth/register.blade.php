@@ -30,7 +30,9 @@
                     <label for="password_confirmation">パスワード確認</label>
                     <input id="password_confirmation" type="password" class="form-control" name="password_confirmation">
                 </div>
-                <button type="submit" class="btn btn-primary mt-2">新規登録</button>
+                <button type="submit" class="btn btn-primary mt-2">
+                    <i class="fas fa-user"></i> 新規登録
+                </button>
             </form>
         </div>
     </div>
