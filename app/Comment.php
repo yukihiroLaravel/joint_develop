@@ -13,7 +13,7 @@ class Comment extends Model
         'post_id'
     ];
     
-    public function posts()
+    public function post()
     {
         return $this->belongsTo(Post::class);
     }

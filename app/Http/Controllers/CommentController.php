@@ -83,5 +83,12 @@ class CommentController extends Controller
             return view('errors.404');
         }
     }
+    
+    //新着ボケ一覧    
+    public function index()
+    {
+        $comments = Comment::with('post')->orderBy('created_at', 'desc')->paginate(10);
+        return view('comments.index', compact('comments'));
+    }
 
 }
