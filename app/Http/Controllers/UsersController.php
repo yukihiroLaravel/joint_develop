@@ -23,6 +23,7 @@ class UsersController extends Controller
             'user' => $user,
             'posts' => $posts,
         ];
+        $data += $this->counts($user);
         return view('users.show', $data);
    } 
 
@@ -68,24 +69,37 @@ class UsersController extends Controller
 
    public function showFollowingList($id)
    {
-       $user = User::findOrFail($id);
-       $followings = $user->followings()->orderBy('created_at', 'desc')->paginate(10);
-       $data=[
-        'user' => $user,
-        'followings' => $followings,
-       ];
+        $user = User::findOrFail($id);
+        $followings = $user->followings()->orderBy('created_at', 'desc')->paginate(10);
+        $data=[
+            'user' => $user,
+            'followings' => $followings,
+        ];
+        $data += $this->counts($user);
         return view('users.followings', $data);
    }
 
    public function showFollowerList($id)
    {
-       $user = User::findOrFail($id);
-       $followers = $user->followers()->orderBy('created_at', 'desc')->paginate(10);
-       $data=[
-        'user' => $user,
-        'followers' => $followers,
-       ];
+        $user = User::findOrFail($id);
+        $followers = $user->followers()->orderBy('created_at', 'desc')->paginate(10);
+        $data=[
+            'user' => $user,
+            'followers' => $followers,
+        ];
+        $data += $this->counts($user);
         return view('users.follower', $data);
    }
 
+   public function counts($user)
+   {
+        $countPosts = $user->posts()->count();
+        $countFollowings = $user->followings()->count();
+        $countFollower = $user->followers()->count();
+        return [
+            'countPosts' => $countPosts,
+            'countFollowings' => $countFollowings,
+            'countFollower' => $countFollower,
+        ];
+   }
 }
