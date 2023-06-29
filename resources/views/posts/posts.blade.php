@@ -26,12 +26,12 @@
                         {!!nl2br(e($post->text))!!}
                     </p>
                     <img src="{{ Storage::url($post->img_path) }}" alt="">
-                    <p class="text-muted">{{ $post->updated_at }}</p>
                     @else
                     <p class="mb-2">
                         {!!nl2br(e($post->text))!!}
                     </p>
                     @endif
+                    <p class="text-muted">{{ $post->updated_at }}</p>
                 </div>
                 @if ($post->user->id === Auth::id() )
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
