@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <h2 class="mt-5">回答を編集する</h2>
-<form method="POST" action="{{ route('comment.update', [$posts->id, $comment->id]) }}">
+<form method="POST" action="{{ route('comment.update', [$post->id, $comment->id]) }}">
     @csrf
     @method('PUT')
     <div class="form-group">
