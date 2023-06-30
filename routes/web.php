@@ -30,7 +30,7 @@ Route::prefix('users')->group(function () {
 });
 
 // 検索機能
-Route::get('', 'PostsController@search')->name('search');
+Route::get('search', 'PostsController@search')->name('search');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {

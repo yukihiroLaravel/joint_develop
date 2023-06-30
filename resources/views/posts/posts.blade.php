@@ -21,9 +21,16 @@
             </div>
             <div class="">
                 <div class="text-left d-inline-block w-75">
-                    <strong>
-                        <p class="mb-2">{!!nl2br(e($post->text))!!}</p>
-                    </strong>
+                    @if (isset($post->img_path))
+                    <p class="mb-2">
+                        {!!nl2br(e($post->text))!!}
+                    </p>
+                    <img src="{{ Storage::url($post->img_path) }}" alt="">
+                    @else
+                    <p class="mb-2">
+                        {!!nl2br(e($post->text))!!}
+                    </p>
+                    @endif
                     <p class="text-muted">{{ $post->updated_at }}</p>
                 </div>
                 @if ($post->user->id === Auth::id() )

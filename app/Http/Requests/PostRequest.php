@@ -24,13 +24,15 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'text' => 'required|max:140',
+            'text' => 'required_without_all:img_path|max:140',
+            'img_path' => 'max:1024|image|mimes:jpg,jpeg,png,gif',
         ];
     }
-    public function attributes()
+
+    public function messages()
     {
-        return [
-            'text' => '投稿',
-        ];
-    }
+            return [
+                'text.required_without_all' => 'テキストもしくは画像のいずれかの投稿は必須です',
+            ];
+        }
 }
