@@ -29,8 +29,11 @@ Route::prefix('users')->group(function () {
     Route::get('{id}/followedList', 'UsersController@showFollowedList')->name('user.followedList');
 });
 
+// コメントページ
+Route::get('comments/{id}', 'CommentsController@show')->name('comment.show');;
+
 // 検索機能
-Route::get('', 'PostsController@search')->name('search');
+Route::get('search', 'PostsController@search')->name('search');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
@@ -48,7 +51,6 @@ Route::group(['middleware' => 'auth'], function () {
     });
     // コメント
     Route::prefix('comments')->group(function () {
-        Route::get('{id}', 'CommentsController@show')->name('comment.show');;
         Route::post('', 'CommentsController@store')->name('comment.store');
         Route::delete('{id}', 'CommentsController@destroy')->name('comment.delete');
     });
