@@ -16,9 +16,12 @@
                         <form method="POST" action="{{route('post.delete', $post->id)}}">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">削除</button>
+                            <button type="submit" class="btn btn-outline-danger">
+                                <i class="fas fa-trash-alt"></i> 削除
+                            </button>
                         </form>
-                        <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">編集する</a>
+                        <a href="{{ route('post.edit', $post->id) }}" class="btn btn-outline-primary">
+                            <i class="fas fa-edit"></i> 編集する</a>
                     </div>
                 @endif
             </div>
