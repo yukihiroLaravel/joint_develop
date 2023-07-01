@@ -23,7 +23,12 @@
             </div>
             <div class="">
                 <div class="text-left d-inline-block w-75 mb-2">
+                    @if (isset($post->img_path))
                         <p>{!!nl2br(e($post->text))!!}</p>
+                        <img src="{{ Storage::url($post->img_path) }}" alt="">
+                    @else
+                        <p>{!!nl2br(e($post->text))!!}</p>
+                    @endif
                 </div>
                 @if ($post->user->id === Auth::id() )
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
