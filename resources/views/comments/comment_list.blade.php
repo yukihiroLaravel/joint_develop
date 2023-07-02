@@ -1,4 +1,4 @@
-@foreach ($post->comments as $comment)
+@foreach($comments as $comment)
     <div class="text-left d-inline-block w-75 mb-2">
         <span>
             @if($comment->user->email)

@@ -42,7 +42,6 @@
                         <a href="" class="btn btn-success"><i class="fas fa-edit"></i> 編集する</a>
                     </div>
                 @endif
-{{-- ここから コメント --}}
                 <div class="card text-left d-inline-block w-75 mb-2">
                     <h5 class="card-header">コメント</h5>
                     <div class="card-body">
@@ -73,7 +72,6 @@
                                 </form>
                             </div>
                         @endif
-{{-- ここから コメントリスト --}}
                         @foreach ($post->comments as $comment)
                             @php
                                 $comment = $post->comments->last();
@@ -112,7 +110,6 @@
                                 </div>
                             @endif
                         @endforeach
-{{-- ここから コメントあれば表示、無ければ非表示 --}}
                         @if ($post->comments->count() > 0)
                             <div class="text-left d-inline-block w-75 mb-2">
                                 <a href="{{ route('comment.show', $post->id) }}">
@@ -122,7 +119,6 @@
                         @endif
                     </div>
                 </div>
-{{-- ここまで コメント --}}
             </div>
         </li>
     </ul>
@@ -130,10 +126,3 @@
 <div class="m-auto" style="width: fit-content">
     {{ $posts->links('pagination::bootstrap-4') }}
 </div>
-@if ($post->comments->count() > 0)
-    <div class="text-left d-inline-block w-75 mb-2">
-        <a href="{{ route('comment.show', $post->id) }}">
-            ...さらにコメントを見る <i class="far fa-comment-dots"></i>
-        </a>
-    </div>
-@endif

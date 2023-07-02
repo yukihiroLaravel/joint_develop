@@ -24,7 +24,7 @@
                 @endif
             </div>
             <div class="">
-                <div class="text-left d-inline-block w-75">
+                <div class="text-left d-inline-block w-75 mb-2">
                     <strong>
                         <p class="mb-2">{!!nl2br(e($post->text))!!}</p>
                     </strong>
