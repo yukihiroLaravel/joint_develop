@@ -27,7 +27,6 @@ Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
     Route::get('{id}/followingList', 'UsersController@showFollowingList')->name('user.followingList');
     Route::get('{id}/followedList', 'UsersController@showFollowedList')->name('user.followedList');
-    // あとで
 });
 
 // 検索機能
@@ -57,8 +56,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('favoritePost', 'FavoriteController@storePost')->name('favorite.post');
         Route::delete('unfavoritePost', 'FavoriteController@destroyPost')->name('unfavorite.post');
     });
-    // Route::prefix(['comments/{id}'], function(){
-    //     Route::post('favoriteComment', 'FavoriteController@storeComment')->name('favorite.comment');
-    //     Route::delete('unfavoriteComment', 'FavoriteController@destroyComment')->name('unfavorite.comment');
-    // });
+    Route::prefix('comments/{id}')->group(function () {
+        Route::post('favoriteComment', 'FavoriteController@storeComment')->name('favorite.comment');
+        Route::delete('unfavoriteComment', 'FavoriteController@destroyComment')->name('unfavorite.comment');
+    });
 });
