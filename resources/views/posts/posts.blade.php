@@ -98,7 +98,7 @@
                                     <span class="card-text">
                                         {!!nl2br(e($comment->comment))!!}
                                     </span>
-                                    @if ($comment->user->id == Auth::id())
+                                    @if ($comment->user->id === Auth::id())
                                         <form method="POST" action="{{ route('comment.delete', $comment->id) }}">
                                             @csrf
                                             @method('DELETE')
