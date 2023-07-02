@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 
 class FavoriteCommentsController extends Controller
 {
-    public function storeComment($commentId)
+    public function store($commentId)
     {
         \Auth::user()->favoriteComment($commentId);
         return back();
     }
 
-    public function destroyComment($commentId)
+    public function destroy($commentId)
     {
         \Auth::user()->unfavoriteComment($commentId);
         return back();
