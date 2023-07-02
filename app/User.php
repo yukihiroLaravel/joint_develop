@@ -113,7 +113,7 @@ class User extends Authenticatable
             return false;
         } else {
             $this->favoritePosts()->attach($postId);
-            return true; //なんで必要?
+            return true;
         }
     }
 
@@ -140,7 +140,7 @@ class User extends Authenticatable
             return false;
         } else {
             $this->favoriteComments()->attach($commentId);
-            return true; //なんで必要?
+            return true;
         }
     }
 
@@ -150,7 +150,7 @@ class User extends Authenticatable
         if ($exist) {
             $this->favoriteComments()->detach($commentId);
             return true;
-        } else {
+    
             return false;
         }
     }
