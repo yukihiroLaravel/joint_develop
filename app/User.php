@@ -98,12 +98,12 @@ class User extends Authenticatable
     // いいね機能
     public function favoritePosts()
     {
-        return $this->belongsToMany(Post::class, 'favorites', 'favorite_user_id', 'favorite_post_id')->withTimestamps();
+        return $this->belongsToMany(Post::class, 'favorite_posts', 'user_id', 'post_id')->withTimestamps();
     }
 
     public function favoriteComments()
     {
-        return $this->belongsToMany(Comment::class, 'favorites', 'favorite_user_id', 'favorite_comment_id')->withTimestamps();
+        return $this->belongsToMany(Comment::class, 'favorite_comments', 'user_id', 'comment_id')->withTimestamps();
     }
 
     public function favoritePost($postId)
@@ -130,7 +130,7 @@ class User extends Authenticatable
 
     public function isFavoritePosts($postId)
     {
-        return $this->favoritePosts()->where('favorite_post_id', $postId)->exists();
+        return $this->favoritePosts()->where('post_id', $postId)->exists();
     }
 
     public function favoriteComment($commentId)
@@ -156,6 +156,6 @@ class User extends Authenticatable
     }
     public function isFavoriteComments($commentId)
     {
-        return $this->favoriteComments()->where('favorite_comment_id', $commentId)->exists();
+        return $this->favoriteComments()->where('comment_id', $commentId)->exists();
     }
 }

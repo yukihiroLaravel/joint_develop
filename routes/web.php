@@ -53,11 +53,11 @@ Route::group(['middleware' => 'auth'], function () {
     });
     // いいね
     Route::prefix('posts/{id}')->group(function () {
-        Route::post('favoritePost', 'FavoriteController@storePost')->name('favorite.post');
-        Route::delete('unfavoritePost', 'FavoriteController@destroyPost')->name('unfavorite.post');
+        Route::post('favoritePost', 'FavoritePostsController@storePost')->name('favorite.post');
+        Route::delete('unfavoritePost', 'FavoritePostsController@destroyPost')->name('unfavorite.post');
     });
     Route::prefix('comments/{id}')->group(function () {
-        Route::post('favoriteComment', 'FavoriteController@storeComment')->name('favorite.comment');
-        Route::delete('unfavoriteComment', 'FavoriteController@destroyComment')->name('unfavorite.comment');
+        Route::post('favoriteComment', 'FavoriteCommentsController@storeComment')->name('favorite.comment');
+        Route::delete('unfavoriteComment', 'FavoriteCommentsController@destroyComment')->name('unfavorite.comment');
     });
 });
