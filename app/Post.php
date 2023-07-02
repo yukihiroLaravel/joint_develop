@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-
     use SoftDeletes;
+    protected $fillable = ['img_path'];
     public function user()
     {
         return $this->belongsTo(User::class);
