@@ -31,8 +31,16 @@
                         {!!nl2br(e($post->text))!!}
                     </p>
                     @endif
+                    <div></div>
                     <p class="text-muted">{{ $post->updated_at }}</p>
-
+                    
+                    <div class="badge badge-info">
+                        <i class="far fa-thumbs-up"></i>
+                        @php
+                            $countFavoritePostUsers = $post->favoritePostUsers()->count();
+                        @endphp
+                        <span class="">{{ $countFavoritePostUsers }}</span>
+                    </div>
 
                     @if (Auth::check() && Auth::id() !== $post->user_id)
                         @if (Auth::user()->isFavoritePosts($post->id))
@@ -48,12 +56,6 @@
                             </form>
                         @endif
                     @endif
-                    @php
-                    $countFavoritePostUsers = $post->favoritePostUsers()->count();
-                    @endphp
-                    <div class="text-right mb-2">いいね！
-                        <span class="badge badge-pill badge-success">{{ $countFavoritePostUsers }}</span>
-                    </div>
 
                 </div>
                 @if ($post->user->id === Auth::id() )
