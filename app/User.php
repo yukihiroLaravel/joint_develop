@@ -57,6 +57,7 @@ class User extends Authenticatable
         });
     }
 
+    // フォロー機能
     public function following()
     {
         return $this->belongsToMany(User::class, 'followers', 'following_user_id', 'followed_user_id')->withTimestamps();
@@ -92,5 +93,69 @@ class User extends Authenticatable
         } else {
             return false;
         }
+    }
+
+    // いいね機能
+    public function favoritePosts()
+    {
+        return $this->belongsToMany(Post::class, 'favorites', 'favorite_user_id', 'favorite_post_id')->withTimestamps();
+    }
+
+    public function favoriteComments()
+    {
+        return $this->belongsToMany(Comment::class, 'favorites', 'favorite_user_id', 'favorite_comment_id')->withTimestamps();
+    }
+
+    public function favoritePost($postId)
+    {
+        $exist = $this->isFavoritePosts($postId);
+        if ($exist) {
+            return false;
+        } else {
+            $this->favoritePosts()->attach($postId);
+            return true; //なんで必要?
+        }
+    }
+
+    public function unfavoritePost($postId)
+    {
+        $exist = $this->isFavoritePosts($postId);
+        if ($exist) {
+            $this->favoritePosts()->detach($postId);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function isFavoritePosts($postId)
+    {
+        return $this->favoritePosts()->where('favorite_post_id', $postId)->exists();
+    }
+
+    public function favoriteComment($commentId)
+    {
+        $exist = $this->isFavoriteComments($commentId);
+        if ($exist) {
+            return false;
+        } else {
+            $this->favoriteComments()->attach($commentId);
+            return true; //なんで必要?
+        }
+    }
+
+    public function unfavoriteComment($commentId)
+    {
+        $exist = $this->isFavoriteComments($commentId);
+        if ($exist) {
+            $this->favoriteComments()->detach($commentId);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function isFavoriteComments($commentId)
+    {
+        return $this->favoriteComments()->where('favorite_comment_id', $commentId)->exists();
     }
 }

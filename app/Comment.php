@@ -18,4 +18,8 @@ class Comment extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function favoriteCommentUsers()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'favorite_comment_id', 'favorite_user_id')->withTimestamps();
+    }
 }

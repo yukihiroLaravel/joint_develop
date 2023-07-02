@@ -25,6 +25,29 @@
                         <p class="mb-2">{!!nl2br(e($post->text))!!}</p>
                     </strong>
                     <p class="text-muted">{{ $post->updated_at }}</p>
+
+
+                    @if (Auth::check() && Auth::id() !== $post->user_id)
+                        @if (Auth::user()->isFavoritePosts($post->id))
+                            <form method="POST" action="{{ route('unfavorite.post', $post->id) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">いいね！を外す</button>
+                            </form>
+                        @else
+                            <form method="POST" action="{{ route('favorite.post', $post->id) }}">
+                                @csrf
+                                <button type="submit" class="btn btn-success">いいね！を押す</button>
+                            </form>
+                        @endif
+                    @endif
+                    @php
+                    $countFavoritePostUsers = $post->favoritePostUsers()->count();
+                    @endphp
+                    <div class="text-right mb-2">いいね！
+                        <span class="badge badge-pill badge-success">{{ $countFavoritePostUsers }}</span>
+                    </div>
+
                 </div>
                 @if ($post->user->id === Auth::id() )
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
