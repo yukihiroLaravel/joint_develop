@@ -7,7 +7,6 @@ use App\post;
 use App\User;
 use App\Comment;
 use App\Http\Requests\CommentRequest;
-use COM;
 
 class CommentsController extends Controller
 {
