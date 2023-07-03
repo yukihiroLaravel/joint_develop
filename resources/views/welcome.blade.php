@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('content')
-    <div class="center jumbotron bg-info">
-        <div class="text-center text-white mt-2 pt-1">
-            <h1><i class="pr-3"></i>Topic Posts</h1>
+    <div class="center jumbotron bg-yellow">
+        <div class="text-center text-black mt-2 pt-1">
+        <h1 style="color: black"><i class="pr-3"></i>Topic Posts</h1>
         </div>
     </div>
-    <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
+    <h5 class="text-center mb-3"style="color: black">"○○"について140字以内で会話しよう！</h5>
     <div class="w-75 m-auto">@include('commons.error_messages')</div>
     @if (Auth::check())
         <div class="text-center mb-3">
