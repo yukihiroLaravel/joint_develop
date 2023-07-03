@@ -29,6 +29,9 @@ Route::prefix('users')->group(function () {
     Route::get('{id}/followedList', 'UsersController@showFollowedList')->name('user.followedList');
 });
 
+// コメントページ
+Route::get('comments/{id}', 'CommentsController@show')->name('comment.show');;
+
 // 検索機能
 Route::get('search', 'PostsController@search')->name('search');
 
