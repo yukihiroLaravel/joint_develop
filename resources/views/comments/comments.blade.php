@@ -47,9 +47,32 @@
                 <span class="card-text">
                     {!!nl2br(e($comment->comment))!!}
                 </span>
-                <p class="text-muted">
-                    {{ $comment->updated_at }}
-                </p>
+                <div class="flex-box  adjust-center">
+                    <p class="text-muted mb-2 mr-2">{{ $comment->updated_at }}</p>
+                    <i class="far fa-thumbs-up mb-2"></i>
+                    <p class="badge badge-pill badge-light mb-2 mr-2">
+                        @php
+                            $countFavoriteCommentUsers = $comment->favoriteCommentUsers()->count();
+                        @endphp
+                        <span>{{ $countFavoriteCommentUsers }}</span>
+                    </p>
+                    <p>
+                        @if (Auth::check() && Auth::id() !== $comment->user_id)
+                            @if (Auth::user()->isFavoriteComments($comment->id))
+                                <form method="POST" action="{{ route('unfavorite.comment', $comment->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-outline-danger btn-sm mb-2">いいね！を外す</button>
+                                </form>
+                            @else
+                                <form method="POST" action="{{ route('favorite.comment', $comment->id) }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-outline-success btn-sm mb-2">いいね！を押す</button>
+                                </form>
+                            @endif
+                        @endif
+                    </p>
+                </div>
                 @if ($comment->user->id == Auth::id())
                     <form method="POST" action="{{ route('comment.delete', $comment->id) }}">
                         @csrf

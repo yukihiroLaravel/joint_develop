@@ -18,4 +18,9 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public function favoritePostUsers()
+    {
+        return $this->belongsToMany(User::class, 'favorite_posts', 'post_id', 'user_id')->withTimestamps();
+    }
 }

@@ -37,6 +37,11 @@ Route::group(['middleware' => 'auth'], function () {
     // 投稿
     Route::post('posts', 'PostsController@store')->name('post.store');
     Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
+    // コメント
+    Route::prefix('comments')->group(function () {
+        Route::post('', 'CommentsController@store')->name('comment.store');
+        Route::delete('{id}', 'CommentsController@destroy')->name('comment.delete');
+    });
     //ユーザー編集
     Route::prefix('users/{id}')->group(function () {
         Route::get('edit', 'UsersController@edit')->name('edit'); 
@@ -46,9 +51,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('follow', 'FollowersController@store')->name('follow');
         Route::delete('unfollow', 'FollowersController@destroy')->name('unfollow');
     });
-    // コメント
-    Route::prefix('comments')->group(function () {
-        Route::post('', 'CommentsController@store')->name('comment.store');
-        Route::delete('{id}', 'CommentsController@destroy')->name('comment.delete');
+    // いいね
+    Route::prefix('posts/{id}')->group(function () {
+        Route::post('favoritePost', 'FavoritePostsController@store')->name('favorite.post');
+        Route::delete('unfavoritePost', 'FavoritePostsController@destroy')->name('unfavorite.post');
+    });
+    Route::prefix('comments/{id}')->group(function () {
+        Route::post('favoriteComment', 'FavoriteCommentsController@store')->name('favorite.comment');
+        Route::delete('unfavoriteComment', 'FavoriteCommentsController@destroy')->name('unfavorite.comment');
     });
 });
