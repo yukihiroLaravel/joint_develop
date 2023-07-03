@@ -155,4 +155,37 @@ private function isPostOwner($postId)
         }
     }
 
+    //コメントへのいいね機能
+    public function commentFavorites()
+    {
+        return $this->belongsToMany(Comment::class, 'favorites_comment', 'user_id', 'comment_id')->withTimestamps();
+    }
+
+    public function commentFavorite($commentId)
+    {
+        $exist = $this->isCommentFavorite($commentId);
+        if ($exist) {
+            return false;
+        } else {
+            $this->commentFavorites()->attach($commentId);
+            return true;
+        }
+    }
+
+    public function commentUnFavorite($commentId)
+    {
+        $exist = $this->isCommentFavorite($commentId);
+        if ($exist) {
+            $this->commentFavorites()->detach($commentId);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function isCommentFavorite($commentId)
+    {
+        return $this->commentFavorites()->where('comment_id', $commentId)->exists();
+    }
+
 }

@@ -46,6 +46,8 @@ Route::prefix('users/{id}')->group(function () {
 
     //ユーザー詳細イイね
     Route::get('favorites', 'UsersController@favorites')->name('favorites');
+    //ユーザー詳細コメントへのイイね（ワロタ）
+    Route::get('comment_favorites', 'UsersController@favoritesComments')->name('comment.favorites');
 });
 
 // ログイン後
@@ -62,6 +64,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'posts/{id}'],function(){
         Route::post('favorite', 'FavoriteController@store')->name('favorite');
         Route::delete('unfavorite', 'FavoriteController@destroy')->name('unfavorite');
+    });
+    //コメントのイイね
+    Route::group(['prefix' => 'comments/{commentId}'], function () {
+        Route::post('favorite', 'FavoriteController@commentStore')->name('comment.favorite');
+        Route::delete('unfavorite', 'FavoriteController@commentDestroy')->name('comment.unfavorite');
     });
 });
 
