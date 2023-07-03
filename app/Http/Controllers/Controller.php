@@ -20,7 +20,7 @@ class Controller extends BaseController
         return [
             'countPosts' => $countPosts,
             'countFollowings' => $countFollowings,
-            'countFollowers' => $countFollowers,
+            'countFollowers' => $countFollowers, 
         ];
     }
 }
