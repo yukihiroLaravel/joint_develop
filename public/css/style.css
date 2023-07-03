@@ -8,6 +8,11 @@
     align-items: center;
 }
 
+.adjust-center{
+    display: flex;
+    align-items: center;
+}
+
 .bg-info {
     background-color: rgb(184, 114, 23) !important;
 }
