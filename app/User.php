@@ -155,16 +155,18 @@ private function isPostOwner($postId)
         }
     }
 
-    //コメントへのいいね機能
+    //コメントへのいいね機能の多対多（相手のモデル, ‘中間テーブル名’, ‘自モデルの外部キー名’, ‘相手モデルの外部キー名’)
     public function commentFavorites()
     {
         return $this->belongsToMany(Comment::class, 'favorites_comment', 'user_id', 'comment_id')->withTimestamps();
     }
 
+    //コメントへのいいね
     public function commentFavorite($commentId)
     {
         $exist = $this->isCommentFavorite($commentId);
-        if ($exist) {
+        $itsMe = $this->id === $commentId;
+        if ($exist || $itsMe) {
             return false;
         } else {
             $this->commentFavorites()->attach($commentId);
@@ -172,10 +174,12 @@ private function isPostOwner($postId)
         }
     }
 
+    //コメントへのいいねを外す
     public function commentUnFavorite($commentId)
     {
         $exist = $this->isCommentFavorite($commentId);
-        if ($exist) {
+        $itsMe = $this->id === $commentId;
+        if ($exist || $itsMe) {
             $this->commentFavorites()->detach($commentId);
             return true;
         } else {
@@ -183,6 +187,7 @@ private function isPostOwner($postId)
         }
     }
 
+    //コメントへいいねしているか判定
     public function isCommentFavorite($commentId)
     {
         return $this->commentFavorites()->where('comment_id', $commentId)->exists();

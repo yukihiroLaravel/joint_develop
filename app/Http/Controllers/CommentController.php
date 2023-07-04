@@ -45,7 +45,6 @@ class CommentController extends Controller
         if ($isOwner) {
             $comment = Comment::findOrFail($commentId);
             $comment->delete();
-            $post = Post::findOrFail($postId);
             return back()->with('withdraw_message', '削除しました！');
         } else {
             return view('errors.404');
