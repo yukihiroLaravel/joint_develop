@@ -25,9 +25,44 @@
             </div>
             <div class="">
                 <div class="text-left d-inline-block w-75 mb-2">
-                    <strong>
+                    @if (isset($post->img_path))
                         <p>{!!nl2br(e($post->text))!!}</p>
-                    </strong>
+                        <img src="{{ Storage::url($post->img_path) }}" class="mb-2" alt="">
+                    @else
+                        <p>{!!nl2br(e($post->text))!!}</p>
+                    @endif
+                    <div class="flex-box  adjust-center">
+                        <i class="far fa-comment-dots"></i>
+                        <p class="badge badge-pill badge-light mb-2 mr-2">
+                            @php
+                                $countComments = $post->comments()->count();
+                            @endphp
+                            <span>{{ $countComments }}件</span>
+                        </p>
+                        <i class="far fa-thumbs-up mb-2"></i>
+                        <p class="badge badge-pill badge-light mb-2 mr-2">
+                            @php
+                                $countFavoritePostUsers = $post->favoritePostUsers()->count();
+                            @endphp
+                            <span>{{ $countFavoritePostUsers }}</span>
+                        </p>
+                        <p>
+                            @if (Auth::check() && Auth::id() !== $post->user_id)
+                                @if (Auth::user()->isFavoritePosts($post->id))
+                                    <form method="POST" action="{{ route('unfavorite.post', $post->id) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-outline-danger btn-sm mb-2">いいね！を外す</button>
+                                    </form>
+                                @else
+                                    <form method="POST" action="{{ route('favorite.post', $post->id) }}">
+                                        @csrf
+                                        <button type="submit" class="btn btn-outline-success btn-sm mb-2">いいね！を押す</button>
+                                    </form>
+                                @endif
+                            @endif
+                        </p>
+                    </div>
                 </div>
                 @if ($post->user->id === Auth::id() )
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
@@ -42,7 +77,13 @@
                     </div>
                 @endif
                 <div class="card text-left d-inline-block w-75 mb-2">
-                    <h5 class="card-header">コメント</h5>
+                    <h5 class="card-header">
+                        コメント
+                        @php
+                            $countComments = $post->comments()->count();
+                        @endphp
+                        <div div class="badge badge-secondary">{{ $countComments }}件</div>
+                    </h5>
                     <div class="card-body">
                         @if (Auth::check())
                             <div class="actions">

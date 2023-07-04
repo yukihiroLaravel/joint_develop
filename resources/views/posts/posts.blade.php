@@ -30,6 +30,19 @@
                         <p>{!!nl2br(e($post->text))!!}</p>
                     @endif
                     <div class="flex-box  adjust-center">
+                        <i class="far fa-comment-dots"></i>
+                        <p class="badge badge-pill badge-light mb-2 mr-2">
+                            @php
+                                $countComments = $post->comments()->count();
+                            @endphp
+                            @if ($post->comments->count() > 0)
+                                <a href="{{ route('comment.show', $post->id) }}">
+                                    <span>{{ $countComments }}件</span>
+                                </a>
+                            @else
+                                <span>{{ $countComments }}件</span>
+                            @endif
+                        </p>
                         <i class="far fa-thumbs-up mb-2"></i>
                         <p class="badge badge-pill badge-light mb-2 mr-2">
                             @php
@@ -164,6 +177,7 @@
                             <div class="text-left d-inline-block w-75 mb-2">
                                 <a href="{{ route('comment.show', $post->id) }}">
                                     ...さらにコメントを見る <i class="far fa-comment-dots"></i>
+                                    <div class="badge badge-secondary">{{ $countComments }}件</div>
                                 </a>
                             </div>
                         @endif
