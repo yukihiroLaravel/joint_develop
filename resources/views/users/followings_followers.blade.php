@@ -24,5 +24,6 @@
             @endif
         </div>
     </li>
+    <div class="m-auto" style="width: fit-content">{{ $relations->links('pagination::bootstrap-4') }}</div>
     @endforeach
 </ul>
