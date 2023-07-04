@@ -98,4 +98,16 @@ class UsersController extends Controller
         return view('users.show',$data);
     }
 
+    public function favoritesComments($id)
+    {
+        $user = User::findOrFail($id);
+        $comments = $user->commentFavorites()->orderBy('created_at', 'desc')->paginate(10);
+        $data=[
+            'user' => $user,
+            'comments' => $comments,
+        ];
+        $data += $this->userCounts($user);
+        return view('comments.favorites', $data);
+    }
+
 }

@@ -35,6 +35,7 @@
                     <p class="text-center mb-2 h4">{{$posts->text}}</p>
                     <p class="text-center text-muted mb-2 h3">{{$comment->body}}</p>
                 </div>
+                @include('favorite.comment_favorite_button', ['comment' => $comment])
                 @if (Auth::id() === $comment->user_id)
                 <div class="d-flex justify-content-between w-75 pb-3 m-auto">
                     <form method="POST" action="{{ route('comment.delete', [$posts->id, $comment->id]) }}">
