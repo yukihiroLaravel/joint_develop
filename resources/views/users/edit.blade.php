@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@section('title', 'ユーザー情報編集ページ')
+@section('description', 'ユーザー情報の編集ができます。')
 @section('content')
 <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
 @include('commons.error_messages')
