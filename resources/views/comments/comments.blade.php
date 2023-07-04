@@ -80,7 +80,7 @@
                     <h5 class="card-header">
                         コメント
                         @php
-                        $countComments = $post->comments()->count();
+                            $countComments = $post->comments()->count();
                         @endphp
                         <div div class="badge badge-secondary">{{ $countComments }}件</div>
                     </h5>
