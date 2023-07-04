@@ -13,7 +13,7 @@
                     <p class="mt-3 mb-0 d-inline-block">
                         <strong>
                             <a href="{{ route('user.show', $post->user->id) }}">
-                                <i class="fas fa-user-alt"></i> {{$post->user->name}}
+                                {{$post->user->name}}
                             </a>
                         </strong>
                         {{ $post->updated_at->format('Y年m月d日H時i分') }}
@@ -127,7 +127,7 @@
                                             @endif
                                             <p class="mt-1 mb-1 d-inline-block">
                                                 <a href="{{ route('user.show', $comment->user->id) }}">
-                                                    <i class="fas fa-user-alt"></i> {{$comment->user->name}}
+                                                    {{$comment->user->name}}
                                                 </a>
                                             </p>
                                             {{ $comment->updated_at->format('Y年m月d日H時i分') }}

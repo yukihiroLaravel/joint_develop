@@ -15,7 +15,7 @@
                     <p class="mt-3 mb-0 d-inline-block">
                         <strong>
                             <a href="{{ route('user.show', $post->user->id) }}">
-                                <i class="fas fa-user-alt"></i> {{$post->user->name}}
+                                {{$post->user->name}}
                             </a>
                         </strong>
                         {{ $post->updated_at->format('Y年m月d日H時i分') }}
