@@ -24,21 +24,3 @@
     <h1 class="text-center mb-3">《 お 題 》</h1>
     @include('posts.posts',['posts' => $posts])
 @endsection
-
-<!-- 投稿フォームに説明文を表示、文字が入力されると消える -->
-<script>
-    var textarea = document.querySelector('textarea[name="text"]');
-    var placeholderText = textarea.getAttribute('placeholder');
-
-    textarea.addEventListener('focus', function() {
-        if (textarea.value === placeholderText) {
-            textarea.value = '';
-        }
-    });
-
-    textarea.addEventListener('blur', function() {
-        if (textarea.value === '') {
-            textarea.value = placeholderText;
-        }
-    });
-</script>
