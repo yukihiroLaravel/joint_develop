@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@section('title', 'コメントページ')
+@section('description', '投稿に対してのみんなのコメント一覧ページです。')
 @section('content')
 @include('commons.flash_message')
     <ul class="list-unstyled">

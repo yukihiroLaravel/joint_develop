@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@section('title', 'ユーザー詳細ページ')
+@section('description', 'ユーザー情報の閲覧ができます。')
 @section('content')
     @include('commons.flash_message')
     <div class="row">
