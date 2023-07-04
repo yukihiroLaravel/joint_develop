@@ -11,7 +11,7 @@
                 @endif
                 <p class="mt-1 mb-1 d-inline-block">
                     <a href="{{ route('user.show', $comment->user->id) }}">
-                        <i class="fas fa-user-alt"></i> {{$comment->user->name}}
+                        {{$comment->user->name}}
                     </a>
                 </p>
                 {{ $comment->updated_at->format('Y年m月d日H時i分') }}
