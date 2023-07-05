@@ -29,10 +29,18 @@ class PostRequest extends FormRequest
         ];
     }
 
+    public function attributes()
+    {
+        return [
+            'text' => '投稿',
+            'img_path' => '画像',
+        ];
+    }
+
     public function messages()
     {
-            return [
-                'text.required_without_all' => 'テキストもしくは画像のいずれかの投稿は必須です',
-            ];
-        }
+        return [
+            'text.required_without_all' => 'テキストもしくは画像のいずれかの投稿は必須です',
+        ];
+    }
 }
