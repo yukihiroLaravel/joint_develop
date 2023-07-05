@@ -16,7 +16,6 @@ class Controller extends BaseController
         $countPosts = $user->posts()->count();
         $countFollowings = $user->following()->count();
         $countFollowers = $user->followed()->count();
-
         return [
             'countPosts' => $countPosts,
             'countFollowings' => $countFollowings,

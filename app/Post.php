@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-
     use SoftDeletes;
+    protected $fillable = ['img_path'];
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -19,4 +19,8 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function favoritePostUsers()
+    {
+        return $this->belongsToMany(User::class, 'favorite_posts', 'post_id', 'user_id')->withTimestamps();
+    }
 }

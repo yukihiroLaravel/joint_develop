@@ -14,7 +14,7 @@
 use App\Http\Controllers\FollowersController;
 
 Route::get('/', 'PostsController@index');
-// ログイン
+// ログインl
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
@@ -29,8 +29,11 @@ Route::prefix('users')->group(function () {
     Route::get('{id}/followedList', 'UsersController@showFollowedList')->name('user.followedList');
 });
 
+// コメントページ
+Route::get('comments/{id}', 'CommentsController@show')->name('comment.show');;
+
 // 検索機能
-Route::get('', 'PostsController@search')->name('search');
+Route::get('search', 'PostsController@search')->name('search');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
@@ -40,6 +43,11 @@ Route::group(['middleware' => 'auth'], function () {
     //投稿編集画面
     Route::get('posts/{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('posts/{id}', 'PostsController@update')->name('post.update');
+    // コメント
+    Route::prefix('comments')->group(function () {
+        Route::post('', 'CommentsController@store')->name('comment.store');
+        Route::delete('{id}', 'CommentsController@destroy')->name('comment.delete');
+    });
     //ユーザー編集
     Route::prefix('users/{id}')->group(function () {
         Route::get('edit', 'UsersController@edit')->name('edit'); 
@@ -49,9 +57,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('follow', 'FollowersController@store')->name('follow');
         Route::delete('unfollow', 'FollowersController@destroy')->name('unfollow');
     });
-    // コメント
-    Route::prefix('comments')->group(function () {
-        Route::post('', 'CommentsController@store')->name('comment.store');
-        Route::delete('{id}', 'CommentsController@destroy')->name('comment.delete');
+    // いいね
+    Route::prefix('posts/{id}')->group(function () {
+        Route::post('favoritePost', 'FavoritePostsController@store')->name('favorite.post');
+        Route::delete('unfavoritePost', 'FavoritePostsController@destroy')->name('unfavorite.post');
+    });
+    Route::prefix('comments/{id}')->group(function () {
+        Route::post('favoriteComment', 'FavoriteCommentsController@store')->name('favorite.comment');
+        Route::delete('unfavoriteComment', 'FavoriteCommentsController@destroy')->name('unfavorite.comment');
     });
 });
