@@ -6,7 +6,8 @@
     </aside>
     <div class="col-sm-8">
         @include('users.user_tab')
-        <ul class="list-unstyled">
+        @include('comments.comment_list')
+        <!-- <ul class="list-unstyled">
             @foreach ($comments as $comment)
             <li class="mb-3 text-center">
                 <div class="text-left d-inline-block w-75 mb-2">
@@ -25,7 +26,7 @@
                 </div>
             </li>
             @endforeach
-        </ul>
+        </ul> -->
         <div class="m-auto" style="width: fit-content">{{ $comments->links('pagination::bootstrap-4') }}</div>
     </div>
 </div>

@@ -1,14 +1,4 @@
-@extends('layouts.app')
-@section('content')
-@include('commons.success')
-<div class="center jumbotron bg-info">
-    <div class="text-center text-white mt-2 pt-1">
-        <h1><i class="fab fa-telegram fa-lg pr-3"></i>みんなの大喜利「GiriGiri」</h1>
-    </div>
-</div>
-<h1 class="text-center mb-3">《新着ボケ》</h1>
-@include('comments.comment_list')
-<!-- <ul class="list-unstyled">
+<ul class="list-unstyled">
     @foreach ($comments as $comment)
     <li class="mb-3 text-center">
         <div class="text-left d-inline-block w-75 mb-2">
@@ -38,8 +28,4 @@
         </div>
     </li>
     @endforeach
-</ul> -->
-
-<div class="m-auto" style="width: fit-content">{{ $comments->links('pagination::bootstrap-4') }}</div>
-
-@endsection
+</ul>

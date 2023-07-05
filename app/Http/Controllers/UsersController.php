@@ -108,7 +108,7 @@ class UsersController extends Controller
             'comments' => $comments,
         ];
         $data += $this->userCounts($user);
-        return view('comments.favorites', $data);
+        return view('comments.user_details', $data);
     }
 
     //ユーザー詳細「コメント（ボケ回答）」
