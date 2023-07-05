@@ -10,7 +10,11 @@
             @foreach ($comments as $comment)
             <li class="mb-3 text-center">
                 <div class="text-left d-inline-block w-75 mb-2">
-                    <img class="mr-2 rounded-circle" src="{{ Gravatar::src($comment->user->email, 35) }}" alt="ユーザのアバター画像">
+                    @if($comment->user->profile_image)
+                        <img class="rounded-circle img-fluid" src="{{ asset('storage/uploads/' . $comment->user->id . '/' . $comment->user->profile_image) }}" alt="ユーザの画像" style="max-width: 100px; max-height: 100px;">
+                    @else
+                        <img class="rounded-circle img-fluid" src="{{ asset('storage/default-profile-image.png') }}" alt="デフォルトのプロフィール画像" style="max-width: 100px; max-height: 100px;">
+                    @endif
                     <p class="mt-3 mb-0 d-inline-block">回答：<a href="{{ route('user.show', $comment->user->id) }}">{{$comment->user->name}}</a>さん</p>
                     <p class="text-muted d-inline-block ml-4">{{$comment->created_at}}</p>
                 </div>
