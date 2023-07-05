@@ -21,7 +21,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 
 // トップページ
-Route::get('/', 'postsController@index');
+Route::get('/', 'postsController@index')->name('top');
 // ユーザー編集、更新
 Route::group(['middleware' => 'auth'], function () 
 {  
@@ -46,6 +46,8 @@ Route::prefix('users/{id}')->group(function () {
 
     //ユーザー詳細イイね
     Route::get('favorites', 'UsersController@favorites')->name('favorites');
+    //ユーザー詳細コメントへのイイね（ワロタ）
+    Route::get('comment_favorites', 'UsersController@favoritesComments')->name('comment.favorites');
 });
 
 // ログイン後
@@ -56,13 +58,24 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
+        // コメント（新規作成、削除、編集更新）
+        Route::post('{id}/comments', 'CommentController@store')->name('comment.store');
+        Route::delete('{postId}/comments/{commentId}', 'CommentController@destroy')->name('comment.delete');
+        Route::get('{postId}/comments/{commentId}/edit', 'CommentController@edit')->name('comment.edit');
+        Route::put('{postId}/comments/{commentId}', 'CommentController@update')->name('comment.update');
     });
     //イイね
     Route::group(['prefix' => 'posts/{id}'],function(){
         Route::post('favorite', 'FavoriteController@store')->name('favorite');
         Route::delete('unfavorite', 'FavoriteController@destroy')->name('unfavorite');
     });
+    //コメントのイイね
+    Route::group(['prefix' => 'comments/{commentId}'], function () {
+        Route::post('favorite', 'FavoriteController@commentStore')->name('comment.favorite');
+        Route::delete('unfavorite', 'FavoriteController@commentDestroy')->name('comment.unfavorite');
+    });
 });
 
 // 回答投稿ページ 兼 回答一覧ページ
 Route::get('/posts/{id}', 'CommentController@show')->name('comment.show');
+Route::get('/comments', 'CommentController@index')->name('comment.index');

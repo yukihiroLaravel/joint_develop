@@ -2,7 +2,7 @@
 @section('content')
 @include('commons.success')
 <div class="w-75 m-auto">@include('commons.error_messages')</div>
-<h1 class="text-center mb-3">《お題》</h1>
+<h1 class="text-center mb-3">《 お 題 》</h1>
 <div class="text-center mb-3">
     <p class="mt-0 mb-0 d-inline-block">出題：<a href="{{ route('user.show', $posts->user->id) }}">{{$posts->user->name}}</a>さん</p>
 </div>
@@ -13,7 +13,7 @@
         <form method="POST" action="{{ route('comment.store',$posts->id) }}" class="d-inline-block w-75">
             @csrf
             <div class="form-group">
-                <textarea class="form-control" name="body" rows="4">{{ old('body') }}</textarea>
+                <textarea class="form-control" name="body" rows="4" placeholder="回答を入力してください">{{ old('body') }}</textarea>
                 <div class="text-left mt-3">
                     <button type="submit" class="btn btn-primary">このお題に回答を投稿する</button>
                 </div>
@@ -21,7 +21,7 @@
         </form>
     </div>
     @endif
-    <h1 class="text-center mt-5 mb-3">《みんなの回答》</h1>
+    <h1 class="text-center mt-5 mb-3">《 みんなの回答 》</h1>
     <ul class="list-unstyled">
         @foreach ($comments as $comment)
         <li class="mb-3 text-center">
@@ -39,14 +39,15 @@
                     <p class="text-center mb-2 h4">{{$posts->text}}</p>
                     <p class="text-center text-muted mb-2 h3">{{$comment->body}}</p>
                 </div>
+                @include('favorite.comment_favorite_button', ['comment' => $comment])
                 @if (Auth::id() === $comment->user_id)
                 <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                    <form method="" action="">
+                    <form method="POST" action="{{ route('comment.delete', [$posts->id, $comment->id]) }}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">削除</button>
                     </form>
-                    <a href="" class="btn btn-primary">編集する</a>
+                    <a href="{{ route('comment.edit', [$posts->id, $comment->id]) }}" class="btn btn-primary">編集する</a>
                 </div>
                 @endif
             </div>
@@ -55,4 +56,4 @@
     </ul>
 
     <div class="m-auto" style="width: fit-content">{{ $comments->links('pagination::bootstrap-4') }}</div>
-    @endsection
+@endsection

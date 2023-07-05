@@ -17,4 +17,18 @@ class FavoriteController extends Controller
         \Auth::user()->unfavorite($id);
         return back();
     }
+
+    //コメントへのいいね
+    public function commentStore($commentId)
+    {
+        \Auth::user()->commentFavorite($commentId);
+        return back();
+    }
+
+    public function commentDestroy($commentId)
+    {
+        \Auth::user()->commentUnfavorite($commentId);
+        return back();
+    }
+
 }

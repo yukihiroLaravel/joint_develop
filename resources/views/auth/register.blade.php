@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('content')
 <div class="text-center">
-    <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
+    <h1><i class="fab fa-telegram fa-lg pr-3"></i>みんなの大喜利「GiriGiri」</h1>
 </div>
 <div class="text-center mt-3">
-    <p class="text-left d-inline-block">新規ユーザ登録すると投稿で<br>コミュニケーションができるようになります。</p>
+    <p class="text-center d-inline-block">新規ユーザ登録すると、お題・ボケの投稿や<br>いいね・ワロタ・フォローができるようになります。</p>
 </div>
 <div class="text-center">
     <h3 class="login_title text-left d-inline-block mt-5">新規ユーザ登録</h3>
@@ -15,7 +15,7 @@
         <form method="POST" action="{{ route('signup.post') }}">
             @csrf
             <div class="form-group">
-                <label for="name">名前</label>
+                <label for="name">ユーザー名</label>
                 <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
             </div>
             <div class="form-group">

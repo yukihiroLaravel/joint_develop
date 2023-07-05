@@ -13,7 +13,7 @@ class Comment extends Model
         'post_id'
     ];
     
-    public function posts()
+    public function post()
     {
         return $this->belongsTo(Post::class);
     }
@@ -21,6 +21,11 @@ class Comment extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function favoriteUsers()
+    {
+        return $this->belongsToMany(User::class, 'favorites_comment', 'comment_id', 'user_id')->withTimestamps();
     }
 
 }

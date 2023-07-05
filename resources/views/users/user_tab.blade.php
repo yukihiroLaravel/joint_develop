@@ -1,6 +1,6 @@
 <ul class="nav nav-tabs nav-justified mb-3">
     <li class="nav-item">
-        <a href="{{ route('user.show', $user->id) }}" class="nav-link {{ Request::routeIs('user.show') ? 'active' : '' }}">タイムライン<br>
+        <a href="{{ route('user.show', $user->id) }}" class="nav-link {{ Request::routeIs('user.show') ? 'active' : '' }}">投稿したお題<br>
             <div class="badge badge-secondary">{{ $countPosts }}</div>
         </a>
     </li>
@@ -14,6 +14,10 @@
             <div class="badge badge-secondary">{{ $countFollowers }}</div>
         </a>
     </li>
-    <li class="nav-item nav-link"><a href="{{ route('favorites', $user->id) }}" class="{{ Request::is('users/'. $user->id. 'favorites'. $user->id) ? 'active' : '' }}">いいね<span class="ml-2 badge badge-success">{{ $countFavorites }}</span></a></li>        </ul>
-
+    <li class="nav-item nav-link"><a href="{{ route('favorites', $user->id) }}" class="{{ Request::is('users/'. $user->id. 'favorites'. $user->id) ? 'active' : '' }}">いいね<span class="ml-2 badge badge-success">{{ $countFavorites }}</span></a></li>
+    <li class="nav-item">
+        <a href="{{ route('comment.favorites', $user->id) }}" class="nav-link {{ Request::routeIs('comment.favorites') ? 'active' : '' }}">ワロタ<br>
+            <div class="badge badge-secondary">{{ $countFavoritesComments }}</div>
+        </a>
+    </li>
 </ul>
