@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'profile_image', 
     ];
 
     /**
@@ -35,7 +35,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $profile_image;
+    //protected $profile_image;
         
     
     /**
@@ -122,10 +122,10 @@ class User extends Authenticatable
         return $this->favorites()->where('post_id', $postId)->exists();
     }
 
-    public function getProfileImageAttribute()
-    {
-        return $this->profile_image ? asset('uploads/' . $this->id . '/' . $this->profile_image) : null;
-    }
+    // public function getProfileImageAttribute()
+    // {
+    //     return $this->profile_image ? asset('uploads/' . $this->id . '/' . $this->profile_image) : null;
+    // }
 
     public function favorite($postId)
 {

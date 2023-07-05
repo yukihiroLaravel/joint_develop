@@ -30,30 +30,23 @@ class UsersController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
-
+            
             if ($request->hasFile('profile_image')) {
                 $image = $request->file('profile_image');
                 $imageName = time() . '.' . $image->getClientOriginalExtension();
-                $image->storeAs('public/uploads/' . $user->id, $imageName);
-                $user->profile_image = $imageName;
+                $image->storeAs('uploads/' . $user->id, $imageName);
+                $user->profile_image = $imageName; // プロフィール画像のファイル名を保存する
             }
+            
             $user->save();
 
-            // 更新後のユーザー情報を再取得
-            $user = User::findOrFail($id);
-
-            // ビューにユーザー情報とフラッシュメッセージを渡す
-            $data = [
-                'user' => $user,
-                'posts' => $user->posts()->orderBy('id', 'desc')->paginate(10),
-                'flash_message' => '更新しました！'
-            ];
-
-            return view('users.show', $data);
+        return redirect()->route('user.show', $user->id)->with('flash_message', '更新しました！');
         }
+        
+        return view('errors.404');
+    }
 
-    return view('errors.404');
-}
+
     public function destroy($id)
     {
         $user = User::findOrFail($id);
