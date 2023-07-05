@@ -6,7 +6,7 @@
         <h1><i class="fab fa-telegram fa-lg pr-3"></i>みんなの大喜利「GiriGiri」</h1>
     </div>
 </div>
-<h1 class="text-center mb-3">《新着ボケ》</h1>
+<h1 class="text-center mb-3">《 新着ボケ 》</h1>
 <ul class="list-unstyled">
     @foreach ($comments as $comment)
     <li class="mb-3 text-center">
