@@ -11,7 +11,8 @@
         'countFollowings' => $user->followings()->count(),
         'countFollowers' => $user->followers()->count(),
         'countFavorites' => $user->favorites()->count(),
-    ])
+        'countFavoritesComments' => $user->commentFavorites()->count(),
+            ])
         @include('posts.posts', ['posts' => $posts, 'user' => $user])
     </div>
 </div>
