@@ -4,7 +4,7 @@
             <div class="text-left d-inline-block w-75 mb-2">
                 <div class="card-body">
                     @if($post->user->profile_image)
-                        <img class="rounded-circle img-fluid" src="{{ asset('storage/uploads/' . $post->user->id . '/' . $post->user->profile_image) }}" alt="ユーザの画像" style="max-width: 100px; max-height: 100px;">
+                        <img class="rounded-circle img-fluid" src="{{ asset('storage/uploads/' . $post->user->id . '/' . $post->user->profile_image) }}" alt="ユーザの画像" style="max-width: 100px; max-height: 100px; object-fit: contain;">
                     @else
                         <img class="rounded-circle img-fluid" src="{{ asset('storage/default-profile-image.png') }}" alt="デフォルトのプロフィール画像" style="max-width: 100px; max-height: 100px;">
                     @endif

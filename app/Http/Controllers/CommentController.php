@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Comment;
 use App\Http\Requests\CommentRequest;
+use Illuminate\Support\Facades\Auth;
+
 
 class CommentController extends Controller
 {
@@ -14,6 +16,7 @@ class CommentController extends Controller
         $posts = Post::findOrFail($id);
         $comments = $posts->comments()->orderByDesc('created_at')->paginate(10);
         $data = [
+            'user' => Auth::user(),
             'posts' => $posts,
             'comments' => $comments,
         ];
