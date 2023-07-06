@@ -29,7 +29,7 @@
             @if($user->profile_image)
                 <img class="rounded-circle img-fluid" src="{{ asset('storage/uploads/' . $user->id . '/' . $user->profile_image) }}" alt="ユーザの画像" style="max-width: 100px; max-height: 100px;">
             @else
-                <img class="rounded-circle img-fluid" src="{{ asset('storage/default-profile-image.png') }}" alt="デフォルトのプロフィール画像" style="max-width: 100px; max-height: 100px;">
+                <img class="rounded-circle img-fluid" src="{{ asset('storage/default-profile-images/' . getRandomDefaultProfileImage()) }}" alt="デフォルトのプロフィール画像" style="max-width: 100px; max-height: 100px;">
             @endif               
                 <p class="mt-3 mb-0 d-inline-block">回答：<a href="{{ route('user.show', $comment->user->id) }}">{{$comment->user->name}}</a>さん</p>
                 <p class="text-muted d-inline-block ml-4">{{$comment->created_at}}</p>

@@ -6,7 +6,7 @@
                     @if($post->user->profile_image)
                         <img class="rounded-circle img-fluid" src="{{ asset('storage/uploads/' . $post->user->id . '/' . $post->user->profile_image) }}" alt="ユーザの画像" style="max-width: 100px; max-height: 100px; object-fit: contain;">
                     @else
-                        <img class="rounded-circle img-fluid" src="{{ asset('storage/default-profile-image.png') }}" alt="デフォルトのプロフィール画像" style="max-width: 100px; max-height: 100px;">
+                        <img class="rounded-circle img-fluid" src="{{ asset('storage/default-profile-images/' . getRandomDefaultProfileImage()) }}" alt="デフォルトのプロフィール画像" style="max-width: 100px; max-height: 100px;">
                     @endif
                     <p class="mt-3 mb-0 d-inline-block">出題：<a href="{{ route('user.show', $post->user->id) }}">{{ $post->user->name }}</a>さん</p>
                 </div>
