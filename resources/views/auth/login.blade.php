@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('content')
     <div class="text-center">
-        <h1><i class="fab fa-telegram fa-lg pr-3"></i><span style="color: black;">Topic Posts</span></h1>
+        <h1><i class="fab fa-telegram fa-lg pr-3"></i><span style="color: black;">みんなの大喜利「GiriGiri」</span></h1>
     </div>
     <div class="text-center mt-3">
-        <p class="text-left d-inline-block" style="color: black;">ログインすると投稿で<br>コミュニケーションができるようになります。</p>
+        <p class="text-center d-inline-block" style="color: black;">>ログインすると、お題・ボケの投稿や<br>いいね・ワロタ・フォローができるようになります。</p>
     </div>
     <div class="text-center">
         <h3 class="login_title text-left d-inline-block" style="color: black;">ログイン</h3>
