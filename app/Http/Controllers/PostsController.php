@@ -66,4 +66,28 @@ class PostsController extends Controller
         $request->flash();
         return view('welcome', ['posts' => $posts]);
     }
+      
+    public function edit($id)
+    {
+        $user = \Auth::user();
+        $post = Post::findOrFail($id);
+        $data=[
+            'user' => $user,
+            'post' => $post,
+        ];
+        if ($post->user_id === \Auth::id()) {
+            return view('posts.edit', $data);
+        }
+        abort(404);
+
+    }
+    
+    public function update(postRequest $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        $post->text = $request->text;
+        $post->user_id = $request->user()->id;
+        $post->save();
+        return redirect('/')->with('greenMessage', '更新しました');
+    }
 }
