@@ -2,9 +2,9 @@
 @section('content')
 @include('commons.success')
 <div class="w-75 m-auto">@include('commons.error_messages')</div>
-<h1 class="text-center mb-3 text-black">">《 お 題 》</h1>
+<h1 class="text-center mb-3">《 お 題 》</h1>
 <div class="text-center mb-3">
-    <p class="mt-0 mb-0 d-inline-block text-black">">出題：<a href="{{ route('user.show', $posts->user->id) }}" class="text-black">{{$posts->user->name}}</a>さん</p>
+    <p class="mt-0 mb-0 d-inline-block">出題：<a href="{{ route('user.show', $posts->user->id) }}" class="text-black">{{$posts->user->name}}</a>さん</p>
 </div>
 <h2 class="text-center mb-4 text-black">{{$posts->text}}</h2>
     <h6 class="text-center mb-3">※新規ユーザ登録してこのお題に回答しよう！</h6>
@@ -21,7 +21,7 @@
         </form>
     </div>
     @endif
-    <h1 class="text-center mt-5 mb-3">《 みんなの回答 》</h1>
+    <h1 class="text-center mt-5 mb-3 text-black">《 みんなの回答 》</h1>
     <ul class="list-unstyled">
         @foreach ($comments as $comment)
         <li class="mb-3 text-center">

@@ -6,13 +6,13 @@
         <h1><i class="fab fa-telegram fa-lg pr-3"></i>みんなの大喜利「GiriGiri」</h1>
     </div>
 </div>
-<h1 class="text-center mb-3">《 新着ボケ 》</h1>
+<h1 class="text-center mb-3 text-black ">《 新着ボケ 》</h1>
 <ul class="list-unstyled">
     @foreach ($comments as $comment)
     <li class="mb-3 text-center">
         <div class="text-left d-inline-block w-75 mb-2">
             <img class="mr-2 rounded-circle" src="{{ Gravatar::src($comment->user->email, 35) }}" alt="ユーザのアバター画像">
-            <p class="mt-3 mb-0 d-inline-block">回答：<a href="{{ route('user.show', $comment->user->id) }}">{{$comment->user->name}}</a>さん</p>
+            <p class="mt-3 mb-0 d-inline-block text-black ">回答：<a href="{{ route('user.show', $comment->user->id) }}">{{$comment->user->name}}</a>さん</p>
             <p class="text-muted d-inline-block ml-4">{{$comment->created_at}}</p>
         </div>
         <div class="">

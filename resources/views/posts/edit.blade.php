@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<h2 class="mt-5">投稿を編集する</h2>
+<h2 class="mt-5 text-black">投稿を編集する</h2>
     <form method="POST" action="{{ route('post.update', $post->id) }}">
         @csrf
         @method('PUT')
