@@ -84,6 +84,6 @@ class PostsController extends Controller
         $post->text = $request->text;
         $post->user_id = $request->user()->id;
         $post->save();
-        return redirect('/');
+        return redirect('/')->with('greenMessage', '更新しました');
     }
 }
