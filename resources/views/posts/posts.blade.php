@@ -77,9 +77,9 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
-                                <form class="d-inline-block w-100 mb-2" method="POST" action="{{ route('comment.store') }}">
+                                <form class="d-inline-block w-100 mb-2" method="POST" action="{{ route('comment.store') }}" enctype="multipart/form-data">
                                     @csrf
-                                    <div class="form-group">
+                                    <div class="form-group text-center mb-3">
                                         <input type="hidden" name="comments" />
                                         <input value="{{ $post->id }}" type="hidden" name="post_id" />
                                         <input value="{{ Auth::id() }}" type="hidden" name="user_id" />
@@ -88,7 +88,11 @@
                                             placeholder="コメントを投稿する ..." autocomplete="off" type="text"
                                             name="comment[{{ $post->id }}]" rows="2"
                                             cols="40">{{ old('comment.'. $post->id) }}</textarea><br>
-                                        <div class="text-left">
+                                        <div>
+                                            <i class="far fa-image"></i>
+                                            <input type="file" name="img_path" placeholder="画像投稿">
+                                        </div>
+                                        <div class="text-left mt-5">
                                             <button type="submit" class="btn btn-primary">
                                                 <i class="fas fa-reply"></i> コメントする
                                             </button>
@@ -121,7 +125,12 @@
                                         @endif
                                     </span><br>
                                     <span class="card-text">
-                                        {!!nl2br(e($comment->comment))!!}
+                                        @if (isset($comment->img_path))
+                                            <p>{!!nl2br(e($comment->comment))!!}</p>
+                                            <img src="{{ Storage::url($comment->img_path) }}" class="mb-2" alt="">
+                                        @else
+                                            <p>{!!nl2br(e($comment->comment))!!}</p>
+                                        @endif
                                     </span>
                                     <div class="flex-box  adjust-center">
                                         <i class="far fa-thumbs-up mb-2"></i>

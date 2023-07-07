@@ -18,7 +18,12 @@
             @endif
         </span><br>
         <span class="card-text">
-            {!!nl2br(e($comment->comment))!!}
+            @if (isset($comment->img_path))
+                <p>{!!nl2br(e($comment->comment))!!}</p>
+                <img src="{{ Storage::url($comment->img_path) }}" class="mb-2" alt="">
+            @else
+                <p>{!!nl2br(e($comment->comment))!!}</p>
+            @endif
         </span>
         <div class="flex-box  adjust-center">
             <i class="far fa-thumbs-up mb-2"></i>
