@@ -24,7 +24,7 @@ class PostsController extends Controller
         $post->user_id = $request->user()->id;
         if ($request->text === null) {
             $post->text = '';
-        } else{
+        } else {
             $post->text = $request->text;
         }
         $post->save();
@@ -50,13 +50,13 @@ class PostsController extends Controller
     {
         $keywords = preg_split('/[\s　]+/u', $request->input('keywords'));
         $posts = Post::where(function ($query) use ($keywords) {
-                foreach ($keywords as $keyword) {
-                    $query->where('text', 'LIKE', "%$keyword%");
-                }
-            }) 
+            foreach ($keywords as $keyword) {
+                $query->where('text', 'LIKE', "%$keyword%");
+            }
+        })
             ->orWhere(function ($query) use ($keywords) {
                 foreach ($keywords as $keyword) {
-                    $query->whereHas('comments', function ($query) use ($keyword){
+                    $query->whereHas('comments', function ($query) use ($keyword) {
                         $query->where('comment', 'LIKE', "%$keyword%");
                     });
                 }
@@ -66,7 +66,7 @@ class PostsController extends Controller
         $request->flash();
         return view('welcome', ['posts' => $posts]);
     }
-      
+
     public function edit($id)
     {
         $user = \Auth::user();
@@ -79,9 +79,8 @@ class PostsController extends Controller
             return view('posts.edit', $data);
         }
         abort(404);
-
     }
-    
+
     public function update(postRequest $request, $id)
     {
         $post = Post::findOrFail($id);
