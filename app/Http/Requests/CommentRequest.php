@@ -24,16 +24,16 @@ class CommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'comment.' . $this->post_id => 'required|max:140',
+            'comment.' . $this->post_id => 'required_without_all:img_path|max:140',
+            'img_path.' . $this->post_id => 'max:1024|image|mimes:jpg,jpeg,png,gif',
         ];
     }
 
     public function messages()
     {
         return [
-            'comment.*.required' => 'コメントは必須です',
+            'comment.*.required_without_all' => 'コメントもしくは画像のいずれかの投稿は必須です',
             'comment.*.max' => 'コメントは140文字以下で入力して下さい',
         ];
     }
-
 }

@@ -10,7 +10,6 @@ use App\Http\Requests\CommentRequest;
 
 class CommentsController extends Controller
 {
-
     public function show($id)
     {
         $post = Post::findOrFail($id);
@@ -25,10 +24,16 @@ class CommentsController extends Controller
     public function store(CommentRequest $request)
     {
         $comment = new Comment;
-        $comment->comment = $request->input('comment.' . $request->post_id);
-        $comment->post_id = $request->post_id;
         $comment->user_id = $request->user()->id;
+        $comment->post_id = $request->post_id;
+        $comment->comment = $request->input('comment.' . $request->post_id) ?? '';
         $comment->save();
+        $img = $request->file('img_path');
+        if ($img) {
+            $path = $img->storeAs('public/comment.img', $comment->id . '.' . $request->img_path->extension());
+            $comment->img_path = $path;
+            $comment->save();
+        }
         return back()->with('greenMessage', 'コメントしました');
     }
 
@@ -40,5 +45,4 @@ class CommentsController extends Controller
         }
         return back()->with('redMessage', 'コメント削除しました');
     }
-
 }
