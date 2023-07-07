@@ -20,5 +20,6 @@
                 @endif
             </ul>
         </div>
+        @include('searchs.search')  
     </nav>
 </header>
