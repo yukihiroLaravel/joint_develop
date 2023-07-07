@@ -24,7 +24,7 @@ class PostsController extends Controller
         $post->user_id = $request->user()->id;
         if ($request->text === null) {
             $post->text = '';
-        } else{
+        } else {
             $post->text = $request->text;
         }
         $post->save();
@@ -35,6 +35,29 @@ class PostsController extends Controller
             $post->save();
         }
         return back()->with('greenMessage', '投稿しました');
+    }
+
+    public function edit($id)
+    {
+        $user = \Auth::user();
+        $post = Post::findOrFail($id);
+        $data=[
+            'user' => $user,
+            'post' => $post,
+        ];
+        if ($post->user_id === \Auth::id()) {
+            return view('posts.edit', $data);
+        }
+        abort(404);
+    }
+
+    public function update(postRequest $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        $post->text = $request->text;
+        $post->user_id = $request->user()->id;
+        $post->save();
+        return redirect('/')->with('greenMessage', '投稿を編集しました');
     }
 
     public function destroy($id)
@@ -50,13 +73,13 @@ class PostsController extends Controller
     {
         $keywords = preg_split('/[\s　]+/u', $request->input('keywords'));
         $posts = Post::where(function ($query) use ($keywords) {
-                foreach ($keywords as $keyword) {
-                    $query->where('text', 'LIKE', "%$keyword%");
-                }
-            }) 
+            foreach ($keywords as $keyword) {
+                $query->where('text', 'LIKE', "%$keyword%");
+            }
+        })
             ->orWhere(function ($query) use ($keywords) {
                 foreach ($keywords as $keyword) {
-                    $query->whereHas('comments', function ($query) use ($keyword){
+                    $query->whereHas('comments', function ($query) use ($keyword) {
                         $query->where('comment', 'LIKE', "%$keyword%");
                     });
                 }
