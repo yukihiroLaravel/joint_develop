@@ -30,7 +30,7 @@ Route::prefix('users')->group(function () {
 });
 
 // コメントページ
-Route::get('comments/{id}', 'CommentsController@show')->name('comment.show');;
+Route::get('comments/{id}', 'CommentsController@show')->name('comment.show');
 
 // 検索機能
 Route::get('search', 'PostsController@search')->name('search');
@@ -50,10 +50,10 @@ Route::group(['middleware' => 'auth'], function () {
     });
     //ユーザー編集
     Route::prefix('users/{id}')->group(function () {
-        Route::get('edit', 'UsersController@edit')->name('edit'); 
+        Route::get('edit', 'UsersController@edit')->name('edit');
         Route::put('', 'UsersController@update')->name('update');
         Route::delete('', 'UsersController@destroy')->name('user.delete');
-    //フォロー機能
+        //フォロー機能
         Route::post('follow', 'FollowersController@store')->name('follow');
         Route::delete('unfollow', 'FollowersController@destroy')->name('unfollow');
     });
