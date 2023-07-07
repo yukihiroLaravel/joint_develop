@@ -13,7 +13,7 @@
                     <p class="mt-3 mb-0 d-inline-block">
                         <strong>
                             <a href="{{ route('user.show', $post->user->id) }}">
-                                <i class="fas fa-user-alt"></i> {{$post->user->name}}
+                                {{$post->user->name}}
                             </a>
                         </strong>
                         {{ $post->updated_at->format('Y年m月d日H時i分') }}
@@ -30,6 +30,19 @@
                         <p>{!!nl2br(e($post->text))!!}</p>
                     @endif
                     <div class="flex-box  adjust-center">
+                        <i class="far fa-comment-dots"></i>
+                        <p class="badge badge-pill badge-light mb-2 mr-2">
+                            @php
+                                $countComments = $post->comments()->count();
+                            @endphp
+                            @if ($post->comments->count() > 0)
+                                <a href="{{ route('comment.show', $post->id) }}">
+                                    <span>{{ $countComments }}件</span>
+                                </a>
+                            @else
+                                <span>{{ $countComments }}件</span>
+                            @endif
+                        </p>
                         <i class="far fa-thumbs-up mb-2"></i>
                         <p class="badge badge-pill badge-light mb-2 mr-2">
                             @php
@@ -118,7 +131,7 @@
                                             @endif
                                             <p class="mt-1 mb-1 d-inline-block">
                                                 <a href="{{ route('user.show', $comment->user->id) }}">
-                                                    <i class="fas fa-user-alt"></i> {{$comment->user->name}}
+                                                    {{$comment->user->name}}
                                                 </a>
                                             </p>
                                             {{ $comment->updated_at->format('Y年m月d日H時i分') }}
@@ -173,6 +186,7 @@
                             <div class="text-left d-inline-block w-75 mb-2">
                                 <a href="{{ route('comment.show', $post->id) }}">
                                     ...さらにコメントを見る <i class="far fa-comment-dots"></i>
+                                    <div class="badge badge-secondary">{{ $countComments }}件</div>
                                 </a>
                             </div>
                         @endif

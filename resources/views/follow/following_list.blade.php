@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@section('title', 'フォローユーザー確認ページ')
+@section('description', '現在フォローしているユーザーを確認できます。')
 @section('content')
     @include('commons.flash_message')
     <div class="row">

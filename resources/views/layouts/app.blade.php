@@ -3,12 +3,23 @@
 
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 
     <link rel="shortcut icon" href="{{ asset('images/icon/favicon_32.ico') }}" />
     <link rel="icon" type="image/vnd.microsoft.icon" href="{{ asset('images/icon/favicon_128.ico') }}" />
     <link rel="apple-touch-icon" href="{{ asset('images/icon/favicon_128.ico') }}" />
 
-    <title>おうち時間の過ごし方</title>
+    @hasSection('title')
+        <title>@yield('title') | {{ config('app.name') }}</title>
+    @else
+        <title>{{ config('app.name') }}</title>
+    @endif
+    @hasSection('description')
+        <meta name="description" content="@yield('description')">
+    @else
+        <meta name="description" content="おうち時間の快適な過ごし方について、情報共有するコミュニティです。投稿やコメントを通してアイデアを出し合い、家での時間を今よりももっと良いものにできます。">
+    @endif
+
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">

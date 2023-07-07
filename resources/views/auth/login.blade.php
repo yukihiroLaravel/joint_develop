@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@section('title', 'ログインページ')
+@section('description', 'すでにユーザーの場合ログインすることができます。ログインすると投稿でコミュニケーションできるようになります。')
 @section('content')
     <div class="text-center">
         <h1><i class="fas fa-home fa-lg pr-3"></i>おうち時間の過ごし方</h1>

@@ -8,7 +8,7 @@
             <input type="hidden" name="posts">
             <div class="form-group">
                 <div class ="mb-3">
-                    <textarea class="form-control @error('text') is-invalid @enderror" name="text" rows="4" value="{{ old('text') }}"></textarea>
+                    <textarea class="form-control @error('text') is-invalid @enderror" name="text" rows="4" placeholder="140字以内で投稿しよう ...">{{ old('text') }}</textarea>
                 </div>
                 <div>
                     <i class="far fa-image"></i>
