@@ -53,7 +53,7 @@ class PostsController extends Controller
         }
         return redirect("/");
     }
-    
+
     public function search(Request $request)
     {
         $search = $request->input('search');
@@ -67,9 +67,9 @@ class PostsController extends Controller
             $counter++;
             }
         }
-            $data = $query->orderBy('created_at', 'desc')->paginate(10);
+            $posts = $query->orderBy('created_at', 'desc')->paginate(10);
             return view('searchs.results',[ 
-                'data' => $data,
-            ]);
-    }
+                'posts' => $posts,
+            ]);      
+        }        
 }    
