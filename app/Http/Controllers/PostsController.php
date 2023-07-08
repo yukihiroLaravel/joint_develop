@@ -65,7 +65,10 @@ class PostsController extends Controller
             'user' => $user,
             'post' => $post,
         ];
-        return view('posts.edit', $data);
+        if ($post->user_id === \Auth::id()) {
+            return view('posts.edit', $data);
+        }
+        abort(404);
     }
     
     public function update(postRequest $request, $id)
@@ -74,6 +77,6 @@ class PostsController extends Controller
         $post->text = $request->text;
         $post->user_id = $request->user()->id;
         $post->save();
-        return redirect('/');
+        return redirect('/')->with('greenMessage', '更新しました');
     }
 }
