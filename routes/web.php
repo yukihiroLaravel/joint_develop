@@ -48,6 +48,8 @@ Route::prefix('users/{id}')->group(function () {
     Route::get('favorites', 'UsersController@favorites')->name('favorites');
     //ユーザー詳細コメントへのイイね（ワロタ）
     Route::get('comment_favorites', 'UsersController@favoritesComments')->name('comment.favorites');
+    //ユーザー詳細「コメント（ボケ回答）」
+    Route::get('comments', 'UsersController@commentsShow')->name('comments'); 
 });
 
 // ログイン後
