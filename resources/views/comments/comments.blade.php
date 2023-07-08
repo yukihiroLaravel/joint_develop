@@ -21,39 +21,7 @@
         </form>
     </div>
     @endif
-    <h1 class="text-center mt-5 mb-3">《 みんなの回答 》</h1>
-    <ul class="list-unstyled">
-        @foreach ($comments as $comment)
-        <li class="mb-3 text-center">
-            <div class="text-left d-inline-block w-75 mb-2">
-            @if($user->profile_image)
-                <img class="rounded-circle img-fluid" src="{{ asset('storage/uploads/' . $user->id . '/' . $user->profile_image) }}" alt="ユーザの画像" style="max-width: 100px; max-height: 100px;">
-            @else
-                <img class="rounded-circle img-fluid" src="{{ asset('storage/default-profile-images/' . getRandomDefaultProfileImage()) }}" alt="デフォルトのプロフィール画像" style="max-width: 100px; max-height: 100px;">
-            @endif               
-                <p class="mt-3 mb-0 d-inline-block">回答：<a href="{{ route('user.show', $comment->user->id) }}">{{$comment->user->name}}</a>さん</p>
-                <p class="text-muted d-inline-block ml-4">{{$comment->created_at}}</p>
-            </div>
-            <div class="">
-                <div class="text-left d-inline-block w-75">
-                    <p class="text-center mb-2 h4">{{$posts->text}}</p>
-                    <p class="text-center text-muted mb-2 h3">{{$comment->body}}</p>
-                </div>
-                @include('favorite.comment_favorite_button', ['comment' => $comment])
-                @if (Auth::id() === $comment->user_id)
-                <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                    <form method="POST" action="{{ route('comment.delete', [$posts->id, $comment->id]) }}">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">削除</button>
-                    </form>
-                    <a href="{{ route('comment.edit', [$posts->id, $comment->id]) }}" class="btn btn-primary">編集する</a>
-                </div>
-                @endif
-            </div>
-        </li>
-        @endforeach
-    </ul>
-
+    <h1 class="text-center mt-5 mb-3">《みんなの回答》</h1>
+    @include('comments.comment_list')
     <div class="m-auto" style="width: fit-content">{{ $comments->links('pagination::bootstrap-4') }}</div>
 @endsection
