@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
 @include('commons.success')
-    <div class="center jumbotron bg-info">
-        <div class="text-center text-white mt-2 pt-1">
+    <div class="center jumbotron bg-yellow">
+        <div class="text-center text-black mt-2 pt-1">
             <h1><i class="fab fa-telegram fa-lg pr-3"></i>みんなの大喜利「GiriGiri」</h1>
         </div>
     </div>
