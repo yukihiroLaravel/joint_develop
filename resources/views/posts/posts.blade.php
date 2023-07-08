@@ -77,7 +77,7 @@
                                 <i class="fas fa-trash-alt"></i> 削除
                             </button>
                         </form>
-                        <a href="{{ route('post.edit', $post->id) }}" class="btn btn-success"><i class="fas fa-edit"></i> 編集する</a>
+                        <a href="{{ route('post.edit', $post->id) }}" class="btn btn-success"><i class="fas fa-edit"></i>編集する</a>
                     </div>
                 @endif
                 <div class="card text-left d-inline-block w-75 mb-2">
