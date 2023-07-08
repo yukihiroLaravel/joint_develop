@@ -39,12 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     //投稿編集画面
     Route::get('posts/{id}/edit', 'PostsController@edit')->name('post.edit');
-    Route::put('posts/{id}', 'PostsController@update')->name('post.update');
-    // コメント
-    Route::prefix('comments')->group(function () {
-        Route::post('', 'CommentsController@store')->name('comment.store');
-        Route::delete('{id}', 'CommentsController@destroy')->name('comment.delete');
-    });    
+    Route::put('posts/{id}', 'PostsController@update')->name('post.update');    
     //ユーザー編集
     Route::prefix('users/{id}')->group(function () {
         Route::get('edit', 'UsersController@edit')->name('edit'); 
