@@ -20,9 +20,9 @@
         <span class="card-text">
             @if (isset($comment->img_path))
                 <p>{!!nl2br(e($comment->comment))!!}</p>
-                <a href="{{ Storage::url($comment->img_path) }}" data-lightbox="comment-group_{{ ($comment->id) }}">
-                    <img class="img-fluid mb-2" src="{{ Storage::url($comment->img_path) }}" alt="" width="40%"
-                        height="auto">
+                <a href="{{ Storage::url($comment->img_path) }}" data-lightbox="comment-group_{{ $post->id }}"
+                    data-title="{!!nl2br(e($comment->comment))!!}">
+                    <img class="img-fluid mb-2" src="{{ Storage::url($comment->img_path) }}" alt="" width="40%" height="auto">
                 </a>
             @else
                 <p>{!!nl2br(e($comment->comment))!!}</p>
