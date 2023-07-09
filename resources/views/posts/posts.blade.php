@@ -25,7 +25,11 @@
                 <div class="text-left d-inline-block w-75 mb-2">
                     @if (isset($post->img_path))
                         <p>{!!nl2br(e($post->text))!!}</p>
-                        <img src="{{ Storage::url($post->img_path) }}" class="mb-2" alt="">
+                        <a href="{{ Storage::url($post->img_path) }}" data-lightbox="post-group_{{ $post->id }}"
+                            data-title="{!!nl2br(e($post->text))!!}">
+                            <img class="img-fluid mb-2" src="{{ Storage::url($post->img_path) }}" alt="" width="40%"
+                                height="auto">
+                        </a>
                     @else
                         <p>{!!nl2br(e($post->text))!!}</p>
                     @endif
@@ -81,7 +85,7 @@
                     </div>
                 @endif
                 <div class="card text-left d-inline-block w-75 mb-2">
-                    <h5 class="card-header">コメント</h5>
+                    <h5 class="card-header">最新コメント</h5>
                     <div class="card-body">
                         @if (Auth::check())
                             <div class="actions">
@@ -140,7 +144,12 @@
                                     <span class="card-text">
                                         @if (isset($comment->img_path))
                                             <p>{!!nl2br(e($comment->comment))!!}</p>
-                                            <img src="{{ Storage::url($comment->img_path) }}" class="mb-2" alt="">
+                                            <a href="{{ Storage::url($comment->img_path) }}"
+                                                data-lightbox="post-group_{{ $comment->id }}"
+                                                data-title="{!!nl2br(e($comment->comment))!!}">
+                                                <img class="img-fluid mb-2" src="{{ Storage::url($comment->img_path) }}" alt=""
+                                                    width="40%" height="auto">
+                                            </a>
                                         @else
                                             <p>{!!nl2br(e($comment->comment))!!}</p>
                                         @endif
