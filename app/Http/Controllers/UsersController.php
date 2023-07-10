@@ -62,22 +62,12 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
-        $countPosts = $user->posts()->count();
-        $countFollowings = $user->followings()->count();
-        $countFollowers = $user->followers()->count();
-        $countFavorites = $user->favorites()->count();
-        $countComments = $user->comments()->count();
-
-
-        return view('users.show', [
+        $data=[
             'user' => $user,
             'posts' => $posts,
-            'countPosts' => $countPosts,
-            'countFollowings' => $countFollowings,
-            'countFollowers' => $countFollowers,
-            'countFavorites' => $countFavorites,
-            'countComments' => $countComments,
-        ]);
+        ];
+        $data += $this->userCounts($user);
+        return view('users.show',$data);
     }
     //ユーザー詳細「フォロー中」
     public function followingsShow($id)

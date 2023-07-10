@@ -16,7 +16,6 @@ class CommentController extends Controller
         $posts = Post::findOrFail($id);
         $comments = $posts->comments()->orderByDesc('created_at')->paginate(10);
         $data = [
-            'user' => Auth::user(),
             'posts' => $posts,
             'comments' => $comments,
         ];
