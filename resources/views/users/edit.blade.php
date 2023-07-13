@@ -8,7 +8,7 @@
 
             <div class="form-group">
                 <label for="profile_image">プロフィール画像</label>
-                <input type="file" name="profile_image" id="profile_image">
+                <input type="file" name="profile_image" id="profile_image" accept=".jpg, .jpeg, .png">
             </div>
             <div class="form-group">
                 <label for="name">ユーザ名</label>
