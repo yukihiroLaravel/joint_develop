@@ -21,7 +21,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 
 // トップページ
-Route::get('/', 'postsController@index')->name('top');
+Route::get('/', 'PostsController@index')->name('top');
 // ユーザー編集、更新
 Route::group(['middleware' => 'auth'], function () 
 {  
