@@ -1,10 +1,15 @@
 @extends('layouts.app')
 @section('content')
     <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
-        <form method="POST" action="{{ route('users.update', $user->id ) }}">
+        <form method="POST" action="{{ route('users.update', $user->id ) }}" enctype="multipart/form-data">        
         @csrf
         @method('PUT')
         @include('commons.error_messages')
+
+            <div class="form-group">
+                <label for="profile_image">プロフィール画像</label>
+                <input type="file" name="profile_image" id="profile_image" accept=".jpg, .jpeg, .png">
+            </div>
             <div class="form-group">
                 <label for="name">ユーザ名</label>
                 <input class="form-control" value="{{ old('name' , $user->name) }}" name="name" />

@@ -22,5 +22,5 @@
         </div>
     @endif
     <h1 class="text-center mb-3">《 お 題 》</h1>
-    @include('posts.posts',['posts' => $posts])
+    @include('posts.posts', ['posts' => $posts])
 @endsection

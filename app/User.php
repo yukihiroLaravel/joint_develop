@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'profile_image', 
     ];
 
     /**
@@ -30,6 +30,14 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    //protected $profile_image;
+        
+    
     /**
      * The attributes that should be cast to native types.
      *
@@ -113,6 +121,11 @@ class User extends Authenticatable
     {
         return $this->favorites()->where('post_id', $postId)->exists();
     }
+
+    // public function getProfileImageAttribute()
+    // {
+    //     return $this->profile_image ? asset('uploads/' . $this->id . '/' . $this->profile_image) : null;
+    // }
 
     public function favorite($postId)
 {

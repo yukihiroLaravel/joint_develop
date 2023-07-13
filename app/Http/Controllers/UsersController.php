@@ -25,16 +25,27 @@ class UsersController extends Controller
 
     public function update(UserRequest $request, $id)
     {
-        if ($id == \Auth::id()) 
-        {
+        if ($id == \Auth::id()) {
             $user = User::findOrFail($id);
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
-            $user->save();            
+            
+            if ($request->hasFile('profile_image')) {
+                $image = $request->file('profile_image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('public/uploads/' . $user->id, $imageName);
+                $user->profile_image = $imageName; // プロフィール画像のファイル名を保存する
+            }
+            
+            $user->save();
+
+        return redirect()->route('user.show', $user->id)->with('flash_message', '更新しました！');
         }
-        return redirect('/')->with('flash_message', '更新しました！');    
+        
+        return view('errors.404');
     }
+
 
     public function destroy($id)
     {
@@ -58,7 +69,6 @@ class UsersController extends Controller
         $data += $this->userCounts($user);
         return view('users.show',$data);
     }
-
     //ユーザー詳細「フォロー中」
     public function followingsShow($id)
     {
