@@ -34,7 +34,7 @@ class UsersController extends Controller
             if ($request->hasFile('profile_image')) {
                 $image = $request->file('profile_image');
                 $imageName = time() . '.' . $image->getClientOriginalExtension();
-                $image->storeAs('public/uploads/' . $user->id, $imageName, 'public');
+                $image->storeAs('public/uploads/' . $user->id, $imageName);
                 $user->profile_image = $imageName; // プロフィール画像のファイル名を保存する
             }
             
