@@ -77,7 +77,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('unfavorite', 'FavoriteController@commentDestroy')->name('comment.unfavorite');
     });
 });
-
+// 検索機能
+Route::get('search', 'PostsController@search')->name('post.search');
 // 回答投稿ページ 兼 回答一覧ページ
 Route::get('/posts/{id}', 'CommentController@show')->name('comment.show');
 Route::get('/comments', 'CommentController@index')->name('comment.index');
