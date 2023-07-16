@@ -2,7 +2,9 @@
 @section('content')
     <div class="center jumbotron bg-warning">
         <div class="text-center text-white mt-2 pt-1">
-        <h1><img src="{{ asset('img/icon.png') }}" alt="アイコン" width="60" height="60">理想のラーメンについて語る！<img src="{{ asset('img/icon.png') }}" alt="アイコン" width="60" height="60"></h1>
+          <h1 class="top_str"><img class="top_r_icon"src="{{ asset('img/icon.png') }}" alt="アイコン">
+          Ramen<img class="top_c_icon" src="{{ asset('img/icon3.png')}}" alt="アイコン3">Tube
+          <img class="top_l_icon" src="{{ asset('img/icon.png') }}" alt="アイコン"></h1>
         </div>
     </div>
     @include('commons.carousel_img')
@@ -17,7 +19,7 @@
                     <div class="form-group">                        
                         <textarea class="form-control" name="content" rows="4">{{ old('content') }}</textarea>
                         <div class="text-left mt-3">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-warning">
                                 <i class="fas fa-pencil-alt"></i> 投稿する
                             </button>
                         </div>           

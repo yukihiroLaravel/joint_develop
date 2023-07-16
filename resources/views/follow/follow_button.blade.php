@@ -16,7 +16,7 @@
                 @else
                     <form method="POST" action="{{route('follow', $user->id)}}">
                         @csrf
-                        <button type="submit" class="btn btn-sm btn-outline-info">
+                        <button type="submit" class="btn btn-sm btn-outline-warning">
                             <i class="fas fa-user-plus"></i> フォロー
                         </button>
                     </form>
