@@ -50,6 +50,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         //投稿更新
         Route::put('{id}', 'PostsController@update')->name('post.update');
+        
+    });
+    Route::prefix('comments')->group(function () {
+        Route::post('', 'CommentsController@store')->name('comment.store');
+        Route::delete('{id}', 'CommentsController@destroy')->name('comment.delete');
     });
 });
 
