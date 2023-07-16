@@ -29,7 +29,7 @@
             <div class="d-flex justify-content-between">
                 <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">
                     <i class="fas fa-user-times"></i> 退会する</a>
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-warning">
                     <i class="fas fa-user-edit"></i> 更新する
                 </button>
             </div>
