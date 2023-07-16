@@ -21,7 +21,7 @@
                                 <i class="fas fa-trash-alt"></i> 削除
                             </button>
                         </form>
-                        <a href="{{ route('post.edit', $post->id) }}" class="btn btn-outline-primary">
+                        <a href="{{ route('post.edit', $post->id) }}" class="btn btn-outline-warning">
                             <i class="fas fa-edit"></i> 編集する</a>
                     </div>
                 @endif

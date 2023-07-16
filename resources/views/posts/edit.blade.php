@@ -8,7 +8,7 @@
         <div class="form-group">
             <textarea id="content" class="form-control" name="content" rows="5">{{ old('content', $post->content) }}</textarea>
         </div>
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn btn-warning">
             <i class="fas fa-edit"></i> 更新する
         </button>
     </form>

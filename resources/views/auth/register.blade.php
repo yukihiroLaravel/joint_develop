@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="text-center">
-    <h1><img src="{{ asset('img/icon2.png') }}" height="40" width="40" alt="ロゴ画像２">理想のラーメンについて語る！<img src="{{ asset('img/icon2.png') }}" height="40" width="40" alt="ロゴ画像２"></h1>
+    <h1><img src="{{ asset('img/icon2.png') }}" height="40" width="40" alt="ロゴ画像２">RamenTube<img src="{{ asset('img/icon2.png') }}" height="40" width="40" alt="ロゴ画像２"></h1>
     </div>
     <div class="text-center mt-3">
         <p class="text-left d-inline-block">新規ユーザ登録すると投稿で<br>コミュニケーションができるようになります。</p>
@@ -30,7 +30,7 @@
                     <label for="password_confirmation">パスワード確認</label>
                     <input id="password_confirmation" type="password" class="form-control" name="password_confirmation">
                 </div>
-                <button type="submit" class="btn btn-primary mt-2">
+                <button type="submit" class="btn btn-warning mt-2">
                     <i class="fas fa-user"></i> 新規登録
                 </button>
             </form>
