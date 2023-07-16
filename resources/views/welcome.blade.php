@@ -18,7 +18,6 @@
                     @csrf
                     <div class="form-group">                        
                         <textarea class="form-control" name="content" rows="4">{{ old('content') }}</textarea>
-<<<<<<< HEAD
                         <div class="row">
                             <div class="text-left mt-3 col-6">
                                 <button type="submit" class="btn btn-primary">
@@ -29,15 +28,6 @@
                         </div>       
                     </div>                   
                 </form>                                           
-=======
-                        <div class="text-left mt-3">
-                            <button type="submit" class="btn btn-warning">
-                                <i class="fas fa-pencil-alt"></i> 投稿する
-                            </button>
-                        </div>           
-                    </div>
-                </form>
->>>>>>> e743f929a5fd7804f060f4d36e804ca7c010081e
             @endif
         </div>       
     @include('posts.posts', ['posts' => $posts])      
