@@ -90,6 +90,11 @@ class User extends Authenticatable
         static::deleted(function ($user) {
             $user->posts()->delete();
         });
-    }    
+    } 
+    
+    public function movies()
+    {
+        return $this->hasMany(Movie::class);
+    }
 }
 
