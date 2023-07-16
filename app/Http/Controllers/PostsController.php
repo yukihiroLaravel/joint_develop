@@ -13,12 +13,12 @@ class PostsController extends Controller
         $posts = Post::orderBy('created_at', 'desc')->paginate(10);
         foreach($posts as $post){        
             $user = $post->user;
-            $movies = $user->movies;
+            $movie = $user->movies;
         }        
         return view('welcome', [
             'posts' => $posts,
             'user' => $user,
-            'movies' => $movies,                      
+            'movie' => $movie,                      
         ]);
     }
 
