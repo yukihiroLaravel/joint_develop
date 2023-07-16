@@ -95,6 +95,10 @@ class User extends Authenticatable
     public function movies()
     {
         return $this->hasMany(Movie::class);
+    }    
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }
-

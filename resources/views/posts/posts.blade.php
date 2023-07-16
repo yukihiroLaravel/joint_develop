@@ -25,6 +25,9 @@
                             <i class="fas fa-edit"></i> 編集する</a>
                     </div>
                 @endif
+                <div class="text-left d-inline-block w-75">
+                    @include('posts.comment_card', ['post' => $post])
+                </div>    
             </div>
         </li>
     @endforeach
