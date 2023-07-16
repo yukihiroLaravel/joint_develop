@@ -30,7 +30,7 @@ class PostsController extends Controller
         $post->save();
         $img = $request->file('img_path');
         if ($img) {
-            $path = $img->storeAs('public/img', $post->id . '.' . $request->img_path->extension());
+            $path = $img->storeAs('public/img', $post->id . '.' . time() . '.' . $request->img_path->extension());
             $post->img_path = $path;
             $post->save();
         }
@@ -81,11 +81,17 @@ class PostsController extends Controller
         abort(404);
     }
 
-    public function update(postRequest $request, $id)
+    public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
-        $post->text = $request->text;
+        $post->text = $request->input('text') ?? '';
         $post->user_id = $request->user()->id;
+        $img = $request->file('img_path');
+        if ($img) {
+            $path = $img->storeAs('public/img', $post->id . '.' . time() . '.' . $request->img_path->extension());
+            $post->img_path = $path;
+            $post->save();
+        }
         $post->save();
         return redirect('/')->with('greenMessage', '更新しました');
     }
