@@ -15,15 +15,12 @@
         @endif
         
     </p>
-    @if (Auth::id() !=== $movie->user_id)
+    @if (Auth::id() === $movie->user_id)
         <form method="POST" action="{{ route('movie.delete', $movie->id) }}">
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i>動画削除</button>
-        </form>
-    @php 
-     dump($movie)
-    @endphp 
+        </form>    
     @endif
 </div>        
             
