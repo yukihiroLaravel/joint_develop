@@ -2,12 +2,12 @@
     @foreach ($comments as $comment)
     <li class="mb-3 text-center">
         <div class="text-left d-inline-block w-75 mb-2">
-            <div class="card-body">
+            <div class="text-left d-inline-block w-75 mb-2">
                 @if($comment->user->profile_image)
-                    <img class="rounded-circle img-fluid" src="{{ asset('storage/uploads/' . $comment->user->id . '/' . $comment->user->profile_image) }}" alt="ユーザの画像" style="max-width: 100px; max-height: 100px;">
+                <img class="mr-2 mb-2 rounded-circle" src="{{ asset('storage/uploads/' . $post->user->id . '/' . $post->user->profile_image) }}" alt="ユーザの画像" style="max-width: 55px; max-height: 55px;">
                 @else
-                    <img class="rounded-circle img-fluid" src="{{ asset('storage/default-profile-images/' . getRandomDefaultProfileImage()) }}" alt="デフォルトのプロフィール画像" style="max-width: 100px; max-height: 100px;">
-                @endif            
+                <img class="mr-22 mb-2 rounded-circle" src="{{ asset('storage/default-profile-images/' . getRandomDefaultProfileImage()) }}" alt="デフォルトのプロフィール画像" style="max-width: 55px; max-height: 55px;">
+                @endif    
                 <p class="mt-3 mb-0 d-inline-block">回答：<a href="{{ route('user.show', $comment->user->id) }}">{{$comment->user->name}}</a>さん</p>
             <p class="text-muted d-inline-block ml-4">{{$comment->created_at}}</p>
         </div>
