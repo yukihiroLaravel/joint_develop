@@ -109,7 +109,8 @@
                                             <i class="far fa-image"></i>
                                             <input type="file" name="img_path" placeholder="画像投稿">
                                         </div>
-                                        <div class="text-left mt-5">
+                                        <p class="h6 text-secondary ml-3 ">※画像サイズは最大1MB</p>
+                                        <div class="text-left mt-4">
                                             <button type="submit" class="btn btn-primary">
                                                 <i class="fas fa-reply"></i> コメントする
                                             </button>
@@ -123,7 +124,7 @@
                                 $comment = $post->comments->last();
                             @endphp
                             @if ($loop->last)
-                                <div class="text-left d-inline-block w-75 mb-2">
+                                <div class="text-left d-inline-block w-100 mb-2">
                                     <span>
                                         @if($comment->user->email)
                                             @if ($comment->user->profile_image === null)
@@ -180,19 +181,22 @@
                                         </p>
                                     </div>                            
                                     @if ($comment->user->id === Auth::id())
-                                        <form method="POST" action="{{ route('comment.delete', $comment->id) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger my-2">
-                                                <i class="fas fa-trash-alt"></i> コメント削除
-                                            </button>
-                                        </form>
+                                        <div class="d-flex justify-content-between">
+                                            <form method="POST" action="{{ route('comment.delete', $comment->id) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger my-2">
+                                                    <i class="fas fa-trash-alt"></i> コメント削除
+                                                </button>
+                                            </form>
+                                            <a href="{{ route('comment.edit', $comment->id) }}" class="btn btn-success my-2"><i class="fas fa-edit"></i> 編集する</a>
+                                        </div>
                                     @endif
                                 </div>
                             @endif
                         @endforeach
                         @if ($post->comments->count() > 0)
-                            <div class="text-left d-inline-block w-75 mb-2">
+                            <div class="text-left d-inline-block w-100 mb-2">
                                 <a href="{{ route('comment.show', $post->id) }}">
                                     ...さらにコメントを見る <i class="far fa-comment-dots"></i>
                                     <div class="badge badge-secondary">{{ $countComments }}件</div>

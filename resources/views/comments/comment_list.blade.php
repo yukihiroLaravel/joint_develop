@@ -1,5 +1,5 @@
 @foreach($comments as $comment)
-    <div class="text-left d-inline-block w-75 mb-2">
+    <div class="text-left d-inline-block w-100 mb-2">
         <span>
             @if($comment->user->email)
                 @if ($comment->user->profile_image === null)
@@ -54,13 +54,16 @@
             </p>
         </div>
         @if ($comment->user->id === Auth::id())
-            <form method="POST" action="{{ route('comment.delete', $comment->id) }}">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger my-2">
-                    <i class="fas fa-trash-alt"></i> コメント削除
-                </button>
-            </form>
+            <div class="d-flex justify-content-between">
+                <form method="POST" action="{{ route('comment.delete', $comment->id) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger my-2">
+                        <i class="fas fa-trash-alt"></i> コメント削除
+                    </button>
+                </form>
+                <a href="{{ route('comment.edit', $comment->id) }}" class="btn btn-success my-2"><i class="fas fa-edit"></i> 編集する</a>
+            </div>
         @endif
     </div>
 @endforeach

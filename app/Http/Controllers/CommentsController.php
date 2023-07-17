@@ -30,7 +30,7 @@ class CommentsController extends Controller
         $comment->save();
         $img = $request->file('img_path');
         if ($img) {
-            $path = $img->storeAs('public/comment.img', $comment->id . '.' . $request->img_path->extension());
+            $path = $img->storeAs('public/comment.img', $comment->id . '.' . time() . '.' . $request->img_path->extension());
             $comment->img_path = $path;
             $comment->save();
         }
@@ -44,5 +44,33 @@ class CommentsController extends Controller
             $comment->delete();
         }
         return back()->with('redMessage', 'コメント削除しました');
+    }
+
+    public function edit($id)
+    {
+        $user = \Auth::user();
+        $comment = Comment::findOrFail($id);
+        $data=[
+            'user' => $user,
+            'comment' => $comment,
+        ];
+        if ($comment->user_id === \Auth::id()) {
+            return view('comments.edit', $data);
+        }
+        abort(404);
+    }
+
+    public function update(CommentRequest $request, $id)
+    {
+        $comment = Comment::findOrFail($id);
+        $comment->comment = $request->input('comment.' . $request->post_id) ?? '';
+        $img = $request->file('img_path');
+        if ($img) {
+            $path = $img->storeAs('public/comment.img', $comment->id . '.' . time() . '.' . $request->img_path->extension());
+            $comment->img_path = $path;
+            $comment->save();
+        }
+        $comment->save();
+        return redirect('/')->with('greenMessage', '更新しました');
     }
 }
