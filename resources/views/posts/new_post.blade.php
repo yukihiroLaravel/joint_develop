@@ -19,7 +19,8 @@
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
-                <div class="text-left mt-5">
+                <p class="h6 text-secondary ml-3 ">※画像サイズは最大1MB</p>
+                <div class="text-left mt-4">
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-pen"></i> 投稿する
                     </button>

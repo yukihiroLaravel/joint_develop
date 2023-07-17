@@ -79,7 +79,7 @@
                                 <i class="fas fa-trash-alt"></i> 削除
                             </button>
                         </form>
-                        <a href="" class="btn btn-success"><i class="fas fa-edit"></i> 編集する</a>
+                        <a href="{{ route('post.edit', $post->id) }}" class="btn btn-success"><i class="fas fa-edit"></i> 編集する</a>
                     </div>
                 @endif
                 <div class="card text-left d-inline-block w-75 mb-2">
@@ -109,11 +109,12 @@
                                             placeholder="コメントを投稿する ..." autocomplete="off" type="text"
                                             name="comment[{{ $post->id }}]" rows="2"
                                             cols="40">{{ old('comment.'. $post->id) }}</textarea><br>
-                                            <div>
-                                                <i class="far fa-image"></i>
-                                                <input type="file" name="img_path" placeholder="画像投稿">
-                                            </div>
-                                        <div class="text-left mt-5">
+                                        <div>
+                                            <i class="far fa-image"></i>
+                                            <input type="file" name="img_path" placeholder="画像投稿">
+                                        </div>
+                                        <p class="h6 text-secondary ml-3 ">※画像サイズは最大1MB</p>
+                                        <div class="text-left mt-4">
                                             <button type="submit" class="btn btn-primary">
                                                 <i class="fas fa-reply"></i> コメントする
                                             </button>

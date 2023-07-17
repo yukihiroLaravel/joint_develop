@@ -1,5 +1,5 @@
 @foreach($comments as $comment)
-    <div class="text-left d-inline-block w-75 mb-2">
+    <div class="text-left d-inline-block w-100 mb-2">
         <span>
             @if($comment->user->email)
                 @if ($comment->user->profile_image === null)
