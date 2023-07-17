@@ -7,6 +7,6 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function showTop () {
-        return view('Topicposts.top');
+        return view('posts.top');
     }
 }
