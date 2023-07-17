@@ -18,13 +18,16 @@
                     @csrf
                     <div class="form-group">                        
                         <textarea class="form-control" name="content" rows="4">{{ old('content') }}</textarea>
-                        <div class="text-left mt-3">
-                            <button type="submit" class="btn btn-warning">
-                                <i class="fas fa-pencil-alt"></i> 投稿する
-                            </button>
-                        </div>           
-                    </div>
-                </form>
+                        <div class="row">
+                            <div class="text-left mt-3 col-6">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-pencil-alt"></i> 投稿する
+                                </button>
+                                <a href="{{ route('movie.create') }}" class="btn btn-primary"> <i class="fas fa-edit"></i>動画を投稿する</a>
+                            </div>                           
+                        </div>       
+                    </div>                   
+                </form>                                           
             @endif
         </div>       
     @include('posts.posts', ['posts' => $posts])      

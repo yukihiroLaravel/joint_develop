@@ -56,6 +56,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('', 'CommentsController@store')->name('comment.store');
         Route::delete('{id}', 'CommentsController@destroy')->name('comment.delete');
     });
+      // 動画
+      Route::prefix('movies')->group(function () {
+        Route::get('create', 'MoviesController@create')->name('movie.create');
+        Route::post('', 'MoviesController@store')->name('movie.store');
+        Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
+    });
 });
 
 
