@@ -1,5 +1,5 @@
 @extends('layouts.layout')
-@section('title','Topic Posts')
+@section('title')
 @section('content')
 <div class="center jumbotron bg-info">
     <div class="text-center text-white mt-2 pt-1">
