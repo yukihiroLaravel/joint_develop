@@ -15,14 +15,14 @@ class UsersTableSeeder extends Seeder
 
         for ($i=1; $i <=2 ; $i++) { 
             DB::table('users')->insert([
-                    [
-                        'name' => 'テストユーザー' . $i,
-                        'email'     => 'test' . $i . '@test.com',
-                        'email_verified_at' => now(),
-                        'password' => bcrypt('password'),
-                        'created_at' => now(),
-                        'updated_at' => now(),
-                    ],
+                [
+                    'name' => 'テストユーザー' . $i,
+                    'email'     => 'test' . $i . '@test.com',
+                    'email_verified_at' => now(),
+                    'password' => bcrypt('password'),
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ],
             ]);
         }
 
