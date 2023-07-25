@@ -31,6 +31,5 @@ class PostsTableSeeder extends Seeder
                 'content' => '最高スコアは７５です',
                 'user_id' => 5,
             ]);
-            //return $this->hasMany(Posts::class);
     }
 }
