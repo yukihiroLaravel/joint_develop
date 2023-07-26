@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
+use App\user;
 
 use Illuminate\Http\Request;
 
@@ -12,6 +14,8 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function showTop () {
-        return view('posts.top');
+        $posts = DB::table('posts')->paginate(10);
+
+        return view('posts.top', ['posts' => $posts]);
     }
 }
