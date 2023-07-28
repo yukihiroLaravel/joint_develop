@@ -12,6 +12,11 @@
     <div class="row mt-5 mb-5">
         <div class="col-sm-6 offset-sm-3">
             <form method="POST" action="{{ route('signup.post') }}">
+            エラー<ul class="alert alert-danger" role="alert">
+                <li class="ml-4">名前は、必ず指定してください。</li>
+                <li class="ml-4">メールアドレスは、必ず指定してください。</li>
+                <li class="ml-4">パスワードは、必ず指定してください。</li>
+            </ul>
                 @csrf
                 <div class="form-group">
                     <label for="name">名前</label>
