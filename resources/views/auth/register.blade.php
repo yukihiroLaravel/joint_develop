@@ -9,7 +9,9 @@
     </div>
     <div class="text-center">
         <h3 class="login_title text-left d-inline-block mt-5">新規ユーザ登録</h3>
+        <div class="w-50 m-auto text-left">
         @include('commons.error_messages')
+        </div>
     </div>
     <div class="row mt-5 mb-5">
         <div class="col-sm-6 offset-sm-3">

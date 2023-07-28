@@ -12,8 +12,9 @@
 */
 
 
-
+//ユーザー
 Route::get('/', 'UsersController@index');
+
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
@@ -26,9 +27,23 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
-    // 投稿
+    
     Route::prefix('posts')->group(function () {
+// 投稿の追加、削除
         Route::post('', 'PostsController@store')->name('post.store');
         Route::delete('{id}', 'PostController@destroy')->name('post.delete');
+// 投稿の編集、更新
+        Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
+        Route::put('{id}/update', 'PostsController@update')->name('post.update');
     });
+    
+     
+    Route::prefix('users')->group(function () {
+// ユーザー詳細
+        Route::get('{id}', 'UsersController@show')->name('user.show');
+// ユーザー編集、更新、退会
+        Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
+        Route::put('{id}', 'UsersController@update')->name('users.update');
+        Route::delete('{id}', 'UsersController@destroy')->name('users.destroy');
+});
 });
