@@ -20,6 +20,8 @@
                     </div>
                 </div>
             </form>
-        @endif    
-        </div>
+        @endif 
+        
+    @include('users.users')
+</div>
 @endsection
