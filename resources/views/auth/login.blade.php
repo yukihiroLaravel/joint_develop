@@ -10,6 +10,15 @@
 <div class="text-center">
     <h3 class="login_title text-left d-inline-block mt-5">ログイン</h3>
 </div>
+
+@if (count($errors) > 0)
+    <ul class="alert alert-danger" role="alert">
+        @foreach ($errors->all() as $error)
+            <li class="ml-4">{{ $error }}</li>
+        @endforeach
+    </ul>
+@endif
+
 <div class="row mt-5 mb-5">
     <div class="col-sm-6 offset-sm-3">
         <form method="POST" action="{{ route('login.post') }}">
