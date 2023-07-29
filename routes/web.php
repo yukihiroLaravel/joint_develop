@@ -43,7 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}', 'UsersController@show')->name('user.show');
 // ユーザー編集、更新、退会
         Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
-        Route::put('{id}', 'UsersController@update')->name('users.update');
-        Route::delete('{id}', 'UsersController@destroy')->name('users.destroy');
+        Route::put('{id}/update', 'UsersController@update')->name('users.update');
+        Route::delete('{id}/destroy', 'UsersController@destroy')->name('users.destroy');
 });
 });
