@@ -5,12 +5,12 @@
         <input type="hidden" name="id" value="" />
         <div class="form-group">
             <label for="name">ユーザ名</label>
-            <input class="form-control" value="{{ Auth::user()->name }}" name="name" />
+            <input class="form-control" value="{{  old('name', Auth::user()->name) }}" name="name" />
         </div>
 
         <div class="form-group">
             <label for="email">メールアドレス</label>
-            <input class="form-control" value="{{ Auth::user()->email }}" name="email" />
+            <input class="form-control" value="{{  old('email', Auth::user()->email) }}" name="email" />
         </div>
 
         <div class="form-group">
