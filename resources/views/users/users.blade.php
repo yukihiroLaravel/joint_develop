@@ -4,7 +4,7 @@
                 
         @foreach ($users as $user)
             @php
-                $post = $user->posts->last();
+                $post = $user->posts();
             @endphp
         
             <div class="row text-center mt-3">
