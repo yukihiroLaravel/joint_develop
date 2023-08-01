@@ -3,19 +3,11 @@
             <div class="text-left d-inline-block w-75 mb-2">
             
                 @foreach ($posts as $post)
+                <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
+                <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('user.show', $user->id) }}">{{ $post->user->name}}</a></p>
                 
-                @php
-                $users=$post->user()->get();
-                @endphp
-                
-                @foreach ($users as $user)
-                
-                <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
-                <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('user.show', $user->id) }}">{{ $user->name}}</a></p>
-                @endforeach
             </div>
                 
-            
             <div class="">
                 <div class="text-left d-inline-block w-75">
                     <p class="mb-2">{{ $post->text }}</p>
