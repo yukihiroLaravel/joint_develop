@@ -12,28 +12,52 @@ class PostsTableSeeder extends Seeder
     public function run()
     {
         DB::table('posts')->insert([
-            'text' => 'test1',
-            'user_id' => '1',
+            'text' => 'test18',
+            'user_id' => '18',
         ]);
         DB::table('posts')->insert([
-            'text' => 'test2',
-            'user_id' => '2',
+            'text' => 'test19',
+            'user_id' => '19',
         ]);
         DB::table('posts')->insert([
-            'text' => 'test3',
-            'user_id' => '3',
+            'text' => 'test20',
+            'user_id' => '20',
         ]);
         DB::table('posts')->insert([
-            'text' => 'test4',
-            'user_id' => '4',
+            'text' => 'test21',
+            'user_id' => '21',
         ]);
         DB::table('posts')->insert([
-            'text' => 'test5',
-            'user_id' => '5',
+            'text' => 'test22',
+            'user_id' => '22',
         ]);
         DB::table('posts')->insert([
-            'text' => 'test6',
-            'user_id' => '6',
+            'text' => 'test23',
+            'user_id' => '23',
+        ]);
+        DB::table('posts')->insert([
+            'text' => 'test24',
+            'user_id' => '24',
+        ]);
+        DB::table('posts')->insert([
+            'text' => 'test25',
+            'user_id' => '25',
+        ]);
+        DB::table('posts')->insert([
+            'text' => 'test26',
+            'user_id' => '26',
+        ]);
+        DB::table('posts')->insert([
+            'text' => 'test27',
+            'user_id' => '27',
+        ]);
+        DB::table('posts')->insert([
+            'text' => 'test28',
+            'user_id' => '28',
+        ]);
+        DB::table('posts')->insert([
+            'text' => 'test29',
+            'user_id' => '29',
         ]);
     }
 }
