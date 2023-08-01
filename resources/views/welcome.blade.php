@@ -18,5 +18,6 @@
                 </div>
             </div>
         </form>
+        @include('users.posts')
     </div>
 @endsection
