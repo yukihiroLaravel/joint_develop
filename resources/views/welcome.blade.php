@@ -10,7 +10,8 @@
         @include('commons.error_messages')
     </div>
     <div class="text-center mb-3">
-        <form method="" action="" class="d-inline-block w-75">
+        <form method="POST" action="{{route('post.store')}}" class="d-inline-block w-75">
+            @csrf
             <div class="form-group">
                 <textarea class="form-control" name="text" rows="4"></textarea>
                 <div class="text-left mt-3">
