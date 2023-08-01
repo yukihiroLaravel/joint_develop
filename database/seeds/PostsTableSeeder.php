@@ -13,19 +13,47 @@ class PostsTableSeeder extends Seeder
     {
         DB::table('posts')->insert([
             'text' => 'test1',
-            'user_id' => user1@user.com,
+            'user_id' => 1,
         ]);
         DB::table('posts')->insert([
             'text' => 'test2',
-            'user_id' => user2@user.com,
+            'user_id' => 2,
         ]);
         DB::table('posts')->insert([
             'text' => 'test3',
-            'user_id' => user3@user.com,
+            'user_id' => 3,
         ]);
         DB::table('posts')->insert([
             'text' => 'test4',
-            'user_id' => user4@user.com,
+            'user_id' => 1,
+        ]);
+        DB::table('posts')->insert([
+            'text' => 'test5',
+            'user_id' => 2,
+        ]);
+        DB::table('posts')->insert([
+            'text' => 'test6',
+            'user_id' => 3,
+        ]);
+        DB::table('posts')->insert([
+            'text' => 'test7',
+            'user_id' => 1,
+        ]);
+        DB::table('posts')->insert([
+            'text' => 'test8',
+            'user_id' => 2,
+        ]);
+        DB::table('posts')->insert([
+            'text' => 'test9',
+            'user_id' => 3,
+        ]);
+        DB::table('posts')->insert([
+            'text' => 'test10',
+            'user_id' => 1,
+        ]);
+        DB::table('posts')->insert([
+            'text' => 'test11',
+            'user_id' => 2,
         ]);
     }
 }
