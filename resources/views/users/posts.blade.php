@@ -11,7 +11,7 @@
                 @foreach ($users as $user)
                 
                 <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
-                <p class="mt-3 mb-0 d-inline-block"><a href="">{{ $user->name}}</a></p>
+                <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('user.show', $user->id) }}">{{ $user->name}}</a></p>
                 @endforeach
             </div>
                 
