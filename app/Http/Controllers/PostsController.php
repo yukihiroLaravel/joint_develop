@@ -26,13 +26,22 @@ class PostsController extends Controller
         ];
         return view('post.edit', $data);
     }
-    
+
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
         $post->text = $request->text;
         $post->user_id = $request->user()->id;
         $post->save();
+        return back();
+    }
+
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            $post->delete();
+        }
         return back();
     }
 }
