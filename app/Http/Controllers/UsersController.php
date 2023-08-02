@@ -49,5 +49,14 @@ class UsersController extends Controller
         return back();
     }
 
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        if (\Auth::id() === $user->id) 
+        {
+            $user->delete();
+        }
+        return back();
+    }
 
 }
