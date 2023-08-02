@@ -4,15 +4,8 @@
             
                 @foreach ($posts as $post)
                 
-                @php
-                $users=$post->user()->get();
-                @endphp
-                
-                @foreach ($users as $user)
-                
-                <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
-                <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('user.show', $user->id) }}">{{ $user->name}}</a></p>
-                @endforeach
+                <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
+                <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('user.show', $post->user->id) }}">{{ $post->user->name }}</a></p>
             </div>
                 
             
@@ -27,7 +20,7 @@
                         <form method="" action="">
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>
-                        <a href="" class="btn btn-primary">編集する</a>
+                        <a href="{{ route('post.edit',$post->id) }}" class="btn btn-primary">編集する</a>
                     </div>
             </div>
         </li>

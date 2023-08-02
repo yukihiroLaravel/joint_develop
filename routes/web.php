@@ -33,8 +33,13 @@ Route::group(['middleware' => 'auth'], function () {
         // ユーザー編集、更新
         Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
         Route::put('{id}/update', 'UsersController@update')->name('users.update');
-});
+    });
 
-//投稿新規作成
-Route::post('posts', 'PostsController@store')->name('post.store');
+    Route::prefix('post')->group(function () {
+        //投稿新規作成
+        Route::post('', 'PostsController@store')->name('post.store');
+        // 投稿の編集、更新
+        Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
+        Route::put('{id}/update', 'PostsController@update')->name('post.update');
+    });
 });
