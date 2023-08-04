@@ -19,7 +19,7 @@
             </div>
             <div class="form-group">
                 <label for="password">パスワード</label>
-                <input id="password" type="password" class="form-control" name="password" value="{{ old('password') }}">
+                <input id="password" type="password" class="form-control" name="password">
             </div>
             <button type="submit" class="btn btn-primary mt-2">ログイン</button>
         </form>
