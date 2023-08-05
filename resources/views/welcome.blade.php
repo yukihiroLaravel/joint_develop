@@ -20,6 +20,6 @@
             </div>
         @endif
         </form>
-        @include('users.posts')
+        @include('posts.posts')
     </div>
 @endsection
