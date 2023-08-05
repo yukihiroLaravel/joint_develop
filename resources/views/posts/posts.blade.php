@@ -1,0 +1,18 @@
+<h2 class="mt-5 mb-5">投稿一覧</h2>
+<ul class="list-unstyled">
+    @foreach ($posts as $post)
+        <li class="mb-3 text-center">
+            <div class="text-left d-inline-block w-75 mb-2">
+                <img class="mr-2 rounded-circle" src="" alt="ユーザのアバター画像">
+                <p class="mt-3 mb-0 d-inline-block"><a href="">投稿ユーザー名</a></p>
+                </div>
+            <div class=""> 
+                <div class="text-left d-inline-block w-75">
+                    <p class="mb-2"></p>
+                    <p class="text-muted">{{ $post->created_at }}</p>
+                </div>
+        </li>
+    @endforeach
+    </ul>
+<div class="m-auto" style="width: fit-content"></div>
+
