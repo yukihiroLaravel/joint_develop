@@ -19,8 +19,10 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        $data=[
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(9);
+        $data = [
             'user' => $user,
+            'posts' => $posts
         ];
         return view('users.show',$data);
     }
