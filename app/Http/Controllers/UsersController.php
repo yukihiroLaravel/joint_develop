@@ -24,10 +24,10 @@ class UsersController extends Controller
     public function update(UsersRequest $request, $id)
     {
         $user = user::findOrFail($id);
+        $user->name = $repuest->name;
         $user->email = $request->email;
-        $user->password = $request->password; 
+        $user->password = bcrypt($request->password); 
         $user->save();
         return back();
     }
-
 }    

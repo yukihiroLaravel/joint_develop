@@ -21,7 +21,7 @@
 
     <div class="form-group">
         <label for="password">パスワード</label>
-        <input class="form-control" type="password" name="password" value="{{old('password',$user->password)}}"/>
+        <input class="form-control" type="password" name="password" value="{{old('password')}}"/>
     </div>
 
     <div class="form-group">
