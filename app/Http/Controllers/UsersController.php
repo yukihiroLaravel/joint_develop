@@ -28,24 +28,15 @@ class UsersController extends Controller
         return view('users.show',$data);
     }
 
-    // public function edit($id)
-    // {
-    //     $user = User::findOrFail($id);
-    //     $data=[
-    //         'user' => $user,
-    //     ];
-    //     return view('users.edit', $data);
-    // }
-    
     public function edit($id)
     {
-       if(\Auth::id() === ($id)){
+        if(\Auth::id() == ($id)){
             $user = \Auth::user();
-            $data=[
+            $data = [
                 'user' => $user,
             ];
             return view('users.edit', $data);
-        }else{
+        } else {
             return back();
         }
     }
