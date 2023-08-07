@@ -21,5 +21,14 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-// ユーザー詳細表示
-Route::get('user/{id}', 'UsersController@show')->name('user.show');
+
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('user')->group(function () {
+        // ユーザー詳細表示
+        Route::get('/{id}', 'UsersController@show')->name('user.show');
+        // ユーザー編集、更新
+        Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
+        Route::put('{id}/update', 'UsersController@update')->name('user.update');
+});
+});
