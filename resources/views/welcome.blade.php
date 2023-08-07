@@ -10,7 +10,7 @@
         @include('commons.error_messages')
     </div>
     <div class="text-center mb-3">
-        <form method="POST" action="{{route('post.store')}}" class="d-inline-block w-75">
+        <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
         @csrf
         @if(Auth::check())    
         <div class="form-group">
