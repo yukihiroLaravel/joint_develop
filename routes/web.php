@@ -10,9 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
-//トップページ表示
 Route::get('/', 'UsersController@index');
 
 // ユーザ新規登録
@@ -31,10 +28,11 @@ Route::group(['middleware' => 'auth'], function () {
         // ユーザー詳細表示
         Route::get('/{id}', 'UsersController@show')->name('user.show');
         // ユーザー編集、更新
-        Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
-        Route::put('{id}/update', 'UsersController@update')->name('users.update');
+        Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
+        Route::put('{id}/update', 'UsersController@update')->name('user.update');
+});
 });
 
 //投稿新規作成
-Route::post('posts', 'PostsController@store')->name('post.store');
-});
+Route::post('post', 'PostsController@store')->name('post.store');
+
