@@ -20,10 +20,14 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        $data = [
-            'post' => $post,
-        ];
-        return view('posts.update', $data);
+            if(\Auth::id() == $post->user_id){
+                $data = [
+                    'post' => $post,
+                ];
+                return view('posts.update', $data);
+            } else {
+                return back();
+            }
     }
     
     public function update(PostRequest $request, $id)
