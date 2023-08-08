@@ -31,4 +31,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
         Route::put('{id}/update', 'UsersController@update')->name('user.update');
 });
+    //投稿新規作成
+    Route::post('post', 'PostsController@store')->name('post.store');
 });
+
+
+
