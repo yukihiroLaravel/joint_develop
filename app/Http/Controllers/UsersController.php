@@ -7,7 +7,7 @@ use App\Http\Request\UsersRequest;
 
 class UsersController extends Controller
 {
-       public function edit($id)
+    public function edit($id)
     {
         $user = \Auth::user();
         $data = [
