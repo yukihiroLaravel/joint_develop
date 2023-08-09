@@ -20,14 +20,14 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-            if(\Auth::id() == $post->user_id){
-                $data = [
-                    'post' => $post,
-                ];
-                return view('posts.update', $data);
-            } else {
-                return back();
-            }
+        if(\Auth::id() == $post->user_id){
+            $data = [
+                'post' => $post,
+            ];
+            return view('posts.edit', $data);
+        } else {
+            return back();
+        }
     }
     
     public function update(PostRequest $request, $id)
@@ -35,9 +35,6 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
         $post->text = $request->text;
         $post->save();
-        $posts = Post::orderBy('id','desc')->paginate(9);
-        return view('welcome', [
-            'posts' => $posts,
-        ]);
+        return redirect('/');
     }
 }

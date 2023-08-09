@@ -1,10 +1,13 @@
-@if(Auth::id() == $post->user_id)
-<div class="d-flex justify-content-between w-75 pb-3 m-auto">
-    <form method="" action="">
-        <button type="submit" class="btn btn-danger">削除</button>
+@extends('layouts.app')
+@section('content')
+    <h2 class="mt-5">投稿を編集する</h2>
+    @include('commons.error_messages')
+    <form method="POST" action="{{ route('post.update', $post->id) }}">
+        @csrf
+        @method('PUT')
+        <div class="form-group">
+            <textarea id="content" class="form-control" name="text" rows="6">{{  old('text', $post->text) }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">更新する</button>
     </form>
-    <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">編集する</a>
-</div>
-@endif
-
-
+@endsection
