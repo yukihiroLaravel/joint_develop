@@ -11,7 +11,7 @@ class UsersController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('created_at','desc')->paginate(9);
+        $posts = Post::orderBy('id','desc')->paginate(9);
         return view('welcome', [
             'posts' => $posts,
         ]);
@@ -20,23 +20,25 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-      //$authuser = \Auth::user();
-      //$posts=$authuser->posts()->orderBy('created_at', 'desc')->paginate(9);
-        $data=[
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(9);
+        $data = [
             'user' => $user,
-          //'authuser' => $authuser,
-          //'$posts' => $posts,
+            'posts' => $posts
         ];
         return view('users.show',$data);
     }
 
     public function edit($id)
     {
-        $user = \Auth::user();
-        $data=[
-            'user' => $user,
-        ];
-        return view('users.edit', $data);
+        if(\Auth::id() == ($id)){
+            $user = \Auth::user();
+            $data = [
+                'user' => $user,
+            ];
+            return view('users.edit', $data);
+        } else {
+            return back();
+        }
     }
 
     public function update(UserRequest $request, $id)
@@ -44,10 +46,8 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = $request->password;
+        $user->password = bcrypt($request->password);
         $user->save();
         return back();
     }
-
-
 }

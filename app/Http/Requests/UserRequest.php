@@ -24,13 +24,17 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'password' => 'required|min:8|confirmed',
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
 
     public function attributes()
     {
         return [
+            'name' => '名前',
+            'email' => 'メールアドレス',
             'password' => 'パスワード',
         ];
     }

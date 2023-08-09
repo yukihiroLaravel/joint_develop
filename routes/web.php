@@ -10,9 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
-//トップページ表示
 Route::get('/', 'UsersController@index');
 
 // ユーザ新規登録
@@ -31,8 +28,8 @@ Route::group(['middleware' => 'auth'], function () {
         // ユーザー詳細表示
         Route::get('/{id}', 'UsersController@show')->name('user.show');
         // ユーザー編集、更新
-        Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
-        Route::put('{id}/update', 'UsersController@update')->name('users.update');
+        Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
+        Route::put('{id}/update', 'UsersController@update')->name('user.update');
     });
 
     Route::prefix('post')->group(function () {
@@ -40,8 +37,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('', 'PostsController@store')->name('post.store');
         // 投稿の編集、更新
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
-        Route::put('{id}/update', 'PostsController@update')->name('post.update');
+        Route::put('{id}', 'PostsController@update')->name('post.update');
         // 投稿の削除
-        Route::delete('{id}/delete', 'PostsController@destroy')->name('post.delete');
+        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     });
 });
