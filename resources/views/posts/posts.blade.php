@@ -14,7 +14,7 @@
             </div>
         </div>
     </li>
-    @include('posts.editbutton')
+    @include('posts.edit_button')
     @endforeach
 </ul>
 <div class="m-auto" style="width: fit-content">{{ $posts->links('pagination::bootstrap-4') }}</div>
