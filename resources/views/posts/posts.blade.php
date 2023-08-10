@@ -1,6 +1,5 @@
 <ul class="list-unstyled">
     @foreach ($posts as $post)
-    @if (is_null($post->user->deleted_at))
     <li class="mb-3 text-center">
         
         <div class="text-left d-inline-block w-75 mb-2">
@@ -16,7 +15,6 @@
         </div>
     </li>
     @include('posts.edit_button')
-    @endif
     @endforeach
 </ul>
 <div class="m-auto" style="width: fit-content">{{ $posts->links('pagination::bootstrap-4') }}</div>
