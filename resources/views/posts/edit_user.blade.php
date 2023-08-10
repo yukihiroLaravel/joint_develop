@@ -4,17 +4,25 @@
 @if($errors->any())
     @include('layouts.err')
 @endif
-<form method="POST" action="{{ route('updateuser') }}">
+<form method="POST" action="{{ route('users.update') }}">
     @csrf
     <input type="hidden" name="id" value="{{ $users->id }}" />
     <div class="form-group">
         <label for="name">ユーザ名</label>
-        <input class="form-control" value="{{ $users->name }}" name="name" />
+        @if($errors->any())
+            <input class="form-control" value="{{ old('name') }}" name="name" />
+        @else
+            <input class="form-control" value="{{ $users->name }}" name="name" />
+        @endif 
     </div>
 
     <div class="form-group">
         <label for="email">メールアドレス</label>
-        <input class="form-control" value="{{ $users->email }}" name="email" />
+        @if($errors->any())
+            <input class="form-control" value="{{ old('email') }}" name="email" />
+        @else
+            <input class="form-control" value="{{ $users->email }}" name="email" />
+        @endif      
     </div>
 
     <div class="form-group">

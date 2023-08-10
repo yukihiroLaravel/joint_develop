@@ -17,8 +17,8 @@ Route::get('/', 'PostController@showTop')->name('top');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('loginform');
 Route::post('login', 'Auth\LoginController@login')->name('login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-Route::get('users/{id}/edit', 'PostController@showUserEdit')->name('editform');
-Route::post('update/user', 'PostController@updateUser')->name('updateuser');
+Route::get('users/{id}/edit', 'UserController@showEdit')->name('users.edit');
+Route::post('update/user', 'UserController@updateUser')->name('users.update');
 
 // Route::get('/', function () {
 //     return view('welcome');
