@@ -29,7 +29,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{id}', 'UsersController@show')->name('user.show');
         // ユーザー編集、更新
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
-        Route::put('{id}/update', 'UsersController@update')->name('user.update');
+        Route::put('{id}', 'UsersController@update')->name('user.update');
+        // ユーザー退会
+        Route::delete('{id}', 'UsersController@destroy')->name('user.destroy');
     });
 
     Route::prefix('post')->group(function () {
