@@ -67,7 +67,7 @@ class UsersController extends Controller
         $follows = $user->followings()->paginate(9);
         $posts = Post::orderBy('id','desc')->paginate(9);
         
-        $data=[
+        $data = [
             'user' => $user,
             'follows' => $follows,
             'posts' => $posts,
@@ -82,7 +82,7 @@ class UsersController extends Controller
         $followers = $user->followers()->paginate(9);
         $posts = Post::orderBy('id','desc')->paginate(9);
         
-        $data=[
+        $data = [
             'user' => $user,
             'followers' => $followers,
             'posts' => $posts,
