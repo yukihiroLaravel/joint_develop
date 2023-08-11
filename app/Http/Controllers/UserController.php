@@ -17,8 +17,8 @@ class UserController extends Controller
      */
     public function showEdit ($id) {
         if (Auth::id() === (int)$id) {
-            $users = User::find($id);
-            return view('posts.edit_user', ['users' => $users]);
+            $user = User::find($id);
+            return view('posts.edit_user', ['user' => $user]);
         }else{
             abort(404);
         }

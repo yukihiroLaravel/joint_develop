@@ -6,23 +6,15 @@
 @endif
 <form method="POST" action="{{ route('users.update') }}">
     @csrf
-    <input type="hidden" name="id" value="{{ $users->id }}" />
+    <input type="hidden" name="id" value="{{ $user->id }}" />
     <div class="form-group">
         <label for="name">ユーザ名</label>
-        @if($errors->any())
-            <input class="form-control" value="{{ old('name') }}" name="name" />
-        @else
-            <input class="form-control" value="{{ $users->name }}" name="name" />
-        @endif 
+        <input class="form-control" value="{{ $errors->any() ? old('name') : $user->name }}" name="name" />
     </div>
 
     <div class="form-group">
         <label for="email">メールアドレス</label>
-        @if($errors->any())
-            <input class="form-control" value="{{ old('email') }}" name="email" />
-        @else
-            <input class="form-control" value="{{ $users->email }}" name="email" />
-        @endif      
+        <input class="form-control" value="{{ $errors->any() ? old('email') : $user->email }}" name="email" />    
     </div>
 
     <div class="form-group">
