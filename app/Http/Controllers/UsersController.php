@@ -25,6 +25,7 @@ class UsersController extends Controller
             'user' => $user,
             'posts' => $posts
         ];
+        $data += $this->userCounts($user);
         return view('users.show',$data);
     }
 
@@ -59,5 +60,37 @@ class UsersController extends Controller
         }
         return redirect('/');
     }
+
+    public function followings($id)
+    {
+        $user = User::findOrFail($id);
+        $follows = $user->followings()->paginate(9);
+        $posts = Post::orderBy('id','desc')->paginate(9);
+        
+        $data=[
+            'user' => $user,
+            'follows' => $follows,
+            'posts' => $posts,
+        ];
+        $data += $this->userCounts($user);
+        return view('users.show', $data);
+    }
+
+    public function followers($id)
+    {
+        $user = User::findOrFail($id);
+        $followers = $user->followers()->paginate(9);
+        $posts = Post::orderBy('id','desc')->paginate(9);
+        
+        $data=[
+            'user' => $user,
+            'followers' => $followers,
+            'posts' => $posts,
+        ];
+        $data += $this->userCounts($user);
+        return view('users.show', $data);
+    }
+
+
 
 }

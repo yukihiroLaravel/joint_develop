@@ -14,6 +14,14 @@
             </div>
         </div>
     </li>
+    @php
+        $countFollowerUsers = $post->user->followers()->count();
+    @endphp
+    <div class="text-left d-inline-block w-75 mb-2">フォロー！
+        <span class="badge badge-pill badge-success">{{ $countFollowerUsers }}</span>
+    </div>
+        
+    @include('follow.follow_button')
     @include('posts.edit_button')
     @endforeach
 </ul>
