@@ -13,9 +13,7 @@
                             <a href="{{ route('user.edit', Auth::user()->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                             @endif
                         </div>
-                        
                 </div>
-                
             </div>
             @include('users.follow_follower_count')
         </aside>
@@ -26,7 +24,17 @@
                 <li class="nav-item"><a href="{{ route('user.follows', $user->id) }}" class="nav-link {{ Request::is('user/'. $user->id. '/follows') ? 'active' : '' }}">フォロー中<br><div class="badge badge-secondary">{{ $countFollows }}</div></a></li>
                 <li class="nav-item"><a href="{{ route('user.followers', $user->id) }}" class="nav-link {{ Request::is('user/'. $user->id. '/followers') ? 'active' : '' }}">フォロワー<br><div class="badge badge-secondary">{{ $countFollowers }}</div></a></li>
             </ul>
-            @include('posts.posts')
+
+            <ul class="list-unstyled">
+                @foreach ($followers as $follower)
+                <li class="mb-3 text-center">
+                    <div class="text-left d-inline-block w-75 mb-2">
+                        <img class="mr-2 rounded-circle" src="{{ Gravatar::src($follower->email, 55) }}" alt="ユーザのアバター画像">
+                        <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('user.show', $follower->id) }}">{{ $follower->name }}</a></p>
+                    </div>
+                </li>
+                @endforeach
+            </ul>
         </div>
 </div>
 @endsection

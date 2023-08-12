@@ -64,8 +64,12 @@ class UsersController extends Controller
     public function followings($id)
     {
         $user = User::findOrFail($id);
+
+        //ユーザー詳細画面に遷移したユーザーの投稿一覧
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(9);
+
+        //このユーザーがフォローしているユーザー一覧
         $follows = $user->followings()->paginate(9);
-        $posts = Post::orderBy('id','desc')->paginate(9);
         
         $data = [
             'user' => $user,
@@ -73,14 +77,15 @@ class UsersController extends Controller
             'posts' => $posts,
         ];
         $data += $this->userCounts($user);
-        return view('users.show', $data);
+        return view('users.follow', $data);
     }
 
     public function followers($id)
     {
         $user = User::findOrFail($id);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(9);
+        //このユーザーをフォローしている一覧
         $followers = $user->followers()->paginate(9);
-        $posts = Post::orderBy('id','desc')->paginate(9);
         
         $data = [
             'user' => $user,
@@ -88,7 +93,7 @@ class UsersController extends Controller
             'posts' => $posts,
         ];
         $data += $this->userCounts($user);
-        return view('users.show', $data);
+        return view('users.follower', $data);
     }
 
 
