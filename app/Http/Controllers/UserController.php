@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Auth;
 use App\user;
+use App\Post;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -46,9 +47,20 @@ class UserController extends Controller
                 DB::rollBack();
                 abort(500);
             }
-            return redirect(route('top'));
+            return redirect('/users/' . $inputs['id']);
         }else{
             abort(404);
         }
+    }
+
+    /**
+     * ユーザー詳細画面を表示。
+     * @param string $id
+     * @return view
+     */
+    public function showDetail ($id) {
+        $posts = Post::where('user_id', '=' ,$id)->get();
+        $user = User::find($id);
+        return view('posts.user_detail', ['posts' => $posts, 'user' => $user]);
     }
 }
