@@ -14,7 +14,6 @@
             </div>
         </div>
     </li>
-    
     @include('posts.edit_button')
     @endforeach
 </ul>

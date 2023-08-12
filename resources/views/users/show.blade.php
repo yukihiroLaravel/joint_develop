@@ -13,13 +13,10 @@
                             <a href="{{ route('user.edit', Auth::user()->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                             @endif
                         </div>
-                        
                 </div>
-                
             </div>
             @include('users.follow_follower_count')
         </aside>
-    
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
                 <li class="nav-item"><a href="{{ route('user.show', $user->id) }}" class="nav-link {{ Request::is('user/'. $user->id) ? 'active' : '' }}">タイムライン<br><div class="badge badge-secondary">{{ $countPosts }}</div></a></li>
