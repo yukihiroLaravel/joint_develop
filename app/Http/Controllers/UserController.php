@@ -19,7 +19,7 @@ class UserController extends Controller
     public function showEdit ($id) {
         if (Auth::id() === (int)$id) {
             $user = User::find($id);
-            return view('posts.edit_user', ['user' => $user]);
+            return view('users.edit', ['user' => $user]);
         }else{
             abort(404);
         }
@@ -32,10 +32,11 @@ class UserController extends Controller
      */
     public function updateUser (UserRequest $request) {
         $inputs = $request->all();
-        if (Auth::id() === (int)$inputs['id']) {
+        $id = $inputs['id'];
+        if (Auth::id() === (int)$id) {
             DB::BeginTransaction();
             try {
-                $user = User::find($inputs['id']);
+                $user = User::find($id);
                 $user->fill([
                     'name' => $inputs['name'],
                     'email' => $inputs['email'],
@@ -47,10 +48,9 @@ class UserController extends Controller
                 DB::rollBack();
                 abort(500);
             }
-            return redirect('/users/' . $inputs['id']);
-        }else{
-            abort(404);
+            return redirect(route('users.show' ,$id));
         }
+        abort(404);
     }
 
     /**
@@ -59,8 +59,7 @@ class UserController extends Controller
      * @return view
      */
     public function showDetail ($id) {
-        $posts = Post::where('user_id', '=' ,$id)->get();
         $user = User::find($id);
-        return view('posts.user_detail', ['posts' => $posts, 'user' => $user]);
+        return view('users.detail', ['user' => $user]);
     }
 }
