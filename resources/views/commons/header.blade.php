@@ -8,7 +8,7 @@
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav"> 
                 @if (Auth::check())
-                    <li class="nav-item"><a href="{{ route('movie.create') }}" class="nav-link">動画登録する</a></li>
+                    <li class="nav-item"><a href="{{ route('post.create') }}" class="nav-link">送信登録する</a></li>
                     <li class="nav-item"><a href="{{ route('user.show', Auth::id()) }}" class="nav-link">マイページ</a></li>
                     <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link">ログアウト</a></li>
                 @else
