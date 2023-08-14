@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @section('content')
+@if (session('userUpdate'))
+    <div class="flash_message alert alert-success text-center">
+        {{ session('userUpdate') }}
+    </div>
+@endif
 <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
     @include('commons.error_messages')
     <form method="POST" action="{{route ('user.update', $user->id)}}">
@@ -24,6 +29,8 @@
             <label for="password_confirmation">パスワードの確認</label>
             <input class="form-control" type="password" name="password_confirmation" />
         </div>
+
+        
 
         <div class="d-flex justify-content-between">
             <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">退会する</a>

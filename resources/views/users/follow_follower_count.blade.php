@@ -1,6 +1,3 @@
-@foreach ($posts as $post) 
-@endforeach
-
 @include('follow.follow_button')
 
 <div class="row ml-2">
