@@ -8,6 +8,9 @@
 </div>
 <div class="row mt-5 mb-5">
 <div class="col-sm-6 offset-sm-3">
+    @if($errors->any())
+        @include('layouts.err')
+    @endif
     <form method="POST" action="">
         @csrf
         <div class="form-group">
@@ -24,7 +27,7 @@
         </div>
         <div class="form-group">
             <label for="password_confirmation">パスワード確認</label>
-            <input id="password_confirmation" type="password" class="form-control" name="password_comfirmation" value="">
+            <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" value="">
         </div>
         <button type="submit" class="btn btn-primary mt-2">新規登録</button>
     </form>
