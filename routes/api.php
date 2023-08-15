@@ -1,5 +1,6 @@
 <?php
 
+
 use Illuminate\Http\Request;
 
 /*
@@ -13,6 +14,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'movies', 'namespace' => 'Api'], function () {
+    Route::get('', 'ApiController@index');
+    Route::get('{id}', 'ApiController@show');
+    Route::post('', 'ApiController@store');
+    Route::put('{id}', 'ApiController@update');
+    Route::delete('{id}', 'ApiController@destroy');
 });
