@@ -20,6 +20,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 // ユーザ新規登録
 Route::get('signup', 'UserController@showRegistrationForm')->name('signup');
 Route::post('signup', 'UserController@register')->name('signup.post');
+Route::get('users/{id}', 'UserController@showDetail')->name('users.show');
 Route::get('users/{id}/edit', 'UserController@showEdit')->name('users.edit');
 Route::post('update/user', 'UserController@updateUser')->name('users.update');
 
