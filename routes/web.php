@@ -22,8 +22,9 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ユーザ
 Route::get('/', 'UsersController@index');
-Route::prefix('users')->group(function () {
-    Route::get('{id}', 'UsersController@show')->name('user.show');
+Route::group(['prefix' => 'users/{id}'],function(){
+    Route::get('', 'UsersController@show')->name('user.show');
+    Route::get('favorites','UsersController@favorites')->name('user.favorites');
 });
 
 // ログイン後
@@ -33,6 +34,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('create', 'MoviesController@create')->name('movie.create');
         Route::post('', 'MoviesController@store')->name('movie.store');
         Route::delete('{id}', 'MoviesController@destroy')->name('movie.delete');
+        Route::get('{id}/edit', 'MoviesController@edit')->name('movie.edit');
+        Route::put('{id}', 'MoviesController@update')->name('movie.update');
+    });
+    // いいね
+    Route::group(['prefix' => 'movies/{id}'],function(){
+        Route::post('favorite','FavoriteController@store')->name('favorite');
+        Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
     });
 });
 
