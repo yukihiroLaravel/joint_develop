@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
-    @if (session('userDelete'))
+    @if (session('messageDelete'))
         <div class="flash_message alert alert-success text-center">
-            {{ session('userDelete') }}
+            {{ session('messageDelete') }}
         </div>
     @endif
     <div class="center jumbotron bg-info">
@@ -23,19 +23,9 @@
                 <div class="text-left mt-3">
                     <button type="submit" class="btn btn-primary mb-3">投稿する</button>
                 </div>
-                @if (session('message'))
+                @if (session('messageSuccess'))
                     <div class="flash_message alert alert-success text-center">
-                        {{ session('message') }}
-                    </div>
-                @endif
-                @if (session('messageUpdate'))
-                    <div class="flash_message alert alert-success text-center">
-                        {{ session('messageUpdate') }}
-                    </div>
-                @endif
-                @if (session('messageDelete'))
-                    <div class="flash_message alert alert-success text-center">
-                        {{ session('messageDelete') }}
+                        {{ session('messageSuccess') }}
                     </div>
                 @endif
             </div>

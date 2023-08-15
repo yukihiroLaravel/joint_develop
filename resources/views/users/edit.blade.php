@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
-    @if (session('userUpdate'))
+    @if (session('messageSuccess'))
         <div class="flash_message alert alert-success text-center">
-            {{ session('userUpdate') }}
+            {{ session('messageSuccess') }}
         </div>
     @endif
     <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>

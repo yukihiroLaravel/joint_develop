@@ -57,7 +57,7 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-        return back()->with('userUpdate', 'ユーザー情報を更新しました');
+        return back()->with('messageSuccess', 'ユーザー情報を更新しました');
     }
 
     public function destroy($id)
@@ -66,7 +66,7 @@ class UsersController extends Controller
         if (\Auth::id() === $user->id) {
             $user->delete();
         }
-        return redirect('/')->with('userDelete', '退会しました');
+        return redirect('/')->with('messageDelete', '退会しました');
     }
 
     public function followings($id)

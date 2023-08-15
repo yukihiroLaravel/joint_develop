@@ -14,7 +14,7 @@ class PostsController extends Controller
         $post->text = $request->text;
         $post->user_id = $request->user()->id;
         $post->save();
-        return back()->with('message', '投稿しました');
+        return back()->with('messageSuccess', '投稿しました');
     }
 
     public function edit($id)
@@ -35,7 +35,7 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
         $post->text = $request->text;
         $post->save();
-        return redirect('/')->with('messageUpdate', '投稿を更新しました');
+        return redirect('/')->with('messageSuccess', '投稿を更新しました');
     }
 
     public function destroy($id)
@@ -44,6 +44,6 @@ class PostsController extends Controller
         if (\Auth::id() == $post->user_id) {
             $post->delete();
         }
-        return back()->with('messageDelete', '投稿を削除しました');
+        return back()->with('messageSuccess', '投稿を削除しました');
     }
 }

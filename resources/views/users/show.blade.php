@@ -23,6 +23,11 @@
                 <li class="nav-item"><a href="{{ route('user.follows', $user->id) }}" class="nav-link {{ Request::is('user/'. $user->id. '/follows') ? 'active' : '' }}">フォロー中<br><div class="badge badge-secondary">{{ $countFollows }}</div></a></li>
                 <li class="nav-item"><a href="{{ route('user.followers', $user->id) }}" class="nav-link {{ Request::is('user/'. $user->id. '/followers') ? 'active' : '' }}">フォロワー<br><div class="badge badge-secondary">{{ $countFollowers }}</div></a></li>
             </ul>
+            @if (session('messageSuccess'))
+                <div class="flash_message alert alert-success text-center">
+                    {{ session('messageSuccess') }}
+                </div>
+            @endif
             @includeWhen($followingsShow, 'users.follow')
             @includeWhen($followersShow, 'users.follower')
             @includeWhen($timelineShow, 'posts.posts')
