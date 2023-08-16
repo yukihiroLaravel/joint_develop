@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Http\Requests\PostRequest;
+use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
@@ -52,7 +53,8 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
 
         if (isset($post->image)){
-            $post->image->delete();
+            \Storage::disk('public')->delete('images/'.$post->image);
+            
             // ディレクトリ名
             $dir = 'images';
             
@@ -97,10 +99,13 @@ class PostsController extends Controller
     public function destroyImage($id)
     {
         $post = Post::findOrFail($id);
-        if (\Auth::id() == $post->user_id) {
-            $post->where('image',$post->image)->delete();
+        dd($post->image);
+        if($post->image){
+            \Storage::disk('public')->delete($post->image);
         }
+        
         return back()->with('messageSuccess', '画像を削除しました');
     }
 
 }
+
