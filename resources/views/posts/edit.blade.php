@@ -15,4 +15,9 @@
             <button>アップロード</button><br>
             <button type="submit" class="btn btn-primary mt-3">更新する</button>
     </form>
+    <form method="POST" action="{{ route('post.image_delete', $post->id) }}">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger">画像を削除する</button>
+    </form>
 @endsection

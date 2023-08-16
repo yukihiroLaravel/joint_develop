@@ -11,7 +11,7 @@
             <div class="text-left d-inline-block w-75">
                 <p class="mb-2">{{ $post->text }}</p>
                 @if (isset($post->image))
-                    <p class="mb-2"><img src="{{ asset($post->image) }}" width="800px"></p>
+                    <p class="mb-2"><img src="{{ asset($post->image) }}" width="70%" height="70%"></p>
                 @endif
                 <p class="text-muted">{{ $post->created_at }}</p>
             </div>
