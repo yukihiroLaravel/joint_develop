@@ -25,6 +25,7 @@ class PostRequest extends FormRequest
     {
         return [
             'text' => 'required|max:140',
+            'image' => 'image',
         ];
     }
     
@@ -32,6 +33,7 @@ class PostRequest extends FormRequest
     {
         return [
             'text' => '投稿',
+            'image' => '画像',
         ];
     }
 
