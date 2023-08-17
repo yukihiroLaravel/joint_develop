@@ -11,27 +11,26 @@ class PostsController extends Controller
 {
     public function store(PostRequest $request)
     {
-        if (isset($request->image)){
-        // ディレクトリ名
-        $dir = 'images';
-        
-        // アップロードされたファイル名を取得
-        $file_name = $request->file('image')->getClientOriginalName();
-
-        // 取得したファイル名で保存
-        $request->file('image')->storeAs('public/' . $dir, $file_name);
-        $post = new Post;
-        $post->text = $request->text;
-        $post->user_id = $request->user()->id;
-        $post->image = 'storage/' . $dir . '/' . $file_name;
-        $post->save();
-        return back()->with('messageSuccess', '投稿しました');
+        if (isset($request->image)) {
+            // ディレクトリ名
+            $dir = 'images';
+            // アップロードされたファイル名を取得
+            $file_name = $request->file('image')->getClientOriginalName();
+            // 取得したファイル名で保存
+            $request->file('image')->storeAs('public/' . $dir, $file_name);
+            
+            $post = new Post;
+            $post->text = $request->text;
+            $post->user_id = $request->user()->id;
+            $post->image = 'storage/' . $dir . '/' . $file_name;
+            $post->save();
+            return back()->with('messageSuccess', '投稿しました');
         } else {
-        $post = new Post;
-        $post->text = $request->text;
-        $post->user_id = $request->user()->id;
-        $post->save();
-        return back()->with('messageSuccess', '投稿しました');
+            $post = new Post;
+            $post->text = $request->text;
+            $post->user_id = $request->user()->id;
+            $post->save();
+            return back()->with('messageSuccess', '投稿しました');
         }
     }
 
@@ -51,40 +50,9 @@ class PostsController extends Controller
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
-
-        if (isset($post->image)){
-            \Storage::disk('public')->delete('images/'.$post->image);
-            
-            // ディレクトリ名
-            $dir = 'images';
-            
-            // アップロードされたファイル名を取得
-            $file_name = $request->file('image')->getClientOriginalName();
-    
-            // 取得したファイル名で保存
-            $request->file('image')->storeAs('public/' . $dir, $file_name);
-            $post->image = 'storage/' . $dir . '/' . $file_name;
-            $post->text = $request->text;
-            $post->save();
-            return redirect('/')->with('messageSuccess', '投稿を更新しました');
-        } elseif(isset($request->image)) {
-            // ディレクトリ名
-            $dir = 'images';
-            
-            // アップロードされたファイル名を取得
-            $file_name = $request->file('image')->getClientOriginalName();
-    
-            // 取得したファイル名で保存
-            $request->file('image')->storeAs('public/' . $dir, $file_name);
-            $post->image = 'storage/' . $dir . '/' . $file_name;
-            $post->text = $request->text;
-            $post->save();
-            return redirect('/')->with('messageSuccess', '投稿を更新しました');
-        } else {
-            $post->text = $request->text;
-            $post->save();
-            return redirect('/')->with('messageSuccess', '投稿を更新しました');
-        }
+        $post->text = $request->text;
+        $post->save();
+        return redirect('/');
     }
         
     public function destroy($id)
@@ -95,17 +63,4 @@ class PostsController extends Controller
         }
         return back()->with('messageSuccess', '投稿を削除しました');
     }
-
-    public function destroyImage($id)
-    {
-        $post = Post::findOrFail($id);
-        dd($post->image);
-        if($post->image){
-            \Storage::disk('public')->delete($post->image);
-        }
-        
-        return back()->with('messageSuccess', '画像を削除しました');
-    }
-
 }
-

@@ -7,10 +7,10 @@
     @endif
     <div class="center jumbotron bg-info">
             <div class="text-center text-white mt-2 pt-1">
-                <h1><i class="pr-3 fab fa-telegram fa-lg"></i>Trip and Superb Spot Posts</h1>
+                <h1><i class="pr-3 fab fa-telegram fa-lg"></i>Topic Posts</h1>
             </div>
     </div>
-    <h5 class="text-center mb-3">"旅行、絶景スポット"について140字以内で会話しよう！</h5>
+    <h5 class="text-center mb-3">"〇〇"について140字以内で会話しよう！</h5>
         <div class="w-75 m-auto">
             @include('commons.error_messages')
         </div>
@@ -20,10 +20,9 @@
             @if(Auth::check())    
             <div class="form-group">
                 <textarea class="form-control" name="text" rows="4"></textarea>
-                <div class="text-left mt-3">
-                    <button type="submit" class="btn btn-primary mb-3 mr-3">投稿する</button>
-                    <input type="file" name="image" class="ml-3">
-                        <button>アップロード</button>
+                <div class="d-flex justify-content-between w-100 pb-3 m-auto">
+                    <button type="submit" class="btn btn-primary mt-3">投稿する</button>
+                    <input type="file" name="image" class="mt-3">
                 </div>
                 @if (session('messageSuccess'))
                     <div class="flash_message alert alert-success text-center">
