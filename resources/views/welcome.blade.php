@@ -15,13 +15,14 @@
             @include('commons.error_messages')
         </div>
         <div class="text-center mb-3">
-            <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
+            <form method="POST" action="{{ route('post.store') }}" enctype="multipart/form-data" class="d-inline-block w-75">
             @csrf
             @if(Auth::check())    
             <div class="form-group">
                 <textarea class="form-control" name="text" rows="4"></textarea>
-                <div class="text-left mt-3">
-                    <button type="submit" class="btn btn-primary mb-3">投稿する</button>
+                <div class="d-flex justify-content-between w-100 pb-3 m-auto">
+                    <button type="submit" class="btn btn-primary mt-3">投稿する</button>
+                    <input type="file" name="image" class="mt-3">
                 </div>
                 @if (session('messageSuccess'))
                     <div class="flash_message alert alert-success text-center">
