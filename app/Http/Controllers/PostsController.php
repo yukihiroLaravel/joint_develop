@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Http\Requests\PostRequest;
-use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
@@ -52,7 +51,7 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
         $post->text = $request->text;
         $post->save();
-        return redirect('/');
+        return redirect('/');->with('messageSuccess', '投稿を更新しました');
     }
         
     public function destroy($id)

@@ -49,8 +49,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{id}', 'PostsController@update')->name('post.update');
         // 投稿の削除
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
-        // 投稿画像の削除
-        Route::delete('{id}/delete', 'PostsController@destroyImage')->name('post.image_delete');
     });
 
     Route::group(['prefix' => 'user/{id}'],function(){

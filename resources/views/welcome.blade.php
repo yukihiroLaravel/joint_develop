@@ -10,7 +10,7 @@
                 <h1><i class="pr-3 fab fa-telegram fa-lg"></i>Topic Posts</h1>
             </div>
     </div>
-    <h5 class="text-center mb-3">"〇〇"について140字以内で会話しよう！</h5>
+    <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
         <div class="w-75 m-auto">
             @include('commons.error_messages')
         </div>
