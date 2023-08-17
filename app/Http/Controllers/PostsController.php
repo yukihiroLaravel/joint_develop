@@ -62,4 +62,15 @@ class PostsController extends Controller
         }
         return back()->with('messageSuccess', '投稿を削除しました');
     }
+
+    public function destroyImage($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() == $post->user_id) {
+            $post->image = null;
+            $post->save();
+        }
+        return back()->with('messageSuccess', '画像を削除しました');
+    }
+
 }
