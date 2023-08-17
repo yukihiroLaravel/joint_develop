@@ -9,7 +9,7 @@ class PostsController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        $user = $user->orderBy('id', 'desc');
+        $user = $user->orderBy('id', 'desc')->paginate(9);
         $data=[
             'user' => $user,
         ];
