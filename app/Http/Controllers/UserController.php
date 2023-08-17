@@ -94,5 +94,19 @@ class UserController extends Controller
             //return redirect(route('login'));
             Auth::guard()->login($user);
             return redirect (route('top'));
+     * ユーザーを論理削除。
+     * @param string $id
+     * @return view
+     */
+    public function deleteUser ($id) {
+        if (Auth::id() === (int)$id) {
+            try {
+                User::find($id)->delete();
+                return redirect(route('top'));
+            } catch (\Throwable $th) {
+                abort(500);
+            }
+        }
+        abort(404);
     }
 }
