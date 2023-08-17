@@ -53,7 +53,7 @@ class PostsController extends Controller
         $post->save();
         return redirect('/')->with('messageSuccess', '投稿を更新しました');
     }
-    
+
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
