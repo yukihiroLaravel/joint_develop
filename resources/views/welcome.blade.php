@@ -7,6 +7,22 @@
     </div>
 </div>
 <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
-        
-@endsection
 
+<form method="POST" action="{{ route('post.store') }}">
+
+@if(Auth::check())
+@include('commons.error_messages')
+@csrf
+<div class="text-center">
+    <div class="form-group">
+　　<textarea style="width:860px;" rows="5" name="text" value="{{ old('text') }}"></textarea>
+    </div>
+</div>    
+<div class="mb-3 text-center">
+    <div class="text-left d-inline-block w-75 mb-2">
+    <button type="submit" class="btn btn-primary">投稿する</a>
+    </div>
+</div>
+</form>
+@endif
+@endsection
