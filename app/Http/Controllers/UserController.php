@@ -62,4 +62,21 @@ class UserController extends Controller
         $user = User::find($id);
         return view('users.detail', ['user' => $user]);
     }
+
+    /**
+     * ユーザーを論理削除。
+     * @param string $id
+     * @return view
+     */
+    public function deleteUser ($id) {
+        if (Auth::id() === (int)$id) {
+            try {
+                User::find($id)->delete();
+                return redirect(route('top'));
+            } catch (\Throwable $th) {
+                abort(500);
+            }
+        }
+        abort(404);
+    }
 }
