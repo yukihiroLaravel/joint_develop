@@ -8,6 +8,11 @@
         <div class="form-group">
             <textarea id="content" class="form-control" name="text" rows="6">{{  old('text', $post->text) }}</textarea>
         </div>
+        <div>
+        @if (is_null($post->image))
+            <input type="file" name="image" class="">
+        @endif
+        </div>
         @if (isset($post->image))
             <p class="mb-2"><img src="{{ asset($post->image) }}" width="75%" height="75%"></p>
         @endif
