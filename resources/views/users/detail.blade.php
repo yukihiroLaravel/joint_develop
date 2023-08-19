@@ -8,10 +8,32 @@
             </div>
             <div class="card-body">
                 <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 400) }}" alt="">
-                @if (Auth::id() === $user->id)
-                    <div class="mt-3">
-                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
-                    </div>
+                @if(Auth::check())
+                    @if (!is_null($follow))
+                        @if (Auth::id() === $user->id)
+                            <div class="mt-3">
+                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                            </div>
+                        @else
+                            <div class="mt-3">
+                                <form method="POST" action="{{ route('unfollow', $user->id) }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary btn-block">フォローを解除する</button>
+                                </form>
+                            </div>
+                        @endif
+                    @else 
+                        @if (Auth::id() === $user->id)
+                            <div class="mt-3">
+                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                            </div>
+                        @else
+                            <form method="POST" action="{{ route('follow', $user->id) }}">
+                                @csrf
+                                <button type="submit" class="btn btn-primary btn-block">フォローする</button>
+                            </form>
+                        @endif
+                    @endif 
                 @endif
             </div>
         </div>
@@ -49,4 +71,4 @@
         <div class="m-auto" style="width: fit-content"></div>
     </div>
 </div>
-@endsection
+@endsection 

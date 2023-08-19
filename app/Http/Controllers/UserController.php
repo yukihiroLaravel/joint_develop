@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\user;
 use App\Post;
 use Illuminate\Support\Facades\DB;
+use App\FollowUser;
 
 class UserController extends Controller
 {
@@ -60,7 +61,8 @@ class UserController extends Controller
      */
     public function showDetail ($id) {
         $user = User::find($id);
-        return view('users.detail', ['user' => $user]);
+        $follow = FollowUser::where('following_user_id', "=", Auth::id())->where('followed_user_id', "=", $id)->first();
+        return view('users.detail', ['user' => $user , 'follow' => $follow]);
     }
 
     /**
@@ -72,9 +74,17 @@ class UserController extends Controller
         if (Auth::id() === (int)$id) {
             try {
                 User::find($id)->delete();
+                $follows = FollowUser::where('following_user_id', '=', $id)->get();
+                foreach ($follows as $follow) {
+                    FollowUser::find($follow['id'])->delete();
+                }
+                $follows = FollowUser::where('followed_user_id', '=', Auth::id())->get();
+                foreach ($follows as $follow) {
+                    FollowUser::find($follow['id'])->delete();
+                }
                 return redirect(route('top'));
             } catch (\Throwable $th) {
-                abort(500);
+                // abort(500);
             }
         }
         abort(404);
