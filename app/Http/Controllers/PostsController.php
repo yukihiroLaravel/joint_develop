@@ -50,8 +50,7 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
 
-        if (isset($post->image)) {
-        } elseif (isset($request->image)) {
+        if (isset($request->image)) {
             // ディレクトリ名
             $dir = 'images';
             // アップロードされたファイル名を取得
