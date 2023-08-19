@@ -17,6 +17,10 @@
             </div>
         </div>
     </li>
+    @include('comments.comment_button')
+    @if (isset($post->comments->content))
+        <p class="mb-2">{{ $post->comments->content }}</p>
+    @endif
     @include('posts.edit_button')
     @endforeach
 </ul>
