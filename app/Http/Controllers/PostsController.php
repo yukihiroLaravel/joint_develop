@@ -49,6 +49,17 @@ class PostsController extends Controller
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
+
+        if (isset($request->image)) {
+            // ディレクトリ名
+            $dir = 'images';
+            // アップロードされたファイル名を取得
+            $file_name = $request->file('image')->getClientOriginalName();
+            // 取得したファイル名で保存
+            $request->file('image')->storeAs('public/' . $dir, $file_name);
+
+            $post->image = 'storage/' . $dir . '/' . $file_name;
+        } 
         $post->text = $request->text;
         $post->save();
         return redirect('/')->with('messageSuccess', '投稿を更新しました');
