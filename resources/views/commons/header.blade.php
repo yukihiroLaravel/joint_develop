@@ -7,9 +7,10 @@
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav"> 
-                @if (Auth::check())
-                    <li class="nav-item"><a href="" class="nav-link text-light"><span class="user-name">{{ Auth::user()->name }}</span></a></li>
-                    <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link text-light">ログアウト</a></li>
+            @if (Auth::check())
+                    <li class="nav-item"><a href="{{ route('user.create') }}" class="nav-link">使用する</a></li>
+                    <li class="nav-item"><a href="{{ route('user.show', Auth::id()) }}" class="nav-link">マイページ</a></li>
+                    <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link">ログアウト</a></li>
                 @else
                     <li class="nav-item"><a href="{{ route('login') }}" class="nav-link text-light">ログイン</a></li>
                     <li class="nav-item"><a href="{{ route('signup') }}" class="nav-link text-light">新規ユーザ登録</a></li>

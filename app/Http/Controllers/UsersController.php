@@ -29,5 +29,9 @@ class UsersController extends Controller
         $user->save();
         return back();
     }
+
+    public function show(){
+        dd("aa");
+    }
 }    
 
