@@ -3,14 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Post;
 use App\Comment;
 use App\Http\Requests\CommentRequest;
 
 class CommentController extends Controller
 {
-    public function new()
+    public function new($id)
     {
-        return view('comments.comment');
+        $post = Post::findOrFail($id);
+        $data = [
+            'post' => $post,
+        ];
+        //dd($post->comments->content);
+        return view('comments.comment', $data);
     }
     
     public function store(CommentRequest $request)
