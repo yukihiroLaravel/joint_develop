@@ -1,4 +1,4 @@
-<div class="movies row mt-5 text-center">
+<div class="users row mt-5 text-center">
     @foreach ($posts as $posts)
         @if ($loop->iteration % 3 === 1 && $loop->iteration !== 1)
             </div>
@@ -7,8 +7,8 @@
             <div class="col-lg-4 mb-5">
                 <div class="post text-left d-inline-block">
                     <div>
-                        @if ($movie)
-                            <iframe src="{{ .$user->user_id }}?controls=1&loop=1&playlist={{ $user->user_id }}" frameborder="0"></iframe>
+                        @if ($user)
+                            <iframe src="{{ $user->user_id }}?controls=1&loop=1&playlist={{ $user->user_id }}" frameborder="0"></iframe>
                         @else
                             <iframe></iframe>
                         @endif
@@ -19,8 +19,8 @@
                         @endif
                     </p>
                     <p>
-                        @if (isset($movie->comment))
-                            {{ $movie->comment }}
+                        @if (isset($user->comment))
+                            {{ $user->comment }}
                         @endif
                     </p>
                     @if (Auth::id() === $user->user_id)
