@@ -52,9 +52,9 @@ Route::group(['middleware' => 'auth'], function () {
         // 投稿画像の削除
         Route::delete('{id}/delete', 'PostsController@destroyImage')->name('post.image_delete');
 
-        //コメント
+        //コメントをするページへ遷移
         Route::get('{id}/comment/new','CommentController@new')->name('new.comment');
-        //投稿に対するコメント
+        //コメントを保存
         Route::post('comment','CommentController@store')->name('comment.store');
     });
 
