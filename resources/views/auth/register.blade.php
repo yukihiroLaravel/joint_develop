@@ -11,15 +11,15 @@
     @if($errors->any())
         @include('layouts.err')
     @endif
-    <form method="POST" action="">
+    <form method="POST" action="{{ route('signup.post') }}">
         @csrf
         <div class="form-group">
             <label for="name">名前</label>
-            <input id="name" type="text" class="form-control" name="name" value="">
+            <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
         </div>
         <div class="form-group">
             <label for="email">メールアドレス</label>
-            <input id="email" type="text" class="form-control" name="email" value="">
+            <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}">
         </div>
         <div class="form-group">
             <label for="password">パスワード</label>

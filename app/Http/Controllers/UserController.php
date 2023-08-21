@@ -64,36 +64,6 @@ class UserController extends Controller
     }
 
     /**
-     * ユーザー新規登録画面を表示。
-     * @param void
-     * @return view
-     */
-    public function showRegistrationForm () {
-        return view ('auth.register');
-    }
-
-    /**
-     * DBへユーザー新規登録
-     * @param object $request
-     * @return view
-     */
-    public function register (UserRequest $request) {
-        $inputs = $request->all();
-            DB::BeginTransaction();
-            try {
-                $user = User::create([
-                    'name' => $inputs['name'],
-                    'email' => $inputs['email'],
-                    'password' => bcrypt($inputs['password']),
-                ]);
-                DB::commit();
-            } catch (\Throwable $e) {
-                DB::rollBack();
-                abort(500);
-            }
-            //return redirect(route('login'));
-            Auth::guard()->login($user);
-            return redirect (route('top'));
      * ユーザーを論理削除。
      * @param string $id
      * @return view
