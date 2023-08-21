@@ -15,7 +15,6 @@ class CommentController extends Controller
         $data = [
             'post' => $post,
         ];
-        //dd($post->comments->content);
         return view('comments.comment', $data);
     }
     

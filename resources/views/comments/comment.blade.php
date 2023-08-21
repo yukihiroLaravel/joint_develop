@@ -14,9 +14,11 @@
         <div class="form-group">
             <textarea id="content" class="form-control" name="content" rows="6"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary mt-2">コメントする</button>
+        <button type="submit" class="btn btn-primary mt-2 mb-3">コメントする</button>
     </form>
-    @if (isset($post->comments->content))
-        <p class="mb-2">{{ $post->comments->content }}</p>
-    @endif
+    @foreach ($post->comments as $comment)
+        @if (isset($comment->content))
+            <p class="">{{ $comment->content }}</p>
+        @endif
+    @endforeach
 @endsection
