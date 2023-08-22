@@ -10,6 +10,7 @@ class PostsController extends Controller
 {
     public function store(PostRequest $request)
     {
+        $post = new Post;
         if (isset($request->image)) {
             // ディレクトリ名
             $dir = 'images';
@@ -18,19 +19,12 @@ class PostsController extends Controller
             // 取得したファイル名で保存
             $request->file('image')->storeAs('public/' . $dir, $file_name);
             
-            $post = new Post;
-            $post->text = $request->text;
-            $post->user_id = $request->user()->id;
             $post->image = 'storage/' . $dir . '/' . $file_name;
-            $post->save();
-            return back()->with('messageSuccess', '投稿しました');
-        } else {
-            $post = new Post;
-            $post->text = $request->text;
-            $post->user_id = $request->user()->id;
-            $post->save();
-            return back()->with('messageSuccess', '投稿しました');
         }
+        $post->text = $request->text;
+        $post->user_id = $request->user()->id;
+        $post->save();
+        return back()->with('messageSuccess', '投稿しました');
     }
 
     public function edit($id)
