@@ -51,6 +51,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
         // 投稿画像の削除
         Route::delete('{id}/delete', 'PostsController@destroyImage')->name('post.image_delete');
+
+        //コメントをするページへ遷移
+        Route::get('{id}/comment','CommentController@create')->name('comment.create');
+        //コメントを保存
+        Route::post('comment','CommentController@store')->name('comment.store');
     });
 
     Route::group(['prefix' => 'user/{id}'],function(){

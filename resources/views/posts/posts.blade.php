@@ -17,6 +17,7 @@
             </div>
         </div>
     </li>
+    @include('comments.comment_button')
     @include('posts.edit_button')
     @endforeach
 </ul>
