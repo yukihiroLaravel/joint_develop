@@ -20,6 +20,8 @@ class PostsController extends Controller
             
             $post = new Post;
             $post->image = 'storage/' . $dir . '/' . $file_name;
+            $post->text = $request->text;
+            $post->user_id = $request->user()->id;
             $post->save();
             return back()->with('messageSuccess', '投稿しました');
         } else {
