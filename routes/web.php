@@ -53,7 +53,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}/delete', 'PostsController@destroyImage')->name('post.image_delete');
 
         //コメントをするページへ遷移
-        Route::get('{id}/comment/new','CommentController@new')->name('new.comment');
+        Route::get('{id}/comment','CommentController@create')->name('comment.create');
         //コメントを保存
         Route::post('comment','CommentController@store')->name('comment.store');
     });

@@ -19,8 +19,6 @@ class PostsController extends Controller
             $request->file('image')->storeAs('public/' . $dir, $file_name);
             
             $post = new Post;
-            $post->text = $request->text;
-            $post->user_id = $request->user()->id;
             $post->image = 'storage/' . $dir . '/' . $file_name;
             $post->save();
             return back()->with('messageSuccess', '投稿しました');

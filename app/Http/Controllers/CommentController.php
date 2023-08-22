@@ -9,7 +9,7 @@ use App\Http\Requests\CommentRequest;
 
 class CommentController extends Controller
 {
-    public function new($id)
+    public function create($id)
     {
         $post = Post::findOrFail($id);
         $data = [
