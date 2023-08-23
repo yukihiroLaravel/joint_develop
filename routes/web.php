@@ -18,6 +18,9 @@ Route::post('/', 'PostController@exePost')->name('post');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('loginform');
 Route::post('login', 'Auth\LoginController@login')->name('login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+// ユーザ新規登録
+Route::get('auth/register','Auth\RegisterController@showRegistrationForm')->name('signup');
+Route::post('auth/register','Auth\RegisterController@register')->name('signup.post');
 Route::get('users/{id}', 'UserController@showDetail')->name('users.show');
 Route::get('users/{id}/edit', 'UserController@showEdit')->name('users.edit');
 Route::post('update/user', 'UserController@updateUser')->name('users.update');
