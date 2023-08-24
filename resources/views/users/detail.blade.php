@@ -9,31 +9,23 @@
             <div class="card-body">
                 <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 400) }}" alt="">
                 @if(Auth::check())
-                    @if (!is_null($follow))
-                        @if (Auth::id() === $user->id)
+                    @if (Auth::id() === $user->id)
                             <div class="mt-3">
                                 <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                             </div>
-                        @else
-                            <div class="mt-3">
-                                <form method="POST" action="{{ route('unfollow', $user->id) }}">
-                                    @csrf
-                                    <button type="submit" class="btn btn-primary btn-block">フォローを解除する</button>
-                                </form>
-                            </div>
-                        @endif
-                    @else 
-                        @if (Auth::id() === $user->id)
-                            <div class="mt-3">
-                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
-                            </div>
-                        @else
-                            <form method="POST" action="{{ route('follow', $user->id) }}">
+                    @elseif ($user->followUsers()->where('following_user_id', Auth::id())->exists() && $user->followUsers()->where('followed_user_id', $user->id)->exists())
+                        <div class="mt-3">
+                            <form method="POST" action="{{ route('unfollow', $user->id) }}">
                                 @csrf
-                                <button type="submit" class="btn btn-primary btn-block">フォローする</button>
+                                <button type="submit" class="btn btn-primary btn-block">フォローを解除する</button>
                             </form>
-                        @endif
-                    @endif 
+                        </div>
+                    @else
+                        <form method="POST" action="{{ route('follow', $user->id) }}">
+                            @csrf
+                            <button type="submit" class="btn btn-primary btn-block">フォローする</button>
+                        </form>
+                    @endif
                 @endif
             </div>
         </div>

@@ -61,8 +61,7 @@ class UserController extends Controller
      */
     public function showDetail ($id) {
         $user = User::find($id);
-        $follow = FollowUser::where('following_user_id', "=", Auth::id())->where('followed_user_id', "=", $id)->first();
-        return view('users.detail', ['user' => $user , 'follow' => $follow]);
+        return view('users.detail', ['user' => $user]);
     }
 
     /**
@@ -83,8 +82,8 @@ class UserController extends Controller
                     FollowUser::find($follow['id'])->delete();
                 }
                 return redirect(route('top'));
-            } catch (\Throwable $th) {
-                // abort(500);
+            } catch (\Throwable $e) {
+                abort(500);
             }
         }
         abort(404);
