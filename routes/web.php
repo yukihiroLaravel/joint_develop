@@ -33,6 +33,12 @@ Route::prefix('users')->group(function () {
     Route::post('update', 'UserController@updateUser')->name('users.update');
 });
 
+// ユーザ新規登録
+Route::prefix('auth/register')->group(function () {
+    Route::get('/','Auth\RegisterController@showRegistrationForm')->name('signup');
+    Route::post('/','Auth\RegisterController@register')->name('signup.post');
+});
+
 // Route::get('/', function () {
 //     return view('welcome');
 // });
