@@ -52,6 +52,9 @@ Route::group(['middleware' => 'auth'], function () {
         // 投稿画像の削除
         Route::delete('{id}/delete', 'PostsController@destroyImage')->name('post.image_delete');
 
+        //投稿の検索
+        Route::get('index', 'PostsController@index')->name('posts.index');
+
         //コメントをするページへ遷移
         Route::get('{id}/comment','CommentController@create')->name('comment.create');
         //コメントを保存

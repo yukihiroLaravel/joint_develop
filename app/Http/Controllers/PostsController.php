@@ -78,4 +78,19 @@ class PostsController extends Controller
         return back()->with('messageSuccess', '画像を削除しました');
     }
 
+    public function index(Request $request)
+    {
+        $keyword = $request->input('keyword');
+
+        $query = Post::query();
+        //入力されたキーワードでpostsテーブルのtextカラムを検索
+        if(!empty($keyword)) {
+            $query->where('text', 'LIKE', "%{$keyword}%");//←$queryに代入？
+        }
+        //検索条件に当てはまるレコードの取得
+        $posts = $query->get();
+
+        return view('posts.search', compact('posts', 'keyword'));
+    }
+
 }
