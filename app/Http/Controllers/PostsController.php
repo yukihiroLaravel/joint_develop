@@ -81,16 +81,27 @@ class PostsController extends Controller
     public function index(Request $request)
     {
         $keyword = $request->input('keyword');
-
-        $query = Post::query();
-        //入力されたキーワードでpostsテーブルのtextカラムを検索
-        if(!empty($keyword)) {
-            $query->where('text', 'LIKE', "%{$keyword}%");//←$queryに代入？
+        if (!empty($keyword)) {
+            $posts = Post::where('text', 'LIKE', "%{$keyword}%")->get();
         }
-        //検索条件に当てはまるレコードの取得
-        $posts = $query->get();
+        dd($posts);
 
         return view('posts.search', compact('posts', 'keyword'));
     }
 
+    // public function index(Request $request)
+    // {
+    //     $keyword = $request->input('keyword');
+
+    //     $query = Post::query();
+    //     //入力されたキーワードでpostsテーブルのtextカラムを検索
+    //     if(!empty($keyword)) {
+    //         $query->where('text', 'LIKE', "%{$keyword}%");//←$queryに代入？
+    //     }
+    //     //ここの$postsには全件取得をしたデータが入っているor条件付きデータ？
+    //     $posts = $query->get();
+    //     dd($posts);
+
+    //     return view('posts.search', compact('posts', 'keyword'));
+    // }
 }
