@@ -2,7 +2,7 @@
     @foreach ($posts as $post)
         <li class="mb-3 text-center">
             <div class="text-left d-inline-block w-75 mb-2">
-            <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
+                <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
                 <p class="mt-3 mb-0 d-inline-block"><a href="">{{ $post->user->name }}</a></p>
             </div>
                 <div class=""> 
@@ -10,13 +10,12 @@
                         <p class="mb-2">{{ $post->text }}</p>
                         <p class="text-muted">{{ $post->created_at }}</p>
                     </div>
-                
-                    
                 </div>
-                
-                    <a href="{{ route('post.edit', $post) }}" class="btn btn-primary">編集する</a>
-            
-            </div>
+                @if ($post->user->id === Auth::id() )
+                <div class="text-right d-inline-block w-75 mb-2">
+                <a href="{{ route('post.edit', $post) }}" class="btn btn-primary">編集する</a>
+                </div>
+                @endif
         </li>
     @endforeach
     </ul>

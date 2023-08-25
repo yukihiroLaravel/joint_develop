@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
 {
@@ -14,26 +15,26 @@ class PostsController extends Controller
             'posts' => $posts,
         ]);
     }
-
     public function edit($id)
     {
         $user = \Auth::user();
         $post = Post::findOrFail($id);
-        $posts = $user->posts()->orderBy('id', 'desc')->paginate(9);
+        if ($post->user_id === \Auth::id()) {
         $data=[
             'user' => $user,
             'post' => $post,
-            'posts' => $posts,
         ];
-        return view('posts.edit', $data);
+            return view('posts.edit', $data);
+        }
+        abort(404);
     }
     public function update(PostRequest $request, $id)
     {
-        $post = Movie::findOrFail($id);
-        $post->title = $request->title;
+        $post = Post::findOrFail($id);
+        $post->text = $request->text;
         $post->user_id = $request->user()->id;
-        $post->favorite_flag = $request->favorite_flag ? 1 : 0;
         $post->save();
+        return redirect('/');
         return back();
     }
 
