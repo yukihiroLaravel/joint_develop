@@ -84,8 +84,10 @@ class PostsController extends Controller
         if (!empty($keyword)) {
             $posts = Post::where('text', 'LIKE', "%{$keyword}%")->get();
         }
-        dd($posts);
-
+        if (empty($posts)) {
+            $posts = null;
+        }
+        //dd($posts);
         return view('posts.search', compact('posts', 'keyword'));
     }
 
