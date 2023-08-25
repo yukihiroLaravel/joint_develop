@@ -56,14 +56,16 @@ class User extends Authenticatable
         });
     }
 
-    public function followUsers()
+    //user_idに該当するユーザーがフォローしているユーザー達の情報を全て取得する。
+    public function followings()
     {
-        return $this->belongsToMany(User::class, 'follow_users', 'followed_user_id', 'following_user_id');
+        return $this->belongsToMany(User::class, 'follow_users', 'user_id', 'followed_id');
     }
 
-    public function follows()
+    //followed_idに該当するユーザーをフォローしているユーザー達の情報を全て取得する。
+    public function followers()
     {
-        return $this->belongsToMany(User::class, 'follow_users', 'following_user_id', 'followed_user_id');
+        return $this->belongsToMany(User::class, 'follow_users', 'followed_id', 'user_id');
     }
 
     /**
@@ -71,13 +73,10 @@ class User extends Authenticatable
      * @param string $id
      * @return view
      */
-    public static function follow($id) {
+    public function follow($id) {
         DB::BeginTransaction();
         try {
-            $user = User::find($id);
-            $user->followUsers()->attach([
-                'following_user_id' => Auth::id(),
-            ]);
+            $this->followings()->attach($id);
             DB::commit();
         } catch (\Throwable $e) {
             DB::rollBack();
@@ -90,12 +89,21 @@ class User extends Authenticatable
      * @param string $id
      * @return view
      */
-    public static function unfollow($id) {
+    public function unfollow($id) {
         try {
-            $user = User::find($id);
-            $user->followUsers()->detach();
+            $this->followings()->detach($id);
         } catch (\Throwable $e) {
             abort(500);
         }
+    }
+
+    /**
+     * フォロー状態を確認する。
+     * @param string $id
+     * @return view
+     */
+    public function followCheck ($id) {
+        $user = User::find($id);
+        return $user->followers()->where('user_id', Auth::id())->exists();
     }
 }

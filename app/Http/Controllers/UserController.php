@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use App\user;
 use App\Post;
 use Illuminate\Support\Facades\DB;
-use App\FollowUser;
 
 class UserController extends Controller
 {
@@ -73,13 +72,14 @@ class UserController extends Controller
         if (Auth::id() === (int)$id) {
             try {
                 User::find($id)->delete();
-                $follows = FollowUser::where('following_user_id', '=', $id)->get();
+                $user = Auth::user();
+                $follows = $user->followings()->get();
                 foreach ($follows as $follow) {
-                    FollowUser::find($follow['id'])->delete();
+                    $user->unfollow($follow['id']);
                 }
-                $follows = FollowUser::where('followed_user_id', '=', Auth::id())->get();
+                $follows = $user->followers()->get();
                 foreach ($follows as $follow) {
-                    FollowUser::find($follow['id'])->delete();
+                    $follow->unfollow($user->id);
                 }
                 return redirect(route('top'));
             } catch (\Throwable $e) {
