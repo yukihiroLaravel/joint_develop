@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'PostController@showTop')->name('top');
-Route::get('users/{id}', 'UserController@showDetail')->name('users.show'); 
 
 Route::prefix('login')->group(function () {
     Route::get('/', 'Auth\LoginController@showLoginForm')->name('loginform');
@@ -27,19 +26,26 @@ Route::prefix('auth/register')->group(function () {
     Route::post('/','Auth\RegisterController@register')->name('signup.post');
 });
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::post('/', 'PostController@exePost')->name('post');
-    Route::get('logout', 'Auth\LoginController@logout')->name('logout'); 
-    Route::prefix('users')->group(function () {
-        Route::prefix('{id}')->group(function () {
+Route::prefix('users')->group(function () {
+    Route::group(['middleware' => 'auth'], function () {
+        Route::post('update', 'UserController@updateUser')->name('users.update');
+    }); 
+    Route::prefix('{id}')->group(function () {
+        Route::get('/', 'UserController@showDetail')->name('users.show'); 
+        Route::group(['middleware' => 'auth'], function () {
             Route::get('edit', 'UserController@showEdit')->name('users.edit'); 
             Route::post('delete', 'UserController@deleteUser')->name('users.delete'); 
             Route::post('follow', 'FollowUserController@exeFollow')->name('follow'); 
             Route::post('unfollow', 'FollowUserController@exeUnfollow')->name('unfollow');
         });
-        Route::post('update', 'UserController@updateUser')->name('users.update');
-    });
+    }); 
 });
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('/', 'PostController@exePost')->name('post');
+    Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+}); 
+
 
 // Route::get('/', function () {
 //     return view('welcome');

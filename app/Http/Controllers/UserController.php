@@ -70,9 +70,8 @@ class UserController extends Controller
      */
     public function deleteUser ($id) {
         if (Auth::id() === (int)$id) {
+            $user = Auth::user();
             try {
-                User::find($id)->delete();
-                $user = Auth::user();
                 $follows = $user->followings()->get();
                 foreach ($follows as $follow) {
                     $user->unfollow($follow['id']);
@@ -81,6 +80,7 @@ class UserController extends Controller
                 foreach ($follows as $follow) {
                     $follow->unfollow($user->id);
                 }
+                User::find($id)->delete();
                 return redirect(route('top'));
             } catch (\Throwable $e) {
                 abort(500);

@@ -11,22 +11,16 @@ use App\User;
 class FollowUserController extends Controller
 {
     public function exeFollow($id) {
-        $bool = false;
         $user = Auth::user();
-        if (Auth::id() !== $id && !$bool = $user->followCheck($id)) {
-            $user->follow($id);
-            return redirect(route('users.show', $id));
-        }
+        $user->follow($id);
+        return redirect(route('users.show', $id));
         abort(404);
     }
 
     public function exeUnfollow($id) {
-        $bool = false;
         $user = Auth::user();
-        if (Auth::id() !== $id && $bool = $user->followCheck($id)) {
-            $user->unfollow($id);
-            return redirect(route('users.show', $id));
-        }
+        $user->unfollow($id);
+        return redirect(route('users.show', $id));
         abort(404);
     }
 }

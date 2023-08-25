@@ -76,8 +76,11 @@ class User extends Authenticatable
     public function follow($id) {
         DB::BeginTransaction();
         try {
-            $this->followings()->attach($id);
-            DB::commit();
+            $bool = false;
+            if (Auth::id() !== $id && !$bool = $this->followCheck($id)) {
+                $this->followings()->attach($id);
+                DB::commit();
+            }
         } catch (\Throwable $e) {
             DB::rollBack();
             abort(500);
