@@ -24,9 +24,6 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::group(['middleware' => 'auth'], function () {
     // 投稿
     Route::prefix('posts')->group(function () {
-        Route::get('create', 'MoviesController@create')->name('post.create');
-        Route::post('', 'PostsController@store')->name('post.store');
-        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
     });
@@ -35,7 +32,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
         Route::put('{id}', 'UsersController@update')->name('users.update');
     });
-
     //投稿新規作成
     Route::prefix('posts')->group(function () {
         Route::post('', 'PostsController@store')->name('post.store');
