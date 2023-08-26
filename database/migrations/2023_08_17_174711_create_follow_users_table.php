@@ -17,10 +17,11 @@ class CreateFollowUsersTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->index();
             $table->unsignedBigInteger('followed_id')->index();
+            $table->timestamps();
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('followed_id')->references('id')->on('users')->onDelete('cascade');
             $table->unique(['user_id', 'followed_id']);
-            $table->timestamps();
         });
     }
 

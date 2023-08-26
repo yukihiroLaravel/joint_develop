@@ -27,13 +27,11 @@ Route::prefix('auth/register')->group(function () {
 });
 
 Route::prefix('users')->group(function () {
-    Route::group(['middleware' => 'auth'], function () {
-        Route::post('update', 'UserController@updateUser')->name('users.update');
-    }); 
     Route::prefix('{id}')->group(function () {
         Route::get('/', 'UserController@showDetail')->name('users.show'); 
         Route::group(['middleware' => 'auth'], function () {
             Route::get('edit', 'UserController@showEdit')->name('users.edit'); 
+            Route::post('update', 'UserController@updateUser')->name('users.update');
             Route::post('delete', 'UserController@deleteUser')->name('users.delete'); 
             Route::post('follow', 'FollowUserController@exeFollow')->name('follow'); 
             Route::post('unfollow', 'FollowUserController@exeUnfollow')->name('unfollow');

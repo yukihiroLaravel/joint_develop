@@ -75,16 +75,17 @@ class User extends Authenticatable
      */
     public function follow($id) {
         DB::BeginTransaction();
-        try {
-            $bool = false;
-            if (Auth::id() !== $id && !$bool = $this->followCheck($id)) {
+        if (Auth::id() !== $id && !$this->followCheck($id)) {
+            try {
                 $this->followings()->attach($id);
                 DB::commit();
+            } catch (\Throwable $e) {
+                DB::rollBack();
+                abort(500);
             }
-        } catch (\Throwable $e) {
-            DB::rollBack();
-            abort(500);
+            return;
         }
+        abort(404);
     }
 
     /**
@@ -93,11 +94,15 @@ class User extends Authenticatable
      * @return view
      */
     public function unfollow($id) {
-        try {
-            $this->followings()->detach($id);
-        } catch (\Throwable $e) {
-            abort(500);
+        if (Auth::id() !== $id && !$this->followCheck($id)) {
+            try {
+                $this->followings()->detach($id);
+            } catch (\Throwable $e) {
+                abort(500);
+            }
+            return;
         }
+        abort(404);
     }
 
     /**
@@ -106,7 +111,7 @@ class User extends Authenticatable
      * @return view
      */
     public function followCheck ($id) {
-        $user = User::find($id);
-        return $user->followers()->where('user_id', Auth::id())->exists();
+        $user = Auth::user();
+        return $user->followings()->where('followed_id', $id)->exists();
     }
 }

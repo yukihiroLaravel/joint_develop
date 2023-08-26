@@ -14,13 +14,11 @@ class FollowUserController extends Controller
         $user = Auth::user();
         $user->follow($id);
         return redirect(route('users.show', $id));
-        abort(404);
     }
 
     public function exeUnfollow($id) {
         $user = Auth::user();
         $user->unfollow($id);
         return redirect(route('users.show', $id));
-        abort(404);
     }
 }
