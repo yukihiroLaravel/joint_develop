@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    @if ($posts == null)
+    @if ($posts->count() == 0)
         <p class="mb-2">{{ "検索結果がありません" }}</p>
     @else
         @foreach ($posts as $post)
