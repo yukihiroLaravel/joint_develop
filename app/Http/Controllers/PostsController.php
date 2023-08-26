@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Post;
-use App\Http\Requests\PostRequest;
+use App\Http\Request\PostsRequest;
 
 class PostsController extends Controller
 {
@@ -28,7 +27,7 @@ class PostsController extends Controller
         }
         abort(404);
     }
-    public function update(PostRequest $request, $id)
+    public function update(PostsRequest $request, $id)
     {
         $post = Post::findOrFail($id);
         $post->text = $request->text;
@@ -37,7 +36,6 @@ class PostsController extends Controller
         return redirect('/');
         return back();
     }
-
 }
 
 
