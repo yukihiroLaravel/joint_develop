@@ -4,6 +4,12 @@
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <div class="d-flex justify-content-center w-75 m-auto">
+            <form action="{{ route('posts.index') }}" method="GET">
+                <input type="text" name="keyword"  placeholder="投稿内容の検索"  style="font-family: 'FontAwesome 5 Brands';" />
+                <input type="submit" value="検索">
+            </form>
+        </div>
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">

@@ -32,12 +32,6 @@
             </div>
             @endif
             </form>
-            <div class="d-flex justify-content-start w-75 m-auto">
-                <form action="{{ route('posts.index') }}" method="GET">
-                    <input type="text" name="keyword" class="mr-3">
-                    <input type="submit" value="投稿内容の検索">
-                </form>
-            </div>
             @include('posts.posts')
         </div>
 @endsection

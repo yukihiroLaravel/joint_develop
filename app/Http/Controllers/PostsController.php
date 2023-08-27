@@ -84,10 +84,6 @@ class PostsController extends Controller
         if (!empty($keyword)) {
             $posts = Post::where('text', 'LIKE', "%{$keyword}%")->get();
         }
-        // if (empty($posts)) {
-        //     $posts = null;
-        // }
-        // dd($posts);
         return view('posts.search', compact('posts', 'keyword'));
     }
 
@@ -95,6 +91,7 @@ class PostsController extends Controller
     // {
     //     $keyword = $request->input('keyword');
 
+    //     全件取得
     //     $query = Post::query();
     //     //入力されたキーワードでpostsテーブルのtextカラムを検索
     //     if(!empty($keyword)) {

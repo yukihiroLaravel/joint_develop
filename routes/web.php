@@ -12,6 +12,9 @@
 */
 Route::get('/', 'UsersController@index');
 
+//投稿の検索
+Route::get('index', 'PostsController@index')->name('posts.index');
+
 Route::group(['prefix' => 'user/{id}'],function(){
     //ユーザー詳細
     Route::get('', 'UsersController@show')->name('user.show');
@@ -51,9 +54,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
         // 投稿画像の削除
         Route::delete('{id}/delete', 'PostsController@destroyImage')->name('post.image_delete');
-
-        //投稿の検索
-        Route::get('index', 'PostsController@index')->name('posts.index');
 
         //コメントをするページへ遷移
         Route::get('{id}/comment','CommentController@create')->name('comment.create');
