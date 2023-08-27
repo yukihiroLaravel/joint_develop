@@ -1,4 +1,3 @@
-<div class="row text-center mt-3">
         @endif
             <div class="col-lg-4 mb-5">
                 <div class="post text-left d-inline-block">
