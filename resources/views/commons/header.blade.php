@@ -1,9 +1,15 @@
 <header class="mb-5">
     <nav class="navbar navbar-expand-sm navbar-dark bg-info">
-        <a class="navbar-brand" href="/">Topic Posts</a>
+        <a class="navbar-brand mr-5" href="/">Topic Posts</a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>
         </button>
+        <div class="d-flex justify-content-center w-75 m-auto">
+            <form action="{{ route('posts.index') }}" method="GET">
+                <input type="text" name="keyword" class="ml-5" placeholder="投稿内容の検索"  style="font-family: 'FontAwesome 5 Brands';" />
+                <input type="submit" value="検索" >
+            </form>
+        </div>
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">

@@ -12,6 +12,9 @@
 */
 Route::get('/', 'UsersController@index');
 
+//投稿の検索
+Route::get('index', 'PostsController@index')->name('posts.index');
+
 Route::group(['prefix' => 'user/{id}'],function(){
     //ユーザー詳細
     Route::get('', 'UsersController@show')->name('user.show');

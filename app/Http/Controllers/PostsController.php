@@ -78,4 +78,29 @@ class PostsController extends Controller
         return back()->with('messageSuccess', '画像を削除しました');
     }
 
+    public function index(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        if (!empty($keyword)) {
+            $posts = Post::where('text', 'LIKE', "%{$keyword}%")->get();
+        }
+        return view('posts.search', compact('posts', 'keyword'));
+    }
+
+    // public function index(Request $request)
+    // {
+    //     $keyword = $request->input('keyword');
+
+    //     全件取得
+    //     $query = Post::query();
+    //     //入力されたキーワードでpostsテーブルのtextカラムを検索
+    //     if(!empty($keyword)) {
+    //         $query->where('text', 'LIKE', "%{$keyword}%");
+    //     }
+    //     //ここの$postsには条件付きデータが入っている
+    //     $posts = $query->get();
+    //     dd($posts);
+
+    //     return view('posts.search', compact('posts', 'keyword'));
+    // }
 }
