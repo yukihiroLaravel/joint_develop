@@ -17,8 +17,8 @@
             </div>
         </div>
     </li>
-    @include('comments.comment_button')
     @include('posts.edit_button')
+    @include('comments.comment_button')
     @endforeach
 </ul>
 <div class="m-auto" style="width: fit-content">{{ $posts->links('pagination::bootstrap-4') }}</div>
