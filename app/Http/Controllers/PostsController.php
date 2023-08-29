@@ -16,19 +16,22 @@ class PostsController extends Controller
     }
     public function edit($id)
     {
+        $user = \Auth::user();
         $post = Post::findOrFail($id);
         if ($post->user_id === \Auth::id()) {
-            $data=[
-                'post' => $post,
-            ];
+        $data=[
+            'user' => $user,
+            'post' => $post,
+        ];
             return view('posts.edit', $data);
         }
         abort(404);
     }
     public function update(PostsRequest $request, $id)
     {
+        $post = new Post;
         $post = Post::findOrFail($id);
-        $post->text = $request->text;
+        $post->content = $request->content;
         $post->user_id = $request->user()->id;
         $post->save();
         return redirect('/');
