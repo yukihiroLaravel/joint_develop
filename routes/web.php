@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'PostController@showTop')->name('top');
 Route::post('/', 'PostController@exePost')->name('post');
-Route::get('posts/{id}/edit', 'PostController@showEdit')->name('posts.edit');
-Route::post('posts/{id}/update', 'PostController@updatePost')->name('posts.update');
+Route::get('posts/{id}', 'PostController@showEdit')->name('posts.edit');
+Route::put('posts/{id}', 'PostController@updatePost')->name('posts.update');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('loginform');
 Route::post('login', 'Auth\LoginController@login')->name('login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');

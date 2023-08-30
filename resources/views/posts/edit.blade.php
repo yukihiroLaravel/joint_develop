@@ -5,6 +5,7 @@
     @include('layouts.err')
 @endif
 <form method="POST" action="{{ route('posts.update', $post->id) }}">
+    @method('PUT')
     @csrf
     <div class="form-group">
         <textarea id="content" class="form-control" name="content" rows="4">{{ $errors->any() ? old('content') : $post->content }}</textarea>

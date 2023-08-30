@@ -1,4 +1,4 @@
-…@extends('layouts.layout')
+@extends('layouts.layout')
 @section('content')
 <div class="text-center mt-3">
     <p class="text-left d-inline-block">新規ユーザ登録すると投稿で<br>コミュニケーションができるようになります。</p>

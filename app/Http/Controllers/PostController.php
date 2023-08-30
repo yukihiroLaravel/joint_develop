@@ -39,9 +39,11 @@ class PostController extends Controller
      * @return view
      */
     public function showEdit ($id) {
-        $post = Post::find($id);
-
-        return view('posts.edit', ['post' => $post]);
+        $post = Post::where('id', $id)->first();
+        if (Auth::id() === $post->user->id) {
+            return view('posts.edit', ['post' => $post]);
+        }
+        abort(404);
     }
 
     /**
@@ -51,15 +53,11 @@ class PostController extends Controller
      * @return view
      */
     public function updatePost (PostRequest $request, $id) {
-        $inputs = $request->all();
-        $post = Post::find($id);
+        $post = Post::where('id', $id)->first();
         if (Auth::id() === $post->user->id) {
             DB::BeginTransaction();
             try {
-                $post->fill([
-                    'content' => $inputs['content'],
-                    'user_id' => Auth::id(),
-                ]);
+                $post->content = $request->content;
                 $post->save();
                 DB::commit();
             } catch (\Throwable $e) {
