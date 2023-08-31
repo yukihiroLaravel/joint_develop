@@ -13,7 +13,7 @@
                             <div class="mt-3">
                                 <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                             </div>
-                    @elseif ($user->followCheck($user->id))
+                    @elseif (Auth::user()->followCheck($user->id))
                         <div class="mt-3">
                             <form method="POST" action="{{ route('unfollow', $user->id) }}">
                                 @csrf
