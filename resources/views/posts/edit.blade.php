@@ -4,6 +4,7 @@
     <form method="POST" action="{{ route('post.update', $post->id) }}">
         @csrf
         @method('PUT')
+        <div class="form-group mt-5">
             <div class="form-group">
             @include('commons.error_messages')
                 <textarea id="text" class="form-control" name="text" rows="6">{{ old('text', $post->text) }}</textarea>

@@ -15,7 +15,7 @@
                 <div class="text-right d-inline-block w-75 mb-2">
                 <a href="{{ route('post.edit', $post) }}" class="btn btn-primary">編集する</a>
                 </div>
-                @endif
+                @endif    
         </li>
     @endforeach
     </ul>

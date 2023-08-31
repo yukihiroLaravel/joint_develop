@@ -1,10 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Http\Request\PostsRequest;
-
 class PostsController extends Controller
 {
     public function index()
@@ -16,11 +14,9 @@ class PostsController extends Controller
     }
     public function edit($id)
     {
-        $user = \Auth::user();
         $post = Post::findOrFail($id);
         if ($post->user_id === \Auth::id()) {
         $data=[
-            'user' => $user,
             'post' => $post,
         ];
             return view('posts.edit', $data);
@@ -29,14 +25,11 @@ class PostsController extends Controller
     }
     public function update(PostsRequest $request, $id)
     {
-        $post = new Post;
         $post = Post::findOrFail($id);
-        $post->content = $request->content;
+        $post->text = $request->text;
         $post->user_id = $request->user()->id;
         $post->save();
         return redirect('/');
         return back();
     }
 }
-
-
