@@ -19,6 +19,11 @@ class PostController extends Controller
         return view('posts.top', ['posts' => $posts]);
     }
 
+    /**
+     * 新規投稿機能。
+     * @param object $request
+     * @return view
+     */
     public function exePost (PostRequest $request) {
         $inputs = $request->all();
         DB::BeginTransaction();

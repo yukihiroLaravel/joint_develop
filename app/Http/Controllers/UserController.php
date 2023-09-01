@@ -28,11 +28,11 @@ class UserController extends Controller
     /**
      * 更新したユーザー情報をDBへ保存。
      * @param object $request
+     * @param string $id
      * @return view
      */
-    public function updateUser (UserRequest $request) {
+    public function updateUser (UserRequest $request, $id) {
         $inputs = $request->all();
-        $id = $inputs['id'];
         if (Auth::id() === (int)$id) {
             DB::BeginTransaction();
             try {
@@ -70,10 +70,19 @@ class UserController extends Controller
      */
     public function deleteUser ($id) {
         if (Auth::id() === (int)$id) {
+            $user = Auth::user();
             try {
+                $follows = $user->followings()->get();
+                foreach ($follows as $follow) {
+                    $user->followings()->detach($follow['id']);
+                }
+                $follows = $user->followers()->get();
+                foreach ($follows as $follow) {
+                    $follow->followings()->detach($user->id);
+                }
                 User::find($id)->delete();
                 return redirect(route('top'));
-            } catch (\Throwable $th) {
+            } catch (\Throwable $e) {
                 abort(500);
             }
         }
