@@ -88,4 +88,24 @@ class UserController extends Controller
         }
         abort(404);
     }
+
+    /**
+     * フォロー中のユーザーを表示。
+     * @param string $id
+     * @return view
+     */
+    public function showFollowing ($id) {
+        $user = User::find($id);
+        return view('users.following', ['user' => $user]);
+    }
+
+    /**
+     * フォロワーを表示。
+     * @param string $id
+     * @return view
+     */
+    public function showFollowed ($id) {
+        $user = User::find($id);
+        return view('users.followed', ['user' => $user]);
+    }
 }
