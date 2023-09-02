@@ -27,4 +27,11 @@ class PostsRequest extends FormRequest
             'text' => ['required', 'string', 'max:140'],
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'text' => '投稿',
+        ];
+    }
 }

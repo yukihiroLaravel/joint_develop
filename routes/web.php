@@ -23,13 +23,17 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
+    // 投稿
+    Route::prefix('posts')->group(function () {
+        Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
+        Route::put('{id}', 'PostsController@update')->name('post.update');
+    });
     // ユーザ情報編集
     Route::prefix('users')->group(function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
         Route::put('{id}', 'UsersController@update')->name('users.update');
         Route::delete('{id}', 'UsersController@destroy')->name('users.delete');
     });
-
     //投稿新規作成
     Route::prefix('posts')->group(function () {
         Route::post('', 'PostsController@store')->name('post.store');
