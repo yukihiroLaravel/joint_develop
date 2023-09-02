@@ -16,11 +16,11 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
         if ($post->user_id === \Auth::id()) {
-        $data=[
-            'post' => $post,
-        ];
+            $data = [
+                'post' => $post,
+            ];
             return view('posts.edit', $data);
-        }
+    }
         abort(404);
     }
     public function update(PostsRequest $request, $id)
