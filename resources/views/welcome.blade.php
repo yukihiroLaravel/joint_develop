@@ -8,8 +8,13 @@
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
         <form method="POST" action="{{ route('post.store') }}">
         @if(Auth::check())
-            @include('commons.error_messages')
-                @csrf
+            @include('commons.error_messages')            
+            @if (session('successMessage'))
+                 <div class="alert alert-success text-center">
+                        {{ session('successMessage') }}
+                </div> 
+            @endif
+            @csrf
             <div class="text-center mb-3">
                 <div class="w-75 m-auto">
                     <div class="form-group">
