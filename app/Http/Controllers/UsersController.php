@@ -29,5 +29,17 @@ class UsersController extends Controller
         $user->save();
         return back();
     }
+
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
+        $data=[
+            'posts' => $posts,
+            'user' => $user,
+        ];
+        $data += $this->userCounts($user);
+        return view('users.show',$data);
+    }
 }    
 
