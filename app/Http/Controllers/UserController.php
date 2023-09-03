@@ -96,7 +96,8 @@ class UserController extends Controller
      */
     public function showFollowing ($id) {
         $user = User::find($id);
-        return view('users.following', ['user' => $user]);
+        $follows = $user->followings()->get();
+        return view('users.following', ['user' => $user, 'follows' => $follows]);
     }
 
     /**
@@ -106,6 +107,7 @@ class UserController extends Controller
      */
     public function showFollowed ($id) {
         $user = User::find($id);
-        return view('users.followed', ['user' => $user]);
+        $follows = $user->followers()->get();
+        return view('users.followed', ['user' => $user, 'follows' => $follows]);
     }
 }

@@ -32,7 +32,7 @@
     </aside>
     <div class="col-sm-8">
         <ul class="nav nav-tabs nav-justified mb-3">
-            <li class="nav-item"><a href="" class="nav-link {{ Request::route()->named('users.show') ? 'active' : '' }}">タイムライン</a></li>
+            <li class="nav-item"><a href="" class="nav-link {{ Request::routeIs('users.show') ? 'active' : '' }}">タイムライン</a></li>
             <li class="nav-item"><a href="{{ route('users.following', $user->id) }}" class="nav-link">フォロー中</a></li>
             <li class="nav-item"><a href="{{ route('users.followed', $user->id) }}" class="nav-link">フォロワー</a></li>
         </ul>

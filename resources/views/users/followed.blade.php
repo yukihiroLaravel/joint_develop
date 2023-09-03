@@ -34,25 +34,25 @@
         <ul class="nav nav-tabs nav-justified mb-3">
             <li class="nav-item"><a href="{{ route('users.show', $user->id) }}" class="nav-link">タイムライン</a></li>
             <li class="nav-item"><a href="{{ route('users.following', $user->id) }}" class="nav-link">フォロー中</a></li>
-            <li class="nav-item"><a href="" class="nav-link {{ Request::route()->named('users.followed') ? 'active' : '' }}">フォロワー</a></li>
+            <li class="nav-item"><a href="" class="nav-link {{ Request::routeIs('users.followed') ? 'active' : '' }}">フォロワー</a></li>
         </ul>
         <ul class="list-unstyled">
-            @foreach($user->followers()->get() as $follow)
+            @foreach($follows as $follow)
                 <li class="mb-3 text-center">
                     <div class="text-left d-inline-block w-75 mb-2">
                         <img class="mr-2 rounded-circle" src="{{ Gravatar::src($follow->email, 55) }}" alt="ユーザのアバター画像">
-                        <p class="mt-3 mb-0 d-inline-block"><a href="">{{ $follow->name }}</a></p>
+                        <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('users.show', $follow->id) }}">{{ $follow->name }}</a></p>
                     </div>
-                    <div class="">
-                        @if (Auth::id() === $user->id && !Auth::user()->followCheck($follow->id))
+                    @if (Auth::id() === $user->id && !Auth::user()->followCheck($follow->id))
+                        <div class="">
                             <div class="d-flex justify-content-between w-75 pb-3 m-auto">
                                 <form method="POST" action="{{ route('follow', $follow->id) }}">
                                     @csrf
                                     <button type="submit" class="btn btn-primary">フォローする</button>
                                 </form>
                             </div>
-                        @endif
-                    </div>
+                        </div>
+                    @endif
                 </li>
             @endforeach
         </ul>
