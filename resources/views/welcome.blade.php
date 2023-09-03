@@ -9,14 +9,14 @@
         <form method="POST" action="{{ route('post.store') }}">
         @if(Auth::check())
             @include('commons.error_messages')            
-            @if (session('successMessage'))
-                 <div class="alert alert-success text-center">
-                        {{ session('successMessage') }}
-                </div> 
-            @endif
             @csrf
             <div class="text-center mb-3">
                 <div class="w-75 m-auto">
+                    @if (session('successMessage'))
+                    <div class="alert alert-success text-center">
+                            {{ session('successMessage') }}
+                    </div> 
+                    @endif
                     <div class="form-group">
                         <textarea class="form-control" name="text"  rows="4"  value="{{ old('text') }}"></textarea>
                     </div>
