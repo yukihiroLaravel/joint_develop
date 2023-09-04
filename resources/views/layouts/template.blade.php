@@ -32,9 +32,9 @@
     </aside>
 <div class="col-sm-8">
     <ul class="nav nav-tabs nav-justified mb-3">
-        <li class="nav-item"><a href="{{ route('users.show', $user->id) }}" class="nav-link @yield('link1')">タイムライン</a></li>
-        <li class="nav-item"><a href="{{ route('users.following', $user->id) }}" class="nav-link @yield('link2')">フォロー中</a></li>
-        <li class="nav-item"><a href="{{ route('users.followed', $user->id) }}" class="nav-link @yield('link3')">フォロワー</a></li>
+        <li class="nav-item"><a href="{{ route('users.show', $user->id) }}" class="nav-link {{ Request::routeIs('users.show') ? 'active' : '' }}">タイムライン</a></li>
+        <li class="nav-item"><a href="{{ route('users.following', $user->id) }}" class="nav-link {{ Request::routeIs('users.following') ? 'active' : '' }}">フォロー中</a></li>
+        <li class="nav-item"><a href="{{ route('users.followed', $user->id) }}" class="nav-link {{ Request::routeIs('users.followed') ? 'active' : '' }}">フォロワー</a></li>
     </ul>
          @yield('tab')
         <div class="m-auto" style="width: fit-content"></div>

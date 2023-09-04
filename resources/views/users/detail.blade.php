@@ -1,5 +1,4 @@
 @extends('layouts.template')
-@section('link1', Request::routeIs('users.show') ? 'active' : '')
 @section('tab')
 <ul class="list-unstyled">
     @foreach($user->posts()->get() as $post)

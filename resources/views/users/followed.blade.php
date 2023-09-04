@@ -1,5 +1,4 @@
 @extends('layouts.template')
-@section('link3', Request::routeIs('users.followed') ? 'active' : '')
 @section('tab')
 <ul class="list-unstyled">
     @foreach($follows as $follow)
