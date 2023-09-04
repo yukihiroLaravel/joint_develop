@@ -12,6 +12,14 @@ class PostsController extends Controller
             'posts' => $posts,
         ]);
     }
+    public function store(PostsRequest $request)
+    {
+        $post = new Post;
+        $post->user_id = $request->user()->id;
+        $post->text = $request->text;
+        $post->save();
+        return back()->with('successMessage', '登録に成功しました。');
+    }
     public function edit($id)
     {
         $post = Post::findOrFail($id);
