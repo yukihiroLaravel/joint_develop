@@ -29,6 +29,8 @@ Route::prefix('auth/register')->group(function () {
 Route::prefix('users')->group(function () {
     Route::prefix('{id}')->group(function () {
         Route::get('/', 'UserController@showDetail')->name('users.show'); 
+        Route::get('following', 'UserController@showFollowing')->name('users.following');
+        Route::get('followed', 'UserController@showFollowed')->name('users.followed');
         Route::group(['middleware' => 'auth'], function () {
             Route::get('edit', 'UserController@showEdit')->name('users.edit'); 
             Route::post('update', 'UserController@updateUser')->name('users.update');

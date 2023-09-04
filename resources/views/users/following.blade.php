@@ -32,35 +32,31 @@
     </aside>
     <div class="col-sm-8">
         <ul class="nav nav-tabs nav-justified mb-3">
-            <li class="nav-item"><a href="" class="nav-link {{ Request::routeIs('users.show') ? 'active' : '' }}">タイムライン</a></li>
-            <li class="nav-item"><a href="{{ route('users.following', $user->id) }}" class="nav-link">フォロー中</a></li>
+            <li class="nav-item"><a href="{{ route('users.show', $user->id) }}" class="nav-link">タイムライン</a></li>
+            <li class="nav-item"><a href="" class="nav-link {{ Request::routeIs('users.following') ? 'active' : '' }}">フォロー中</a></li>
             <li class="nav-item"><a href="{{ route('users.followed', $user->id) }}" class="nav-link">フォロワー</a></li>
         </ul>
         <ul class="list-unstyled">
-            @foreach($user->posts()->get() as $post)
+            @foreach($follows as $follow)
                 <li class="mb-3 text-center">
                     <div class="text-left d-inline-block w-75 mb-2">
-                        <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
-                        <p class="mt-3 mb-0 d-inline-block"><a href="">{{ $user->name }}</a></p>
+                        <img class="mr-2 rounded-circle" src="{{ Gravatar::src($follow->email, 55) }}" alt="ユーザのアバター画像">
+                        <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('users.show', $follow->id) }}">{{ $follow->name }}</a></p>
                     </div>
-                    <div class="">
-                        <div class="text-left d-inline-block w-75">
-                            <p class="mb-2">{{ $post->content }}</p>
-                            <p class="text-muted">{{ $post->created_at }}</p>
-                        </div>
-                        @if (Auth::id() === $user->id)
+                    @if (Auth::id() === $user->id)
+                        <div class="">
                             <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                                <form method="" action="">
-                                    <button type="submit" class="btn btn-danger">削除</button>
+                                <form method="POST" action="{{ route('unfollow', $follow->id) }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary">フォローを解除する</button>
                                 </form>
-                                <a href="" class="btn btn-primary">編集する</a>
                             </div>
-                        @endif
-                    </div>
+                        </div>
+                    @endif
                 </li>
             @endforeach
         </ul>
         <div class="m-auto" style="width: fit-content"></div>
     </div>
 </div>
-@endsection 
+@endsection     
