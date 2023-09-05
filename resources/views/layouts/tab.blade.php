@@ -36,8 +36,7 @@
         <li class="nav-item"><a href="{{ route('users.following', $user->id) }}" class="nav-link {{ Request::routeIs('users.following') ? 'active' : '' }}">フォロー中</a></li>
         <li class="nav-item"><a href="{{ route('users.followed', $user->id) }}" class="nav-link {{ Request::routeIs('users.followed') ? 'active' : '' }}">フォロワー</a></li>
     </ul>
-         @yield('tab')
-        <div class="m-auto" style="width: fit-content"></div>
+        @yield('tab')
     </div>
 </div>
 @endsection

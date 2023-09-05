@@ -1,4 +1,4 @@
-@extends('layouts.template')
+@extends('layouts.tab')
 @section('tab')
 <ul class="list-unstyled">
     @foreach($user->posts()->get() as $post)
