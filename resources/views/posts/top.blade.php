@@ -6,10 +6,20 @@
     </div>
 </div>
 <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
+@if(session('msg'))
+        <div class="alert alert-danger" role="alert">
+            {{ session('msg') }}
+        </div>  
+    @endif
 @if (Auth::check())
 <div class="w-75 m-auto">
     @if($errors->any())
         @include('layouts.err')
+    @endif
+    @if(session('msg'))
+        <div class="alert alert-primary" role="alert">
+            {{ session('msg') }}
+        </div>  
     @endif
 </div>
 <div class="text-center mb-3">

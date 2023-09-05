@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\user;
 use App\Post;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -48,6 +49,7 @@ class UserController extends Controller
                 DB::rollBack();
                 abort(500);
             }
+            Session::flash('msg', 'ユーザー情報を更新しました！');
             return redirect(route('users.show' ,$id));
         }
         abort(404);
@@ -81,6 +83,7 @@ class UserController extends Controller
                     $follow->followings()->detach($user->id);
                 }
                 User::find($id)->delete();
+                Session::flash('msg', 'Topic Postsを退会しました！');
                 return redirect(route('top'));
             } catch (\Throwable $e) {
                 abort(500);

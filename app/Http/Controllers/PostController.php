@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class PostController extends Controller
 {
@@ -34,6 +35,7 @@ class PostController extends Controller
             DB::rollBack();
             abort(500);
         }
+        Session::flash('msg', '投稿しました！');
         return redirect (route('top'));
     }
 }

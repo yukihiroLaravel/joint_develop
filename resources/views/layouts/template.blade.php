@@ -1,5 +1,10 @@
 @extends('layouts.layout')
 @section('content')
+@if(session('msg'))
+    <div class="alert alert-success" role="alert">
+        {{ session('msg') }}
+    </div>  
+@endif
 <div class="row">
     <aside class="col-sm-4 mb-5">
         <div class="card bg-info">
