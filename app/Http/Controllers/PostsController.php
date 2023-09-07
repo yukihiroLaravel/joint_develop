@@ -47,6 +47,6 @@ class PostsController extends Controller
         if (\Auth::id() === $post->user_id) {
             $post->delete();
         }
-        return back();
+        return redirect('/')->with('postsDestroyMessage', '投稿削除に成功しました。');
     }
 }
