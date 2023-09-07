@@ -71,7 +71,6 @@ class User extends Authenticatable
     /**
      * ユーザーをフォローする処理。
      * @param string $id
-     * @return view
      */
     public function follow($id) {
         DB::BeginTransaction();
@@ -91,7 +90,6 @@ class User extends Authenticatable
     /**
      * フォローを解除する処理。
      * @param string $id
-     * @return view
      */
     public function unfollow($id) {
         if (Auth::id() !== (int)$id && $this->followCheck($id)) {
@@ -108,9 +106,62 @@ class User extends Authenticatable
     /**
      * フォロー状態を確認する。
      * @param string $id
-     * @return view
+     * @return boolean
      */
     public function followCheck ($id) {
         return $this->followings()->where('followed_id', $id)->exists();
     }
+
+    public function tweets() {
+        return $this->belongsToMany(Post::class, 'favorites', 'user_id', 'post_id');
+    }
+
+    /**
+     * いいねする。
+     * @param string $id
+     */
+    public function like ($id) {
+        DB::BeginTransaction();
+        if (Auth::id() !== (int)$id && !$this->likeCheck($id)) {
+            try {
+                $this->tweets()->attach($id);
+                DB::commit();
+            } catch (\Throwable $e) {
+                DB::rollBack();
+                abort(500);
+            }
+            return;
+        }
+        abort(404);
+    }
+
+    /**
+     * いいねを解除する。
+     * @param string $id
+     */
+    public function dislike ($id) {
+        DB::BeginTransaction();
+        if (Auth::id() !== (int)$id && $this->likeCheck($id)) {
+            try {
+                $this->tweets()->detach($id);
+                DB::commit();
+            } catch (\Throwable $e) {
+                DB::rollBack();
+                abort(500);
+            }
+            return;
+        }
+        abort(404);
+    }
+
+    /**
+     * いいね状態を確認する。
+     * @param string $id
+     * @return boolean
+     */
+    public function likeCheck ($id) {
+        return $this->tweets()->where('post_id', $id)->exists();
+    }
+
 }
+
