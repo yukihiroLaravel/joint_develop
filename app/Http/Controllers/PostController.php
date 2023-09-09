@@ -39,7 +39,7 @@ class PostController extends Controller
      * @return view
      */
     public function showEdit ($id) {
-        $post = Post::where('id', $id)->first();
+        $post = Post::findOrFail($id);
         if (Auth::id() === $post->user->id) {
             return view('posts.edit', ['post' => $post]);
         }
@@ -53,7 +53,7 @@ class PostController extends Controller
      * @return view
      */
     public function updatePost (PostRequest $request, $id) {
-        $post = Post::where('id', $id)->first();
+        $post = Post::findOrFail($id);
         if (Auth::id() === $post->user->id) {
             DB::BeginTransaction();
             try {
