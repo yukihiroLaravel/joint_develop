@@ -39,4 +39,13 @@ class PostsController extends Controller
         $post->save();
         return redirect('/')->with('postsUpdateMessage', '投稿編集に成功しました。');
     }
+
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            $post->delete();
+        }
+        return redirect('/')->with('postsDestroyMessage', '投稿削除に成功しました。');
+    }
 }

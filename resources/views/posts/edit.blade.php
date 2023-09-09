@@ -8,7 +8,14 @@
             <div class="form-group">
             @include('commons.error_messages')
                 <textarea id="text" class="form-control" name="text" rows="6">{{ old('text', $post->text) }}</textarea>
-            </div>        
+            </div>
+            @if (session('postsDestroyMessage'))
+                <div class="w-75 m-auto">
+                    <div class="alert alert-success text-center">
+                        {{ session('postsDestroyMessage') }}
+                    </div>
+                </div>
+            @endif
             <button type="submit" class="btn btn-primary">更新する</button>
         </div>
     </form>
