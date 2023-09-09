@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -35,5 +36,41 @@ class PostController extends Controller
             abort(500);
         }
         return redirect (route('top'));
+    }
+
+    /**
+     * 投稿編集画面を表示。
+     * @param string $id
+     * @return view
+     */
+    public function showEdit ($id) {
+        $post = Post::findOrFail($id);
+        if (Auth::id() === $post->user->id) {
+            return view('posts.edit', ['post' => $post]);
+        }
+        abort(404);
+    }
+
+    /**
+     * 投稿編集内容をDBに保存。
+     * @param　 object $request
+     * @param string $id
+     * @return view
+     */
+    public function updatePost (PostRequest $request, $id) {
+        $post = Post::findOrFail($id);
+        if (Auth::id() === $post->user->id) {
+            DB::BeginTransaction();
+            try {
+                $post->content = $request->content;
+                $post->save();
+                DB::commit();
+            } catch (\Throwable $e) {
+                DB::rollBack();
+                abort(500);
+            }
+            return redirect(route('top'));
+        }
+        abort(404);
     }
 }

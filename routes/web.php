@@ -15,6 +15,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'PostController@showTop')->name('top');
 
+Route::prefix('posts')->group(function () {
+    Route::prefix('{id}')->group(function () {
+        Route::get('/', 'PostController@showEdit')->name('posts.edit');
+        Route::put('/', 'PostController@updatePost')->name('posts.update');
+    });
+});
+
+// Route::get('posts/{id}', 'PostController@showEdit')->name('posts.edit');
+// Route::put('posts/{id}', 'PostController@updatePost')->name('posts.update');
+
+
+
 Route::prefix('login')->group(function () {
     Route::get('/', 'Auth\LoginController@showLoginForm')->name('loginform');
     Route::post('/', 'Auth\LoginController@login')->name('login');
