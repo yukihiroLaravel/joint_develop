@@ -4,9 +4,8 @@
 @if($errors->any())
     @include('layouts.err')
 @endif
-<form method="POST" action="{{ route('users.update') }}">
+<form method="POST" action="{{ route('users.update', $user->id) }}">
     @csrf
-    <input type="hidden" name="id" value="{{ $user->id }}" />
     <div class="form-group">
         <label for="name">ユーザ名</label>
         <input class="form-control" value="{{ $errors->any() ? old('name') : $user->name }}" name="name" />

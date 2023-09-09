@@ -6,6 +6,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\FollowUser;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -51,5 +54,63 @@ class User extends Authenticatable
         static::deleted(function ($user) {
             $user->posts()->delete();
         });
+    }
+
+    //user_idに該当するユーザーがフォローしているユーザー達の情報を全て取得する。
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'follow_users', 'user_id', 'followed_id');
+    }
+
+    //followed_idに該当するユーザーをフォローしているユーザー達の情報を全て取得する。
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follow_users', 'followed_id', 'user_id');
+    }
+
+    /**
+     * ユーザーをフォローする処理。
+     * @param string $id
+     * @return view
+     */
+    public function follow($id) {
+        DB::BeginTransaction();
+        if (Auth::id() !== (int)$id && !$this->followCheck($id)) {
+            try {
+                $this->followings()->attach($id);
+                DB::commit();
+            } catch (\Throwable $e) {
+                DB::rollBack();
+                abort(500);
+            }
+            return;
+        }
+        abort(404);
+    }
+
+    /**
+     * フォローを解除する処理。
+     * @param string $id
+     * @return view
+     */
+    public function unfollow($id) {
+        if (Auth::id() !== (int)$id && $this->followCheck($id)) {
+            try {
+                $this->followings()->detach($id);
+            } catch (\Throwable $e) {
+                abort(500);
+            }
+            return;
+        }
+        abort(404);
+    }
+
+    /**
+     * フォロー状態を確認する。
+     * @param string $id
+     * @return view
+     */
+    public function followCheck ($id) {
+        return $this->followings()->where('followed_id', $id)->exists();
     }
 }
