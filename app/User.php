@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\FollowUser;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Post;
 
 class User extends Authenticatable
 {
@@ -121,14 +122,15 @@ class User extends Authenticatable
      * @param string $id
      */
     public function like ($id) {
+        $post = Post::find($id);
         DB::BeginTransaction();
-        if (Auth::id() !== (int)$id && !$this->likeCheck($id)) {
+        if (Auth::id() !== $post->User_id && !$this->likeCheck($id)) {
             try {
                 $this->tweets()->attach($id);
                 DB::commit();
             } catch (\Throwable $e) {
                 DB::rollBack();
-                abort(500);
+                abort(500); 
             }
             return;
         }
@@ -140,13 +142,11 @@ class User extends Authenticatable
      * @param string $id
      */
     public function dislike ($id) {
-        DB::BeginTransaction();
-        if (Auth::id() !== (int)$id && $this->likeCheck($id)) {
+        $post = Post::find($id);
+        if (Auth::id() !== $post->user_id && $this->likeCheck($id)) {
             try {
                 $this->tweets()->detach($id);
-                DB::commit();
             } catch (\Throwable $e) {
-                DB::rollBack();
                 abort(500);
             }
             return;
