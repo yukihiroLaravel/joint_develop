@@ -13,6 +13,12 @@
             <div class="text-center mb-3">
                 <div class="w-75 m-auto">
                     @if (session('successMessage'))
+                        <div class="alert alert-success text-center">
+                                {{ session('successMessage') }}
+                        </div> 
+                    @elseif(session('postsUpdateMessage'))
+                        <div class="alert alert-success text-center">
+                                {{ session('postsUpdateMessage') }}
                     <div class="alert alert-success text-center">
                         {{ session('successMessage') }}
                     </div> 
@@ -31,6 +37,13 @@
             </div>  
         </form>
         @endif
+        <div class="w-75 m-auto">
+            @if(session('usersdestroyMessage'))
+                <div class="alert alert-success text-center">
+                    {{ session('usersdestroyMessage') }}
+                </div> 
+            @endif     
+        </div>           
     @include('posts.posts', ['posts' => $posts]) 
 @endsection
 

@@ -37,8 +37,7 @@ class PostsController extends Controller
         $post->text = $request->text;
         $post->user_id = $request->user()->id;
         $post->save();
-        return redirect('/');
-        return back();
+        return redirect('/')->with('postsUpdateMessage', '投稿編集に成功しました。');
     }
 
     public function destroy($id)

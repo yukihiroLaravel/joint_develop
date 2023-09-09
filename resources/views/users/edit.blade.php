@@ -5,7 +5,13 @@
     <form method="POST" action="{{ route('users.update', $user->id) }}">
 
 @include('commons.error_messages')
-
+    <div class="m-auto">
+        @if (session('usersUpdateMessage'))
+            <div class="alert alert-success text-center">
+                {{ session('usersUpdateMessage') }}
+            </div> 
+        @endif
+    </div>
 @csrf
 @method('PUT')
     <input type="hidden" name="id" value="" />
