@@ -14,8 +14,12 @@
                 <div class="w-75 m-auto">
                     @if (session('successMessage'))
                     <div class="alert alert-success text-center">
-                            {{ session('successMessage') }}
+                        {{ session('successMessage') }}
                     </div> 
+                    @elseif(session('postsDestroyMessage'))
+                        <div class="alert alert-success text-center">
+                            {{ session('postsDestroyMessage') }}
+                        </div> 
                     @endif
                     <div class="form-group">
                         <textarea class="form-control" name="text"  rows="4"  value="{{ old('text') }}"></textarea>
