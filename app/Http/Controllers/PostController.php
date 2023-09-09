@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -31,4 +32,23 @@ class PostController extends Controller
         }
         return redirect (route('top'));
     }
+
+    /**
+     * 投稿データを論理削除。
+     * @param string $id
+     * @return view
+     */
+    public function deletePost ($id) {
+        $post = Post::find($id);
+        if (Auth::id() === $post->user->id) {
+            try {
+                $post->delete();
+                return back();
+            } catch (\Throwable $th) {
+                abort(500);
+            }
+        }
+        abort(404);
+    }
+    
 }

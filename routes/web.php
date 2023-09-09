@@ -25,6 +25,7 @@ Route::get('users/{id}', 'UserController@showDetail')->name('users.show');
 Route::get('users/{id}/edit', 'UserController@showEdit')->name('users.edit');
 Route::post('update/user', 'UserController@updateUser')->name('users.update');
 Route::post('users/delete/{id}', 'UserController@deleteUser')->name('users.delete');
+Route::post('posts/{id}/delete', 'PostController@deletePost')->name('posts.delete');
 
 // Route::get('/', function () {
 //     return view('welcome');
