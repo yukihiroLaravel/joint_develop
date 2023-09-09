@@ -5,7 +5,7 @@
     <form method="POST" action="{{ route('users.update', $user->id) }}">
 
 @include('commons.error_messages')
-    <div class="w-75 m-auto">
+    <div class="m-auto">
         @if (session('usersUpdateMessage'))
             <div class="alert alert-success text-center">
                 {{ session('usersUpdateMessage') }}
