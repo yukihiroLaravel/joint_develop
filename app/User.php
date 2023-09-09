@@ -122,9 +122,9 @@ class User extends Authenticatable
      * @param string $id
      */
     public function like ($id) {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         DB::BeginTransaction();
-        if (Auth::id() !== $post->User_id && !$this->likeCheck($id)) {
+        if (Auth::id() !== $post->user_id && !$this->likeCheck($id)) {
             try {
                 $this->tweets()->attach($id);
                 DB::commit();
@@ -142,7 +142,7 @@ class User extends Authenticatable
      * @param string $id
      */
     public function dislike ($id) {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         if (Auth::id() !== $post->user_id && $this->likeCheck($id)) {
             try {
                 $this->tweets()->detach($id);
