@@ -20,6 +20,11 @@ class PostController extends Controller
         return view('posts.top', ['posts' => $posts]);
     }
 
+    /**
+     * 新規投稿機能。
+     * @param object $request
+     * @return view
+     */
     public function exePost (PostRequest $request) {
         $inputs = $request->all();
         DB::BeginTransaction();
@@ -39,7 +44,7 @@ class PostController extends Controller
      * @return view
      */
     public function deletePost ($id) {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         if (Auth::id() === $post->user->id) {
             try {
                 $post->delete();
@@ -51,4 +56,39 @@ class PostController extends Controller
         abort(404);
     }
     
+    /**
+     * 投稿編集画面を表示。
+     * @param string $id
+     * @return view
+     */
+    public function showEdit ($id) {
+        $post = Post::findOrFail($id);
+        if (Auth::id() === $post->user->id) {
+            return view('posts.edit', ['post' => $post]);
+        }
+        abort(404);
+    }
+
+    /**
+     * 投稿編集内容をDBに保存。
+     * @param　 object $request
+     * @param string $id
+     * @return view
+     */
+    public function updatePost (PostRequest $request, $id) {
+        $post = Post::findOrFail($id);
+        if (Auth::id() === $post->user->id) {
+            DB::BeginTransaction();
+            try {
+                $post->content = $request->content;
+                $post->save();
+                DB::commit();
+            } catch (\Throwable $e) {
+                DB::rollBack();
+                abort(500);
+            }
+            return redirect(route('top'));
+        }
+        abort(404);
+    }
 }

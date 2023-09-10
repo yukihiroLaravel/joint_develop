@@ -13,7 +13,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
 
-        for ($i=1; $i <=2 ; $i++) { 
+        for ($i=1; $i <=5 ; $i++) { 
             DB::table('users')->insert([
                 [
                     'name' => 'テストユーザー' . $i,
