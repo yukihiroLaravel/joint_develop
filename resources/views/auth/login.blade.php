@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="text-center">
-    <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
+    <h1><i class="fab fa-telegram fa-lg pr-3"></i>生活の知恵袋</h1>
 </div>
 <div class="text-center mt-3">
     <p class="text-left d-inline-block">ログインすると投稿で<br>コミュニケーションができるようになります。</p>
