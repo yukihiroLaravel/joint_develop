@@ -17,15 +17,12 @@ Route::get('/', 'PostController@showTop')->name('top');
 
 Route::prefix('posts')->group(function () {
     Route::prefix('{id}')->group(function () {
-        Route::get('/', 'PostController@showEdit')->name('posts.edit');
-        Route::put('/', 'PostController@updatePost')->name('posts.update');
+        Route::group(['middleware' => 'auth'], function () {
+            Route::get('/', 'PostController@showEdit')->name('posts.edit');
+            Route::put('/', 'PostController@updatePost')->name('posts.update');
+        });
     });
 });
-
-// Route::get('posts/{id}', 'PostController@showEdit')->name('posts.edit');
-// Route::put('posts/{id}', 'PostController@updatePost')->name('posts.update');
-
-
 
 Route::prefix('login')->group(function () {
     Route::get('/', 'Auth\LoginController@showLoginForm')->name('loginform');
@@ -49,6 +46,8 @@ Route::prefix('users')->group(function () {
             Route::post('delete', 'UserController@deleteUser')->name('users.delete'); 
             Route::post('follow', 'FollowUserController@exeFollow')->name('follow'); 
             Route::post('unfollow', 'FollowUserController@exeUnfollow')->name('unfollow');
+            Route::post('like', 'LikeController@exeLike')->name('like');
+            Route::post('dislike', 'LikeController@exeDislike')->name('dislike');
         });
     }); 
 });
