@@ -47,6 +47,8 @@ Route::prefix('users')->group(function () {
             Route::post('delete', 'UserController@deleteUser')->name('users.delete'); 
             Route::post('follow', 'FollowUserController@exeFollow')->name('follow'); 
             Route::post('unfollow', 'FollowUserController@exeUnfollow')->name('unfollow');
+            Route::post('like', 'LikeController@exeLike')->name('like');
+            Route::post('dislike', 'LikeController@exeDislike')->name('dislike');
         });
     }); 
 });
