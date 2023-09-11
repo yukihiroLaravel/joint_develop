@@ -15,7 +15,9 @@
                 </div>
                 @if (Auth::id() === $user->id)
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                        <form method="" action="">
+                        <form method="POST" action="{{ route('posts.delete', $post->id) }}">
+                            @csrf
+                            @method('delete')
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>
                         <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">編集する</a>
@@ -26,4 +28,3 @@
     @endforeach
 </ul>
 @endsection
-
