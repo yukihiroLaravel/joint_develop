@@ -20,7 +20,7 @@ Route::prefix('posts')->group(function () {
         Route::group(['middleware' => 'auth'], function () {
             Route::get('/', 'PostController@showEdit')->name('posts.edit');
             Route::put('/', 'PostController@updatePost')->name('posts.update');
-            Route::post('delete', 'PostController@deletePost')->name('posts.delete');
+            Route::delete('delete', 'PostController@deletePost')->name('posts.delete');
         });
     });
 });

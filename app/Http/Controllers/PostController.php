@@ -45,7 +45,7 @@ class PostController extends Controller
      */
     public function deletePost ($id) {
         $post = Post::findOrFail($id);
-        if (Auth::id() === $post->user->id) {
+        if (Auth::id() === $post->user_id) {
             try {
                 $post->delete();
                 return back();
@@ -63,7 +63,7 @@ class PostController extends Controller
      */
     public function showEdit ($id) {
         $post = Post::findOrFail($id);
-        if (Auth::id() === $post->user->id) {
+        if (Auth::id() === $post->user_id) {
             return view('posts.edit', ['post' => $post]);
         }
         abort(404);
@@ -77,7 +77,7 @@ class PostController extends Controller
      */
     public function updatePost (PostRequest $request, $id) {
         $post = Post::findOrFail($id);
-        if (Auth::id() === $post->user->id) {
+        if (Auth::id() === $post->user_id) {
             DB::BeginTransaction();
             try {
                 $post->content = $request->content;
