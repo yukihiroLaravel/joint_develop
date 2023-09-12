@@ -1,5 +1,4 @@
-@extends('layouts.template')
-@section('link1', Request::routeIs('users.show') ? 'active' : '')
+@extends('layouts.tab')
 @section('tab')
 <ul class="list-unstyled">
     @foreach($user->posts()->get() as $post)
@@ -12,13 +11,16 @@
                 <div class="text-left d-inline-block w-75">
                     <p class="mb-2">{{ $post->content }}</p>
                     <p class="text-muted">{{ $post->created_at }}</p>
+                    @include('layouts.like')
                 </div>
                 @if (Auth::id() === $user->id)
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                        <form method="" action="">
+                        <form method="POST" action="{{ route('posts.delete', $post->id) }}">
+                            @csrf
+                            @method('delete')
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>
-                        <a href="" class="btn btn-primary">編集する</a>
+                        <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
             </div>

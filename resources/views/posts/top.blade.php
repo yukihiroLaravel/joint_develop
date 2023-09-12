@@ -6,20 +6,11 @@
     </div>
 </div>
 <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
-@if(session('msg'))
-        <div class="alert alert-danger" role="alert">
-            {{ session('msg') }}
-        </div>  
-    @endif
+@include('layouts.flash')
 @if (Auth::check())
 <div class="w-75 m-auto">
     @if($errors->any())
         @include('layouts.err')
-    @endif
-    @if(session('msg'))
-        <div class="alert alert-primary" role="alert">
-            {{ session('msg') }}
-        </div>  
     @endif
 </div>
 <div class="text-center mb-3">
@@ -46,13 +37,16 @@
                 <div class="text-left d-inline-block w-75">
                     <p class="mb-2">{{ $post->content }}</p>
                     <p class="text-muted">{{ $post->created_at }}</p>
+                    @include('layouts.like')
                 </div>
                 @if (Auth::id() === $post->user_id)
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                        <form method="" action="">
+                        <form method="POST" action="{{ route('posts.delete', $post->id) }}">
+                            @csrf
+                            @method('delete')
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>
-                        <a href="" class="btn btn-primary">編集する</a>
+                        <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
             </div>

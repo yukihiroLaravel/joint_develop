@@ -15,6 +15,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'PostController@showTop')->name('top');
 
+Route::prefix('posts')->group(function () {
+    Route::prefix('{id}')->group(function () {
+        Route::group(['middleware' => 'auth'], function () {
+            Route::get('/', 'PostController@showEdit')->name('posts.edit');
+            Route::put('/', 'PostController@updatePost')->name('posts.update');
+            Route::delete('delete', 'PostController@deletePost')->name('posts.delete');
+        });
+    });
+});
+
 Route::prefix('login')->group(function () {
     Route::get('/', 'Auth\LoginController@showLoginForm')->name('loginform');
     Route::post('/', 'Auth\LoginController@login')->name('login');
@@ -37,6 +47,8 @@ Route::prefix('users')->group(function () {
             Route::post('delete', 'UserController@deleteUser')->name('users.delete'); 
             Route::post('follow', 'FollowUserController@exeFollow')->name('follow'); 
             Route::post('unfollow', 'FollowUserController@exeUnfollow')->name('unfollow');
+            Route::post('like', 'LikeController@exeLike')->name('like');
+            Route::post('dislike', 'LikeController@exeDislike')->name('dislike');
         });
     }); 
 });

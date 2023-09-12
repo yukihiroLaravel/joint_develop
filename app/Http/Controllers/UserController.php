@@ -49,7 +49,7 @@ class UserController extends Controller
                 DB::rollBack();
                 abort(500);
             }
-            Session::flash('msg', 'ユーザー情報を更新しました！');
+            Session::flash('msg', 'ユーザ情報を更新しました！');
             return redirect(route('users.show' ,$id));
         }
         abort(404);
@@ -66,7 +66,7 @@ class UserController extends Controller
     }
 
     /**
-     * ユーザーを論理削除。
+     * ユーザーを論理削除し、そのユーザーに関するフォローデータといいねデータも削除。
      * @param string $id
      * @return view
      */
@@ -74,6 +74,16 @@ class UserController extends Controller
         if (Auth::id() === (int)$id) {
             $user = Auth::user();
             try {
+                $posts = $user->posts()->get();
+                foreach ($posts as $post) {
+                    foreach ($post->users()->get() as $liker) {
+                        $post->users()->detach($liker->id);
+                    }
+                }
+                $favorites = $user->tweets()->get();
+                foreach ($favorites as $favorite) {
+                    $user->tweets()->detach($favorite->id);
+                }
                 $follows = $user->followings()->get();
                 foreach ($follows as $follow) {
                     $user->followings()->detach($follow['id']);
@@ -83,7 +93,7 @@ class UserController extends Controller
                     $follow->followings()->detach($user->id);
                 }
                 User::find($id)->delete();
-                Session::flash('msg', 'Topic Postsを退会しました！');
+                Session::flash('msg_danger', 'ユーザを削除しました！');
                 return redirect(route('top'));
             } catch (\Throwable $e) {
                 abort(500);
@@ -100,7 +110,7 @@ class UserController extends Controller
     public function showFollowing ($id) {
         $user = User::find($id);
         $follows = $user->followings()->get();
-        return view('users.following', ['user' => $user, 'follows' => $follows]);
+        return view('users.follow', ['user' => $user, 'follows' => $follows]);
     }
 
     /**
@@ -111,6 +121,7 @@ class UserController extends Controller
     public function showFollowed ($id) {
         $user = User::find($id);
         $follows = $user->followers()->get();
-        return view('users.followed', ['user' => $user, 'follows' => $follows]);
+        return view('users.follow', ['user' => $user, 'follows' => $follows]);
     }
 }
+    
