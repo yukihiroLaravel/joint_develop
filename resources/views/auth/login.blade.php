@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 @section('content')
 <div class="text-center">
-    <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
+    <h1><i class="fab fa-telegram fa-lg pr-3"></i>Golffer</h1>
 </div>
 <div class="text-center mt-3">
     <p class="text-left d-inline-block">ログインすると投稿で<br>コミュニケーションができるようになります。</p>
@@ -24,9 +24,9 @@
                 <label for="password">パスワード</label>
                 <input id="password" type="password" class="form-control" name="password" value="">
             </div>
-            <button type="submit" class="btn btn-primary mt-2">ログイン</button>
+            <button type="submit" class="btn btn-success mt-2">ログイン</button>
         </form>
-        <div class="mt-2"><a href="">新規ユーザ登録する？</a></div>
+        <div class="mt-2"><a href="{{ route('signup') }}">新規ゴルファー登録する？</a></div>
     </div>
 </div>
 @endsection

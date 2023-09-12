@@ -1,13 +1,13 @@
 @extends('layouts.layout')
 @section('content')
-<h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
+<h2 class="mt-5 mb-3">ゴルファー情報を編集する</h2>
 @if($errors->any())
     @include('layouts.err')
 @endif
 <form method="POST" action="{{ route('users.update', $user->id) }}">
     @csrf
     <div class="form-group">
-        <label for="name">ユーザ名</label>
+        <label for="name">ゴルファー名</label>
         <input class="form-control" value="{{ $errors->any() ? old('name') : $user->name }}" name="name" />
     </div>
 
@@ -27,8 +27,8 @@
     </div>
 
     <div class="d-flex justify-content-between">
-        <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">退会する</a>
-        <button type="submit" class="btn btn-primary">更新する</button>
+        <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">引退する</a>
+        <button type="submit" class="btn btn-success">更新する</button>
     </div>
 </form>
 <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
@@ -38,12 +38,12 @@
                 <h4>確認</h4>
             </div>
             <div class="modal-body">
-                <label>本当に退会しますか？</label>
+                <label>本当にゴルファーを引退しますか？</label>
             </div>
             <div class="modal-footer d-flex justify-content-between">
                 <form action="{{ route('users.delete', $user->id) }}" method="POST">
                     @csrf
-                    <button type="submit" class="btn btn-danger">退会する</button>
+                    <button type="submit" class="btn btn-danger">引退する</button>
                 </form>
                 <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
             </div>
