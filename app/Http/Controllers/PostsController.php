@@ -1,10 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
-use App\Http\Request\PostsRequest; 
-
+use App\Http\Request\PostsRequest;
 class PostsController extends Controller
 {
     public function index()
@@ -14,13 +12,40 @@ class PostsController extends Controller
             'posts' => $posts,
         ]);
     }
-
     public function store(PostsRequest $request)
     {
         $post = new Post;
         $post->user_id = $request->user()->id;
         $post->text = $request->text;
         $post->save();
-        return back();
+        return back()->with('successMessage', '登録に成功しました。');
+    }
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id);
+        if ($post->user_id === \Auth::id()) {
+                $data = [
+                    'post' => $post,
+                ];
+                return view('posts.edit', $data);
+        }
+        abort(404);
+    }
+    public function update(PostsRequest $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        $post->text = $request->text;
+        $post->user_id = $request->user()->id;
+        $post->save();
+        return redirect('/')->with('postsUpdateMessage', '投稿編集に成功しました。');
+    }
+
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            $post->delete();
+        }
+        return redirect('/')->with('postsDestroyMessage', '投稿削除に成功しました。');
     }
 }

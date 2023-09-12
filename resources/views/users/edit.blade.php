@@ -5,7 +5,13 @@
     <form method="POST" action="{{ route('users.update', $user->id) }}">
 
 @include('commons.error_messages')
-
+    <div class="m-auto">
+        @if (session('usersUpdateMessage'))
+            <div class="alert alert-success text-center">
+                {{ session('usersUpdateMessage') }}
+            </div> 
+        @endif
+    </div>
 @csrf
 @method('PUT')
     <input type="hidden" name="id" value="" />
@@ -45,7 +51,9 @@
                     <label>本当に退会しますか？</label>
                 </div>
                 <div class="modal-footer d-flex justify-content-between">
-                    <form action="" method="POST">
+                    <form method="POST" action="{{ route('users.delete', $user->id) }}" >
+                        @csrf
+                        @method('DELETE')
                         <button type="submit" class="btn btn-danger">退会する</button>
                     </form>
                     <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>

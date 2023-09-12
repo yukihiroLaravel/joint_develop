@@ -24,12 +24,18 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('users/{id}', 'UsersController@show')->name('user.show');
 
 // ログイン後
-Route::group(['middleware' => 'auth'], function () 
-{
+Route::group(['middleware' => 'auth'], function () {
+    // 投稿
+    Route::prefix('posts')->group(function () {
+        Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
+        Route::put('{id}', 'PostsController@update')->name('post.update');
+        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
+    });
     // ユーザ情報編集
     Route::prefix('users')->group(function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
         Route::put('{id}', 'UsersController@update')->name('users.update');
+        Route::delete('{id}', 'UsersController@destroy')->name('users.delete');
     });
     //投稿新規作成
     Route::prefix('posts')->group(function () {
