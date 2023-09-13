@@ -30,6 +30,17 @@ class UsersController extends Controller
         return back()->with('usersUpdateMessage', 'ユーザ情報編集に成功しました');
     }
 
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
+        $data=[
+            'posts' => $posts,
+            'user' => $user,
+        ];
+        $data += $this->userCounts($user);
+        return view('users.show',$data);
+    }
     public function destroy($id)
     {
         $user = User::findOrFail($id);
