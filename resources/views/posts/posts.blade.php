@@ -26,7 +26,6 @@
 @endforeach
 <div class="m-auto" style="width: fit-content"></div>
 <div class="d-flex justify-content-center">{{ $posts->links('pagination::bootstrap-4') }}</div>
-<div class="d-flex justify-content-center">{{ $posts->links('pagination::bootstrap-4') }}</div>
 
 
 
