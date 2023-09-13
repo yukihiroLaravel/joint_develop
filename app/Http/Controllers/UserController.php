@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\user;
 use App\Post;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -48,6 +49,7 @@ class UserController extends Controller
                 DB::rollBack();
                 abort(500);
             }
+            Session::flash('msg', 'ユーザ情報を更新しました！');
             return redirect(route('users.show' ,$id));
         }
         abort(404);
@@ -64,7 +66,7 @@ class UserController extends Controller
     }
 
     /**
-     * ユーザーを論理削除。
+     * ユーザーを論理削除し、そのユーザーに関するフォローデータといいねデータも削除。
      * @param string $id
      * @return view
      */
@@ -72,6 +74,16 @@ class UserController extends Controller
         if (Auth::id() === (int)$id) {
             $user = Auth::user();
             try {
+                $posts = $user->posts()->get();
+                foreach ($posts as $post) {
+                    foreach ($post->users()->get() as $liker) {
+                        $post->users()->detach($liker->id);
+                    }
+                }
+                $favorites = $user->tweets()->get();
+                foreach ($favorites as $favorite) {
+                    $user->tweets()->detach($favorite->id);
+                }
                 $follows = $user->followings()->get();
                 foreach ($follows as $follow) {
                     $user->followings()->detach($follow['id']);
@@ -81,6 +93,7 @@ class UserController extends Controller
                     $follow->followings()->detach($user->id);
                 }
                 User::find($id)->delete();
+                Session::flash('msg_danger', 'ユーザを削除しました！');
                 return redirect(route('top'));
             } catch (\Throwable $e) {
                 abort(500);
@@ -111,3 +124,4 @@ class UserController extends Controller
         return view('users.follow', ['user' => $user, 'follows' => $follows]);
     }
 }
+    

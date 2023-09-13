@@ -1,5 +1,6 @@
 @extends('layouts.layout')
 @section('content')
+@include('layouts.flash')
 <div class="row">
     <aside class="col-sm-4 mb-5">
         <div class="card bg-info">

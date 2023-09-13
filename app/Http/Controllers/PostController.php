@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
@@ -35,11 +36,12 @@ class PostController extends Controller
             DB::rollBack();
             abort(500);
         }
+        Session::flash('msg', '投稿しました！');
         return redirect (route('top'));
     }
 
     /**
-     * 投稿データを論理削除。
+     * 投稿データを論理削除し、その投稿データに関するいいねデータも削除。
      * @param string $id
      * @return view
      */
@@ -47,7 +49,12 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         if (Auth::id() === $post->user_id) {
             try {
+                $users = $post->users()->get();
+                foreach ($users as $user) {
+                    $post->users()->detach($user->id);
+                }
                 $post->delete();
+                Session::flash('msg_danger', '投稿を削除しました！');
                 return back();
             } catch (\Throwable $th) {
                 abort(500);
@@ -87,6 +94,7 @@ class PostController extends Controller
                 DB::rollBack();
                 abort(500);
             }
+            Session::flash('msg', '投稿内容を更新しました！');
             return redirect(route('top'));
         }
         abort(404);
