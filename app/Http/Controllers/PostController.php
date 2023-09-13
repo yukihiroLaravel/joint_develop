@@ -30,8 +30,17 @@ class PostController extends Controller
         $inputs = $request->all();
         DB::BeginTransaction();
         try {
-            Post::create($inputs);
+            $post = Post::create([
+                'content' => $inputs['content'],
+                'user_id' => $inputs['user_id'],      
+            ]);
             DB::commit();
+            if ($request->post_img) {
+                if ($request->post_img->extension() === 'gif' || $request->post_img->extension() === 'jpeg' || $request->post_img->extension() === 'jpg' || $request->post_img->extension() === 'png') {
+                    $post->post_img = $request->file('post_img')->storeAs('public/post_img',$post->id . '.' . $request->post_img->extension());
+                }
+            }
+            $post->save();
         } catch (\Throwable $e) {
             DB::rollBack();
             abort(500);
