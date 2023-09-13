@@ -19,9 +19,7 @@
                     @elseif(session('postsUpdateMessage'))
                         <div class="alert alert-success text-center">
                                 {{ session('postsUpdateMessage') }}
-                    <div class="alert alert-success text-center">
-                        {{ session('successMessage') }}
-                    </div> 
+                        </div>
                     @elseif(session('postsDestroyMessage'))
                         <div class="alert alert-success text-center">
                             {{ session('postsDestroyMessage') }}
