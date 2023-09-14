@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
         for ($i=1; $i <=5 ; $i++) { 
             DB::table('users')->insert([
                 [
-                    'name' => 'テストユーザー' . $i,
+                    'name' => 'テストゴルファー' . $i,
                     'email'     => 'test' . $i . '@test.com',
                     'email_verified_at' => now(),
                     'password' => bcrypt('password'),

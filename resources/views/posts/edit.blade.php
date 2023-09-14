@@ -10,6 +10,6 @@
     <div class="form-group">
         <textarea id="content" class="form-control" name="content" rows="4">{{ $errors->any() ? old('content') : $post->content }}</textarea>
     </div>
-    <button type="submit" class="btn btn-primary">更新する</button>
+    <button type="submit" class="btn btn-success">更新する</button>
 </form>
 @endsection

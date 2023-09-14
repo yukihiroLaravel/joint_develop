@@ -1,11 +1,11 @@
 @extends('layouts.layout')
 @section('content')
-<div class="center jumbotron bg-info">
+<div class="center jumbotron bg-success">
     <div class="text-center text-white mt-2 pt-1">
-        <h1><i class="pr-3"></i>Topic Posts</h1>
+        <h1><i class="pr-3"></i>Golffer</h1>
     </div>
 </div>
-<h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
+<h5 class="text-center mb-3">"Golf"について140字以内で会話しよう！</h5>
 @include('layouts.flash')
 @if (Auth::check())
 <div class="w-75 m-auto">
@@ -20,7 +20,7 @@
             <input type="hidden" name="user_id" value="{{ Auth::id() }}">
             <textarea class="form-control" name="content" rows="4">{{ old('content') }}</textarea>
             <div class="text-left mt-3">
-                <button type="submit" class="btn btn-primary">投稿する</button>
+                <button type="submit" class="btn btn-success">投稿する</button>
             </div>
         </div>
     </form>
@@ -46,7 +46,7 @@
                             @method('delete')
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>
-                        <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">編集する</a>
+                        <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-success">編集する</a>
                     </div>
                 @endif
             </div>
