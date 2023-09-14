@@ -14,11 +14,12 @@
     @endif
 </div>
 <div class="text-center mb-3">
-    <form method="POST" action="{{ route('post') }}" class="d-inline-block w-75">
+    <form method="POST" action="{{ route('post') }}" class="d-inline-block w-75" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <input type="hidden" name="user_id" value="{{ Auth::id() }}">
             <textarea class="form-control" name="content" rows="4">{{ old('content') }}</textarea>
+            @include('layouts.image')
             <div class="text-left mt-3">
                 <button type="submit" class="btn btn-success">投稿する</button>
             </div>
@@ -37,6 +38,15 @@
                 <div class="text-left d-inline-block w-75">
                     <p class="mb-2">{{ $post->content }}</p>
                     <p class="text-muted">{{ $post->created_at }}</p>
+                    @if(file_exists(public_path().'/storage/post_img/'. $post->id .'.jpg'))
+                        <img src="/storage/post_img/{{ $post->id }}.jpg" width="500px">
+                    @elseif(file_exists(public_path().'/storage/post_img/'. $post->id .'.jpeg'))
+                        <img src="/storage/post_img/{{ $post->id }}.jpeg" width="500px">
+                    @elseif(file_exists(public_path().'/storage/post_img/'. $post->id .'.png'))
+                        <img src="/storage/post_img/{{ $post->id }}.png" width="500px">
+                    @elseif(file_exists(public_path().'/storage/post_img/'. $post->id .'.gif'))
+                        <img src="/storage/post_img/{{ $post->id }}.gif" width="500px">
+                    @endif
                     @include('layouts.like')
                 </div>
                 @if (Auth::id() === $post->user_id)

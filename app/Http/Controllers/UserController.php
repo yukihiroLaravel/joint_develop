@@ -9,6 +9,7 @@ use App\User;
 use App\Post;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -76,6 +77,9 @@ class UserController extends Controller
             try {
                 $posts = $user->posts()->get();
                 foreach ($posts as $post) {
+                    if ($post->post_img) {
+                        Storage::disk('public')->delete('post_img/' . $post->img_name);
+                    }
                     foreach ($post->users()->get() as $liker) {
                         $post->users()->detach($liker->id);
                     }

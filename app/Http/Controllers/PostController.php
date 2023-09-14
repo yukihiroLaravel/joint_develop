@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use App\Http\Requests\PostRequest;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\File\UploadedFile as FileUploadedFile;
 
 class PostController extends Controller
 {
@@ -30,8 +33,18 @@ class PostController extends Controller
         $inputs = $request->all();
         DB::BeginTransaction();
         try {
-            Post::create($inputs);
+            $post = Post::create([
+                'content' => $inputs['content'],
+                'user_id' => $inputs['user_id'],      
+            ]);
             DB::commit();
+            if ($request->post_img) {
+                if ($request->post_img->extension() === 'gif' || $request->post_img->extension() === 'jpeg' || $request->post_img->extension() === 'jpg' || $request->post_img->extension() === 'png') {
+                    $post->post_img = $request->file('post_img')->storeAs('public/post_img', $post->id . '.' . $request->post_img->extension());
+                    $post->img_name = $post->id . '.' . $request->post_img->extension();
+                }
+            }
+            $post->save();
         } catch (\Throwable $e) {
             DB::rollBack();
             abort(500);
@@ -53,11 +66,15 @@ class PostController extends Controller
                 foreach ($users as $user) {
                     $post->users()->detach($user->id);
                 }
+                
+                if ($post->post_img) {
+                    Storage::disk('public')->delete('post_img/' . $post->img_name);
+                }
                 $post->delete();
                 Session::flash('msg_danger', '投稿を削除しました！');
                 return back();
             } catch (\Throwable $th) {
-                abort(500);
+                // abort(500);
             }
         }
         abort(404);
@@ -87,7 +104,13 @@ class PostController extends Controller
         if (Auth::id() === $post->user_id) {
             DB::BeginTransaction();
             try {
-                $post->content = $request->content;
+                $post->content = $request->content; 
+                if ($request->post_img) {
+                    if ($request->post_img->extension() === 'gif' || $request->post_img->extension() === 'jpeg' || $request->post_img->extension() === 'jpg' || $request->post_img->extension() === 'png') {
+                        $post->post_img = $request->file('post_img')->storeAs('public/post_img', $post->id . '.' . $request->post_img->extension());
+                        $post->img_name = $post->id . '.' . $request->post_img->extension();
+                    }
+                }
                 $post->save();
                 DB::commit();
             } catch (\Throwable $e) {
