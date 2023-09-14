@@ -2,10 +2,10 @@
 @section('content')
     <div class="center jumbotron bg-info">
         <div class="text-center text-white mt-2 pt-1">
-            <h1><i class="fab fa-telegram pr-2000 d-inline"></i>Topic Posts</h1>
+            <h1><i class="fab fa-telegram pr-2000 d-inline"></i>生活の知恵袋</h1>
         </div>
     </div>
-    <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
+    <h5 class="text-center mb-3">"生活の知恵"について140字以内で会話しよう!</h5>
         <form method="POST" action="{{ route('post.store') }}">
         @if(Auth::check())
             @include('commons.error_messages')            
