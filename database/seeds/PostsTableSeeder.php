@@ -23,13 +23,5 @@ class PostsTableSeeder extends Seeder
             'text' => '薄手生地の脱水にはバスタオルを活用',
             'user_id' => 3,
         ]);
-        DB::table('posts')->insert([
-            'text' => '防虫剤は衣類の上に除湿剤は衣類の下に入れると効果的',
-            'user_id' => 4,
-        ]);
-        DB::table('posts')->insert([
-            'text' => '手元に定規やメジャーが無い時は1,000円札の長さが約15㎝なので、これを利用出来る。',
-            'user_id' => 5,
-        ]);
     }
 }
