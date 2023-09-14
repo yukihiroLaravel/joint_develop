@@ -12,48 +12,24 @@ class PostsTableSeeder extends Seeder
     public function run()
     {
         DB::table('posts')->insert([
-            'text' => 'test1',
+            'text' => '窓掃除は湿度の高いくもりの日が最適',
             'user_id' => 1,
         ]);
         DB::table('posts')->insert([
-            'text' => 'test2',
+            'text' => 'ほうれん草のゆで汁で衣類のシミを落とせる',
             'user_id' => 2,
         ]);
         DB::table('posts')->insert([
-            'text' => 'test3',
+            'text' => '薄手生地の脱水にはバスタオルを活用',
             'user_id' => 3,
         ]);
         DB::table('posts')->insert([
-            'text' => 'test4',
-            'user_id' => 1,
+            'text' => '防虫剤は衣類の上に除湿剤は衣類の下に入れると効果的',
+            'user_id' => 4,
         ]);
         DB::table('posts')->insert([
-            'text' => 'test5',
-            'user_id' => 2,
-        ]);
-        DB::table('posts')->insert([
-            'text' => 'test6',
-            'user_id' => 3,
-        ]);
-        DB::table('posts')->insert([
-            'text' => 'test7',
-            'user_id' => 1,
-        ]);
-        DB::table('posts')->insert([
-            'text' => 'test8',
-            'user_id' => 2,
-        ]);
-        DB::table('posts')->insert([
-            'text' => 'test9',
-            'user_id' => 3,
-        ]);
-        DB::table('posts')->insert([
-            'text' => 'test10',
-            'user_id' => 1,
-        ]);
-        DB::table('posts')->insert([
-            'text' => 'test11',
-            'user_id' => 2,
+            'text' => '手元に定規やメジャーが無い時は1,000円札の長さが約15㎝なので、これを利用出来る。',
+            'user_id' => 5,
         ]);
     }
 }
