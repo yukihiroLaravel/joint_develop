@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for tiebukuro-fumiduki-2 on 2023-09-11T22:58:18+09:00
+# fly.toml app configuration file generated for tiebukuro-fimiduki-3 on 2023-09-14T09:48:15+09:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "tiebukuro-fumiduki-2"
+app = "tiebukuro-fimiduki-3"
 primary_region = "nrt"
 console_command = "php /var/www/html/artisan tinker"
 
