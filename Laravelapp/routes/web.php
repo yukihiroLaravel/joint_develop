@@ -10,10 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-//トップページ（投稿一覧表示）
-Route::get('/', 'PostsController@index');
 
-//ユーザー詳細
-Route::prefix('users')->group(function () {
-    Route::get('{id}', 'UsersController@show')->name('user.show');
+Route::get('/', function () {
+    return view('welcome');
 });
