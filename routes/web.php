@@ -25,13 +25,13 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ユーザ情報詳細
 Route::get('users/{id}', 'UsersController@show')->name('users.show');
+Route::get('users/{id}/edit', 'UsersController@edit')->name('users.edit');
+Route::put('users', 'UsersController@update')->name('users.update');
+Route::delete('users/{id}', 'UsersController@destroy')->name('users.delete');
 
 // ポスト管理
-Route::get('posts/{id}', 'PostsController@index')->name('posts.post');
-Route::get('posts/create', 'PostsController@create')->name('posts.create');
-Route::post('posts', 'PostsController@store')->name('posts.store');
-Route::get('posts/{post}', 'PostsController@show')->name('posts.show');
-Route::get('posts/{post}/edit', 'PostsController@edit')->name('posts.edit');
-Route::put('posts/{post}', 'PostsController@update')->name('posts.update');
-Route::delete('posts/{post}', 'PostsController@destroy')->name('posts.destroy');
+Route::post('posts/{id}', 'PostsController@index')->name('posts.post');
+Route::get('posts/{id}/edit', 'PostsController@edit')->name('posts.edit');
+Route::put('posts/{id}', 'PostsController@update')->name('posts.update');
+Route::delete('posts/{id}', 'PostsController@destroy')->name('posts.delete');
 

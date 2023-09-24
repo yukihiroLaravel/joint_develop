@@ -8,9 +8,11 @@
                 </div>
                 <div class="card-body">
                     <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
-                        <div class="mt-3">
-                            <a href="" class="btn btn-primary btn-block">ユーザ情報の編集</a>
-                        </div>
+                        @if(Auth::check() && Auth::user()->id == $user->id)
+                            <div class="mt-3">
+                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                            </div>
+                        @endif
                 </div>
             </div>
         </aside>
@@ -35,13 +37,12 @@
                                 </div>
                                 @if(Auth::check() && Auth::user()->id == $post->user_id)
                                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                                        {{-- <form method="POST" action="{{ route('post.delete', $post->id ) }}"> --}}
-                                        <form method="POST" action="">
+                                        <form method="POST" action="{{ route('posts.delete', $post->id ) }}">
                                             @csrf
+                                            @method('DELETE')
                                             <button type="submit" class="btn btn-danger">削除</button>
                                         </form>
-                                        {{-- <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">編集する</a> --}}
-                                        <a href="" class="btn btn-primary">編集する</a>
+                                        <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">編集する</a>
                                     </div>
                                 @endif
                             </div>
@@ -50,6 +51,7 @@
                 </div>
                 <div class="m-auto" style="width: fit-content"></div>
             @endforeach
+            {{ $posts->links('pagination::bootstrap-4') }}
         </div>
     </div>
 @endsection

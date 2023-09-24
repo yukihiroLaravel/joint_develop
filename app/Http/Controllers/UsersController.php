@@ -12,7 +12,7 @@ class UsersController extends Controller
     // トップページ一覧表示
     public function index() 
     {
-        $posts = Post::orderBy('updated_at', 'desc')->paginate(4);
+        $posts = Post::orderBy('updated_at', 'desc')->paginate(5);
         return view('welcome', ['posts' => $posts]);
     }
 
@@ -22,15 +22,38 @@ class UsersController extends Controller
         return view('users.login', ['user' => $user]);
     }
 
-    public function show($id) 
+    public function show($id)
     {
         $user = User::find($id);
-        $posts = $user->posts()->orderBy('updated_at', 'desc')->get();
+        $posts = $user->posts()->orderBy('updated_at', 'desc')->paginate(5);
         $data = ['user' => $user, 'posts' => $posts];
         return view('users.show', $data);
     }
 
-    // Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-    // Route::post('login', 'Auth\LoginController@login')->name('login.post');
-    // Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+    public function edit($id)
+    {
+        $user = User::find($id);
+        return view('users.edit', ['user' => $user]);
+    }
+
+    public function update(Request $request)
+    {
+        $user = User::find($request->id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        $posts = $user->posts()->orderBy('updated_at', 'desc')->paginate(5);
+        $data = ['user' => $user, 'posts' => $posts];
+
+        return view('users.show', $data);
+    }
+
+    public function destroy($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        return redirect('/');
+    }
 }
