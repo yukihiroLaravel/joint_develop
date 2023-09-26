@@ -13,7 +13,7 @@
                 @else
                     <li class="nav-item"><a href="" class="nav-link text-light">ログイン</a></li>
                     <li class="nav-item"><a href="" class="nav-link text-light">新規ユーザ登録</a></li>
-                 @endif
+                @endif
         </div>
     </nav>
 </header>
