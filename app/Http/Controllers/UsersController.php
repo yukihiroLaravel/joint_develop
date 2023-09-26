@@ -3,19 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\user;
+use App\post;
 
 class UsersController extends Controller
 {
     public function show($id)
     {
         $user = User::findOrFail($id);
-        $tweets = $user->tweets()->orderBy('id', 'desc');
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
 
         $data = [
             'user' => $user,
-            'tweets' => $tweets,
+            'posts' => $posts,
         ];
-    
         $data += $this->userCounts($user);
     
         return view('users.show', $data);

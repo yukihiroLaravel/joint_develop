@@ -13,9 +13,9 @@ class Controller extends BaseController
 
     public function userCounts($user)
     {
-        $countTweets = $user->tweets()->count();
+        $countPosts = $user->posts()->count();
         return [
-            'countTweets' => $countTweets,
+            'countPosts' => $countPosts,
         ];
     }
 }
