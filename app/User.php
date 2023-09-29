@@ -40,7 +40,13 @@ class User extends Authenticatable
     ];
 
     public function posts()
+<<<<<<< HEAD
      {
          return $this->hasMany(Post::class);
      }
+=======
+    {
+        return $this->hasMany(Post::class);
+    }
+>>>>>>> develop_b_nagatsuki_rab
 }
