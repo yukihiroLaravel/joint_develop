@@ -9,7 +9,9 @@
             <div class="card-body">
                 <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 300) }}" alt="ユーザのアバター画像">
                 <div class="mt-3">
+                    @if($user->id === Auth::id())
                     <a href="#" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -17,10 +19,10 @@
     <div class="col-sm-8">
         <ul class="nav nav-tabs nav-justified mb-3">
             <li class="nav-item"><a href="#" class="nav-link {{ Request::is('users/' . $user->id) ? 'active' : '' }}">タイムライン</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">フォロー中<br><div class="badge badge-secondary">{{ $countPosts }}</div></a></li>
-            <li class="nav-item"><a href="#" class="nav-link">フォロワー<br><div class="badge badge-secondary">{{ $countPosts }}</div></a></li>
+            <li class="nav-item"><a href="#" class="nav-link">フォロー中<br><div class="badge badge-secondary">{{ $countFollowing }}</div></a></li>
+            <li class="nav-item"><a href="#" class="nav-link">フォロワー<br><div class="badge badge-secondary">{{ $countFollowers }}</div></a></li>
         </ul>
+        @include('posts.posts', ['user' => $user, 'posts' => $posts])
     </div>
 </div>
-@include('posts.posts', ['user' => $user, 'posts' => $posts])
 @endsection
