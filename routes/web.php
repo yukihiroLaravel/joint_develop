@@ -32,9 +32,7 @@ Route::get('logout','Auth\LoginController@logout')->name('logout');
 Route::group(['middleware' => 'auth'], function () {
     // 動画
     Route::prefix('posts')->group(function () {
-        Route::get('create', 'PostsController@create')->name('post.create');
         Route::post('', 'PostsController@store')->name('post.store');
-        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
-    });
+        });
         
 });
