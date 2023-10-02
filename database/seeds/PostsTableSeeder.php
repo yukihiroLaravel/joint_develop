@@ -13,11 +13,11 @@ class PostsTableSeeder extends Seeder
     {
         DB::table('posts')->insert([
             'content' => '投稿の本文です。',
-            'user_id' => 1
+            'user_id' => 2
         ]);
         DB::table('posts')->insert([
             'content' => '投稿の本文です。',
-            'user_id' => 2
+            'user_id' => 1
         ]);
         DB::table('posts')->insert([
             'content' => '投稿の本文です。',
@@ -44,12 +44,16 @@ class PostsTableSeeder extends Seeder
             'user_id' => 8
         ]);
         DB::table('posts')->insert([
-            'content' => '投稿の本文です。',
-            'user_id' => 9
+            'content' => '投稿の本文です。1',
+            'user_id' => 1
         ]);
         DB::table('posts')->insert([
-            'content' => '投稿の本文です。',
-            'user_id' => 10
+            'content' => '投稿の本文です。2',
+            'user_id' => 2
+        ]);
+        DB::table('posts')->insert([
+            'content' => '投稿の本文です。3',
+            'user_id' => 3
         ]);
     }
 }
