@@ -8,10 +8,7 @@
         </div>
     </div>
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
-        <!-- <div class="w-75 m-auto">エラーメッセージが入る場所</div> -->
-        <ul class="alert alert-danger" role="alert">
-        <li class="ml-4">エラーメッセージが入る場所</li>
-    </ul>
+        @include('commons.error_messages')
         <div class="text-center mb-3">
             <form method="" action="" class="d-inline-block w-75">
                 <div class="form-group">
