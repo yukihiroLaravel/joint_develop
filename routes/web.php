@@ -30,8 +30,8 @@ Route::prefix('users')->group(function () {
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
-    // 動画
+    // 投稿
     Route::prefix('posts')->group(function () {
-    Route::post('', 'PostsController@store')->name('post.store');
+        Route::post('', 'PostsController@store')->name('post.store');
     });  
 });
