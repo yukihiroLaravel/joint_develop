@@ -12,8 +12,17 @@ class PostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('id','desc')->paginate(10);
-        return view('welcome', ['posts' => $posts,]);
+        $posts = Post::orderBy('id', 'desc')->paginate(10);
+        return view('welcome', ['posts' => $posts]);
+    }
+
+    public function store(PostRequest $request)
+    {
+        $post = new Post();
+        $post->content = $request->content;
+        $post->user_id = $request->user()->id;
+        $post->save();
+        return back();
     }
 
     public function edit($id)
@@ -21,7 +30,6 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
         if (\Auth::id() === $post->user_id) {
         $data=[
-            'user' => $user,
             'post' => $post,
         ];
         return view('posts.edit', $data);
@@ -33,9 +41,8 @@ class PostsController extends Controller
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
-        $post->text = $request->text;
-        $post->user_id = $request->user()->id;
+        $post->content = $request->content;
         $post->save();
-        return back();
+        return redirect('/');
     }
 }
