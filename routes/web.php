@@ -22,9 +22,12 @@ Route::get('logout','Auth\LoginController@logout')->name('logout');
 //トップページ（投稿一覧表示）
 Route::get('/', 'PostsController@index');
 
-//ユーザー詳細・編集・更新
-Route::prefix('users')->group(function () {
-    Route::get('{id}', 'UsersController@show')->name('users.show');
-    Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
-    Route::put('{id}/update', 'UsersController@update')->name('users.update');
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    // ユーザー詳細・編集・更新
+    Route::prefix('users')->group(function () {
+        Route::get('{id}', 'UsersController@show')->name('users.show');
+        Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
+        Route::put('{id}/update', 'UsersController@update')->name('users.update');
+    });
 });
