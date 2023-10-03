@@ -15,19 +15,22 @@ class UsersController extends Controller
 
     public function edit($id)
     {
-        // $user = \Auth::user();
-        $user = User::find(1);
-        return view("users.edit",["user" => $user]);
+        $user = User::findOrFail(1);
+        if (\Auth::id() === $user->user_id) {
+            return view("users.edit",["user" => $user]);
+        }
     }
 
     public function update(UserRequest $request, $id)
     {
         $user = User::findOrFail($id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->save();
-        return back();
+        if (\Auth::id() === $user->user_id) {
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->save();
+            return back();
+        }
     }
 
 }
