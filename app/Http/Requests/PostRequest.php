@@ -24,9 +24,14 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'required','max:140'
+            'content' => 'required|max:140'
         ];
     }
 
-    
+    public function attributes()
+     {
+         return[
+             'content' => '投稿',
+         ];
+     }
 }
