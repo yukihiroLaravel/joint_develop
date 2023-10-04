@@ -10,20 +10,25 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-//ユーザ新規登録
-Route::get('signup','Auth\RegisterController@showRegistrationForm')->name('signup');
-Route::post('signup','Auth\RegisterController@register')->name('signup.post');
-
-//ログイン・ログアウト
-Route::get('login','Auth\LoginController@showLoginForm')->name('login');
-Route::post('login','Auth\LoginController@login')->name('login.post');
-Route::get('logout','Auth\LoginController@logout')->name('logout');
 
 //トップページ（投稿一覧表示）
 Route::get('/', 'PostsController@index');
 
+//ユーザ新規登録
+Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+
+//ログイン・ログアウト
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login.post');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
+    // 投稿
+    Route::prefix('posts')->group(function () {
+        Route::post('', 'PostsController@store')->name('post.store');
+    });
     // ユーザー詳細・編集・更新
     Route::prefix('users')->group(function () {
         Route::get('{id}', 'UsersController@show')->name('users.show');
