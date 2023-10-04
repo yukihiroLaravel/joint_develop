@@ -31,15 +31,14 @@ class UsersController extends Controller
                 'user' => Auth::user()->id,
             ];
             return view('users.edit', $data);
-        }
-        else{
+        } else {
             abort(403); // アクセス権無し
         }
     }
 
     public function update(UserRequest $request, $id)
     {
-        if ($id == Auth::id()){
+        if ($id == Auth::id()) {
             $user = User::findOrFail($id);
             $user->name = $request->name;
             $user->email = $request->email;
