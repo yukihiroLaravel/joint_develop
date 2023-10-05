@@ -2,7 +2,7 @@
 @section('content')
     <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
     @include('commons.error_messages')
-    <form method="POST" action="{{ route('users.update') }}">
+    <form method="POST" action="http://localhost:8081/users/{{ $user->id }}">
         @csrf
         @method('PUT')
         <input type="hidden" name="id" value="{{ $user->id }}" />

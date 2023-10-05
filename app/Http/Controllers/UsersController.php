@@ -11,19 +11,25 @@ class UsersController extends Controller
     // ユーザ編集画面表示
     public function edit($id)
     {
-        $user = User::find($id);
-        return view('users.edit', ['user' => $user]);
-
+        $user = User::findOrFail($id);
+        if (\Auth::id() === $user->id) {
+            return view('users.edit', ['user' => $user]);
+        } else {
+            return back();
+        }
     }
 
     // ユーザ情報更新
-    public function update(UserRequest $request)
+    public function update(UserRequest $request, $id)
     {
-        $user = User::find($request->id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt('$request->password');
-        $user->save();
+        $user = User::findOrFail($id);
+        if (\Auth::id() === $user->id) {
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->save();
+        }
+
         // 見本ではユーザ詳細画面に飛ばすが、まだないのでTop画面にリダイレクトする。
         return redirect('/');
     }
