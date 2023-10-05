@@ -17,3 +17,10 @@ Route::get('/', 'PostsController@index');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
+// ユーザ編集
+Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('users/{id}')->group(function () {
+        Route::get('', 'UsersController@edit')->name('users.edit');
+        Route::put('', 'UsersController@update')->name('users.update');
+    });
+});
