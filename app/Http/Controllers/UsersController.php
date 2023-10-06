@@ -15,9 +15,12 @@ class UsersController extends Controller
 
     public function edit($id)
     {
-        $user = User::findOrFail(1);
+        $user = User::findOrFail($id);
         if (\Auth::id() === $user->id) {
             return view("users.edit",["user" => $user]);
+        }
+        else {
+            return back();
         }
     }
 
@@ -29,6 +32,9 @@ class UsersController extends Controller
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->save();
+            return back();
+        }
+        else {
             return back();
         }
     }
