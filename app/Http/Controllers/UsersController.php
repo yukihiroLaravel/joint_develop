@@ -16,7 +16,7 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail(1);
-        if (\Auth::id() === $user->user_id) {
+        if (\Auth::id() === $user->id) {
             return view("users.edit",["user" => $user]);
         }
     }
@@ -24,7 +24,7 @@ class UsersController extends Controller
     public function update(UserRequest $request, $id)
     {
         $user = User::findOrFail($id);
-        if (\Auth::id() === $user->user_id) {
+        if (\Auth::id() === $user->id) {
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
