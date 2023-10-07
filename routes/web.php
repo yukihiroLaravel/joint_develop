@@ -11,7 +11,11 @@
 |
 */
 
+// ユーザ
 Route::get('/', 'PostsController@index');
+Route::prefix('users')->group( function () {
+    Route::get('{id}', 'UsersController@show')->name('user.show');
+});
 
 // ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
