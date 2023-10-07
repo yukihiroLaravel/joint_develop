@@ -27,16 +27,15 @@ class UsersController extends Controller
     public function update(UserRequest $request, $id)
     {
         $user = User::findOrFail($id);
+
         if (\Auth::id() === $user->id) {
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->save();
-            return back();
         }
-        else {
-            return back();
-        }
+
+        return back();
     }
 
 }
