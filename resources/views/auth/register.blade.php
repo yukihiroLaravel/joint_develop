@@ -1,3 +1,5 @@
+@extends('layouts.app')
+@section('content')
 <div class="text-center">
     <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
 </div>
@@ -10,6 +12,7 @@
 <div class="row mt-5 mb-5">
     <div class="col-sm-6 offset-sm-3">
         <form method="POST" action="{{ route('signup.post') }}">
+            @csrf
             <div class="form-group">
                 <label for="name">名前</label>
                 <input id="name" type="text" class="form-control" name="name">
@@ -30,3 +33,4 @@
         </form>
     </div>
 </div>
+@endsection
