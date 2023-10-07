@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
-class FollowersTableSeeder extends Seeder
+class FollowsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,8 +13,8 @@ class FollowersTableSeeder extends Seeder
     public function run()
     {
         // フォロー関係のテストデータを追加
-        DB::table('followers')->insert([
-            'follower_id' => 1, // フォロワーのユーザーID
+        DB::table('follows')->insert([
+            'follow_id' => 1, // フォロワーのユーザーID
             'user_id' => 2,     // フォローしているユーザーのID
         ]);
     }
