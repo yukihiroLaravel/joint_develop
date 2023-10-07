@@ -45,4 +45,56 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
-}
+
+    public function followings()
+    {
+        // ユーザーがフォローしているユーザー一覧を取得
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'follow_id');
+    }
+    
+    public function followers()
+    {
+        // ユーザーをフォローしているユーザー一覧を取得
+        return $this->belongsToMany(User::class, 'follows', 'follow_id', 'user_id')->withTimestamps();
+    }
+    
+    public function follow($userId)
+    {
+        // 自分自身をフォローしようとしている場合はエラーとする
+        if ($this->id === $userId) {
+            return false;
+        }
+    
+        // すでにフォローしているユーザーを再度フォローしようとしている場合もエラーとする
+        if ($this->isFollow($userId)) {
+            return false;
+        }
+    
+        // フォローを実行
+        $this->followings()->attach($userId);
+        return true;
+    }
+    
+    public function unFollow($userId)
+    {
+        // 自分自身をアンフォローしようとしている場合はエラーとする
+        if ($this->id === $userId) {
+            return false;
+        }
+    
+        // まだフォローしていないユーザーをアンフォローしようとしている場合はエラーとする
+        if (!$this->isFollow($userId)) {
+            return false;
+        }
+    
+        // アンフォローを実行
+        $this->followings()->detach($userId);
+        return true;
+    }
+    
+    public function isFollow($userId)
+    {
+        // ユーザーが指定したユーザーをフォローしているかをチェック
+        return $this->followings()->where('follow_id', $userId)->exists();
+    }
+} 

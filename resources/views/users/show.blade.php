@@ -14,6 +14,7 @@
                 </div>
                 @endif
             </div>
+                @include('follows.follow_button')
         </div>
     </aside>
     <div class="col-sm-8">
