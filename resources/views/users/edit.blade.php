@@ -1,7 +1,10 @@
+@extends('layouts.app')
+@section('content')
 <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
     <form method="POST" action="{{ route('users.update', $user->id) }}">
         @csrf
         @method('PUT')
+        @include('commons.error_messages')
         <input type="hidden" name="id" value="" />
         <div class="form-group">
             <label for="name">ユーザ名</label>
@@ -47,3 +50,4 @@
             </div>
         </div>
     </div>
+    @endsection
