@@ -1,6 +1,5 @@
 @extends('layouts.app')
-@section('content')
-@foreach ($posts as $post) 
+@section('content') 
 <div class="row">
     <aside class="col-sm-4 mb-5">
         <div class="card bg-info">
@@ -9,7 +8,7 @@
             </div>
             <div class="card-body">
                 <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 500) }}" alt="ユーザのアバター画像">
-                @if (Auth::id() === $post->user_id)
+                @if (Auth::id() === $user->user_id)
                     <div class="mt-3">
                         <a href="" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                     </div>
@@ -23,8 +22,7 @@
             <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
             <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
         </ul>
-    @include('posts.posts', ['user' => $user, 'posts' => $posts])
+    @include('posts.posts', ['user' => $user, 'post' => $user->posts])
     </div>
 </div>
-@endforeach 
 @endsection
