@@ -49,7 +49,7 @@ class User extends Authenticatable
     public function followings()
     {
         // ユーザーがフォローしているユーザー一覧を取得
-        return $this->belongsToMany(User::class, 'follows', 'user_id', 'follow_id');
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'follow_id')->withTimestamps();
     }
     
     public function followers()

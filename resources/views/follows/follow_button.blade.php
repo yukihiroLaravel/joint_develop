@@ -1,16 +1,18 @@
 @if (Auth::check() && Auth::id() !== $user->id)
-     <div class="mt-3 w-75 mx-auto">
-         @if (Auth::user()->isFollow($user->id))
-             <form method="POST" action="{{ route('unfollow', $user->id) }}">
-                 @csrf
-                 @method('DELETE')
+    @if (Auth::user()->isFollow($user->id))
+        <form method="POST" action="{{ route('unfollow', $user->id) }}">
+            @csrf
+            @method('DELETE')
+            <div class="text-center mb-3 mt-3 w-75">
                  <button type="submit" class="btn btn-danger btn-block">フォローを外す</button>
-             </form>
-         @else
-             <form method="POST" action="{{ route('follow', $user->id) }}">
-                 @csrf
+            </div>
+        </form>
+    @else
+        <form method="POST" action="{{ route('follow', $user->id) }}">
+            @csrf
+            <div class="mx-auto mb-3 mt-3 w-75">
                  <button type="submit" class="btn btn-primary btn-block">フォローする</button>
-             </form>
-         @endif
-     </div>
- @endif
+            </div>
+        </form>
+    @endif
+@endif
