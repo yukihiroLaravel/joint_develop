@@ -3,7 +3,7 @@
         <form method="POST" action="{{ route('unfollow', $user->id) }}">
             @csrf
             @method('DELETE')
-            <div class="text-center mb-3 mt-3 w-75">
+            <div class="mx-auto mb-3 mt-3 w-75">
                  <button type="submit" class="btn btn-danger btn-block">フォローを外す</button>
             </div>
         </form>
