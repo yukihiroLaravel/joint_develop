@@ -24,4 +24,4 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 //投稿
 Route::delete('users/{id}/destroy', 'PostsController@destroy')->name('post.delete');
-    });
+    
