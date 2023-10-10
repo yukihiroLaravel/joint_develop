@@ -12,9 +12,20 @@
                 </div>
                 @if(Auth::check() && Auth::id() == $post->user_id)
                 <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                    <form method="" action="">
-                      <button type="submit" class="btn btn-danger">削除</button>
+                    <form method="POST" action="{{ route('post.delete', $post->id) }}" id="delete-form">
+                        @csrf
+                        @method('DELETE')
+                      <button type="button" class="btn btn-danger" onclick="confirmDelete()">削除</button>
                     </form>
+                    <script>
+                        function confirmDelete() {
+                            if (confirm('本当に削除しますか？')) {
+                                document.getElementById('delete-form').submit();
+                            } else {
+                                return back();
+                            }
+                        }
+                    </script>
                     <a href="{{ route('post.edit',$post->id) }}" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
