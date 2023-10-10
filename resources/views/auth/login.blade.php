@@ -6,11 +6,11 @@
 <div class="text-center mt-3">
         <p class="text-left d-inline-block">ログインすると投稿で<br>コミュニケーションができるようになります。</p>
 </div>
-@include('commons.error_messages')
 <div class="text-center">
-        <h3 class="login_title text-left d-inline-block mt-5">ログイン</h3>
+        <h3 class="login_title text-left d-inline-block mt-5 mb-5">ログイン</h3>
 </div>
-    <div class="row mt-5 mb-5">
+<div class="w-50 m-auto">@include('commons.error_messages')</div>
+    <div class="row mt-3 mb-5">
         <div class="col-sm-6 offset-sm-3">
             <form method="POST" action="{{ route('login.post') }}">
                  @csrf
