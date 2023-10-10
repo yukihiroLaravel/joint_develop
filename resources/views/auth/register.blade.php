@@ -6,11 +6,11 @@
 <div class="text-center mt-3">
     <p class="text-left d-inline-block">新規ユーザ登録すると投稿で<br>コミュニケーションができるようになります。</p>
 </div>
-<div class="text-center">
+<div class="text-center mb-5">
     <h3 class="login_title text-left d-inline-block mt-5">新規ユーザ登録</h3>
 </div>
-@include('commons.error_messages')
-<div class="row mt-5 mb-5">
+<div class="w-50 m-auto">@include('commons.error_messages')</div>
+<div class="row mt-3 mb-5">
     <div class="col-sm-6 offset-sm-3">
         <form method="POST" action="{{ route('signup.post') }}">
         

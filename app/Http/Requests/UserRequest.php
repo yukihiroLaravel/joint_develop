@@ -27,7 +27,7 @@ class UserRequest extends FormRequest
        
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255',Rule::unique('users')->ignore($this->id)],
+            'email' => ['required', 'string', 'email', 'max:255',Rule::unique('users')->ignore(\Auth::id())],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
 
         ];
