@@ -15,7 +15,11 @@
 Route::get('/', 'PostsController@index');
 
 // ユーザー詳細
-Route::get('users/{id}', 'UsersController@show')->name('users.show');
+Route::prefix('users/{id}')->group(function(){
+    Route::get('users/{id}', 'UsersController@show')->name('users.show');
+    Route::get('followers', 'UsersController@followers')->name('followers');
+    Route::get('following', 'UsersController@ffollowing')->name('following');
+});
 
 //ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
