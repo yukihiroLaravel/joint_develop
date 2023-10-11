@@ -39,4 +39,11 @@ class UsersController extends Controller
         return back();
     }
 
+    public function destroy($id)
+    {
+        $user = \Auth::user();
++       $user->delete();
+        return back();
+    }
+
 }
