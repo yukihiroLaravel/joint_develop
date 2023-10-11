@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('', 'PostsController@store')->name('post.store');
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
+        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     });
     // ユーザー編集・更新、フォロー・アンフォロー
     Route::prefix('users/{id}')->group(function(){
