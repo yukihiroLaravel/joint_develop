@@ -7,9 +7,8 @@
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
-            @if (Auth::check())
-                    <li class="nav-item"><a href="{{ route('movie.create') }}" class="nav-link">動画登録する</a></li>
-                    <li class="nav-item"><a href="{{ route('user.show', Auth::id()) }}" class="nav-link">マイページ</a></li>
+                @if (Auth::check())
+                    <li class="nav-item"><a href="{{ route('user.show', Auth::id()) }}" class="nav-link">{{ Auth::user()->name }}</a></li>
                     <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link">ログアウト</a></li>
                 @else
                     <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">ログイン</a></li>
