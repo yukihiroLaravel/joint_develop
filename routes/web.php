@@ -29,9 +29,19 @@ Route::group(['middleware' => 'auth'], function () {
         //ユーザ編集処理        
         Route::put('{id}', 'UsersController@update')->name('users.update');
     });
+
+    //フォロー、フォロワー
+    Route::group(['prefix' => 'users/{id}'],function(){
+        Route::post('follow','FollowController@store')->name('follow');
+        Route::delete('unfollow','FollowController@destroy')->name('unfollow');
+    });
 });
+
     
 //ログイン
 Route::get('login','Auth\LoginController@showLoginForm')->name('login');
 Route::post('login','Auth\LoginController@login')->name('login.post');
 Route::get('logout','Auth\LoginController@logout')->name('logout');
+
+
+

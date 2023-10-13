@@ -39,6 +39,42 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'following_user_id', 'followed_user_id')->withTimestamps();
+    } 
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'followed_user_id', 'following_user_id')->withTimestamps();
+    }
+
+    public function isFollows($userId)
+    {
+        return $this->followings()->where('followed_user_id', $userId)->exists();
+    }
+
+    public function follow($userId)
+    {
+        $exist = $this->isFollows($userId);
+        if ($exist) {
+            return false;
+        } else {
+            $this->followings()->attach($userId);
+            return true;
+        }
+    }
+    public function unfollow($userId)
+    {
+        $exist = $this->isFollows($userId);
+        if ($exist) {
+            $this->followings()->detach($userId);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 
 }
