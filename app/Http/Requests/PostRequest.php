@@ -27,4 +27,11 @@ class PostRequest extends FormRequest
             'content' => 'required|max:140',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'content' => '投稿',
+        ];
+    }
 }
