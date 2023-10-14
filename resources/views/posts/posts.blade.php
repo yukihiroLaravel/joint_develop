@@ -9,7 +9,7 @@
             <div class="">
                 <div class="text-left d-inline-block w-75">
                     <p class="mb-2">{{$post->content}}</p>
-                    <p class="text-muted">2023-10-13 23:13:12</p>
+                    <p class="text-muted">{{$post->created_at}} </p>
                 </div>
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
                         <form method="" action="">
