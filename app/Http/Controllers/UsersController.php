@@ -33,4 +33,16 @@ class UsersController extends Controller
         // 見本ではユーザ詳細画面に飛ばすが、まだないのでTop画面にリダイレクトする。
         return redirect('/');
     }
+
+    // ユーザ詳細画面表示
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
+        $data=[
+            'user' => $user,
+            'posts' => $posts,
+        ];
+        return view('users.show', $data);
+    }
 }
