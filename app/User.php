@@ -44,7 +44,7 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
-    public static function booted(): void
+    public static function boot(): void
     {
         parent::boot();
         static::deleted(function ($user) {
