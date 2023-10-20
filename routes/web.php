@@ -28,9 +28,11 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 //ログイン後
-Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => 'auth'], function() {
     //投稿
     Route::prefix('posts')->group( function () {
         Route::post('', 'PostsController@store')->name('posts.store');
+        Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
+        Route::put('{id}', 'PostsController@update')->name('post.update');
     });
 });
