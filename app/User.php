@@ -43,4 +43,18 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+<<<<<<< HEAD
+=======
+
+    public static function boot(): void
+    {
+        parent::boot();
+        static::deleted(function ($user) {
+            $user->posts()->delete();
+        });
+    }
+
+
+
+>>>>>>> develop_a_nagatsuki_rab
 }
