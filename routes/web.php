@@ -28,6 +28,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
         //ユーザ編集処理        
         Route::put('{id}', 'UsersController@update')->name('users.update');
+        //ユーザ退会処理
+        Route::delete("{id}","UsersController@destroy")->name('users.delete');
     });
 });
     
