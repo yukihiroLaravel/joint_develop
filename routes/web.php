@@ -15,10 +15,12 @@
 Route::get('/', 'PostsController@index');
 
 // ユーザー詳細
-Route::prefix('users/{id}')->group(function(){
-    Route::get('users/{id}', 'UsersController@show')->name('users.show');
-    Route::get('followers', 'UsersController@followers')->name('followers');
-    Route::get('following', 'UsersController@ffollowing')->name('following');
+Route::prefix('users')->group(function () {
+    Route::prefix('{id}')->group(function () {
+        Route::get('/', 'UsersController@show')->name('users.show');
+        Route::get('followers', 'UsersController@followers')->name('followers');
+        Route::get('followings', 'UsersController@followings')->name('followings');
+    });
 });
 
 //ユーザ新規登録
