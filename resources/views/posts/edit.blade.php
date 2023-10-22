@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('content') 
 <h2 class="mt-5">投稿を編集する</h2>
-<div class="m-auto">@include('commons.error_messages')</div>
 <div class="test-center mb-3">
-    <form method="POST" action="{{ route('post.update', $post->id) }}" class="d-inline-block w-100">
+    <form method="POST" action="{{ route('post.update', $post->id) }}" class="d-inline-block w-75">
+        @include('commons.error_messages')
         @csrf
         @method('PUT')
         <div class="form-group">
