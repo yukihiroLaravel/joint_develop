@@ -18,16 +18,17 @@
         </aside>
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
-                <li class="nav-item"><a href="{{ route('user.show', $user->id) }}" class="nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}">タイムライン</a></li>
+                <li class="nav-item"><a href="{{ route('user.show', $user->id) }}" class="nav-link {{ Request::routeIs('user.show') ? 'active' : '' }}">タイムライン</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
             </ul>
+            <!-- トップページの投稿表示完成後、以下を"＠include('posts.posts')"に変更する -->
             <ul class="list-unstyled">
-                <li class="mb-3 text-center">
-                    @foreach ($posts as $post)
+                @foreach ($posts as $post)
+                  <li class="mb-3 text-center">
                         <div class="text-left d-inline-block w-75 mb-2">
                             <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
-                            <p class="mt-3 mb-0 d-inline-block"><a href="">{{ $user->name }}</a></p>
+                            <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('user.show', $user->id) }}">{{ $user->name }}</a></p>
                         </div>
                         <div class="">
                             <div class="text-left d-inline-block w-75">
@@ -43,10 +44,11 @@
                                 <a href="" class="btn btn-primary">編集する</a>
                             </div>
                         @endif
-                    @endforeach
-                </li>
+                   </li>
+                @endforeach
             </ul>
             <div class="m-auto" style="width: fit-content">{{ $posts->links('pagination::bootstrap-4') }}</div>   
-        </div>
+            <!-- トップページの投稿表示完成後、ここまでを"＠include('posts.posts')"に変更する -->
+            </div>
     </div>
 @endsection

@@ -31,7 +31,7 @@ class UsersController extends Controller
         }
 
         // 見本ではユーザ詳細画面に飛ばすが、まだないのでTop画面にリダイレクトする。
-        return redirect('/');
+        return redirect()->route('user.show', ['id' => $user->id]);
     }
 
     // ユーザ詳細画面表示
