@@ -43,8 +43,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
-<<<<<<< HEAD
-=======
 
     public static function boot(): void
     {
@@ -56,5 +54,4 @@ class User extends Authenticatable
 
 
 
->>>>>>> develop_a_nagatsuki_rab
 }

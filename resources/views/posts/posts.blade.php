@@ -16,7 +16,7 @@
                      <form method="" action="">
                          <button type="submit" class="btn btn-danger">削除</button>
                      </form>
-                     <a href="{{ route('users.update', $post->user_id) }}" class="btn btn-primary">編集する</a>
+                     <a href="{{ route('users.edit', $post->user_id) }}" class="btn btn-primary">編集する</a>
                   </div>
                 @endif  
             </div>
