@@ -8,7 +8,8 @@
         </div>
     </div>
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
-        @include('commons.error_messages')
+    @include('commons.error_messages')
+    @if (Auth::check())
         <div class="text-center mb-3">
             <form method="" action="" class="d-inline-block w-75">
                 <div class="form-group">
@@ -19,4 +20,6 @@
                 </div>
             </form>
         </div>
+    @endif
+    @include('posts.posts')
 @endsection
