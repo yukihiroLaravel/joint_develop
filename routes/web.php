@@ -29,3 +29,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('', 'UsersController@update')->name('users.update');
     });
 });
+
+// コメントポスト
+Route::post('posts/{id}', 'PostsController@post')->name('posts.post');

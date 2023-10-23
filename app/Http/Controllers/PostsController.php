@@ -13,4 +13,14 @@ class PostsController extends Controller
             'posts' => $posts,
         ]);
     }
+
+    public function post(Request $request, $id)
+    {
+        $post = new Post;
+        $post->user_id = $id;
+        $post->content = $request->content;
+        $post->save();
+
+        return redirect('/');
+    }
 }
