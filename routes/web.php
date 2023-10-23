@@ -12,6 +12,7 @@
 */
 
 // ユーザ新規登録
+
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
@@ -32,5 +33,11 @@ Route::group(['middleware' => 'auth'], function(){
     //投稿
     Route::prefix('posts')->group( function () {
         Route::post('', 'PostsController@store')->name('posts.store');
+    });
+
+    // ユーザ編集
+    Route::prefix('users')->group( function () {
+        Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
+        Route::put('{id}', 'UsersController@update')->name('user.update');
     });
 });
