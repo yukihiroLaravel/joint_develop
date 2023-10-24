@@ -51,14 +51,15 @@ class UsersController extends Controller
     public function followings($id)
     {
         $user = User::findOrFail($id);
+        $followings = $user->followings()->get();
         $followings = $user->followings()->with('user')->orderBy('created_at', 'desc')->paginate(10);
-
+       
         $data = [
             'user' => $user,
             'followings' => $followings,
         ];
         $data += $this->userCounts($user);
-    
+        
         return view('users.followings', $data);
     }
 
