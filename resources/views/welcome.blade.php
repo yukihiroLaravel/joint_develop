@@ -11,10 +11,10 @@
     @include('commons.error_messages')
     @if (Auth::check())
         <div class="text-center mb-3">
-            <form method="POST" action="{{ route('posts.post', Auth::id()) }}" class="d-inline-block w-75">
+            <form method="POST" action="{{ route('posts.post') }}" class="d-inline-block w-75">
                 @csrf
                 <div class="form-group">
-                    <textarea class="form-control" name="content" rows="4"></textarea>
+                    <textarea class="form-control" name="content" rows="4" value="{{ old('content') }}"></textarea>
                     <div class="text-left mt-3">
                         <button type="submit" class="btn btn-primary">投稿する</button>
                     </div>

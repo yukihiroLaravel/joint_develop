@@ -14,10 +14,10 @@ class PostsController extends Controller
         ]);
     }
 
-    public function post(Request $request, $id)
+    public function post(Request $request)
     {
         $post = new Post;
-        $post->user_id = $id;
+        $post->user_id = \Auth::id();
         $post->content = $request->content;
         $post->save();
 
