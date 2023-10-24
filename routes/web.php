@@ -33,4 +33,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::prefix('posts')->group( function () {
         Route::post('', 'PostsController@store')->name('posts.store');
     });
+    //フォロー
+    Route::group(['prefix' => 'users/{id}'],function() {
+        Route::post('follow','FollowController@store')->name('follow');
+        Route::delete('unfollow','FollowController@destroy')->name('unfollow');
+    });
 });
