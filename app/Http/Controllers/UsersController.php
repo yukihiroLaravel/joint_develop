@@ -25,17 +25,17 @@ class UsersController extends Controller
 
     public function edit($id)
     {
-        if($id == \Auth::id()) {
+        if ($id == \Auth::id()) {
             $user = \Auth::user();
             return view('users.edit', $user);
-        } else {
-            abort(403, 'アクセス権がありません'); 
-        }
+        } 
+        abort(403, 'アクセス権がありません'); 
+        
     }
 
     public function update(UserRequest $request, $id)
     {
-        if($id == \Auth::id()) {
+        if ($id == \Auth::id()) {
             $user = \Auth::user();
             $user->name = $request->name;
             $user->email = $request->email;
