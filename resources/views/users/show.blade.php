@@ -15,6 +15,7 @@
                 @endif
             </div>
         </div>
+        <div class="text-center">@include('follows.follow_button', ['user' => $user])</div>
     </aside>
     <div class="col-sm-8">
         <ul class="nav nav-tabs nav-justified mb-3">
