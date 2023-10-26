@@ -27,7 +27,7 @@ class UsersController extends Controller
     {
         if ($id == \Auth::id()) {
             $user = \Auth::user();
-            return view('users.edit', $user);
+            return view('users.edit', ['user' => $user]);
         } 
         abort(403, 'アクセス権がありません'); 
         
