@@ -8,13 +8,14 @@
             </div>
             <div class="card-body">
                 <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 500) }}" alt="ユーザのアバター画像">
-                @if (Auth::id() === $user->user_id)
+                @if (Auth::id() === $user->id)
                     <div class="mt-3">
-                        <a href="" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                        <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                     </div>
                 @endif
             </div>
         </div>
+        <div class="text-center">@include('follows.follow_button', ['user' => $user])</div>
     </aside>
     <div class="col-sm-8">
         <ul class="nav nav-tabs nav-justified mb-3">
