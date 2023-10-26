@@ -12,6 +12,7 @@
 */
 
 // ユーザ新規登録
+
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
@@ -39,5 +40,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::group(['prefix' => 'users/{id}'],function() {
         Route::post('follow','FollowController@store')->name('follow');
         Route::delete('unfollow','FollowController@destroy')->name('unfollow');
+    });
+
+    // ユーザ編集
+    Route::prefix('users')->group( function () {
+        Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
+        Route::put('{id}', 'UsersController@update')->name('user.update');
     });
 });
