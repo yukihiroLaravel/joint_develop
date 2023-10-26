@@ -22,10 +22,14 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-// ユーザ編集
+// ログインユーザ
 Route::group(['middleware' => 'auth'], function () {
+    // ユーザ編集
     Route::prefix('users/{id}')->group(function () {
         Route::get('', 'UsersController@edit')->name('users.edit');
         Route::put('', 'UsersController@update')->name('users.update');
     });
+    // コメントポスト
+    Route::post('posts', 'PostsController@post')->name('posts.post');
 });
+
