@@ -46,6 +46,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('search')->group(function () {
         // 投稿検索
         Route::get('', 'SearchController@postsSearch')->name('posts.search');
-        Route::get('{searchQuery}', 'SearchController@postsSearchResults')->name('search.results');
     });
 });
