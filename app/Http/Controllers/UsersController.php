@@ -32,7 +32,7 @@ class UsersController extends Controller
         abort(403, 'アクセス権がありません'); 
         
     }
-
+    
     public function update(UserRequest $request, $id)
     {
         if ($id == \Auth::id()) {
@@ -42,6 +42,15 @@ class UsersController extends Controller
             $user->password = bcrypt($request->password);
             $user->save();
             return redirect()->route('user.show', $user->id);
+        }
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        if (\Auth::id() === $user->id) {
+            $user->delete();
+            return redirect('/');
         }
     }
 }
