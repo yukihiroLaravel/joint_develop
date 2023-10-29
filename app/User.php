@@ -50,14 +50,16 @@ class User extends Authenticatable
     }
 
     public function isFollows($userId)
-    {
+    {   
         return $this->followings()->where('followed_user_id', $userId)->exists();
     }
 
     public function follow($userId)
     {
+        $itsMe = $this->id == $userId;
         $exist = $this->isFollows($userId);
-        if ($exist) {
+
+        if ($exist || $itsMe) {
             return false;
         } else {
             $this->followings()->attach($userId);
@@ -67,8 +69,9 @@ class User extends Authenticatable
     
     public function unfollow($userId)
     {
+        $itsMe = $this->id == $userId;
         $exist = $this->isFollows($userId);
-        if ($exist) {
+        if ($exist || $itsMe ) {
             $this->followings()->detach($userId);
             return true;
         } else {
