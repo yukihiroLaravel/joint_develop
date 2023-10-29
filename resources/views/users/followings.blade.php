@@ -1,12 +1,29 @@
-@foreach ($followings as $following)
-<ul class="list-unstyled">
-    <li class="mb-3 text-center">
-        <div class="text-left d-inline-block w-75 mb-2">
-            <img class="mr-2 rounded-circle" src="{{ Gravatar::src($following->email, 55) }}" alt="ユーザのアバター画像">
-            <p class="mt-3 mb-0 d-inline-block"><a  href="{{ route('users.show', $following->user_id) }}">{{ $following->user->name }}</a></p>
-            @include('follows.follow_button',['user'=> $following])
+@extends('layouts.app')
+@section('content')
+<div class="row">
+    <aside class="col-sm-4 mb-5">
+        <div class="card bg-info">
+            <div class="card-header">
+                <h3 class="card-title text-light">{{ $user->name }}</h3>
+            </div>
+            <div class="card-body">
+                <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 300) }}" alt="ユーザのアバター画像">
+                @if (Auth::check() && Auth::user()->id == $user->id)
+                <div class="mt-3">
+                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                </div>
+                @endif
+            </div>
+                @include('follows.follow_button')
         </div>
-    </li>
-</ul>
-@endforeach
-<div class="m-auto" style="width: fit-content">{{ $followings->links('pagination::bootstrap-4') }}</div>
+    </aside>
+    <div class="col-sm-8">
+        <ul class="nav nav-tabs nav-justified mb-3">
+            <li class="nav-item"><a href="{{ route('users.show', $user->id) }}" class="nav-link {{ Request::routeIs('users.show') ? 'active' : '' }}">タイムライン<br><div class="badge badge-secondary">{{ $countPosts }}</div></a></li>
+            <li class="nav-item"><a href="{{ route('followings', $user->id) }}" class="nav-link {{ Request::routeIs('followings') ? 'active' : '' }}">フォロー中<br><div class="badge badge-secondary">{{ $countFollowings }}</div></a></li>
+            <li class="nav-item"><a href="{{ route('followers', $user->id) }}" class="nav-link {{ Request::routeIs('followers') ? 'active' : '' }}">フォロワー<br><div class="badge badge-secondary">{{ $countFollowers }}</div></a></li>
+        </ul>
+        @include('users.showFollowings', ['user' => $user, 'followings' => $followings])
+    </div>
+</div>
+@endsection
