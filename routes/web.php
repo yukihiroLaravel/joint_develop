@@ -26,10 +26,14 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::group(['middleware' => 'auth'], function () {
     // ユーザ編集
     Route::prefix('users/{id}')->group(function () {
-        Route::get('', 'UsersController@edit')->name('users.edit');
+        Route::get('edit', 'UsersController@edit')->name('users.edit');
         Route::put('', 'UsersController@update')->name('users.update');
     });
     // コメントポスト
     Route::post('posts', 'PostsController@post')->name('posts.post');
 });
 
+// ユーザ詳細
+Route::prefix('users')->group(function () {
+    Route::get('{id}', 'UsersController@show')->name('user.show');
+});
