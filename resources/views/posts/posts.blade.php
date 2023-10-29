@@ -8,11 +8,6 @@
              <div class=""> 
                  <div class="text-left d-inline-block w-75">
                     @if(isset($searchResults))
-                        <!-- <p class="mb-2">{!! preg_replace(
-                            '/(' . preg_quote($searchQuery, '/') . ')/i', 
-                            '<span style="background-color: yellow;">$1</span>', 
-                            $post->content
-                        ) !!}</p> -->
                         <p class="mb-2">{!! preg_replace(
                             '/[' . preg_quote($searchQuery, '/') . ']/iu', 
                             '<span style="background-color: yellow;">$0</span>', 
