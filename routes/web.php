@@ -42,4 +42,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('follow', 'FollowController@store')->name('follow');
         Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
     });
+    // 検索
+    Route::prefix('search')->group(function () {
+        // 投稿検索
+        Route::get('', 'SearchController@postsSearch')->name('posts.search');
+    });
 });
