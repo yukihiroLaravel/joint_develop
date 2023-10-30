@@ -11,19 +11,19 @@ use App\Post;
 class UsersController extends Controller
 {
     public function show($id)
-{
-    $user = User::findOrFail($id);
-    $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
+    {
+        $user = User::findOrFail($id);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
 
-    $data = [
-        'user' => $user,
-        'posts' => $posts,
-    ];
+        $data = [
+            'user' => $user,
+            'posts' => $posts,
+        ];
 
-    $data += $this->userCounts($user);
+        $data += $this->userCounts($user);
 
-    return view('users.show', $data);
-}
+        return view('users.show', $data);
+    }
 
     public function edit($id)
     {
@@ -52,7 +52,7 @@ class UsersController extends Controller
     public function followings($id)
     {
         $user = User::findOrFail($id);
-        $followings = $user->followings()->with('user')->orderBy('created_at', 'desc')->paginate(10);
+        $followings = $user->followings()->orderBy('created_at', 'desc')->paginate(10);
        
         $data = [
             'user' => $user,
@@ -66,7 +66,7 @@ class UsersController extends Controller
     public function followers($id)
     {
         $user = User::findOrFail($id);
-        $followers = $user->followers()->with('user')->orderBy('created_at', 'desc')->paginate(10);
+        $followers = $user->followers()->orderBy('created_at', 'desc')->paginate(10);
 
         $data = [
             'user' => $user,

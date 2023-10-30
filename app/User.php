@@ -54,13 +54,13 @@ class User extends Authenticatable
     public function followings()
     {
         // ユーザーがフォローしているユーザー一覧を取得
-        return $this->belongsToMany(User::class, 'follows', 'user_id', 'follow_id',)->withTimestamps();
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'follow_id')->withTimestamps();
     }
     
     public function followers()
     {
         // ユーザーをフォローしているユーザー一覧を取得
-        return $this->belongsToMany(User::class, 'follows', 'follow_id', 'user_id',)->withTimestamps();
+        return $this->belongsToMany(User::class, 'follows', 'follow_id', 'user_id')->withTimestamps();
     }
     
     public function follow($userId)
