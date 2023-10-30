@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('', 'PostsController@store')->name('post.store');
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
+        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     });
     // ユーザー編集・更新、フォロー・アンフォロー
     Route::prefix('users/{id}')->group(function(){
@@ -44,5 +45,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('update', 'UsersController@update')->name('users.update');
         Route::post('follow', 'FollowController@store')->name('follow');
         Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
+    });
+    // 検索
+    Route::prefix('search')->group(function () {
+        // 投稿検索
+        Route::get('', 'SearchController@postsSearch')->name('posts.search');
     });
 });
