@@ -17,7 +17,7 @@
             @csrf
             <div class="form-group">
                 <label for="name">名前</label>
-                <input id="name" type="text" class="form-control" placeholder="7文字以内" name="name">
+                <input id="name" type="text" class="form-control" name="name">
             </div>
             <div class="form-group">
                 <label for="email">メールアドレス</label>
