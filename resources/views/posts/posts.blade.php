@@ -7,7 +7,15 @@
              </div>
              <div class=""> 
                  <div class="text-left d-inline-block w-75">
-                    <p class="mb-2">{{ $post->content }}</p>
+                    @if(isset($searchResults))
+                        <p class="mb-2">{!! preg_replace(
+                            '/[' . preg_quote($searchQuery, '/') . ']/iu', 
+                            '<span style="background-color: yellow;">$0</span>', 
+                            $post->content
+                        ) !!}</p>
+                    @else
+                        <p class="mb-2">{{ $post->content }}</p>
+                    @endif
                     <p class="text-muted">{{ $post->created_at }}</p>
                 </div>
                 @if(Auth::check() && Auth::id() == $post->user_id)
@@ -33,5 +41,10 @@
         </li>
     </ul>
 @endforeach 
-      <div class="m-auto" style="width: fit-content">{{ $posts->links('pagination::bootstrap-4') }}</div>
+@if(isset($searchResults))
+    <div class="m-auto" style="width: fit-content">{{ $searchResults->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
+@else
+    <div class="m-auto" style="width: fit-content">{{ $posts->links('pagination::bootstrap-4') }}</div>
+
+@endif
 </div>
