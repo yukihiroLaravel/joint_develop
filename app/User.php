@@ -97,6 +97,4 @@ class User extends Authenticatable
         // ユーザーが指定したユーザーをフォローしているかをチェック
         return $this->followings()->where('follow_id', $userId)->exists();
     }
-
-    
 } 

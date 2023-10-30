@@ -53,16 +53,7 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         if (\Auth::id() === $user->id) {
             $user->delete();
-            
-        }
-        return redirect('http://localhost:8080/');
+           }
+        return redirect('/');
     }
-
-    
-   
-
-    
-    
-    
-
 }

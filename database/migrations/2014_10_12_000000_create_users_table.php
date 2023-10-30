@@ -33,8 +33,5 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
-        Schema::table('user', function (Blueprint $table) {
-            $table->dropColumn('deleted_at');
-        });
     }
 }
