@@ -13,17 +13,19 @@
                         <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a> 
                         </div>
                     @else
-                        @if (Auth::check()&&Auth::user()->isFollows($user->id))
-                            <form method="POST" action="{{ route('unfollow', $user->id) }}" class="text-center mt-4">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">フォロー解除</button>
-                            </form>
-                        @else
-                            <form method="POST" action="{{ route('follow', $user->id) }}" class="text-center mt-4">
-                                @csrf
-                                <button type="submit" class="btn btn-success">フォロー</button>
-                            </form>
+                        @if(Auth::check())
+                            @if (Auth::user()->isFollows($user->id))
+                                <form method="POST" action="{{ route('unfollow', $user->id) }}" class="text-center mt-4">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">フォロー解除</button>
+                                </form>
+                            @else
+                                <form method="POST" action="{{ route('follow', $user->id) }}" class="text-center mt-4">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success">フォロー</button>
+                                </form>
+                            @endif
                         @endif
                 @endif
                </div>
