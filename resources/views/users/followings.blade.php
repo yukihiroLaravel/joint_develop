@@ -23,7 +23,7 @@
             <li class="nav-item"><a href="{{ route('followings', $user->id) }}" class="nav-link {{ Request::routeIs('followings') ? 'active' : '' }}">フォロー中<br><div class="badge badge-secondary">{{ $countFollowings }}</div></a></li>
             <li class="nav-item"><a href="{{ route('followers', $user->id) }}" class="nav-link {{ Request::routeIs('followers') ? 'active' : '' }}">フォロワー<br><div class="badge badge-secondary">{{ $countFollowers }}</div></a></li>
         </ul>
-        @include('posts.posts', ['user' => $user, 'posts' => $posts])
+        @include('users.showFollowings', ['user' => $user, 'followings' => $followings])
     </div>
 </div>
 @endsection

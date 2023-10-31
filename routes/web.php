@@ -21,7 +21,13 @@ Route::prefix('search')->group(function () {
 });
 
 // ユーザー詳細
-Route::get('users/{id}', 'UsersController@show')->name('users.show');
+Route::prefix('users')->group(function () {
+    Route::prefix('{id}')->group(function () {
+        Route::get('/', 'UsersController@show')->name('users.show');
+        Route::get('followers', 'UsersController@followers')->name('followers');
+        Route::get('followings', 'UsersController@followings')->name('followings');
+    });
+});
 
 //ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
