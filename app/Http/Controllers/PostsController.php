@@ -31,17 +31,21 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        $data=[
-            'post' => $post,
-        ];
+        if (\Auth::id() === $post->user_id) {
+            $data=[
+                'post' => $post,
+            ];
+        }
         return view('posts.edit', $data);
     }
 
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
-        $post->content = $request->content;       
-        $post->save(); 
+        if (\Auth::id() === $post->user_id) {
+            $post->content = $request->content;
+            $post->save();
+        }
         return redirect('/');
     }
 }
