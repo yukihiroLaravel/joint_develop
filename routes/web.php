@@ -31,10 +31,10 @@ Route::group(['middleware' => 'auth'], function () {
     });
     // コメントポスト
     Route::post('posts', 'PostsController@post')->name('posts.post');
+    // 投稿削除
+    Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
 });
 
-// 投稿削除
-Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
 // ユーザ詳細
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
