@@ -45,6 +45,28 @@ class UsersController extends Controller
         }
     }
 
+    public function  followings($id)
+    {
+        $user = User::findOrFail($id);
+        $followings = $user->followings()->orderBy('id', 'desc')->paginate(9);
+        $data=[
+            'user' => $user,
+            'followings' => $followings,
+        ];
+        return view('users.show', $data);
+    }
+
+    public function  followers($id)
+    {
+        $user = User::findOrFail($id);
+        $followers = $user->followers()->orderBy('id', 'desc')->paginate(9);
+        $data=[
+            'user' => $user,
+            'followers' => $followers,
+        ];
+        return view('users.show', $data);
+    }
+
     public function destroy($id)
     {
         $user = User::findOrFail($id);
