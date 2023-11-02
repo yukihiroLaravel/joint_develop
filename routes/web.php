@@ -31,6 +31,8 @@ Route::group(['middleware' => 'auth'], function () {
     });
     // コメントポスト
     Route::post('posts', 'PostsController@post')->name('posts.post');
+    // 投稿削除
+    Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
 });
 
 // ユーザ詳細
