@@ -38,12 +38,24 @@ Route::group(['middleware' => 'auth'], function () {
         //ユーザ退会処理
         Route::delete("{id}","UsersController@destroy")->name('users.delete');
     });
+
+    //フォロー、フォロワー
+    Route::group(['prefix' => 'users/{id}'],function(){
+        Route::post('follow','FollowController@store')->name('follow');
+        Route::delete('unfollow','FollowController@destroy')->name('unfollow');
+    });
+
+    //投稿新規登録
     Route::prefix('posts')->group(function () {
         Route::post('', 'PostsController@store')->name('post.store');
     });
 });
+
     
 //ログイン
 Route::get('login','Auth\LoginController@showLoginForm')->name('login');
 Route::post('login','Auth\LoginController@login')->name('login.post');
 Route::get('logout','Auth\LoginController@logout')->name('logout');
+
+
+
