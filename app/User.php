@@ -80,4 +80,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(User::class, 'follows', 'followed_user_id', 'user_id')->withTimestamps();
     }
+
+    public static function boot(): void
+    {
+        parent::boot();
+        static::deleted(function ($user) {
+            $user->posts()->delete();
+        });
+    }
 }

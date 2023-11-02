@@ -32,7 +32,7 @@ class UsersController extends Controller
         abort(403, 'アクセス権がありません'); 
         
     }
-
+    
     public function update(UserRequest $request, $id)
     {
         if ($id == \Auth::id()) {
@@ -53,7 +53,6 @@ class UsersController extends Controller
             'user' => $user,
             'followings' => $followings,
         ];
-        //dd($followings);
         return view('users.show', $data);
     }
 
@@ -65,7 +64,15 @@ class UsersController extends Controller
             'user' => $user,
             'followers' => $followers,
         ];
-        
         return view('users.show', $data);
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        if (\Auth::id() === $user->id) {
+            $user->delete();
+            return redirect('/');
+        }
     }
 }
