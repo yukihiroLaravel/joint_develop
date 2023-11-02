@@ -27,6 +27,15 @@ class PostsController extends Controller
         return back();
     }
 
+    public function destroy($id)
+    {
+        $posts = Post::findOrFail($id);
+        if (\Auth::id() === $posts->user_id) {
+           $posts->delete();
+        }
+        return back();
+    } 
+
     public function edit($id)
      {
          $post = Post::findOrFail($id);
@@ -46,4 +55,4 @@ class PostsController extends Controller
          $post->save();
          return redirect('/');
      }
- } 
+} 
