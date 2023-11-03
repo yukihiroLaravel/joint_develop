@@ -21,5 +21,5 @@
             </form>
         </div>
     @endauth
-    @include('posts.posts', ['posts' => $posts]) 
+    @include('posts.posts', ['posts' => $posts])
 @endsection
