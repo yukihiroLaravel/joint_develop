@@ -22,4 +22,29 @@ class PostsController extends Controller
         $post->save();
         return back();
     }
+
+    //投稿編集画面へ遷移
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            return view("posts.post_edit",["post" => $post]);
+        }
+        else {
+            return back();
+        }
+    }
+    //投稿編集処理
+    public function update(PostRequest $request, $id)
+    {
+        $post = Post::findOrFail($id);
+         if (\Auth::id() === $post->user_id) {
+            $post->content = $request->content;
+            $post->user_id = $request->user()->id;
+            $post->save();
+            return redirect('/');
+        }
+
+        return back();
+    }
 }

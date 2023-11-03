@@ -2,8 +2,8 @@
     @foreach($posts as $post)
         <li class="mb-3 text-center">
             <div class="text-left d-inline-block w-75 mb-2">
-                <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 50) }}" alt="">
-                <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('user.show', $post->user_id) }}">{{ $user->name }}</a></p>
+                <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post -> user->email, 50) }}" alt="">
+                <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('user.show', $post->user_id) }}">{{ $post -> user->name }}</a></p>
             </div>
 
             <div class="">
@@ -16,7 +16,7 @@
                      <form method="" action="">
                          <button type="submit" class="btn btn-danger">削除</button>
                      </form>
-                     <a href="{{ route('users.edit', $post->user_id) }}" class="btn btn-primary">編集する</a>
+                     <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">編集する</a>
                   </div>
                 @endif  
             </div>
