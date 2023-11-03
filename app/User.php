@@ -52,4 +52,13 @@ class User extends Authenticatable
         });
     }
 
+    // App/User.php
+
+    public function likes()
+    {
+        return $this->belongsToMany(Post::class, 'likes');
+    }
+
+    
+
 }
