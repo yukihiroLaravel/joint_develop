@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserRequest;
 use App\User;
 use App\Post;
@@ -27,9 +26,9 @@ class UsersController extends Controller
 
     public function edit($id)
     {
-        if ($id == Auth::id()) {
+        if ($id == \Auth::id()) {
             $data = [
-                'user' => Auth::user()->id,
+                'user' => \Auth::user()->id,
             ];
             return view('users.edit', $data);
         } else {
@@ -39,7 +38,7 @@ class UsersController extends Controller
 
     public function update(UserRequest $request, $id)
     {
-        if ($id == Auth::id()) {
+        if ($id == \Auth::id()) {
             $user = User::findOrFail($id);
             $user->name = $request->name;
             $user->email = $request->email;
