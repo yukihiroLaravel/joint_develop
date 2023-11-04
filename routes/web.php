@@ -41,4 +41,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
         Route::post('', 'PostsController@store')->name('post.store');
     });
+    //いいね機能
+    Route::post('/posts/{post}/unlike', 'LikeController@store')->name('posts.unlike');
+    Route::post('/posts/{post}/like', 'LikeController@store')->name('posts.like');
+    //フォロー機能
+    Route::post('/users/{user}/follow', 'UserController@follow')->name('users.follow');
+    Route::delete('/users/{user}/unfollow', 'UserController@unfollow')->name('users.unfollow');
 });

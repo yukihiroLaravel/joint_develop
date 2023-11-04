@@ -49,4 +49,5 @@ class UsersController extends Controller
         }
         return redirect('/')->with('usersdestroyMessage', '退会に成功しました');
     }
+    
 }    
