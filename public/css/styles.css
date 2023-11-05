@@ -87,15 +87,9 @@
 }
 
 .area_btn:hover {
-  background-color: #f93737; /* ホバー時の色 */
+  background-color: #f93737; 
+  border: 3px solid #f93737 !important;
   color: #ffffff;
-}
- 
-
-#area {
-  display: flex;
-  justify-content: space-between;
-  list-style: none;
 }
 
 .selectbox-006 {
@@ -151,4 +145,20 @@
 .img1 {
   max-width: 250px;
   max-height: 150px;
+}
+
+.allarea {
+  max-width: 600px;
+  margin: auto;
+  border-radius: 10px;
+  border: 3px solid rgba(0, 0, 0, 0.322) !important;
+  color: #111; 
+  font-weight: bold;
+}
+
+.allarea:hover {
+  /* background-color: rgba(0, 0, 0, 0.322); */
+  background-color: #f93737;
+  border: 3px solid #f93737 !important;
+  color: #ffffff;
 }

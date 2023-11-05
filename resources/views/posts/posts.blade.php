@@ -80,19 +80,6 @@
                      <a href="{{ route('users.edit', $post->user_id) }}" class="btn btn-primary">編集する</a>
                   </div>
                 @else
-                <div class="d-flex justify-content-between align-items-cente bgcolor2 p-1">
-                    <div class="mb-3 mr-5 mt-3 ml-5">返信  件</div>
-                    <form method="POST" action="{{ route('reply.store',$post->id) }}">
-                        @csrf
-                        <div class="row align-items-center mt-2">
-                            <input class="form-control col-8" name="reply" value="{{ old('reply') }}" style="width: 500px;">
-                            <button type="submit" class="btn btn-primary ml-3 col-2">返信</button>
-                        </div>
-                    </form>
-                </div>
-                <div>
-                    @include('replys.replys', ['replys' => $replys])
-                </div>
                 @endif  
             </div>
         </li>

@@ -14,8 +14,4 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function replys()
-    {
-        return $this->hasMany(Reply::class);
-    }
 }

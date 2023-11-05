@@ -54,9 +54,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}/destroy', 'PostsController@destroy')->name('post.delete');
     });
 
-    //リプライ
-    Route::post('{id}', 'ReplysController@store')->name('reply.store');
-
 });
 
     
