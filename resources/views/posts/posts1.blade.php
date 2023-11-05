@@ -1,5 +1,5 @@
 <div class= "d-flex align-items-center justify-content-center">
-    <h3 class="text-center mb-3 mr-2 mt-1">"地域ごとの絶景スポット"</h3>
+    <h3 class="text-center mb-3 mr-2 mt-1">"北海道の絶景スポット"</h3>
     <h5>について140字以内で会話しよう！</h5>
 </div>
     @if (Auth::check())
@@ -19,11 +19,6 @@
                             <label class="selectbox-006">
                                 <select name="area" value="{{ old('area') }}">
                                     <option selected>北海道・東北</option>
-                                    <option value="1">関東</option>
-                                    <option value="2">中部</option>
-                                    <option value="3">近畿</option>
-                                    <option value="3">中国・四国</option>
-                                    <option value="3">九州・沖縄</option>
                                 </select>
                             </label>
                         </div>
@@ -43,8 +38,8 @@
         </div>
     @endif 
 
-<ul class="list-unstyled">
-    @foreach($posts as $post)
+    <ul class="list-unstyled">
+    @foreach($posts1 as $post)
         <li class="mb-3 text-center bgcolor">
             <div class="text-left d-inline-block w-75 mb-2">
                 <div class="d-flex align-items-center justify-content-between">
@@ -57,7 +52,7 @@
 
             <div class="">
                 <div class="text-left d-inline-block w-75">
-                    <div class="row mt-2 justify-content-between">
+                    <div class="row mt-2 justify-content-between justify-content-between">
                         <div class="col-4">
                             @if($post->imagepath !== null)
                             <img src="{{ asset($post->imagepath)}}" alt= "投稿画像"class="image-fit border img1">
@@ -81,4 +76,4 @@
             </div>
         </li>
     @endforeach    
-</ul>
+    </ul>

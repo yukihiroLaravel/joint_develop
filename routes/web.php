@@ -16,13 +16,17 @@
 // });
 
 //ユーザー
-Route::get('/', 'UsersController@index');
+Route::get('/', 'UsersController@index')->name('top');
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
 });
 
 //トップページ（投稿一覧表示）
-Route::get('/', 'PostsController@index');
+// Route::get('/', 'PostsController@index');
+
+//地域ごとの投稿ページ
+Route::get('/show_region/{region}', 'PostsController@showRegion')->name('show_region');
+
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
