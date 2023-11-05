@@ -22,9 +22,9 @@ Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('sign
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 //ログイン・ログアウト
-Route::get('login','Auth\LoginController@showLoginForm')->name('login');
-Route::post('login','Auth\LoginController@login')->name('login.post');
-Route::get('logout','Auth\LoginController@logout')->name('logout');
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login.post');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
@@ -38,11 +38,11 @@ Route::group(['middleware' => 'auth'], function () {
     // ユーザー編集・更新、フォロー・アンフォロー・ユーザー退会
     Route::prefix('users/{id}')->group(function(){
         Route::get('edit', 'UsersController@edit')->name('users.edit');
+        Route::get('/sendmail', 'EmailController@mail');
         Route::put('update', 'UsersController@update')->name('users.update');
         Route::post('follow', 'FollowController@store')->name('follow');
         Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
-        Route::delete('delete', 'UsersController@destroy')->name('user.delete');
-        
+        Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
     });
     // 検索
     Route::prefix('search')->group(function () {

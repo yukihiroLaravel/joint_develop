@@ -97,4 +97,12 @@ class User extends Authenticatable
         // ユーザーが指定したユーザーをフォローしているかをチェック
         return $this->followings()->where('follow_id', $userId)->exists();
     }
+
+    public static function boot(): void
+    {
+        parent::boot();
+        static::deleted(function ($user) {
+            $user->posts()->delete();
+        });
+    }
 } 
