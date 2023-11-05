@@ -1,5 +1,5 @@
 <div class= "d-flex align-items-center justify-content-center">
-    <h3 class="text-center mb-3 mr-2 mt-1">"地域ごとの絶景スポット"</h3>
+    <h3 class="text-center mb-3 mr-2 mt-1">"北海道の絶景スポット"</h3>
     <h5>について140字以内で会話しよう！</h5>
 </div>
     @if (Auth::check())
@@ -19,11 +19,6 @@
                             <label class="selectbox-006">
                                 <select name="area" value="{{ old('area') }}">
                                     <option selected>北海道・東北</option>
-                                    <option value="関東">関東</option>
-                                    <option value="中部">中部</option>
-                                    <option value="近畿">近畿</option>
-                                    <option value="中国・四国">中国・四国</option>
-                                    <option value="九州・沖縄">九州・沖縄</option>
                                 </select>
                             </label>
                         </div>
@@ -44,7 +39,7 @@
     @endif 
 
     <ul class="list-unstyled">
-    @foreach($posts as $post)
+    @foreach($posts1 as $post)
         <li class="mb-3 text-center bgcolor">
             <div class="text-left d-inline-block w-75 mb-2">
                 <div class="d-flex align-items-center justify-content-between">
@@ -79,7 +74,6 @@
                      </form>
                      <a href="{{ route('users.edit', $post->user_id) }}" class="btn btn-primary">編集する</a>
                   </div>
-                @else
                 @endif  
             </div>
         </li>

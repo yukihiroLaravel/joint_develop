@@ -1,0 +1,164 @@
+/* 日本地図DOM */
+.japan_map{
+  position: relative;
+  box-sizing: border-box;
+  margin: 0 auto;
+  display: table;
+  background-color: #ffffff;
+}
+/* 日本地図画像（スマホ対応用） */
+.japan_map img{
+  max-width: 100%;
+  height: auto;
+  border: 0;
+}
+/* 日本地図ボタン */
+.japan_map .area_btn{
+  position: absolute;
+  z-index: 1;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: 3px solid #333333;
+  border-radius: 5px;
+  background-color: #FFF;
+  padding: 0.2em auto;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ボタン配置（使用する日本地図画像により微調整） */
+.japan_map .area_btn.area1{
+  top: 30%;
+  right: 0;
+  width: 30%;
+}
+.japan_map .area_btn.area2{
+  top: 58%;
+  right: 11%;
+  width: 13%;
+}
+.japan_map .area_btn.area3{
+  top: 56%;
+  right: 27.5%;
+  width: 13%;
+}
+.japan_map .area_btn.area4{
+  top: 65%;
+  right: 44%;
+  width: 13%;
+}
+.japan_map .area_btn.area5{
+  top: 52%;
+  left: 20%;
+  width: 25%;
+}
+.japan_map .area_btn.area6{
+  top: 70%;
+  left: 0;
+  width: 25%;
+}
+/* オーバーレイ */
+.japan_map .area_overlay{
+  display: none;
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  background-color: #111;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+/* 選択前は表示を隠す */
+.japan_map .pref_area{
+  display: none;
+}
+
+@media screen and (max-width: 480px){
+  /* スマホユーザー向けにボタン文字サイズを調整 */
+  .japan_map .area_btn{
+      font-size: 4vw;
+  }
+}
+
+.area_btn:hover {
+  background-color: #f93737; 
+  border: 3px solid #f93737 !important;
+  color: #ffffff;
+}
+
+.selectbox-006 {
+  position: relative;
+}
+
+.selectbox-006::before,
+.selectbox-006::after {
+  position: absolute;
+  right: 15px;
+  width: 9px;
+  height: 6px;
+  background-color: #535353;
+  content: '';
+  pointer-events: none;
+}
+
+.selectbox-006::before {
+  top: calc(50% - 9px);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.selectbox-006::after {
+  bottom: calc(50% - 9px);
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+}
+
+.selectbox-006 select {
+  appearance: none;
+  min-width: 230px;
+  height: 2.6em;
+  padding: .4em calc(.8em + 30px) .4em .8em;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  background-color: #fff;
+  color: #333333;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.bgcolor {
+  background-color: #f2f2f2;
+  max-width: 830px;
+  margin: auto;
+}
+
+.bgcolor2 {
+  background-color: #dedede;
+  max-width: 830px;
+  margin: 0 auto;
+}
+
+.img1 {
+  max-width: 250px;
+  max-height: 150px;
+}
+
+.allarea {
+  max-width: 600px;
+  margin: auto;
+  border-radius: 10px;
+  border: 3px solid rgba(0, 0, 0, 0.322) !important;
+  color: #111; 
+  font-weight: bold;
+}
+
+.allarea:hover {
+  /* background-color: rgba(0, 0, 0, 0.322); */
+  background-color: #f93737;
+  border: 3px solid #f93737 !important;
+  color: #ffffff;
+}

@@ -12,7 +12,19 @@
     </div>
 
     <a href="{{ route('top') }}" class="allarea_back text-decoration-none"><h3 class="mt-4 mb-5 border border-dark p-3 text-center allarea">全地域</h3></a>
-
-    @include("posts.posts", ['posts' => $posts])
+    
+    @if ($region == 'hokkaido')
+        @include('posts.posts1')
+    @elseif ($region == 'kanto')
+        @include('posts.posts2')
+    @elseif ($region == 'chubu')
+        @include('posts.posts3')
+    @elseif ($region == 'kinki')
+        @include('posts.posts4')
+    @elseif ($region == 'chugoku_shikoku')
+        @include('posts.posts5')
+    @elseif ($region == 'kyushu_okinawa')
+        @include('posts.posts6')
+    @endif
 @endsection
  

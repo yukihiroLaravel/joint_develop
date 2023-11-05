@@ -1,5 +1,5 @@
 <div class= "d-flex align-items-center justify-content-center">
-    <h3 class="text-center mb-3 mr-2 mt-1">"地域ごとの絶景スポット"</h3>
+    <h3 class="text-center mb-3 mr-2 mt-1">"関東の絶景スポット"</h3>
     <h5>について140字以内で会話しよう！</h5>
 </div>
     @if (Auth::check())
@@ -18,12 +18,7 @@
                             <div  class="text-left mt-2 mb-1">エリア</div>
                             <label class="selectbox-006">
                                 <select name="area" value="{{ old('area') }}">
-                                    <option selected>北海道・東北</option>
-                                    <option value="関東">関東</option>
-                                    <option value="中部">中部</option>
-                                    <option value="近畿">近畿</option>
-                                    <option value="中国・四国">中国・四国</option>
-                                    <option value="九州・沖縄">九州・沖縄</option>
+                                    <option selected>関東</option>
                                 </select>
                             </label>
                         </div>
@@ -44,7 +39,7 @@
     @endif 
 
     <ul class="list-unstyled">
-    @foreach($posts as $post)
+    @foreach($posts2 as $post)
         <li class="mb-3 text-center bgcolor">
             <div class="text-left d-inline-block w-75 mb-2">
                 <div class="d-flex align-items-center justify-content-between">
@@ -57,7 +52,7 @@
 
             <div class="">
                 <div class="text-left d-inline-block w-75">
-                    <div class="row mt-2 justify-content-between justify-content-between">
+                    <div class="row mt-2 justify-content-between">
                         <div class="col-4">
                             @if($post->imagepath !== null)
                             <img src="{{ asset($post->imagepath)}}" alt= "投稿画像"class="image-fit border img1">
@@ -72,14 +67,13 @@
                 </div>
                 @if (\Auth::id() === $post->user_id)
                   <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                    <form method="POST" action="{{ route('post.delete', $post->id) }}">
+                     <form method="POST" action="{{ route('post.delete', $post->id) }}">
                         @csrf
                         @method("DELETE")
                         <button type="submit" class="btn btn-danger">削除</button>
                      </form>
                      <a href="{{ route('users.edit', $post->user_id) }}" class="btn btn-primary">編集する</a>
                   </div>
-                @else
                 @endif  
             </div>
         </li>
