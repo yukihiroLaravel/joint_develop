@@ -40,7 +40,6 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
          if (\Auth::id() === $post->user_id) {
             $post->content = $request->content;
-            $post->user_id = $request->user()->id;
             $post->save();
             return redirect('/');
         }

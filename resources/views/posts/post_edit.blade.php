@@ -6,7 +6,7 @@
     @method('PUT')
     @include('commons.error_messages')
     <div class="form-group">
-        <textarea id="content" class="form-control" name="content"></textarea>
+        <textarea id="content" class="form-control" name="content" value="{{ old('content', $post->content) }}">></textarea>
     </div>
     <button type="submit" class="btn btn-primary">更新する</button>
 </form>
