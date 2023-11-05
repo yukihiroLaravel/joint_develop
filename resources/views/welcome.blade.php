@@ -1,6 +1,15 @@
 @extends('layouts.app')
 @section('content')
-    <div class="center jumbotron bg-info">
+@if (session('register_message'))
+<div class="alert alert-success">
+    {{ session('register_message') }}
+</div>
+@elseif (session('delete_message'))
+<div class="alert alert-danger">
+    {{ session('delete_message') }}
+</div>
+@endif
+    <div class="center jumbotron bg-info mt-3">
         <div class="text-center text-white mt-2 pt-1">
             <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
         </div>
