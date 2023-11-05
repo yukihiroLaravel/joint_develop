@@ -11,8 +11,7 @@
         <a href="{{ route('show_region', 'kyushu_okinawa') }}" class="text-decoration-none text-dark"><span class="area_btn area6" data-area="6">九州・沖縄</span></a>
     </div>
 
-    <h4 class="text-center mt-5">地域を選んで投稿しよう</h4>
-    <ul id="area" class="mt-1 mb-5 border border-dark pt-2 pb-2 pr-3">
+    <ul id="area" class="mt-5 mb-5 border border-dark pt-2 pb-2 pr-3">
         <li><a href="{{ route('top') }}">全地域</a></li>
         <li><a href="{{ route('show_region', 'hokkaido') }}">北海道・東北</a></li>
         <li><a href="{{ route('show_region', 'kanto') }}">関東</a></li>
@@ -20,9 +19,8 @@
         <li><a href="{{ route('show_region', 'kinki') }}">近畿</a></li>
         <li><a href="{{ route('show_region', 'chugoku_shikoku') }}">中国・四国</a></li>
         <li><a href="{{ route('show_region', 'kyushu_okinawa') }}">九州・沖縄</a></li>
-    </ul>
+    </ul> 
 
-    @include('posts.posts')
-    
+    @include("posts.posts")
 @endsection
  

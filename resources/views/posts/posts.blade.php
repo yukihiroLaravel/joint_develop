@@ -19,11 +19,11 @@
                             <label class="selectbox-006">
                                 <select name="area" value="{{ old('area') }}">
                                     <option selected>北海道・東北</option>
-                                    <option value="1">関東</option>
-                                    <option value="2">中部</option>
-                                    <option value="3">近畿</option>
-                                    <option value="3">中国・四国</option>
-                                    <option value="3">九州・沖縄</option>
+                                    <option value="関東">関東</option>
+                                    <option value="中部">中部</option>
+                                    <option value="近畿">近畿</option>
+                                    <option value="中国・四国">中国・四国</option>
+                                    <option value="九州・沖縄">九州・沖縄</option>
                                 </select>
                             </label>
                         </div>
@@ -43,7 +43,7 @@
         </div>
     @endif 
 
-<ul class="list-unstyled">
+    <ul class="list-unstyled">
     @foreach($posts as $post)
         <li class="mb-3 text-center bgcolor">
             <div class="text-left d-inline-block w-75 mb-2">
@@ -57,7 +57,7 @@
 
             <div class="">
                 <div class="text-left d-inline-block w-75">
-                    <div class="row mt-2 justify-content-between">
+                    <div class="row mt-2 justify-content-between justify-content-between">
                         <div class="col-4">
                             @if($post->imagepath !== null)
                             <img src="{{ asset($post->imagepath)}}" alt= "投稿画像"class="image-fit border img1">
@@ -81,4 +81,4 @@
             </div>
         </li>
     @endforeach    
-</ul>
+    </ul>

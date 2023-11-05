@@ -11,7 +11,6 @@
         <a href="{{ route('show_region', 'kyushu_okinawa') }}" class="text-decoration-none text-dark"><span class="area_btn area6" data-area="6">九州・沖縄</span></a>
     </div>
 
-    <!-- ●日本地図下の地域リスト -->
     <ul id="area" class="mt-5 mb-5 border border-dark pt-2 pb-2 pr-3">
         <li><a href="{{ route('top') }}">全地域</a></li>
         <li><a href="{{ route('show_region', 'hokkaido') }}">北海道・東北</a></li>
