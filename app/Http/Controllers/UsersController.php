@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Post;
+use App\Reply;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
 
@@ -13,7 +14,18 @@ class UsersController extends Controller
     public function index()
     {   
         $posts = Post::orderBy('id', 'desc')->paginate(10);
-        return view('welcome',["posts" => $posts]);
+        
+        $replys = [];
+
+        foreach ($posts as $post) {
+            $replys = array_merge($replys, $post->replys->toArray());
+        }
+
+        $data=[
+            'replys' => $replys,
+            'posts' => $posts,
+        ];
+        return view('welcome',$data);
     }
 
     public function show($id)

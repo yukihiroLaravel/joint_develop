@@ -21,6 +21,6 @@
         <li><a href="{{ route('show_region', 'kyushu_okinawa') }}">九州・沖縄</a></li>
     </ul> 
 
-    @include("posts.posts")
+    @include("posts.posts", ['posts' => $posts,'replys' => $replys])
 @endsection
  
