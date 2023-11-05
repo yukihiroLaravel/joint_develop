@@ -33,7 +33,7 @@ class PostsController extends Controller
         if (\Auth::id() === $posts->user_id) {
            $posts->delete();
         }
-        return back()->with('destroyMessage', '・削除に成功しました。');
+        return back()->with('destroyMessage', '・投稿削除に成功しました。');
     } 
 
     public function edit($id)
