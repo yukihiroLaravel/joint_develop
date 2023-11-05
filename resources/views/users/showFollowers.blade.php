@@ -2,8 +2,8 @@
 <ul class="list-unstyled">
     <li class="mb-3 text-center">
         <div class="text-left d-inline-block w-75 mb-2">
-            @if (isset($user) && $user->profile_image)
-                <img class="rounded-circle img-fluid" src="{{ asset('storage/images/' . $user->profile_image) }}" alt="ユーザーのプロフィール画像">
+            @if (isset($follower->profile_image) && $follower->profile_image)              
+                <img class="rounded-circle img-fluid" style="max-width: 70px; height: auto;" src="{{ asset('storage/images/' . $follower->profile_image) }}" alt="ユーザーのプロフィール画像">
             @else
                 <img class="mr-2 rounded-circle" src="{{ Gravatar::src($follower->email, 55) }}" alt="ユーザのアバター画像">
             @endif

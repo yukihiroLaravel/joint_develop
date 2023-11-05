@@ -15,7 +15,7 @@
                 @if (Auth::check() && Auth::user()->id == $user->id)
                     <form action="{{ route('users.upload.image', ['id' => $user->id]) }}" method="post" enctype="multipart/form-data" class="mt-2">
                         @csrf
-                        <input type="file" name="photo">
+                        <input type="file" name="image">
                         <input type="submit" value="写真をアップロード">
                      </form>
                 <div class="mt-3">
