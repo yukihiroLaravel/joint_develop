@@ -20,6 +20,7 @@
                 </div>
             </form>
         </div>
+        @include('posts.posts', ['posts' => $posts])
     @endif  
     @include('posts.posts')
 @endsection
