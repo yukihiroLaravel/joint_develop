@@ -34,8 +34,8 @@ class PostsController extends Controller
         if (\Auth::id() === $post->user_id) {
             $data=[
                 'post' => $post,
-                return view('posts.edit', $data);
             ];
+            return view('posts.edit', $data);
         }
         return back();
     }
