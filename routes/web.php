@@ -43,6 +43,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'users/{id}'],function(){
         Route::post('follow','FollowController@store')->name('follow');
         Route::delete('unfollow','FollowController@destroy')->name('unfollow');
+        Route::get('followings','UsersController@followings')->name('followings');
+        Route::get('followers','UsersController@followers')->name('followers');
     });
 
     //投稿新規登録
