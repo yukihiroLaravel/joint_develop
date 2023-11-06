@@ -23,7 +23,7 @@ class ReplyController extends Controller
         $reply->user_id = $request->user()->id;
         $post = Post::findOrFail($postId);
         $post->replies()->save($reply);
-        return redirect()->route('replies.index', ['id' => $post->id]);
+        return redirect()->route('replies.index', $postId);
     }
     // リプライ編集画面遷移
     public function edit($postId, $replyId)
@@ -45,8 +45,7 @@ class ReplyController extends Controller
             $reply->content = $request->input('content');
             $reply->save();
             // リプライ更新後にリプライ一覧表示へ遷移
-            $replies =  $post->replies()->orderBy('id', 'desc')->paginate(10);
-            return view('replies.index', compact('post', 'replies'));
+            return redirect()->route('replies.index', $postId);
         } else {
             return redirect('/');
         }
@@ -60,8 +59,7 @@ class ReplyController extends Controller
             $reply->delete();
         }
         // リプライ削除後にリプライ一覧表示へ遷移
-        $replies =  $post->replies()->orderBy('id', 'desc')->paginate(10);
-        return view('replies.index', compact('post', 'replies'));
+        return redirect()->route('replies.index', $postId);
     }
     // リプライ表示
     public function index($postId)
