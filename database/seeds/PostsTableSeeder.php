@@ -13,13 +13,40 @@ class PostsTableSeeder extends Seeder
     {
         DB::table('posts')->insert([
             'user_id' => 1,
-            'content' => '　Twitterの制限である最大140文字を超えてツイートするための新しい手法が見つかり、その発想の斬新さが一部で話題になっている。',
+            'content' => '　今までに行ったことのあるオススメのお店や美味しかった料理・気になっている食べ物について語ろう。',
         ]);
-        for ($i = 2; $i <= 4; $i++) {
-            DB::table('posts')->insert([
-                'user_id' => $i,
-                'content' => 'テストです。',
-            ]);
+        DB::table('posts')->insert([
+            'user_id' => 1,
+            'content' =>"おでんが好きです。"
+        ]);
+        DB::table('posts')->insert([
+            'user_id' => 1,
+            'content' =>""
+        ]);
+        DB::table('posts')->insert([
+            'user_id' => 1,
+            'content' =>""
+        ]);
+        DB::table('posts')->insert([
+            'user_id' => 1,
+            'content' =>""
+        ]);
+        DB::table('posts')->insert([
+            'user_id' => 1,
+            'content' =>""
+        ]);
+        DB::table('posts')->insert([
+            'user_id' => 1,
+            'content' =>""
+        ]);
+        DB::table('posts')->insert([
+            'user_id' => 1,
+            'content' =>""
+        ]);
+        DB::table('posts')->insert([
+            'user_id' => 1,
+            'content' =>""
+        ]);
         }
     }
-}
+
