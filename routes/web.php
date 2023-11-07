@@ -18,8 +18,10 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 Route::get('/', 'PostsController@index');
 
 // ユーザ
-Route::prefix('users')->group( function () {
-    Route::get('{id}', 'UsersController@show')->name('user.show');
+Route::group(['prefix' => 'users/{id}'],function () {
+    Route::get('/', 'UsersController@show')->name('user.show');
+    Route::get('followings','UsersController@followings')->name('followings');
+    Route::get('followers','UsersController@followers')->name('followers');
 });
 
 // ログイン
@@ -32,6 +34,7 @@ Route::group(['middleware' => 'auth'], function() {
     //投稿
     Route::prefix('posts')->group( function () {
         Route::post('', 'PostsController@store')->name('posts.store');
+        Route::delete('{id}', 'PostsController@destroy')->name('posts.delete');
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
     });

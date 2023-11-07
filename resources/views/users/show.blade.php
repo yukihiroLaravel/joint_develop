@@ -24,11 +24,17 @@
     </aside>
     <div class="col-sm-8">
         <ul class="nav nav-tabs nav-justified mb-3">
-            <li class="nav-item"><a href="" class="nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}">タイムライン</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
+            <li class="nav-item"><a href="{{ route('user.show', $user->id) }}" class="nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}">タイムライン</a></li>
+            <li class="nav-item"><a href="{{ route('followings', $user->id) }}" class="nav-link {{ Request::is('users/'. $user->id. '/followings') ? 'active' : '' }}">フォロー中</a></li>
+            <li class="nav-item"><a href="{{ route('followers', $user->id) }}" class="nav-link {{ Request::is('users/'. $user->id. '/followers') ? 'active' : '' }}">フォロワー</a></li>
         </ul>
-    @include('posts.posts', ['user' => $user, 'post' => $user->posts])
+        @if (isset($followers))
+            @include('follows.followers', ["followers" => $followers])
+        @elseif (isset($followings))
+            @include('follows.followings', ["followings" => $followings])
+        @else
+            @include('posts.posts', ["user" => $user, "posts" => $posts])
+        @endif
     </div>
 </div>
 @endsection
