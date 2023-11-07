@@ -47,11 +47,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{id}', 'PostsController@update')->name('post.update');
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     });
-    // ユーザー編集・更新、フォロー・アンフォロー
+    // ユーザー編集・更新、フォロー・アンフォロー・ユーザー退会
     Route::prefix('users/{id}')->group(function(){
         Route::get('edit', 'UsersController@edit')->name('users.edit');
         Route::put('update', 'UsersController@update')->name('users.update');
         Route::post('follow', 'FollowController@store')->name('follow');
         Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
+        Route::delete('delete', 'UsersController@destroy')->name('user.delete');
     });
 });
