@@ -38,11 +38,10 @@ Route::group(['middleware' => 'auth'], function () {
     // ユーザー編集・更新、フォロー・アンフォロー・ユーザー退会
     Route::prefix('users/{id}')->group(function(){
         Route::get('edit', 'UsersController@edit')->name('users.edit');
-        Route::get('/sendmail', 'EmailController@mail');
         Route::put('update', 'UsersController@update')->name('users.update');
         Route::post('follow', 'FollowController@store')->name('follow');
         Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
-        Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
+        Route::delete('delete', 'UsersController@destroy')->name('user.delete');
     });
     // 検索
     Route::prefix('search')->group(function () {
