@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('content')
-@if (session('update_message'))
-<div class="alert alert-success">
-    {{ session('update_message') }}
-</div>
+@if (session('updateMessage'))
+    <div class="alert alert-success">
+        {{ session('updateMessage') }}
+    </div>
 @endif
 <div class="row mt-3">
     <aside class="col-sm-4 mb-5">

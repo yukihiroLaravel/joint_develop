@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('content')
-@if (session('register_message'))
-<div class="alert alert-success">
-    {{ session('register_message') }}
-</div>
-@elseif (session('delete_message'))
-<div class="alert alert-danger">
-    {{ session('delete_message') }}
-</div>
+@if (session('registerMessage'))
+    <div class="alert alert-success">
+        {{ session('registerMessage') }}
+    </div>
+@elseif (session('deleteMessage'))
+    <div class="alert alert-danger">
+        {{ session('deleteMessage') }}
+    </div>
 @endif
     <div class="center jumbotron bg-info mt-3">
         <div class="text-center text-white mt-2 pt-1">

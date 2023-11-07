@@ -74,7 +74,6 @@ class RegisterController extends Controller
 
     protected function registered(Request $request, $user)
     {
-        $this->guard()->logout();
-        return redirect('/')->with('register_message', 'ユーザ情報を登録しました。');
+        return redirect('/')->with('registerMessage', 'ユーザ情報を登録しました。');
     }
 }
