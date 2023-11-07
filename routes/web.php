@@ -14,8 +14,20 @@
 //トップページ（投稿一覧表示）
 Route::get('/', 'PostsController@index');
 
+// 検索
+Route::prefix('search')->group(function () {
+    // 投稿検索
+    Route::get('', 'SearchController@postsSearch')->name('posts.search');
+});
+
 // ユーザー詳細
-Route::get('users/{id}', 'UsersController@show')->name('users.show');
+Route::prefix('users')->group(function () {
+    Route::prefix('{id}')->group(function () {
+        Route::get('/', 'UsersController@show')->name('users.show');
+        Route::get('followers', 'UsersController@followers')->name('followers');
+        Route::get('followings', 'UsersController@followings')->name('followings');
+    });
+});
 
 //ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
@@ -42,10 +54,5 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('follow', 'FollowController@store')->name('follow');
         Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
         Route::delete('delete', 'UsersController@destroy')->name('user.delete');
-    });
-    // 検索
-    Route::prefix('search')->group(function () {
-        // 投稿検索
-        Route::get('', 'SearchController@postsSearch')->name('posts.search');
     });
 });
