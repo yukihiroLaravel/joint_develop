@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="text-center">
-        <h1><i class="fab fa-telegram fa-lg pr-3"></i>（仮称）Topic Posts</h1>
+        <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
     </div>
     <div class="text-center mt-3">
         <p class="text-left d-inline-block">ログインすると投稿で<br>コミュニケーションができるようになります。</p>
@@ -11,6 +11,7 @@
     </div>
     <div class="row mt-5 mb-5">
         <div class="col-sm-6 offset-sm-3">
+        @include('commons.error_messages')
             <form method="POST" action="{{ route('login.post') }}">
                 @csrf
                 <div class="form-group">
@@ -23,7 +24,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary mt-2">ログイン</button>
             </form>
-            <div class="mt-2"><a href="">新規ユーザ登録する？</a></div>
+            <div class="mt-2"><a href="{{ route('signup') }}">新規ユーザ登録する？</a></div>
         </div>
     </div>
 @endsection

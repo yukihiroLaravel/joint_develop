@@ -5,9 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\softDeletes;
 
-class Post extends Model
+class Reply extends Model
 {
-    use softDeletes;
+    use SoftDeletes;
+
+    protected $fillable = ['content'];
 
     // リレーションメソッド
     public function user()
@@ -15,8 +17,8 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function replies()
+    public function post()
     {
-        return $this->hasMany(Reply::class);
+        return $this->belongsTo(Post::class);
     }
 }
