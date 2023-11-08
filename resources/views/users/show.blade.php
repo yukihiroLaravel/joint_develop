@@ -1,6 +1,7 @@
 @extends('layouts.app')
-@section('content') 
-<div class="row">
+@section('content')
+@include('commons.success_messages')
+<div class="row mt-3">
     <aside class="col-sm-4 mb-5">
         <div class="card bg-info">
             <div class="card-header">
