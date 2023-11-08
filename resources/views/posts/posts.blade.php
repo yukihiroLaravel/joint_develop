@@ -27,7 +27,7 @@
               document.deleteform.submit();
             };
           </script>
-          <a href="" class="btn btn-primary">編集する</a>
+          <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">編集する</a>
         </div>
       @endif
     </li>
