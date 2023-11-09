@@ -5,7 +5,6 @@
     <form method="POST" action="{{ route('users.update', Auth::user()->id) }}">
         @csrf
         @method('PUT')
-        <!-- <input type="hidden" name="id" value="{{ Auth::user()->id }}" /> -->
         <div class="form-group">
             <label for="name">ユーザ名</label>
             <input class="form-control" value="{{ $errors->any() ? old('name') : Auth::user()->name }}" name="name" />
