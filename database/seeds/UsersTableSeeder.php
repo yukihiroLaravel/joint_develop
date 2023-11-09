@@ -17,17 +17,17 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('test1')
         ]);
         DB::table('users')->insert([
-            'name' => 'masaki',
+            'name' => 'kazuhumi',
             'email' => 'test2@test.com',
             'password' => bcrypt('test2')
         ]);
         DB::table('users')->insert([
-            'name' => 'test3',
+            'name' => 'kumiko',
             'email' => 'test3@test.com',
             'password' => bcrypt('test3')
         ]);
         DB::table('users')->insert([
-            'name' => 'test4',
+            'name' => 'murai',
             'email' => 'test4@test.com',
             'password' => bcrypt('test4')
         ]);
