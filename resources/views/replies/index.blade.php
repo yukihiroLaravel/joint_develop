@@ -8,6 +8,13 @@
             <a href="{{ route('users.show', $post->user_id) }}">{{ $post->user->name }}</a>
          </p>
         </div>
+        <div>
+            @if ($post->youtube_id)
+                <iframe width="290" height="163.125" src="{{ 'https://www.youtube.com/embed/'.$post->youtube_id }}?controls=1&loop=1&playlist={{ $post->youtube_id }}" frameborder="0"></iframe>
+            @else
+                <iframe width="290" height="163.125" src="https://www.youtube.com/embed/" frameborder="0"></iframe>
+            @endif
+        </div>
         <div class="text-left d-inline-block w-75">
          <p class="mb-2 text-break">{{ $post->content }}</p>
          <p class="text-muted">{{ $post->created_at }}</p>

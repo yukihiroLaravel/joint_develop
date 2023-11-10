@@ -19,22 +19,21 @@ class PostsController extends Controller
     public function store(PostRequest $request)
     {
         $post = new Post();
+        $post->youtube_id = $request->youtube_id;
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
         $post->save();
-        return back();
+        return redirect('/');
     }
 
     public function edit($id)
     {
         $post = Post::findOrFail($id);
         if (\Auth::id() === $post->user_id) {
-            $data=[
-                'post' => $post,
-            ];
-            return view('posts.edit', $data);
-        } 
-        return back();
+            return view('posts.edit', compact('post', 'id'));
+        } else {
+            return redirect('/');
+        }
     }
 
     public function update(PostRequest $request, $id)

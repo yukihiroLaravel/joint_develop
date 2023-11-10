@@ -24,14 +24,16 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'required|max:140'
+            'youtube_id' => 'required|max:11',
+            'content' => 'required|max:140',
         ];
     }
 
     public function attributes()
-     {
-         return[
-             'content' => '投稿',
-         ];
-     }
+    {
+        return[
+            'youtube_id' => 'YouTube動画ID',
+            'content' => '投稿',
+        ];
+    }
 }
