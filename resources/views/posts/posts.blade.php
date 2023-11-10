@@ -18,6 +18,12 @@
                     @endif
                     <p class="text-muted">{{ $post->created_at }}</p>
                 </div>
+                 <p>
+                   @if (isset($post->title))
+                       {{ $post->title }}
+                   @endif
+                 </p>
+                 @include('favorite.favorite_button', ['post' => $post])
                 @if(Auth::check() && Auth::id() == $post->user_id)
                 <div class="d-flex justify-content-between w-75 pb-3 m-auto">
                     <form method="POST" action="{{ route('post.delete', $post->id) }}" id="delete-form">

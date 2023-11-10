@@ -55,4 +55,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
         Route::delete('delete', 'UsersController@destroy')->name('user.delete');
     });
+    // いいね
+    Route::group(['prefix' => 'post/{id}'],function(){
+        Route::post('favorite','FavoriteController@store')->name('favorite');
+        Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
+    });
 });
