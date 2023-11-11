@@ -7,7 +7,7 @@
 
         </div>
     </div>
-    <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
+    <h5 class="text-center mb-3">"おらが街自慢"について140字以内で会話しよう！</h5>
     @include('commons.error_messages')
     @if (Auth::check())
         <div class="text-center mb-3">
