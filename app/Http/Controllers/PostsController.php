@@ -9,13 +9,22 @@ use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $posts = Post::orderBy('id', 'desc')->paginate(10);
+        $search = $request->input('search');
+        $query = Post::query();
 
+        // 検索機能
+        if ($search) {
+            $query->where('content', 'LIKE', "%{$search}%");
+        }
+
+        $posts = $query->orderBy('id','desc')->paginate(10);
         return view('welcome',[
             'posts' => $posts,
-        ]);
+            'search' => $search
+        ]); 
     }
 
     public function store(PostRequest $request)
@@ -55,4 +64,4 @@ class PostsController extends Controller
          $post->save();
          return redirect('/')->with('editMessage', '・投稿編集に成功しました。');
      }
-} 
+}
