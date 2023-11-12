@@ -5,11 +5,24 @@
         <title>Topic Posts</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+            .alert-custom {
+                display: inline-block;
+                max-width: 100%;
+                margin-top: 20px; /* 余白調整 */
+            }
+        </style>
     </head>
     <body>
         @include('commons.header')
         <div class="container">
-              @yield('content')
+            <!-- フラッシュメッセージの表示 -->
+            @if (session('status'))
+                <div class="alert alert-success alert-custom">
+                    {{ session('status') }}
+                </div>
+            @endif
+            @yield('content')
         </div>
         @include('commons.footer')
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -18,4 +31,3 @@
         <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"></script>
     </body>
 </html>
-

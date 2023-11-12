@@ -23,7 +23,7 @@ class ReplyController extends Controller
         $reply->user_id = $request->user()->id;
         $post = Post::findOrFail($postId);
         $post->replies()->save($reply);
-        return redirect()->route('replies.index', $postId);
+        return redirect()->route('replies.index', $postId)->with('status', 'リプライしました');
     }
     // リプライ編集画面遷移
     public function edit($postId, $replyId)
@@ -59,7 +59,7 @@ class ReplyController extends Controller
             $reply->delete();
         }
         // リプライ削除後にリプライ一覧表示へ遷移
-        return redirect()->route('replies.index', $postId);
+        return redirect()->route('replies.index', $postId)->with('status', 'リプライを削除しました');
     }
     // リプライ表示
     public function index($postId)
