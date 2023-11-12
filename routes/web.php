@@ -28,6 +28,12 @@ Route::get('/', 'PostsController@index');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
+Route::group(['prefix' => 'users/{id}'],function(){
+    Route::get('followings','UsersController@followings')->name('followings');
+    Route::get('followers','UsersController@followers')->name('followers');
+});
+
+
 //ログインユーザのみ
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('users')->group(function () {
@@ -43,8 +49,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'users/{id}'],function(){
         Route::post('follow','FollowController@store')->name('follow');
         Route::delete('unfollow','FollowController@destroy')->name('unfollow');
-        Route::get('followings','UsersController@followings')->name('followings');
-        Route::get('followers','UsersController@followers')->name('followers');
     });
 
     //投稿新規登録
