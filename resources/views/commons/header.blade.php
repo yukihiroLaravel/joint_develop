@@ -5,7 +5,7 @@
             <div class="form-group">
                 <input type="search" class="form-control mr-sm-2" name="search" value="{{request('search')}}" placeholder="投稿を検索" aria-label="検索...">
             </div>
-            <input type="submit" value="検索" class="btn btn-info">
+            <input type="submit" value="検索" class="btn btn-primary">
         </form>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>

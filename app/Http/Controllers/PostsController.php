@@ -11,7 +11,6 @@ class PostsController extends Controller
 {
     public function index(Request $request)
     {
-        $posts = Post::orderBy('id', 'desc')->paginate(10);
         $search = $request->input('search');
         $query = Post::query();
 
