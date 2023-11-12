@@ -14,11 +14,11 @@
                 @csrf
                 <div class="form-group">
                     <textarea class="form-control" name="content" rows="4">{{ old('content') }}</textarea>
+                    <input id="image" type="file" name="image">
                     <div class="text-left mt-3">
                         <button type="submit" class="btn btn-primary">投稿する</button>
                     </div>
                 </div>
-            </form>
         </div>
     @endif
     @include('posts.posts', ['posts' => $posts])       

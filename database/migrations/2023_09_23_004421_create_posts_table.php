@@ -17,6 +17,7 @@ class CreatePostsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned()->index();
             $table->string('content', 140);// 140文字制限
+            $table->text('image');
             $table->timestamps();
             $table->softDeletes();
 
