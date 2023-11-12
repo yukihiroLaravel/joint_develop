@@ -8,7 +8,7 @@
             </div>
             <div class="card-body">
                 @if (isset($user) && $user->profile_image)
-                    <img class="rounded-circle img-fluid" src="{{ asset('storage/images/' . $user->profile_image) }}" alt="ユーザーのプロフィール画像">
+                    <img class="rounded-circle img-fluid" src="{{ asset('storage/profile_images/' . $user->profile_image) }}" alt="ユーザーのプロフィール画像">
                 @else
                     <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 300) }}" alt="ユーザのアバター画像">
                 @endif

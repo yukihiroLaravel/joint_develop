@@ -4,7 +4,7 @@
     <li class="mb-3 text-center">
         <div class="text-left d-inline-block w-75 mb-2">
             @if (isset($post->user->profile_image) && $post->user->profile_image)
-                <img class="rounded-circle img-fluid" style="max-width: 70px; height: auto;" src="{{ asset('storage/images/' . $post->user->profile_image) }}" alt="ユーザーのプロフィール画像">
+                <img class="rounded-circle img-fluid" style="max-width: 70px; height: auto;" src="{{ asset('storage/profile_images/' . $post->user->profile_image) }}" alt="ユーザーのプロフィール画像">
             @else
                 <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
             @endif         
@@ -23,7 +23,7 @@
                             <div class="d-flex">
                                 <div class="mr-2">
                                 @if (isset($reply->user->profile_image) && $reply->user->profile_image)
-                                    <img class="rounded-circle" style="max-width: 55px; height: auto;" src="{{ asset('storage/images/' . $reply->user->profile_image) }}" alt="ユーザーのプロフィール画像">
+                                    <img class="rounded-circle" style="max-width: 55px; height: auto;" src="{{ asset('storage/profile_images/' . $reply->user->profile_image) }}" alt="ユーザーのプロフィール画像">
                                 @else
                                     <img class="rounded-circle" src="{{ Gravatar::src($reply->user->email, 55) }}" alt="ユーザのアバター画像">
                                 @endif                                

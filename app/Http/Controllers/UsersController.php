@@ -93,15 +93,15 @@ class UsersController extends Controller
                 'image' => 'required|file|image|max:2048',
             ]);
 
-            $path = $request->file('image')->store('images', 'public');
+            $path = $request->file('image')->store('profile_images', 'public');
             $filename = basename($path);
-            // これは 'storage/app/public/images' に画像を保存するコード
+            // これは 'storage/app/public/profile_images' に画像を保存するコード
 
             $user = \Auth::user(); // ログイン中のユーザーを取得
             $user->profile_image = $filename; // ファイル名をユーザーレコードに保存
             $user->save(); // ユーザーレコードを更新
 
-            return back()->with('path', $path);
+            return back();
         } else {
             // ファイルがアップロードされていない場合のエラーメッセージ
             return back()->withErrors('No file was uploaded.');

@@ -3,7 +3,7 @@
       <li class="mb-3 text-center">
           <div class="text-left d-inline-block w-75 mb-2">
               @if (isset($following->profile_image) && $following->profile_image)                
-                  <img class="rounded-circle img-fluid" style="max-width: 70px; height: auto;" src="{{ asset('storage/images/' . $following->profile_image) }}" alt="ユーザーのプロフィール画像">
+                  <img class="rounded-circle img-fluid" style="max-width: 70px; height: auto;" src="{{ asset('storage/profile_images/' . $following->profile_image) }}" alt="ユーザーのプロフィール画像">
               @else
                   <img class="mr-2 rounded-circle" src="{{ Gravatar::src($following->email, 55) }}" alt="ユーザのアバター画像">
               @endif            
