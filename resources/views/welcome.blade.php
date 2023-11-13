@@ -5,7 +5,7 @@
             <h1><i class="fab fa-telegram fa-lg pr-3"></i>オススメしたいお店を紹介しよう</h1>
         </div>
     </div>
-    <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5> 
+    <h5 class="text-center mb-3">"オススメしたい飲食店や料理"について140字以内で会話しよう！</h5> 
     <div class="m-auto">@include('commons.success_messages')</div>
     @if (Auth::check()) 
     <div class="w-75 m-auto"> @include('commons.error_messages')</div>

@@ -13,7 +13,7 @@ class PostsTableSeeder extends Seeder
     {
         DB::table('posts')->insert([
             'user_id' => 1,
-            'content' => '　今までに行ったことのあるオススメのお店や美味しかった料理・気になっている食べ物について語ろう。',
+            'content' => '今までに行ったことのあるオススメのお店や美味しかった料理・気になっている食べ物について語ろう。',
         ]);
         DB::table('posts')->insert([
             'user_id' => 2,
@@ -41,7 +41,7 @@ class PostsTableSeeder extends Seeder
         ]);
         DB::table('posts')->insert([
             'user_id' => 4,
-            'content' =>"京都に第一旭といって6:00~翌1:00時までほぼ24時間空いている有名なラーメン屋がります。"
+            'content' =>"京都に第一旭といって6:00~翌1:00時までほぼ24時間空いている有名なラーメン屋があります。"
         ]);
         DB::table('posts')->insert([
             'user_id' => 1,
