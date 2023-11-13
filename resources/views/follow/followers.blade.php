@@ -12,7 +12,7 @@
                         <div class="mt-3">
                         <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a> 
                         </div>
-                    @else(Auth::check())
+                    @elseif(Auth::check())
                             @if (Auth::user()->isFollows($user->id))
                                 <form method="POST" action="{{ route('unfollow', $user->id) }}" class="text-center mt-4">
                                     @csrf
@@ -44,7 +44,7 @@
                  </div>
                </li>   
             @endforeach 
-            {{ $followers->links('pagination::bootstrap-4') }}
+            <div class="text-right">{{ $followers->links('pagination::bootstrap-4') }}</div>
         </ul>
     </div>
 </div>    

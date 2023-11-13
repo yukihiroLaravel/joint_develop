@@ -9,60 +9,18 @@ class PostsTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
+    public function run(){
+        for ($i = 1; $i < 100; $i++)
+        {
         DB::table('posts')->insert([
             'user_id' => 1,
-            'content' => 'テスト1',
+            'content' => "test".$i,
         ]);
-        DB::table('posts')->insert([
-            'user_id' => 2,
-            'content' => 'テスト2',
-        ]);
-        DB::table('posts')->insert([
-            'user_id' => 3,
-            'content' => 'テスト3',
-        ]);
-        DB::table('posts')->insert([
-            'user_id' => 4,
-            'content' => 'テスト4',
-        ]);
-        DB::table('posts')->insert([
-            'user_id' => 5,
-            'content' => 'テスト5',
-        ]);DB::table('posts')->insert([
-            'user_id' => 6,
-            'content' => 'テスト6',
-        ]);DB::table('posts')->insert([
-            'user_id' => 7,
-            'content' => 'テスト7',
-        ]);DB::table('posts')->insert([
-            'user_id' => 8,
-            'content' => 'テスト8',
-        ]);DB::table('posts')->insert([
-            'user_id' => 9,
-            'content' => 'テスト9',
-        ]);DB::table('posts')->insert([
-            'user_id' => 10,
-            'content' => 'テスト10',
-        ]);DB::table('posts')->insert([
-            'user_id' => 11,
-            'content' => 'テスト11',
-        ]);DB::table('posts')->insert([
-            'user_id' => 12,
-            'content' => 'テスト12',
-        ]);DB::table('posts')->insert([
-            'user_id' => 13,
-            'content' => 'テスト13',
-        ]);DB::table('posts')->insert([
-            'user_id' => 14,
-            'content' => 'テスト14',
-        ]);DB::table('posts')->insert([
-            'user_id' => 15,
-            'content' => 'テスト15',
-        ]);DB::table('posts')->insert([
-            'user_id' => 16,
-            'content' => 'テスト16',
-        ]);
+    
     }
+ }
 }
+
+
+    
+        
