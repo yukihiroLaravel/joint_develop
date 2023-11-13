@@ -35,7 +35,7 @@ class PostsController extends Controller
             ];
             return view('posts.edit', $data);
         } 
-        return back()->with;
+        return back();
     }
 
     public function update(PostRequest $request, $id)
