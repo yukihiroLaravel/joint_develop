@@ -13,6 +13,7 @@
 
 //トップページ（投稿一覧表示）
 Route::get('/', 'PostsController@index');
+Route::get('posts/{id}/replies', 'ReplyController@index')->name('replies.index');
 
 // 検索
 Route::prefix('search')->group(function () {
@@ -47,8 +48,19 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{id}', 'PostsController@update')->name('post.update');
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     });
+    // リプライ
+    Route::prefix('posts/{postId}/replies')->group(function () {
+        Route::get('create', 'ReplyController@create')->name('replies.create'); // リプライ投稿画面遷移
+        Route::post('', 'ReplyController@store')->name('replies.store'); // リプライ投稿
+        // リプライ編集
+        Route::prefix('{replyId}')->group(function () {
+            Route::get('edit', 'ReplyController@edit')->name('replies.edit');   // リプライ内容編集画面遷移
+            Route::put('', 'ReplyController@update')->name('replies.update');   // リプライ内容更新
+            Route::delete('', 'ReplyController@destroy')->name('replies.destroy');  // リプライ削除
+        });
+    });
     // ユーザー編集・更新、フォロー・アンフォロー・ユーザー退会
-    Route::prefix('users/{id}')->group(function(){
+    Route::prefix('users/{id}')->group(function () {
         Route::get('edit', 'UsersController@edit')->name('users.edit');
         Route::put('update', 'UsersController@update')->name('users.update');
         Route::post('follow', 'FollowController@store')->name('follow');
@@ -57,6 +69,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
     // いいね
     Route::group(['prefix' => 'post/{id}'],function(){
+        Route::get('favorite','FavoriteController@store')->name('favorite');
         Route::post('favorite','FavoriteController@store')->name('favorite');
         Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
     });

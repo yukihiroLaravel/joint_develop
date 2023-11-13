@@ -41,9 +41,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // リレーションメソッド
     public function user()
     {
-    return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function posts()
@@ -51,6 +52,12 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
+
+    // フォローメソッド
     public function followings()
     {
         // ユーザーがフォローしているユーザー一覧を取得
