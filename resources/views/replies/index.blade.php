@@ -20,7 +20,7 @@
             @endif
         </div>
         <div class="text-left d-inline-block w-75">
-            <p class="mb-2 text-break">{{ $post->content }}</p>
+            <p class="mb-2 text-break">{!! nl2br(e($post->content)) !!}</p>
             <p class="text-muted">{{ $post->created_at }}</p>
             <div class="container">
                 <label for="content">リプライ一覧</label>
@@ -29,28 +29,20 @@
                         <li class="mb-3">
                             <div class="d-flex">
                                 <div class="mr-2">
-                                @if (isset($reply->user->profile_image) && $reply->user->profile_image)
+                                    @if (isset($reply->user->profile_image) && $reply->user->profile_image)
                                     <img class="rounded-circle" style="max-width: 55px; height: auto;" src="{{ asset('storage/profile_images/' . $reply->user->profile_image) }}" alt="ユーザーのプロフィール画像">
-                                @else
+                                    @else
                                     <img class="rounded-circle" src="{{ Gravatar::src($reply->user->email, 55) }}" alt="ユーザのアバター画像">
-                                @endif                                
+                                    @endif                                
                                 </div>
                                 <div>
                                     <p class="mt-2 mb-2">
                                         <a href="{{ route('users.show', $reply->user->id) }}">{{ $reply->user->name }}</a>
                                         <span class="text-muted ml-2">{{ $reply->created_at }}</span>
                                     </p>
-                                    <p class="mt-0 ml-2">{{ $reply->content }}</p>
+                                    <p class="mt-0 ml-2">{!! nl2br(e($reply->content)) !!}</p>
                                 </div>
                             </div>
-                            <div>
-                                <p class="mt-2 mb-2">
-                                    <a  href="{{ route('users.show',$reply->user_id) }}">{{ $reply->user->name }}</a>
-                                    <span class="text-muted ml-2">{{ $reply->created_at }}</span>
-                                </p>
-                                <p class="mt-0 ml-2">{{ $reply->content }}</p>
-                            </div>
-                        </div>
                         @if(Auth::check() && Auth::id() == $reply->user_id)
                         <div class="d-flex justify-content-between w-50 pb-3 m-auto">
                             <!-- 投稿編集 -->

@@ -25,7 +25,7 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
         $post->save();
-        return redirect('/');
+        return back()->with('status', '投稿しました');
     }
     // 投稿編集画面遷移
     public function edit($id)
