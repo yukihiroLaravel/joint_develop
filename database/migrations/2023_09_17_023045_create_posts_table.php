@@ -16,6 +16,7 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned()->index();
+            $table->string('youtube_id');
             $table->string('content', 140)->collation('utf8mb4_bin')->index();    // 140文字制限
             $table->timestamps();
             $table->softDeletes();
