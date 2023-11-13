@@ -13,7 +13,8 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::orderBy('id', 'desc')->paginate(10);
-        return view('welcome', ['posts' => $posts]);
+        $user = \Auth::user();
+        return view('welcome', ['posts' => $posts, 'user' => $user]);    
     }
 
     public function store(PostRequest $request)
@@ -22,7 +23,7 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
         $post->save();
-        return back();
+        return back()->with('status', '投稿しました');
     }
 
     public function edit($id)
@@ -42,7 +43,7 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
         $post->content = $request->content;
         $post->save();
-        return redirect('/');
+        return redirect('/')->with('status', '投稿を編集しました');
     }
 
     public function destroy($id)
@@ -51,7 +52,7 @@ class PostsController extends Controller
         if (\Auth::id() === $post->user_id) {
             $post->delete();
         }
-        return back();
+        return back()->with('status', '投稿を削除しました');
     }
     // フォームの処理
     public function submitForm(Request $request)

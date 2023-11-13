@@ -1,24 +1,6 @@
 @foreach ($posts as $post)
 <ul class="list-unstyled">
     <li class="mb-3 text-center">
-            <div class="text-left d-inline-block w-75 mb-2">
-             <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
-                 <p class="mt-3 mb-0 d-inline-block"><a  href="{{ route('users.show',$post->user_id) }}">{{ $post->user->name }}</a></p>
-             </div>
-             <div class=""> 
-                 <div class="text-left d-inline-block w-75">
-                    @if(isset($searchResults))
-                        <p class="mb-2">{!! preg_replace(
-                            '/[' . preg_quote($searchQuery, '/') . ']/iu', 
-                            '<span style="background-color: yellow;">$0</span>', 
-                            $post->content
-                        ) !!}</p>
-                    @else
-                        <p class="mb-2">{{ $post->content }}</p>
-                    @endif
-                    <p class="text-muted">{{ $post->created_at }}</p>
-                </div>
-     <li class="mb-3 text-center">
         <div class="text-left d-inline-block w-75 mb-2">
             <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
             <p class="mt-3 mb-0 d-inline-block"><a  href="{{ route('users.show',$post->user_id) }}">{{ $post->user->name }}</a></p>
@@ -43,41 +25,44 @@
             <!-- 各アイコン -->
             <div class="d-flex justify-content-between w-50 pb-3 m-auto">
                 <!-- 「イイね」 -->
-                <a href="{{ route('favorite',$post->id) }}">
+                <a href="">
                     <i class="fa fa-thumbs-up fa-2x" style="color: black; "></i>
                 </a>
                 <!-- 「リプライ」 -->
-                <a href="{{ route('replies.create',$post) }}">
-                    <i class="fa fa-comment fa-2x" style="color: black; "></i>
+                <a href="{{ route('replies.create', $post) }}">
+                    <i class="fa fa-comment fa-2x" style="color: black;"></i>
                 </a>
                 @if(Auth::check() && Auth::id() == $post->user_id)
                     <!-- 投稿編集 -->
-                    <a href="{{ route('post.edit',$post->id) }}" >
-                        <i class="fa fa-edit fa-2x" style="color: black; "></i>
+                    <a href="{{ route('post.edit', $post->id) }}">
+                        <i class="fa fa-edit fa-2x" style="color: black;"></i>
                     </a>
                     <!-- 投稿削除 -->
-                    <form method="POST" action="{{ route('post.delete', $post->id) }}" id="delete-form">
+                    <form method="POST" action="{{ route('post.delete', $post->id) }}" id="delete_{{ $post->id }}">                        
                         @csrf
                         @method('DELETE')
-                        <i class="fa fa-trash fa-2x" style="color: red; cursor: pointer;" onclick="confirmDelete()"></i>
+                        <i class="fa fa-trash fa-2x" style="color: red; cursor: pointer;" onclick="confirmDelete({{ $post->id }})"></i>                    
                     </form>
-                    <script>
-                    function confirmDelete() {
-                        if (confirm('本当に削除しますか？')) {
-                            document.getElementById('delete-form').submit();
-                        } else {
-                            return back();
-                        }
-                    }
-                    </script>
                 @endif
             </div>
-        </div>
-    </li>
-</ul>
-@endforeach 
+        </li>
+    </ul>
+@endforeach
+
 @if(isset($searchResults))
-    <div class="m-auto" style="width: fit-content">{{ $searchResults->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
+    <div class="m-auto" style="width: fit-content;">
+        {{ $searchResults->appends(request()->query())->links('pagination::bootstrap-4') }}
+    </div>
 @else
-    <div class="m-auto" style="width: fit-content">{{ $posts->links('pagination::bootstrap-4') }}</div>
+    <div class="m-auto" style="width: fit-content;">
+        {{ $posts->links('pagination::bootstrap-4') }}
+    </div>
 @endif
+
+<script>
+    function confirmDelete(postId) {
+        if (confirm('本当に削除しますか？')) {
+            document.getElementById('delete_' + postId).submit();
+        }
+    }
+</script>
