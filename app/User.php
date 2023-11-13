@@ -147,4 +147,4 @@ class User extends Authenticatable
     {
         return $this->favorites()->where('post_id', $postId)->exists();
     }
-} 
+}     
