@@ -15,7 +15,7 @@ class PostsTableSeeder extends Seeder
             DB::table('posts')->insert([
                 'user_id' => $num,
                 'content' => 'test'.$num,
-                'youtube_id' => 'youtube_id'.$num,
+                'youtube_id' => '-bNMq1Nxn5o',
             ]);
         }
     }

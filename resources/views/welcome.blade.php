@@ -16,7 +16,7 @@
     <div class="form-group mt-5 mb-5">
         <p>YouTube動画のURLが<span>https://www.youtube.com/watch?v=-bNMq1Nxn5o</span>ならば、<br>"v="の直後にある<span class="text-success">-bNMq1Nxn5o</span>を入力</p>
         <input name="youtube_id" id="youtube_id" class="form-control"  required value="{{ old('youtube_id') }}" placeholder="シェアしたいYouTube動画 ”ID”">
-        <textarea class="form-control mt-3" name="content" rows="4"  required placeholder="旅行の思い出や計画を140字でシェアしよう！"></textarea>
+        <textarea class="form-control mt-3" name="content" rows="4"  required placeholder="旅行の思い出や計画を140字でシェアしよう！">{{ old('content') }}</textarea>
         <button type="submit" class="btn btn-primary mt-3 float-right">
             <i class="fab fa-telegram fa-2x"></i>
         </button>

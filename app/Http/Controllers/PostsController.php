@@ -10,12 +10,13 @@ use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
+    // 投稿一覧表示(ページネイト含む)
     public function index()
     {
         $posts = Post::orderBy('id', 'desc')->paginate(10);
         return view('welcome', ['posts' => $posts]);
     }
-
+    // 投稿
     public function store(PostRequest $request)
     {
         $post = new Post();
@@ -25,25 +26,30 @@ class PostsController extends Controller
         $post->save();
         return redirect('/');
     }
-
+    // 投稿編集画面遷移
     public function edit($id)
     {
         $post = Post::findOrFail($id);
+        $data =[
+            'post' => $post,
+            'id' => $id,
+        ];
         if (\Auth::id() === $post->user_id) {
-            return view('posts.edit', compact('post', 'id'));
+            return view('posts.edit', $data);
         } else {
             return redirect('/');
         }
     }
-
+    // 投稿編集
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
+        $post->youtube_id = $request->youtube_id;
         $post->content = $request->content;
         $post->save();
         return redirect('/');
     }
-
+    // 投稿削除
     public function destroy($id)
     {
         $post = Post::findOrFail($id);

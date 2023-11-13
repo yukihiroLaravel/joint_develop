@@ -17,10 +17,10 @@
                 <p class="mb-2 text-break">{!! preg_replace(
                     '/[' . preg_quote($searchQuery, '/') . ']/iu', 
                     '<span style="background-color: yellow;">$0</span>', 
-                    $post->content
+                    nl2br(e($post->content))
                 ) !!}</p>
             @else   <!-- 投稿一覧表示 -->
-                <p class="mb-2 text-break">{{ $post->content }}</p>
+                <p class="mb-2 text-break">{!! nl2br(e($post->content)) !!}</p>
             @endif
             <!-- リプライが１つ以上の場合、リプライ一覧表示へのリンクを表示 -->
             @if ($post->replies->count() > 0)
