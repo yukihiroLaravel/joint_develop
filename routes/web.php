@@ -65,6 +65,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('update', 'UsersController@update')->name('users.update');
         Route::post('follow', 'FollowController@store')->name('follow');
         Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
+        Route::post('upload', 'UsersController@upload')->name('users.upload.image');
         Route::delete('delete', 'UsersController@destroy')->name('user.delete');
     });
 });

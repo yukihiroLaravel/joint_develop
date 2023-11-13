@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UserRequest;
 use App\User;
 use App\Post;
@@ -55,7 +56,8 @@ class UsersController extends Controller
             $user->delete();
             return redirect('/');
         }
-    }        
+    }  
+
     public function followings($id)
     {
         $user = User::findOrFail($id);
@@ -82,5 +84,27 @@ class UsersController extends Controller
         $data += $this->userCounts($user);
     
         return view('users.followers', $data);
+    }
+
+    public function upload(Request $request)
+    {
+        if ($request->hasFile('image')) {
+            $request->validate([
+                'image' => 'required|file|image|max:2048',
+            ]);
+
+            $path = $request->file('image')->store('profile_images', 'public');
+            $filename = basename($path);
+            // これは 'storage/app/public/profile_images' に画像を保存するコード
+
+            $user = \Auth::user(); // ログイン中のユーザーを取得
+            $user->profile_image = $filename; // ファイル名をユーザーレコードに保存
+            $user->save(); // ユーザーレコードを更新
+
+            return back();
+        } else {
+            // ファイルがアップロードされていない場合のエラーメッセージ
+            return back()->withErrors('No file was uploaded.');
+        }
     }
 }
