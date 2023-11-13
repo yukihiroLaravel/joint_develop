@@ -45,7 +45,7 @@ class UsersController extends Controller
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
             $user->save();
-            return redirect()->route('users.show', $user->id);
+            return redirect()->route('users.show', $user->id)->with('status', 'ユーザ情報を更新しました');
         }
     }
 
@@ -101,7 +101,7 @@ class UsersController extends Controller
             $user->profile_image = $filename; // ファイル名をユーザーレコードに保存
             $user->save(); // ユーザーレコードを更新
 
-            return back();
+            return back()->with('status', '画像をアップロードしました');
         } else {
             // ファイルがアップロードされていない場合のエラーメッセージ
             return back()->withErrors('No file was uploaded.');
