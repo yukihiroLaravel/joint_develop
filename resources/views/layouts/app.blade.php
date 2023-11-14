@@ -17,7 +17,6 @@
         @include('commons.header')
         <div class="container">
               @include('commons.error_messages')
-              @yield('content')
             <!-- フラッシュメッセージの表示 -->
             @if (session('status'))
                 <div class="alert alert-success alert-custom">
