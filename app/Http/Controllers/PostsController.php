@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\User;
 use App\Http\Requests\PostRequest;
+use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
@@ -20,18 +21,26 @@ class PostsController extends Controller
 
     public function store(PostRequest $request)
     {
-        $post = new Post;
+        $post = new Post();
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
+        
+        // 画像の保存
+        if ($request->image) {    
+            $filename = $request->file('image')->getClientOriginalName();
+            $post->image = $request->file('image')->storeAs('public/images', $filename);
+        }
+
         $post->save();
         return back()->with('successMessage', '・投稿に成功しました。');
     }
 
     public function destroy($id)
     {
-        $posts = Post::findOrFail($id);
-        if (\Auth::id() === $posts->user_id) {
-           $posts->delete();
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            Storage::delete($post->image);
+            $post->delete();
         }
         return back()->with('destroyMessage', '・投稿削除に成功しました。');
     } 
@@ -52,6 +61,14 @@ class PostsController extends Controller
      {
          $post = Post::findOrFail($id);
          $post->content = $request->content;
+
+         if ($request->image) {
+            $filename = $request->file('image')->getClientOriginalName();
+            $post->image = $request->file('image')->storeAs('public/images', $filename);
+         } else {
+            $post->image = null;
+         }
+
          $post->save();
          return redirect('/')->with('editMessage', '・投稿編集に成功しました。');
      }
