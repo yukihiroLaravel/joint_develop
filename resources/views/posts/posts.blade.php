@@ -8,6 +8,9 @@
                 <div class="">
                     <div class="text-left d-inline-block w-75">
                         <p class="mb-2 text-break">{!! nl2br(e($post->content)) !!}</p>
+                        @if (isset($post->image))
+                            <img src="{{ Storage::url($post->image) }}" class="w-25 h-25">
+                        @endif
                         <p class="text-muted">{{ $post->created_at }}</p>
                     </div>
                 </div>
@@ -21,8 +24,7 @@
                         <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">編集する</a> 
                     </div>
                 @endif
-            @endforeach
-            </div> 
+            @endforeach 
         </li>
 </ul>
 <div class="m-auto" style="width: fit-content">{{ $posts->appends(request()->query())->links('pagination::bootstrap-4') }}</div>

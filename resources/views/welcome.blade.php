@@ -10,10 +10,12 @@
     @if (Auth::check()) 
     <div class="w-75 m-auto"> @include('commons.error_messages')</div>
         <div class="text-center mb-3 mt-3">
-            <form method="POST" action="{{ route('posts.store') }}" class="d-inline-block w-75">
+            <form method="POST" action="{{ route('posts.store') }}" class="d-inline-block w-75" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <textarea class="form-control" name="content" rows="4">{{ old('content') }}</textarea>
+                    <p class="text-left mt-3 mb-0">画像をアップロード</p>
+                    <input id="image" type="file" name="image" class="d-inline-block w-100">
                     <div class="text-left mt-3">
                         <button type="submit" class="btn btn-primary">投稿する</button>
                     </div>
