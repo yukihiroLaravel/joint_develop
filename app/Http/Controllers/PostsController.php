@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\User;
 use App\Http\Requests\PostRequest;
-use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
