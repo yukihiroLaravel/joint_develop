@@ -21,7 +21,7 @@
             <div class="d-flex justify-content-between w-50 pb-3 m-auto">
                     <!-- 「イイねがついてる場合」 -->
                 <a href="{{ route('favorite',$post->id) }}">
-                    @if(isset($favorites) && $favorites !== false) 
+                    @if (Auth::user()->isFavorite($post->id))
                        <i class="fa fa-thumbs-up fa-2x" style="color: blue;"></i>
                     @else
                      <!-- イイねがついていない場合　-->
