@@ -39,7 +39,6 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
         if (\Auth::id() === $post->user_id) {
-            Storage::delete($post->image);
             $post->delete();
         }
         return back()->with('destroyMessage', '・投稿削除に成功しました。');
