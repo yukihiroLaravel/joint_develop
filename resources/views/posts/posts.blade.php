@@ -19,13 +19,13 @@
             </div>
                 <!-- 各アイコン -->
             <div class="d-flex justify-content-between w-50 pb-3 m-auto">
-                    <!-- 「イイねがついてる場合」 -->
+                    <!-- 「イイねがついていない場合」 -->
                 <a href="{{ route('favorite',$post->id) }}">
-                    @if (Auth::user()->isFavorite($post->id))
-                       <i class="fa fa-thumbs-up fa-2x" style="color: blue;"></i>
-                    @else
-                     <!-- イイねがついていない場合　-->
-                       <i class="fa fa-thumbs-up fa-2x" style="color: black;"></i>
+                    @if(Auth::user()->isFavorite($post->id))
+                       <i class="fa fa-thumbs-up fa-2x" style="color: black; "></i>      
+                    @else 
+                     <!-- イイねがついている場合　-->
+                       <i class="fa fa-thumbs-up fa-2x" style="color: bule; "></i>
                     @endif                    
                 </a>
                 <!-- 「リプライ」 -->

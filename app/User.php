@@ -118,13 +118,13 @@ class User extends Authenticatable
         });
     }
 
-    public function favorites(){
-        return $this->belongsToMany(Post::class,'favorites','user_id','post_id')->withTimestamps();
+    public function isfavorites(){
+        return $this->belongsToMany(User::class,'favorites','user_id','post_id')->withTimestamps();
     }
     
-    public function favorite($postId)
+    public function favorites($postId)
     {
-        $exist = $this->isFavorite($postId);
+        $exist = $this->favorite($postId);
         if ($exist) {
             return false;
         } else {
@@ -133,9 +133,9 @@ class User extends Authenticatable
         }
     }
     
-    public function unfavorite($postId)
+    public function unfavorites($postId)
     {
-        $exist = $this->isFavorite($postId);
+        $exist = $this->favorite($postId);
         if ($exist) {
             $this->favorites()->detach($postId);
             return true;
@@ -143,8 +143,6 @@ class User extends Authenticatable
             return false;
         }
     }
-    public function isFavorite($postId)
-    {
-        return $this->favorites()->where('post_id', $postId)->exists();
-    }
-}     
+    }    
+    
+    

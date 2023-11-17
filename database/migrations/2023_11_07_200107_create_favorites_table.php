@@ -10,7 +10,7 @@ class CreateFavoritesTable extends Migration
      * Run the migrations.
      *
      * @return void
-     */s
+     */
     public function up()
     {
         Schema::create('favorites', function (Blueprint $table) {
