@@ -1,6 +1,6 @@
 <header class="mb-5">
     <nav class="navbar navbar-expand-sm navbar-dark bg-info">
-        <a class="navbar-brand" href="/">Topic Posts</a>
+        <a class="navbar-brand" href="/">オススメしたいお店を紹介しよう</a>
         <form class="form-inline my-2 my-lg-0 ml-2" action="/" method="get">
             <div class="form-group">
                 <input type="search" class="form-control mr-sm-2" name="search" value="{{request('search')}}" placeholder="投稿を検索" aria-label="検索...">
