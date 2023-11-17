@@ -8,12 +8,12 @@ class FavoriteController extends Controller
 {
     public function store(Request $request, $id)
     {
-        \Auth::user()->favorites($id);
-        return back();
+        \Auth::user()->favorite($id);
+        return back()->with('status', 'イイね、しました');
     }
     public function destroy($id)
     {
-        \Auth::user()->unfavorites($id);
-        return back();
+        \Auth::user()->unfavorite($id);
+        return back()->with('status', 'イイね、外しました');
     }
 }

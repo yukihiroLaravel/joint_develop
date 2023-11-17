@@ -119,13 +119,13 @@ class User extends Authenticatable
     }
 
     public function isfavorites(){
-        return $this->belongsToMany(User::class,'favorites','user_id','post_id')->withTimestamps();
+        return $this->belongsToMany(Favorite::class,'favorites','user_id','post_id')->withTimestamps();
     }
     
     public function favorites($postId)
     {
-        $exist = $this->favorite($postId);
-        if ($exist) {
+        $user = $this->favorite($postId);
+        if ($user) {
             return false;
         } else {
             $this->favorites()->attach($postId);
@@ -135,14 +135,14 @@ class User extends Authenticatable
     
     public function unfavorites($postId)
     {
-        $exist = $this->favorite($postId);
-        if ($exist) {
+        $user = $this->favorite($postId);
+        if ($user) {
             $this->favorites()->detach($postId);
             return true;
         } else {
             return false;
         }
     }
-    }    
+}    
     
     

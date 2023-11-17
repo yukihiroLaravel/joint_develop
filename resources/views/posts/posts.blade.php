@@ -1,13 +1,28 @@
 @foreach ($posts as $post)
-<ul class="list-unstyled">
-    <li class="mb-3 text-center">
+    <ul class="list-unstyled">
+        <li class="mb-3 text-center">
             <div class="text-left d-inline-block w-75 mb-2">
-                   <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
-                 <p class="mt-3 mb-0 d-inline-block"><a  href="{{ route('users.show',$post->user_id) }}">{{ $post->user->name }}</a></p>
-                   @if(isset($searchResults))  <!-- 検索結果表示 -->
+                @if (isset($post->user->profile_image) && $post->user->profile_image)
+                    <img class="rounded-circle img-fluid" style="max-width: 70px; height: auto;" src="{{ asset('storage/profile_images/' . $post->user->profile_image) }}" alt="ユーザーのプロフィール画像">
+                @else
+                    <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
+                @endif
+                <p class="mt-3 mb-0 d-inline-block"><a  href="{{ route('users.show',$post->user_id) }}">{{ $post->user->name }}</a></p>
+            </div>
+            <div>
+                @if ($post->youtube_id)
+                    <iframe width="290" height="163.125" src="{{ 'https://www.youtube.com/embed/'.$post->youtube_id }}?controls=1&loop=1&playlist={{ $post->youtube_id }}" frameborder="0"></iframe>
+                @else
+                    <iframe width="290" height="163.125" src="https://www.youtube.com/embed/" frameborder="0"></iframe>
+                @endif
+            </div>
+            <div class="text-left d-inline-block w-50">
+                @if(isset($searchResults))  <!-- 検索結果表示 -->
                     <p class="mb-2 text-break">{!! preg_replace(
                         '/[' . preg_quote($searchQuery, '/') . ']/iu', 
-                        '<span style="background-color: yellow;">$0</span>', $post->content) !!}</p>
+                        '<span style="background-color: yellow;">$0</span>', 
+                        nl2br(e($post->content))
+                    ) !!}</p>
                 @else   <!-- 投稿一覧表示 -->
                     <p class="mb-2 text-break">{!! nl2br(e($post->content)) !!}</p>
                 @endif
@@ -17,11 +32,11 @@
                 @endif
                 <p class="text-muted">{{ $post->created_at }}</p>
             </div>
-                <!-- 各アイコン -->
+            <!-- 各アイコン -->
             <div class="d-flex justify-content-between w-50 pb-3 m-auto">
                     <!-- 「イイねがついていない場合」 -->
                 <a href="{{ route('favorite',$post->id) }}">
-                    @if(Auth::user()->isFavorite($post->id))
+                    @if(Auth::user() or Auth::id() == ($post->user_id))
                        <i class="fa fa-thumbs-up fa-2x" style="color: black; "></i>      
                     @else 
                      <!-- イイねがついている場合　-->
