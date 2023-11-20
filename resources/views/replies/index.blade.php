@@ -4,10 +4,10 @@
     <li class="mb-3 text-center">
         <div class="text-left d-inline-block w-75 mb-2">
             @if (isset($post->user->profile_image) && $post->user->profile_image)
-                <img class="rounded-circle img-fluid" style="max-width: 70px; height: auto;" src="{{ asset('storage/profile_images/' . $post->user->profile_image) }}" alt="ユーザーのプロフィール画像">
+                <img class="rounded-circle img-fluid" src="{{ asset('storage/profile_images/' . $post->user->profile_image) }}" alt="ユーザーのプロフィール画像" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;">
             @else
-                <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
-            @endif         
+                <img class="rounded-circle img-fluid" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
+            @endif       
             <p class="mt-3 mb-0 d-inline-block">
                 <a href="{{ route('users.show', $post->user->id) }}">{{ $post->user->name }}</a>
             </p>
@@ -30,10 +30,10 @@
                             <div class="d-flex">
                                 <div class="mr-2">
                                     @if (isset($reply->user->profile_image) && $reply->user->profile_image)
-                                    <img class="rounded-circle" style="max-width: 55px; height: auto;" src="{{ asset('storage/profile_images/' . $reply->user->profile_image) }}" alt="ユーザーのプロフィール画像">
+                                        <img class="rounded-circle img-fluid" src="{{ asset('storage/profile_images/' . $reply->user->profile_image) }}" alt="ユーザーのプロフィール画像" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;">
                                     @else
-                                    <img class="rounded-circle" src="{{ Gravatar::src($reply->user->email, 55) }}" alt="ユーザのアバター画像">
-                                    @endif                                
+                                        <img class="rounded-circle img-fluid" src="{{ Gravatar::src($reply->user->email, 55) }}" alt="ユーザのアバター画像">
+                                    @endif
                                 </div>
                                 <div>
                                     <p class="mt-2 mb-2">
