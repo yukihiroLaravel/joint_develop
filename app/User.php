@@ -52,4 +52,46 @@ class User extends Authenticatable
         });
     }
 
+    // フォロワー一覧
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'followed_id', 'following_id')->withTimestamps();
+    }
+
+    // フォロー中一覧
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'following_id', 'followed_id')->withTimestamps();
+    }
+
+    // フォローする
+    public function follow($userId)
+    {
+        $exist = $this->isFollowing($userId);
+        if ($exist) {
+            return false; // フォロー中ならfalseを返す
+        } else {
+            $this->followings()->attach($userId);
+            return true;
+        }
+    }
+
+    // フォロー解除
+    public function unfollow($userId)
+    {
+        $exist = $this->isFollowing($userId);
+        if ($exist) {
+            $this->followings()->detach($userId);
+            return true;
+        } else {
+            return false; // フォロー中でなければfalseを返す
+        }
+    }
+
+    // フォロー中か
+    public function isFollowing($userId)
+    {
+        // return $this->followings()->where('following_id',$userId)->exists();
+        return true;
+    }
 }
