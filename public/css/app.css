@@ -1,0 +1,22 @@
+.modal {
+    display: none; /* 初期状態は非表示 */
+    position: fixed; /* 画面の中央に表示 */
+    z-index: 1050; /* 他の要素の上に表示 */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* 必要に応じてスクロールバーを表示 */
+    background-color: rgba(0, 0, 0, 0.5); /* 背景を暗くする */
+}
+
+.modal-content {
+    margin: 15% auto; /* 画面の中央に配置 */
+    padding: 20px;
+    width: 80%; /* 画像のサイズに応じて調整 */
+}
+
+#modal-image {
+    max-width: 100%; /* 画像がモーダルからはみ出ないようにする */
+    height: auto;
+}
