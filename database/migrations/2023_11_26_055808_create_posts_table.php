@@ -16,7 +16,6 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned()->index();
-            $table->string('title');
             $table->string('content', 140); //140文字の制限を設定
             $table->timestamps();
             $table->softDeletes();
