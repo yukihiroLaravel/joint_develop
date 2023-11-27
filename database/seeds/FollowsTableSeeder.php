@@ -13,8 +13,8 @@ class FollowsTableSeeder extends Seeder
         for ($i = 1; $i < 98; $i++)
         {
         DB::table('follows')->insert([
-            'following_user_id' => $i,
-            'followed_user_id' => $i+1
+            'following_user_id' => 2,
+            'followed_user_id' => $i,
         ]);
     }
  }
