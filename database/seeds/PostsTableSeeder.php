@@ -9,25 +9,19 @@ class PostsTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
+    public function run(){
+    
+    for ($i = 1; $i < 100; $i++)
+        {
         DB::table('posts')->insert([
-            'user_id' => 1,
-            'content' => 'テスト1',
+            'user_id' => $i,
+            'content' => "test".$i,
         ]);
-        DB::table('posts')->insert([
-            'user_id' => 2,
-            'content' => 'テスト2',
-        ]);
-        DB::table('posts')->insert([
-            'user_id' => 3,
-            'content' => 'テスト3',
-        ]);
-        DB::table('posts')->insert([
-            'user_id' => 4,
-            'content' => 'テスト4',
-        ]);
-
-
- }
+        }
+     }
 }
+
+
+
+    
+        
