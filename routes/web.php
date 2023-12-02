@@ -18,3 +18,10 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 //トップページ表示
 Route::get('/', 'PostsController@index');
+
+//ユーザー退会
+Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('users')->group(function () {
+        Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
+    });
+});

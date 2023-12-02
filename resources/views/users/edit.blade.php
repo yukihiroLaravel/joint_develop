@@ -1,31 +1,6 @@
-{{-- トップページ --}}
-
-{{-- app.blade.phpを継承 --}}
 @extends('layouts.app')
-
-{{-- 内容 --}}
 @section('content')
-    <div class="center jumbotron bg-info">
-        <div class="text-center text-white mt-2 pt-1">
-            <h1><i class="pr-3"></i>Topic Posts</h1>
-        </div>
-    </div>
-    <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
-
-    {{-- 投稿する --}}
-    <div class="text-center mb-3">
-        <form method="" action="" class="d-inline-block w-75">
-            <div class="form-group">
-                <textarea class="form-control" name="" rows=""></textarea>
-                <div class="text-left mt-3">
-                    <button type="submit" class="btn btn-primary">投稿する</button>
-                </div>
-            </div>
-        </form>
-    </div>
-
-    @if (Auth::check())
-    <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
+<h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
     <form method="" action="">
         <input type="hidden" name="id" value="" />
         <div class="form-group">
@@ -64,7 +39,7 @@
                     <label>本当に退会しますか？</label>
                 </div>
                 <div class="modal-footer d-flex justify-content-between">
-                    <form action="{{route('user.delete', Auth::id())}}" method="POST">
+                    <form action="{{route('user.delete', Auth::user()->id)}}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">退会する</button>
@@ -74,8 +49,4 @@
             </div>
         </div>
     </div>
-    @else
-    @endif
 @endsection
-
-
