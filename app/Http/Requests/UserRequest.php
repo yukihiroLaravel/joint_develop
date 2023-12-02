@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UserRequest extends FormRequest
 {
@@ -21,14 +22,12 @@ class UserRequest extends FormRequest
      * @return array
      */
     public function rules()
-    // バリデーション改善点：変更したい項目のみ限定して変更するには？
-        // ①メールアドレスのみ、
-        // ②ユーザ名のみ
-        // ③パスワードのみ
+
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'name' => ['required', 'string', 'max:25'],
+            // ログインユーザのメールアドレスは重複チェックから除外
+            'email' => ['required', 'string', 'email', 'max:25', Rule::unique('users')->ignore(\Auth::id())],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
