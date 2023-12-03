@@ -25,9 +25,9 @@ class UserRequest extends FormRequest
 
     {
         return [
-            'name' => ['required', 'string', 'max:25'],
+            'name' => ['required', 'string', 'max:255'],
             // ログインユーザのメールアドレスは重複チェックから除外
-            'email' => ['required', 'string', 'email', 'max:25', Rule::unique('users')->ignore(\Auth::id())],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore(\Auth::id())],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
