@@ -1,26 +1,32 @@
+{{-- ユーザ編集ページ --}}
 @extends('layouts.app')
 @section('content')
-<h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
-    <form method="" action="">
-        <input type="hidden" name="id" value="" />
+    <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
+    {{-- エラーメッセージ表示 --}}
+    @include('commons.error_messages')
+
+    <form method="POST" action="{{ route('user.update',$user->id) }}">
+        @csrf
+        @method('PUT')
+        <input type="hidden" name="id" value="{{ old('id')}}" />
         <div class="form-group">
             <label for="name">ユーザ名</label>
-            <input class="form-control" value="" name="name" />
+            <input class="form-control" value="{{ old('name',$user->name) }}" name="name" />
         </div>
 
         <div class="form-group">
             <label for="email">メールアドレス</label>
-            <input class="form-control" value="" name="" />
+            <input class="form-control" value="{{ old('email',$user->email) }}" name="email" />
         </div>
 
         <div class="form-group">
             <label for="password">パスワード</label>
-            <input class="form-control" type="password" name="" />
+            <input class="form-control" type="password" name="password" />
         </div>
 
         <div class="form-group">
             <label for="password_confirmation">パスワードの確認</label>
-            <input class="form-control" type="password" name="" />
+            <input class="form-control" type="password" name="password_confirmation" />
         </div>
 
         <div class="d-flex justify-content-between">
