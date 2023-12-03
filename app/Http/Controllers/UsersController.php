@@ -9,10 +9,10 @@ class UsersController extends Controller
     {
         // ユーザ編集画面に表示させる変更前データ
         $user = \Auth::user();
-        if (\Auth::check() && \Auth::id() == $id)
+        if ($user->id == $id) {
             return view('users.edit', ['user'=> $user]);
-        else
-            abort(404);
+        }
+        abort(404);
     }
 
     protected function update(UserRequest $request)
