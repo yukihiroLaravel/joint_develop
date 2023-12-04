@@ -19,6 +19,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 // ユーザ編集(ログインユーザのみ)
 Route::group(['middleware' => 'auth'], function(){
     Route::prefix('users')->group(function() {
+        Route::get('{id}', 'UsersController@show')->name('user.show');
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
         Route::put('{id}', 'UsersController@update')->name('user.update');
     });
