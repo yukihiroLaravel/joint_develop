@@ -1,6 +1,5 @@
 {{-- トップページ --}}
 
-{{-- app.blade.phpを継承 --}}
 @extends('layouts.app')
 
 {{-- 内容 --}}
@@ -22,5 +21,7 @@
                 </div>
             </div>
         </form>
+        {{-- test_投稿一覧表示(マージ前に削除) --}}
+        @include('posts.posts', ['posts' => $posts])
     </div>
 @endsection
