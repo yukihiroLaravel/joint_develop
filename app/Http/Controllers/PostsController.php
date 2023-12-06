@@ -11,7 +11,7 @@ class PostsController extends Controller
         return view('welcome');
     }
 
-// 投稿削除
+    // 投稿削除
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
