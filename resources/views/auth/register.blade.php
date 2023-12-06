@@ -13,6 +13,7 @@
         <div class="col-sm-6 offset-sm-3">
             <form method="POST" action="{{ route('signup.post') }}">
                 @csrf
+                @include("commons.error_messages")
                 <div class="form-group">
                     <label for="name">名前</label>
                     <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
