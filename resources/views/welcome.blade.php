@@ -12,6 +12,7 @@
     </div>
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
 
+    @if(Auth::check())  //ログイン時のみ表示
     {{-- 投稿する --}}
     <div class="text-center mb-3">
         <form method="" action="" class="d-inline-block w-75">
@@ -23,4 +24,13 @@
             </div>
         </form>
     </div>
+    @else
+
+    {{-- 投稿一覧 --}}
+    @include('posts.posts', ['posts' => $posts])
+
+    <div class="pagination justify-content-center">
+        {{ $posts->links('pagination::bootstrap-4') }}  {{-- ページ送り機能 --}}
+    </div>
+    @endif
 @endsection
