@@ -21,7 +21,5 @@
                 </div>
             </div>
         </form>
-        {{-- test_投稿一覧表示(マージ前に削除) --}}
-        @include('posts.posts', ['posts' => $posts])
     </div>
 @endsection
