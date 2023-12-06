@@ -1,6 +1,5 @@
 {{-- トップページ --}}
 
-{{-- app.blade.phpを継承 --}}
 @extends('layouts.app')
 
 {{-- 内容 --}}
