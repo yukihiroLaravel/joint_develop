@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Http\Requests\UserRequest;
-use App\User;
 
 class UsersController extends Controller
 {
-<<<<<<< HEAD
 
     public function show($id)
     {
@@ -22,9 +20,6 @@ class UsersController extends Controller
         return view('users.show',$data);
     }
 
-=======
-    
->>>>>>> develop_shimotsuki_rab
     public function edit($id)
     {
         // ユーザ編集画面に表示させる変更前データ
