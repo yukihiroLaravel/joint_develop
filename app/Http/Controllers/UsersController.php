@@ -8,7 +8,7 @@ use App\Http\Requests\UserRequest;
 
 class UsersController extends Controller
 {
-
+    //ユーザー詳細
     public function show($id)
     {
         $user = User::findOrFail($id);
