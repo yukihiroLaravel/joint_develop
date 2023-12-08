@@ -16,10 +16,11 @@
         </aside>
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
-                <li class="nav-item"><a href="{{route('user.show', $user->id)}}" class="nav-link {{ Request::is() ? 'active' : '' }}">タイムライン</a></li>
+                <li class="nav-item"><a href="" class="nav-link {{ Request::routeIs('user.show') ? 'active' : '' }}">タイムライン</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
             </ul>
+        @include('posts.posts' , ['user' =>$user, 'post' => $user->posts])
         </div>
     </div>
 @endsection
