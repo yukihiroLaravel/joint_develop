@@ -14,7 +14,7 @@
     @if(Auth::check())
     {{-- 投稿する --}}
     <div class="text-center mb-3">
-    <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
+    <form method="" action="" class="d-inline-block w-75">
             <div class="form-group">
                 <textarea class="form-control" name="" rows=""></textarea>
                 <div class="text-left mt-3">
