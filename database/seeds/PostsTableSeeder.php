@@ -12,31 +12,11 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('posts')->insert([
-            'content' => 'This is the content of the first post.',
-            'user_id' => 1,
-        ]);
-
-        DB::table('posts')->insert([
-            'content' => 'This is the content of the second post.',
-            'user_id' => 2,
-        ]);
-
-        DB::table('posts')->insert([
-            'content' => 'This is the content of the third post.',
-            'user_id' => 3,
-        ]);
-
-        DB::table('posts')->insert([
-            'content' => 'This is the content of the fourth post.',
-            'user_id' => 4,
-        ]);
-
-        DB::table('posts')->insert([
-            'content' => 'This is the content of the fifth post.',
-            'user_id' => 1,
-        ]);
+        for($i = 1; $i <= 200; $i++){
+            DB::table('posts')->insert([
+                'content' => 'これは' .$i .'個目の投稿です。',
+                'user_id' => rand(1,5),
+            ]);
+        }
     }
-
-    
 }
