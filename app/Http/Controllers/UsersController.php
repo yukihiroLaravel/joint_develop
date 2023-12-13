@@ -8,7 +8,18 @@ use App\Http\Requests\UserRequest;
 
 class UsersController extends Controller
 {
-    
+    //ユーザー詳細
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(9);
+        $data=[
+            'user' => $user,
+            'posts' => $posts,
+        ];
+        return view('users.show',$data);
+    }
+
     public function edit($id)
     {
         // ユーザ編集画面に表示させる変更前データ
