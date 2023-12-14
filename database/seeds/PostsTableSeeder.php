@@ -15,7 +15,7 @@ class PostsTableSeeder extends Seeder
         for($i = 1; $i <= 200; $i++){
             DB::table('posts')->insert([
                 'content' => 'これは' .$i .'個目の投稿です。',
-                'user_id' => rand(1,5),
+                'user_id' => rand(1, 5),
             ]);
         }
     }
