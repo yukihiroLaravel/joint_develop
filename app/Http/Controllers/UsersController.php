@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Http\Requests\UserRequest;
-
+// use App\Http\Controllers\Auth;
 class UsersController extends Controller
 {
     //ユーザー詳細
@@ -38,9 +38,9 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-        //ユーザ詳細画面 実装前のためトップページに画面遷移
-        //ユーザ詳細画面 実装後に変更
-        return redirect('/');
+        //ユーザ詳細画面に遷移、フラッシュメッセージを表示
+        // return redirect()->route('user.show', \Auth::id())->with('message', 'ユーザ情報を更新しました！');
+        return back()->with('message', 'ユーザ情報を更新しました！');
     }
 
     //ユーザー退会

@@ -6,9 +6,18 @@ use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
+    // public function index()
+    // {
+    //     return view('welcome');
+    // }
+
+    // 仮追加（レビュー後に削除）
     public function index()
     {
-        return view('welcome');
+        $posts = Post::orderBy('id','desc')->paginate(10);
+        return view('welcome',[
+            'posts' => $posts,
+        ]);
     }
 
     // 投稿削除
@@ -18,6 +27,7 @@ class PostsController extends Controller
         if (\Auth::id() === $post->user_id){
             $post->delete();
         }
-        return back();
+        return back()->with('message', '投稿削除しました！');
+        // return back();
     }
 }
