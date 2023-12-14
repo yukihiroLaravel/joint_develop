@@ -79,6 +79,13 @@ class User extends Authenticatable
     public function follower()
     {
         return $this->belongsToMany(User::class, 'follows', 'follow_user_id', 'user_id')->withTimestamps();
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleted(function ($user) {
+            $user->posts()->delete();
+        });
     }
 
 }
