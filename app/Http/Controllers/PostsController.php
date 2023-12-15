@@ -10,7 +10,6 @@ class PostsController extends Controller
     {
         $posts = Post::orderBy('id','desc')->paginate(10);
         return view('welcome', [ 'posts' => $posts,]);
-
     }
 
     // 投稿削除
@@ -20,6 +19,6 @@ class PostsController extends Controller
         if (\Auth::id() === $post->user_id){
             $post->delete();
         }
-        return back();
+        return back()->with('message', '投稿削除しました！');
     }
 }

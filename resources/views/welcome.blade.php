@@ -1,5 +1,4 @@
 {{-- トップページ --}}
-
 @extends('layouts.app')
 
 {{-- 内容 --}}
@@ -14,6 +13,8 @@
     {{-- 投稿する --}}
     <div class="text-center mb-3">
         <form method="" action="" class="d-inline-block w-75">
+            {{-- フラッシュメッセージ表示 --}}
+            @include('commons.flash_message')
             <div class="form-group">
                 <textarea class="form-control" name="" rows=""></textarea>
                 <div class="text-left mt-3">
@@ -21,6 +22,8 @@
                 </div>
             </div>
         </form>
+        {{-- 仮追加 （レビュー後に削除）--}}
+        @include('posts.posts', ['posts' => $posts])
     </div>
     @include('posts.posts', ['posts' => $posts])
 @endsection
