@@ -22,8 +22,6 @@
                 </div>
             </div>
         </form>
-        {{-- 仮追加 （レビュー後に削除）--}}
-        @include('posts.posts', ['posts' => $posts])
     </div>
 @endsection
 
