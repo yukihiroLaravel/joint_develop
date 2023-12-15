@@ -1,5 +1,4 @@
 {{-- トップページ --}}
-
 @extends('layouts.app')
 
 {{-- 内容 --}}
@@ -11,12 +10,11 @@
     </div>
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
 
-    {{-- フラッシュメッセージ表示 --}}
-    @include('commons.flash_message')
-
     {{-- 投稿する --}}
     <div class="text-center mb-3">
         <form method="" action="" class="d-inline-block w-75">
+            {{-- フラッシュメッセージ表示 --}}
+            @include('commons.flash_message')
             <div class="form-group">
                 <textarea class="form-control" name="" rows=""></textarea>
                 <div class="text-left mt-3">

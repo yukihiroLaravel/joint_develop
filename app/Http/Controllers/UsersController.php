@@ -38,8 +38,8 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-        //フラッシュメッセージを表示
-        return back()->with('message', 'ユーザ情報を更新しました！');
+        //フラッシュメッセージ表示
+        return redirect()->route('user.show', \Auth::id())->with('message','ユーザ情報を更新しました！');
     }
 
     //ユーザー退会

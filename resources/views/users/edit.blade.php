@@ -5,9 +5,6 @@
     {{-- エラーメッセージ表示 --}}
     @include('commons.error_messages')
 
-    {{-- フラッシュメッセージ表示 --}}
-    @include('commons.flash_message')
-
     <form method="POST" action="{{ route('user.update',$user->id) }}">
         @csrf
         @method('PUT')
