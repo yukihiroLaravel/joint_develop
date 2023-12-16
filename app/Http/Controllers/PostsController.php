@@ -18,6 +18,6 @@ class PostsController extends Controller
         if (\Auth::id() === $post->user_id){
             $post->delete();
         }
-        return back();
+        return back()->with('message', '投稿削除しました！');
     }
 }
