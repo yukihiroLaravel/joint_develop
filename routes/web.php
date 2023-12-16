@@ -42,6 +42,11 @@ Route::group(['middleware' => 'auth'], function(){
         // 削除
         Route::delete('{id}','PostsController@destroy')->name('post.delete');
     });
+    //フォロー機能
+    Route::group(['prefix' => 'users/{id}'],function(){
+        Route::post('follow','FollowController@store')->name('follow');
+        Route::delete('unfollow','FollowController@destroy')->name('unfollow');
+    });
 });
 
 
