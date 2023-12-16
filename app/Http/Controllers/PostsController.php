@@ -8,12 +8,7 @@ class PostsController extends Controller
 {
     public function index()
     {
-        // return view('welcome');
-        // 仮追加（レビュー後に削除）
-        $posts = Post::orderBy('id','desc')->paginate(10);
-        return view('welcome',[
-            'posts' => $posts,
-        ]);
+        return view('welcome');
     }
 
     // 投稿削除
