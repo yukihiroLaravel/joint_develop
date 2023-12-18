@@ -11,14 +11,14 @@
                 </div>
                 <div class="card-body">
                     <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 400) }}" alt="ユーザーのアバター画像">
-                        @if(Auth::id() === $user->id)
+                    @if(Auth::id() === $user->id)
                         <div class="mt-3">
                             <a href="{{route('user.edit' , $user->id)}}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                         </div>
-                        @endif
-                        <div class="text-center">@include('follow.follow_button')</div>
+                    @endif
                 </div>
             </div>
+            <div class="text-center mt-3">@include('follow.follow_button')</div>
         </aside>
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
