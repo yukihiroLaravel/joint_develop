@@ -8,7 +8,18 @@ use App\Http\Requests\UserRequest;
 
 class UsersController extends Controller
 {
-    
+    //ユーザー詳細
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(9);
+        $data=[
+            'user' => $user,
+            'posts' => $posts,
+        ];
+        return view('users.show',$data);
+    }
+
     public function edit($id)
     {
         // ユーザ編集画面に表示させる変更前データ
@@ -27,9 +38,8 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-        //ユーザ詳細画面 実装前のためトップページに画面遷移
-        //ユーザ詳細画面 実装後に変更
-        return redirect('/');
+        //フラッシュメッセージ表示
+        return redirect()->route('user.show', \Auth::id())->with('message','ユーザ情報を更新しました！');
     }
 
     //ユーザー退会
