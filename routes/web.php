@@ -36,7 +36,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::prefix('posts')->group(function() {
         // 削除
         Route::delete('{id}','PostsController@destroy')->name('post.delete');
-    });
+        // 投稿編集
+        Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
+        // 投稿更新
+        Route::put('{id}', 'PostsController@update')->name('post.update');
+      });
 });
 
 //トップページ表示
