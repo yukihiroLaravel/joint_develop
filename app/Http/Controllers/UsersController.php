@@ -52,4 +52,28 @@ class UsersController extends Controller
         return back();
     }
 
+    //タイムライン上のフォローした人
+    public function followings($id)
+    {
+        $user = User::findOrFail($id);
+        $followings = $user->following()->paginate(9);
+        $data=[
+            'user' => $user,
+            'followings' => $followings,
+        ];
+        return view('users.show', $data);
+    }
+
+    //タイムライン上のフォロワー
+    public function followers($id)
+    {
+        $user = User::findOrFail($id);
+        $followers = $user->follower()->paginate(9);
+        $data=[
+            'user' => $user,
+            'followers' => $followers,
+        ];
+        return view('users.show', $data);
+    }
+
 }
