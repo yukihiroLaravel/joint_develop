@@ -29,9 +29,6 @@
     {{-- 投稿一覧 --}}
     @include('posts.posts', ['posts' => $posts])
 
-    <div class="pagination justify-content-center">
-        {{ $posts->links('pagination::bootstrap-4') }}  {{-- ページ送り機能 --}}
-    </div>
 @endsection
 
 
