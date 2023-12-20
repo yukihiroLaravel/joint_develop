@@ -44,4 +44,8 @@ Route::group(['middleware' => 'auth'], function(){
     });
 });
 
+//新規投稿作成
+Route::get('/posts/create', 'PostsController@create');
+Route::post('/posts', 'PostsController@store');
+
 

@@ -12,11 +12,15 @@
 
     {{-- 投稿する --}}
     <div class="text-center mb-3">
-        <form method="" action="" class="d-inline-block w-75">
+        <form method="POST" action="/posts" class="d-inline-block w-75">
+            @csrf {{-- CSRFトークンを追加 --}}
             {{-- フラッシュメッセージ表示 --}}
             @include('commons.flash_message')
             <div class="form-group">
-                <textarea class="form-control" name="" rows=""></textarea>
+                <textarea class="form-control" name="content" rows="2"></textarea>
+                @error('content') {{-- バリデーションエラーメッセージの表示 --}}
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
                 <div class="text-left mt-3">
                     <button type="submit" class="btn btn-primary">投稿する</button>
                 </div>
