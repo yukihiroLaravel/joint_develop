@@ -42,10 +42,15 @@ Route::group(['middleware' => 'auth'], function(){
         // 削除
         Route::delete('{id}','PostsController@destroy')->name('post.delete');
     });
+    //フォロー機能
+    Route::group(['prefix' => 'users/{id}'],function(){
+        Route::post('follow','FollowController@store')->name('follow');
+        Route::delete('unfollow','FollowController@destroy')->name('unfollow');
+    });
 });
 
 //新規投稿作成
 Route::get('/posts/create', 'PostsController@create');
 Route::post('/posts', 'PostsController@store');
-
-
+//トップページ表示
+Route::get('/', 'PostsController@index');

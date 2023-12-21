@@ -10,7 +10,10 @@ class PostsController extends Controller
 {
     public function index()
     {
-        return view('welcome');
+        $posts = Post::orderBy('id', 'desc')->paginate(10);
+        return view('welcome', [
+            'posts' => $posts,
+        ]);
     }
 
     // 投稿削除
@@ -26,7 +29,7 @@ class PostsController extends Controller
     //投稿作成
     public function create()
     {
-        return view('posts.create');
+        return view('welcome');
     }
 
     public function store(Request $request)
@@ -42,6 +45,6 @@ class PostsController extends Controller
         $post->user_id = $user->id;
         $post->save();
 
-        return redirect('/posts')->with('success', '投稿が成功しました');
+        return redirect('/');
     }
 }

@@ -10,6 +10,7 @@
     </div>
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
 
+    @if(Auth::check())
     {{-- 投稿する --}}
     <div class="text-center mb-3">
         <form method="POST" action="/posts" class="d-inline-block w-75">
@@ -27,6 +28,11 @@
             </div>
         </form>
     </div>
+    @endif
+
+    {{-- 投稿一覧 --}}
+    @include('posts.posts', ['posts' => $posts])
+
 @endsection
 
 
