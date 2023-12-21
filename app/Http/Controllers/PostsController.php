@@ -6,12 +6,16 @@ use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::orderBy('id', 'desc')->paginate(10);
-        return view('welcome', [
-            'posts' => $posts,
-        ]);
+        //投稿をキーワード検索
+        $keyword = $request->input('keyword');
+        $query = Post::query();
+        if (!empty($keyword)){
+            $query->where('content', 'LIKE', "%{$keyword}%");
+        }
+        $posts = $query->orderBy('id', 'desc')->paginate(10);
+        return view('welcome', ['posts'=> $posts, 'keyword'=> $keyword]);
     }
 
     // 投稿削除
