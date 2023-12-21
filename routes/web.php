@@ -51,4 +51,7 @@ Route::group(['middleware' => 'auth'], function(){
     });
 });
 
+//トップページ表示
+Route::get('/', 'PostsController@index');
+
 
