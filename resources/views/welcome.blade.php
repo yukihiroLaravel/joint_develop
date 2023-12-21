@@ -12,23 +12,28 @@
 
     @if(Auth::check())
     {{-- 投稿する --}}
-    <div class="text-center mb-3">
-        <form method="POST" action="/posts" class="d-inline-block w-75">
-            @csrf {{-- CSRFトークンを追加 --}}
-            {{-- フラッシュメッセージ表示 --}}
-            @include('commons.flash_message')
-            <div class="form-group">
-                <textarea class="form-control" name="content" rows="2"></textarea>
-                @error('content') {{-- バリデーションエラーメッセージの表示 --}}
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-                <div class="text-left mt-3">
-                    <button type="submit" class="btn btn-primary">投稿する</button>
+        <div class="text-center mb-3">
+            <form method="POST" action="/posts" class="d-inline-block w-75">
+                @csrf {{-- CSRFトークンを追加 --}}
+                {{-- フラッシュメッセージ表示 --}}
+                @include('commons.flash_message')
+                <div class="form-group">
+                    <textarea class="form-control" name="content" rows="2"></textarea>
+                    @error('content') {{-- バリデーションエラーメッセージの表示 --}}
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                    <div class="text-left mt-3">
+                        <button type="submit" class="btn btn-primary">投稿する</button>
+                    </div>
                 </div>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
     @endif
+
+    {{-- 検索ワード入力 --}}
+    <div class="text-right mt-3">
+        @include('posts.search')
+    </div>
 
     {{-- 投稿一覧 --}}
     @include('posts.posts', ['posts' => $posts])
