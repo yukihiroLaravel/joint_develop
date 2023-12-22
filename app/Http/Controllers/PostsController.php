@@ -27,4 +27,5 @@ class PostsController extends Controller
         }
         return back()->with('message', '投稿削除しました！');
     }
+
 }
