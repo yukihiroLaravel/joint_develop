@@ -23,6 +23,11 @@
                     </div>
                 </div>
             </form>
+            <form method="POST" action="{{route('upload')}}" enctype="multipart/form-data">
+                @csrf
+                <input type="file" name="image">
+                <button>アップロード</button>
+            </form>
         </div>
     @endif
 

@@ -49,5 +49,6 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('follow','FollowController@store')->name('follow');
         Route::delete('unfollow','FollowController@destroy')->name('unfollow');
     });
+    Route::post('posts','PostsController@upload')->name('upload');
 });
 
