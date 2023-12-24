@@ -51,3 +51,6 @@ Route::group(['middleware' => 'auth'], function(){
     });
 });
 
+// 投稿検索
+Route::get('search', 'SearchController@index')->name('search.index');
+Route::post('search', 'SearchController@search')->name('search.search');

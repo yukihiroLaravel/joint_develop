@@ -9,7 +9,7 @@
         </div>
     </div>
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
-
+    
     @if(Auth::check())
         {{-- 投稿する --}}
         <div class="text-center mb-3">
@@ -25,11 +25,6 @@
             </form>
         </div>
     @endif
-
-    {{-- 検索ワード入力 --}}
-    <div class="text-right mt-3">
-        @include('posts.search')
-    </div>
 
     {{-- 投稿一覧 --}}
     @include('posts.posts', ['posts' => $posts])

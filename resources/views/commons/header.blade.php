@@ -17,5 +17,7 @@
                 @endif
             </ul>
         </div>
+        {{-- 検索ワード入力 --}}
+        @include('search.search')
     </nav>
 </header>
