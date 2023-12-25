@@ -31,10 +31,6 @@ class PostsController extends Controller
     }
 
     //投稿作成
-    public function create()
-    {
-        return view('welcome');
-    }
 
     public function store(Request $request)
     {
@@ -42,11 +38,9 @@ class PostsController extends Controller
             'content' => 'required|max:140',
         ]);
 
-        $user = Auth::user(); 
-
         $post = new Post();
         $post->content = $request->input('content');
-        $post->user_id = $user->id;
+        $post->user_id = Auth::id();
         $post->save();
 
         return redirect('/');
