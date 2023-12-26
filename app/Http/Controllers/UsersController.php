@@ -20,9 +20,9 @@ class UsersController extends Controller
         return view('users.show',$data);
     }
 
+    // ユーザ編集画面_表示
     public function edit($id)
     {
-        // ユーザ編集画面に表示させる変更前データ
         $user = \Auth::user();
         if ($user->id == $id) {
             return view('users.edit', ['user'=> $user]);
@@ -30,15 +30,14 @@ class UsersController extends Controller
         abort(404);
     }
 
+    // ユーザ更新
     protected function update(UserRequest $request)
     {
-        // 更新データ保存
         $user = \Auth::user();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-        //フラッシュメッセージ表示
         return redirect()->route('user.show', \Auth::id())->with('message','ユーザ情報を更新しました！');
     }
 

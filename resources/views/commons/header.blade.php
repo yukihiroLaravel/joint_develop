@@ -2,6 +2,8 @@
 <header class="mb-5">
     <nav class="navbar navbar-expand-sm navbar-dark bg-info">
         <a class="navbar-brand" href="/">Topic Posts</a>
+        {{-- 検索ワード入力 --}}
+        @include('search.search')
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -17,7 +19,5 @@
                 @endif
             </ul>
         </div>
-        {{-- 検索ワード入力 --}}
-        @include('search.search')
     </nav>
 </header>

@@ -9,7 +9,7 @@
         </div>
     </div>
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
-    
+
     @if(Auth::check())
         {{-- 投稿する --}}
         <div class="text-center mb-3">
@@ -25,7 +25,8 @@
             </form>
         </div>
     @endif
-
+    {{-- フラッシュメッセージ表示 --}}
+    @include('commons.flash_message')
     {{-- 投稿一覧 --}}
     @include('posts.posts', ['posts' => $posts])
 

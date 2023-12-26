@@ -19,7 +19,6 @@ class SearchController extends Controller
         $param2 = $request->input('param2');
         $param3 = $request->input('param3');
         $param4 = $request->input('param4');
-
         $query = Post::query();
         // 検索条件を作成
         if ($param1) {
@@ -39,6 +38,12 @@ class SearchController extends Controller
 
         // 結果を取得
         $posts = $query->orderBy('id', 'desc')->paginate(10);
-        return view('welcome', compact('posts'));
+        
+        $postCount = $posts->total();
+        if ($postCount<1) {
+            return view('welcome', compact('posts','postCount','param1','param2','param3','param4'))
+            ->with('message', '検索結果は0件です！');
+        }
+        return view('welcome', compact('posts','postCount','param1','param2','param3','param4'));
     }
 }

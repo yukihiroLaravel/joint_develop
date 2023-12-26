@@ -24,6 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::share('keyword');
+        View::share('param1','param2','param3','param4');
     }
 }

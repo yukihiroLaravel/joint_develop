@@ -6,16 +6,11 @@ use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
-    public function index(Request $request)
+    //投稿一覧表示
+    public function index()
     {
-        //投稿をキーワード検索
-        $keyword = $request->input('keyword');
-        $query = Post::query();
-        if (!empty($keyword)){
-            $query->where('content', 'LIKE', "%{$keyword}%");
-        }
-        $posts = $query->orderBy('id', 'desc')->paginate(10);
-        return view('welcome', ['posts'=> $posts, 'keyword'=> $keyword]);
+        $posts = Post::orderBy('id', 'desc')->paginate(10);
+        return view('welcome', ['posts'=> $posts]);
     }
 
     // 投稿削除
@@ -25,6 +20,6 @@ class PostsController extends Controller
         if (\Auth::id() === $post->user_id){
             $post->delete();
         }
-        return back()->with('message', '投稿削除しました！');
+        return back()->with('message', '投稿を削除しました！');
     }
 }
