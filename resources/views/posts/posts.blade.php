@@ -25,4 +25,9 @@
     @endforeach
 </ul>
 <div class="m-auto" style="width: fit-content">{{ $posts->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
-
+{{-- <div class="m-auto" style="width: fit-content">{{ $posts->appends([
+    'param1' => $param1,
+    'param2' => $param2,
+    'param3' => $param3,
+    'param4' => $param4,
+])->links('pagination::bootstrap-4') }} --}}

@@ -25,11 +25,13 @@
             </form>
         </div>
     @endif
-    {{-- フラッシュメッセージ表示 --}}
-    @include('commons.flash_message')
     {{-- 投稿一覧 --}}
-    @include('posts.posts', ['posts' => $posts])
-
+    @if($posts->isEmpty())
+        <p class="text-danger">検索結果：0件</p>
+    @else
+        @include('posts.posts', ['posts' => $posts])
+        {{-- @include('posts.posts', compact('posts','param1','param2','param3','param4')) --}}
+    @endif
 @endsection
 
 

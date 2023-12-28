@@ -38,12 +38,7 @@ class SearchController extends Controller
 
         // 結果を取得
         $posts = $query->orderBy('id', 'desc')->paginate(10);
-        
-        $postCount = $posts->total();
-        if ($postCount<1) {
-            return view('welcome', compact('posts','postCount','param1','param2','param3','param4'))
-            ->with('message', '検索結果は0件です！');
-        }
-        return view('welcome', compact('posts','postCount','param1','param2','param3','param4'));
+        // return view('welcome', compact('posts','param1','param2','param3','param4'));
+        return view('welcome', ['posts' => $posts]);
     }
 }
