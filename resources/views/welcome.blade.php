@@ -29,8 +29,7 @@
     @if($posts->isEmpty())
         <p class="text-danger">検索結果：0件</p>
     @else
-        @include('posts.posts', ['posts' => $posts])
-        {{-- @include('posts.posts', compact('posts','param1','param2','param3','param4')) --}}
+        @include('posts.index', ['posts' => $posts])
     @endif
 @endsection
 

@@ -7,38 +7,38 @@ use App\Post;
 
 class SearchController extends Controller
 {
-    public function index()
+    public function showSearchForm()
     {
-        return view('search.index');
+        return view('search.advanced_search');
     }
 
     public function search(Request $request)
     {
         // フォームから送信された検索ワードを取得
-        $param1 = $request->input('param1');
-        $param2 = $request->input('param2');
-        $param3 = $request->input('param3');
-        $param4 = $request->input('param4');
+        $searchContent = $request->input('searchContent');
+        $searchUserName = $request->input('searchUserName');
+        $startDate = $request->input('startDate');
+        $endDate = $request->input('endDate');
         $query = Post::query();
+
         // 検索条件を作成
-        if ($param1) {
-            $query->where('content', 'LIKE', "%{$param1}%");
+        if ($searchContent) {
+            $query->where('content', 'LIKE', "%{$searchContent}%");
         }
-        if ($param2) {
-            $query->whereHas('user', function ($q) use ($param2) {
-                $q->where('name', 'LIKE', "%{$param2}%");
+        if ($searchUserName) {
+            $query->whereHas('user', function ($q) use ($searchUserName) {
+                $q->where('name', 'LIKE', "%{$searchUserName}%");
             });
         }
-        if ($param3) {
-            $query->where('created_at', '>=', "{$param3}");
+        if ($startDate) {
+            $query->where('created_at', '>=', "{$startDate}");
         }
-        if ($param4) {
-            $query->where('created_at', '<=', "{$param4}");
+        if ($endDate) {
+            $query->where('created_at', '<=', "{$endDate}");
         }
 
         // 結果を取得
         $posts = $query->orderBy('id', 'desc')->paginate(10);
-        // return view('welcome', compact('posts','param1','param2','param3','param4'));
-        return view('welcome', ['posts' => $posts]);
+        return view('welcome', compact('posts','searchContent'));
     }
 }
