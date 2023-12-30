@@ -57,3 +57,5 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/store', [ItemController::class, 'store'])->name('item.store');
 });
 
+//新規投稿作成
+Route::post('/posts', 'PostsController@store')->name('createPost');
