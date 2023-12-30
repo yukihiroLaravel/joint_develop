@@ -23,11 +23,15 @@
                     </div>
                 </div>
             </form>
-            <form method="POST" action="{{route('upload')}}" enctype="multipart/form-data">
+            <form action="{{ route('item.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <input type="file" name="image">
-                <button>アップロード</button>
+                <input type="file" name="img_path">
+                <input type="submit" value="アップロード">
             </form>
+            <h1>一覧画面</h1>
+                @foreach ($items as $item)
+                    <img src="{{ Storage::url($item->img_path) }}" width="25%">
+                @endforeach
         </div>
     @endif
 

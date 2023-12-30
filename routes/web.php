@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ItemController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,6 +52,8 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('follow','FollowController@store')->name('follow');
         Route::delete('unfollow','FollowController@destroy')->name('unfollow');
     });
-    Route::post('posts','PostsController@upload')->name('upload');
+    Route::get('/', [ItemController::class, 'index'])->name('item.index');
+    Route::get('/create', [ItemController::class, 'create'])->name('item.create');
+    Route::post('/store', [ItemController::class, 'store'])->name('item.store');
 });
 
