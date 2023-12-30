@@ -148,4 +148,8 @@ return [
         'password' => 'パスワード',
     ],
 
+    'attributes' => [
+        'content' => '投稿',
+    ],
+
 ];
