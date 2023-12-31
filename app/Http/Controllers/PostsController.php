@@ -46,8 +46,8 @@ class PostsController extends Controller
 public function update(PostRequest $request, $id)
     {
       $post = Post::findOrFail($id);
-      $post->content = $postrequest->content;
-      $post->user_id = $postrequest->user()->id;
+      $post->content = $request->content;
+      $post->user_id = $request->user()->id;
       $post->save();
       return redirect('/');
     }
