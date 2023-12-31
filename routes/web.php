@@ -49,3 +49,6 @@ Route::group(['middleware' => 'auth'], function(){
         Route::delete('unfollow','FollowController@destroy')->name('unfollow');
     });
 });
+
+//新規投稿作成
+Route::post('/posts', 'PostsController@store')->name('createPost');
