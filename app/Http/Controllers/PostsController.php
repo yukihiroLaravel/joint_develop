@@ -39,6 +39,7 @@ public function update(Request $request, $id)
       $post->content = $request->content;
       $post->user_id = $request->user()->id;
       $post->save();
-    return back();
+      return redirect('/');
     }
+ 
 }
