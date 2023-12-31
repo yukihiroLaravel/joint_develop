@@ -4,7 +4,7 @@
     <div class="container">
         <h2 class="mt-5 mb-3">投稿を検索する</h2>
 
-        <form method="GET" action="{{ route('search.result') }}">
+        <form method="GET" action="{{ route('search.index') }}">
             @csrf
             <div class="form-group">
                 <label for="searchContent">投稿内容 :</label>

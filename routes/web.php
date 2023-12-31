@@ -10,14 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 // トップページ表示
-Route::get('/', 'PostsController@index')->name('posts.index');
-
-
-// 投稿検索
+Route::get('/', 'SearchController@search')->name('search.index');
+// 詳細検索
 Route::get('search/form', 'SearchController@showSearchForm')->name('search.form');
-Route::get('search', 'SearchController@search')->name('search.result');
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
