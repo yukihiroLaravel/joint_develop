@@ -30,9 +30,7 @@ class PostsController extends Controller
         return back()->with('message', '投稿削除しました！');
     }
 
-<<<<<<< HEAD
 
-=======
     //投稿作成
 
     public function store(Request $request)
@@ -48,5 +46,4 @@ class PostsController extends Controller
 
         return redirect('/');
     }
->>>>>>> develop_shimotsuki_rab
 }
