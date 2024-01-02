@@ -36,15 +36,12 @@
                 @endforeach
         </div>
     @endif
-
-    {{-- 検索ワード入力 --}}
-    <div class="text-right mt-3">
-        @include('posts.search')
-    </div>
-
     {{-- 投稿一覧 --}}
-    @include('posts.posts', ['posts' => $posts])
-
+    @if($posts->isEmpty())
+        <p class="text-danger">検索結果：0件</p>
+    @else
+        @include('posts.index', ['posts' => $posts])
+    @endif
 @endsection
 
 

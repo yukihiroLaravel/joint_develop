@@ -19,6 +19,10 @@
                     <div class="text-center mt-3">@include('follow.follow_button')</div>
                 </div>
             </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> e56b704fd5bd7a2d291a57bc51404b150fd855fb
         </aside>
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
@@ -31,7 +35,7 @@
             @elseif(isset($followings))
                 @include('follow.followings' , ['followings' => $followings])
             @else
-                @include('posts.posts' , ['user' => $user, 'posts' => $posts])
+                @include('posts.index' , ['user' => $user, 'posts' => $posts])
             @endif
         </div>
     </div>
