@@ -9,7 +9,7 @@ class ItemController extends Controller
 {
     public function index()
     {
-　　　　　// itemsテーブルのデータを全て取得
+        // itemsテーブルのデータを全て取得
         $items = Item::get();
         return view('item.index', compact('items'));
     }
@@ -37,8 +37,7 @@ class ItemController extends Controller
             }
         }
 
-        //　リダイレクト
+        //リダイレクト
         return redirect()->route('item.index');
     }
-}
 }
