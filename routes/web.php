@@ -10,9 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 // トップページ表示
-Route::get('/', 'PostsController@index')->name('post.index');
+Route::get('/', 'SearchController@search')->name('search.index');
+// 詳細検索
+Route::get('search/form', 'SearchController@showSearchForm')->name('search.form');
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
@@ -30,7 +31,6 @@ Route::group(['prefix' => 'users/{id}'],function(){
     Route::get('followers','UsersController@followers')->name('user.followers');
 });
 
-// ユーザ編集(ログインユーザのみ)＆ユーザー退会
 // ログイン後
 Route::group(['middleware' => 'auth'], function(){
     // ユーザ
@@ -41,6 +41,8 @@ Route::group(['middleware' => 'auth'], function(){
     });
     // 投稿
     Route::prefix('posts')->group(function() {
+        Route::delete('{id}','PostsController@destroy')->name('posts.delete');
+    });
         // 削除
         Route::delete('{id}','PostsController@destroy')->name('post.delete');
         // 投稿編集
