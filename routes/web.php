@@ -41,8 +41,6 @@ Route::group(['middleware' => 'auth'], function(){
     });
     // 投稿
     Route::prefix('posts')->group(function() {
-        Route::delete('{id}','PostsController@destroy')->name('posts.delete');
-    });
         // 削除
         Route::delete('{id}','PostsController@destroy')->name('post.delete');
         // 投稿編集
@@ -51,8 +49,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::put('{id}', 'PostsController@update')->name('post.update');
         //新規投稿作成
         Route::post('/', 'PostsController@store')->name('createPost');
-
-      });
+    });
 });
     //フォロー機能
     Route::group(['prefix' => 'users/{id}'],function(){

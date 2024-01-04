@@ -31,13 +31,13 @@ class PostsController extends Controller
     }
 
 
-public function update(PostRequest $request, $id)
+    public function update(PostRequest $request, $id)
     {
-      $post = Post::findOrFail($id);
-      $post->content = $request->content;
-      $post->user_id = $request->user()->id;
-      $post->save();
-      return redirect('/');
+        $post = Post::findOrFail($id);
+        $post->content = $request->content;
+        $post->user_id = $request->user()->id;
+        $post->save();
+        return redirect('/');
     }
  
     //投稿作成
