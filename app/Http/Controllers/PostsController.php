@@ -59,4 +59,20 @@ class PostsController extends Controller
         }
         return back()->with('status', '投稿を削除しました');
     }
+    // フォームの処理
+    public function submitForm(Request $request)
+    {
+      if ($request->session()->has('form_submitted')) {
+        // 既にフォームが送信されている場合の処理
+        return redirect()->back()->with('error', '二重投稿が検出されました。');
+      }
+
+     // フォームの処理
+
+     // セッションにマークを付ける
+     $request->session()->put('form_submitted', true);
+
+     return redirect()->route('success')->with('success', 'フォームが正常に送信されました。');
+    }
+
 }

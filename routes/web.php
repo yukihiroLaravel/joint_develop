@@ -68,4 +68,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('upload', 'UsersController@upload')->name('users.upload.image');
         Route::delete('delete', 'UsersController@destroy')->name('user.delete');
     });
+    // いいね
+    Route::group(['prefix' => 'favorite/{id}'],function(){
+        Route::get('favorite', 'FavoriteController@store')->name('user.favorite');
+        Route::post('favorite', 'FavoriteController@store')->name('user.favorite');
+        Route::delete('unfavorite', 'FavoriteController@destroy')->name('user.unfavorite');
+    });
 });

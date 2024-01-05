@@ -34,9 +34,14 @@
             </div>
             <!-- 各アイコン -->
             <div class="d-flex justify-content-between w-50 pb-3 m-auto">
-                <!-- 「イイね」 -->
-                <a href="">
-                    <i class="fa fa-thumbs-up fa-2x" style="color: black; "></i>
+                    <!-- 「イイねがついていない場合」 -->
+                <a href="{{ route('favorite',$post->id) }}">
+                    @if(Auth::user() or Auth::id() == ($post->user_id))
+                       <i class="fa fa-thumbs-up fa-2x" style="color: black; "></i>      
+                    @else 
+                     <!-- イイねがついている場合　-->
+                       <i class="fa fa-thumbs-up fa-2x" style="color: bule; "></i>
+                    @endif                    
                 </a>
                 <!-- 「リプライ」 -->
                 <a href="{{ route('replies.create',$post) }}">

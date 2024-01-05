@@ -117,4 +117,32 @@ class User extends Authenticatable
             $user->posts()->delete();
         });
     }
-} 
+
+    public function isfavorites(){
+        return $this->belongsToMany(Favorite::class,'favorites','user_id','post_id')->withTimestamps();
+    }
+    
+    public function favorites($postId)
+    {
+        $user = $this->favorite($postId);
+        if ($user) {
+            return false;
+        } else {
+            $this->favorites()->attach($postId);
+            return true;
+        }
+    }
+    
+    public function unfavorites($postId)
+    {
+        $user = $this->favorite($postId);
+        if ($user) {
+            $this->favorites()->detach($postId);
+            return true;
+        } else {
+            return false;
+        }
+    }
+}    
+    
+    
