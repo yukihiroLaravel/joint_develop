@@ -42,11 +42,11 @@ Route::group(['middleware' => 'auth'], function(){
     // 投稿
     Route::prefix('posts')->group(function() {
         // 削除
-        Route::delete('{id}','PostsController@destroy')->name('post.delete');
+        Route::delete('{id}','PostsController@destroy')->name('posts.delete');
         // 投稿編集
-        Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
+        Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit');
         // 投稿更新
-        Route::put('{id}', 'PostsController@update')->name('post.update');
+        Route::put('{id}', 'PostsController@update')->name('posts.update');
         //新規投稿作成
         Route::post('/', 'PostsController@store')->name('createPost');
     });
