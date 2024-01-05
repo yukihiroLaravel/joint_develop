@@ -51,9 +51,8 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('follow','FollowController@store')->name('follow');
         Route::delete('unfollow','FollowController@destroy')->name('unfollow');
     });
-    Route::get('/', [ItemController::class, 'index'])->name('item.index');
-    Route::get('/create', [ItemController::class, 'create'])->name('item.create');
-    Route::post('/store', [ItemController::class, 'store'])->name('item.store');
+    Route::get('/create', 'ItemController@create')->name('item.create');
+    Route::post('/store', 'ItemController@store')->name('item.store');
 });
 
 //新規投稿作成

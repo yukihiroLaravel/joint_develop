@@ -3,17 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Item;
+use App\Item;
 
 class ItemController extends Controller
 {
-    public function index()
-    {
-        // itemsテーブルのデータを全て取得
-        $items = Item::get();
-        return view('item.index', compact('items'));
-    }
-
     public function create(Request $request)
     {
         return view('item.create');
