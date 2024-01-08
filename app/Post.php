@@ -13,3 +13,11 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 }
+
+{
+    $table = 'posts';
+
+    $fillable = [
+        'img_path',
+];
+}

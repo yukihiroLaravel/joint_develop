@@ -1,7 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ItemController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -51,8 +50,6 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('follow','FollowController@store')->name('follow');
         Route::delete('unfollow','FollowController@destroy')->name('unfollow');
     });
-    Route::get('/create', 'ItemController@create')->name('item.create');
-    Route::post('/store', 'ItemController@store')->name('item.store');
 });
 
 //新規投稿作成
