@@ -43,14 +43,18 @@ Route::group(['middleware' => 'auth'], function(){
     });
     // 投稿
     Route::prefix('posts')->group(function() {
+        // 削除
         Route::delete('{id}','PostsController@destroy')->name('posts.delete');
+        // 投稿編集
+        Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit');
+        // 投稿更新
+        Route::put('{id}', 'PostsController@update')->name('posts.update');
+        //新規投稿作成
+        Route::post('/', 'PostsController@store')->name('createPost');
     });
+});
     //フォロー機能
     Route::group(['prefix' => 'users/{id}'],function(){
         Route::post('follow','FollowController@store')->name('follow');
         Route::delete('unfollow','FollowController@destroy')->name('unfollow');
     });
-});
-
-//新規投稿作成
-Route::post('/posts', 'PostsController@store')->name('createPost');
