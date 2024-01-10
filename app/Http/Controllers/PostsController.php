@@ -47,6 +47,7 @@ class PostsController extends Controller
     {
         $request->validate([
             'content' => 'required|max:140',
+            'img_path' => '|image|mimes:png,jpg|max:2048',
         ]);
 
         $post = new Post();
@@ -62,7 +63,7 @@ class PostsController extends Controller
             $img_path = $img->store('img','public');
             // store処理が実行できたらDBに保存処理を実行
 
-        $post->img_path = $img_path;
+            $post->img_path = $img_path;
         }
 
         $post->save();

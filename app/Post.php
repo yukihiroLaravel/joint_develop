@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
+
 {
     use SoftDeletes;
     public function user()
@@ -14,10 +15,6 @@ class Post extends Model
     }
 }
 
-{
-    $table = 'posts';
-
     $fillable = [
         'img_path',
 ];
-}
