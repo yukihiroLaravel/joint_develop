@@ -47,7 +47,7 @@ class PostsController extends Controller
     {
         $request->validate([
             'content' => 'required|max:140',
-            'img_path' => '|image|mimes:png,jpg|max:2048',
+            'img_path' => 'image|mimes:png,jpg|max:1',
         ]);
 
         $post = new Post();

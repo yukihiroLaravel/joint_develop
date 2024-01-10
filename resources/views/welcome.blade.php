@@ -21,7 +21,7 @@
                     @include('commons.error_messages')
                     <textarea class="form-control" name="content" rows="2">{{ old('content') }}</textarea>
                     <div class ="text-center mt-3">
-                        <input type="file" name="img_path">
+                        <input type="file" name="img_path" accept=".jpg, .png">
                     </div>
                     <div class="text-left mt-3">
                         <button type="submit" class="btn btn-primary">投稿する</button>
