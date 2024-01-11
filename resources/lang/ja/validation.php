@@ -150,7 +150,6 @@ return [
 
     'attributes' => [
         'content' => '投稿',
-        'img_path' => '画像'
     ],
 
 ];

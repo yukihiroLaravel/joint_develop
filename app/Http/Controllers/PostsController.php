@@ -43,11 +43,10 @@ class PostsController extends Controller
  
     //投稿作成
 
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
         $request->validate([
             'content' => 'required|max:140',
-            'img_path' => 'image|mimes:png,jpg|max:2048',
         ]);
 
         $post = new Post();
