@@ -45,10 +45,6 @@ class PostsController extends Controller
 
     public function store(PostRequest $request)
     {
-        $request->validate([
-            'content' => 'required|max:140',
-        ]);
-
         $post = new Post();
         $post->content = $request->input('content');
         $post->user_id = Auth::id();
