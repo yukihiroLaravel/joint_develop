@@ -24,12 +24,14 @@ class PostRequest extends FormRequest
     {
         return [
             'content' => 'required|max:140',
+            'img_path' => 'image|mimes:png,jpg|max:2048',
         ];
     }
     public function attributes()
     {
         return [
             'content' => '投稿内容',
+            'img_path' => '画像',
         ];
     }
 }

@@ -10,6 +10,11 @@
             <div class="">
                 <div class="text-left d-inline-block w-75">
                     <p class="mb-2">{{$post->content}}</p>
+                        <div class="text-left mb-3">
+                            @if(isset($post->img_path))
+                            <img src="{{ Storage::url($post->img_path) }}" width="25%">
+                            @endif
+                        </div>
                     <p class="text-muted">{{$post->created_at}}</p>
                 </div>
                 @if (Auth::id() === $post->user_id)
