@@ -12,6 +12,7 @@
 
     @if(Auth::check())
     {{-- 投稿する --}}
+    <div class="container text-left">
         <div class="text-center mb-3">
             <form method="POST" action="{{ route('createPost') }}" class="d-inline-block w-75" enctype="multipart/form-data">
                 @csrf {{-- CSRFトークンを追加 --}}
@@ -19,6 +20,7 @@
                 @include('commons.flash_message')
                 <div class="form-group">
                     @include('commons.error_messages')
+
                     <textarea class="form-control" name="content" rows="2">{{ old('content') }}</textarea>
                     <div class ="text-center mt-3">
                         <input type="file" name="img_path" accept=".jpg, .png">
@@ -26,16 +28,17 @@
                     <div class="text-left mt-3">
                         <button type="submit" class="btn btn-primary">投稿する</button>
                     </div>
-                </?div>
+                </div>
             </form>
         </div>
+    </div>
     @endif
     {{-- 投稿一覧 --}}
-    @if($posts->isEmpty())
+        @if($posts->isEmpty())
         <p class="text-danger">検索結果：0件</p>
-    @else
+        @else
         @include('posts.index', ['posts' => $posts])
-    @endif
+        @endif
 @endsection
 
 

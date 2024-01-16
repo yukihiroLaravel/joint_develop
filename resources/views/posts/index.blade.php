@@ -5,8 +5,19 @@
                 <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
                 <p class="mt-3 mb-0 d-inline-block">
                     <a href="{{ route('user.show', $post->user->id) }}">{{$post->user->name}}</a>
+                    @php
+                        $countFavoriteUsers = $post->favoriteUsers()->count();
+                    @endphp
+                    <div class="text-right">いいね！
+                        <span class="badge badge-pill badge-success">{{ $countFavoriteUsers }}</span>
+                    </div>
                 </p>
             </div>
+
+            <div class="d-inline-block">
+                @include('favorite.favorite_button',['post'=>$post])
+            </div>
+
             <div class="">
                 <div class="text-left d-inline-block w-75">
                     <p class="mb-2">{{$post->content}}</p>
@@ -32,5 +43,5 @@
     @endforeach
 </ul>
 <div class="m-auto" style="width: fit-content">
-    {{ $posts->appends(request()->query())->links('pagination::bootstrap-4') }}
+{{ $posts->appends(request()->query())->links('pagination::bootstrap-4') }}
 </div>

@@ -17,6 +17,7 @@ class UsersController extends Controller
             'user' => $user,
             'posts' => $posts,
         ];
+        $data += $this->userCounts($user);
         return view('users.show',$data);
     }
 
@@ -73,5 +74,18 @@ class UsersController extends Controller
             'followers' => $followers,
         ];
         return view('users.show', $data);
+    }
+
+    public function favorites($id)
+    {
+        $user = User::findOrFail($id);
+        $posts = $user->favorites()->paginate(20);
+        $data = [
+            'user'=>$user,
+            'posts'=>$posts
+        ];
+        $data += $this->userCounts($user);
+        // dd($data['totalFavorites']);
+        return view('users.show',$data);
     }
 }

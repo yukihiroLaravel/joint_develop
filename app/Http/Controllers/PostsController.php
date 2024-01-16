@@ -53,7 +53,7 @@ class PostsController extends Controller
         $post->save();
         return redirect('/');
     }
- 
+
     //投稿作成
 
     public function store(PostRequest $request)
@@ -75,8 +75,19 @@ class PostsController extends Controller
         }
 
         $post->save();
-
-
         return redirect('/');
     }
+
+    // public function favorites($id)
+    // {
+    //     $user = User::findOrFail($id);
+    //     $posts = $user->favorites()->paginate(20);
+    //     $data = [
+    //         'user'=>$user,
+    //         'posts'=>$posts
+    //     ];
+
+    //     $data += $this->postCounts($post);
+    //     return view('posts.index',$data);
+    // }
 }
