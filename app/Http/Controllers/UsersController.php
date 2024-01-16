@@ -85,7 +85,6 @@ class UsersController extends Controller
             'posts'=>$posts
         ];
         $data += $this->userCounts($user);
-        // dd($data['totalFavorites']);
         return view('users.show',$data);
     }
 }
