@@ -77,17 +77,4 @@ class PostsController extends Controller
         $post->save();
         return redirect('/');
     }
-
-    // public function favorites($id)
-    // {
-    //     $user = User::findOrFail($id);
-    //     $posts = $user->favorites()->paginate(20);
-    //     $data = [
-    //         'user'=>$user,
-    //         'posts'=>$posts
-    //     ];
-
-    //     $data += $this->postCounts($post);
-    //     return view('posts.index',$data);
-    // }
 }
