@@ -34,11 +34,11 @@
     </div>
     @endif
     {{-- 投稿一覧 --}}
-        @if($posts->isEmpty())
+    @if($posts->isEmpty())
         <p class="text-danger">検索結果：0件</p>
-        @else
+    @else
         @include('posts.index', ['posts' => $posts])
-        @endif
+    @endif
 @endsection
 
 
