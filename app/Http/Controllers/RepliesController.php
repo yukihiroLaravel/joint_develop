@@ -15,7 +15,7 @@ class RepliesController extends Controller
         $this->middleware('auth');
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $article_id)
     {
         $request->validate([
             'reply_content' => 'required|max:140',
@@ -23,7 +23,7 @@ class RepliesController extends Controller
 
         $reply = new Reply();
         $reply->reply = $request->input('reply_content');
-        $reply->article_id = $request->input('article_id');
+        $reply->article_id = $article_id; // ルートパラメータから取得
         $reply->user_id = Auth::user()->id;
         $reply->save();
 

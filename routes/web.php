@@ -60,7 +60,7 @@ Route::group(['middleware' => 'auth'], function(){
 //返信
 Route::prefix('replies')->group(function() {
     //送信処理
-    Route::post('/{post_id}', 'RepliesController@store')->name('createReply');
+    Route::post('/{article_id}', 'RepliesController@store')->name('createReply');
     //表示
     Route::get('/{post}', 'RepliesController@show')->name('showReply');
     //削除

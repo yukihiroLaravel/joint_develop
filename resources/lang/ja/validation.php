@@ -150,6 +150,7 @@ return [
 
     'attributes' => [
         'content' => '投稿',
+        'reply_content' => '返信内容',
     ],
 
 ];
