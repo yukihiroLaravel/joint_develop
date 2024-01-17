@@ -18,7 +18,8 @@ class UsersController extends Controller
             'posts' => $posts,
         ];
         $data += $this->userCounts($user);
-        return view('users.show',$data);
+        // dd($data);
+        return view('users.show', $data);
     }
 
     // ユーザ編集画面_表示
@@ -61,6 +62,8 @@ class UsersController extends Controller
             'user' => $user,
             'followings' => $followings,
         ];
+        $data += $this->userCounts($user);
+        // dd($data);
         return view('users.show', $data);
     }
 
@@ -73,6 +76,8 @@ class UsersController extends Controller
             'user' => $user,
             'followers' => $followers,
         ];
+        $data += $this->userCounts($user);
+        // dd($data);
         return view('users.show', $data);
     }
 
@@ -87,4 +92,5 @@ class UsersController extends Controller
         $data += $this->userCounts($user);
         return view('users.show',$data);
     }
+
 }

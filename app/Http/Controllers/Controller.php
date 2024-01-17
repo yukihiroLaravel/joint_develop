@@ -13,6 +13,9 @@ class Controller extends BaseController
     public function userCounts($user)
     {
         $countPosts = $user->posts()->count();
+        $countFollowing = $user->following()->count();
+        $countFollower = $user->follower()->count();
+
         $countFavorites = $user->favorites()->count();
         $posts = $user->posts()->get();
         $totalFavorites = 0;
@@ -20,9 +23,11 @@ class Controller extends BaseController
             $totalFavorites += $post->favoriteUsers()->count();
         }
         return [
-            'countPosts'=>$countPosts,
-            'countFavorites'=>$countFavorites,
-            'totalFavorites'=>$totalFavorites,
+            'countPosts' => $countPosts,
+            'countFollowing' => $countFollowing,
+            'countFollower' => $countFollower,
+            'countFavorites' => $countFavorites,
+            'totalFavorites' => $totalFavorites
         ];
     }
 }

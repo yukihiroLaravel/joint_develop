@@ -31,3 +31,19 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // いいねボタンがクリックされた時の処理
+        document.querySelectorAll('.favorite-form').forEach(function(form) {
+            form.addEventListener('submit', function (event) {
+                event.preventDefault(); // デフォルトの挙動を防ぐ
+
+                // ここにいいねボタンが押された時の処理を追加
+
+                // 例えば、Ajaxリクエストを使っていいねの状態を更新する
+                // ここに適切なAjaxのコードを追加
+            });
+        });
+    });
+</script>
