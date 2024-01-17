@@ -21,6 +21,13 @@
                         <div class="reply">
                             <p class="mb-1">{{$reply->user->name}} さんの返信: {{$reply->reply}}</p>
                             <p class="mb-1" style="color: gray;">{{$reply->created_at}}</p>
+                            @if(Auth::check() && Auth::user()->id == $reply->user->id)
+                                <form method="POST" action="{{ route('deleteReply', ['reply_id' => $reply->id]) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">削除</button>
+                                </form>
+                            @endif
                         </div>
                     @endforeach
                     @if(Auth::check())

@@ -36,13 +36,14 @@ class RepliesController extends Controller
         return view('posts.show', compact('post'));
     }
 
-    //     if ($reply) {
-    //         $reply->delete();
-    //         // 削除後の処理（リダイレクトなど）
-    //     } else {
-    //         // エラーメッセージを表示する処理
-    //         return redirect()->back();
-    //     }
-    // }
+    // 返信削除
+    public function destroy($id)
+    {
+        $reply = Reply::findOrFail($id);
+        if (\Auth::id() === $reply->user_id){
+            $reply->delete();
+        }
+        return back()->with('message', '返信を削除しました！');
+    }
 }
 
