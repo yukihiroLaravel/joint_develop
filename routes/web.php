@@ -56,3 +56,11 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('follow','FollowController@store')->name('follow');
         Route::delete('unfollow','FollowController@destroy')->name('unfollow');
     });
+
+//返信
+Route::prefix('replies')->group(function() {
+    //投稿処理
+    Route::post('/{post_id}', 'RepliesController@store')->name('createReply');
+    //表示
+    Route::get('/{post}', 'RepliesController@show')->name('showReply');
+});
