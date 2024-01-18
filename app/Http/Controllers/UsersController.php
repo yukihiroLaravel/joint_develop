@@ -82,7 +82,7 @@ class UsersController extends Controller
     public function favorites($id)
     {
         $user = User::findOrFail($id);
-        $favorites = $user->favorites()->paginate(9);
+        $favorites = $user->favorites()->orderBy('id', 'desc')->paginate(9);
         $data = [
             'user' => $user,
             'favorites' => $favorites
