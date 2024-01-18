@@ -78,14 +78,14 @@ class UsersController extends Controller
         return view('users.show', $data);
     }
 
+    // お気に入りの投稿
     public function favorites($id)
     {
         $user = User::findOrFail($id);
-        $posts = $user->favorites()->paginate(9);
+        $favorites = $user->favorites()->paginate(9);
         $data = [
             'user' => $user,
-            'posts' => $posts,
-            'favorites' => $posts //お気に入り判定用
+            'favorites' => $favorites
         ];
         $data += $this->userCounts($user);
         return view('users.show',$data);

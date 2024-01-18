@@ -55,7 +55,7 @@
             @elseif(isset($followings))
                 @include('follow.followings' , ['followings' => $followings])
             @elseif(isset($favorites))
-                @include('favorite.favorites' , ['posts' => $posts])
+                @include('favorite.favorites' , ['favorites' => $favorites])
             @else
                 @include('posts.index' , ['posts' => $posts])
             @endif
