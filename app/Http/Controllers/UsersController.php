@@ -18,7 +18,6 @@ class UsersController extends Controller
             'posts' => $posts,
         ];
         $data += $this->userCounts($user);
-        // dd($data);
         return view('users.show', $data);
     }
 
@@ -63,7 +62,6 @@ class UsersController extends Controller
             'followings' => $followings,
         ];
         $data += $this->userCounts($user);
-        // dd($data);
         return view('users.show', $data);
     }
 
@@ -77,7 +75,6 @@ class UsersController extends Controller
             'followers' => $followers,
         ];
         $data += $this->userCounts($user);
-        // dd($data);
         return view('users.show', $data);
     }
 
@@ -86,8 +83,9 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         $posts = $user->favorites()->paginate(9);
         $data = [
-            'user'=>$user,
-            'posts'=>$posts
+            'user' => $user,
+            'posts' => $posts,
+            'favorites' => $posts //お気に入り判定用
         ];
         $data += $this->userCounts($user);
         return view('users.show',$data);

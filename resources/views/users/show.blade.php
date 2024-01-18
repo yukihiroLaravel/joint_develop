@@ -19,8 +19,7 @@
                     <div class="text-center mt-3">@include('follow.follow_button')</div>
                 </div>
                 <div class="text-right">
-                    {{-- @php dd($totalFavorites); @endphp --}}
-                    <span class="badge badge-pill badge-success">獲得いいね！：{{ 'totalFavorites' }}</span>
+                    <span class="badge badge-pill badge-success">獲得いいね！：{{ $totalFavorites }}</span>
                 </div>
             </div>
 
@@ -29,28 +28,23 @@
             <ul class="nav nav-tabs nav-justified mb-3">
                 <li class="nav-item">
                     <a href="{{route('user.show',$user->id)}}" class="nav-link {{ Request::routeIs('user.show') ? 'active' : '' }}">
-                        {{-- タイムライン <div class="badge badge-secondary">{{ $countPosts }}</div> --}}
-
                         タイムライン( {{ $countPosts }} )
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a href="{{route('user.favorites',$user->id)}}" class="nav-link {{ Request::routeIs('user.favorites') ? 'active' : '' }}">
-                        {{-- お気に入り <div class="badge badge-secondary">{{ $countFavorites }}</div> --}}
                         お気に入り({{ $countFavorites }})
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a href="{{route('user.followings',$user->id)}}" class="nav-link {{ Request::routeIs('user.followings') ? 'active' : '' }}">
-                        {{-- @php dd($countFollowings); @endphp --}}
                         フォロー中({{ $countFollowings }})
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{route('user.followers',$user->id)}}" class="nav-link {{ Request::routeIs('user.followers') ? 'active' : '' }}">
-                        {{-- @php dd($countFollowers); @endphp --}}
                         フォロワー({{ $countFollowers }})
                     </a>
                 </li>
@@ -60,8 +54,10 @@
                 @include('follow.followers' , [ 'followers' => $followers])
             @elseif(isset($followings))
                 @include('follow.followings' , ['followings' => $followings])
+            @elseif(isset($favorites))
+                @include('favorite.favorites' , ['posts' => $posts])
             @else
-                @include('posts.index' , ['user' => $user, 'posts' => $posts])
+                @include('posts.index' , ['posts' => $posts])
             @endif
         </div>
     </div>
