@@ -29,6 +29,8 @@ Route::group(['prefix' => 'users/{id}'],function(){
     Route::get('', 'UsersController@show')->name('user.show');
     Route::get('followings','UsersController@followings')->name('user.followings');
     Route::get('followers','UsersController@followers')->name('user.followers');
+    Route::get('favorites','UsersController@favorites')->name('user.favorites');
+
 });
 
 // ログイン後
@@ -50,9 +52,14 @@ Route::group(['middleware' => 'auth'], function(){
         //新規投稿作成
         Route::post('/', 'PostsController@store')->name('createPost');
     });
-});
     //フォロー機能
     Route::group(['prefix' => 'users/{id}'],function(){
         Route::post('follow','FollowController@store')->name('follow');
         Route::delete('unfollow','FollowController@destroy')->name('unfollow');
     });
+    // いいね
+    Route::group(['prefix'=> 'posts/{id}'],function(){
+        Route::post('favorite','FavoriteController@store')->name('favorite');
+        Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
+    });
+});

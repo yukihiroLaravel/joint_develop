@@ -1,12 +1,25 @@
 <ul class="list-unstyled">
     @foreach ($posts as $post)
-        <li class="mb-3 text-center">
-            <div class="text-left d-inline-block w-75 mb-2">
-                <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
+        <li class="mb-3 text-center pr-5 pl-5">
+        <div class="row text-center">
+            <div class="col-6 text-left d-inline-block mb-2">
                 <p class="mt-3 mb-0 d-inline-block">
+                    <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
                     <a href="{{ route('user.show', $post->user->id) }}">{{$post->user->name}}</a>
                 </p>
             </div>
+            @php
+                $countFavoriteUsers = $post->favoriteUsers()->count();
+            @endphp
+            <div class="col-6 text-right mt-4">いいね！
+                <span class="badge badge-pill badge-success">{{ $countFavoriteUsers }}</span>
+                <div class="d-inline-block">
+                    @include('favorite.favorite_button',['post'=>$post])
+                </div>
+            </div>
+        </div>
+
+
             <div class="">
                 <div class="text-left d-inline-block w-75">
                     <p class="mb-2">{{$post->content}}</p>
