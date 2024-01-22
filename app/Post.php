@@ -21,6 +21,6 @@ class Post extends Model
 
     public function replies(): HasMany
     {
-        return $this->hasMany(Reply::class, 'article_id');
+        return $this->hasMany(Reply::class, 'post_id');
     }
 }

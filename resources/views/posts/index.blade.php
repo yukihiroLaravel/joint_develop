@@ -19,7 +19,7 @@
                     {{-- 返信の一覧 --}}
                     @foreach($post->replies as $reply)
                         <div class="reply">
-                            <p class="mb-1">{{$reply->user->name}} さんの返信: {{$reply->reply}}</p>
+                            <p class="mb-1">{{$reply->user->name}} さんの返信: {{$reply->content}}</p>
                             <p class="mb-1" style="color: gray;">{{$reply->created_at}}</p>
                             @if(Auth::check() && Auth::user()->id == $reply->user->id)
                                 <form method="POST" action="{{ route('deleteReply', ['reply_id' => $reply->id]) }}">
@@ -32,9 +32,9 @@
                     @endforeach
                     @if(Auth::check())
                         {{-- 返信フォーム --}}
-                        <form method="POST" action="{{ route('createReply', ['article_id' => $post->id]) }}">
+                        <form method="POST" action="{{ route('createReply', ['post_id' => $post->id]) }}">
                             @csrf
-                            <input type="hidden" name="article_id" value="{{ $post->id }}">
+                            <input type="hidden" name="post_id" value="{{ $post->id }}">
                             <input type="text" name="reply_content" class="form-control d-inline-block w-75 mb-2" placeholder="返信を入力">
                             <button type="submit" class="btn btn-sm btn-success ">送信</button>
                         </form>

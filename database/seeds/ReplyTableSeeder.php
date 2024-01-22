@@ -13,9 +13,9 @@ class ReplyTableSeeder extends Seeder
     {
         for($i = 1; $i <= 100; $i++){
             DB::table('replies')->insert([
-                'reply' => 'これは' .$i .'個目の返信です。',
+                'content' => 'これは' .$i .'個目の返信です。',
                 'user_id' => rand(1, 5),
-                'article_id' => rand(1,200),
+                'post_id' => rand(1,200),
             ]);
         }
     }

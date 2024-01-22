@@ -15,14 +15,14 @@ class CreateReplies extends Migration
     {
         Schema::create('replies', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('reply', 140); 
+            $table->string('content', 140); 
             $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')
+            $table->foreign('user_id')      //外部キー制約
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
-            $table->unsignedBigInteger('article_id');   //返信している投稿のid
-            $table->foreign('article_id')   
+            $table->unsignedBigInteger('post_id');   //返信している投稿のid
+            $table->foreign('post_id')       //外部キー制約
                 ->references('id')
                 ->on('posts')
                 ->onDelete('cascade');
