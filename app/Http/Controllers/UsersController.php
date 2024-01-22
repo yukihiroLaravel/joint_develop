@@ -17,7 +17,8 @@ class UsersController extends Controller
             'user' => $user,
             'posts' => $posts,
         ];
-        return view('users.show',$data);
+        $data += $this->userCounts($user);
+        return view('users.show', $data);
     }
 
     // ユーザ編集画面_表示
@@ -60,6 +61,7 @@ class UsersController extends Controller
             'user' => $user,
             'followings' => $followings,
         ];
+        $data += $this->userCounts($user);
         return view('users.show', $data);
     }
 
@@ -72,6 +74,21 @@ class UsersController extends Controller
             'user' => $user,
             'followers' => $followers,
         ];
+        $data += $this->userCounts($user);
         return view('users.show', $data);
     }
+
+    // お気に入りの投稿
+    public function favorites($id)
+    {
+        $user = User::findOrFail($id);
+        $favorites = $user->favorites()->orderBy('id', 'desc')->paginate(9);
+        $data = [
+            'user' => $user,
+            'favorites' => $favorites
+        ];
+        $data += $this->userCounts($user);
+        return view('users.show',$data);
+    }
+
 }

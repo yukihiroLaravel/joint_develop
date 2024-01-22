@@ -53,7 +53,7 @@ class PostsController extends Controller
         $post->save();
         return redirect('/');
     }
- 
+
     //投稿作成
 
     public function store(PostRequest $request)
@@ -75,8 +75,6 @@ class PostsController extends Controller
         }
 
         $post->save();
-
-
         return redirect('/');
     }
 }

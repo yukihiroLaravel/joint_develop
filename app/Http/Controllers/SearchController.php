@@ -23,7 +23,11 @@ class SearchController extends Controller
 
         // 検索条件を作成
         if ($searchContent) {
-            $query->where('content', 'LIKE', "%{$searchContent}%");
+            $searchContent = str_replace('　', ' ', $searchContent);
+            $searchWords = explode(' ', $searchContent);
+            foreach ($searchWords as $word){
+                $query->where('content', 'LIKE', "%{$word}%");
+            }
         }
         if ($searchUserName) {
             $query->whereHas('user', function ($q) use ($searchUserName) {

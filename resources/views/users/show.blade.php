@@ -18,21 +18,46 @@
                     @endif
                     <div class="text-center mt-3">@include('follow.follow_button')</div>
                 </div>
+                <div class="text-right">
+                    <span class="badge badge-pill badge-success">獲得いいね！：{{ $totalFavorites }}</span>
+                </div>
             </div>
 
         </aside>
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
-                <li class="nav-item"><a href="{{route('user.show',$user->id)}}" class="nav-link {{ Request::routeIs('user.show') ? 'active' : '' }}">タイムライン</a></li>
-                <li class="nav-item"><a href="{{route('user.followings',$user->id)}}" class="nav-link {{ Request::routeIs('user.followings') ? 'active' : '' }}">フォロー中</a></li>
-                <li class="nav-item"><a href="{{route('user.followers',$user->id)}}" class="nav-link {{ Request::routeIs('user.followers') ? 'active' : '' }}">フォロワー</a></li>
+                <li class="nav-item">
+                    <a href="{{route('user.show',$user->id)}}" class="nav-link {{ Request::routeIs('user.show') ? 'active' : '' }}">
+                        タイムライン( {{ $countPosts }} )
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{route('user.favorites',$user->id)}}" class="nav-link {{ Request::routeIs('user.favorites') ? 'active' : '' }}">
+                        お気に入り({{ $countFavorites }})
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{route('user.followings',$user->id)}}" class="nav-link {{ Request::routeIs('user.followings') ? 'active' : '' }}">
+                        フォロー中({{ $countFollowings }})
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('user.followers',$user->id)}}" class="nav-link {{ Request::routeIs('user.followers') ? 'active' : '' }}">
+                        フォロワー({{ $countFollowers }})
+                    </a>
+                </li>
             </ul>
+
             @if(isset($followers))
                 @include('follow.followers' , [ 'followers' => $followers])
             @elseif(isset($followings))
                 @include('follow.followings' , ['followings' => $followings])
+            @elseif(isset($favorites))
+                @include('favorite.favorites' , ['favorites' => $favorites])
             @else
-                @include('posts.index' , ['user' => $user, 'posts' => $posts])
+                @include('posts.index' , ['posts' => $posts])
             @endif
         </div>
     </div>
