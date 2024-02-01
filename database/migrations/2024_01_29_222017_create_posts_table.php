@@ -18,6 +18,12 @@ class CreatePostsTable extends Migration
             $table->text('content');
             $table->bigInteger('user_id')->unsigned()->index();
             $table->timestamps();
+            // 外部キー制約の追加
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+
+            // ソフトデリートのためのカラム追加
+            $table->softDeletes();
         });
     }
 
