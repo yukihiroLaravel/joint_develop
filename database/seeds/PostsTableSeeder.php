@@ -12,62 +12,50 @@ class PostsTableSeeder extends Seeder
     public function run()
     {
         DB::table('posts')->insert([
-            'title' => 'テスト投稿',
             'content' => 'テスト投稿です。',
             'user_id' => 1,
         ]);
         DB::table('posts')->insert([
-            'title' => 'テスト投稿',
             'content' => 'テストの投稿です。',
             'user_id' => 2,
         ]);
         DB::table('posts')->insert([
-            'title' => 'テスト投稿',
             'content' => 'テスト投稿です。',
             'user_id' => 3,
         ]);
         DB::table('posts')->insert([
-            'title' => 'テスト投稿',
             'content' => 'テストの投稿です。',
             'user_id' => 4,
         ]);
         DB::table('posts')->insert([
-            'title' => 'テスト投稿',
             'content' => 'テスト投稿です。',
             'user_id' => 1,
         ]);
         DB::table('posts')->insert([
-            'title' => 'テスト投稿',
             'content' => 'テストの投稿です。',
             'user_id' => 2,
         ]);
         DB::table('posts')->insert([
-            'title' => 'テスト投稿',
             'content' => 'テスト投稿です。',
             'user_id' => 3,
         ]);
         DB::table('posts')->insert([
-            'title' => 'テスト投稿',
             'content' => 'テストの投稿です。',
             'user_id' => 4,
         ]);
         DB::table('posts')->insert([
-            'title' => 'テスト投稿',
             'content' => 'テスト投稿です。',
             'user_id' => 1,
         ]);
         DB::table('posts')->insert([
-            'title' => 'テスト投稿',
             'content' => 'テストの投稿です。',
             'user_id' => 2,
         ]);
         DB::table('posts')->insert([
-            'title' => 'テスト投稿',
             'content' => 'テスト投稿です。',
             'user_id' => 3,
         ]);
         DB::table('posts')->insert([
-            'title' => 'テスト投稿',
             'content' => 'テストの投稿です。',
             'user_id' => 4,
         ]);
