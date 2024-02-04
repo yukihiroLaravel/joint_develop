@@ -18,12 +18,6 @@ class CreatePostsTable extends Migration
             $table->text('content');
             $table->bigInteger('user_id')->unsigned()->index();
             $table->timestamps();
-            // 外部キー制約の追加
-            //$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            
-             // 既存の外部キー制約を削除
-            $table->dropForeign(['user_id']);
-
             // 新しい外部キー制約を追加
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             // ソフトデリートのためのカラム追加
