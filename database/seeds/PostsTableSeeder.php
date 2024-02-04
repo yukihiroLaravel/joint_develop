@@ -11,13 +11,25 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 1; $i <= 5; $i++) {
-            DB::table('posts')->insert([
-                'user_id' => $i,
-                'content' => 'テスト投稿です。テスト投稿です。テスト投稿です。テスト投稿です。テスト投稿です。テスト投稿です。テスト投稿です。',
-                'created_at' => now(),
-                'updated_at' => now()
-            ]);
-        } 
+        DB::table('posts')->insert([
+            'name' => 'test1',
+            'email' => 'test1@yokoi.com',
+            'password' => bcrypt('test1')
+        ]);
+        DB::table('posts')->insert([
+            'name' => 'test2',
+            'email' => 'test2@yokoi.com',
+            'password' => bcrypt('test2')
+        ]);
+        DB::table('posts')->insert([
+            'name' => 'test3',
+            'email' => 'test3@yokoi.com',
+            'password' => bcrypt('test3')
+        ]);
+        DB::table('posts')->insert([
+            'name' => 'test4',
+            'email' => 'test4@yokoi.com',
+            'password' => bcrypt('test4')
+        ]);
     }
 }
