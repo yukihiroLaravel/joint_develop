@@ -13,23 +13,23 @@ class PostsTableSeeder extends Seeder
     {
         DB::table('posts')->insert([
             'name' => 'test1',
-            'email' => 'test1@yokoi.com',
-            'password' => bcrypt('test1')
+            'content' => 'Yokoi@test1.',
+            'user_id' => 1,
         ]);
         DB::table('posts')->insert([
             'name' => 'test2',
-            'email' => 'test2@yokoi.com',
-            'password' => bcrypt('test2')
+            'content' => 'Yokoi@test2.',
+            'user_id' => 2,
         ]);
         DB::table('posts')->insert([
             'name' => 'test3',
-            'email' => 'test3@yokoi.com',
-            'password' => bcrypt('test3')
+            'content' => 'Yokoi@test3.',
+            'user_id' => 3,
         ]);
         DB::table('posts')->insert([
             'name' => 'test4',
-            'email' => 'test4@yokoi.com',
-            'password' => bcrypt('test4')
+            'content' => 'Yokoi@test4.',
+            'user_id' => 4,
         ]);
     }
 }
