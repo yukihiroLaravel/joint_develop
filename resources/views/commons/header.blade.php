@@ -11,6 +11,7 @@
                     <li class="nav-item"><a href="" class="nav-link text-light">ログアウト</a></li>
                     <li class="nav-item"><a href="" class="nav-link text-light">ログイン</a></li>
                     <li class="nav-item"><a href="" class="nav-link text-light">新規ユーザ登録</a></li>
+            </ul>
         </div>
     </nav>
 </header>
