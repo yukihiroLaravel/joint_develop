@@ -13,7 +13,7 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        $movies = $user->movies()->orderBy('id', 'desc')->paginate(9);
+        $movies = $user->movies()->orderBy('id', 'desc')->paginate(10);
         $data=[
             'user' => $user,
             'movies' => $movies,
