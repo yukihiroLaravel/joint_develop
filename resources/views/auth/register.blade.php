@@ -9,6 +9,7 @@
     <div class="text-center">
         <h3 class="login_title text-left d-inline-block mt-5">新規ユーザ登録</h3>
     </div>
+    @include('commons.error_messages')
     <div class="row mt-5 mb-5">
         <div class="col-sm-6 offset-sm-3">
             <form method="POST" action="{{ route('signup.post') }}">
