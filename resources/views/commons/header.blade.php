@@ -9,12 +9,17 @@
             <ul class="navbar-nav">
                 @if (Auth::check())
                     <li class="nav-item"><a href="" class="nav-link text-light">{{ Auth::user()->name }}</a></li>
-                    <li class="nav-item"><a href="" class="nav-link text-light">ログアウト</a></li>
+                    <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link text-light">ログアウト</a></li>
                 @else
-                    <li class="nav-item"><a href="" class="nav-link text-light">ログイン</a></li>
+                    <li class="nav-item"><a href="{{ route('login') }}" class="nav-link text-light">ログイン</a></li>
                     <li class="nav-item"><a href="{{ route('signup') }}" class="nav-link text-light">新規ユーザ登録</a></li>            
                 @endif
             </ul>
         </div>
     </nav>
 </header>
+@if(Auth::check())
+    <p class="text-right mr-3 pb-3">
+        ユーザー：<span class="user-name">{{ Auth::user()->name }}</span>
+    </p>
+@endif
