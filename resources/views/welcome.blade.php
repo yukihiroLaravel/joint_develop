@@ -17,6 +17,12 @@
                 </div>
             </div>
         </form>
+
+        {{-- ログインしている場合にのみ表示 --}}
+    @if(Auth::check())
+        @include('users.users', ['users' => $users])
+    @endif
+
         @include('posts.posts', ['posts' => $posts])
     </div>
 @endsection
