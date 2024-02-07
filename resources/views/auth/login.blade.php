@@ -5,7 +5,7 @@
     </div>
     <div class="container">
         <div class="text-center mt-3">
-            <p class="text-left d-inline-block">ログインすると投稿で<br>コミュニケーションできるようになります。</p>
+            <p class="text-left d-inline-block">ログインすると<br>投稿できるようになります。</p>
         </div>
         <div class="text-center">
             <h3 class="login_title text-left d-inline-block mt-5">ログイン</h3>
