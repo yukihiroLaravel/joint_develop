@@ -16,6 +16,7 @@ class UsersTableSeeder extends Seeder
                 'name' => 'test' . $i,
                 'email' => 'test' . $i . '@test.com',
                 'password' => bcrypt('test' . $i),
+                'icon' => 'icon' . $i . '.jpeg',
             ]);
         }
     }
