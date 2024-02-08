@@ -24,11 +24,11 @@
                 </div>
                 <div class="form-group">
                     <label for="password">パスワード</label>
-                    <input id="password" type="password" class="form-control" name="password" value="{{ ('password') }}">
+                    <input id="password" type="password" class="form-control" name="password">
                 </div>
                 <div class="form-group">
                     <label for="password_confirmation">パスワード確認</label>
-                    <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" value="{{ ('password_confirmation') }}">
+                    <input id="password_confirmation" type="password" class="form-control" name="password_confirmation">
                 </div>
                 <button type="submit" class="btn btn-primary mt-2">新規登録</button>
             </form>
