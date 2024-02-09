@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Post;
 
 class UsersController extends Controller
 {
@@ -13,10 +15,10 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        $movies = $user->movies()->orderBy('id', 'desc')->paginate(10);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
         $data=[
             'user' => $user,
-            'movies' => $movies,
+            'posts' => $posts,
         ];
         $data += $this->userCounts($user);
         return view('users.show',$data);
