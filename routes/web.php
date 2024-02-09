@@ -24,3 +24,7 @@ Route::group(['prefix' => 'users'],function(){
     Route::put('{id}', 'UsersController@update')->name('users.update');
     Route::delete('{id}', 'UsersController@delete')->name('users.delete');
 });
+// ログイン
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login.post');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
