@@ -16,3 +16,11 @@ Route::get('/', 'UsersController@index');
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+
+// ユーザ編集・更新
+Route::group(['prefix' => 'users'],function(){
+    // Route::get('', 'UsersController@show')->name('user.show');
+    Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
+    Route::put('{id}', 'UsersController@update')->name('users.update');
+    Route::delete('{id}', 'UsersController@delete')->name('users.delete');
+});
