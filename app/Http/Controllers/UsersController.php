@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Http\Requests\UserRequest;
 
 class UsersController extends Controller
 {
@@ -12,28 +12,16 @@ class UsersController extends Controller
         return view('welcome');
     }
 
-    // public function show() {
-    //     $user = User::findOrFail($id);
-    //     return view('users.show', compact('user'));
-    // }
-
-    public function edit() {
+    public function edit($id) {
         $user = \Auth::user();
-        return view('users.edit', ['user' => $user]);
+
+        if (\Auth::check() && \Auth::id() == $id) {
+            return view('users.edit', ['user' => $user]);
+        }
+        abort(404);
     }
 
-    public function update(Request $request) {
-        // バリデーションルールを定義
-        $rules = [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,'.\Auth::id(),
-            'password' => 'nullable|string|min:8|confirmed',
-        ];
-    
-        // バリデーションを実行
-        $validatedData = $request->validate($rules);
-    
-        // ユーザー情報を更新
+    public function update(UserRequest $request, $id) {   
         $user = \Auth::user();
         $user->name = $request->input('name');
         $user->email = $request->input('email');
@@ -41,19 +29,6 @@ class UsersController extends Controller
             $user->password = bcrypt($request->input('password'));
         }
         $user->save();
-    
-        return view('users.detail');
+        return redirect()->route('users.edit', ['id' => $user->id]);
     }
-    
-    public function delete(Request $request) {
-        if (\Auth::check()) {
-            $user = \Auth::user();
-            $user->delete();
-    
-            \Auth::logout();
-        }
-    
-        return redirect('/');
-    }
-    
 }
