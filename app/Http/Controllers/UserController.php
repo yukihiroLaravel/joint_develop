@@ -32,9 +32,11 @@ class UserController extends Controller
         $user->email = $request->newEmail;
         $user->password = Hash::make($request->password);
         $user->save();
+        $successMessage = "ユーザー情報を変更しました。";
 
-        return view('user.show', [
+        return view('user.edit', [
             'user' => $user,
+            'successMessage' => $successMessage,
         ]);
     }
 }

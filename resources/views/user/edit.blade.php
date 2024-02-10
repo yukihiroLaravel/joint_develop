@@ -2,6 +2,11 @@
 @section('content')
     <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
     @include('commons.error_messages')
+    @if (isset($successMessage))
+        <ul class="alert alert-success">
+            <li class="ml-4">{{ $successMessage }}</li>
+        </ul>
+    @endif
     <form method="POST" action="{{ route('user_update') }}">
         @csrf
         @method('PUT')
