@@ -7,7 +7,7 @@
             <li class="ml-4">{{ $successMessage }}</li>
         </ul>
     @endif
-    <form method="POST" action="{{ route('user_update') }}">
+    <form method="POST" action="{{ route('user.update') }}">
         @csrf
         @method('PUT')
         <input type="hidden" name="id" value="" />
