@@ -39,4 +39,15 @@ class UserController extends Controller
             'successMessage' => $successMessage,
         ]);
     }
+
+    public function delete()
+    {
+        $user = User::find(Auth::id());
+        $user->delete();
+
+        $posts = Post::orderBy('id', 'desc')->paginate(9);
+        return view('welcome', [
+            'posts' => $posts,
+        ]);
+    }
 }
