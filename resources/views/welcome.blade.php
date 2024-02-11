@@ -9,10 +9,8 @@
     <div class="container">
         @include('commons.error_messages')
         <div class="text-center mb-3">
-            {{-- ユーザーがログインしている場合にのみフォームを表示 --}}
             @auth
-                <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
-                    @csrf
+                <form method="" action="" class="d-inline-block w-75">
                     <div class="form-group">
                         <textarea class="form-control" name="content" rows="3"></textarea>
                         <div class="text-left mt-3">
