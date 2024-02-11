@@ -25,6 +25,6 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::group(['middleware' => 'auth'], function() {
     // 投稿
     Route::prefix('posts')->group(function () {
-        Route::post('', 'PostsController@store')->name('post.store');
+        Route::post('/', 'PostsController@store')->name('post.store');
     });
 });
