@@ -11,4 +11,5 @@
 |
 */
 
-Route::get('/', 'PostsController@index');
+// トップページ表示
+Route::get('/', 'PostsController@index'); //追記
