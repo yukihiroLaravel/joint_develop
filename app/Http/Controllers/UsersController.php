@@ -14,8 +14,5 @@ class UsersController extends Controller
         return view('welcome', [
             'users' => $users,
         ]);
-        
-        $posts = Post::latest()->get();
-        return view('welcome', compact('posts'));
     }
 }
