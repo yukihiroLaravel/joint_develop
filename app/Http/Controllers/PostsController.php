@@ -12,22 +12,4 @@ class PostsController extends Controller
     {
         return view('welcome');
     }
-
-    public function store(Request $request)
-    {
-        $user = Auth::user();
-        $request->validate([
-            'content' => ['required', 'string', 'max:140'],
-        ]);
-
-        $post = new Post;
-        $post->content = $request->content;
-        $post->user_id = $user->id;
-        $post->save();
-
-        $posts = Post::orderBy('id', 'desc')->paginate(10);
-        return view('welcome', [
-            'posts' => $posts,
-        ]);
-    }
 }
