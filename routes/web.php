@@ -24,3 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('', 'UserController@update')->name('users.update');
   });
 });
+//ログイン
+Route::get('login', 'Auth\LoginController@showLoginform')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login.post');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
