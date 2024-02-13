@@ -17,8 +17,14 @@ Route::get('/', 'PostsController@index');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+  Route::prefix('users/{id}')->group(function () {
+    Route::get('edit', 'UserController@edit')->name('users.edit');
+    Route::put('', 'UserController@update')->name('users.update');
+  });
+});
 //ログイン
-Route::get('login','Auth\LoginController@showLoginform')->name('login');
-Route::post('login','Auth\LoginController@login')->name('login.post');
-Route::get('logout','Auth\LoginController@logout')->name('logout');
-
+Route::get('login', 'Auth\LoginController@showLoginform')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login.post');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
