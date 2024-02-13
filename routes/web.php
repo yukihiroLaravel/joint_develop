@@ -19,7 +19,6 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 
 //ユーザー詳細
-Route::get('/', 'UsersController@index');
 Route::prefix('users')->group(function (){
     Route::get('{id}', 'UsersController@show')->name('user.show');
 });
