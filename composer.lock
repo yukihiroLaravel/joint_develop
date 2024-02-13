@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e4a9dd2476552506dba12be3b05aeec",
+    "content-hash": "2be5b46626a338c96827315da91b750c",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -2724,6 +2724,7 @@
         },
         {
             "name": "symfony/polyfill-ctype",
+<<<<<<< HEAD
             "version": "v1.29.0",
             "source": {
                 "type": "git",
@@ -2734,6 +2735,18 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/ef4d7e442ca910c4764bce785146269b30cb5fc4",
                 "reference": "ef4d7e442ca910c4764bce785146269b30cb5fc4",
+=======
+            "version": "v1.28.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-ctype.git",
+                "reference": "ea208ce43cbb04af6867b4fdddb1bdbf84cc28cb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/ea208ce43cbb04af6867b4fdddb1bdbf84cc28cb",
+                "reference": "ea208ce43cbb04af6867b4fdddb1bdbf84cc28cb",
+>>>>>>> develop_b_mutsuki_dra
                 "shasum": ""
             },
             "require": {
@@ -2747,6 +2760,12 @@
             },
             "type": "library",
             "extra": {
+<<<<<<< HEAD
+=======
+                "branch-alias": {
+                    "dev-main": "1.28-dev"
+                },
+>>>>>>> develop_b_mutsuki_dra
                 "thanks": {
                     "name": "symfony/polyfill",
                     "url": "https://github.com/symfony/polyfill"
@@ -2783,7 +2802,7 @@
                 "portable"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.29.0"
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.28.0"
             },
             "funding": [
                 {
@@ -2799,6 +2818,7 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2024-01-29T20:11:03+00:00"
         },
         {
@@ -2813,6 +2833,22 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-iconv/zipball/cd4226d140ecd3d0f13d32ed0a4a095ffe871d2f",
                 "reference": "cd4226d140ecd3d0f13d32ed0a4a095ffe871d2f",
+=======
+            "time": "2023-01-26T09:26:14+00:00"
+        },
+        {
+            "name": "symfony/polyfill-iconv",
+            "version": "v1.28.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-iconv.git",
+                "reference": "6de50471469b8c9afc38164452ab2b6170ee71c1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-iconv/zipball/6de50471469b8c9afc38164452ab2b6170ee71c1",
+                "reference": "6de50471469b8c9afc38164452ab2b6170ee71c1",
+>>>>>>> develop_b_mutsuki_dra
                 "shasum": ""
             },
             "require": {
@@ -2826,6 +2862,12 @@
             },
             "type": "library",
             "extra": {
+<<<<<<< HEAD
+=======
+                "branch-alias": {
+                    "dev-main": "1.28-dev"
+                },
+>>>>>>> develop_b_mutsuki_dra
                 "thanks": {
                     "name": "symfony/polyfill",
                     "url": "https://github.com/symfony/polyfill"
@@ -2863,7 +2905,11 @@
                 "shim"
             ],
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/symfony/polyfill-iconv/tree/v1.29.0"
+=======
+                "source": "https://github.com/symfony/polyfill-iconv/tree/v1.28.0"
+>>>>>>> develop_b_mutsuki_dra
             },
             "funding": [
                 {
@@ -2879,6 +2925,7 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2024-01-29T20:11:03+00:00"
         },
         {
@@ -2893,6 +2940,22 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/a287ed7475f85bf6f61890146edbc932c0fff919",
                 "reference": "a287ed7475f85bf6f61890146edbc932c0fff919",
+=======
+            "time": "2023-01-26T09:26:14+00:00"
+        },
+        {
+            "name": "symfony/polyfill-intl-idn",
+            "version": "v1.28.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-intl-idn.git",
+                "reference": "ecaafce9f77234a6a449d29e49267ba10499116d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/ecaafce9f77234a6a449d29e49267ba10499116d",
+                "reference": "ecaafce9f77234a6a449d29e49267ba10499116d",
+>>>>>>> develop_b_mutsuki_dra
                 "shasum": ""
             },
             "require": {
@@ -2905,6 +2968,12 @@
             },
             "type": "library",
             "extra": {
+<<<<<<< HEAD
+=======
+                "branch-alias": {
+                    "dev-main": "1.28-dev"
+                },
+>>>>>>> develop_b_mutsuki_dra
                 "thanks": {
                     "name": "symfony/polyfill",
                     "url": "https://github.com/symfony/polyfill"
@@ -2947,7 +3016,11 @@
                 "shim"
             ],
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/symfony/polyfill-intl-idn/tree/v1.29.0"
+=======
+                "source": "https://github.com/symfony/polyfill-intl-idn/tree/v1.28.0"
+>>>>>>> develop_b_mutsuki_dra
             },
             "funding": [
                 {
@@ -2963,6 +3036,7 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2024-01-29T20:11:03+00:00"
         },
         {
@@ -2977,6 +3051,22 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/bc45c394692b948b4d383a08d7753968bed9a83d",
                 "reference": "bc45c394692b948b4d383a08d7753968bed9a83d",
+=======
+            "time": "2023-01-26T09:30:37+00:00"
+        },
+        {
+            "name": "symfony/polyfill-intl-normalizer",
+            "version": "v1.28.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-intl-normalizer.git",
+                "reference": "8c4ad05dd0120b6a53c1ca374dca2ad0a1c4ed92"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/8c4ad05dd0120b6a53c1ca374dca2ad0a1c4ed92",
+                "reference": "8c4ad05dd0120b6a53c1ca374dca2ad0a1c4ed92",
+>>>>>>> develop_b_mutsuki_dra
                 "shasum": ""
             },
             "require": {
@@ -2987,6 +3077,12 @@
             },
             "type": "library",
             "extra": {
+<<<<<<< HEAD
+=======
+                "branch-alias": {
+                    "dev-main": "1.28-dev"
+                },
+>>>>>>> develop_b_mutsuki_dra
                 "thanks": {
                     "name": "symfony/polyfill",
                     "url": "https://github.com/symfony/polyfill"
@@ -3028,7 +3124,11 @@
                 "shim"
             ],
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.29.0"
+=======
+                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.28.0"
+>>>>>>> develop_b_mutsuki_dra
             },
             "funding": [
                 {
@@ -3044,6 +3144,7 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2024-01-29T20:11:03+00:00"
         },
         {
@@ -3058,6 +3159,22 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/9773676c8a1bb1f8d4340a62efe641cf76eda7ec",
                 "reference": "9773676c8a1bb1f8d4340a62efe641cf76eda7ec",
+=======
+            "time": "2023-01-26T09:26:14+00:00"
+        },
+        {
+            "name": "symfony/polyfill-mbstring",
+            "version": "v1.28.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-mbstring.git",
+                "reference": "42292d99c55abe617799667f454222c54c60e229"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/42292d99c55abe617799667f454222c54c60e229",
+                "reference": "42292d99c55abe617799667f454222c54c60e229",
+>>>>>>> develop_b_mutsuki_dra
                 "shasum": ""
             },
             "require": {
@@ -3071,6 +3188,12 @@
             },
             "type": "library",
             "extra": {
+<<<<<<< HEAD
+=======
+                "branch-alias": {
+                    "dev-main": "1.28-dev"
+                },
+>>>>>>> develop_b_mutsuki_dra
                 "thanks": {
                     "name": "symfony/polyfill",
                     "url": "https://github.com/symfony/polyfill"
@@ -3108,7 +3231,11 @@
                 "shim"
             ],
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.29.0"
+=======
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.28.0"
+>>>>>>> develop_b_mutsuki_dra
             },
             "funding": [
                 {
@@ -3124,6 +3251,7 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2024-01-29T20:11:03+00:00"
         },
         {
@@ -3138,6 +3266,22 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/861391a8da9a04cbad2d232ddd9e4893220d6e25",
                 "reference": "861391a8da9a04cbad2d232ddd9e4893220d6e25",
+=======
+            "time": "2023-07-28T09:04:16+00:00"
+        },
+        {
+            "name": "symfony/polyfill-php72",
+            "version": "v1.28.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-php72.git",
+                "reference": "70f4aebd92afca2f865444d30a4d2151c13c3179"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/70f4aebd92afca2f865444d30a4d2151c13c3179",
+                "reference": "70f4aebd92afca2f865444d30a4d2151c13c3179",
+>>>>>>> develop_b_mutsuki_dra
                 "shasum": ""
             },
             "require": {
@@ -3145,6 +3289,12 @@
             },
             "type": "library",
             "extra": {
+<<<<<<< HEAD
+=======
+                "branch-alias": {
+                    "dev-main": "1.28-dev"
+                },
+>>>>>>> develop_b_mutsuki_dra
                 "thanks": {
                     "name": "symfony/polyfill",
                     "url": "https://github.com/symfony/polyfill"
@@ -3181,7 +3331,11 @@
                 "shim"
             ],
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/symfony/polyfill-php72/tree/v1.29.0"
+=======
+                "source": "https://github.com/symfony/polyfill-php72/tree/v1.28.0"
+>>>>>>> develop_b_mutsuki_dra
             },
             "funding": [
                 {
@@ -3197,6 +3351,7 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2024-01-29T20:11:03+00:00"
         },
         {
@@ -3211,6 +3366,22 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-php73/zipball/21bd091060673a1177ae842c0ef8fe30893114d2",
                 "reference": "21bd091060673a1177ae842c0ef8fe30893114d2",
+=======
+            "time": "2023-01-26T09:26:14+00:00"
+        },
+        {
+            "name": "symfony/polyfill-php73",
+            "version": "v1.28.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-php73.git",
+                "reference": "fe2f306d1d9d346a7fee353d0d5012e401e984b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-php73/zipball/fe2f306d1d9d346a7fee353d0d5012e401e984b5",
+                "reference": "fe2f306d1d9d346a7fee353d0d5012e401e984b5",
+>>>>>>> develop_b_mutsuki_dra
                 "shasum": ""
             },
             "require": {
@@ -3218,6 +3389,12 @@
             },
             "type": "library",
             "extra": {
+<<<<<<< HEAD
+=======
+                "branch-alias": {
+                    "dev-main": "1.28-dev"
+                },
+>>>>>>> develop_b_mutsuki_dra
                 "thanks": {
                     "name": "symfony/polyfill",
                     "url": "https://github.com/symfony/polyfill"
@@ -3257,7 +3434,11 @@
                 "shim"
             ],
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/symfony/polyfill-php73/tree/v1.29.0"
+=======
+                "source": "https://github.com/symfony/polyfill-php73/tree/v1.28.0"
+>>>>>>> develop_b_mutsuki_dra
             },
             "funding": [
                 {
@@ -3273,6 +3454,7 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2024-01-29T20:11:03+00:00"
         },
         {
@@ -3287,6 +3469,22 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/87b68208d5c1188808dd7839ee1e6c8ec3b02f1b",
                 "reference": "87b68208d5c1188808dd7839ee1e6c8ec3b02f1b",
+=======
+            "time": "2023-01-26T09:26:14+00:00"
+        },
+        {
+            "name": "symfony/polyfill-php80",
+            "version": "v1.28.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-php80.git",
+                "reference": "6caa57379c4aec19c0a12a38b59b26487dcfe4b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/6caa57379c4aec19c0a12a38b59b26487dcfe4b5",
+                "reference": "6caa57379c4aec19c0a12a38b59b26487dcfe4b5",
+>>>>>>> develop_b_mutsuki_dra
                 "shasum": ""
             },
             "require": {
@@ -3294,6 +3492,12 @@
             },
             "type": "library",
             "extra": {
+<<<<<<< HEAD
+=======
+                "branch-alias": {
+                    "dev-main": "1.28-dev"
+                },
+>>>>>>> develop_b_mutsuki_dra
                 "thanks": {
                     "name": "symfony/polyfill",
                     "url": "https://github.com/symfony/polyfill"
@@ -3337,7 +3541,11 @@
                 "shim"
             ],
             "support": {
+<<<<<<< HEAD
                 "source": "https://github.com/symfony/polyfill-php80/tree/v1.29.0"
+=======
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.28.0"
+>>>>>>> develop_b_mutsuki_dra
             },
             "funding": [
                 {
@@ -3353,7 +3561,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
             "time": "2024-01-29T20:11:03+00:00"
+=======
+            "time": "2023-01-26T09:26:14+00:00"
+>>>>>>> develop_b_mutsuki_dra
         },
         {
             "name": "symfony/process",
@@ -3846,6 +4058,7 @@
             "time": "2022-10-03T15:15:11+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "tijsverkoyen/css-to-inline-styles",
             "version": "v2.2.7",
             "source": {
@@ -3855,6 +4068,146 @@
             },
             "dist": {
                 "type": "zip",
+=======
+            "name": "thomaswelton/gravatarlib",
+            "version": "0.1.0",
+            "target-dir": "thomaswelton/GravatarLib",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thomaswelton/gravatarlib.git",
+                "reference": "8a4e829c53ca2abb51ef2e514f696938a9bdbd0c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thomaswelton/gravatarlib/zipball/8a4e829c53ca2abb51ef2e514f696938a9bdbd0c",
+                "reference": "8a4e829c53ca2abb51ef2e514f696938a9bdbd0c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "suggest": {
+                "twig/twig": ">=1.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "thomaswelton\\GravatarLib\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sam Thompson",
+                    "email": "sam@emberlabs.org"
+                },
+                {
+                    "name": "Damian Bushong",
+                    "email": "damian@emberlabs.org"
+                },
+                {
+                    "name": "Thomas Welton",
+                    "email": "thomaswelton@me.com",
+                    "homepage": "https://github.com/thomaswelton",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A lightweight PHP 5.3 OOP library providing easy gravatar integration.",
+            "keywords": [
+                "gravatar",
+                "templating",
+                "twig"
+            ],
+            "support": {
+                "issues": "https://github.com/thomaswelton/gravatarlib/issues",
+                "source": "https://github.com/thomaswelton/gravatarlib/tree/master"
+            },
+            "time": "2014-03-02T18:29:18+00:00"
+        },
+        {
+            "name": "thomaswelton/laravel-gravatar",
+            "version": "1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thomaswelton/laravel-gravatar.git",
+                "reference": "bdfa24847a5602aa9273967c8b6d5e3ec6860ed1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thomaswelton/laravel-gravatar/zipball/bdfa24847a5602aa9273967c8b6d5e3ec6860ed1",
+                "reference": "bdfa24847a5602aa9273967c8b6d5e3ec6860ed1",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.0|^6.0|^7.0|^8.0",
+                "php": ">=5.4.0",
+                "thomaswelton/gravatarlib": "0.1.x"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "4.8.*"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Thomaswelton\\LaravelGravatar\\LaravelGravatarServiceProvider"
+                    ],
+                    "aliases": {
+                        "Gravatar": "Thomaswelton\\LaravelGravatar\\Facades\\Gravatar"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Thomaswelton\\LaravelGravatar\\": "src/",
+                    "Thomaswelton\\Tests\\LaravelGravatar\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ThomasWelton",
+                    "email": "thomaswelton@me.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Antoine Augusti",
+                    "email": "antoine.augusti@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel 5 Gravatar helper",
+            "homepage": "https://github.com/thomaswelton/laravel-gravatar",
+            "keywords": [
+                "gravatar",
+                "laravel",
+                "laravel5"
+            ],
+            "support": {
+                "issues": "https://github.com/thomaswelton/laravel-gravatar/issues",
+                "source": "https://github.com/thomaswelton/laravel-gravatar/tree/1.3.0"
+            },
+            "abandoned": "creativeorange/gravatar",
+            "time": "2020-10-12T14:45:23+00:00"
+        },
+        {
+            "name": "tijsverkoyen/css-to-inline-styles",
+            "version": "v2.2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tijsverkoyen/CssToInlineStyles.git",
+                "reference": "83ee6f38df0a63106a9e4536e3060458b74ccedb"
+            },
+            "dist": {
+                "type": "zip",
+>>>>>>> develop_b_mutsuki_dra
                 "url": "https://api.github.com/repos/tijsverkoyen/CssToInlineStyles/zipball/83ee6f38df0a63106a9e4536e3060458b74ccedb",
                 "reference": "83ee6f38df0a63106a9e4536e3060458b74ccedb",
                 "shasum": ""

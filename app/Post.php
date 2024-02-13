@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes; //追記
 
 
-class Posts extends Model
+class Post extends Model
 {
     use SoftDeletes;  //追記
     public function user()
