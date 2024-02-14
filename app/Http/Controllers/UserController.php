@@ -37,4 +37,12 @@ class UserController extends Controller
         }
         abort(404);
     }
+
+    public function destroy()
+    {
+        $user = User::find(Auth::id());
+        $user->delete();
+
+        return redirect('/');
+    }
 }
