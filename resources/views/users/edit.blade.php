@@ -7,18 +7,20 @@
             <li class="ml-4">{{ $successMessage }}</li>
         </ul>
     @endif
-    <form method="POST" action="{{ route('user.update') }}">
+    @php
+        $id = $user->id;
+    @endphp
+    <form method="POST" action="{{ route('users.update', $id) }}">
         @csrf
         @method('PUT')
-        <input type="hidden" name="id" value="" />
         <div class="form-group">
             <label for="name">ユーザ名</label>
             <input class="form-control" value="{{ old('name', $user->name) }}" name="name" />
         </div>
 
         <div class="form-group">
-            <label for="newEmail">メールアドレス</label>
-            <input class="form-control" value="{{ old('newEmail', $user->email) }}" name="newEmail" />
+            <label for="email">メールアドレス</label>
+            <input class="form-control" value="{{ old('email', $user->email) }}" name="email" />
         </div>
 
         <div class="form-group">
