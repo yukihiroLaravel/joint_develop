@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostRequest;
 use App\Post;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
@@ -13,21 +13,15 @@ class PostsController extends Controller
         return view('welcome');
     }
 
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
         $user = Auth::user();
-        $request->validate([
-            'content' => ['required', 'string', 'max:140'],
-        ]);
 
         $post = new Post;
-        $post->content = $request->content;
         $post->user_id = $user->id;
+        $post->content = $request->content;
         $post->save();
 
-        $posts = Post::orderBy('id', 'desc')->paginate(10);
-        return view('welcome', [
-            'posts' => $posts,
-        ]);
+        return back();
     }
 }

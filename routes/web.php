@@ -22,8 +22,10 @@ Route::group(['middleware' => 'auth'], function () {
   Route::prefix('users/{id}')->group(function () {
     Route::get('edit', 'UserController@edit')->name('users.edit');
     Route::put('', 'UserController@update')->name('users.update');
-    Route::delete('', 'UserController@delete')->name('user.delete');
+    Route::delete('', 'UserController@destroy')->name('user.delete');
   });
+
+  Route::post('/', 'PostsController@store')->name('post.store');
 });
 //ログイン
 Route::get('login', 'Auth\LoginController@showLoginform')->name('login');

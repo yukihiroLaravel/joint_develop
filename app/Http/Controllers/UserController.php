@@ -38,14 +38,11 @@ class UserController extends Controller
         abort(404);
     }
 
-    public function delete()
+    public function destroy()
     {
         $user = User::find(Auth::id());
         $user->delete();
 
-        $posts = Post::orderBy('id', 'desc')->paginate(9);
-        return view('welcome', [
-            'posts' => $posts,
-        ]);
+        return redirect('/');
     }
 }
