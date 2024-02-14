@@ -18,8 +18,8 @@
     <div class="col-sm-8">
         <ul class="nav nav-tabs nav-justified mb-3">
             <li class="nav-item"><a href="{{ url('/timeline') }}" class="nav-link {{ Request::is('timeline') ? 'active' : '' }}">タイムライン</a></li>
-            <li class="nav-item"><a href="{{ route('following') }}" class="nav-link {{ Request::is('following') ? 'active' : '' }}">フォロー中</a></li>
-            <li class="nav-item"><a href="{{ route('followers') }}" class="nav-link {{ Request::is('followers') ? 'active' : '' }}">フォロワー</a></li>
+            <li class="nav-item"><a href="{{ url('/following') }}" class="nav-link {{ Request::is('following') ? 'active' : '' }}">フォロー中</a></li>
+            <li class="nav-item"><a href="{{ url('/followers') }}" class="nav-link {{ Request::is('followers') ? 'active' : '' }}">フォロワー</a></li>
         </ul>
     </div>
 </div>
