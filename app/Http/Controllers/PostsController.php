@@ -20,7 +20,10 @@ class PostsController extends Controller
 
     public function index()
     {
-        $posts = Post::latest()->get();
-        return view('welcome', compact('posts'));
+        $posts = Post::orderBy('id','desc')->paginate(10);
+        // 変数は配列の形で持っていく
+        return view('welcome', [
+            'posts' => $posts,
+        ]);
     }
 }

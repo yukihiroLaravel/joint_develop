@@ -11,14 +11,17 @@
                     <p class="text-muted">{{$post->created_at}}</p>
                 </div>
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                        <form method="" action="">
 
-                            <button type="submit" class="btn btn-danger">削除</button>
+                    <!-- ログインユーザー本人の場合、削除と編集するボタンを表示する -->
+                    @if (Auth::check() && Auth::user()->id == $post->user->id)
+                        <form method="" action="">
+                        <button type="submit" class="btn btn-danger">削除</button>
                         </form>
                         <a href="" class="btn btn-primary">編集する</a>
+                    @endif
                     </div>
             </div>
         </li>
     @endforeach
 </ul>
-<div class="m-auto" style="width: fit-content"></div>
+<div class="m-auto" style="width: fit-content">{{ $posts->links('pagination::bootstrap-4') }}</div>
