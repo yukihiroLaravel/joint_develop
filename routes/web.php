@@ -19,3 +19,6 @@ Route::get('/', 'PostsController@index');
 
 // トップページ表示
 Route::get('/', 'PostsController@index'); //追記
+
+//ユーザ詳細
+Route::get('users/{id}', 'UsersController@show')->name('user.show');
