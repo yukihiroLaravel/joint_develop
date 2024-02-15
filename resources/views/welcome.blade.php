@@ -25,6 +25,7 @@
             <li>
                 <p><a href="{{ route('users.show', $post->user->id) }}">{{ $post->user->name }}</a></p>
                 <p>{{ $post->content }}</p>
+                @include('follow.follow_button', ['user' => $post->user])
             </li>
         @endforeach
     </ul>

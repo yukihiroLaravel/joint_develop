@@ -13,7 +13,7 @@ class FollowController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function follow($id)
+    public function store($id)
     {
         \Auth::user()->follow($id);
         return back();
@@ -25,7 +25,7 @@ class FollowController extends Controller
      * @param  \App\Follow  $follow
      * @return \Illuminate\Http\Response
      */
-    public function unfollow($id)
+    public function destroy($id)
     {
         \Auth::user()->unfollow($id);
         return back();

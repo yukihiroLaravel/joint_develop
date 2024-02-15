@@ -10,12 +10,14 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     // フォロー機能テスト用　ユーザー詳細ページ表示
-    public function index($id)
+    public function show($id)
     {
         $user = User::findOrFail($id);
-        return view('users.show', [
+        $data = [
             'user' => $user,
-        ]);
+        ];
+        $data += $this->userCounts($user);
+        return view('users.show', $data);
     }
 
     public function edit($id)
@@ -55,13 +57,24 @@ class UserController extends Controller
         return redirect('/');
     }
 
-    public function favorites($id)
+    public function followUsersShow($id)
     {
         $user = User::findOrFail($id);
-        $movies = $user->favorites()->paginate(9);
+        $followUsers = $user->followUsers()->get();
         $data = [
             'user' => $user,
-            'movies' => $movies,
+            'followUsers' => $followUsers,
+        ];
+        $data += $this->userCounts($user);
+        return view('users.show', $data);
+    }
+    public function followerUsersShow($id)
+    {
+        $user = User::findOrFail($id);
+        $followerUsers = $user->followerUsers()->get();
+        $data = [
+            'user' => $user,
+            'followerUsers' => $followerUsers,
         ];
         $data += $this->userCounts($user);
         return view('users.show', $data);
