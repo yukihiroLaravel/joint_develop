@@ -17,13 +17,19 @@ Route::get('/', 'UsersController@index');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
-// ユーザ編集・更新
-Route::group(['prefix' => 'users'],function(){
-    // Route::get('', 'UsersController@show')->name('user.show');
-    Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
-    Route::put('{id}', 'UsersController@update')->name('users.update');
-});
 // ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    // 投稿
+    Route::prefix('posts')->group(function () {
+        Route::post('/', 'PostsController@store')->name('post.store');
+    });
+    // ユーザ編集・更新
+    Route::group(['prefix' => 'users'],function(){
+        Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
+        Route::put('{id}', 'UsersController@update')->name('users.update');
+    });
+});
