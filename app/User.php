@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -100,6 +101,11 @@ class User extends Authenticatable
         });
     }
 
+    public function replies(): HasMany
+    {
+        return $this->hasMany(Reply::class);
+    }
+    
     // いいね機能(favorites/favorite/unfavorite/isFavorite)
     public function favorites()
     {

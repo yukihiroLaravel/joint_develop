@@ -57,6 +57,15 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('follow','FollowController@store')->name('follow');
         Route::delete('unfollow','FollowController@destroy')->name('unfollow');
     });
+
+    //返信
+    Route::prefix('replies')->group(function() {
+        //送信処理
+        Route::post('/{post_id}', 'RepliesController@store')->name('createReply')->middleware('auth');
+        //削除
+        Route::delete('/{reply_id}','RepliesController@destroy')->name('deleteReply')->middleware('auth');
+    });
+    
     // いいね
     Route::group(['prefix'=> 'posts/{id}'],function(){
         Route::post('favorite','FavoriteController@store')->name('favorite');

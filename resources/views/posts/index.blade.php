@@ -29,6 +29,29 @@
                             @endif
                         </div>
                     <p class="text-muted">{{$post->created_at}}</p>
+                    {{-- 返信の一覧 --}}
+                    @foreach($post->replies as $reply)
+                        <div class="reply">
+                            <p class="mb-1">{{$reply->user->name}} さんの返信: {{$reply->content}}</p>
+                            <p class="mb-1" style="color: gray;">{{$reply->created_at}}</p>
+                            @if(Auth::check() && Auth::user()->id == $reply->user->id)
+                                <form method="POST" action="{{ route('deleteReply', ['reply_id' => $reply->id]) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">削除</button>
+                                </form>
+                            @endif
+                        </div>
+                    @endforeach
+                    @if(Auth::check())
+                        {{-- 返信フォーム --}}
+                        <form method="POST" action="{{ route('createReply', ['post_id' => $post->id]) }}">
+                            @csrf
+                            <input type="hidden" name="post_id" value="{{ $post->id }}">
+                            <input type="text" name="reply_content" class="form-control d-inline-block w-75 mb-2" placeholder="返信を入力">
+                            <button type="submit" class="btn btn-sm btn-success ">送信</button>
+                        </form>
+                    @endif
                 </div>
                 @if (Auth::id() === $post->user_id)
                 <div class="d-flex justify-content-between w-75 pb-3 m-auto">
