@@ -24,7 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('', 'UserController@update')->name('users.update');
   });
 
-  Route::post('/', 'PostsController@store')->name('post.store');
+  Route::post('posts', 'PostsController@store')->name('post.store');
 });
 //ログイン
 Route::get('login', 'Auth\LoginController@showLoginform')->name('login');
