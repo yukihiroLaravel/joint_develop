@@ -9,6 +9,15 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    // フォロー機能テスト用　ユーザー詳細ページ表示
+    public function index($id)
+    {
+        $user = User::findOrFail($id);
+        return view('users.show', [
+            'user' => $user,
+        ]);
+    }
+
     public function edit($id)
     {
         if ($id == Auth::id()) {
@@ -44,5 +53,17 @@ class UserController extends Controller
         $user->delete();
 
         return redirect('/');
+    }
+
+    public function favorites($id)
+    {
+        $user = User::findOrFail($id);
+        $movies = $user->favorites()->paginate(9);
+        $data = [
+            'user' => $user,
+            'movies' => $movies,
+        ];
+        $data += $this->userCounts($user);
+        return view('users.show', $data);
     }
 }

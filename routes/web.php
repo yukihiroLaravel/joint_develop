@@ -17,6 +17,8 @@ Route::get('/', 'PostsController@index');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
+Route::get('uses/{id}', 'UserController@index')->name('users.show');
+
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
   Route::prefix('users/{id}')->group(function () {
@@ -26,6 +28,9 @@ Route::group(['middleware' => 'auth'], function () {
   });
 
   Route::post('/', 'PostsController@store')->name('post.store');
+
+  Route::post('follow/{id}', 'FollowController@follow')->name('follow');
+  Route::delete('unfollow/{id}', 'FollowController@unfollow')->name('unfollow');
 });
 //ログイン
 Route::get('login', 'Auth\LoginController@showLoginform')->name('login');

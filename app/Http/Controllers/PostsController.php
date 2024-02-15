@@ -10,7 +10,10 @@ class PostsController extends Controller
 {
     public function index()
     {
-        return view('welcome');
+        $posts = Post::all();
+        return view('welcome', [
+            'posts' => $posts,
+        ]);
     }
 
     public function store(PostRequest $request)

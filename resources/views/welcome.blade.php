@@ -20,4 +20,12 @@
             </form>
         </div>
     @endif
+    <ul>
+        @foreach ($posts as $post)
+            <li>
+                <p><a href="{{ route('users.show', $post->user->id) }}">{{ $post->user->name }}</a></p>
+                <p>{{ $post->content }}</p>
+            </li>
+        @endforeach
+    </ul>
 @endsection
