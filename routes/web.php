@@ -24,7 +24,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
     // 投稿
-    Route::prefix('post')->group(function () {
+    Route::prefix('posts')->group(function () {
         Route::post('/', 'PostsController@store')->name('post.store');
     });
     // ユーザ編集・更新
