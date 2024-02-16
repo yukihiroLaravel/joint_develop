@@ -27,6 +27,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
         Route::post('/', 'PostsController@store')->name('post.store');
     });
+    //ユーザ詳細
+    Route::get('users/{id}', 'UsersController@show')->name('user.show');
     // ユーザ編集・更新
     Route::group(['prefix' => 'users'],function(){
         Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
