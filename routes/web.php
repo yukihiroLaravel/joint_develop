@@ -23,6 +23,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('edit', 'UserController@edit')->name('users.edit');
     Route::put('', 'UserController@update')->name('users.update');
   });
+
+  Route::post('posts', 'PostsController@store')->name('post.store');
 });
 //ログイン
 Route::get('login', 'Auth\LoginController@showLoginform')->name('login');
