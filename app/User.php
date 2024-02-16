@@ -42,16 +42,9 @@ class User extends Authenticatable
     
     // ここにメソッドやプロパティを追加
 
-        // 追加：UserとPostのリレーション
-        public function posts()
+    // 追加：UserとPostのリレーション
+    public function posts()
         {
             return $this->hasMany(Post::class);
         }
-
-    public function getGravatarAttribute()
-    {
-        $email = $this->attributes['email'];
-        $hash = md5(strtolower(trim($email)));
-        return "https://secure.gravatar.com/avatar/{$hash}";
-    }
 }
