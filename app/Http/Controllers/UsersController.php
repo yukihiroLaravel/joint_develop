@@ -18,7 +18,7 @@ class UsersController extends Controller
         $posts = $user->posts()->orderBy('id', 'desc');
         $data=[
             'user' => $user,
-            'post' => $post,
+            'posts' => $posts,
 
          ];
         return view('users.show',$data);
