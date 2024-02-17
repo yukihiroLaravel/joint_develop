@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
 use Illuminate\Http\Request;
+use App\Http\Requests\PostRequest;
+use App\Post;
 
 class PostsController extends Controller
 {
@@ -13,5 +14,13 @@ class PostsController extends Controller
         return view('welcome', [
             'posts' => $posts,
         ]);
+    }
+
+    public function store(PostRequest $request) {
+        $posts = new Post;
+        $posts->content = $request->content;
+        $posts->user_id = $request->user()->id;
+        $posts->save();
+        return back();
     }
 }
