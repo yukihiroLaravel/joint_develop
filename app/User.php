@@ -44,7 +44,7 @@ class User extends Authenticatable
 
     // 追加：UserとPostのリレーション
     public function posts()
-        {
-            return $this->hasMany(Post::class);
-        }
+    {
+        return $this->hasMany(Post::class);
+    }
 }

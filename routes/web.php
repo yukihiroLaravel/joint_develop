@@ -15,7 +15,6 @@ use App\Http\Controllers\PostsController;
 */
 
 // 投稿関連のルート
-Route::get('/', 'UsersController@index');
 Route::get('/', 'PostsController@index');
 
 // ユーザ新規登録
