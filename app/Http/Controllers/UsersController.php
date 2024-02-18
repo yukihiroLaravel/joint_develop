@@ -2,39 +2,39 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Request;
-
 use App\Http\Requests\UserRequest;
 use App\User;
-
 use App\Post;
-//use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 
 
 class UsersController extends Controller
 {
-//ユーザ編集
     public function edit($id)
     {
-        if ($user = \Auth::user()) {
-            $user = User::findOrFail($id);
-            return view('users.edit', ['user' => $user]);
-        } 
-        else {
-            return redirect('/');
-            //return view('user.show', $user);  //### ユーザ詳細が作成され次第、こちらに変更予定
+        $user = \Auth::user();
+
+        if (Auth::user()->id != $id) {
+            abort(404);
         }
+
+        return view('users.edit', compact('user'));
     }
 
-//ユーザ更新
     public function update(UserRequest $request, $id)
     {
+        if (Auth::user()->id != $id) {
+            abort(404);
+        }
+
         $user = User::findOrFail($id);
+        $user->update($request->all());
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
+
         return back();
-        //return view('user.show', $user);  //### ユーザ詳細が作成され次第、こちらに変更予定
+        //return view('user.show', compact('user'));  //### ユーザ詳細が作成され次第、こちらに変更予定
     }
 }

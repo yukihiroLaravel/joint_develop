@@ -5,15 +5,15 @@
     <form method="post" action="{{ route('user.update', $user->id) }}">
     @csrf
     @method('PUT')
-        <input type="hidden" name="id" value="{{ old('id')}}" />
+        <input type="hidden" name="id" value="{{ $user->id }}" />
         <div class="form-group">
             <label for="name">ユーザ名</label>
-            <input class="form-control" value="{{ old('name',$user->name) }}" name="name" />
+            <input class="form-control" value="{{ $user->name }}" name="name" />
         </div>
 
         <div class="form-group">
             <label for="email">メールアドレス</label>
-            <input class="form-control" value="{{ old('email',$user->email) }}" name="email" />
+            <input class="form-control" value="{{ ($user->email) }}" name="email" />
         </div>
 
         <div class="form-group">
