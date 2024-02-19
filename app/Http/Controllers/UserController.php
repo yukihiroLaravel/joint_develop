@@ -43,7 +43,7 @@ class UserController extends Controller
         if ($id == Auth::id()) {
             $user = User::findOrFail($id);
             $user->delete();
-            return redirect('logout');
+            return redirect('/');
         }
         abort(404);
     }
