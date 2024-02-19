@@ -5,11 +5,6 @@
         @csrf
         @method('PUT')
         @include('commons.error_messages')
-        @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
         <div class="form-group">
             <textarea id="content" class="form-control" name="content" rows="5">{{ old('content', $post->content) }}</textarea>
         </div>
