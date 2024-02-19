@@ -29,14 +29,15 @@ Route::prefix('users/{id}')->group(function () {
 Route::group(['middleware' => 'auth'], function () {
   Route::prefix('users/{id}')->group(function () {
     Route::get('edit', 'UserController@edit')->name('users.edit');
-    Route::put('', 'UserController@update')->name('users.update');
-    Route::delete('', 'UserController@destroy')->name('user.delete');
+    Route::put('edit', 'UserController@update')->name('users.update');
+    Route::delete('edit', 'UserController@destroy')->name('user.delete');
   });
 
   Route::post('/', 'PostsController@store')->name('post.store');
 
   Route::post('users/{id}', 'FollowController@store')->name('follow');
   Route::delete('users/{id}', 'FollowController@destroy')->name('unfollow');
+  Route::post('posts', 'PostsController@store')->name('post.store');
 });
 //ログイン
 Route::get('login', 'Auth\LoginController@showLoginform')->name('login');
