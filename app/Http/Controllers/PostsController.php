@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
 use Illuminate\Http\Request;
 use App\Post;
 use App\User;
-=======
 use App\Http\Requests\PostRequest;
-use App\Post;
+
 use Illuminate\Support\Facades\Auth;
 
->>>>>>> develop_a_mutsuki_dra
 class PostsController extends Controller
 {
     public function index()

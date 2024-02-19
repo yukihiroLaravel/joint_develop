@@ -17,14 +17,9 @@
                         <button type="submit" class="btn btn-primary">投稿する</button>
                     </div>
                 </div>
-<<<<<<< HEAD
             </div>
         </form>
     </div>
     @include('posts.posts', ['posts' => $posts])
-=======
-            </form>
-        </div>
-    @endif
->>>>>>> develop_a_mutsuki_dra
 @endsection
+@endif
