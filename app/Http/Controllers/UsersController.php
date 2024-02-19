@@ -2,17 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 
 class UsersController extends Controller
 {
-    public function index()
-    {
-        return view('welcome');
-    }
-
     public function edit($id) {
         $user = \Auth::user();
 
