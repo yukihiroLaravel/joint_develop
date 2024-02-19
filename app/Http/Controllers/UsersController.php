@@ -15,13 +15,13 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        $contents = $user->contents()->orderBy('id', 'desc')->paginate(10);
+        $contents = $user->contents()->orderBy('id', 'desc')->get()->paginate(10);
         $data=[
             'user' => $user,
             'contents' => $contents,
         ];
-        $data += $this->userCounts($user);
-        return view('users.show',$data);
+        
+        return view('show',$data);
     }
 
 

@@ -19,5 +19,7 @@
                 </div>
             </form>
         </div>
+        @include('posts.posts', ['posts' => $posts])
     @endif
+    {{ユーザーの投稿したものを表示させる？　<ul class="list-unstyled">}}
 @endsection
