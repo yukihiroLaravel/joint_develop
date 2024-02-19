@@ -17,4 +17,13 @@ class PostsController extends Controller
         $post->save();
         return back();
     }
+
+    public function index()
+    {
+        $posts = Post::orderBy('id','desc')->paginate(10);
+        // 変数は配列の形で持っていく
+        return view('welcome', [
+            'posts' => $posts,
+        ]);
+    }
 }

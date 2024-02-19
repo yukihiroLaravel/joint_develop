@@ -7,11 +7,7 @@ use App\User;
 use App\Post;
 
 class UsersController extends Controller
-{
-    public function index()
-    {
-        return view('welcome');
-    }
+{   
     public function show($id)
     {
         $user = User::findOrFail($id);
@@ -23,5 +19,4 @@ class UsersController extends Controller
          ];
             return view('users.show',$data);
     }
-
 }
