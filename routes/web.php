@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\UsersController;
-use App\Http\Controllers\PostsController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes

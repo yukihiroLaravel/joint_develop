@@ -20,9 +20,8 @@
         </form>
     </div>
     @endif
-</div>
 <!-- 投稿一覧を表示するコンテンツを追加 -->
     <div class="post-list">
-            @include('toppage', ['$posts' => $posts])
+        @include('posts', ['$posts' => $posts])
     </div>
 @endsection
