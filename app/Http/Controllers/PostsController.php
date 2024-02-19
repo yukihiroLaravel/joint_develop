@@ -31,6 +31,6 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
         $post->save();
-        return redirect()->route('post.edit', ['id' => $post->id])->with('success', '投稿を更新しました！');
+        return redirect('/');
     }
 }
