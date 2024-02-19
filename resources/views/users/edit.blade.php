@@ -9,13 +9,13 @@
     </div>
       <input type="hidden" name="id" value="" />
       <div class="form-group">
-          <label for="name">{{ $name }}</label>
-          <input class="form-control" value="{{old('name',$name)}}" name="name" />
+          <label for="name">{{ $user->name }}</label>
+          <input class="form-control" value="{{old('name',$user->name)}}" name="name" />
       </div>
 
       <div class="form-group">
           <label for="email">メールアドレス</label>
-          <input class="form-control" value="{{old('email',$email)}}" name="email" />
+          <input class="form-control" value="{{old('email',$user->email)}}" name="email" />
       </div>
 
       <div class="form-group">
