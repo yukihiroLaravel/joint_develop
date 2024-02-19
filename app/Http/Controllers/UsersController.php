@@ -21,7 +21,7 @@ class UsersController extends Controller
             'posts' => $posts,
 
          ];
-        return view('users.show',$data);
+            return view('users.show',$data);
     }
 
 }

@@ -6,9 +6,11 @@
         <div class="card bg-info">
             <div class="card-header">
                 <h3 class="card-title text-light">{{ $user->name }}</h3>
+               {{$posts->content}}
             </div>
             <div class="card-body">
-                <img class="rounded-circle img-fluid" src="{{ asset($user->profile_image) }}" alt="User Profile Image">
+                {{--<img class="rounded-circle img-fluid" src="{{ asset($user->profile_image) }}" alt="User Profile Image">--}}
+                <img class="mr-2 rounded-circle" src="{{ Gravatar::src('test1@test.com', 300) }}" alt="ユーザのアバター画像">
                 <div class="mt-3">
                     <a href="{{ route('user.show', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                 </div>
@@ -22,5 +24,6 @@
             <li class="nav-item"><a href="{{ url('/followers') }}" class="nav-link {{ Request::is('followers') ? 'active' : '' }}">フォロワー</a></li>
         </ul>
     </div>
+
 </div>
 @endsection
