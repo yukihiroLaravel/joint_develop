@@ -19,7 +19,7 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 
 //ユーザー詳細
-Route::get('users/{id}', 'UsersController@show')->name('show');
+Route::get('users/{id}', 'UserController@show')->name('show');
 
 //ログイン
 Route::get('login','Auth\LoginController@showLoginform')->name('login');
