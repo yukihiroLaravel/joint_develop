@@ -17,9 +17,8 @@
                         <button type="submit" class="btn btn-primary">投稿する</button>
                     </div>
                 </div>
+            </form>
         </div>
-        </form>
-        </div>
-        @include('posts.posts', ['posts' => $posts])
-    @endsection
-@endif
+    @endif
+    @include('posts.posts', ['posts' => $posts])
+@endsection
