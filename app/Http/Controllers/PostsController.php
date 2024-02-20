@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PostRequest;
+use Illuminate\Http\Request;
 use App\Post;
+use App\User;
+use App\Http\Requests\PostRequest;
+
 use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
     public function index()
     {
-        return view('welcome');
+        $posts = Post::orderBy('id','desc')->paginate(10); 
+        return view('welcome', ['posts' => $posts,]);
     }
 
     public function store(PostRequest $request)
