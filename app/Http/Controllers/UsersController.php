@@ -14,7 +14,7 @@ class UsersController extends Controller
     {
         $user = \Auth::user();
 
-        if (Auth::user()->id != $id) {
+        if ($user->id != $id) {
             abort(404);
         }
 
@@ -28,7 +28,6 @@ class UsersController extends Controller
         }
 
         $user = User::findOrFail($id);
-        $user->update($request->all());
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
