@@ -33,8 +33,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('edit', 'UserController@destroy')->name('user.delete');
   });
 
-  Route::post('/', 'PostsController@store')->name('post.store');
-
   Route::post('users/{id}', 'FollowController@store')->name('follow');
   Route::delete('users/{id}', 'FollowController@destroy')->name('unfollow');
   Route::post('posts', 'PostsController@store')->name('post.store');

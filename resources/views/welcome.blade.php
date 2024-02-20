@@ -17,16 +17,9 @@
                         <button type="submit" class="btn btn-primary">投稿する</button>
                     </div>
                 </div>
-            </form>
         </div>
-    @endif
-    <ul>
-        @foreach ($posts as $post)
-            <li>
-                <p><a href="{{ route('users.show', $post->user->id) }}">{{ $post->user->name }}</a></p>
-                <p>{{ $post->content }}</p>
-                @include('follow.follow_button', ['user' => $post->user])
-            </li>
-        @endforeach
-    </ul>
-@endsection
+        </form>
+        </div>
+        @include('posts.posts', ['posts' => $posts])
+    @endsection
+@endif
