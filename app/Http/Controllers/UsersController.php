@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
-    public function index()
-    {
-        return view('welcome');
-    }
-
     public function edit($id)
     {
         $user = \Auth::user();

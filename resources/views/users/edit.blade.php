@@ -7,31 +7,31 @@
     <div class="container">
     @include('commons.error_messages')
     </div>
-      <input type="hidden" name="id" value="" />
-      <div class="form-group">
-          <label for="name">{{ $user->name }}</label>
-          <input class="form-control" value="{{old('name',$user->name)}}" name="name" />
-      </div>
+  <input type="hidden" name="id" value="" />
+  <div class="form-group">
+    <label for="name">{{ $user->name }}</label>
+    <input class="form-control" value="{{old('name',$user->name)}}" name="name" />
+  </div>
 
-      <div class="form-group">
-          <label for="email">メールアドレス</label>
-          <input class="form-control" value="{{old('email',$user->email)}}" name="email" />
-      </div>
+  <div class="form-group">
+    <label for="email">メールアドレス</label>
+    <input class="form-control" value="{{old('email',$user->email)}}" name="email" />
+  </div>
 
-      <div class="form-group">
-          <label for="password">パスワード</label>
-          <input class="form-control" type="password" value="{{ old('password') }}" name="password" />
-      </div>
+  <div class="form-group">
+    <label for="password">パスワード</label>
+    <input class="form-control" type="password" value="{{ old('password') }}" name="password" />
+  </div>
 
-      <div class="form-group">
-          <label for="password_confirmation">パスワードの確認</label>
-          <input class="form-control" type="password" value="{{ old('password_confirmation') }}" name="password_confirmation" />
-      </div>
+  <div class="form-group">
+    <label for="password_confirmation">パスワードの確認</label>
+    <input class="form-control" type="password" value="{{ old('password_confirmation') }}" name="password_confirmation" />
+  </div>
 
-      <div class="d-flex justify-content-between">
-          <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">退会する</a>
-          <button type="submit" class="btn btn-primary">更新する</button>
-      </div>
+  <div class="d-flex justify-content-between">
+    <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">退会する</a>
+    <button type="submit" class="btn btn-primary">更新する</button>
+  </div>
   </form>
 
   <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
