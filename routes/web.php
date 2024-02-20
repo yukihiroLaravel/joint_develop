@@ -20,22 +20,22 @@ Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('sign
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 Route::prefix('users/{id}')->group(function () {
-  Route::get('', 'UserController@show')->name('users.show');
-  Route::get('follow', 'UserController@followUsersShow')->name('users.follow');
-  Route::get('follower', 'UserController@followerUsersShow')->name('users.follower');
+    Route::get('', 'UserController@show')->name('users.show');
+    Route::get('follow', 'UserController@followUsersShow')->name('users.follow');
+    Route::get('follower', 'UserController@followerUsersShow')->name('users.follower');
 });
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
-  Route::prefix('users/{id}')->group(function () {
-    Route::get('edit', 'UserController@edit')->name('users.edit');
-    Route::put('edit', 'UserController@update')->name('users.update');
-    Route::delete('edit', 'UserController@destroy')->name('user.delete');
-  });
+    Route::prefix('users/{id}')->group(function () {
+        Route::get('edit', 'UserController@edit')->name('users.edit');
+        Route::put('edit', 'UserController@update')->name('users.update');
+        Route::delete('edit', 'UserController@destroy')->name('user.delete');
+    });
 
-  Route::post('users/{id}', 'FollowController@store')->name('follow');
-  Route::delete('users/{id}', 'FollowController@destroy')->name('unfollow');
-  Route::post('posts', 'PostsController@store')->name('post.store');
+    Route::post('users/{id}', 'FollowController@store')->name('follow');
+    Route::delete('users/{id}', 'FollowController@destroy')->name('unfollow');
+    Route::post('posts', 'PostsController@store')->name('post.store');
 });
 //ログイン
 Route::get('login', 'Auth\LoginController@showLoginform')->name('login');
