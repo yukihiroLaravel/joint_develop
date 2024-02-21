@@ -11,9 +11,13 @@ class UsersController extends Controller
 {
     public function edit($id)
     {
-        $user = \Auth::user();
-        return view('users.edit',['user'=>$user]);
+        if ($id == \Auth::id()) {
+            $user = \Auth::user();
+            return view('users.edit',['user'=>$user]);
+        }
+        abort(404);
     }
+    
     public function update(UserRequest $request, $id)
     {
         $user = User::findOrFail($id);
