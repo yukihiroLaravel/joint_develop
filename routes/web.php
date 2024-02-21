@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'PostsController@index');
+Route::get('search', 'SearchController@search')->name('search');
 
 // ユーザー新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
@@ -19,13 +20,13 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
-  Route::prefix('users/{id}')->group(function () {
-    Route::get('edit', 'UserController@edit')->name('users.edit');
-    Route::put('', 'UserController@update')->name('users.update');
-    Route::delete('', 'UserController@destroy')->name('user.delete');
-  });
+    Route::prefix('users/{id}')->group(function () {
+        Route::get('edit', 'UserController@edit')->name('users.edit');
+        Route::put('', 'UserController@update')->name('users.update');
+        Route::delete('', 'UserController@destroy')->name('user.delete');
+    });
 
-  Route::post('posts', 'PostsController@store')->name('post.store');
+    Route::post('posts', 'PostsController@store')->name('post.store');
 });
 //ログイン
 Route::get('login', 'Auth\LoginController@showLoginform')->name('login');

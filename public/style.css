@@ -1,0 +1,12 @@
+.search_form {
+    top: 100%;
+    width: 100%;
+    display: none !important;
+}
+.search_form.active {
+    display: flex !important;
+    justify-content: center;
+}
+.search_btn {
+    color: white;
+}
