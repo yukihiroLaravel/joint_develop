@@ -29,4 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
         Route::put('{id}', 'UsersController@update')->name('user.update');
     });
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('posts', 'PostsController@store')->name('post.store');
 });
