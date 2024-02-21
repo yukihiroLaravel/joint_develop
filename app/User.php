@@ -49,7 +49,7 @@ class User extends Authenticatable
     }
 
     public function follow() {
-        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'followed_id')->withTimestamps();
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'followed_user_id')->withTimestamps();
     }
 
     public function followed($userId) {
@@ -74,6 +74,6 @@ class User extends Authenticatable
     }
     
     public function isFollowed($userId) {
-        return $this->followers()->where('followed_id ', $userId)->exists();
+        return $this->followers()->where('followed_user_id', $userId)->exists();
     }
 }
