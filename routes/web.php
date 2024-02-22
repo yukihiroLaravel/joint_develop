@@ -25,3 +25,6 @@ Route::get('users/{id}', 'UsersController@show')->name('user.show');
 
 // トップページ表示
 Route::get('/', 'PostsController@index'); //追記
+
+//ユーザ退会
+Route::delete('users/{id}', 'UsersController@destroy')->name('user.delete');

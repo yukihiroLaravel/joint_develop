@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="row">
+    <div class="row">
         <aside class="col-sm-4 mb-5">
             <div class="card bg-info">
                 <div class="card-header">
@@ -20,6 +20,15 @@
                 <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
             </ul>
+            @foreach ($posts as $post)
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $post->title }}</h5>
+                    <p class="card-text">{{ $post->content }}</p>
+                    <p class="card-text"><small class="text-muted">投稿日時: {{ $post->created_at }}</small></p>
+                </div>
+            </div>
+        @endforeach
         </div>
     </div>
 @endsection

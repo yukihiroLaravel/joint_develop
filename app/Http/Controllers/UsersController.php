@@ -12,10 +12,20 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
         $data = [
-        'user' => $user,
-        'posts' => $posts,
+            'user' => $user,
+            'posts' => $posts,
         ];
 
 	    return view('users.show', $data);
     } 
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        if(\Auth::id() === $user->id){
+            
+            $user->delete();
+        }
+        return back();
+    }
 }
