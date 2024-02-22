@@ -18,7 +18,6 @@
                         <a href="" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
-
             </div>
         </li>
     @endforeach
