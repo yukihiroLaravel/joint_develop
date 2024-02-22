@@ -3,7 +3,7 @@
     <div class="center jumbotron bg-info">
         <div class="text-center text-white">
             <h1><i class="fa-brands fa-telegram mr-2"></i>Topic Posts</h1>
-            <form method="GET" action="{{ route('search') }}" class="col-lg-6 col-10 mr-auto ml-auto search_form">
+            <form method="GET" action="{{ route('search') }}" class="col-lg-6 col-md-8 col mr-auto ml-auto search_form">
                 @csrf
                 <input type="text" name="searchWords" value="{{ isset($searchWords) ? $searchWords : '' }}"
                     class="form-control input-group-prepend" placeholder="検索する">
