@@ -17,9 +17,11 @@
                         <button type="submit" class="btn btn-primary">投稿する</button>
                     </div>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
+    </div>
         @include('posts.posts', ['posts' => $posts])
-    @endif
+    @include('posts.posts', ['posts' => $posts])
     {{ユーザーの投稿したものを表示させる？　<ul class="list-unstyled">}}
 @endsection
+@endif

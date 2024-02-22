@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Http\Requests\UserRequest;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -59,7 +58,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
-        $data=[
+        $data = [
             'user' => $user,
             'posts' => $posts,
         ];
