@@ -26,5 +26,15 @@ Route::get('users/{id}', 'UsersController@show')->name('user.show');
 // トップページ表示
 Route::get('/', 'PostsController@index'); //追記
 
-//ユーザ退会
-Route::delete('users/{id}', 'UsersController@destroy')->name('user.delete');
+// ユーザ編集/更新
+Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('users')->group(function() {
+        Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
+        Route::put('{id}', 'UsersController@update')->name('user.update');
+    });
+});
+
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('posts', 'PostsController@store')->name('post.store');
+});
