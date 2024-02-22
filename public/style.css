@@ -31,6 +31,9 @@
     background-color: white;
     color: #343a40;
 }
+.searched_words {
+    font-weight: bolder;
+}
 
 body {
     display: flex;
