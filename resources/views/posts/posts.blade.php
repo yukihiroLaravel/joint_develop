@@ -7,7 +7,7 @@
             </div>
             <div class="">
                 <div class="text-left d-inline-block w-75">
-                    <p class="mb-2">{{ $post->content }}</p>
+                    <p class="mb-2">{!! nl2br(e($post->content)) !!}</p>
                     <p class="text-muted">{{ $post->created_at }}</p>
                 </div>
                 @if ($post->user->id == Auth::id())

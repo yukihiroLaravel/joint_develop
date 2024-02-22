@@ -13,9 +13,9 @@
 
 <body>
     @include('commons.header')
-    <div class="container">
+    <main class="container">
         @yield('content')
-    </div>
+    </main>
     @include('commons.footer')
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
@@ -27,7 +27,6 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
     <script defer src="https://use.fontawesome.com/releases/v6.0.0/js/all.js"></script>
-    <script src="{{ asset('/index.js') }}"></script>
 </body>
 
 </html>

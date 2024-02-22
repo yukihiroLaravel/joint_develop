@@ -1,8 +1,16 @@
 @extends('layouts.app')
 @section('content')
     <div class="center jumbotron bg-info">
-        <div class="text-center text-white mt-2 pt-1">
-            <h1><i class="fa-brands fa-telegram"></i>Topic Posts</h1>
+        <div class="text-center text-white">
+            <h1><i class="fa-brands fa-telegram mr-2"></i>Topic Posts</h1>
+            <form method="GET" action="{{ route('search') }}" class="col-lg-6 col-10 mr-auto ml-auto search_form">
+                @csrf
+                <input type="text" name="search_word" value="{{ isset($search_word) ? $search_word : '' }}"
+                    class="form-control input-group-prepend" placeholder="検索する">
+                <button type="submit" class="input-group-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
         </div>
     </div>
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
@@ -20,5 +28,20 @@
             </form>
         </div>
     @endif
+    @if (isset($search_word))
+        @if ($posts->count() == 0)
+            <h5 class="text-center mt-5 mb-5">’{{ isset($search_word) ? $search_word : '' }}’が含まれる投稿はありませんでした。</h5>
+        @else
+            <h5 class="text-center mb-3">’{{ isset($search_word) ? $search_word : '' }}’の検索結果</h5>
+        @endif
+    @endif
+
     @include('posts.posts', ['posts' => $posts])
+    <div class="d-flex justify-content-center">
+        @if (isset($search_word))
+            {{ $posts->appends(['search_word' => $search_word])->links('pagination::bootstrap-4') }}
+        @else
+            {{ $posts->links('pagination::bootstrap-4') }}
+        @endif
+    </div>
 @endsection
