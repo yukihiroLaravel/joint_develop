@@ -20,9 +20,8 @@ Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('sign
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 //ユーザー
-Route::get('/', 'UserController@index');
 Route::prefix('users')->group(function () {
-  Route::get('{id}','UserController@show')->name('users.show');
+  Route::get('{id}','UserController@show')->name('user.show');
 });
  
 

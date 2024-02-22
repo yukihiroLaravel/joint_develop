@@ -5,6 +5,7 @@ use App\Http\Requests\UserRequest;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
@@ -47,13 +48,6 @@ class UserController extends Controller
         abort(404);
     }
 
-    public function index()
-    {
-        $users = User::orderBy('id','desc')->paginate(10);
-        return view('welcome', [
-            'users' => $users,
-        ]);
-    }
     public function show($id)
     {
         $user = User::findOrFail($id);
