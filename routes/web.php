@@ -35,4 +35,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
         Route::put('{id}', 'UsersController@update')->name('users.update');
     });
+    // フォロー
+        Route::post('{id}/follow', 'FollowController@store')->name('follow');
+        Route::delete('{id}/unfollow', 'FollowController@destroy')->name('unfollow');
 });

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\User;
 
 class UsersTableSeeder extends Seeder
 {
@@ -12,10 +13,10 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $usersData = [
-            ['name' => 'test1', 'email' => 'test1@test1.com', 'password' => bcrypt('test1test1')],
-            ['name' => 'test2', 'email' => 'test2@test2.com', 'password' => bcrypt('test2test2')],
-            ['name' => 'test3', 'email' => 'test3@test3.com', 'password' => bcrypt('test3test3')],
-            ['name' => 'test4', 'email' => 'test4@test4.com', 'password' => bcrypt('test4test4')],
+            ['name' => 'AAA', 'email' => 'AAA@AAA.com', 'password' => bcrypt('AAAAAAAA')],
+            ['name' => 'BBB', 'email' => 'BBB@BBB.com', 'password' => bcrypt('BBBBBBBB')],
+            ['name' => 'CCC', 'email' => 'CCC@CCC.com', 'password' => bcrypt('CCCCCCCC')],
+            ['name' => 'DDD', 'email' => 'DDD@DDD.com', 'password' => bcrypt('DDDDDDDD')],
         ];
 
         foreach ($usersData as $userData) {
