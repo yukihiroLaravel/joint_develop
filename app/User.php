@@ -48,7 +48,7 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
-    public function followers() 
+    public function followings() 
     {
         return $this->belongsToMany(User::class, 'followers', 'following_user_id', 'followed_user_id')->withTimestamps();
     }
@@ -59,7 +59,7 @@ class User extends Authenticatable
         if ($exist) {
             return false;
         } else {
-            $this->followers()->attach($userId);
+            $this->followings()->attach($userId);
             return true;
         }
     }
@@ -68,7 +68,7 @@ class User extends Authenticatable
     {
         $exist = $this->isFollow($userId);
         if ($exist) {
-            $this->followers()->detach($userId);
+            $this->followings()->detach($userId);
             return true;
         } else {
             return false;
@@ -77,6 +77,6 @@ class User extends Authenticatable
     
     public function isFollow($userId) 
     {
-        return $this->followers()->where('followed_user_id', $userId)->exists();
+        return $this->followings()->where('followed_user_id', $userId)->exists();
     }
 }
