@@ -1,5 +1,5 @@
 @if (Auth::check() && Auth::id() !== $userId)
-    @if (Auth::user()->isFollowed($userId))
+    @if (Auth::user()->isFollow($userId))
         <form method="POST" action="{{ route('unfollow', $userId) }}">
             @csrf
             @method('DELETE')

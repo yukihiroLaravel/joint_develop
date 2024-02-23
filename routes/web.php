@@ -30,12 +30,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
     });
-    // ユーザ編集・更新
+    // ユーザ編集・更新・フォロー
     Route::group(['prefix' => 'users'],function(){
         Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
         Route::put('{id}', 'UsersController@update')->name('users.update');
-    });
-    // フォロー
         Route::post('{id}/follow', 'FollowController@store')->name('follow');
         Route::delete('{id}/unfollow', 'FollowController@destroy')->name('unfollow');
+    });
 });
