@@ -19,12 +19,12 @@
     <div class="col-sm-8">
         <ul class="nav nav-tabs nav-justified mb-3">
             <li class="nav-item">
-                <a href="{{ $user->id }}" class="nav-link {{ Request::is('users/', $user->id) ? 'active' : '' }}"> タイムライン<br><div class="badge badge-secondary">{{ $countPosts }}</div></a>
+                <a href="{{ $user->id }}" class="nav-link {{ Request::is('users/', $user->id) ? 'active' : '' }}"> タイムライン</a>
             </li>
             <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
             <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
         </ul>
-        @include('posts.posts', [ 'posts' => $posts])
+        <!-- @include('posts.edit', [ 'id' ]) -->
         <div class="m-auto" style="width: fit-content"></div>
     </div>
 </div>
