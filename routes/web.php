@@ -31,9 +31,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('edit', 'UserController@edit')->name('users.edit');
         Route::put('', 'UserController@update')->name('users.update');
         Route::delete('', 'UserController@destroy')->name('user.delete');
-    });
-
-    Route::prefix('users/{id}')->group(function () {
         Route::post('follow', 'FollowController@store')->name('follow');
         Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
     });
