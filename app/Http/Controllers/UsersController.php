@@ -25,7 +25,7 @@ class UsersController extends Controller
             'user' => $user,
             'posts' => $posts,
         ];
-	    return view('user.show', $data);
+	    return view('users.show', $data);
     }
 
     public function update(UserRequest $request, $id) {   
