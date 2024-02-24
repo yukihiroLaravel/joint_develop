@@ -14,6 +14,7 @@
 use Illuminate\Routing\RouteGroup;
 
 Route::get('/', 'PostsController@index');
+Route::get('search', 'SearchController@search')->name('search');
 
 // ユーザー新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');

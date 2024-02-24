@@ -1,3 +1,16 @@
+@if (isset($arraySearchWords))
+    @php
+        $searchedWords = implode('",' . "\n" . '"', $arraySearchWords);
+    @endphp
+    <h5 class="text-center mt-4 mb-4"><span class="searched_words">
+            @if ($posts->count() == 0)
+                "{{ $searchedWords }}"
+        </span>が含まれる投稿はありませんでした。
+    @else
+        "{{ $searchedWords }}"</span>の検索結果</h5>
+@endif
+</h5>
+@endif
 <ul class="list-unstyled">
     @foreach ($posts as $post)
         @php
@@ -26,4 +39,13 @@
         </li>
     @endforeach
 </ul>
-<div class="m-auto" style="width: fit-content"></div>
+<div class="d-flex justify-content-center">
+    @php
+        $activeList = 'posts';
+    @endphp
+    @if (isset($searchWords))
+        {{ $posts->appends(['activeList' => $activeList, 'searchWords' => $searchWords])->links('pagination::bootstrap-4') }}
+    @else
+        {{ $posts->appends(['activeList' => $activeList])->links('pagination::bootstrap-4') }}
+    @endif
+</div>

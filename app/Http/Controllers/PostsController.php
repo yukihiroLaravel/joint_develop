@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $posts = Post::orderBy('id', 'desc')->paginate(10);
         return view('welcome', ['posts' => $posts,]);

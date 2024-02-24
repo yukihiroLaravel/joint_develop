@@ -1,14 +1,23 @@
 @extends('layouts.app')
 @section('content')
     <div class="center jumbotron bg-info">
-        <div class="text-center text-white mt-2 pt-1">
-            <h1><i class="fa-brands fa-x-twitter pr-3"></i>Topic Posts</h1>
+        <div class="text-center text-white">
+            <h1><i class="fa-brands fa-telegram mr-2"></i>Topic Posts</h1>
+            <form method="GET" action="{{ route('search') }}" class="col-lg-6 col-md-8 col mr-auto ml-auto search_form">
+                @csrf
+                <input type="hidden" name="activeList" value="{{ isset($activeList) ? $activeList : 'posts' }}">
+                <input type="text" name="searchWords" value="{{ isset($searchWords) ? $searchWords : '' }}"
+                    class="form-control input-group-prepend" placeholder="検索する">
+                <button type="submit" class="input-group-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
         </div>
     </div>
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
     <div class="w-75 m-auto">@include('commons.error_messages')</div>
     @if (Auth::check())
-        <div class="text-center mb-3">
+        <div class="text-center mb-3 pt-3">
             <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
                 @csrf
                 <div class="form-group">
