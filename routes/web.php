@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth'], function () {
   });
 
   Route::post('posts', 'PostsController@store')->name('post.store');
+  Route::delete('post/{id}', 'PostsController@destroy')->name('post.delete');
 });
 //ログイン
 Route::get('login', 'Auth\LoginController@showLoginform')->name('login');
