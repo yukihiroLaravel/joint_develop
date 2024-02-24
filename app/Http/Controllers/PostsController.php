@@ -11,10 +11,15 @@ use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::orderBy('id', 'desc')->paginate(10);
-        return view('welcome', ['posts' => $posts,]);
+        $posts = Post::orderBy('id', 'desc')->paginate(10, ["*"], 'posts-page')->appends(["users-page" => $request->input('users-page')]);
+        $users = User::orderBy('id', 'desc')->paginate(10, ["*"], 'users-page')->appends(["posts-page" => $request->input('posts-page')]);
+        $data = [
+            'posts' => $posts,
+            'users' => $users,
+        ];
+        return view('welcome', $data);
     }
 
     public function store(PostRequest $request)

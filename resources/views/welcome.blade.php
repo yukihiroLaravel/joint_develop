@@ -5,6 +5,7 @@
             <h1><i class="fa-brands fa-telegram mr-2"></i>Topic Posts</h1>
             <form method="GET" action="{{ route('search') }}" class="col-lg-6 col-md-8 col mr-auto ml-auto search_form">
                 @csrf
+                <input type="hidden" name="activeList" value="{{ isset($activeList) ? $activeList : 'posts' }}">
                 <input type="text" name="searchWords" value="{{ isset($searchWords) ? $searchWords : '' }}"
                     class="form-control input-group-prepend" placeholder="検索する">
                 <button type="submit" class="input-group-btn">
@@ -28,23 +29,33 @@
             </form>
         </div>
     @endif
-    @if (isset($arraySearchWords))
-        @php
-            $searchedWords = implode('",' . "\n" . '"', $arraySearchWords);
-        @endphp
-        @if ($posts->count() == 0)
-            <h5 class="text-center mt-5 mb-5"><span class="searched_words">"{{ $searchedWords }}"</span>が含まれる投稿はありませんでした。
-            </h5>
-        @else
-            <h5 class="text-center mb-3"><span class="searched_words">"{{ $searchedWords }}"</span>の検索結果</h5>
+    <ul class="show_category_list list-unstyled">
+        <li class="category_btn posts_btn" id="posts">投稿</li>
+        <li class="category_btn users_btn" id="users">ユーザー</li>
+        @if (Auth::check())
+            <li>フォロー中</li>
+            <li>いいね一覧</li>
         @endif
-    @endif
-    @include('posts.posts', ['posts' => $posts])
-    <div class="d-flex justify-content-center">
-        @if (isset($searchWords))
-            {{ $posts->appends(['searchWords' => $searchWords])->links('pagination::bootstrap-4') }}
-        @else
-            {{ $posts->links('pagination::bootstrap-4') }}
-        @endif
+    </ul>
+    @php
+        if (isset($searchWords)) {
+            $data = [
+                'posts' => $posts,
+                'users' => $users,
+                'searchWords' => $searchWords,
+                'arraySearchWords' => $arraySearchWords,
+            ];
+        } else {
+            $data = [
+                'posts' => $posts,
+                'users' => $users,
+            ];
+        }
+    @endphp
+    <div class="category_container posts_container active">
+        @include('posts.posts', $data)
+    </div>
+    <div class="category_container users_container">
+        @include('users.users', $data)
     </div>
 @endsection
