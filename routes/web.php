@@ -20,7 +20,7 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 //ユーザ詳細
 Route::prefix('users')->group(function () {
-    Route::get('{id}', 'UsersController@show')->name('user.show');
+    Route::get('users/{id}', 'UsersController@show')->name('user.show');
 });
 
 // ログイン
