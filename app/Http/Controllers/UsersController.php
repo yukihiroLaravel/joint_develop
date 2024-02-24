@@ -22,16 +22,6 @@ class UsersController extends Controller
 	    return view('users.show', $data);
     } 
 
-    public function destroy($id)
-    {
-        $user = User::findOrFail($id);
-        if(\Auth::id() === $user->id){
-            
-            $user->delete();
-        }
-        return back();
-    }
-
     public function edit($id)
     {
         $user = \Auth::user();

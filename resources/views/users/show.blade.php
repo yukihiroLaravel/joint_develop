@@ -8,9 +8,9 @@
                 </div>
                 <div class="card-body">
                     <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 400) }}" alt="ユーザのアバター画像">
-                        <div class="mt-3">
-                            <a href="" class="btn btn-primary btn-block">ユーザ情報の編集</a>
-                        </div>
+                    <div class="mt-3">
+                        <a href="" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                    </div>
                 </div>
             </div>
         </aside>

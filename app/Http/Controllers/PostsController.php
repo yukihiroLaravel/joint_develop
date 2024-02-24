@@ -18,16 +18,6 @@ class PostsController extends Controller
    
     }
 
-   public function show($id)
-   {
-        $user = User::findOrFail($id);
-        $posts = $user->posts()->orderBy('created_at', 'desc')->paginate(10);
-        return view('user.show', [
-            'user' => $user,
-            'posts' => $posts,
-        ]);
-   }
-
    public function store(PostRequest $request)
     {
         $user = \Auth::user();
