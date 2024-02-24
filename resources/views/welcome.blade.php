@@ -29,33 +29,5 @@
             </form>
         </div>
     @endif
-    <ul class="show_category_list list-unstyled">
-        <li class="category_btn posts_btn" id="posts">投稿</li>
-        <li class="category_btn users_btn" id="users">ユーザー</li>
-        @if (Auth::check())
-            <li>フォロー中</li>
-            <li>いいね一覧</li>
-        @endif
-    </ul>
-    @php
-        if (isset($searchWords)) {
-            $data = [
-                'posts' => $posts,
-                'users' => $users,
-                'searchWords' => $searchWords,
-                'arraySearchWords' => $arraySearchWords,
-            ];
-        } else {
-            $data = [
-                'posts' => $posts,
-                'users' => $users,
-            ];
-        }
-    @endphp
-    <div class="category_container posts_container active">
-        @include('posts.posts', $data)
-    </div>
-    <div class="category_container users_container">
-        @include('users.users', $data)
-    </div>
+    @include('posts.posts', ['posts' => $posts])
 @endsection
