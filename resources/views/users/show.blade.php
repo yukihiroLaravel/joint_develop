@@ -24,7 +24,8 @@
             <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
             <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
         </ul>
-        <!-- @include('posts.edit', [ 'id' ]) -->
+        <!-- 自分の投稿が見られる -->
+        @include('posts', ['$posts' => $posts])
         <div class="m-auto" style="width: fit-content"></div>
     </div>
 </div>
