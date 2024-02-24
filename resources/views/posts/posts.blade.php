@@ -1,3 +1,16 @@
+@if (isset($arraySearchWords))
+    @php
+        $searchedWords = implode('",' . "\n" . '"', $arraySearchWords);
+    @endphp
+    <h5 class="text-center mt-4 mb-4"><span class="searched_words">
+            @if ($posts->count() == 0)
+                "{{ $searchedWords }}"
+        </span>が含まれる投稿はありませんでした。
+    @else
+        "{{ $searchedWords }}"</span>の検索結果</h5>
+@endif
+</h5>
+@endif
 <ul class="list-unstyled">
     @foreach ($posts as $post)
         @php
@@ -9,22 +22,30 @@
                 <p class="mt-3 mb-0 d-inline-block"><a href="">{{ $post->user->name }}</a>
                     @include('follow.follow_button', ['user' => $user])</p>
             </div>
-            <div class="">
-                <div class="text-left d-inline-block w-75">
-                    <p class="mb-2">{{ $post->content }}</p>
-                    <p class="text-muted">{{ $post->created_at }}</p>
-                </div>
-                @if ($post->user->id == Auth::id())
-                    <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                        <form method="" action="">
-                            <button type="submit" class="btn btn-danger">削除</button>
-                        </form>
-                        <a href="" class="btn btn-primary">編集する</a>
-                    </div>
-                @endif
-
+            <div class="text-left d-inline-block w-75">
+                <p class="mb-2">{{ $post->content }}</p>
+                <p class="text-muted">{{ $post->created_at }}</p>
             </div>
+            @if ($post->user->id == Auth::id())
+                <div class="d-flex justify-content-between w-75 pb-3 m-auto">
+                    <form method="POST" action="{{ route('post.delete', $post->id) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">削除</button>
+                    </form>
+                    <a href="" class="btn btn-primary">編集する</a>
+                </div>
+            @endif
         </li>
     @endforeach
 </ul>
-<div class="m-auto" style="width: fit-content"></div>
+<div class="d-flex justify-content-center">
+    @php
+        $activeList = 'posts';
+    @endphp
+    @if (isset($searchWords))
+        {{ $posts->appends(['activeList' => $activeList, 'searchWords' => $searchWords])->links('pagination::bootstrap-4') }}
+    @else
+        {{ $posts->appends(['activeList' => $activeList])->links('pagination::bootstrap-4') }}
+    @endif
+</div>

@@ -14,6 +14,7 @@
 use Illuminate\Routing\RouteGroup;
 
 Route::get('/', 'PostsController@index');
+Route::get('search', 'SearchController@search')->name('search');
 
 // ユーザー新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
@@ -39,6 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::post('posts', 'PostsController@store')->name('post.store');
+    Route::delete('post/{id}', 'PostsController@destroy')->name('post.delete');
 });
 //ログイン
 Route::get('login', 'Auth\LoginController@showLoginform')->name('login');

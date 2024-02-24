@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $posts = Post::orderBy('id', 'desc')->paginate(10);
         return view('welcome', ['posts' => $posts,]);
@@ -26,6 +26,14 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->save();
 
+        return back();
+    }
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            $post->delete();
+        }
         return back();
     }
 }
