@@ -36,4 +36,13 @@ class UsersController extends Controller
         return back();
         //return view('user.show', compact('user'));  //### ユーザ詳細が作成され次第、こちらに変更予定
     }
+    
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        if(auth()->user()->id === $user->id) {
+            $user->delete();
+        }
+        return redirect('/');
+    }
 }
