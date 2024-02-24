@@ -39,10 +39,10 @@ class UsersController extends Controller
     
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
-        if(auth()->user()->id === $user->id) {
+        if($id == Auth::id()) {
+            $user = User::findOrFail($id);
             $user->delete();
+            return redirect('/');
         }
-        return redirect('/');
     }
 }
