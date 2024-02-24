@@ -53,6 +53,10 @@ class UserController extends Controller
     {
         if ($id == Auth::id()) {
             $user = User::findOrFail($id);
+            $user->followUsers()->detach();
+            foreach ($user->followerUsers as $followerUser) {
+                $followerUser->followUsers()->detach($id);
+            }
             $user->delete();
             return redirect('/');
         }
@@ -62,7 +66,7 @@ class UserController extends Controller
     public function followUsersShow($id)
     {
         $user = User::findOrFail($id);
-        $followUsers = $user->followUsers()->get();
+        $followUsers = $user->followUsers()->orderBy('id', 'desc')->paginate(10);
         $data = [
             'user' => $user,
             'followUsers' => $followUsers,
@@ -73,7 +77,7 @@ class UserController extends Controller
     public function followerUsersShow($id)
     {
         $user = User::findOrFail($id);
-        $followerUsers = $user->followerUsers()->get();
+        $followerUsers = $user->followUsers()->orderBy('id', 'desc')->paginate(10);
         $data = [
             'user' => $user,
             'followerUsers' => $followerUsers,

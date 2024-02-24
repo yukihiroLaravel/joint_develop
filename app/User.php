@@ -58,21 +58,29 @@ class User extends Authenticatable
     // フォローする
     public function follow($id)
     {
-        $exist = $this->isFollow($id);
-        if ($exist) {
-            return false;
+        if (Auth::id() !== $id) {
+            $exist = $this->isFollow($id);
+            if ($exist) {
+                return false;
+            } else {
+                $this->followUsers()->attach($id);
+                return true;
+            }
         } else {
-            $this->followUsers()->attach($id);
-            return true;
+            return false;
         }
     }
     // フォロー解除
     public function unfollow($id)
     {
-        $exist = $this->isFollow($id);
-        if ($exist) {
-            $this->followUsers()->detach($id);
-            return true;
+        if (Auth::id() !== $id) {
+            $exist = $this->isFollow($id);
+            if ($exist) {
+                $this->followUsers()->detach($id);
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
@@ -89,8 +97,6 @@ class User extends Authenticatable
         parent::boot();
         static::deleted(function ($user) {
             $user->posts()->delete();
-            Follow::where('follow_user_id', $user->id)->delete();
-            Follow::where('followed_user_id', $user->id)->delete();
         });
     }
 }

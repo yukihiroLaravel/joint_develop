@@ -1,4 +1,4 @@
-<div>
+<div class="d-inline-block ml-3">
     @php
         $id = $user->id;
     @endphp

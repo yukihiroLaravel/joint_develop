@@ -50,7 +50,7 @@
                 </li>
             </ul>
             {{-- 表示エリア --}}
-            <ul>
+            <ul class="list-unstyled">
                 @if (Request::is($showUrl))
                     @include('users.timeline', $user)
                 @endif
