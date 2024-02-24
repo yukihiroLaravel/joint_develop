@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
         Route::put('{id}', 'UsersController@update')->name('user.update');
     });
-    
+
     Route::prefix('posts')->group(function() {
         // 投稿投稿作成
         Route::post('', 'PostsController@store')->name('post.store');
