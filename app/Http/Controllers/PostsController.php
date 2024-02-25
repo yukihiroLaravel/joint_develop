@@ -28,4 +28,26 @@ class PostsController extends Controller
 
         return back();
     }
+
+    public function edit($id)
+    {
+        $user = \Auth::user();
+        $post = Post::findOrFail($id);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
+        $date=[
+            'user' => $user,
+            'post' => $post,
+            'posts' => $posts,
+        ];
+        return view('posts.edit', $date);
+    }
+    public function update(PostRequest $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        $post->user_id = $request->user->id;
+        $post->content = $request->content;
+        $post->save();
+        return back();
+
+    }
 }
