@@ -6,9 +6,9 @@
             <div class="card bg-info">
                 <div class="card-header">
                     <h3 class="card-title text-light">{{ $user->name }}</h3>
-                    <img class="mr-2 rounded-circle" src="{{ Gravatar::src( $user->email , 55 ) }}" alt="ユーザのアバター画像">
                 </div>
                 <div class="card-body">
+                    <img class="rounded-circle img-fluid" src="{{ Gravatar::src( $user->email , 400 ) }}" alt="ユーザのアバター画像">
                     <div class="mt-3">
                         <a href="{{ route('users.edit' , $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                     </div>
@@ -18,7 +18,7 @@
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
                 <li class="nav-item">
-                    <a href="{{ $user->id }}" class="nav-link {{ Request::is('users/', $user->id) ? 'active' : '' }}"> タイムライン</a>
+                    <a href="{{ $user->id }}" class="nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}"> タイムライン</a>
                 </li>
                 <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
