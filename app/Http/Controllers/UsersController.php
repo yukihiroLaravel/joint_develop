@@ -2,38 +2,68 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
-use App\User;
-use App\Post;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\User;
 
 class UsersController extends Controller
 {
+    use SoftDeletes;
+
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(9);
+        $data = [
+            'user' => $user,
+            'posts' => $posts,
+        ];
+        $data += $this->userCounts($user);
+        
+        return view('users.show', $data);
+    }
+    
     public function edit($id)
     {
-        $user = \Auth::user();
-
-        if ($user->id != $id) {
+        $user = User::findOrFail($id);
+        if(\Auth::check() && \Auth::id() == $user->id){
+            $data=[
+                'user' => $user,
+            ];
+            return view('users.edit',$data);
+        }else{
             abort(404);
-        }
-
-        return view('users.edit', compact('user'));
+        };
     }
 
     public function update(UserRequest $request, $id)
     {
-        if (Auth::user()->id != $id) {
-            abort(404);
-        }
-
         $user = User::findOrFail($id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->save();
-
-        return back();
-        //return view('user.show', compact('user'));  //### ユーザ詳細が作成され次第、こちらに変更予定
+        if(\Auth::check() && \Auth::id() == $user->id){
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->save();
+            $posts = $user->posts()->orderBy('id', 'desc')->paginate(9);
+            $data =[
+                'user'=> $user,
+                'posts' => $posts,
+            ];
+            return view('users.show',$data);
+        }else{
+            abort(404);
+        };
     }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        if (\Auth::id() === $user->id) {
+            $user->delete();            
+        }
+        return redirect('/');              
+    }
+    
 }

@@ -13,5 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UsersTableSeeder::class); //追記
         $this->call(PostsTableSeeder::class); //追記
+        $this->call(FollowUsersTableSeeder::class);
     }
 }
