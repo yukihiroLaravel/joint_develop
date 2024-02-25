@@ -11,7 +11,10 @@
 |
 */
 
-
+// ログイン
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login.post');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ユーザ新規登録
     // 新規登録画面表示
@@ -34,14 +37,8 @@ Route::prefix('users/{id}')->group(function () {
     });
 });
 
-// ログイン
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('login', 'Auth\LoginController@login')->name('login.post');
-Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-
 // 投稿一覧表示
 Route::get('/', 'PostsController@index')->name('posts');
-
 // 投稿関連
 Route::group(['middleware' => 'auth'], function () {
     // 投稿（新規、編集、更新、削除）
@@ -51,13 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/','PostsController@store')->name('posts.store');                
     });
 });
-
-
-
-
-
 //投稿編集
-
 Route::group(['middleware' => 'auth'], function () {
     // 投稿（編集、更新）
     Route::prefix('posts')->group(function () {
