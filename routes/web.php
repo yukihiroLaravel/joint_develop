@@ -30,6 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('users')->group(function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
         Route::put('{id}', 'UsersController@update')->name('user.update');
+        Route::delete('{id}','UsersController@destroy')->name('user.delete');
     });
 });
 
