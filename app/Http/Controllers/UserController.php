@@ -5,7 +5,6 @@ use App\Http\Requests\UserRequest;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
@@ -57,7 +56,7 @@ class UserController extends Controller
             'posts' => $posts,
         ];
         $data += $this->userCounts($user);
-        return view('users.show',$data);
+        return view('users.show', $data);
     }
     
 

@@ -12,22 +12,17 @@
 */
 
 use App\Http\Controllers\UserController;
-
+//投稿一覧
 Route::get('/', 'PostsController@index');
-
+Route::post('posts', 'PostsController@store')->name('post.store');
 // ユーザー新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
-
 //ユーザー
 Route::prefix('users')->group(function () {
   Route::get('{id}','UserController@show')->name('user.show');
 });
- 
-
-
-
-//ログイン
+ //ログイン
 Route::get('login','Auth\LoginController@showLoginform')->name('login');
 Route::post('login','Auth\LoginController@login')->name('login.post');
 Route::get('logout','Auth\LoginController@logout')->name('logout');
@@ -37,8 +32,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('edit', 'UserController@edit')->name('users.edit');
     Route::put('', 'UserController@update')->name('users.update');
     Route::delete('', 'UserController@destroy')->name('user.delete');
-
   });
 
-  Route::post('posts', 'PostsController@store')->name('post.store');
 });

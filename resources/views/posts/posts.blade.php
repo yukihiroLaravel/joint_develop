@@ -23,4 +23,3 @@
     </li>
     @endforeach
 </ul>
-<div class="m-auto" style="width: fit-content"></div>
