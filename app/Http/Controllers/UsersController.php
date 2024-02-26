@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Http\Requests\UserRequest;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use App\User;
+use App\Http\Requests\UserRequest;
+use App\Post;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
-    use SoftDeletes;
-
     public function show($id)
     {
         $user = User::findOrFail($id);
-        $posts = $user->posts()->orderBy('id', 'desc')->paginate(9);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
         $data = [
             'user' => $user,
             'posts' => $posts,
@@ -25,6 +23,7 @@ class UsersController extends Controller
         return view('users.show', $data);
     }
     
+
     public function edit($id)
     {
         $user = User::findOrFail($id);
