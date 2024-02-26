@@ -7,7 +7,7 @@
                 "{{ $searchedWords }}"
         </span>が含まれる投稿はありませんでした。
     @else
-        "{{ $searchedWords }}"</span>の検索結果</h5>
+        "{{ $searchedWords }}"</span>を含む投稿が{{ $posts->count() }}件見つかりました</h5>
 @endif
 </h5>
 @endif

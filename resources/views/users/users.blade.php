@@ -7,7 +7,7 @@
                 "{{ $searchedWords }}"
         </span>が含まれるユーザーはいませんでいた。
     @else
-        "{{ $searchedWords }}"</span>の検索結果</h5>
+        "{{ $searchedWords }}"</span>を名前に含むユーザーが{{ $users->count() }}人見つかりました</h5>
 @endif
 </h5>
 @endif
