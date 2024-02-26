@@ -13,8 +13,8 @@
             </div>
             <div class="d-flex justify-content-between w-75 pb-3 m-auto">
                 <!-- 本人の場合、削除と編集するボタンを表示 -->
-                @if(Auth::check() && Auth::user()->id == $post->user->id)
-                    <form method="POST" action="{{ route('users.update', ['id' => Auth::id()]) }}">
+                @if(Auth::id() === $post->user_id)
+                    <form method="POST" action="{{ route('post.delete', $post->id) }}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">削除</button>
