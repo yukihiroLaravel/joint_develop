@@ -29,12 +29,14 @@ Route::group(['middleware' => 'auth'], function () {
         // ユーザ編集/更新
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
         Route::put('{id}', 'UsersController@update')->name('user.update');
-        // ユーザー退会
+        // ユーザ退会
         Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
+        // ユーザ詳細
+        Route::get('{id}', 'UsersController@show')->name('user.show');
     });
-    
+
     Route::prefix('posts')->group(function() {
-    // 投稿投稿作成
+        // 投稿投稿作成
         Route::post('', 'PostsController@store')->name('post.store');
     });
 });
