@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Http\Controllers\Controller;
 
 class UsersController extends Controller
 {
@@ -15,6 +16,17 @@ class UsersController extends Controller
             return view('users.edit', ['user' => $user]);
         }
         abort(404);
+    }
+
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
+        $data = [
+            'user' => $user,
+            'posts' => $posts,
+        ];
+	    return view('users.show', $data);
     }
 
     public function update(UserRequest $request, $id) {   
