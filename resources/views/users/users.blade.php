@@ -30,7 +30,6 @@
                     @else
                         <p>まだ投稿はありません。</p>
                     @endif
-                    {{-- @include('follow.follow_button', ['user' => $user]) --}}
                 </div>
                 @if ($user->id == Auth::id())
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
