@@ -55,32 +55,34 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'follows', 'followed_user_id', 'follow_user_id')->withTimestamps();
     }
 
+    // ログインユーザーかどうか判定
+    public function itsMe($id)
+    {
+        if (Auth::id() === $id) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     // フォローする
     public function follow($id)
     {
-        if (Auth::id() !== $id) {
-            $exist = $this->isFollow($id);
-            if ($exist) {
-                return false;
-            } else {
-                $this->followUsers()->attach($id);
-                return true;
-            }
-        } else {
+        $exist = $this->isFollow($id);
+        if (!$this->itsMe($id) && $exist) {
             return false;
+        } else {
+            $this->followUsers()->attach($id);
+            return true;
         }
     }
     // フォロー解除
     public function unfollow($id)
     {
-        if (Auth::id() !== $id) {
-            $exist = $this->isFollow($id);
-            if ($exist) {
-                $this->followUsers()->detach($id);
-                return true;
-            } else {
-                return false;
-            }
+        $exist = $this->isFollow($id);
+        if (!$this->itsMe($id) && $exist) {
+            $this->followUsers()->detach($id);
+            return true;
         } else {
             return false;
         }

@@ -7,66 +7,44 @@
                     <h3 class="card-title text-light">{{ $user->name }}</h3>
                 </div>
                 <div class="card-body">
-                    <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 400) }}" alt="">
-                    @php
-                        $id = $user->id;
-                    @endphp
-
+                    <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 400) }}" alt="ユーザーアバター">
                     <div class="mt-3 text-center">
-                        @if (Auth::id() === $id)
-                            <a href="{{ route('users.edit', ['id' => $id]) }}"
-                                class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                        @if (Auth::id() === $user->id)
+                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                         @endif
-                        @include('follow.follow_button', ['user' => $user])
+                        @include('follows.follow_button', ['id' => $user->id])
                     </div>
                 </div>
             </div>
         </aside>
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
-                @php
-                    $id = $user->id;
-                    $showUrl = 'users/' . $id;
-                @endphp
                 <li class="nav-item">
-                    <a href="{{ route('users.show', $id) }}" class="nav-link {{ Request::is($showUrl) ? 'active' : '' }}">
+                    <a href="{{ route('users.show', $user->id) }}"
+                        class="nav-link {{ Route::is('users.show') ? 'active' : '' }}">
                         <p>タイムライン</p>
                         <div class="badge badge-secondary">{{ $countPosts }}</div>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('users.follow', $id) }}"
-                        class="nav-link {{ Request::is($showUrl . '/follow') ? 'active' : '' }}">
+                    <a href="{{ route('users.follow', $user->id) }}"
+                        class="nav-link {{ Route::is('users.follow') ? 'active' : '' }}">
                         <p>フォロー中</p>
                         <div class="badge badge-secondary">{{ $countFollowUsers }}</div>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('users.follower', $id) }}"
-                        class="nav-link {{ Request::is($showUrl . '/follower') ? 'active' : '' }}">
+                    <a href="{{ route('users.follower', $user->id) }}"
+                        class="nav-link {{ Route::is('users.follower') ? 'active' : '' }}">
                         <p>フォロワー</p>
                         <div class="badge badge-secondary">{{ $countFollowerUsers }}</div>
                     </a>
                 </li>
             </ul>
             {{-- 表示エリア --}}
-            <ul class="list-unstyled">
-                @if (Request::is($showUrl))
-                    @include('users.timeline', $user)
-                @endif
-                @if (Request::is($showUrl . '/follow'))
-                    @include('users.follows', [
-                        'user' => $user,
-                        'followUsers' => $followUsers,
-                    ])
-                @endif
-                @if (Request::is($showUrl . '/follower'))
-                    @include('users.followers', [
-                        'user' => $user,
-                        'followerUsers' => $followerUsers,
-                    ])
-                @endif
-            </ul>
+            @if (Route::is('users.follow') || Route::is('users.follower'))
+                @include('users.relevantUsers', ['user' => $user])
+            @endif
             {{-- 表示エリア --}}
         </div>
     </div>

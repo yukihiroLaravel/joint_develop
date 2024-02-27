@@ -1,7 +1,4 @@
 <div class="d-inline-block ml-3">
-    @php
-        $id = $user->id;
-    @endphp
     @if (Auth::check() && Auth::id() !== $id)
         @if (Auth::user()->isFollow($id))
             <form method="POST" action="{{ route('unfollow', $id) }}">
