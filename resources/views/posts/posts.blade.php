@@ -17,7 +17,7 @@
                         <form method="" action="">
                         <button type="submit" class="btn btn-danger">削除</button>
                         </form>
-                        <a href="" class="btn btn-primary">編集する</a>
+                        <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">編集する</a>
                     @endif
                     </div>
             </div>
