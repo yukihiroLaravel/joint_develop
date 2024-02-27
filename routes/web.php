@@ -13,7 +13,6 @@
 
 //投稿一覧
 Route::get('/', 'PostsController@index');
-Route::post('posts', 'PostsController@store')->name('post.store');
 // ユーザー新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
@@ -32,5 +31,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('', 'UserController@update')->name('users.update');
     Route::delete('', 'UserController@destroy')->name('user.delete');
   });
-
+  Route::post('posts', 'PostsController@store')->name('post.store');
+  Route::delete('post/{id}', 'PostsController@destroy')->name('post.delete');
 });
