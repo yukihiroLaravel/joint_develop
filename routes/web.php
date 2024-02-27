@@ -11,7 +11,6 @@
 |
 */
 
-use App\Http\Controllers\UserController;
 //投稿一覧
 Route::get('/', 'PostsController@index');
 Route::post('posts', 'PostsController@store')->name('post.store');
