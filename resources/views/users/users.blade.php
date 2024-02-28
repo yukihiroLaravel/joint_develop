@@ -2,14 +2,13 @@
     @php
         $searchedWords = implode('",' . "\n" . '"', $arraySearchWords);
     @endphp
-    <h5 class="text-center mt-4 mb-4"><span class="searched_words">
-            @if ($users->count() == 0)
-                "{{ $searchedWords }}"
-        </span>が含まれるユーザーはいませんでいた。
-    @else
-        "{{ $searchedWords }}"</span>を名前に含むユーザーが{{ $users->count() }}人見つかりました。
-@endif
-</h5>
+    <h5 class="text-center mt-4 mb-4">
+        @if ($users->count() == 0)
+            <span class="searched_words">"{{ $searchedWords }}"</span>が含まれるユーザーはいませんでいた。
+        @else
+            <span class="searched_words">"{{ $searchedWords }}"</span>を名前に含むユーザーが{{ $users->count() }}人見つかりました。
+        @endif
+    </h5>
 @endif
 <ul class="list-unstyled">
     @foreach ($users as $user)
