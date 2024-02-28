@@ -9,17 +9,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    // フォロー機能テスト用　ユーザー詳細ページ表示
-    public function show($id)
-    {
-        $user = User::findOrFail($id);
-        $data = [
-            'user' => $user,
-        ];
-        $data += $this->userCounts($user);
-        return view('users.show', $data);
-    }
-
     public function edit($id)
     {
         if ($id == Auth::id()) {
@@ -81,6 +70,18 @@ class UserController extends Controller
         $data = [
             'user' => $user,
             'followerUsers' => $followerUsers,
+        ];
+        $data += $this->userCounts($user);
+        return view('users.show', $data);
+    }
+
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
+        $data = [
+            'user' => $user,
+            'posts' => $posts,
         ];
         $data += $this->userCounts($user);
         return view('users.show', $data);

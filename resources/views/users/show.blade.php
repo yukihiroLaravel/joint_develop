@@ -20,8 +20,8 @@
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
                 <li class="nav-item">
-                    <a href="{{ route('users.show', $user->id) }}"
-                        class="nav-link {{ Route::is('users.show') ? 'active' : '' }}">
+                    <a href="{{ route('user.show', $user->id) }}"
+                        class="nav-link {{ Route::is('user.show') ? 'active' : '' }}">
                         <p>タイムライン</p>
                         <div class="badge badge-secondary">{{ $countPosts }}</div>
                     </a>
@@ -42,6 +42,9 @@
                 </li>
             </ul>
             {{-- 表示エリア --}}
+            @if (Route::is('user.show'))
+                @include('posts.posts', ['posts' => $posts])
+            @endif
             @if (Route::is('users.follow') || Route::is('users.follower'))
                 @include('users.relevantUsers', ['user' => $user])
             @endif

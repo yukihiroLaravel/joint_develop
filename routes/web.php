@@ -11,8 +11,7 @@
 |
 */
 
-use Illuminate\Routing\RouteGroup;
-
+//投稿一覧
 Route::get('/', 'PostsController@index');
 
 // ユーザー新規登録
@@ -20,10 +19,15 @@ Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('sign
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 Route::prefix('users/{id}')->group(function () {
-    Route::get('', 'UserController@show')->name('users.show');
+    Route::get('', 'UserController@show')->name('user.show');
     Route::get('follow', 'UserController@followUsersShow')->name('users.follow');
     Route::get('follower', 'UserController@followerUsersShow')->name('users.follower');
 });
+
+//ログイン
+Route::get('login', 'Auth\LoginController@showLoginform')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login.post');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
@@ -34,11 +38,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('follow', 'FollowController@store')->name('follow');
         Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
     });
-
     Route::post('posts', 'PostsController@store')->name('post.store');
     Route::delete('post/{id}', 'PostsController@destroy')->name('post.delete');
 });
-//ログイン
-Route::get('login', 'Auth\LoginController@showLoginform')->name('login');
-Route::post('login', 'Auth\LoginController@login')->name('login.post');
-Route::get('logout', 'Auth\LoginController@logout')->name('logout');
