@@ -7,7 +7,7 @@
                 "{{ $searchedWords }}"
         </span>が含まれる投稿はありませんでした。
     @else
-        "{{ $searchedWords }}"</span>を含む投稿が{{ $posts->count() }}件見つかりました</h5>
+        "{{ $searchedWords }}"</span>を含む投稿が{{ $posts->count() }}件見つかりました。
 @endif
 </h5>
 @endif
@@ -16,16 +16,19 @@
         <li class="mb-3 text-center">
             <div class="text-left d-inline-block w-75 mb-2">
                 <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
-                <p class="mt-3 mb-0 d-inline-block"><a href="">{{ $post->user->name }}</a></p>
+                <p class="mt-3 mb-0 d-inline-block"><a
+                        href="{{ route('user.show', $post->user_id) }}">{{ $post->user->name }}</a></p>
             </div>
             <div>
                 <div class="text-left d-inline-block w-75">
                     <p class="mb-2">{!! nl2br(e($post->content)) !!}</p>
                     <p class="text-muted">{{ $post->created_at }}</p>
                 </div>
-                @if ($post->user->id == Auth::id())
+                @if ($post->user_id == Auth::id())
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                        <form method="" action="">
+                        <form method="POST" action="{{ route('post.delete', $post->id) }}">
+                            @csrf
+                            @method('DELETE')
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>
                         <a href="" class="btn btn-primary">編集する</a>

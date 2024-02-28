@@ -11,12 +11,22 @@
 |
 */
 
+//投稿一覧
 Route::get('/', 'PostsController@index');
 Route::get('search', 'SearchController@search')->name('search');
 
 // ユーザー新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+//ユーザー
+Route::prefix('users')->group(function () {
+    Route::get('{id}', 'UserController@show')->name('user.show');
+});
+
+//ログイン
+Route::get('login', 'Auth\LoginController@showLoginform')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login.post');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
@@ -27,8 +37,5 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::post('posts', 'PostsController@store')->name('post.store');
+    Route::delete('post/{id}', 'PostsController@destroy')->name('post.delete');
 });
-//ログイン
-Route::get('login', 'Auth\LoginController@showLoginform')->name('login');
-Route::post('login', 'Auth\LoginController@login')->name('login.post');
-Route::get('logout', 'Auth\LoginController@logout')->name('logout');
