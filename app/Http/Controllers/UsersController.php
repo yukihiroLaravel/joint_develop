@@ -56,4 +56,12 @@ class UsersController extends Controller
         };
     }
     
+    public function destroy($id)
+    {
+        if($id == Auth::id()) {
+            $user = User::findOrFail($id);
+            $user->delete();
+            return redirect('/');
+        }
+    }
 }
