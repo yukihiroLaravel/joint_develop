@@ -30,6 +30,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
         Route::post('/', 'PostsController@store')->name('post.store');
     });
+    // ユーザ　
+    Route::prefix('users')->group(function () {
+        Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
+        Route::put('{id}', 'UsersController@update')->name('user.update');
+        Route::delete('{id}','UsersController@destroy')->name('user.delete');
+    });
 });
+
 // トップページの投稿表示
 Route::get('/', 'PostsController@index');
