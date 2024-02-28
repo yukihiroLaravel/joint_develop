@@ -45,13 +45,9 @@ Route::prefix('users/{id}')->group(function () {
 Route::get('/', 'PostsController@index')->name('posts');
 // 投稿関連
 Route::group(['middleware' => 'auth'], function () {
-    // 投稿（新規、編集、更新、削除）
-    Route::prefix('posts')->group(function () {
-        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     // 投稿新規作成
         Route::post('/','PostsController@store')->name('posts.store');                
     });
-});
 //ユーザ詳細
 Route::get('users/{id}', 'UsersController@show')->name('user.show');
 
