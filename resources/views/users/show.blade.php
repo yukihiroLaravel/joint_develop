@@ -46,10 +46,10 @@
                 @include('posts.posts', ['posts' => $posts])
             @endif
             @if (Route::is('users.follow'))
-                @include('users.users', ['usersList' => $user->followUsers])
+                @include('follows.follows', ['usersList' => $user->followUsers])
             @endif
             @if (Route::is('users.follower'))
-                @include('users.users', ['usersList' => $user->followerUsers])
+                @include('follows.follows', ['usersList' => $user->followerUsers])
             @endif
             {{-- 表示エリア --}}
         </div>
