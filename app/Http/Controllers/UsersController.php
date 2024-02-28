@@ -45,14 +45,6 @@ class UsersController extends Controller
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
             $user->save();
-            $posts = $user->posts()->orderBy('id', 'desc')->paginate(9);
-            $data =[
-                'user'=> $user,
-                'posts' => $posts,
-            ];
-            return view('users.show',$data);
-        }else{
-            abort(404);
         };
     }
     
