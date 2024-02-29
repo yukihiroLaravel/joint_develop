@@ -15,6 +15,10 @@
 Route::get('signup','Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup','Auth\RegisterController@register')->name('signup.post');
 
+//ユーザー詳細
+Route::prefix('users')->group(function(){
+    Route::get('{id}', 'UsersController@show')->name('user.show');
+});
 // ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
