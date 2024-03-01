@@ -2,14 +2,14 @@
     @php
         $searchedWords = implode('",' . "\n" . '"', $arraySearchWords);
     @endphp
-    <h5 class="text-center mt-4 mb-4"><span class="searched_words">
-            @if ($posts->count() == 0)
-                "{{ $searchedWords }}"
-        </span>が含まれる投稿はありませんでした。
-    @else
-        "{{ $searchedWords }}"</span>を含む投稿が{{ $posts->count() }}件見つかりました。
-@endif
-</h5>
+    <h5 class="text-center mt-4 mb-4">
+        @if ($posts->count() == 0)
+            <span class="searched_words">"{{ $searchedWords }}"
+            </span>が含まれる投稿はありませんでした。
+        @else
+            <span class="searched_words">"{{ $searchedWords }}"</span>を含む投稿が{{ $posts->count() }}件見つかりました。
+        @endif
+    </h5>
 @endif
 <ul class="list-unstyled">
     @foreach ($posts as $post)
