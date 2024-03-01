@@ -11,11 +11,21 @@ class FollowUsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('follow_users')->insert([
-            'following_id' => 1,
-            'followed_id' => 2,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        $followUsers = [
+            [
+                'following_id' => 1,
+                'followed_id' => 2,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'following_id' => 3,
+                'followed_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ];
+
+        DB::table('follow_users')->insert($followUsers);
     }
 }

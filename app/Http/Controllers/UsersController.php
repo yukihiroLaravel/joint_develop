@@ -18,7 +18,6 @@ class UsersController extends Controller
             'user' => $user,
             'posts' => $posts,
         ];
-        $data += $this->userCounts($user);
         
         return view('users.show', $data);
     }
@@ -26,15 +25,13 @@ class UsersController extends Controller
 
     public function edit($id)
     {
-        $user = User::findOrFail($id);
-        if(\Auth::check() && \Auth::id() == $user->id){
-            $data=[
-                'user' => $user,
-            ];
-            return view('users.edit',$data);
-        }else{
+        $user = \Auth::user();
+
+        if ($user->id != $id) {
             abort(404);
-        };
+        }
+
+        return view('users.edit', compact('user'));
     }
 
     public function update(UserRequest $request, $id)
