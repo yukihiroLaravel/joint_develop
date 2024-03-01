@@ -61,7 +61,7 @@ class UserController extends Controller
         if ($relation == 'follower') {
             $usersList = $user->followerUsers();
         }
-        $usersList->orderBy('id', 'desc')->paginate(10);
+        $usersList = $usersList->orderBy('id', 'desc')->paginate(10);
         $data = [
             'user' => $user,
             'usersList' => $usersList,
