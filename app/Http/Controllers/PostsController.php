@@ -14,7 +14,9 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::orderBy('id','desc')->paginate(10); 
-        return view('welcome', ['posts' => $posts,]);
+        return view('welcome',  [
+            'posts' => $posts
+        ]);
     }
 
     public function store(PostRequest $request)
@@ -28,7 +30,14 @@ class PostsController extends Controller
 
         return back();
     }
-
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            $post->delete();
+        }
+        return back();
+    }  
     public function edit($id)
     {
         $user = \Auth::user();
