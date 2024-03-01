@@ -6,6 +6,7 @@
         </button>
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
+            @include('commons.search')
             <ul class="navbar-nav">
                 @if (Auth::check())
                     <li class="nav-item"><a href="{{ route('user.show', Auth::id()) }}" class="nav-link text-light">{{ Auth::user()->name }}</a></li>

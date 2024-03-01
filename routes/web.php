@@ -23,6 +23,9 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 // トップページ表示
 Route::get('/', 'PostsController@index'); //追記
 
+// 検索機能
+Route::get('search', 'PostsController@search')->name('posts.search');
+
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('users')->group(function() {

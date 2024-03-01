@@ -27,4 +27,29 @@ class PostsController extends Controller
         $post->save();
         return back();
     }
+
+    public function search(Request $request)
+    {
+        // リクエストからキーワードを取得
+        $keyword = $request->input('keyword');
+
+        // キーワードが空でない場合に検索を実行
+        if (!empty($keyword)) {
+            // クエリの作成
+            $posts = Post::where('text', 'like', '%' . $keyword . '%')
+                         ->orderBy('created_at', 'desc')
+                         ->paginate(10);
+
+            // 検索結果をビューに渡す
+            return view('welcome', compact('posts', 'keyword'));
+        } else {
+            // キーワードが空の場合はすべての投稿を取得して表示
+            $posts = Post::orderBy('created_at', 'desc')->paginate(10);
+
+            // 全投稿をビューに渡す
+            return view('welcome', [
+                'posts' => $posts,
+            ]);
+        }
+    }
 }
