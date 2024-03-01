@@ -54,4 +54,13 @@ class PostsController extends Controller
         return redirect()->route('welcome');
         }
     }
+
+    public function destroy($id)
+    {
+        $posts = Post::findOrFail($id);
+        if (\Auth::id() === $posts->user_id) {
+           $posts->delete();
+        }
+        return back();
+    }
 }
