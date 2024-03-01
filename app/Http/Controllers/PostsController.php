@@ -52,4 +52,13 @@ class PostsController extends Controller
             ]);
         }
     }
+    
+    public function destroy($id)
+    {
+        $posts = Post::findOrFail($id);
+        if (\Auth::id() === $posts->user_id) {
+           $posts->delete();
+        }
+        return back();
+    }
 }
