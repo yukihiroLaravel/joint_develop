@@ -56,15 +56,15 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         if ($relation == 'follow') {
-            $UsersList = $user->followUsers();
+            $usersList = $user->followUsers();
         }
         if ($relation == 'follower') {
-            $UsersList = $user->followerUsers();
+            $usersList = $user->followerUsers();
         }
-        $UsersList->orderBy('id', 'desc')->paginate(10);
+        $usersList->orderBy('id', 'desc')->paginate(10);
         $data = [
             'user' => $user,
-            'usersList' => $UsersList,
+            'usersList' => $usersList,
         ];
         $data += $this->userCounts($user);
         return $data;
