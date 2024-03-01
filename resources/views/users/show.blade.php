@@ -45,11 +45,8 @@
             @if (Route::is('user.show'))
                 @include('posts.posts', ['posts' => $posts])
             @endif
-            @if (Route::is('users.follow'))
-                @include('follows.follows', ['usersList' => $user->followUsers])
-            @endif
-            @if (Route::is('users.follower'))
-                @include('follows.follows', ['usersList' => $user->followerUsers])
+            @if (Route::is('users.follow') || Route::is('users.follower'))
+                @include('follows.follows', ['usersList' => $usersList])
             @endif
             {{-- 表示エリア --}}
         </div>

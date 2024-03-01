@@ -52,26 +52,33 @@ class UserController extends Controller
         abort(404);
     }
 
-    public function followUsersShow($id)
+    public function userRelation($id, $relation)
     {
         $user = User::findOrFail($id);
-        $followUsers = $user->followUsers()->orderBy('id', 'desc')->paginate(10);
+        if ($relation == 'follow') {
+            $UsersList = $user->followUsers()->orderBy('id', 'desc')->paginate(10);
+        }
+        if ($relation == 'follower') {
+            $UsersList = $user->followerUsers()->orderBy('id', 'desc')->paginate(10);
+        }
         $data = [
             'user' => $user,
-            'followUsers' => $followUsers,
+            'usersList' => $UsersList,
         ];
         $data += $this->userCounts($user);
+        return $data;
+    }
+
+    public function followUsersShow($id)
+    {
+        $relation = 'follow';
+        $data = $this->userRelation($id, $relation);
         return view('users.show', $data);
     }
     public function followerUsersShow($id)
     {
-        $user = User::findOrFail($id);
-        $followerUsers = $user->followUsers()->orderBy('id', 'desc')->paginate(10);
-        $data = [
-            'user' => $user,
-            'followerUsers' => $followerUsers,
-        ];
-        $data += $this->userCounts($user);
+        $relation = 'follower';
+        $data = $this->userRelation($id, $relation);
         return view('users.show', $data);
     }
 

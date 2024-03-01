@@ -17,5 +17,8 @@
                 </div>
             </li>
         @endforeach
+        <div class="d-flex justify-content-center">
+            {{ $usersList->links('pagination::bootstrap-4') }}
+        </div>
     @endif
 </ul>
