@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 
+//use Illuminate\Support\Facades\Auth;
+
+
 class UsersController extends Controller
 {
     public function edit($id) {
@@ -38,5 +41,13 @@ class UsersController extends Controller
         }
         $user->save();
         return redirect()->route('users.edit', ['id' => $user->id]);
+    }
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete(); // 論理削除
+        //Auth::logout(); // ログアウト
+
+        return redirect('/')->with('success', '退会処理が完了しました。');
     }
 }

@@ -79,4 +79,26 @@ class User extends Authenticatable
     {
         return $this->followings()->where('followed_user_id', $userId)->exists();
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::deleting(function ($user) {
+            $user->post()->delete();
+        });
+    }
+
+    public function post(){
+        return $this->hasMany(Post::class, 'user_id');
+    }
+
+    public static function deleteData($user_id){
+        $result = DB::transaction(function () use ($user_id) {
+            $user = User::where('user_id', $user_id)->first();
+            $user->delete();
+            return true;
+        });
+        return $result;
+    }
+
 }

@@ -14,6 +14,9 @@
 // 投稿関連のルート
 Route::get('/', 'PostsController@index');
 
+// 退会処理のルート
+Route::delete('users/{id}', 'UsersController@destroy')->name('users.destroy');
+
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
