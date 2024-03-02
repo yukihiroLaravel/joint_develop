@@ -11,21 +11,32 @@ class FollowUsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $followUsers = [
-            [
-                'following_id' => 1,
-                'followed_id' => 2,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'following_id' => 3,
-                'followed_id' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-        ];
+        $numFollowing = 10;
 
-        DB::table('follow_users')->insert($followUsers);
+        $numFollowed = 5;
+
+        for ($i = 1; $i <= $numFollowing; $i++) {
+            $followingId = $i;
+            $followedIds = $this->getRandomFollowedIds($i, $numFollowed);
+
+            foreach ($followedIds as $followedId) {
+                DB::table('follow_users')->insert([
+                    'following_id' => $followingId,
+                    'followed_id' => $followedId,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        }
+    }
+
+    private function getRandomFollowedIds($currentUserId, $numFollowed)
+    {
+        $followedIds = range(1, $numFollowed);
+        shuffle($followedIds);
+
+        $followedIds = array_diff($followedIds, [$currentUserId]);
+
+        return array_slice($followedIds, 0, rand(1, $numFollowed));
     }
 }

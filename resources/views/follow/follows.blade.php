@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('content')
 <div class="row">
-    @include('commons.common_users_show',['user' => $user])
+    @include('partials.user_profile',['user' => $user])
     <div class="col-sm-8">
-        @include('commons.common_tab',['user' => $user])
+        @include('partials.user_tabs',['user' => $user])
         @foreach ($follows as $follow)     
          <ul class="list-unstyled">
              <li class="mb-3 text-center">

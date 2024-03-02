@@ -56,30 +56,24 @@ class User extends Authenticatable
     }
 
     public function follow($followedId)
-    {
-        if ($followedId != Auth::id()) {
-            $exist = $this->isFollow($followedId);
-            if ($exist) {
-                return false;
-            } else {
-                $this->follows()->attach($followedId);
-                return true;
-            }
-        }
-        return false;
+{
+    if ($followedId != Auth::id() && !$this->isFollow($followedId)) {
+        $this->follows()->attach($followedId);
+        return true;
     }
+    
+    return false;
+}
 
-    public function unfollow($followedId)
-    {
-        if ($followedId != Auth::id()) {
-            $exist = $this->isFollow($followedId);
-            if ($exist) {
-                $this->follows()->detach($followedId);
-                return true;
-            }
-        }
-        return false;
+public function unfollow($followedId)
+{
+    if ($followedId != Auth::id() && $this->isFollow($followedId)) {
+        $this->follows()->detach($followedId);
+        return true;
     }
+    
+    return false;
+}
 
     public function isFollow($followedId)
     {
