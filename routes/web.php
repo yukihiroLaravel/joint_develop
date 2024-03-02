@@ -14,9 +14,6 @@
 // 投稿関連のルート
 Route::get('/', 'PostsController@index');
 
-// 退会処理のルート
-Route::delete('users/{id}', 'UsersController@destroy')->name('users.destroy');
-
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
@@ -30,6 +27,7 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
+
     // 投稿
     Route::prefix('posts')->group(function () {
         Route::post('/', 'PostsController@store')->name('post.store');
@@ -43,5 +41,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{id}', 'UsersController@update')->name('users.update');
         Route::post('{id}/follow', 'FollowController@store')->name('follow');
         Route::delete('{id}/unfollow', 'FollowController@destroy')->name('unfollow');
+
+    // 退会処理のルート
+        Route::delete('users/{id}', 'UsersController@destroy')->name('users.destroy');
     });
 });

@@ -7,14 +7,11 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 
-//use Illuminate\Support\Facades\Auth;
-
-
 class UsersController extends Controller
 {
     public function edit($id) {
-        $user = \Auth::user();
 
+        $user = \Auth::user();
         if (\Auth::check() && \Auth::id() == $id) {
             return view('users.edit', ['user' => $user]);
         }
@@ -42,12 +39,11 @@ class UsersController extends Controller
         $user->save();
         return redirect()->route('users.edit', ['id' => $user->id]);
     }
+    
     public function destroy($id)
     {
         $user = User::findOrFail($id);
-        $user->delete(); // 論理削除
-        //Auth::logout(); // ログアウト
-
+        $user->delete();
         return redirect('/')->with('success', '退会処理が完了しました。');
     }
 }
