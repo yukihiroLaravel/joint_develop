@@ -36,13 +36,11 @@ class UsersController extends Controller
 
     public function update(UserRequest $request, $id)
     {
+        if (Auth::user()->id != $id) {
+            abort(404);
+        }
+
         $user = User::findOrFail($id);
-        if(\Auth::check() && \Auth::id() == $user->id){
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = bcrypt($request->password);
-            $user->save();
-        };
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
