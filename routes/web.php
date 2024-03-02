@@ -21,7 +21,6 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // トップページ表示
-Route::get('/', 'PostsController@index'); //追記
 Route::get('/', 'PostsController@index')->name('welcome');//トップページへの遷移
 
 // ログイン後

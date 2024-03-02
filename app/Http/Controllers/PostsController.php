@@ -35,7 +35,7 @@ class PostsController extends Controller
 
         if ($user->id != $post->user_id) {
             return back();
-        }else{
+        } else {
             return view('posts.edit', ['post' => $post]);
         }
     }
@@ -47,11 +47,10 @@ class PostsController extends Controller
 
         if ($user->id != $post->user_id) {
             return back();
-        }else{
-        $post->text = $request->text;
-        $post->user_id = $request->user()->id;
-        $post->save();
-        return redirect()->route('welcome');
+        } else {
+            $post->text = $request->text;
+            $post->save();
+            return redirect()->route('welcome');
         }
     }
 
@@ -59,8 +58,8 @@ class PostsController extends Controller
     {
         $posts = Post::findOrFail($id);
         if (\Auth::id() === $posts->user_id) {
-           $posts->delete();
+            $posts->delete();
         }
-        return back();
+            return back();
     }
 }
