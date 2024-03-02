@@ -32,25 +32,24 @@ class PostsController extends Controller
     {
         // リクエストからキーワードを取得
         $keyword = $request->input('keyword');
-
-        // キーワードが空でない場合に検索を実行
+    
+        // 検索結果の取得
+        $posts = Post::orderBy('created_at', 'desc');
+    
         if (!empty($keyword)) {
-            // クエリの作成
-            $posts = Post::where('text', 'like', '%' . $keyword . '%')
-                         ->orderBy('created_at', 'desc')
-                         ->paginate(10);
-
-            // 検索結果をビューに渡す
-            return view('welcome', compact('posts', 'keyword'));
-        } else {
-            // キーワードが空の場合はすべての投稿を取得して表示
-            $posts = Post::orderBy('created_at', 'desc')->paginate(10);
-
-            // 全投稿をビューに渡す
-            return view('welcome', [
-                'posts' => $posts,
-            ]);
+            $posts->where('text', 'like', '%' . $keyword . '%');
         }
+    
+        $posts = $posts->paginate(10);
+    
+        // ビューに渡すデータを準備
+        $data = [
+            'posts' => $posts,
+            'keyword' => $keyword,
+        ];
+    
+        // ビューにデータを渡して返す
+        return view('welcome', $data);
     }
     
     public function destroy($id)

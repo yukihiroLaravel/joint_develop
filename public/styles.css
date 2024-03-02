@@ -1,0 +1,21 @@
+/* ラベルのスタイル */
+.search-label {
+    color: white;
+}
+
+/* 検索ボタンのスタイル */
+.search-button {
+    font-family: FontAwesome;
+    color: #17A2B8;
+    background: #fff;
+    border-radius: 5px;
+    border: none;
+}
+
+/* 入力フィールドのスタイル */
+.search-input {
+    color: #3d3d3d;
+    border: none;
+    border-radius: 5px;
+    padding-right: 10px;
+}
