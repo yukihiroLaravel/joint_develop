@@ -1,5 +1,4 @@
-<div>
-<link rel="stylesheet" href="styles.css">
+<div class="search-form">
     <form action="{{ route('posts.search') }}" method="GET">
         <label for="keyword" class="search-label">投稿を検索する</label>
         <input type="text" id="keyword" name="keyword" value="{{ $keyword ?? '' }}" class="search-input">
