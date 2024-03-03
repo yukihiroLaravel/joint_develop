@@ -33,6 +33,7 @@ class PostsController extends Controller
 
         return back();
     }
+
     public function destroy($id)
     {
         $post = Post::findOrFail($id);

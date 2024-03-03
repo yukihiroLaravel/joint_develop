@@ -6,7 +6,7 @@
         @if ($users->count() == 0)
             <span class="searched_words">"{{ $searchedWords }}"</span>が含まれるユーザーはいませんでいた。
         @else
-            <span class="searched_words">"{{ $searchedWords }}"</span>を名前に含むユーザーが{{ $users->count() }}人見つかりました。
+            <span class="searched_words">"{{ $searchedWords }}"</span>を名前に含むユーザーの検索結果
         @endif
     </h5>
 @endif
