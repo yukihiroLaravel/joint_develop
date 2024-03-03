@@ -43,6 +43,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}/unfollow', 'FollowController@destroy')->name('unfollow');
 
     // 退会処理のルート
-        Route::delete('users/{id}', 'UsersController@destroy')->name('users.destroy');
+        Route::delete('{id}', 'UsersController@destroy')->name('users.destroy');
     });
 });
