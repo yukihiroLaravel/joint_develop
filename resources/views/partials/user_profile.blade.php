@@ -12,4 +12,7 @@
             @endif
         </div>
     </div>
-</aside>
+    <div class="text-center mt-4">
+        @include('follow.follow_button', ['user' => $user])
+    </div>
+</aside>git 
