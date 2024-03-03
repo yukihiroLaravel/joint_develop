@@ -44,6 +44,6 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect('/')->with('success', '退会処理が完了しました。');
+        return redirect('/');
     }
 }
