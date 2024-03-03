@@ -27,8 +27,6 @@ class FollowController extends Controller
             'user' => $user,
             'follows' => $follows
         ];
-        $data += $this->userCounts($user);
-        
         return view('follow.follows', $data);
     }
 
@@ -40,8 +38,6 @@ class FollowController extends Controller
             'user' => $user,
             'followers' => $followers
         ];
-        $data += $this->userCounts($user);
-        
         return view('follow.followers', $data);
     }
 }
