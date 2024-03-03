@@ -1,5 +1,5 @@
 @if (session('successMessage'))
-<div class="alert alert-success text-center">{{ session('successMessage') }}</div>
+ <div class="alert alert-success text-center">{{ session('successMessage') }}</div>
 @endif
 
 <ul class="list-unstyled">
@@ -9,8 +9,8 @@
         @endphp
             <li class="mb-3 text-center">
                 <div class="text-left d-inline-block w-75 mb-2">
-                    <img class="mr-2 rounded-circle" src="{{ Gravatar::src ($user->email,55) }}" alt="ユーザのアバター画像">
-                    <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('user.show',$user->id) }}">{{ $user->name }}</a></p>
+                <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
+                <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('user.show', $user->id) }}">{{ $user->name }}</a></p>
             </div>
             <div class="container">
                 <div class="text-left d-inline-block w-75">
