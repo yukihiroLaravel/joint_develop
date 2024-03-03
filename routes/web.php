@@ -21,7 +21,7 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // トップページ表示
-Route::get('/', 'PostsController@index'); //追記
+Route::get('/', 'PostsController@index')->name('welcome');//トップページへの遷移
 
 // 検索機能
 Route::get('search', 'PostsController@search')->name('posts.search');
@@ -39,8 +39,10 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::prefix('posts')->group(function() {
-        // 投稿投稿作成
+        // 投稿投稿作成/編集/更新
         Route::post('', 'PostsController@store')->name('post.store');
+        Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
+        Route::put('{id}', 'PostsController@update')->name('post.update');
         // 投稿削除
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     });

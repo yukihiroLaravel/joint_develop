@@ -52,12 +52,38 @@ class PostsController extends Controller
         return view('welcome', $data);
     }
     
+    public function edit($id)
+    {
+        $user = \Auth::user();
+        $post = Post::findOrFail($id);
+
+        if ($user->id != $post->user_id) {
+            return back();
+        } else {
+            return view('posts.edit', ['post' => $post]);
+        }
+    }
+
+    public function update(PostRequest $request, $id)
+    {
+        $user = \Auth::user();
+        $post = Post::findOrFail($id);
+
+        if ($user->id != $post->user_id) {
+            return back();
+        } else {
+            $post->text = $request->text;
+            $post->save();
+            return redirect()->route('welcome');
+        }
+    }
+
     public function destroy($id)
     {
         $posts = Post::findOrFail($id);
         if (\Auth::id() === $posts->user_id) {
-           $posts->delete();
+            $posts->delete();
         }
-        return back();
+            return back();
     }
 }
