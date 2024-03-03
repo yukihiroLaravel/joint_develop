@@ -1,4 +1,4 @@
-<header class="sticky-top pb-5">
+<header class="mb-5">
     <nav class="navbar navbar-expand-sm navbar-dark bg-info">
         <a class="navbar-brand" href="/">Topic Posts</a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">

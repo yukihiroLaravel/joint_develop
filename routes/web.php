@@ -18,9 +18,11 @@ Route::get('search', 'SearchController@search')->name('search');
 // ユーザー新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
-//ユーザー
-Route::prefix('users')->group(function () {
-    Route::get('{id}', 'UserController@show')->name('user.show');
+
+Route::prefix('users/{id}')->group(function () {
+    Route::get('', 'UserController@show')->name('user.show');
+    Route::get('follow', 'UserController@followUsersShow')->name('users.follow');
+    Route::get('follower', 'UserController@followerUsersShow')->name('users.follower');
 });
 
 //ログイン
@@ -34,8 +36,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('edit', 'UserController@edit')->name('users.edit');
         Route::put('', 'UserController@update')->name('users.update');
         Route::delete('', 'UserController@destroy')->name('user.delete');
+        Route::post('follow', 'FollowController@store')->name('follow');
+        Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
     });
-
     Route::post('posts', 'PostsController@store')->name('post.store');
     Route::delete('post/{id}', 'PostsController@destroy')->name('post.delete');
 });
