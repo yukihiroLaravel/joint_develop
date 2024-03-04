@@ -31,13 +31,14 @@ class PostsController extends Controller
     {
         $user = \Auth::user();
         $post = Post::findOrFail($id);
-        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
         $data=[
             'user' => $user,
             'post' => $post,
-            'posts' => $posts,
         ];
-        return view('posts.edit', $data);
+        if (\Auth::check() && \Auth::id() == $post->user_id) {
+            return view('posts.edit', $data);
+        }
+        abort(404);
     }
 
     public function update(PostRequest $request, $id)
