@@ -33,11 +33,23 @@ class PostsController extends Controller
         // リクエストからキーワードを取得
         $keyword = $request->input('keyword');
     
+        // キーワードが空でない場合は分割する
+        $keywords = !empty($keyword) ? explode(' ', $keyword) : [];
+    
         // 検索結果の取得
         $posts = Post::orderBy('created_at', 'desc');
     
-        if (!empty($keyword)) {
-            $posts->where('text', 'like', '%' . $keyword . '%');
+        // キーワードが指定されている場合は、各キーワードに対して検索条件を追加する
+        if (!empty($keywords)) {
+            $posts->where(function ($query) use ($keywords) {
+                foreach ($keywords as $key => $word) {
+                    if ($key === 0) {
+                        $query->where('text', 'like', '%' . $word . '%');
+                    } else {
+                        $query->orWhere('text', 'like', '%' . $word . '%');
+                    }
+                }
+            });
         }
     
         $posts = $posts->paginate(10);
