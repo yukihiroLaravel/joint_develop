@@ -29,13 +29,11 @@ class PostsController extends Controller
 
     public function edit($id)
     {
-        $user = \Auth::user();
         $post = Post::findOrFail($id);
         $data=[
-            'user' => $user,
             'post' => $post,
         ];
-        if (\Auth::check() && \Auth::id() == $post->user_id) {
+        if (\Auth::id() == $post->user_id) {
             return view('posts.edit', $data);
         }
         abort(404);
