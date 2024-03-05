@@ -54,6 +54,9 @@ Route::get('users/{id}', 'UsersController@show')->name('user.show');
 // トップページ表示
 Route::get('/', 'PostsController@index')->name('welcome');//トップページへの遷移
 
+// 検索機能
+Route::get('search', 'PostsController@search')->name('posts.search');
+
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('users')->group(function() {

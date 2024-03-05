@@ -28,6 +28,42 @@ class PostsController extends Controller
         return back();
     }
 
+    public function search(Request $request)
+    {
+        // リクエストからキーワードを取得
+        $keyword = $request->input('keyword');
+    
+        // キーワードが空でない場合は分割する
+        $keywords = !empty($keyword) ? preg_split('/[\s　]+/u', $keyword) : [];
+    
+        // 検索結果の取得
+        $posts = Post::orderBy('created_at', 'desc');
+    
+        // キーワードが指定されている場合は、各キーワードに対して検索条件を追加する
+        if (!empty($keywords)) {
+            $posts->where(function ($query) use ($keywords) {
+                foreach ($keywords as $key => $word) {
+                    if ($key === 0) {
+                        $query->where('text', 'like', '%' . $word . '%');
+                    } else {
+                        $query->orWhere('text', 'like', '%' . $word . '%');
+                    }
+                }
+            });
+        }
+    
+        $posts = $posts->paginate(10);
+    
+        // ビューに渡すデータを準備
+        $data = [
+            'posts' => $posts,
+            'keyword' => $keyword,
+        ];
+    
+        // ビューにデータを渡して返す
+        return view('welcome', $data);
+    }
+    
     public function edit($id)
     {
         $user = \Auth::user();
