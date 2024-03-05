@@ -34,7 +34,7 @@ class PostsController extends Controller
         $keyword = $request->input('keyword');
     
         // キーワードが空でない場合は分割する
-        $keywords = !empty($keyword) ? explode(' ', $keyword) : [];
+        $keywords = !empty($keyword) ? preg_split('/[\s　]+/u', $keyword) : [];
     
         // 検索結果の取得
         $posts = Post::orderBy('created_at', 'desc');
