@@ -18,9 +18,10 @@ class UsersController extends Controller
             'user' => $user,
             'posts' => $posts,
         ];
-
-	    return view('users.show', $data);
-    } 
+        
+        return view('users.show', $data);
+    }
+    
 
     public function edit($id)
     {

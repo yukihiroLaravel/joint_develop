@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\SoftDeletes; // 追記
 
 class User extends Authenticatable
@@ -42,6 +43,41 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function follows()
+    {
+        return $this->belongsToMany(User::class, 'follow_users', 'following_id', 'followed_id')->withTimestamps();
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follow_users', 'followed_id', 'following_id')->withTimestamps();
+    }
+
+    public function follow($followedId)
+{
+    if ($followedId != Auth::id() && !$this->isFollow($followedId)) {
+        $this->follows()->attach($followedId);
+        return true;
+    }
+    
+    return false;
+}
+
+public function unfollow($followedId)
+{
+    if ($followedId != Auth::id() && $this->isFollow($followedId)) {
+        $this->follows()->detach($followedId);
+        return true;
+    }
+    
+    return false;
+}
+
+    public function isFollow($followedId)
+    {
+        return $this->follows()->where('followed_id', $followedId)->exists();
     }
 
     public static function boot()
