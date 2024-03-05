@@ -122,16 +122,17 @@ main {
     p {
         margin: 0 !important;
     }
-    time {
-        font-size: 0.8em;
-    }
-    .post_content {
-        line-height: 1.1em;
-    }
     .action_area {
         border-top: 1px solid silver;
         display: flex;
+        align-items: center;
         flex-wrap: wrap;
         gap: 0.5rem 1rem;
     }
+}
+.post_content {
+    line-height: 1.1em;
+}
+time {
+    font-size: 0.8em;
 }

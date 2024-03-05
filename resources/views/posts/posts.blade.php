@@ -26,17 +26,17 @@
                 </div>
                 <div class="pt-2 col-12 action_area">
                     {{-- いいね・コメントのボタンが入ります --}}
+                    @if ($post->user_id == Auth::id())
+                        <div class="d-flex m-auto">
+                            <form method="POST" action="{{ route('post.delete', $post->id) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger mr-2">削除</button>
+                            </form>
+                            <a href="" class="btn btn-primary">編集する</a>
+                        </div>
+                    @endif
                 </div>
-                @if ($post->user_id == Auth::id())
-                    <div class="d-flex justify-content-between pb-3 m-auto">
-                        <form method="POST" action="{{ route('post.delete', $post->id) }}">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">削除</button>
-                        </form>
-                        <a href="" class="btn btn-primary">編集する</a>
-                    </div>
-                @endif
             </div>
         </li>
     @endforeach
