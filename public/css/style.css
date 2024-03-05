@@ -113,4 +113,26 @@ main {
 .posts_container.active,
 .users_container.active {
   display: block;
+}
+
+.show_list_style > li {
+  border-top: 1px solid silver;
+}
+.show_list_style > li:last-child {
+  border-bottom: 1px solid silver;
+}
+.show_list_style > li p {
+  margin: 0 !important;
+}
+.show_list_style > li time {
+  font-size: 0.8em;
+}
+.show_list_style > li .post_content {
+  line-height: 1.1em;
+}
+.show_list_style > li .action_area {
+  border-top: 1px solid silver;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
 }/*# sourceMappingURL=style.css.map */
