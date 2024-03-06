@@ -15,3 +15,9 @@
         {{ session('flash_delete_message' ) }}
    </div>
 @endif
+
+if(session('flash_followers_message'))
+    <div class="alert alert-danger ">
+        {{ session('flash_followers_message' ) }}
+   </div>
+@endif

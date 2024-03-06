@@ -38,6 +38,7 @@ class FollowController extends Controller
             'user' => $user,
             'followers' => $followers
         ];
+        \Session::flash('flash_followers_message','フォローリストに追加されました。');
         return view('follow.followers', $data);
     }
 }
