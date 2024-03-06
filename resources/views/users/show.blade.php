@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+
+@include('partials.except_posts_flash_message')
+
 <div class="row">
       @include('partials.user_profile', ['user' => $user])
    <div class="col-sm-8">
