@@ -6,9 +6,9 @@
    </div>
 @endif
 
-@if (session('flash_create_message'))
+@if (session('flash_register_message'))
    <div class="alert alert-success ">
-        {{ session('flash_create_message' ) }}
+        {{ session('flash_register_message' ) }}
    </div>
 @elseif(session('flash_delete_message'))
     <div class="alert alert-danger ">

@@ -74,7 +74,7 @@ class RegisterController extends Controller
 
     protected function registered(Request $request, $user)
     { 
-        \Session::flash('flash_create_message','ユーザー登録が完了しました。');
+        \Session::flash('flash_register_message','ユーザー登録が完了しました。');
         return redirect('/'); 
     }
 }
