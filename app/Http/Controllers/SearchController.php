@@ -21,16 +21,21 @@ class SearchController extends Controller
                 $postsQuery->orwhere('content', 'LIKE', '%' . $searchWord . '%');
                 $usersQuery->orwhere('name', 'LIKE', '%' . $searchWord . '%');
             }
+
+            //
             $posts = $postsQuery->orderBy('id', 'desc')->paginate(10, ["*"], 'posts-page')->appends(["users-page" => $request->input('users-page')]);
             $users = $usersQuery->orderBy('id', 'desc')->paginate(10, ["*"], 'users-page')->appends(["posts-page" => $request->input('posts-page')]);
+            //
+
+            $activeList = $request->activeList;
             $data = [
                 'posts' => $posts,
                 'users' => $users,
                 'searchWords' => $searchWords,
-                'arraySearchWords' => $arraySearchWords
+                'arraySearchWords' => $arraySearchWords,
+                'activeList' => $activeList
             ];
-            $activeList = $request->activeList;
-            $data += ['activeList' => $activeList];
+
             return view('welcome', $data);
         }
     }
