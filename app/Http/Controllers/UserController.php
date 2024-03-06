@@ -6,6 +6,7 @@ use App\Http\Requests\UserRequest;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -24,6 +25,16 @@ class UserController extends Controller
     {
         if ($id == Auth::id()) {
             $user = User::findOrFail($id);
+            $current_icon = $user->icon;
+            if (request()->file('icon')) {
+                $new_icon = request()->file('icon')->store('public/images');
+                $new_icon = str_replace('public/images/', '', $new_icon);
+                if ($current_icon !== null) {
+                    Storage::disk('public')->delete('images/' . $current_icon);
+                }
+                $user->icon = $new_icon;
+            }
+
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);

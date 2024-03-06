@@ -26,9 +26,9 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => 'required | string | max:255',
-            // 'newEmail' => ['bail' | 'required' | 'string' | 'email:filter' | 'max:255' | Rule::unique('users', 'email')->whereNot('email', $currentEmail)->whereNull('deleted_at')],
             'email' => ['bail', 'required', 'string', 'email:filter', 'max:255', Rule::unique('users')->ignore($this->user())->whereNull('deleted_at')],
             'password' => 'required | string | min:8 | confirmed',
+            'icon' => 'image |mimes:png,jpg,jpeg'
         ];
     }
 }
