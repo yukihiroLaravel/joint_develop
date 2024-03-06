@@ -31,13 +31,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('', 'UserController@update')->name('users.update');
     Route::delete('', 'UserController@destroy')->name('user.delete');
   });
-//投稿編集、更新
+    //投稿編集、更新
   Route::prefix('posts')->group(function() {
     Route::get('create','PostsController@cerate')->name('post.cerate');
     Route::post('', 'PostsController@store')->name('post.store');
     Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
     Route::put('{id}', 'PostsController@update')->name('post.update');
-  });
-//投稿削除
-  Route::delete('post/{id}', 'PostsController@destroy')->name('post.delete');
+      //投稿削除
+    Route::delete('post/{id}', 'PostsController@destroy')->name('post.delete');
+  }); 
 });
