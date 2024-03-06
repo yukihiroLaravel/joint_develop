@@ -46,6 +46,7 @@ class UsersController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
 
+        \Session::flash('flash_update_message','編集が完了しました。');
         return redirect()->route('user.show', ['id' => $id]);
     }
     
@@ -54,6 +55,8 @@ class UsersController extends Controller
         if($id == Auth::id()) {
             $user = User::findOrFail($id);
             $user->delete();
+
+            \Session::flash('flash_destroy_message','ユーザが削除されました。');
             return redirect('/');
         }
     }
