@@ -26,8 +26,11 @@ class UserController extends Controller
         if ($id == Auth::id()) {
             $user = User::findOrFail($id);
             $currentIcon = $user->icon;
-            $requestIcon = request()->file('icon');
-            $userIcon = $this->userIcon($currentIcon, $requestIcon);
+            if (request()->file('icon')) {
+                $userIcon = $this->userIcon($currentIcon);
+            } else {
+                $userIcon = $currentIcon;
+            }
 
             $user->name = $request->name;
             $user->email = $request->email;
@@ -44,17 +47,14 @@ class UserController extends Controller
         abort(404);
     }
 
-    public function userIcon($currentIcon, $requestIcon)
+    public function userIcon($currentIcon)
     {
-        if ($requestIcon) {
-            $newIcon = request()->file('icon')->store('public/images');
-            $newIcon = str_replace('public/images/', '', $newIcon);
-            if ($currentIcon !== null) {
-                Storage::disk('public')->delete('images/' . $currentIcon);
-                $userIcon = $newIcon;
-            }
-            return $userIcon;
+        $newIcon = request()->file('icon')->store('public/images');
+        $newIcon = str_replace('public/images/', '', $newIcon);
+        if ($currentIcon !== null) {
+            Storage::disk('public')->delete('images/' . $currentIcon);
         }
+        return $newIcon;
     }
 
     public function destroy($id)
