@@ -52,6 +52,6 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
         $post->content = $request->content;
         $post->save();
-        return redirect('/');//view('welcom'で書こうとしたらどのようなコードが望ましいですか？
+        return redirect('/');
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Requests\UserRequest;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -41,10 +42,45 @@ class UserController extends Controller
     {
         if ($id == Auth::id()) {
             $user = User::findOrFail($id);
+            $user->followUsers()->detach();
+            foreach ($user->followerUsers as $followerUser) {
+                $followerUser->followUsers()->detach($id);
+            }
             $user->delete();
             return redirect('/');
         }
         abort(404);
+    }
+
+    public function userRelation($id, $relation)
+    {
+        $user = User::findOrFail($id);
+        if ($relation == 'follow') {
+            $usersList = $user->followUsers();
+        }
+        if ($relation == 'follower') {
+            $usersList = $user->followerUsers();
+        }
+        $usersList = $usersList->orderBy('id', 'desc')->paginate(10);
+        $data = [
+            'user' => $user,
+            'usersList' => $usersList,
+        ];
+        $data += $this->userCounts($user);
+        return $data;
+    }
+
+    public function followUsersShow($id)
+    {
+        $relation = 'follow';
+        $data = $this->userRelation($id, $relation);
+        return view('users.show', $data);
+    }
+    public function followerUsersShow($id)
+    {
+        $relation = 'follower';
+        $data = $this->userRelation($id, $relation);
+        return view('users.show', $data);
     }
 
     public function show($id)
@@ -58,6 +94,4 @@ class UserController extends Controller
         $data += $this->userCounts($user);
         return view('users.show', $data);
     }
-    
-
 }
