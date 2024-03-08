@@ -4,7 +4,7 @@
 @includeWhen(isset($arraySearchWords), 'commons.search_result_text', [
     'subjects' => $posts,
     'subjectsName' => '投稿',
-]);
+])
 <ul class="list-unstyled">
     @foreach ($posts as $post)
         <li class="mb-3 text-center">
@@ -34,4 +34,4 @@
     @endforeach
 </ul>
 
-@include('commons.index_pagination', ['subjects' => $posts]);
+@include('commons.index_pagination', ['subjects' => $posts])
