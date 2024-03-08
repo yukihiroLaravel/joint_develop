@@ -18,7 +18,6 @@
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
                 <li class="nav-item">
-                    {{-- <a href="{{ $user->id }}" class="nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}"> タイムライン</a> --}}
                     <a href="{{ route('user.show', $user->id) }}" class="nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}"> タイムライン</a>
                 </li>
                 <li class="nav-item">
