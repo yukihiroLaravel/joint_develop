@@ -5,7 +5,7 @@
     'subjects' => $posts,
     'subjectsName' => '投稿',
 ])
-<ul class="list-unstyled">
+<ul class="list-unstyled d-flex align-items-center flex-column show_list_style">
     @foreach ($posts as $post)
         <li class="col-11 col-sm-10 col-lg-8 pt-3 pb-3">
             <div class="d-flex align-items-center justify-content-centor mb-2">
