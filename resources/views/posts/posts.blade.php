@@ -1,3 +1,10 @@
+@php
+    $activeList = 'posts';
+@endphp
+@includeWhen(isset($arraySearchWords), 'commons.search_result_text', [
+    'subjects' => $posts,
+    'subjectsName' => '投稿',
+])
 <ul class="list-unstyled">
     @foreach ($posts as $post)
         <div>
@@ -5,24 +12,25 @@
             <div class="text-left d-inline-block w-75 mb-2">
                 <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
                 <p class="mt-3 mb-0 d-inline-block"><a
-                        href="{{ route('user.show', $post->user_id) }}">{{ $post->user->name }}</a>
-                    @include('follows.follow_button', ['id' => $post->user_id])</p>
+                     href="{{ route('user.show', $post->user_id) }}">{{ $post->user->name }}</a>
+                 @include('follows.follow_button', ['id' => $post->user_id])</p>
             </div>
             <div class="text-left d-inline-block w-75">
                 <p class="mb-2">{{ $post->content }}</p>
                 <p class="text-muted">{{ $post->created_at }}</p>
             </div>
             @if ($post->user_id == Auth::id())
-            <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                <form method="POST" action="{{ route('post.delete', $post->id) }}">
-                    @csrf
-                    @method('DELETE')
+                <div class="d-flex justify-content-between w-75 pb-3 m-auto">
+                    <form method="POST" action="{{ route('post.delete', $post->id) }}">
+                        @csrf
+                        @method('DELETE')
                         <button type="submit" class="btn btn-danger">削除</button>
-                </form>
-                <a href="{{ route('post.edit',$post->id) }}" class="btn btn-primary">編集する</a>            
+                    </form>
+                    <a href="{{ route('post.edit',$post->id) }}" class="btn btn-primary">編集する</a> 
+                </div>           
             @endif
-                
-        </div>
-    </li>
+        </li>
     @endforeach
 </ul>
+
+@include('commons.index_pagination', ['subjects' => $posts])
