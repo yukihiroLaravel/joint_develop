@@ -12,10 +12,6 @@
                 <p class="text-muted">{{$post->created_at}}</p>
                 @include('favorite.favorite_button', ['post' => $post])
             </div>
-            <div class="text-left d-inline-block w-75">
-                <p class="mb-2">{{ $post->content }}</p>
-                <p class="text-muted">{{ $post->created_at }}</p>
-            </div>
             @if ($post->user_id == Auth::id())
                 <div class="d-flex justify-content-between w-75 pb-3 m-auto">
                     <form method="POST" action="{{ route('post.delete', $post->id) }}">
