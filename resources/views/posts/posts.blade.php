@@ -1,3 +1,10 @@
+@php
+    $activeList = 'posts';
+@endphp
+@includeWhen(isset($arraySearchWords), 'commons.search_result_text', [
+    'subjects' => $posts,
+    'subjectsName' => '投稿',
+])
 <ul class="list-unstyled">
     @foreach ($posts as $post)
         <li class="mb-3 text-center">
@@ -7,20 +14,24 @@
                         href="{{ route('user.show', $post->user_id) }}">{{ $post->user->name }}</a>
                     @include('follows.follow_button', ['id' => $post->user_id])</p>
             </div>
-            <div class="text-left d-inline-block w-75">
-                <p class="mb-2">{{ $post->content }}</p>
-                <p class="text-muted">{{ $post->created_at }}</p>
-            </div>
-            @if ($post->user_id == Auth::id())
-                <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                    <form method="POST" action="{{ route('post.delete', $post->id) }}">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">削除</button>
-                    </form>
-                    <a href="" class="btn btn-primary">編集する</a>
+            <div>
+                <div class="text-left d-inline-block w-75">
+                    <p class="mb-2">{!! nl2br(e($post->content)) !!}</p>
+                    <p class="text-muted">{{ $post->created_at }}</p>
                 </div>
-            @endif
+                @if ($post->user_id == Auth::id())
+                    <div class="d-flex justify-content-between w-75 pb-3 m-auto">
+                        <form method="POST" action="{{ route('post.delete', $post->id) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">削除</button>
+                        </form>
+                        <a href="" class="btn btn-primary">編集する</a>
+                    </div>
+                @endif
+            </div>
         </li>
     @endforeach
 </ul>
+
+@include('commons.index_pagination', ['subjects' => $posts])
