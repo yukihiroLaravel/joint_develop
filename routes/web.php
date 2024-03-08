@@ -20,6 +20,8 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 //ユーザ詳細
 Route::get('users/{id}', 'UsersController@show')->name('user.show');
+Route::get('users/{id}/followingUsers', 'UsersController@followingUsers')->name('user.followingUsers');
+Route::get('users/{id}/followers', 'UsersController@followers')->name('user.followers');
 
 // ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

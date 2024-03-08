@@ -26,7 +26,7 @@ class UsersController extends Controller
             'user' => $user,
             'posts' => $posts,
         ];
-	    return view('users.show', $data);
+        return view('users.show', $data);
     }
 
     public function update(UserRequest $request, $id) {   
@@ -39,4 +39,27 @@ class UsersController extends Controller
         $user->save();
         return redirect()->route('users.edit', ['id' => $user->id]);
     }
+
+    public function followingUsers($id)
+    {
+        $user = User::findOrFail($id);
+        $followings = $user->followings()->orderBy('id', 'desc')->paginate(10);
+        $data = [
+            'user' => $user,
+            'followings' => $followings,
+        ];
+        return view('users.show', $data);
+    }
+
+    public function followers($id)
+    {
+        $user = User::findOrFail($id);
+        $followers = $user->followers()->orderBy('id', 'desc')->paginate(10);
+        $data = [
+            'user' => $user,
+            'followers' => $followers,
+        ];
+        return view('users.show', $data);
+    }
+    
 }
