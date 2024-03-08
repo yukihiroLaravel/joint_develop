@@ -1,17 +1,11 @@
-@if (isset($arraySearchWords))
-    @php
-        $searchedWords = implode('",' . "\n" . '"', $arraySearchWords);
-    @endphp
-    <h5 class="text-center mt-4 mb-4">
-        @if ($posts->count() == 0)
-            <span class="searched_words">"{{ $searchedWords }}"
-            </span>が含まれる投稿はありませんでした。
-        @else
-            <span class="searched_words">"{{ $searchedWords }}"</span>を含む投稿の検索結果
-        @endif
-    </h5>
-@endif
-<ul class="list-unstyled d-flex align-items-center flex-column show_list_style">
+@php
+    $activeList = 'posts';
+@endphp
+@includeWhen(isset($arraySearchWords), 'commons.search_result_text', [
+    'subjects' => $posts,
+    'subjectsName' => '投稿',
+])
+<ul class="list-unstyled">
     @foreach ($posts as $post)
         <li class="col-11 col-sm-10 col-lg-8 pt-3 pb-3">
             <div class="d-flex align-items-center justify-content-centor mb-2">
@@ -41,13 +35,5 @@
         </li>
     @endforeach
 </ul>
-<div class="d-flex justify-content-center">
-    @php
-        $activeList = 'posts';
-    @endphp
-    @if (isset($searchWords))
-        {{ $posts->appends(['activeList' => $activeList, 'searchWords' => $searchWords])->links('pagination::bootstrap-4') }}
-    @else
-        {{ $posts->appends(['activeList' => $activeList])->links('pagination::bootstrap-4') }}
-    @endif
-</div>
+
+@include('commons.index_pagination', ['subjects' => $posts])

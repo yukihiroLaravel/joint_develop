@@ -3,7 +3,8 @@
     <div class="center jumbotron bg-info">
         <div class="text-center text-white">
             <h1><i class="fa-brands fa-telegram mr-2"></i>Topic Posts</h1>
-            <form method="GET" action="{{ route('search') }}" class="col-lg-6 col-md-8 col mr-auto ml-auto search_form">
+            <form method="GET" action="{{ action('PostsController@index') }}"
+                class="col-lg-6 col-md-8 col mr-auto ml-auto search_form">
                 @csrf
                 <input type="hidden" name="activeList" value="{{ isset($activeList) ? $activeList : 'posts' }}">
                 <input type="text" name="searchWords" value="{{ isset($searchWords) ? $searchWords : '' }}"
@@ -32,30 +33,11 @@
     <ul class="show_category_list list-unstyled">
         <li class="category_btn posts_btn" id="posts">投稿</li>
         <li class="category_btn users_btn" id="users">ユーザー</li>
-        @if (Auth::check())
-            <li>フォロー中</li>
-            <li>いいね一覧</li>
-        @endif
     </ul>
-    @php
-        if (isset($searchWords)) {
-            $data = [
-                'posts' => $posts,
-                'users' => $users,
-                'searchWords' => $searchWords,
-                'arraySearchWords' => $arraySearchWords,
-            ];
-        } else {
-            $data = [
-                'posts' => $posts,
-                'users' => $users,
-            ];
-        }
-    @endphp
     <div class="category_container posts_container active">
-        @include('posts.posts', $data)
+        @include('posts.posts')
     </div>
     <div class="category_container users_container">
-        @include('users.users', $data)
+        @include('users.users')
     </div>
 @endsection

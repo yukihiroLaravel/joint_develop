@@ -17,7 +17,6 @@ $(function () {
                 var param_name = "users";
             }
         }
-        console.log(param_name);
         showCategorySwitch(param_name);
     });
     $(".category_btn").click(function () {
