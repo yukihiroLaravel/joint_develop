@@ -36,4 +36,11 @@ class UsersController extends Controller
         }
         return back();
     }
+
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        // dd($user);
+        return view('users.show',['user'=>$user]);
+    }
 }
