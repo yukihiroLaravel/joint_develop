@@ -14,9 +14,13 @@ class Controller extends BaseController
     {
         $countPosts = $user->posts()->count();
         $countFavorites = $user->favorites()->count();
+        $countFollows = $user->follows()->count();
+        $countFollowers = $user->followers()->count();
         return [
             'countPosts' => $countPosts,
             'countFavorites' => $countFavorites,
+            'countFollows' => $countFollows,
+            'countFollowers' => $countFollowers,
         ];
     }
 }
