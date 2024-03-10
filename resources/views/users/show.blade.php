@@ -36,16 +36,16 @@
             <!-- フォローが表示される場合 -->
             @if(Request::is('users/'. $user->id. '/followingUsers'))
             <ul class="list-unstyled">
-                @foreach ($followings as $following)
+                @foreach ($users as $user)
                 <li class="mb-3 text-center">
                     <div class="text-left d-inline-flex w-75 mb-2 align-items-center justify-content-between">
                         <div>
-                            <img class="mr-2 rounded-circle" src="{{ Gravatar::src($following->email, 55) }}" alt="ユーザのアバター画像">
-                            <p class="mt-3 mb-0 d-inline-block"><a href="">{{ $following->name }}</a></p>
+                            <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
+                            <p class="mt-3 mb-0 d-inline-block"><a href="">{{ $user->name }}</a></p>
                         </div>
                         <!-- フォローボタン -->
                         <div>
-                            @include('follow.follow', ['following' => $following])
+                            @include('follow.follow', ['user' => $user])
                         </div>
                     </div>
                 </li>
@@ -56,16 +56,16 @@
             <!-- フォロワーが表示される場合 -->
             @if(Request::is('users/'. $user->id. '/followers'))
             <ul class="list-unstyled">
-                @foreach ($followers as $follower)
+                @foreach ($users as $user)
                 <li class="mb-3 text-center">
                     <div class="text-left d-inline-flex w-75 mb-2 align-items-center justify-content-between">
                         <div>
-                            <img class="mr-2 rounded-circle" src="{{ Gravatar::src($follower->email, 55) }}" alt="ユーザのアバター画像">
-                            <p class="mt-3 mb-0 d-inline-block"><a href="">{{ $follower->name }}</a></p>
+                            <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
+                            <p class="mt-3 mb-0 d-inline-block"><a href="">{{ $user->name }}</a></p>
                         </div>
                     <!-- フォローボタン -->
                         <div>
-                            @include('follow.follow', ['follower' => $follower])
+                            @include('follow.follow', ['user' => $user])
                         </div>
                     </div>
                 </li>

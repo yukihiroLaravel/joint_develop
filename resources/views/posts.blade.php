@@ -1,4 +1,5 @@
 <ul class="list-unstyled">
+    {{-- 以下は投稿に関してだからpostのままにする --}}
 @foreach($posts as $post)
     <li class="mb-3 text-center">
         <div class="text-left d-inline-block w-75 mb-2">
@@ -21,7 +22,7 @@
                     </form>
                     <a href="" class="btn btn-primary">編集する</a>
                 @else
-                    @include('follow.follow', ['userId' => $post->user->id])
+                    @include('follow.follow', ['post' => $post->user->id])
                 @endif
             </div>
         </div>
