@@ -49,4 +49,11 @@ class PostsController extends Controller
         }
         return back();
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $posts = Post::where('content', 'like', "%{$search}%")->paginate(10);
+        return view('welcome', compact('posts'));
+    }
 }
