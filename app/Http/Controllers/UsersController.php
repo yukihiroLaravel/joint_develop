@@ -5,19 +5,31 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\User;
-use Illuminate\Support\Facades\Hash;
+use App\Post;
+use Illuminate\Support\Facades\Hash; // クラスの外側で必要なクラスをインポート
 
 class UsersController extends Controller
 {
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
+        $data=[
+            'user' => $user,
+            'posts' => $posts,
+        ];
+        return view('users.show', $data);
+    }
+
     public function edit($id)
     {
         if ($id == \Auth::id()) {
             $user = \Auth::user();
-            return view('users.edit',['user'=>$user]);
+            return view('users.edit', ['user' => $user]);
         }
         abort(404);
     }
-    
+
     public function update(UserRequest $request, $id)
     {
         $user = User::findOrFail($id);
@@ -35,12 +47,5 @@ class UsersController extends Controller
             $user->delete();
         }
         return back();
-    }
-
-    public function show($id)
-    {
-        $user = User::findOrFail($id);
-        // dd($user);
-        return view('users.show',['user'=>$user]);
     }
 }

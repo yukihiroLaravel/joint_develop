@@ -15,6 +15,10 @@
 Route::get('signup','Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup','Auth\RegisterController@register')->name('signup.post');
 
+//ユーザー詳細
+Route::prefix('users')->group(function(){
+    Route::get('{id}', 'UsersController@show')->name('user.show');
+});
 // ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
@@ -25,6 +29,8 @@ Route::group(['middleware' => 'auth'], function () {
     // 投稿
     Route::prefix('posts')->group(function () {
         Route::post('/', 'PostsController@store')->name('post.store');
+        Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
+        Route::put('{id}', 'PostsController@update')->name('post.update');
     });
     // ユーザ　
     Route::prefix('users')->group(function () {
@@ -35,7 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
     // フォロー
      Route::group(['prefix' => 'users/{id}'],function() {
-        Route::post('follower','FollowerControler@store')->name('follower');
+        Route::post('follower','FollowerController@store')->name('follower');
         Route::delete('unfollower','FollowerController@destroy')->name('unfollower');
      });
 });
