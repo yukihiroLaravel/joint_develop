@@ -5,6 +5,11 @@
         @csrf
         @method('PUT')
         @include('commons.error_messages')
+        @if (session('editsuccess'))
+        	<div class="alert alert-primary text-center">
+        	{{ session('editsuccess') }}
+        	</div> 
+	    @endif
         <div class="form-group">
             <label for="name">ユーザ名</label>
             <input class="form-control" value="{{ old('name', $user->name) }}" name="name" />

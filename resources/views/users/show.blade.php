@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
     <div class="row">
         <aside class="col-sm-4 mb-5">
             <div class="card bg-info">
@@ -23,8 +22,17 @@
                 <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
             </ul>
+            @if (session('deleteMessage'))
+                <div class="alert alert-warning text-center">
+                {{ session('deleteMessage') }}
+                </div> 
+            @endif
+            @if (session('updatesuccess'))
+                <div class="alert alert-primary text-center">
+                {{ session('updatesuccess') }}
+                </div> 
+            @endif
             @include('posts', ['$posts' => $posts])
         </div>
     </div>
-</div>
 @endsection

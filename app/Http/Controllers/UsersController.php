@@ -37,13 +37,13 @@ class UsersController extends Controller
             $user->password = bcrypt($request->input('password'));
         }
         $user->save();
-        return redirect()->route('users.edit', ['id' => $user->id]);
+        return redirect()->route('users.edit', ['id' => $user->id])->with('editsuccess', '登録情報を更新しました');
     }
     
     public function destroy($id)
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect('/');
+        return redirect('/')->with('destroyMessage', '退会処理をしました');
     }
 }
