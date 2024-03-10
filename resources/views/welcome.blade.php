@@ -9,7 +9,7 @@
 @if(Auth::check())
     <div class="w-75 m-auto">@include('commons.error_messages')</div>
     <div class="text-center mb-3">
-    @if (session('registMessage'))
+        @if (session('registMessage'))
             <div class="alert alert-primary text-center">
             {{ session('registMessage') }}
             </div> 
