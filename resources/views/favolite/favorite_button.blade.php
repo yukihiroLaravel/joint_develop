@@ -1,4 +1,4 @@
-@if (Auth::check() && Auth::id() !== $post->user_id)
+@if (Auth::check() && Auth::id() !== $post->user_id && $post->favorite_flag)
     @if (Auth::user()->isFavorite($post->id))
         <form method="POST" action="{{ route('unfavorite', $post->user_id && $post->favorite_flag) }}">
             @csrf
