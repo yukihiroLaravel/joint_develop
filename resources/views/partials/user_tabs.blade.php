@@ -8,7 +8,7 @@
     <li class="nav-item">
         <a href="{{ route('user.follows', $user->id) }}" class="nav-link {{ Route::is('user.follows') ? 'active' : '' }}">フォロー中<br>
         <div class="badge badge-secondary">{{ $countFollows }}
-        </div>   
+        </div>
         </a>
     </li>
     <li class="nav-item">
