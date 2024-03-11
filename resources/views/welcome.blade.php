@@ -9,39 +9,29 @@
 @if(Auth::check())
     <div class="w-75 m-auto">@include('commons.error_messages')</div>
     <div class="text-center mb-3">
-        @if (session('registMessage'))
+        @if (session('updateMessage'))
             <div class="alert alert-primary text-center">
-            {{ session('registMessage') }}
-            </div> 
-        @endif
-        @if (session('loginMessage'))
-            <div class="alert alert-info text-center">
-            {{ session('loginMessage') }}
+            {{ session('updateMessage') }} <!-- 新規登録、ユーザー情報変更、投稿内容変更 -->
             </div> 
         @endif
         @if (session('successMessage'))
             <div class="alert alert-info text-center">
-            {{ session('successMessage') }}
+            {{ session('successMessage') }} <!-- ログイン、投稿 -->
             </div> 
         @endif
         @if (session('deleteMessage'))
             <div class="alert alert-warning text-center">
-            {{ session('deleteMessage') }}
-            </div> 
-        @endif
-        @if (session('updatesuccess'))
-            <div class="alert alert-primary text-center">
-            {{ session('updatesuccess') }}
+            {{ session('deleteMessage') }} <!-- 投稿削除 -->
             </div> 
         @endif
         @if (session('followedMessage'))
             <div class="rounded border border-success p-1 mb-1 bg-success text-white text-center">
-            {{ session('followedMessage') }}
+            {{ session('followedMessage') }} <!-- フォローする -->
             </div> 
         @endif
         @if (session('unfollowMessage'))
             <div class="rounded border border-danger p-1 mb-1 text-danger text-center">
-            {{ session('unfollowMessage') }}
+            {{ session('unfollowMessage') }} <!-- フォロー解除 -->
             </div> 
         @endif
         <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
@@ -57,12 +47,12 @@
 @endif
 @if (session('logoutMessage'))
     <div class="alert alert-info text-center">
-    {{ session('logoutMessage') }}
+    {{ session('logoutMessage') }} <!-- ログアウト -->
     </div> 
 @endif
 @if (session('destroyMessage'))
     <div class="alert alert-danger text-center">
-    {{ session('destroyMessage') }}
+    {{ session('destroyMessage') }} <!-- 退会処理 -->
     </div> 
 @endif
 <!-- 投稿一覧を表示するコンテンツを追加 -->

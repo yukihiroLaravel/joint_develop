@@ -39,7 +39,7 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
         $post->save();
-        return redirect('/')->with('updatesuccess', '投稿を更新しました');
+        return redirect('/')->with('updateMessage', '投稿を更新しました');
     }
     //投稿の削除
     public function destroy($id) {
@@ -47,6 +47,6 @@ class PostsController extends Controller
         if (\Auth::id() === $post->user_id) {
             $post->delete();
         }
-        return back()->with('deleteMessage', '投稿を削除しました');
+        return redirect('/')->with('deleteMessage', '投稿を削除しました');
     }
 }

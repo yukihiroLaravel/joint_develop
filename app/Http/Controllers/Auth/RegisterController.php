@@ -30,7 +30,7 @@ class RegisterController extends Controller
      * @var string
      */
     protected function redirectTo() {
-        session()->flash('registMessage', 'ユーザーを登録できました');
+        session()->flash('updateMessage', 'ユーザーを登録できました');
         return '/';
     }
 
