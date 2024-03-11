@@ -30,7 +30,7 @@
 
             {{-- タイムラインが表示される場合 --}}
             @if(Request::is('users/'. $user->id))
-                @include('posts', ['posts' => $posts])
+                @include('posts', ['user' => $user])
             @endif
 
             <!-- フォローが表示される場合 -->
