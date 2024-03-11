@@ -1,5 +1,4 @@
 <ul class="list-unstyled">
-    {{-- 以下は投稿に関してだからpostのままにする --}}
 @foreach($posts as $post)
     <li class="mb-3 text-center">
         <div class="text-left d-inline-block w-75 mb-2">
