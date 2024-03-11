@@ -25,9 +25,9 @@
                         <img src="{{ $iconSrc }}" alt="ユーザーアバター" id="user_icon_preview" class="rounded-circle img-fluid">
                     </div>
                     <div class="mt-3 d-flex flex-wrap justify-content-between" style="gap: 0.5em">
-                        <label class="btn btn-warning col-lg col-12">
+                        <label for="icon" class="btn btn-warning col-lg col-12">
                             画像追加
-                            <input type="file" form="user_updata" name="icon" hidden>
+                            <input type="file" form="user_updata" name="icon">
                         </label>
                         <button type="button" id="reset_icon" class="btn btn-light col-lg clo-12">リセット</button>
                     </div>

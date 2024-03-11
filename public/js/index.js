@@ -26,4 +26,21 @@ $(function () {
     });
 
     //　ユーザーアイコン変更時のプレビュー
+    window.onload = function () {
+        let currentIconSrc = document
+            .querySelector("#user_icon_preview")
+            .getAttribute("src");
+        return currentIconSrc;
+    };
+    document.querySelector('input[name="icon"]').onchange = function () {
+        if (condition) {
+        }
+        let fileReader = new FileReader();
+        fileReader.onload = function (e) {
+            document
+                .querySelector("#user_icon_preview")
+                .setAttribute("src", e.target.result);
+        };
+        fileReader.readAsDataURL(this.files[0]);
+    };
 });
