@@ -27,9 +27,9 @@
                 {{ session('deleteMessage') }}
                 </div> 
             @endif
-            @if (session('updatesuccess'))
+            @if (session('updateSuccessMessage'))
                 <div class="alert alert-primary text-center">
-                {{ session('updatesuccess') }}
+                {{ session('updateSuccessMessage') }}
                 </div> 
             @endif
             @include('posts', ['$posts' => $posts])

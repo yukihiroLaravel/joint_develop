@@ -6,12 +6,24 @@
     </div>
 </div>
 <h5 class="text-center mb-3">"趣味や仕事"について140字以内で会話しよう！</h5>
+@guest
+    @if (session('successMessage'))
+        <div class="alert alert-info text-center">
+        {{ session('successMessage') }} <!-- ログアウト -->
+        </div> 
+    @endif
+    @if (session('destroyMessage'))
+        <div class="alert alert-danger text-center">
+        {{ session('destroyMessage') }} <!-- 退会処理 -->
+        </div> 
+    @endif
+@endguest
 @if(Auth::check())
     <div class="w-75 m-auto">@include('commons.error_messages')</div>
     <div class="text-center mb-3">
-        @if (session('updateMessage'))
+        @if (session('updateSuccessMessage'))
             <div class="alert alert-primary text-center">
-            {{ session('updateMessage') }} <!-- 新規登録、ユーザー情報変更、投稿内容変更 -->
+            {{ session('updateSuccessMessage') }} <!-- 新規登録、ユーザー情報変更、投稿内容変更 -->
             </div> 
         @endif
         @if (session('successMessage'))
@@ -44,16 +56,6 @@
             </div>
         </form>
     </div>
-@endif
-@if (session('logoutMessage'))
-    <div class="alert alert-info text-center">
-    {{ session('logoutMessage') }} <!-- ログアウト -->
-    </div> 
-@endif
-@if (session('destroyMessage'))
-    <div class="alert alert-danger text-center">
-    {{ session('destroyMessage') }} <!-- 退会処理 -->
-    </div> 
 @endif
 <!-- 投稿一覧を表示するコンテンツを追加 -->
     <div class="post-list">

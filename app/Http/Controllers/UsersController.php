@@ -37,7 +37,7 @@ class UsersController extends Controller
             $user->password = bcrypt($request->input('password'));
         }
         $user->save();
-        return redirect()->route('users.edit', ['id' => $user->id])->with('updateMessage', '登録情報を更新しました');
+        return redirect()->route('users.edit', ['id' => $user->id])->with('updateSuccessMessage', '登録情報を更新しました');
     }
     
     public function destroy($id)

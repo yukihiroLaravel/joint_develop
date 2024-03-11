@@ -5,9 +5,9 @@
         @csrf
         @method('PUT')
         @include('commons.error_messages')
-        @if (session('updateMessage'))
+        @if (session('updateSuccessMessage'))
         	<div class="alert alert-primary text-center">
-        	{{ session('updateMessage') }} <!-- ユーザー情報変更 -->
+        	{{ session('updateSuccessMessage') }} <!-- ユーザー情報変更 -->
         	</div> 
 	    @endif
         <div class="form-group">
