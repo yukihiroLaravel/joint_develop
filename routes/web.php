@@ -45,6 +45,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
     Route::put('{id}', 'PostsController@update')->name('post.update');
       //投稿削除
-    Route::delete('post/{id}', 'PostsController@destroy')->name('post.delete');
+    Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
   }); 
 });
