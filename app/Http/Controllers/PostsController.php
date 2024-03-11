@@ -15,7 +15,8 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
         $post->save();
-        return back();
+        // return back();
+        return back()->with('successMessage', '投稿に成功しました！');
     }
 
     public function index()
@@ -34,7 +35,7 @@ class PostsController extends Controller
             'post' => $post,
         ];
         if (\Auth::id() == $post->user_id) {
-            return view('posts.edit', $data);
+            return view('posts.edit',$data);
         }
         abort(404);
     }
@@ -45,6 +46,7 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
         $post->save();
-        return redirect('/');
+        // return redirect('/');
+        return redirect('/')->with('updatePost', '投稿を更新しました');
     }
 }
