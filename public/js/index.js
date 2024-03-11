@@ -1,4 +1,5 @@
 $(function () {
+    // トップページのタブ切り替え
     function showCategorySwitch(param_name) {
         const btn = $("." + param_name + "_btn");
         const container = $("." + param_name + "_container");
@@ -23,4 +24,6 @@ $(function () {
         var param_name = $(this).attr("id");
         showCategorySwitch(param_name);
     });
+
+    //　ユーザーアイコン変更時のプレビュー
 });

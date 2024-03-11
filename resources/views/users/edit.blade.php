@@ -10,27 +10,31 @@
     @php
         $id = $user->id;
     @endphp
-    <div class="row">
-        <aside class="col-sm-4 mb-5">
+    <div class="d-flex flex-wrap">
+        <aside class="col-sm-4 col-12">
             <div class="card bg-info">
                 <div class="card-body">
                     @php
                         if ($user->icon == null) {
                             $iconSrc = Gravatar::src($user->email, 400);
                         } else {
-                            $iconSrc = asset('storage/images/' . $user->icon);
+                            $iconSrc = asset('storage/images/userIcons/' . $user->icon);
                         }
                     @endphp
-                    <img class="rounded-circle img-fluid" src="{{ $iconSrc }}" alt="ユーザーアバター"
-                        style="object-fit: cover;aspect-ratio: 1 / 1;">
-                    <div class="mt-3 text-center">
-                        <input type="file" form="user_updata" name="icon">
+                    <div class="preview-box">
+                        <img src="{{ $iconSrc }}" alt="ユーザーアバター" id="user_icon_preview" class="rounded-circle img-fluid">
+                    </div>
+                    <div class="mt-3 d-flex flex-wrap justify-content-between" style="gap: 0.5em">
+                        <label class="btn btn-warning col-lg col-12">
+                            画像追加
+                            <input type="file" form="user_updata" name="icon" hidden>
+                        </label>
+                        <button type="button" id="reset_icon" class="btn btn-light col-lg clo-12">リセット</button>
                     </div>
                 </div>
             </div>
         </aside>
-        <div class="col-sm-8">
-
+        <div class="col-sm-8 col-12">
             <form method="POST" action="{{ route('users.update', $id) }}" id="user_updata" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
