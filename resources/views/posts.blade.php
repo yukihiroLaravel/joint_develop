@@ -21,7 +21,7 @@
                     </form>
                     <a href="" class="btn btn-primary">編集する</a>
                 @else
-                    @include('follow.follow', ['userId' => $post->user->id])
+                    @include('follow.follow', ['user' => $post->user])
                 @endif
             </div>
         </div>
