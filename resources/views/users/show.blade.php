@@ -32,9 +32,7 @@
                 {{ session('updateSuccessMessage') }}
                 </div> 
             @endif
-            <div class="post-list">
-                @include('posts', ['$posts' => $posts])
-            </div>
+        @include('posts', ['$posts' => $posts])        
         </div>
     </div>
 @endsection
