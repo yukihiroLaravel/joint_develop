@@ -24,7 +24,7 @@
                     <img class="rounded-circle img-fluid" src="{{ $iconSrc }}" alt="ユーザーアバター"
                         style="object-fit: cover;aspect-ratio: 1 / 1;">
                     <div class="mt-3 text-center">
-                        <input type="file" form="user_updata" name="icon">
+                        <input type="file" form="user_updata" name="icon" accept=".png, .jpg, .jpeg">
                     </div>
                 </div>
             </div>
