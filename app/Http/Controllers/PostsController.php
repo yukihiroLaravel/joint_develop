@@ -47,6 +47,7 @@ class PostsController extends Controller
         $post->save();
         return redirect('/');
     }
+    
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
