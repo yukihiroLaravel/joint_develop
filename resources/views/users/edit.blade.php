@@ -14,15 +14,8 @@
         <aside class="col-sm-4 col-12">
             <div class="card bg-info">
                 <div class="card-body">
-                    @php
-                        if ($user->icon == null) {
-                            $iconSrc = Gravatar::src($user->email, 400);
-                        } else {
-                            $iconSrc = asset('storage/images/userIcons/' . $user->icon);
-                        }
-                    @endphp
                     <div class="preview-box">
-                        <img src="{{ $iconSrc }}" alt="ユーザーアバター" id="user_icon_preview" class="rounded-circle img-fluid">
+                        @include('commons.user_icon', ['user' => $user])
                     </div>
                     <div class="mt-3 text-center" style="gap: 0.5em">
                         <label class="btn btn-warning col-10">
