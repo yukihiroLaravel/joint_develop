@@ -20,11 +20,10 @@
                     <div class="mt-3 text-center" style="gap: 0.5em">
                         <label class="btn btn-warning col-10">
                             画像追加
-                            <input type="file" form="user_updata" name="icon" hidden>
+                            <input type="file" form="user_updata" name="icon" accept=".png, .jpg, .jpeg" hidden>
                         </label>
                     </div>
                 </div>
-            </div>
         </aside>
         <div class="col-sm-8 col-12">
             <form method="POST" action="{{ route('users.update', $id) }}" id="user_updata" enctype="multipart/form-data">
