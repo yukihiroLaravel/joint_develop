@@ -37,17 +37,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
         Route::put('{id}', 'UsersController@update')->name('user.update');
         Route::delete('{id}','UsersController@destroy')->name('user.delete');
-        Route::get('{id}','UsersController@show')->name('user.show');
     });
     // フォロー
      Route::group(['prefix' => 'users/{id}'],function() {
-        Route::post('follower','FollowerController@store')->name('follower');
-        Route::delete('unfollower','FollowerController@destroy')->name('unfollower');
+        Route::post('follower','FollowController@store')->name('follow');
+        Route::delete('unfollower','FollowController@destroy')->name('unfollow');
      });
 });
 
 // トップページの投稿表示
 Route::get('/', 'PostsController@index');
-
-// フォロー
-Route::get('users/{id}/followers','UsersController@folloowers')->name('user.followers');
