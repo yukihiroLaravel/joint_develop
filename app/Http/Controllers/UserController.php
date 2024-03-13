@@ -6,6 +6,7 @@ use App\Http\Requests\UserRequest;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -24,9 +25,17 @@ class UserController extends Controller
     {
         if ($id == Auth::id()) {
             $user = User::findOrFail($id);
+            $currentIcon = $user->icon;
+            if (request()->file('icon')) {
+                $userIcon = $this->userIcon($currentIcon);
+            } else {
+                $userIcon = $currentIcon;
+            }
+
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
+            $user->icon = $userIcon;
             $user->save();
             $successMessage = "ユーザー情報を変更しました。";
 
@@ -38,6 +47,16 @@ class UserController extends Controller
         abort(404);
     }
 
+    public function userIcon($currentIcon)
+    {
+        $newIcon = request()->file('icon')->store('public/images');
+        $newIcon = str_replace('public/images/', '', $newIcon);
+        if ($currentIcon !== null) {
+            Storage::disk('public')->delete('images/' . $currentIcon);
+        }
+        return $newIcon;
+    }
+
     public function destroy($id)
     {
         if ($id == Auth::id()) {
@@ -46,6 +65,7 @@ class UserController extends Controller
             foreach ($user->followerUsers as $followerUser) {
                 $followerUser->followUsers()->detach($id);
             }
+            Storage::disk('public')->delete('images/' . $user->icon);
             $user->delete();
             return redirect('/');
         }
