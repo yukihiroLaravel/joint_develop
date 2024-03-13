@@ -24,14 +24,16 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-// ログイン後（ログイン後にしか3つのルートにアクセスできない。）
+// ログイン後（ログイン後にしか次のルートにアクセスできない。）
 Route::group(['middleware' => 'auth'], function () {
     // 投稿
     Route::prefix('posts')->group(function () {
         Route::post('/', 'PostsController@store')->name('post.store');
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
+        Route::delete('{id}', 'PostsController@destroy')->name('post.delete'); 
     });
+
     // ユーザ　
     Route::prefix('users')->group(function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
