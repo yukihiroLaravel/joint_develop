@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('content')
-    <div class="center jumbotron bg-info">
+    <div class="center jumbotron bg-success">
         <div class="text-center text-white mt-2 pt-1">
-        <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
+        <h1><i class="fab fa-telegram fa-lg pr-3"></i>お役立ち情報 for エンジニア</h1>
         </div>
     </div>
-    <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
+    <h5 class="text-center mb-3">これは役に立ったと思ったものを140字以内でシェアしよう！</h5>
         <div class="w-75 m-auto">
             @include('commons.error_messages')
         </div>
