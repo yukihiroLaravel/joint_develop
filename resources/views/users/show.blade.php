@@ -30,7 +30,20 @@
 
             {{-- タイムラインが表示される場合 --}}
             @if(Request::is('users/'. $user->id))
-                @include('posts', ['user' => $user])
+
+                @if (session('deleteMessage'))
+                    <div class="alert alert-warning text-center">
+                    {{ session('deleteMessage') }}
+                    </div>
+                @endif
+                @if (session('updateSuccessMessage'))
+                    <div class="alert alert-primary text-center">
+                    {{ session('updateSuccessMessage') }}
+                    </div>
+                @endif
+                <div>
+                    @include('posts', ['user' => $user])
+                </div>
             @endif
 
             <!-- フォローが表示される場合 -->

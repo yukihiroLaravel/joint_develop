@@ -9,12 +9,12 @@ class FollowController extends Controller
     public function store($id) 
     {
         \Auth::user()->follow($id);
-        return back();
+        return back()->with('followedMessage', 'ユーザーをフォローしました');
     }
 
     public function destroy($id)
     {
         \Auth::user()->unFollow($id);
-        return back();
+        return back()->with('unfollowMessage', 'ユーザーをフォローからはずしました');
     }
 }
