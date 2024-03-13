@@ -15,8 +15,7 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
         $post->save();
-        // return back();
-        return back()->with('successMessage', '投稿に成功しました！');
+        return back()->with('createMessage', '投稿に成功しました！');
     }
 
     public function index()
@@ -46,7 +45,6 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
         $post->save();
-        // return redirect('/');
-        return redirect('/')->with('updatePost', '投稿を更新しました');
+        return redirect('/')->with('updateMessage', '投稿を更新しました');
     }
 }
