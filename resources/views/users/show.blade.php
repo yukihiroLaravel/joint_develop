@@ -40,7 +40,9 @@
                     {{ session('updateSuccessMessage') }}
                     </div>
                 @endif
-                @include('posts', ['user' => $user])
+                <div>
+                    @include('posts', ['user' => $user])
+                </div>
             @endif
 
             <!-- フォローが表示される場合 -->
