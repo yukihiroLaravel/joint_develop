@@ -138,4 +138,15 @@ main {
 
 time {
   font-size: 0.8em;
+}
+
+.top-icon {
+  background-color: white;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+}
+.top-icon > svg {
+  color: #17a2b8 !important;
+  width: 0.6em;
 }/*# sourceMappingURL=style.css.map */

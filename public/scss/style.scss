@@ -136,3 +136,14 @@ main {
 time {
     font-size: 0.8em;
 }
+
+.top-icon {
+    background-color: white;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    & > svg {
+        color: $mainColor !important;
+        width: 0.6em;
+    }
+}

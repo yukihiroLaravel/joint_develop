@@ -1,8 +1,10 @@
 @extends('layouts.app')
 @section('content')
-    <div class="center jumbotron bg-info">
+    <div class="center jumbotron bg-info" style="background-image: url({{ asset('storage/images/24822580.png') }})">
         <div class="text-center text-white">
-            <h1><i class="fa-brands fa-telegram mr-2"></i>Topic Posts</h1>
+            <h1 class="d-flex align-items-center justify-content-center"><span
+                    class="top-icon mr-1 d-flex align-items-center justify-content-center"><i
+                        class="fa-solid fa-paw"></i></span><b>にゃんにゃんポスト</b></h1>
             <form method="GET" action="{{ action('PostsController@index') }}"
                 class="col-lg-6 col-md-8 col mr-auto ml-auto search_form">
                 @csrf
