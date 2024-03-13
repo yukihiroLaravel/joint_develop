@@ -14,7 +14,6 @@
 
                     <!-- ログインユーザー本人の場合、削除と編集するボタンを表示する -->
                     @if (Auth::check() && Auth::user()->id == $post->user->id)
-                        <form method="" action="">
                         <form method="POST" action="{{ route('post.delete', $post->id) }}">
                             @csrf
                             @method('DELETE')
