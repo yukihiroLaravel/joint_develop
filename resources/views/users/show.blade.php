@@ -30,6 +30,7 @@
 
             {{-- タイムラインが表示される場合 --}}
             @if(Request::is('users/'. $user->id))
+
                 @if (session('deleteMessage'))
                     <div class="alert alert-warning text-center">
                     {{ session('deleteMessage') }}
