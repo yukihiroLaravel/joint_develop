@@ -40,6 +40,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{id}', 'UsersController@update')->name('user.update');
         Route::delete('{id}','UsersController@destroy')->name('user.delete');
     });
+    // フォロー
+     Route::group(['prefix' => 'users/{id}'],function() {
+        Route::post('follower','FollowController@store')->name('follow');
+        Route::delete('unfollower','FollowController@destroy')->name('unfollow');
+     });
 });
 
 // トップページの投稿表示

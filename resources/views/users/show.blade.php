@@ -10,9 +10,19 @@
             <div class="card-body">
                 {{--<img class="rounded-circle img-fluid" src="{{ asset($user->profile_image) }}" alt="User Profile Image">--}}
                 <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 300) }}" alt="ユーザのアバター画像">
-                <div class="mt-3">
-                    <a href="{{ route('user.show', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
-                </div>
+                @auth
+                    @if( Auth::user()->id == $user->id)
+                        <div class="mt-3">
+                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                        </div>
+                    @else
+                        <br>
+                        <br>
+                        <div class="text-center mb-3">
+                            @include('follower.follower_button', ['user' => $user])
+                        </div>
+                    @endif
+                @endauth
             </div>
         </div>
     </aside>
