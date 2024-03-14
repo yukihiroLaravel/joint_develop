@@ -20,6 +20,20 @@
                     </div>
                 </div>
                 @endif
+                        {{-- 投稿のフラッシュメッセージ --}}
+                        @if (session('createMessage'))
+                            <div class="alert alert-success text-center">
+                        {{ session('createMessage') }}
+                            </div>
+                        @endif
+                        {{-- フラッシュメッセージ終わり --}}
+                        {{-- 更新のフラッシュメッセージ --}}
+                        @if (session('updateMessage'))
+                            <div class="alert alert-primary text-center">
+                        {{ session('updateMessage') }}
+                            </div>
+                        @endif
+                        {{-- フラッシュメッセージ終わり --}}
             </form>
         </div>
     @include('posts.posts', ['posts' => $posts])
