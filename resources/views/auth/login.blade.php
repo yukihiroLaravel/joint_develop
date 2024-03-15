@@ -1,9 +1,7 @@
 @extends('layouts.app')
 @section('content')
-    <div class="text-center">
-        <h1 class="d-flex align-items-center justify-content-center" style="color: #685e5b;"><span
-                class="top-icon mr-1 d-flex align-items-center justify-content-center bg-info"><i
-                    class="fa-solid fa-paw"></i></span><b>にゃんにゃんPosts</b></h1>
+    <div class="d-flex align-items-end justify-content-center" style="color: #685e5b;">
+        <h1>にゃんにゃんPosts</h1><span class="title_icon ml-1"><i class="fa-solid fa-paw"></i></span>
     </div>
     <div class="text-center mt-3">
         <p class="text-left d-inline-block">ログインすると投稿で<br>コミュニケーションができるようになります。</p>

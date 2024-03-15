@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('content')
     <div class="center jumbotron bg-info">
-        <div class="cat1"><img src="{{ asset('storage/images/cat1.svg') }}" alt="猫"></div>
+        <div class="cat1"><img src="https://abeaidesign.com/img/cat1.svg" alt="猫"></div>
         <div class="text-center text-white">
-            <h1 class="d-flex align-items-center justify-content-center"><span
-                    class="top-icon mr-1 d-flex align-items-center justify-content-center"><i
-                        class="fa-solid fa-paw"></i></span><b>にゃんにゃんPosts</b></h1>
+            <div class="d-flex align-items-end justify-content-center">
+                <h1>にゃんにゃんPosts</h1><span class="title_icon ml-1"><i class="fa-solid fa-paw"></i></span>
+            </div>
             <form method="GET" action="{{ action('PostsController@index') }}"
                 class="col-lg-6 col-md-8 col mr-auto ml-auto search_form">
                 @csrf

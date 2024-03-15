@@ -12,7 +12,7 @@
 */
 
 //投稿一覧
-Route::get('/', 'PostsController@index');
+Route::get('/', 'PostsController@index')->name('index');
 
 // ユーザー新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');

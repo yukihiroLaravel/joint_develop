@@ -1,21 +1,30 @@
 $mainColor: #685e5b;
 $black: #231917;
 $accentColor: #ed5235;
-$borderColor: rgba($mainColor, 0.5);
-
+$borderColor: rgba($mainColor, 0.6);
+$borderColor-light: rgba($mainColor, 0.3);
 body {
     display: flex;
     flex-flow: column;
     min-height: 100vh;
     color: $black;
 }
+h1 {
+    font-family: "Cherry Bomb One", system-ui;
+    line-height: 1em;
+    margin-bottom: 0;
+}
+.title_icon {
+    font-size: 2rem;
+    line-height: 1em;
+}
 .nav-tabs .nav-link {
-    border-bottom-color: rgba($mainColor, 0.3);
+    border-bottom-color: $borderColor-light;
     &:hover {
-        border-color: rgba($mainColor, 0.3) rgba($mainColor, 0.3) $borderColor;
+        border-color: $borderColor-light $borderColor-light rgba(white, 0.7);
     }
     &.active {
-        border-color: $borderColor $borderColor none;
+        border-color: $borderColor $borderColor rgba(white, 0.7);
         background-color: rgba(white, 0.7);
     }
 }
@@ -30,6 +39,10 @@ form .form-control {
 .btn_accent-color {
     background-color: $accentColor;
     color: white;
+    &:hover {
+        background-color: #f67255;
+        color: white;
+    }
 }
 .background_img {
     position: fixed;
@@ -202,17 +215,6 @@ main {
 }
 time {
     font-size: 0.8em;
-}
-
-.top-icon {
-    background-color: white;
-    width: 1em;
-    height: 1em;
-    border-radius: 50%;
-    & > svg {
-        color: $mainColor;
-        width: 0.6em;
-    }
 }
 footer {
     position: relative;

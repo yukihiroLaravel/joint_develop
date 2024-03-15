@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            <div class="cat1"><img src="{{ asset('storage/images/cat1.svg') }}" alt="猫"></div>
+            <div class="cat1"><img src="https://abeaidesign.com/img/cat1.svg" alt="猫"></div>
         </aside>
         <div class="col-sm-8">
 
