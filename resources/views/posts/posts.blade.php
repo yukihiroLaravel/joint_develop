@@ -17,7 +17,7 @@
                     <p class="mb-2">{{ $post->text}}</p>
                     <p class="text-muted">{{ $post->created_at }}</p>
                 </div>
-                <a href="{{ route('comments.show', $post->id) }}" class="btn btn-primary">コメントする</a>
+                <a href="{{ route('comments.show', $post->id) }}" class="btn btn-primary">コメントする</a> 
                 @if (Auth::check() && Auth::id() === $post->user_id)
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
                         <form action="{{ route('post.delete', $post->id) }}" method="POST">

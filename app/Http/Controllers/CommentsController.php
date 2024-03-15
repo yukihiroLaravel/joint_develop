@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
+use App\Post;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CommentController extends Controller
+class CommentsController extends Controller
 {
     public function index()
    {
@@ -18,17 +18,18 @@ class CommentController extends Controller
    
     }
 
-    public function store(Request $request, Post $post)
+    public function store(Request $request)
     {
         $request->validate([
             'body' => ['required', 'string', 'max:140'], // 必須のコメント本文
+            'post_id' => ['required', 'exists:posts,id'], // 存在する投稿IDであることを確認
         ]);
 
         $user = \Auth::user();
         $comment = new Comment();
         $comment->body = $request->body;
         $comment->user_id = $user->id;
-        $comment->post_id = $post->id;
+        $comment->post_id = $request->post_id;
         $comment->save();
 
         return back();
