@@ -11,7 +11,7 @@
         $id = $user->id;
     @endphp
     <div class="row">
-        <aside class="col-sm-4 mb-5">
+        <aside class="col-sm-4 mb-5" style="position: relative">
             <div class="card bg-info">
                 <div class="card-body">
                     @php
@@ -28,6 +28,7 @@
                     </div>
                 </div>
             </div>
+            <div class="cat1"><img src="{{ asset('storage/images/cat1.svg') }}" alt="猫"></div>
         </aside>
         <div class="col-sm-8">
 

@@ -4,8 +4,8 @@
 @includeWhen(isset($arraySearchWords), 'commons.search_result_text', [
     'subjects' => $users,
     'subjectsName' => 'ユーザー',
-]);
-<ul class="list-unstyled">
+])
+<ul class="list-unstyled d-flex flex-column pt-3 pb-3  background-color_white col-11 col-sm-10 col-lg-8">
     @foreach ($users as $user)
         <li class="mb-3 text-center">
             <div class="text-left d-inline-block w-75 mb-2">
@@ -17,4 +17,4 @@
     @endforeach
 </ul>
 
-@include('commons.index_pagination', ['subjects' => $users]);
+@include('commons.index_pagination', ['subjects' => $users])

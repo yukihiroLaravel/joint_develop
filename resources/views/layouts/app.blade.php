@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Topic Posts</title>
+    <title>にゃんにゃんPosts</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -13,6 +13,7 @@
 
 <body>
     @include('commons.header')
+    <div class="background_img" style="background-image: url({{ asset('storage/images/backgroundImg.png') }})"></div>
     <main class="container">
         @yield('content')
     </main>

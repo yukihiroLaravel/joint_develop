@@ -1,4 +1,4 @@
-<ul class="list-unstyled">
+<ul class="list-unstyled d-flex flex-column pt-3 pb-3  background-color_white col">
     @if ($usersList->count() == 0)
         <li class="mb-3 text-center">
             <p class="text-left d-inline-block w-75 mb-2">
