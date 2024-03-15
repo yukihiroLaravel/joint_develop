@@ -42,7 +42,6 @@ class PostsController extends Controller
     public function store(PostRequest $request)
     {
         $user = Auth::user();
-
         $post = new Post;
         $post->user_id = $user->id;
         $post->content = $request->content;
@@ -61,19 +60,25 @@ class PostsController extends Controller
     }  
     public function edit($id)
     {
-         $post = Post::findOrFail($id);
-        if (\Auth::id() === $post->user_id) {
-            return view('posts.edit',[
-                'post' => $post,
-            ]);
-        }
+        $post = Post::findOrFail($id);
+            if (\Auth::id() === $post->user_id) {
+                return view('posts.edit',[
+                    'post' => $post,
+                ]);
+            }
+        return back();
     }
 
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
-        $post->content = $request->content;
-        $post->save();
-        return redirect('/');
+        if (\Auth::id() === $post->user_id){
+            $post->content = $request->content;
+            $post->save();
+            return redirect('/');
+        } else {
+            return back();
+        }
+
     }
 }
