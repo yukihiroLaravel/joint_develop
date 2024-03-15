@@ -23,7 +23,7 @@
                         <label for="password">パスワード</label>
                         <input id="password" type="password" class="form-control" name="password" value="{{ old('password') }}">
                     </div>
-                    <button type="submit" class="btn btn-primary mt-2">ログイン</button>
+                    <button type="submit" class="btn btn-info mt-2">ログイン</button>
                 </form>
                 <div class="mt-2"><a href="{{ route('signup') }}">新規ユーザ登録しますか？</a></div>
             </div>
