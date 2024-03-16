@@ -95,6 +95,10 @@ public function unfollow($followedId)
     }
     public function favorite($postId)
     {
+        $posts = Post::findOrFail($postId);
+        if (\Auth::id() === $posts->user_id) {
+            return false;
+        }
         $exist = $this->isFavorite($postId);
         if ($exist) {
             return false;
@@ -105,6 +109,10 @@ public function unfollow($followedId)
     }
     public function unfavorite($postId)
     {
+        $posts = Post::findOrFail($postId);
+        if (\Auth::id() === $posts->user_id) {
+            return false;
+        }
         $exist = $this->isFavorite($postId);
         if ($exist) {
             $this->favorites()->detach($postId);

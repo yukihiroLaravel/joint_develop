@@ -1,6 +1,6 @@
-@if (Auth::check() && Auth::id() !== $post->user_id && $post->favorite_flag)
+@if (Auth::check() && Auth::id() !== $post->user_id)
     @if (Auth::user()->isFavorite($post->id))
-        <form method="POST" action="{{ route('unfavorite', $post->user_id && $post->favorite_flag) }}">
+        <form method="POST" action="{{ route('unfavorite', $post->id) }}">
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-danger">いいね！を外す</button>

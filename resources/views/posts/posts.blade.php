@@ -36,6 +36,7 @@
                         <span class="badge badge-pill badge-success">{{ $countFavoriteUsers }}</span>
                     </div>
                 </div>
+                @include('favorite.favorite_button', ['post' => $post])
             </div>
         </li>
     @endforeach
