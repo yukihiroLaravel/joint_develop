@@ -136,3 +136,19 @@ main {
 time {
     font-size: 0.8em;
 }
+.btn-warning {
+    background-color: orange;
+    border-color: orange;
+    color: white;
+    &:hover {
+        color: white;
+    }
+}
+label {
+    margin: 0;
+}
+
+.user_icon {
+    object-fit: cover;
+    aspect-ratio: 1/1;
+}
