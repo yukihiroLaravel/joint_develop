@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
-use App\Models\Comment;
+use App\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,10 +37,13 @@ class CommentsController extends Controller
 
     public function show($id)
     {
+        $user = \Auth::user();
         $post = Post::findOrFail($id);
+        $posts = Post::all();
         $comments = $post->comments()->orderBy('id', 'desc')->paginate(10);
         $data = [
             'post' => $post,
+            'posts' => $posts,
             'comments' => $comments,
         ];
         
