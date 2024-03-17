@@ -10,15 +10,15 @@
     @php
         $id = $user->id;
     @endphp
-    <div class="d-flex flex-wrap">
-        <aside class="col-sm-4 col-12">
+    <div class="row">
+        <aside class="col-sm-4 col-12 mb-5">
             <div class="card bg-info">
-                <div class="card-body">
+                <div class="card-body text-center">
                     <div class="preview-box">
                         @include('commons.user_icon', ['user' => $user])
                     </div>
-                    <div class="mt-3 text-center" style="gap: 0.5em">
-                        <label class="btn btn-warning col-10">
+                    <div class="mt-3 col-12">
+                        <label class="btn btn-warning w-100">
                             画像追加
                             <input type="file" form="user_updata" name="icon" accept=".png, .jpg, .jpeg" hidden>
                         </label>

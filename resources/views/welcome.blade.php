@@ -26,7 +26,7 @@
                 @csrf
                 <div class="form-group">
                     <textarea class="form-control" name="content" rows="4">{{ old('content') }}</textarea>
-                    <div class="text-left mt-3">
+                    <div class="text-right mt-3">
                         <button type="submit" class="btn btn_accent-color">投稿する</button>
                     </div>
                 </div>
