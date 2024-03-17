@@ -13,3 +13,15 @@
         {{ session('flash_destroy_message') }}
    </div>
 @endif
+
+@if (session('post_register_message'))
+   <div class="alert alert-success">
+        {{ session('post_register_message') }}
+   </div>
+@endif
+
+@if (session('post_destory_message'))
+    <div class="alert alert-danger">
+        {{ session('post_destory_message') }}
+    </div>
+@endif
