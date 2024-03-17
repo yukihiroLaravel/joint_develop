@@ -37,7 +37,7 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
-        return back();
+        return redirect('/')->with('updateMessage', 'ユーザー情報を更新しました');
     }
 
     public function destroy($id)
@@ -46,6 +46,7 @@ class UsersController extends Controller
         if (\Auth::id() == $user->id) {
             $user->delete();
         }
-        return back();
+        return redirect('/')->with('updateMessage', 'ユーザーを削除しました');
     }
+
 }
