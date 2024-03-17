@@ -53,7 +53,10 @@ class PostsController extends Controller
     public function search(Request $request)
     {
         $search = $request->input('search');
-        $posts = Post::where('content', 'like', "%{$search}%")->paginate(10);
-        return view('welcome', compact('posts'));
+        $posts = Post::where('content', 'like', "%{$search}%")
+        ->orderBy('id', 'desc')->paginate(10);
+        return view('welcome', [
+            'posts' => $posts,
+        ]);
     }
 }
