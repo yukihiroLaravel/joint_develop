@@ -49,10 +49,10 @@ class UserController extends Controller
 
     public function userIcon($currentIcon)
     {
-        $newIcon = request()->file('icon')->store('public/images');
-        $newIcon = str_replace('public/images/', '', $newIcon);
+        $newIcon = request()->file('icon')->store('public/images/userIcons');
+        $newIcon = str_replace('public/images/userIcons/', '', $newIcon);
         if ($currentIcon !== null) {
-            Storage::disk('public')->delete('images/' . $currentIcon);
+            Storage::disk('public')->delete('images/userIcons/' . $currentIcon);
         }
         return $newIcon;
     }
@@ -65,7 +65,7 @@ class UserController extends Controller
             foreach ($user->followerUsers as $followerUser) {
                 $followerUser->followUsers()->detach($id);
             }
-            Storage::disk('public')->delete('images/' . $user->icon);
+            Storage::disk('public')->delete('images/userIcons/' . $user->icon);
             $user->delete();
             return redirect('/');
         }
