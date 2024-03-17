@@ -19,4 +19,4 @@
     @endforeach
 </ul>
 
-@include('commons.index_pagination', ['subjects' => $users]);
+@include('commons.index_pagination', ['subjects' => $users])
