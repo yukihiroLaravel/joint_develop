@@ -102,7 +102,7 @@ return [
     'required_with' => ':valuesが指定されている場合、:attributeも指定してください。',
     'required_with_all' => ':valuesが全て指定されている場合、:attributeも指定してください。',
     'required_without' => ':valuesが指定されていない場合、:attributeを指定してください。',
-    'required_without_all' => ':valuesが全て指定されていない場合、:attributeを指定してください。',
+    'required_without_all' => ':values、:attributeどちらかは必ず指定してください。',
     'same' => ':attributeと:otherが一致しません。',
     'size' => [
         'numeric' => ':attributeには、:sizeを指定してください。',
