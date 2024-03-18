@@ -26,7 +26,7 @@ class UsersController extends Controller
             'user' => $user,
             'posts' => $posts,
         ];
-	    return view('users.show', $data);
+        return view('users.show', $data);
     }
 
     public function update(UserRequest $request, $id) {   
@@ -37,13 +37,35 @@ class UsersController extends Controller
             $user->password = bcrypt($request->input('password'));
         }
         $user->save();
-        return redirect()->route('users.edit', ['id' => $user->id]);
+        return redirect()->route('users.edit', ['id' => $user->id])->with('updateSuccessMessage', '登録情報を更新しました');
+    }
+
+    public function followingUsers($id)
+    {
+        $user = User::findOrFail($id);
+        $users = $user->followings()->orderBy('id', 'desc')->paginate(10);
+        $data = [
+            'user' => $user,
+            'users' => $users,
+        ];
+        return view('users.show', $data);
+    }
+
+    public function followers($id)
+    {
+        $user = User::findOrFail($id);
+        $users = $user->followers()->orderBy('id', 'desc')->paginate(10);
+        $data = [
+            'user' => $user,
+            'users' => $users,
+        ];
+        return view('users.show', $data);
     }
     
     public function destroy($id)
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect('/');
+        return redirect('/')->with('destroyMessage', '退会処理をしました');
     }
 }
