@@ -26,9 +26,21 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => 'required | string | max:255',
-            // 'newEmail' => ['bail' | 'required' | 'string' | 'email:filter' | 'max:255' | Rule::unique('users', 'email')->whereNot('email', $currentEmail)->whereNull('deleted_at')],
             'email' => ['bail', 'required', 'string', 'email:filter', 'max:255', Rule::unique('users')->ignore($this->user())->whereNull('deleted_at')],
             'password' => 'required | string | min:8 | confirmed',
+            'icon' => 'image |mimes:png,jpg,jpeg|max:1024'
+        ];
+    }
+    /**
+     * バリデーションエラーメッセージ
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'icon.max' => 'ファイルサイズが大きすぎます。ファイルサイズは1MB以内にしてください。',
+            'icon.mimes' => '指定のファイル形式以外は添付できません。',
         ];
     }
 }
