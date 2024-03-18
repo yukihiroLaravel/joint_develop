@@ -94,7 +94,7 @@ class User extends Authenticatable
         return $this->followUsers()->where('followed_user_id', $id)->exists();
     }
 
-
+    
     public function favorites()
     {
         return $this->belongsToMany(Post::class, 'favorites', 'user_id', 'post_id')->withTimestamps();
@@ -102,7 +102,7 @@ class User extends Authenticatable
     public function favorite($postId)
     {
         $exist = $this->isFavorite($postId);
-        if ($exist) {
+        if ($exist && Auth::id() === $post->user_id) {
             return false;
         } else {
             $this->favorites()->attach($postId);
@@ -112,8 +112,11 @@ class User extends Authenticatable
     public function unfavorite($postId)
     {
         $exist = $this->isFavorite($postId);
-        if ($exist) {
+        if ($exist && Auth::id() === $post->user_id) {
+            return false;
+        } else {
             $this->favorites()->detach($postId);
+            return true;
         }
     }   
     public function isFavorite($postId)
@@ -123,5 +126,10 @@ class User extends Authenticatable
     protected static function boot()
     {
         parent::boot();
+        static::deleted(function ($user) {
+            $user->posts()->delete();
+        });
     }
+    
 }
+
