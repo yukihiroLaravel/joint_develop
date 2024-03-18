@@ -7,9 +7,11 @@
 ])
 <ul class="list-unstyled d-flex align-items-center flex-column show_list_style">
     @foreach ($posts as $post)
-        <li class="col-11 col-sm-10 col-lg-8 pt-3 pb-3">
-            <div class="d-flex align-items-center justify-content-centor mb-2">
-                <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
+        <li class="pt-3 pb-3 col-11 {{ Route::is('user.show') ? '' : 'col-sm-10 col-lg-8' }}">
+            <div class="d-flex align-items-center mb-2">
+                <div class="mr-2" style="width: 55px">
+                    @include('commons.user_icon', ['user' => $post->user])
+                </div>
                 <p><a href="{{ route('user.show', $post->user_id) }}">{{ $post->user->name }}</a>
                     @include('follows.follow_button', ['id' => $post->user_id])</p>
             </div>
