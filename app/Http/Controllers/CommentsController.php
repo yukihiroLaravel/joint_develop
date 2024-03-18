@@ -39,11 +39,10 @@ class CommentsController extends Controller
     {
         $user = \Auth::user();
         $post = Post::findOrFail($id);
-        $posts = Post::all();
         $comments = $post->comments()->orderBy('id', 'desc')->paginate(10);
         $data = [
+            'user' => $user,
             'post' => $post,
-            'posts' => $posts,
             'comments' => $comments,
         ];
         
