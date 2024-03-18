@@ -46,7 +46,7 @@ class UsersController extends Controller
         if (\Auth::id() == $user->id) {
             $user->delete();
         }
-        return redirect('/')->with('updateMessage', 'ユーザーを削除しました');
+        return redirect('/')->with('deleteMessage', 'ユーザーを削除しました');
     }
 
 }
