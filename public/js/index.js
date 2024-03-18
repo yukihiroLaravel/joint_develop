@@ -1,4 +1,5 @@
 $(function () {
+    // トップページのタブ切り替え
     function showCategorySwitch(param_name) {
         const btn = $("." + param_name + "_btn");
         const container = $("." + param_name + "_container");
@@ -23,4 +24,26 @@ $(function () {
         var param_name = $(this).attr("id");
         showCategorySwitch(param_name);
     });
+
+    //　ユーザーアイコン変更時のプレビュー
+    function getIconSrc() {
+        src = document.querySelector("#user_icon_preview").getAttribute("src");
+        return src;
+    }
+    const currentIconSrc = getIconSrc();
+    document.querySelector('input[name="icon"]').onchange = function () {
+        let fileReader = new FileReader();
+        fileReader.onload = function (e) {
+            document
+                .querySelector("#user_icon_preview")
+                .setAttribute("src", e.target.result);
+        };
+        if (this.files[0]) {
+            fileReader.readAsDataURL(this.files[0]);
+        } else {
+            document
+                .querySelector("#user_icon_preview")
+                .setAttribute("src", currentIconSrc);
+        }
+    };
 });
