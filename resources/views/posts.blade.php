@@ -4,11 +4,7 @@
         <div class="text-left d-inline-block w-75 mb-2">
             <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
             <p class="mt-3 mb-0 d-inline-block">
-                @if(Auth::check() && Auth::id() == $post->user->id)
-                    <a href="{{ route('user.show', Auth::id()) }}">{{ $post->user->name }}</a>
-                @else
-                    <a href="{{ route('user.show', $post->user->id) }}">{{ $post->user->name }}</a>
-                @endif
+                <a href="{{ route('user.show', $post->user->id) }}">{{ $post->user->name }}</a>
             </p>
         </div>
         <div class="">

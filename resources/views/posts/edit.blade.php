@@ -7,11 +7,11 @@
         @include('commons.error_messages')
         <div class="form-group">
             <textarea id="content" class="form-control" name="content" rows="5">{{ old('content', $post->content) }}</textarea>
-        @if($post->image)
-            <div class="mt-5">
-                <img src="{{ Storage::url($post->image) }}" alt="投稿画像" class="img-fluid">
-            </div>
-        @endif
+            @if($post->image)
+                <div class="mt-5">
+                    <img src="{{ Storage::url($post->image) }}" alt="投稿画像" class="img-fluid">
+                </div>
+            @endif
             <div class="pt-3">
                 <input type="file" name="image">
             </div>
