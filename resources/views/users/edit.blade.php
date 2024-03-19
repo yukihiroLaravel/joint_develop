@@ -19,7 +19,7 @@
                     </div>
                     <div class="mt-3 text-center" style="gap: 0.5em">
                         <label class="btn btn-warning col-10">
-                            画像追加
+                            画像編集
                             <input type="file" form="user_updata" name="icon" accept=".png, .jpg, .jpeg" hidden>
                         </label>
                     </div>
