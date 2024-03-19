@@ -49,4 +49,14 @@ class PostsController extends Controller
         }
         return redirect('/')->with('deleteMessage', '投稿を削除しました');
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $posts = Post::where('content', 'like', "%{$search}%")
+        ->orderBy('id', 'desc')->paginate(10);
+        return view('welcome', [
+            'posts' => $posts,
+        ]);
+    }
 }

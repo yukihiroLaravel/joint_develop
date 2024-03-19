@@ -57,8 +57,18 @@
         </form>
     </div>
 @endif
-<!-- 投稿一覧を表示するコンテンツを追加 -->
-    <div class="post-list">
-        @include('posts', ['$posts' => $posts])
+
+<!-- 検索フォームを追加 -->
+<br>
+<form action="{{ route('posts.search') }}" method="GET" class="mb-3 d-flex justify-content-center">
+    <div class="form-group d-flex">
+        <input type="text" name="search" value="{{ request('search') }}" placeholder="投稿を検索" class="form-control" style="flex: 3; min-width: 350px;">
+        <button type="submit" class="btn btn-primary ml-2">検索</button>
     </div>
+</form>
+
+<!-- 投稿一覧を表示するコンテンツを追加 -->
+<div class="post-list">
+    @include('posts', ['posts' => $posts])
+</div>
 @endsection

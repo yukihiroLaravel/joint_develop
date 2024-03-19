@@ -25,6 +25,9 @@ Route::prefix('users/{id}')->group(function () {
     Route::get('/followers', 'UsersController@followers')->name('user.followers');
 });
 
+// 検索用（検索窓）のルート・ログインは不要
+Route::get('/search', 'PostsController@search')->name('posts.search');
+
 // ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
