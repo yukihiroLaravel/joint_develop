@@ -45,10 +45,9 @@ class UserController extends Controller
         if ($id == Auth::id()) {
             $user = User::findOrFail($id);
             $currentIcon = $user->icon;
+            $userIcon = $currentIcon;
             if (request()->file('icon')) {
                 $userIcon = $this->userIcon($currentIcon);
-            } else {
-                $userIcon = $currentIcon;
             }
             $user->icon = $userIcon;
             $user->save();

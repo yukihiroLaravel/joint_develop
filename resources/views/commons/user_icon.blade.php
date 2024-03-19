@@ -1,7 +1,6 @@
 @php
-    if ($user->icon == null) {
-        $iconSrc = Gravatar::src($user->email, 400);
-    } else {
+    $iconSrc = Gravatar::src($user->email, 400);
+    if ($user->icon !== null) {
         $iconSrc = asset('storage/images/userIcons/' . $user->icon);
     }
 @endphp
