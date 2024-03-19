@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\UserIconRequest;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -21,23 +22,36 @@ class UserController extends Controller
         abort(404);
     }
 
-    public function update(UserRequest $request, $id)
+    public function updata(UserRequest $request, $id)
+    {
+        if ($id == Auth::id()) {
+            $user = User::findOrFail($id);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->save();
+            $successMessage = "ユーザー情報を変更しました。";
+
+            return view('users.edit', [
+                'user' => $user,
+                'successMessage' => $successMessage,
+            ]);
+        }
+        abort(404);
+    }
+
+    public function iconUpdata(UserIconRequest $request, $id)
     {
         if ($id == Auth::id()) {
             $user = User::findOrFail($id);
             $currentIcon = $user->icon;
+            $userIcon = $currentIcon;
             if (request()->file('icon')) {
                 $userIcon = $this->userIcon($currentIcon);
-            } else {
-                $userIcon = $currentIcon;
             }
-
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->password = Hash::make($request->password);
             $user->icon = $userIcon;
             $user->save();
-            $successMessage = "ユーザー情報を変更しました。";
+            $successMessage = "ユーザーアイコンを変更しました。";
 
             return view('users.edit', [
                 'user' => $user,
