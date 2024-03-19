@@ -156,4 +156,43 @@ label {
 .user_icon {
   object-fit: cover;
   aspect-ratio: 1/1;
+}
+
+.card-body {
+  position: relative;
+}
+.card-body .add_icon-btn {
+  position: absolute;
+  right: 10%;
+  bottom: 10%;
+  width: 15%;
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card-body .add_icon-btn > svg {
+  height: 60%;
+}
+
+.modal_close-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.modal_close-btn > svg {
+  color: white;
+  height: 2rem;
+}
+.modal_close-btn:hover {
+  opacity: 0.65;
+}
+
+.cancel-modal-btn {
+  background-color: white;
+  color: dimgray;
+}
+.cancel-modal-btn:hover {
+  background-color: dimgray;
+  color: white;
 }/*# sourceMappingURL=style.css.map */

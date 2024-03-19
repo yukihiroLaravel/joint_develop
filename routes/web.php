@@ -33,7 +33,8 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('users/{id}')->group(function () {
         Route::get('edit', 'UserController@edit')->name('users.edit');
-        Route::put('', 'UserController@update')->name('users.update');
+        Route::put('', 'UserController@updata')->name('users.updata');
+        Route::put('change_icon', 'UserController@iconUpdata')->name('usersIcon.updata');
         Route::delete('', 'UserController@destroy')->name('user.delete');
         Route::post('follow', 'FollowController@store')->name('follow');
         Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');

@@ -5,5 +5,4 @@
         $iconSrc = asset('storage/images/userIcons/' . $user->icon);
     }
 @endphp
-<img src="{{ $iconSrc }}" alt="ユーザーアバター" id="{{ Route::is('users.edit', 'users.update') ? 'user_icon_preview' : '' }}"
-    class="rounded-circle img-fluid user_icon">
+<img src="{{ $iconSrc }}" alt="ユーザーアバター" class="rounded-circle img-fluid user_icon">
