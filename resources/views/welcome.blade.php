@@ -34,6 +34,15 @@
                             </div>
                         @endif
                         {{-- フラッシュメッセージ終わり --}}
+
+                        {{-- 削除のフラッシュメッセージ --}}
+                        @if (session('deleteMessage'))
+                            <div class="alert alert-danger text-center">
+                        {{ session('deleteMessage') }}
+                            </div>
+                        @endif
+                        {{-- フラッシュメッセージ終わり --}}
+
             </form>
         </div>
     @include('posts.posts', ['posts' => $posts])
