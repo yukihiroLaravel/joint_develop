@@ -46,10 +46,13 @@
             {{ session('unfollowMessage') }} <!-- フォロー解除 -->
             </div> 
         @endif
-        <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
+        <form method="POST" action="{{ route('post.store') }}" enctype="multipart/form-data" class="d-inline-block w-75">
             @csrf
             <div class="form-group">
                 <textarea class="form-control" name="content" rows="4"></textarea>
+                <div class="pt-3">
+                    <input type="file" name="image">
+                </div>
                 <div class="text-left mt-3">
                     <button type="submit" class="btn btn-info">投稿する</button>
                 </div>
