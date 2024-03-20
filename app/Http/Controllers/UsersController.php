@@ -18,7 +18,7 @@ class UsersController extends Controller
             'user' => $user,
             'posts' => $posts,
         ];
-        
+        $data += $this->userCounts($user);
         return view('users.show', $data);
     }
     
@@ -59,5 +59,17 @@ class UsersController extends Controller
             \Session::flash('flash_destroy_message','ユーザが削除されました。');
             return redirect('/');
         }
+    }
+
+    public function favorites($id)
+    {
+        $user = User::findOrFail($id);
+        $posts = $user->favorites()->paginate(9);
+        $data=[
+            'user' => $user,
+            'posts' => $posts,
+        ];
+        $data += $this->userCounts($user);
+        return view('users.show', $data);
     }
 }
