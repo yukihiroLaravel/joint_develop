@@ -14,7 +14,7 @@
             </div>
             <div class="container">
                 <div class="text-left d-inline-block w-75">
-                    <p class="mb-2">{{ $post->text}}</p>
+                    <p class="mb-2">{!! preg_replace('@(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?)@', '<a href="$1" target="_blank">$1</a>', e($post->text)) !!}</p>
                     <p class="text-muted">{{ $post->created_at }}</p>
                 </div>
                 @if (Auth::check() && Auth::id() === $post->user_id)
@@ -32,3 +32,34 @@
     @endforeach
 </ul>
 <div class="m-auto" style="width: fit-content">{{ $posts->links() }}</div>
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+</head>
+<body>
+
+<form action="" onsubmit="return false">
+<textarea name="" id="js-text" cols="30" rows="10"></textarea>
+<input type="submit" name="" id="" onclick="AutoLink()">
+</form>
+
+<p>↓結果</p>
+<div id="js-result"></div>
+
+<script>
+function AutoLink() {
+var str = document.getElementById('js-text').value
+var regexp_url = /((h?)(ttps?:\/\/[a-zA-Z0-9.\-_@:/~?%&;=+#',()*!]+))/g; 
+var regexp_makeLink = function(all, url, h, href) {
+return '<a href="h' + href + '" target="_blank">' + url + '</a>';
+}
+var textWithLink = str.replace(regexp_url, regexp_makeLink);
+document.getElementById('js-result').innerHTML = textWithLink
+}
+</script>
+</body>
+</html>
