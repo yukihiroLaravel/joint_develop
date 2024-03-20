@@ -1,13 +1,80 @@
-$mainColor: #17a2b8;
-$black: #343a40;
+$mainColor: #685e5b;
+$black: #231917;
+$accentColor: #ed5235;
+$borderColor: rgba($mainColor, 0.6);
+$borderColor-light: rgba($mainColor, 0.3);
 body {
     display: flex;
     flex-flow: column;
     min-height: 100vh;
     color: $black;
 }
+h1 {
+    font-family: "Cherry Bomb One", system-ui;
+    line-height: 1em;
+    margin-bottom: 0;
+}
+.title_icon {
+    font-size: 2rem;
+    line-height: 1em;
+}
+.nav-tabs .nav-link {
+    border-bottom-color: $borderColor-light;
+    &:hover {
+        border-color: $borderColor-light $borderColor-light rgba(white, 0.7);
+    }
+    &.active {
+        border-color: $borderColor $borderColor rgba(white, 0.7);
+        background-color: rgba(white, 0.7);
+    }
+}
+
+form .form-control {
+    border-color: $borderColor;
+    &:focus {
+        box-shadow: 0px 0px 0px 2px rgba($accentColor, 0.5) !important;
+        border-color: rgba($accentColor, 0.5);
+    }
+}
+.btn_accent-color {
+    background-color: $accentColor;
+    color: white;
+    &:hover {
+        background-color: #f67255;
+        color: white;
+    }
+}
+.background_img {
+    position: fixed;
+    top: 0;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    opacity: 0.7;
+}
 main {
     flex: 1;
+}
+.bg-info {
+    background-color: $mainColor !important;
+    > svg {
+        color: white !important;
+    }
+}
+.jumbotron {
+    position: relative;
+}
+.cat1 {
+    position: absolute;
+    bottom: calc(100% - 1px);
+    left: 5%;
+    height: 2.9rem;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 }
 
 .search_form {
@@ -34,18 +101,23 @@ main {
         outline: none;
         position: absolute;
         right: 0;
-        background-color: $black;
+        background-color: $accentColor;
         border-radius: 50%;
-        width: 3.5em;
-        height: 3.5em;
+        width: 3.8em;
+        height: 3.8em;
         color: white;
         display: flex;
         justify-content: center;
         align-items: center;
         border: 0.5em solid $mainColor;
+        transform: 0.3s;
         &:hover {
-            background-color: white;
-            color: $black;
+            right: -0.2em;
+            width: 4em;
+            height: 4em;
+            background-color: #f67255;
+            color: white;
+            transform: 0.3s;
         }
     }
 }
@@ -78,12 +150,12 @@ main {
             right: 100%;
             bottom: 0;
             height: 4px;
-            background-color: $mainColor;
+            background-color: $accentColor;
             transition: left 0.5s ease, right 0.5s ease;
         }
         &:hover {
             opacity: 0.6;
-            color: $mainColor;
+            color: $accentColor;
             transition: all 0.3s;
             &::after {
                 left: 0;
@@ -91,7 +163,7 @@ main {
             }
         }
         &.active {
-            color: $mainColor;
+            color: $accentColor;
             font-weight: bold;
             &::after {
                 content: "";
@@ -100,10 +172,15 @@ main {
                 right: 0;
                 bottom: 0;
                 height: 4px;
-                background-color: $mainColor;
+                background-color: $accentColor;
             }
         }
     }
+}
+.category_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .posts_container,
 .users_container {
@@ -111,19 +188,22 @@ main {
 }
 .posts_container.active,
 .users_container.active {
-    display: block;
+    display: flex;
 }
-
+.background-color_white {
+    background-color: rgba(white, 0.7);
+    border-radius: 5px;
+}
 .show_list_style > li {
-    border-top: 1px solid silver;
+    border-top: 1px solid $borderColor;
     &:last-child {
-        border-bottom: 1px solid silver;
+        border-bottom: 1px solid $borderColor;
     }
     p {
         margin: 0 !important;
     }
     .action_area {
-        border-top: 1px solid silver;
+        border-top: 1px solid $borderColor;
         display: flex;
         align-items: center;
         flex-wrap: wrap;
@@ -135,6 +215,28 @@ main {
 }
 time {
     font-size: 0.8em;
+}
+footer {
+    position: relative;
+    margin-top: 80px;
+    .cat2 {
+        position: absolute;
+        bottom: 100%;
+        right: 0;
+        z-index: -1;
+        width: 25%;
+        min-width: 180px;
+        max-width: 500px;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        &.cat2_left {
+            left: 0;
+            transform: scale(-1, 1);
+        }
+    }
 }
 .btn-warning {
     background-color: orange;
@@ -183,7 +285,6 @@ label {
     background-color: white;
     color: dimgray;
     &:hover {
-        background-color: dimgray;
-        color: white;
+        opacity: 0.65;
     }
 }

@@ -1,8 +1,11 @@
 @extends('layouts.app')
 @section('content')
     <div class="center jumbotron bg-info">
+        <div class="cat1"><img src="https://abeaidesign.com/img/cat1.svg" alt="猫"></div>
         <div class="text-center text-white">
-            <h1><i class="fa-brands fa-telegram mr-2"></i>Topic Posts</h1>
+            <div class="d-flex align-items-end justify-content-center">
+                <h1>にゃんにゃんPosts</h1><span class="title_icon ml-1"><i class="fa-solid fa-paw"></i></span>
+            </div>
             <form method="GET" action="{{ action('PostsController@index') }}"
                 class="col-lg-6 col-md-8 col mr-auto ml-auto search_form">
                 @csrf
@@ -15,7 +18,7 @@
             </form>
         </div>
     </div>
-    <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
+    <h5 class="text-center mb-3">"ねこ"について140字以内で語ろう！</h5>
     <div class="w-75 m-auto">@include('commons.error_messages')</div>
     @if (Auth::check())
         <div class="text-center mb-3 pt-3">
@@ -23,8 +26,8 @@
                 @csrf
                 <div class="form-group">
                     <textarea class="form-control" name="content" rows="4">{{ old('content') }}</textarea>
-                    <div class="text-left mt-3">
-                        <button type="submit" class="btn btn-primary">投稿する</button>
+                    <div class="text-right mt-3">
+                        <button type="submit" class="btn btn_accent-color">投稿する</button>
                     </div>
                 </div>
             </form>

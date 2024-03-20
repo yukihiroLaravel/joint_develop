@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <h2 class="mt-5 mb-5 text-center">ユーザ情報を編集する</h2>
+    <h2 class="mb-5 text-center">ユーザ情報を編集する</h2>
     @include('commons.error_messages')
     @if (isset($successMessage))
         <ul class="alert alert-success list-unstyled">
@@ -10,8 +10,8 @@
     @php
         $id = $user->id;
     @endphp
-    <div class="d-flex flex-wrap">
-        <aside class="col-sm-4 col-12">
+    <div class="row">
+        <aside class="col-sm-4 col-12 mb-5">
             <div class="card bg-info">
                 <div class="card-body">
                     @include('commons.user_icon', ['user' => $user])
@@ -21,6 +21,7 @@
                     </div>
                 </div>
             </div>
+            <div class="cat1"><img src="https://abeaidesign.com/img/cat1.svg" alt="猫"></div>
         </aside>
         <div class="modal fade" id="iconChangeModal" tabindex="-1" role="dialog" aria-labelledby="basicModal"
             aria-hidden="true">
