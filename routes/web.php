@@ -67,6 +67,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
         // ユーザ詳細
         Route::get('{id}', 'UsersController@show')->name('user.show');
+        //いいね
+        Route::get('{id}/favorites','UsersController@favorites')->name('user.favorites');
+        Route::post('{id}/favorite','FavoriteController@store')->name('favorite');
+        Route::delete('{id}/unfavorite','FavoriteController@destroy')->name('unfavorite');
     });
 
     Route::prefix('posts')->group(function() {

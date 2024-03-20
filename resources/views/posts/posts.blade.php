@@ -33,6 +33,16 @@
                         <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
+                <div class="col-lg-4 mb-5">
+                <div class="post text-left d-inline-block">
+                    @php
+                        $countFavoriteUsers = $post->favoriteUsers()->count();
+                    @endphp
+                    <div class="text-right mb-2">いいね！
+                        <span class="badge badge-pill badge-success">{{ $countFavoriteUsers }}</span>
+                    </div>
+                </div>
+                @include('favorite.favorite_button', ['post' => $post])
             </div>
         </li>
     @endforeach
