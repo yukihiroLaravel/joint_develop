@@ -19,3 +19,10 @@
     border: none;
     border-radius: 5px;
 }
+
+/* アイコンのスタイル */
+.icon::before {
+    font-family: "Font Awesome 5 Free";
+    content:'\f58f';
+    font-weight: 900;
+  }

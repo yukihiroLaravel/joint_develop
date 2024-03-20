@@ -5,8 +5,7 @@
 
     <div class="center jumbotron bg-info">
         <div class="text-center text-white mt-2 pt-1">
-            <script src="https://kit.fontawesome.com/a3db3ef673.js" crossorigin="anonymous"></script>
-            <h1><i class="fa-solid fa-headphones-simple"></i>&nbsp;Music Posts</h1>
+            <h1><i class="fas fa-headphones-alt icon"></i>&nbsp;Music Posts</h1>
         </div>
     </div>
     <h5 class="text-center mb-3">【音楽】に関する情報を140字以内でシェアしよう！</h5>
