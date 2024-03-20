@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Rule;
 
 class PostRequest extends FormRequest
 {
@@ -24,7 +25,20 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'text' => 'required | string | max:140',
+            'text' => 'nullable|string|max:140',
+            'image' => 'nullable|image',
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $text = $this->input('text');
+            $image = $this->file('image');
+
+            if (is_null($text) && is_null($image)) {
+                $validator->errors()->add('text_or_image', 'テキストまたは画像のいずれかが必要です。');
+            }
+        });
     }
 }

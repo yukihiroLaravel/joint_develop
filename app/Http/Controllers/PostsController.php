@@ -19,7 +19,7 @@ class PostsController extends Controller
    
     }
 
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
         $post = new Post();
         $post->text = $request->text;
