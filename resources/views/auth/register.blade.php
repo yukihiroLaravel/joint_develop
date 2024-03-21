@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-    <div class="text-center">
-        <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
+    <div class="d-flex align-items-end justify-content-center" style="color: #685e5b;">
+        <h1>にゃんにゃんPosts</h1><span class="title_icon ml-1"><i class="fa-solid fa-paw"></i></span>
     </div>
     <div class="text-center mt-3">
         <p class="text-left d-inline-block">新規ユーザ登録すると投稿で<br>コミュニケーションができるようになります。</p>
