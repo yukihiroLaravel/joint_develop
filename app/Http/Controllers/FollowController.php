@@ -18,6 +18,6 @@ class FollowController extends Controller
     {
         $unfollowedUser = User::find($id);
         \Auth::user()->unfollow($id);
-        return redirect('/')->with('UnfollowMessage', $unfollowedUser->name . 'のフォローを解除しました');
+        return redirect('/')->with('unfollowMessage', $unfollowedUser->name . 'のフォローを解除しました');
     }
 }

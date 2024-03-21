@@ -52,9 +52,9 @@
                         {{-- フラッシュメッセージ終わり --}}
 
                         {{-- アンフォローのフラッシュメッセージ --}}
-                        @if (session('UnfollowMessage'))
+                        @if (session('unfollowMessage'))
                             <div class="alert alert-danger text-center">
-                        {{ session('UnfollowMessage') }}
+                        {{ session('unfollowMessage') }}
                             </div>
                         @endif
                         {{-- フラッシュメッセージ終わり --}}
