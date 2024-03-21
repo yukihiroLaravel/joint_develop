@@ -1,14 +1,14 @@
 @extends('layouts.app')
 @section('content')
-    <div class="text-center">
+    <div class="text-center text-info">
         <h1><i class="fab fa-telegram fa-w-16 fa-lg pr-3"></i>Topic Posts</h1>
     </div>
     <div class="container">
         <div class="text-center mt-3">
-            <p class="text-left d-inline-block">ログインすると<br>投稿できるようになります。</p>
+            <p class="text-left d-inline-block">ログインすると投稿できるようになります。</p>
         </div>
         <div class="text-center">
-            <h3 class="login_title text-left d-inline-block mt-5">ログイン</h3>
+            <h3 class="login_title text-center text-info d-inline-block mt-5">ログイン</h3>
         </div>
         <div class="row mt-5 mb-5">
             <div class="col-sm-6 offset-sm-3">

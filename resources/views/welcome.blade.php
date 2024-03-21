@@ -8,12 +8,12 @@
 <h5 class="text-center mb-3">"趣味や仕事"について140字以内で会話しよう！</h5>
 @guest
     @if (session('successMessage'))
-        <div class="alert alert-info text-center">
+        <div class="alert alert-info mb-3 text-center">
         {{ session('successMessage') }} <!-- ログアウト -->
         </div> 
     @endif
     @if (session('destroyMessage'))
-        <div class="alert alert-danger text-center">
+        <div class="alert alert-danger mb-3 text-center">
         {{ session('destroyMessage') }} <!-- 退会処理 -->
         </div> 
     @endif
@@ -22,27 +22,27 @@
     <div class="w-75 m-auto">@include('commons.error_messages')</div>
     <div class="text-center mb-3">
         @if (session('updateSuccessMessage'))
-            <div class="alert alert-primary text-center">
+            <div class="alert alert-primary mb-3 text-center">
             {{ session('updateSuccessMessage') }} <!-- 新規登録、ユーザー情報変更、投稿内容変更 -->
             </div> 
         @endif
         @if (session('successMessage'))
-            <div class="alert alert-info text-center">
+            <div class="alert alert-info mb-3 text-center">
             {{ session('successMessage') }} <!-- ログイン、投稿 -->
             </div> 
         @endif
         @if (session('deleteMessage'))
-            <div class="alert alert-warning text-center">
+            <div class="alert alert-warning mb-3 text-center">
             {{ session('deleteMessage') }} <!-- 投稿削除 -->
             </div> 
         @endif
         @if (session('followedMessage'))
-            <div class="rounded border border-success p-1 mb-1 bg-success text-white text-center">
+            <div class="rounded border border-success p-2 mb-3 bg-success text-white text-center">
             {{ session('followedMessage') }} <!-- フォローする -->
             </div> 
         @endif
         @if (session('unfollowMessage'))
-            <div class="rounded border border-danger p-1 mb-1 text-danger text-center">
+            <div class="rounded border border-danger p-2 mb-3 text-danger text-center">
             {{ session('unfollowMessage') }} <!-- フォロー解除 -->
             </div> 
         @endif
