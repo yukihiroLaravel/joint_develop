@@ -19,7 +19,16 @@
                 </div>
                 <div>
                     <div class="text-left d-inline-block col-12 mb-2">
-                        <p class="mb-2 post_content">{!! nl2br(e($post->content)) !!}</p>
+                        <p class="pb-3 post_content">{!! nl2br(e($post->content)) !!}</p>
+                        @if ($post->postImages->count() >= 1)
+                            <div class="d-flex flex-wrap pb-2">
+                                @foreach ($post->postImages as $postImage)
+                                    <img src="{{ asset('storage/images/postImgs/' . $postImage->image_name) }}"
+                                        alt="" class="col-6">
+                                @endforeach
+                            </div>
+                        @endif
+
                         <time class="text-muted">{{ $post->created_at }}</time>
                     </div>
                     <div class="pt-2 col-12 action_area">
