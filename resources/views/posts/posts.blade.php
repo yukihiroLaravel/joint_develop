@@ -24,7 +24,7 @@
                             <div class="d-flex flex-wrap pb-2">
                                 @foreach ($post->postImages as $postImage)
                                     <img src="{{ asset('storage/images/postImgs/' . $postImage->image_name) }}"
-                                        alt="" class="col-6">
+                                        alt="" class="col-6 pb-2">
                                 @endforeach
                             </div>
                         @endif
