@@ -101,4 +101,9 @@ class User extends Authenticatable
             $user->posts()->delete();
         });
     }
+//UserクラスがCommentクラスを所有している
+   public function comments()
+   {
+        return $this->hasMany(Comment::class);
+   }
 }
