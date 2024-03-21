@@ -43,7 +43,14 @@
             </ul>
             {{-- 表示エリア --}}
             @if (Route::is('user.show'))
-                @include('posts.posts', ['posts' => $posts])
+                <ul class="list-unstyled timeline-category">
+                    <li class="timeline-posts btn active">投稿</li>
+                    <li class="timeline-timeline btn">タイムライン</li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li class="posts-list">@include('posts.posts', ['posts' => $posts])</li>
+                    <li class="timeline-list"> @include('posts.posts', ['posts' => $timelinePosts])</li>
+                </ul>
             @endif
             @if (Route::is('users.follow') || Route::is('users.follower'))
                 @include('follows.follows', ['usersList' => $usersList])
