@@ -1,5 +1,5 @@
-<div class="d-inline-block ml-3">
-    @if (Auth::check() && Auth::id() !== $id)
+@if (Auth::check() && Auth::id() !== $id)
+    <div class="d-inline-block ml-3">
         @if (Auth::user()->isFollow($id))
             <form method="POST" action="{{ route('unfollow', $id) }}">
                 @csrf
@@ -13,5 +13,5 @@
                         class="fa fa-user-plus" aria-hidden="true"></i></button>
             </form>
         @endif
-    @endif
-</div>
+    </div>
+@endif

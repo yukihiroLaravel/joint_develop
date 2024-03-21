@@ -3,9 +3,14 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Topic Posts</title>
+    <title>にゃんにゃんPosts</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=BIZ+UDMincho&family=Cherry+Bomb+One&family=Zen+Old+Mincho&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
@@ -13,6 +18,7 @@
 
 <body>
     @include('commons.header')
+    <div class="background_img" style="background-image: url(https://abeaidesign.com/img/backgroundImg.png)"></div>
     <main class="container">
         @yield('content')
     </main>
