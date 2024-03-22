@@ -31,6 +31,15 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
+    //投稿編集、更新
+    Route::prefix('posts')->group(function() {
+        Route::get('create','PostsController@cerate')->name('post.cerate');
+        Route::post('', 'PostsController@store')->name('post.store');
+        Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
+        Route::put('{id}', 'PostsController@update')->name('post.update');
+        //投稿削除
+        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
+    }); 
     Route::prefix('users/{id}')->group(function () {
         Route::get('edit', 'UserController@edit')->name('users.edit');
         Route::put('', 'UserController@updata')->name('users.updata');
