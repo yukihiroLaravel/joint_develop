@@ -22,19 +22,18 @@
                         <p class="mb-2 post_content">{!! nl2br(e($post->content)) !!}</p>
                         <time class="text-muted">{{ $post->created_at }}</time>
                     </div>
-                    <div class="pt-2 col-12 action_area">
-                        {{-- いいね・コメントのボタンが入ります --}}
-                        @if ($post->user_id == Auth::id())
-                            <div class="d-flex m-auto">
-                                <form method="POST" action="{{ route('post.delete', $post->id) }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger mr-2">削除</button>
-                                </form>
-                                <a href="" class="btn btn-primary">編集する</a>
-                            </div>
-                        @endif
-                    </div>
+                <div class="pt-2 col-12 action_area">
+                    {{-- いいね・コメントのボタンが入ります --}}
+                    @if ($post->user_id == Auth::id())
+                        <div class="d-flex m-auto">
+                            <form method="POST" action="{{ route('post.delete', $post->id) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger mr-2">削除</button>
+                            </form>
+                            <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">編集する</a>
+                        </div>
+                    @endif
                 </div>
             </li>
         @endforeach
