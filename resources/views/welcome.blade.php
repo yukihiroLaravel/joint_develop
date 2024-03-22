@@ -27,11 +27,15 @@
                 @csrf
                 <div class="form-group">
                     <textarea class="form-control" name="content" rows="4">{{ old('content') }}</textarea>
-                    <div>
-                        <input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg">
-                        <input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg">
-                        <input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg">
-                        <input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg">
+                    <div class="postImg-input_container d-flex">
+                        <label class="col"><input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg"
+                                hidden></label>
+                        <label class="col"><input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg"
+                                hidden></label>
+                        <label class="col"><input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg"
+                                hidden></label>
+                        <label class="col"><input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg"
+                                hidden></label>
                     </div>
                     <div class="text-right mt-3">
                         <button type="submit" class="btn btn_accent-color">投稿する</button>

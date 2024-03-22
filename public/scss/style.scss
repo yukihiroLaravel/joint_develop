@@ -317,3 +317,12 @@ label {
         }
     }
 }
+.postImg-input_container {
+    label::before {
+        aspect-ratio: 16/9;
+        content: "\f099";
+        color: #71c9f8;
+        font-size: 100px;
+        font-family: fontAwesome;
+    }
+}
