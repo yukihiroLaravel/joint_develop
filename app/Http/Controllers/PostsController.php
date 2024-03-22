@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\User;
 use App\Http\Requests\PostRequest;
+use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
@@ -18,14 +19,20 @@ class PostsController extends Controller
    
     }
 
-   public function store(PostRequest $request)
+    public function store(PostRequest $request)
     {
-        $user = \Auth::user();
-        $post = new Post;
-        $post->user_id = $user->id;
+        $post = new Post();
         $post->text = $request->text;
+        $post->user_id = Auth::id();
+    
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('public/images');
+            $post->img_path = basename($path);
+        }
+    
         $post->save();
-        return back();
+    
+        return redirect()->route('welcome');
     }
 
     public function search(Request $request)

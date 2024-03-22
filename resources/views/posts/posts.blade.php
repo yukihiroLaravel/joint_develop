@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+<body>
 @if (session('successMessage'))
  <div class="alert alert-success text-center">{{ session('successMessage') }}</div>
 @endif
@@ -15,6 +18,9 @@
             <div class="container">
                 <div class="text-left d-inline-block w-75">
                     <p class="mb-2">{{ $post->text}}</p>
+                    @if ($post->img_path)
+                    <img src="{{ asset('storage/images/' . $post->img_path) }}" alt="投稿画像" class="post-image" onclick="showModal(this.src)">
+                    @endif
                     <p class="text-muted">{{ $post->created_at }}</p>
                 </div>
                 @if (Auth::check() && Auth::id() === $post->user_id)
@@ -42,3 +48,29 @@
     @endforeach
 </ul>
 <div class="m-auto" style="width: fit-content">{{ $posts->links() }}</div>
+
+<div id="imageModal" class="modal">
+    <span id="closeModal" class="close">&times;</span>
+    <img class="modal-content" id="modalImage">
+</div>
+
+<script>
+function showModal(src) {
+    // モーダルウィンドウに画像を設定して表示
+    document.getElementById('modalImage').src = src;
+    document.getElementById('imageModal').style.display = 'block';
+}
+
+// モーダルの閉じるボタンでモーダルを閉じる
+document.getElementById('closeModal').addEventListener('click', function() {
+    document.getElementById('imageModal').style.display = 'none';
+});
+
+// モーダルの外側をクリックしてもモーダルを閉じる
+window.onclick = function(event) {
+    if (event.target == document.getElementById('imageModal')) {
+        document.getElementById('imageModal').style.display = 'none';
+    }
+}
+</script>
+</body>
