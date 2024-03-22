@@ -28,10 +28,10 @@
                 <div class="form-group">
                     <textarea class="form-control" name="content" rows="4">{{ old('content') }}</textarea>
                     <div>
-                        <input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg" id="postImg">
-                        <input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg" id="postImg">
-                        <input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg" id="postImg">
-                        <input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg" id="postImg">
+                        <input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg">
+                        <input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg">
+                        <input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg">
+                        <input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg">
                     </div>
                     <div class="text-right mt-3">
                         <button type="submit" class="btn btn_accent-color">投稿する</button>
