@@ -9,14 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentsController extends Controller
 {
-    public function index()
-   {
-        $comments = Comment::orderBy('created_at', 'desc')->paginate(10);
-        return view('comments.index', [
-            'comments' => $comments,
-        ]);
-   
-    }
 
     public function store(Request $request)
     {
