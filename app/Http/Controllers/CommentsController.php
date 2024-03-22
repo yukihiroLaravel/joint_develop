@@ -25,10 +25,9 @@ class CommentsController extends Controller
             'post_id' => ['required', 'exists:posts,id'], // 存在する投稿IDであることを確認
         ]);
 
-        $user = \Auth::user();
         $comment = new Comment();
         $comment->body = $request->body;
-        $comment->user_id = $user->id;
+        $comment->user_id = Auth::id();
         $comment->post_id = $request->post_id;
         $comment->save();
 
@@ -37,11 +36,9 @@ class CommentsController extends Controller
 
     public function show($id)
     {
-        $user = \Auth::user();
         $post = Post::findOrFail($id);
         $comments = $post->comments()->orderBy('id', 'desc')->paginate(10);
         $data = [
-            'user' => $user,
             'post' => $post,
             'comments' => $comments,
         ];

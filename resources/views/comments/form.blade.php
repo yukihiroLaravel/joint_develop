@@ -1,7 +1,7 @@
-<h5 class="text-center mb-3">"投稿内容"について140字以内でコメントをしよう！</h5>
-<div class="container">
-     <div class="w-75 m-auto">@include('commons.error_messages')</div>
-         <div class="text-center mb-3">
+<div class="container mt-3">
+    <h5 class="text-center mb-3">"投稿内容"について140字以内でコメントをしよう！</h5>
+    <div class="w-75 m-auto">@include('commons.error_messages')</div>
+        <div class="text-center mb-3">
             @auth
                 <form method="POST" action="{{ route('comments.store') }}" class="d-inline-block w-75">
                     @csrf

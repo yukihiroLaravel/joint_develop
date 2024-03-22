@@ -1,15 +1,17 @@
-<h5 class="text-center">コメント一覧</h5>
-@foreach ($comments as $comment)
-    <div class="text-center">
-        <div class="text-left d-inline-block w-75 mb-2">
-            <div class="container">
-                <div class="text-left mb-2">
-                    <img class="mr-2 rounded-circle" src="{{ Gravatar::src($comment->user->email, 30) }}" alt="ユーザのアバター画像">
-                    <p><a href="{{ route('user.show', $comment->user->id) }}">{{ $comment->user->name }}</a></p>
-                    <p>{{ $comment->body }}</p>
-                    <small class="text-muted">{{ $comment->created_at->diffForHumans() }}</small>
+<div class="container mt-3">
+    <h5 class="text-center">コメント一覧</h5>
+    <div class="w-75 m-auto">
+        @foreach ($post->comments as $comment)
+            <div class="mb-3">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <img class="mr-2 rounded-circle" src="{{ Gravatar::src($comment->user->email, 30) }}" alt="ユーザのアバター画像">
+                        <h6 class="card-title">{{ $comment->user->name }}</h6> 
+                    </div>
+                    <p class="card-text">{{ $comment->body }}</p>
+                    <p class="card-text text-muted">{{ $comment->created_at }}</p>
                 </div>
             </div>
-        </div>
-    </div>    
-@endforeach
+        @endforeach
+    </div>
+</div>
