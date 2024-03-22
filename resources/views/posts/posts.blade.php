@@ -52,14 +52,6 @@
 </head>
 <body>
 
-<form action="" onsubmit="return false">
-<textarea name="" id="js-text" cols="30" rows="10"></textarea>
-<input type="submit" name="" id="" onclick="AutoLink()">
-</form>
-
-<p>↓結果</p>
-<div id="js-result"></div>
-
 <script>
 function AutoLink() {
 var str = document.getElementById('js-text').value
