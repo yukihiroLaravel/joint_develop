@@ -25,6 +25,23 @@ $(function () {
         showCategorySwitch(param_name);
     });
 
+    // ユーザー詳細ページのタイムライン内のタブ切り替え
+    $(".timeline-category")
+        .children(".btn")
+        .click(function () {
+            $(".timeline-category").children(".btn").removeClass("active");
+        });
+    $(".timeline-posts").click(function () {
+        $(".posts-list").show();
+        $(".timeline-list").hide();
+        $(this).addClass("active");
+    });
+    $(".timeline-timeline").click(function () {
+        $(".timeline-list").show();
+        $(".posts-list").hide();
+        $(this).addClass("active");
+    });
+
     //　ユーザーアイコン変更時のプレビュー
     $("#iconModalBtn").click(function () {
         $('input[name="icon"]').trigger("click");

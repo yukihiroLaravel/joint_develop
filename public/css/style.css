@@ -305,4 +305,35 @@ label {
 }
 .cancel-modal-btn:hover {
   opacity: 0.65;
+}
+
+.timeline-list {
+  display: none;
+}
+
+.timeline-category {
+  display: flex;
+  gap: 0.8rem;
+}
+.timeline-category .btn {
+  min-width: 5em;
+  font-size: 0.9rem;
+  padding: 0.1em 0.8em;
+  background-color: white;
+  border: 1px solid #ed5235;
+  color: #ed5235;
+  border-radius: 3em;
+  cursor: pointer;
+}
+.timeline-category .btn:hover {
+  background-color: #ed5235;
+  color: white;
+  opacity: 0.65;
+}
+.timeline-category .btn.active {
+  background-color: #ed5235;
+  color: white;
+}
+.timeline-category .btn.active:hover {
+  opacity: 1;
 }/*# sourceMappingURL=style.css.map */
