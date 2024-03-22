@@ -22,10 +22,17 @@
     <div class="w-75 m-auto">@include('commons.error_messages')</div>
     @if (Auth::check())
         <div class="text-center mb-3 pt-3">
-            <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
+            <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75"
+                enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <textarea class="form-control" name="content" rows="4">{{ old('content') }}</textarea>
+                    <div>
+                        <input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg">
+                        <input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg">
+                        <input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg">
+                        <input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg">
+                    </div>
                     <div class="text-right mt-3">
                         <button type="submit" class="btn btn_accent-color">投稿する</button>
                     </div>
