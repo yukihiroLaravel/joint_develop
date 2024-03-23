@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Post;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -101,8 +102,9 @@ class User extends Authenticatable
     }
     public function favorite($postId)
     {
+        $post=Post::findOrFail($postId);
         $exist = $this->isFavorite($postId);
-        if ($exist && Auth::id() === $post->user_id) {
+        if ($exist || Auth::id() === $post->user_id) {
             return false;
         } else {
             $this->favorites()->attach($postId);
@@ -111,12 +113,13 @@ class User extends Authenticatable
     }
     public function unfavorite($postId)
     {
+        $post=Post::findOrFail($postId);
         $exist = $this->isFavorite($postId);
-        if ($exist && Auth::id() === $post->user_id) {
-            return false;
-        } else {
+        if ($exist || Auth::id() === $post->user_id) {
             $this->favorites()->detach($postId);
             return true;
+        } else {      
+            return false;
         }
     }   
     public function isFavorite($postId)
