@@ -6,9 +6,9 @@
                 <div class="card-header">
                     <h3 class="card-title text-light">{{ $user->name }}</h3>
                 </div>
-                <div class="card-body">
+                <div class="card-body text-center">
                     @include('commons.user_icon', ['user' => $user])
-                    <div class="mt-3 text-center">
+                    <div class="mt-3 col-12">
                         @if ($user->id === Auth::id())
                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                         @endif
@@ -43,7 +43,14 @@
             </ul>
             {{-- 表示エリア --}}
             @if (Route::is('user.show'))
-                @include('posts.posts', ['posts' => $posts])
+                <ul class="list-unstyled timeline-category">
+                    <li class="timeline-posts btn active">投稿</li>
+                    <li class="timeline-timeline btn">タイムライン</li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li class="posts-list">@include('posts.posts', ['posts' => $posts])</li>
+                    <li class="timeline-list"> @include('posts.posts', ['posts' => $timelinePosts])</li>
+                </ul>
             @endif
             @if (Route::is('users.follow') || Route::is('users.follower'))
                 @include('follows.follows', ['usersList' => $usersList])

@@ -96,7 +96,7 @@ return [
     'password' => ':attributeが間違っています',
     'present' => ':attributeが存在している必要があります。',
     'regex' => ':attributeには、有効な正規表現を指定してください。',
-    'required' => ':attributeは、必ず指定してください。',
+    'required' => ':attributeは必ず入力してください。',
     'required_if' => ':otherが:valueの場合、:attributeを指定してください。',
     'required_unless' => ':otherが:values以外の場合、:attributeを指定してください。',
     'required_with' => ':valuesが指定されている場合、:attributeも指定してください。',
@@ -146,6 +146,8 @@ return [
         'name' => '名前',
         'email' => 'メールアドレス',
         'password' => 'パスワード',
+        'content' => '投稿文',
+        'postImgs.*' => '画像'
     ],
 
 ];

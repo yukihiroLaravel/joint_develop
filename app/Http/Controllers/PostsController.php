@@ -6,8 +6,11 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\User;
 use App\Http\Requests\PostRequest;
-
+use App\PostImage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+
+use function PHPUnit\Framework\isNull;
 
 class PostsController extends Controller
 {
@@ -43,21 +46,62 @@ class PostsController extends Controller
     public function store(PostRequest $request)
     {
         $user = Auth::user();
-
         $post = new Post;
         $post->user_id = $user->id;
         $post->content = $request->content;
         $post->save();
 
+        if (request()->file()) {
+            $this->savePostImages($post->id);
+        }
+
         return back();
+    }
+
+    public function savePostImages($postId)
+    {
+        foreach (request()->file('postImgs') as $postFile) {
+            $fileName = $postFile->store('public/images/postImgs');
+            $fileName = str_replace('public/images/postImgs/', '', $fileName);
+            $postImage = new PostImage;
+            $postImage->post_id = $postId;
+            $postImage->image_name = $fileName;
+            $postImage->save();
+        }
     }
 
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
         if (\Auth::id() === $post->user_id) {
+            foreach ($post->postImages as $postImage) {
+                Storage::disk('public')->delete('images/postImgs/' . $postImage->image_name);
+                $postImage->delete();
+            }
             $post->delete();
         }
         return back();
+    }
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            return view('posts.edit', [
+                'post' => $post,
+            ]);
+        }
+        return back();
+    }
+
+    public function update(PostRequest $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            $post->content = $request->content;
+            $post->save();
+            return redirect('/');
+        } else {
+            return back();
+        }
     }
 }
