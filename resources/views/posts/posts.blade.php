@@ -42,27 +42,3 @@
     @endforeach
 </ul>
 <div class="m-auto" style="width: fit-content">{{ $posts->links() }}</div>
-
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Document</title>
-</head>
-<body>
-
-<script>
-function AutoLink() {
-var str = document.getElementById('js-text').value
-var regexp_url = /((h?)(ttps?:\/\/[a-zA-Z0-9.\-_@:/~?%&;=+#',()*!]+))/g; 
-var regexp_makeLink = function(all, url, h, href) {
-return '<a href="h' + href + '" target="_blank">' + url + '</a>';
-}
-var textWithLink = str.replace(regexp_url, regexp_makeLink);
-document.getElementById('js-result').innerHTML = textWithLink
-}
-</script>
-</body>
-</html>
-<div class="m-auto" style="width: fit-content">{{ $posts->links() }}</div>
