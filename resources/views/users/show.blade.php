@@ -8,7 +8,6 @@
                 <h3 class="card-title text-light">{{ $user->name }}</h3>
             </div>
             <div class="card-body">
-                {{--<img class="rounded-circle img-fluid" src="{{ asset($user->profile_image) }}" alt="User Profile Image">--}}
                 <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 300) }}" alt="ユーザのアバター画像">
                 @auth
                     @if( Auth::user()->id == $user->id)
@@ -28,11 +27,17 @@
     </aside>
     <div class="col-sm-8">
         <ul class="nav nav-tabs nav-justified mb-3">
-        <li class="nav-item"><a href="{{ route('user.show', ['id' => $user->id]) }}" class="nav-link {{ Request::is('users/' . $user->id) ? 'active' : '' }}">タイムライン</a></li>
-            <li class="nav-item"><a href="{{ url('/following') }}" class="nav-link {{ Request::is('following') ? 'active' : '' }}">フォロー中</a></li>
-            <li class="nav-item"><a href="{{ url('/followers') }}" class="nav-link {{ Request::is('followers') ? 'active' : '' }}">フォロワー</a></li>
+            <li class="nav-item"><a href="{{ route('user.show', ['id' => $user->id]) }}" class="nav-link {{ Request::is('users/' . $user->id) ? 'active' : '' }}">タイムライン</a></li>
+            <li class="nav-item"><a href="{{ route('user.following',['id' => $user->id]) }}" class="nav-link {{ Request::is('users/' . $user->id . 'following/') ? 'active' : '' }}">フォロー中</a></li>
+            <li class="nav-item"><a href="{{ route('user.followed',['id' => $user->id]) }}" class="nav-link {{ Request::is('users/' . $user->id . 'followed/') ? 'active' : '' }}">フォロワー</a></li>
         </ul>
-        @include('posts.posts', ['posts' => $posts])
+        @if (Request::route()->getName() === 'user.show')
+            @include('posts.posts', ['posts' => $posts])
+        @elseif(Request::route()->getName() === 'user.following')
+            @include('users.following', ['users' => $followings])
+        @elseif(Request::route()->getName() === 'user.followed')
+            @include('users.followed', ['users' => $followers])
+        @endif
     </div>
 </div>
 @endsection
