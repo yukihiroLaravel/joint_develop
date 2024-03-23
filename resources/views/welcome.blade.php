@@ -26,19 +26,28 @@
                 enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                    <textarea class="form-control" name="content" rows="4">{{ old('content') }}</textarea>
-                    <div class="postImg-input_container d-flex">
-                        <label class="col"><input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg"
-                                hidden></label>
-                        <label class="col"><input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg"
-                                hidden></label>
-                        <label class="col"><input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg"
-                                hidden></label>
-                        <label class="col"><input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg"
-                                hidden></label>
-                    </div>
-                    <div class="text-right mt-3">
-                        <button type="submit" class="btn btn_accent-color">投稿する</button>
+                    <textarea class="form-control" name="content" rows="4" placeholder="本文は入力必須です。">{{ old('content') }}</textarea>
+                    <div class="d-flex flex-wrap mt-3">
+                        <ul class="postImg-input_container d-flex justify-content-around list-unstyled mb-0 col">
+                            <li class="postImg-input_item">
+                                <i class="fas fa-image"></i>
+                                <label><input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg" hidden></label>
+                            </li>
+                            <li class="postImg-input_item">
+                                <i class="fas fa-image"></i>
+                                <label><input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg" hidden></label>
+                            </li>
+                            <li class="postImg-input_item">
+                                <i class="fas fa-image"></i>
+                                <label><input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg" hidden></label>
+                            </li>
+                            <li class="postImg-input_item">
+                                <i class="fas fa-image"></i>
+                                <label><input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg" hidden></label>
+                            </li>
+                        </ul>
+
+                        <button type="submit" class="ml-auto align-self-end btn btn_accent-color mt-3">投稿する</button>
                     </div>
                 </div>
             </form>

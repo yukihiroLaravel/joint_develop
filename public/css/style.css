@@ -338,10 +338,29 @@ label {
   opacity: 1;
 }
 
-.postImg-input_container label::before {
-  aspect-ratio: 16/9;
-  content: "\f099";
-  color: #71c9f8;
-  font-size: 100px;
-  font-family: fontAwesome;
+.postImg-input_container {
+  column-gap: 1rem;
+}
+.postImg-input_container .postImg-input_item {
+  position: relative;
+  background-color: white;
+  border-radius: 5%;
+  border: 1px solid lightgray;
+  width: calc(25% - 1rem);
+  min-width: 100px;
+  padding: 0 15px;
+}
+.postImg-input_container .postImg-input_item > svg {
+  width: 100%;
+  height: auto;
+  vertical-align: middle;
+  color: lightgray;
+}
+.postImg-input_container .postImg-input_item label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
 }/*# sourceMappingURL=style.css.map */
