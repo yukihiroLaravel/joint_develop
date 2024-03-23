@@ -29,4 +29,9 @@ class Post extends Model
             $post->comments()->delete(); // 投稿に紐づくコメントを削除する
         });
     }
+    
+    public function favoriteUsers()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'post_id', 'user_id')->withTimestamps();
+    }
 }
