@@ -79,6 +79,13 @@ class PostsController extends Controller
         } else {
             return back();
         }
-
+    }
+    public function show($id)
+    {
+        $post = Post::findOrFail($id);
+        $data = [
+            'post' => $post,
+        ];
+        return view('comments.comments', $data);
     }
 }

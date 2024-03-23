@@ -15,7 +15,8 @@
                     </div>
                     <p><a href="{{ route('user.show', $post->user_id) }}">{{ $post->user->name }}</a>
                         @include('follows.follow_button', ['id' => $post->user_id])</p>
-                </div>
+                        @include('comments.comment_button', ['id' => $post->user_id])</p>
+                </div> 
                 <div>
                     <div class="text-left d-inline-block col-12 mb-2">
                         <p class="mb-2 post_content">{!! nl2br(e($post->content)) !!}</p>

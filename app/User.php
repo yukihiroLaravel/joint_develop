@@ -101,9 +101,31 @@ class User extends Authenticatable
             $user->posts()->delete();
         });
     }
-//UserクラスがCommentクラスを所有している
-   public function comments()
-   {
-        return $this->hasMany(Comment::class);
-   }
+    //UserクラスがCommentクラスを所有している
+    public function comments()
+    {
+            return $this->hasMany(Comment::class);
+    }
+    //コメントをしているかどうか
+    public function isComment($id)
+    {
+            return $this->commentUsers()->where('comment_user_id', $id)->exists();
+    }
+    // コメントする
+    public function comment($id)
+    {
+        $exist = $this->isComment($id);
+        if (!$this->itsMe($id) && $exist) {
+            return false;
+        } else {
+            $this->commentUsers()->attach($id);
+            return true;
+        }
+    }
+    
+    // ユーザー(comment_user_id)がコメントしているユーザ(commented_user_id)のデータを取得する
+    public function commentUsers()
+    {
+        return $this->belongsToMany(User::class, 'comments', 'comment_user_id', 'commented_user_id')->withTimestamps();
+    }
 }

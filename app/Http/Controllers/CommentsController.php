@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use App\Comment;
+use App\Post;
 use App\Http\Requests\CommentRequest;
+use App\Http\Requests\PostRequest;
 
 class CommentsController extends Controller
 {
@@ -25,6 +26,26 @@ class CommentsController extends Controller
         $comment = Comment::findOrFail($id);
         if (\Auth::id() === $comment->user_id){
             $comment->delete();
+        }
+        return back();
+    }
+    public function store(PostRequest $request)
+    {
+        $user = Auth::user();
+        $comment = new Comment;
+        $comment->user_id = $user->id;
+        $comment->content = $request->content;
+        $comment->save();
+
+        return back();
+    }
+    public function edit($id)
+    {
+        $comment = Comment::findOrFail($id);
+        if (\Auth::id() === $comment->user_id) {
+            return view('comment.comment',[
+                'comment' => $comment,
+            ]);
         }
         return back();
     }
