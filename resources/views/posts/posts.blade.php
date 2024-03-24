@@ -7,7 +7,7 @@
             </div>
             <div class="">
                 <div class="text-left d-inline-block w-75">
-                    <p class="mb-2">{{$post->content}}</p>
+                    <div>{!! nl2br($post->content_with_link) !!}</div>
                     <p class="text-muted">{{$post->created_at}}</p>
                 </div>
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
