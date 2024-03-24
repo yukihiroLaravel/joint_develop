@@ -13,9 +13,6 @@
 
 //投稿一覧
 
-
-use Illuminate\Support\Facades\Route;
-
 Route::get('/', 'PostsController@index')->name('index');
 
 // ユーザー新規登録
@@ -58,8 +55,8 @@ Route::group(['middleware' => 'auth'], function () {
     //コメント機能、編集、更新、削除
     Route::prefix('comments/{id}')->group(function () {
         Route::post('', 'CommentsController@store')->name('comments.store');
-        Route::get('edit', 'CommentsController@edit')->name('comments.edit');        
         Route::put('', 'CommentsController@update')->name('comments.update');
         Route::delete('', 'CommentsController@destroy')->name('comments.delete');
     });
 });
+Route::get('comments/{id}/edit', 'CommentsController@edit')->name('comments.edit'); 

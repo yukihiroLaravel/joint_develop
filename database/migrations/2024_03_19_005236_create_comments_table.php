@@ -17,7 +17,7 @@ class CreateCommentsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('comment_user_id')->unsigned()->index();
             $table->bigInteger('commented_user_id')->unsigned()->index();
-            $table->text('content');
+            $table->text('comment');
             $table->softDeletes();
             $table->timestamps();
             // 外部キー制約
