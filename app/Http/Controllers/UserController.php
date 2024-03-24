@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserIconRequest;
 use App\User;
+use App\Post;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -121,9 +122,16 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
+        $timelineUsersId[] = ($id);
+        foreach ($user->followUsers as $followUser) {
+            $timelineUsersId[] = $followUser->id;
+        }
+        $timelinePosts = Post::whereIn('user_id', $timelineUsersId)->orderBy('id', 'desc')->paginate(10);
+
         $data = [
             'user' => $user,
             'posts' => $posts,
+            'timelinePosts' => $timelinePosts
         ];
         $data += $this->userCounts($user);
         return view('users.show', $data);

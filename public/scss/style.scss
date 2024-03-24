@@ -288,3 +288,32 @@ label {
         opacity: 0.65;
     }
 }
+.timeline-list {
+    display: none;
+}
+.timeline-category {
+    display: flex;
+    gap: 0.8rem;
+    .btn {
+        min-width: 5em;
+        font-size: 0.9rem;
+        padding: 0.1em 0.8em;
+        background-color: white;
+        border: 1px solid $accentColor;
+        color: #ed5235;
+        border-radius: 3em;
+        cursor: pointer;
+        &:hover {
+            background-color: $accentColor;
+            color: white;
+            opacity: 0.65;
+        }
+        &.active {
+            background-color: $accentColor;
+            color: white;
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+}
