@@ -49,4 +49,26 @@ class UsersController extends Controller
         return redirect('/')->with('deleteMessage', 'ユーザーを削除しました');
     }
 
+    public function following($id)
+    {
+        $user = User::findOrFail($id);
+        $followings = $user->following()->get();
+        $data = [
+            'user' => $user,
+            'followings' => $followings,
+        ];
+        return view('users.show',$data);
+    }
+
+    public function followed($id)
+    {
+        $user = User::findOrFail($id);
+        $followers = $user->followed()->get();
+        $data = [
+            'user' => $user,
+            'followers' => $followers,
+        ];
+        return view('users.show',$data);
+    }
 }
+
