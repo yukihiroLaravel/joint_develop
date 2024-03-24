@@ -34,6 +34,31 @@
                             </div>
                         @endif
                         {{-- フラッシュメッセージ終わり --}}
+
+                        {{-- 削除のフラッシュメッセージ --}}
+                        @if (session('deleteMessage'))
+                            <div class="alert alert-danger text-center">
+                        {{ session('deleteMessage') }}
+                            </div>
+                        @endif
+                        {{-- フラッシュメッセージ終わり --}}
+
+                        {{-- フォローのフラッシュメッセージ --}}
+                        @if (session('followMessage'))
+                            <div class="alert alert-primary text-center">
+                        {{ session('followMessage') }}
+                            </div>
+                        @endif
+                        {{-- フラッシュメッセージ終わり --}}
+
+                        {{-- アンフォローのフラッシュメッセージ --}}
+                        @if (session('unfollowMessage'))
+                            <div class="alert alert-danger text-center">
+                        {{ session('unfollowMessage') }}
+                            </div>
+                        @endif
+                        {{-- フラッシュメッセージ終わり --}}
+
             </form>
         </div>
     @include('posts.posts', ['posts' => $posts])
