@@ -16,7 +16,7 @@ class UserController extends Controller
     {
         if ($id == Auth::id()) {
             $user = User::findOrFail($id);
-            return view('users.edit', [
+            return view('users.edit', [ 
                 'user' => $user,
             ]);
         }

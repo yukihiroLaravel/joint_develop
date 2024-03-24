@@ -6,8 +6,7 @@
     'subjectsName' => '投稿',
 ])
 @if ($posts->count() !== 0)
-    <ul
-        class="list-unstyled d-flex flex-column show_list_style pt-3 pb-3 background-color_white{{ Route::is('user.show') ? ' col' : ' col-11 col-sm-10 col-lg-8' }}">
+    <ul class="list-unstyled d-flex flex-column show_list_style pt-3 pb-3 background-color_white{{ Route::is('user.show') ? ' col' : ' col-11 col-sm-10 col-lg-8' }}">
         @foreach ($posts as $post)
             <li class="pt-3 pb-3 col">
                 <div class="d-flex align-items-center justify-content-centor mb-3">
@@ -16,6 +15,7 @@
                     </div>
                     <p><a href="{{ route('user.show', $post->user_id) }}">{{ $post->user->name }}</a>
                         @include('follows.follow_button', ['id' => $post->user_id])</p>
+                        @include('comments.comment_button', ['id' => $post->user_id])</p>
                 </div>
                 <div>
                     <div class="text-left d-inline-block col-12 mb-2">

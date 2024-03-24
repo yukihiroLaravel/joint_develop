@@ -12,6 +12,7 @@
 */
 
 //投稿一覧
+
 Route::get('/', 'PostsController@index')->name('index');
 
 // ユーザー新規登録
@@ -35,6 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function() {
         Route::get('create','PostsController@cerate')->name('post.cerate');
         Route::post('', 'PostsController@store')->name('post.store');
+        Route::get('{id}', 'PostsController@show')->name('post.show');
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
         //投稿削除
@@ -50,4 +52,11 @@ Route::group(['middleware' => 'auth'], function () {
     });
     Route::post('posts', 'PostsController@store')->name('post.store');
     Route::delete('post/{id}', 'PostsController@destroy')->name('post.delete');
+    //コメント機能、編集、更新、削除
+    Route::prefix('comments/{id}')->group(function () {
+        Route::post('', 'CommentsController@store')->name('comments.store');
+        Route::put('', 'CommentsController@update')->name('comments.update');
+        Route::delete('', 'CommentsController@destroy')->name('comments.delete');
+    });
 });
+Route::get('comments/{id}/edit', 'CommentsController@edit')->name('comments.edit'); 
