@@ -89,10 +89,16 @@ public function unfollow($followedId)
         });
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function favorites()
     {
         return $this->belongsToMany(Post::class, 'favorites', 'user_id', 'post_id')->withTimestamps();
     }
+    
     public function favorite($postId)
     {
         $posts = Post::findOrFail($postId);
@@ -107,6 +113,7 @@ public function unfollow($followedId)
             return true;
         }
     }
+
     public function unfavorite($postId)
     {
         $posts = Post::findOrFail($postId);
@@ -121,6 +128,7 @@ public function unfollow($followedId)
             return false;
         }
     }
+
     public function isFavorite($postId)
     {
         return $this->favorites()->where('post_id', $postId)->exists();

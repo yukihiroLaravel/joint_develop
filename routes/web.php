@@ -81,4 +81,10 @@ Route::group(['middleware' => 'auth'], function () {
         // 投稿削除
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     });
+
+    //コメント投稿機能/一覧表示/コメント詳細
+    Route::prefix('comments')->group(function() {
+        Route::post('', 'CommentsController@store')->name('comments.store');
+        Route::get('{id}', 'CommentsController@show')->name('comments.show');
+    });
 });
