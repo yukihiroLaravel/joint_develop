@@ -28,15 +28,17 @@
                 <div class="form-group">
                     <textarea class="form-control" name="content" rows="4" placeholder="本文は入力必須です。">{{ old('content') }}</textarea>
                     <div class="d-flex flex-column mt-3" style="row-gap: 0.5rem">
-                        <ul class="postImg-input_container d-flex flex-wrap list-unstyled mb-0 col">
+                        <ul class="postImg-input_container d-flex flex-wrap align-items-center list-unstyled mb-0 col">
                             <li class="postImg-input_item col-md-3 col-6">
-                                <button class="btn"><i class="fas fa-image"></i>
+                                <img src="" alt="画像プレビュー" class="postImg_preview mb-2">
+                                <label class="btn">
+                                    <i class="fas fa-image"></i>
                                     <p class="mb-0">追加</p>
-                                </button>
-                                <label><input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg" hidden></label>
+                                    <input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg" class="postImgInput"
+                                        hidden>
+                                </label>
                             </li>
                         </ul>
-
                         <button type="submit" class="ml-auto btn btn_accent-color">投稿する</button>
                     </div>
                 </div>

@@ -366,11 +366,24 @@ label {
   font-size: 1rem;
   align-self: center;
 }
-.postImg-input_container .postImg-input_item label {
-  position: absolute;
-  top: 0;
-  left: 0;
+.postImg-input_container .postImg-input_item .postImg_preview {
   width: 100%;
-  height: 100%;
-  opacity: 0;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 10%;
+  display: none;
+}
+.postImg-input_container .postImg-input_item .postImg_delete {
+  position: absolute;
+  top: 2px;
+  right: 18px;
+  background-color: rgba(255, 255, 255, 0.65);
+  color: dimgray;
+  border-radius: 50%;
+  width: 18%;
+  aspect-ratio: 1/1;
+  border: none;
+}
+.postImg-input_container .postImg-input_item .postImg_delete:hover {
+  opacity: 0.65;
 }/*# sourceMappingURL=style.css.map */
