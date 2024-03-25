@@ -22,32 +22,22 @@
     <div class="w-75 m-auto">@include('commons.error_messages')</div>
     @if (Auth::check())
         <div class="text-center mb-3 pt-3">
-            <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75"
+            <form method="POST" action="{{ route('post.store') }}" class="d-inline-block col-lg-9 col-sm-10 col-11"
                 enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <textarea class="form-control" name="content" rows="4" placeholder="本文は入力必須です。">{{ old('content') }}</textarea>
-                    <div class="d-flex flex-wrap mt-3">
-                        <ul class="postImg-input_container d-flex justify-content-around list-unstyled mb-0 col">
-                            <li class="postImg-input_item">
-                                <i class="fas fa-image"></i>
-                                <label><input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg" hidden></label>
-                            </li>
-                            <li class="postImg-input_item">
-                                <i class="fas fa-image"></i>
-                                <label><input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg" hidden></label>
-                            </li>
-                            <li class="postImg-input_item">
-                                <i class="fas fa-image"></i>
-                                <label><input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg" hidden></label>
-                            </li>
-                            <li class="postImg-input_item">
-                                <i class="fas fa-image"></i>
+                    <div class="d-flex flex-column mt-3" style="row-gap: 0.5rem">
+                        <ul class="postImg-input_container d-flex flex-wrap list-unstyled mb-0 col">
+                            <li class="postImg-input_item col-md-3 col-6">
+                                <button class="btn"><i class="fas fa-image"></i>
+                                    <p class="mb-0">追加</p>
+                                </button>
                                 <label><input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg" hidden></label>
                             </li>
                         </ul>
 
-                        <button type="submit" class="ml-auto align-self-end btn btn_accent-color mt-3">投稿する</button>
+                        <button type="submit" class="ml-auto btn btn_accent-color">投稿する</button>
                     </div>
                 </div>
             </form>
