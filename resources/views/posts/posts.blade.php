@@ -14,7 +14,7 @@
             </div>
             <div class="container">
                 <div class="text-left d-inline-block w-75">
-                    <p class="mb-2">{{ $post->text}}</p>
+                    <p class="mb-2">{!! preg_replace('@(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?)@', '<a href="$1" target="_blank">$1</a>', e($post->text)) !!}</p>
                     <p class="text-muted">{{ $post->created_at }}</p>
                 </div>
                 <a href="{{ route('comments.show', $post->id) }}" class="btn btn-primary">コメントする</a> 

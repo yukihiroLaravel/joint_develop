@@ -25,7 +25,7 @@ class PostsController extends Controller
         $post->user_id = $user->id;
         $post->text = $request->text;
         $post->save();
-        return back();
+        return redirect('/')->with('post_register_message', '投稿が完了しました');
     }
 
     public function search(Request $request)
@@ -96,6 +96,6 @@ class PostsController extends Controller
         if (\Auth::id() === $posts->user_id) {
             $posts->delete();
         }
-            return back();
+            return redirect('/')->with('post_destory_message', '投稿が削除されました');
     }
 }
