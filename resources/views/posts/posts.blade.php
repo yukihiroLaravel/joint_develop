@@ -33,6 +33,7 @@
                     </div>
                 <div class="pt-2 col-12 action_area">
                     {{-- いいね・コメントのボタンが入ります --}}
+                    @include('favorite.favorite_button', ['post' => $post])
                     @if ($post->user_id == Auth::id())
                         <div class="d-flex m-auto">
                             <form method="POST" action="{{ route('post.delete', $post->id) }}">
