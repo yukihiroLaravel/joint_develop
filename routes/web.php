@@ -18,6 +18,7 @@ Route::post('signup','Auth\RegisterController@register')->name('signup.post');
 //ユーザー詳細
 Route::prefix('users')->group(function(){
     Route::get('{id}', 'UsersController@show')->name('user.show');
+    Route::get('favorites','UsersController@favorites')->name('user.favorites');
 });
 // ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -32,6 +33,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete'); 
+    });
+        // いいね
+    Route::group(['prefix' => 'posts/{id}'],function(){
+        Route::post('favorite','FavoriteController@store')->name('favorite');
+        Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
     });
 
     // ユーザ　
