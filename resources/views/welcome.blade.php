@@ -30,7 +30,10 @@
                     <div class="d-flex flex-column mt-3" style="row-gap: 0.5rem">
                         <ul class="postImg-input_container d-flex flex-wrap align-items-center list-unstyled mb-0 col">
                             <li class="postImg-input_item col-md-3 col-6">
-                                <img src="" alt="画像プレビュー" class="postImg_preview mb-2">
+                                <div class="postImg_preview_unit d-none">
+                                    <button class="postImg_delete"><i class="fa-solid fa-xmark"></i></button>
+                                    <img src="" alt="画像プレビュー" class="postImg_preview mb-2">
+                                </div>
                                 <label class="btn">
                                     <i class="fas fa-image"></i>
                                     <p class="mb-0">追加</p>

@@ -32,27 +32,25 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
     //投稿編集、更新
-    Route::prefix('posts')->group(function() {
-        Route::get('create','PostsController@cerate')->name('post.cerate');
+    Route::prefix('posts')->group(function () {
+        Route::get('create', 'PostsController@cerate')->name('post.cerate');
         Route::post('', 'PostsController@store')->name('post.store');
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
         //投稿削除
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
-    }); 
+    });
     Route::prefix('users/{id}')->group(function () {
         Route::get('edit', 'UserController@edit')->name('users.edit');
         Route::put('', 'UserController@updata')->name('users.updata');
         Route::put('change-icon', 'UserController@iconUpdata')->name('usersIcon.updata');
         Route::delete('', 'UserController@destroy')->name('user.delete');
         Route::post('follow', 'FollowController@store')->name('follow');
-        Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');      
-  });
-     // いいね
-     Route::group(['prefix' => 'posts/{id}'], function(){
-      Route::post('favorite', 'FavoriteController@store')->name('favorite');
-      Route::delete('unfavorite', 'FavoriteController@destroy')->name('unfavorite');
-  });
-    Route::post('posts', 'PostsController@store')->name('post.store');
-    Route::delete('post/{id}', 'PostsController@destroy')->name('post.delete');
+        Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
     });
+    // いいね
+    Route::group(['prefix' => 'posts/{id}'], function () {
+        Route::post('favorite', 'FavoriteController@store')->name('favorite');
+        Route::delete('unfavorite', 'FavoriteController@destroy')->name('unfavorite');
+    });
+});

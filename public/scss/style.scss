@@ -346,13 +346,14 @@ label {
                 opacity: 0.65;
             }
         }
+        .currentImg_preview,
         .postImg_preview {
             width: 100%;
             aspect-ratio: 1/1;
             object-fit: cover;
             border-radius: 10%;
-            display: none;
         }
+        .currentImg_delete,
         .postImg_delete {
             position: absolute;
             top: 2px;

@@ -2,43 +2,100 @@ $(function () {
     // 投稿の画像プレビュー
     if ($(".postImg-input_container").length) {
         var postImgInputItem = `<li class="postImg-input_item col-md-3 col-6">
-                                    <img src="" alt="画像プレビュー" class="postImg_preview mb-2">
-                                    <label class="btn">
-                                        <i class="fas fa-image"></i>
-                                        <p class="mb-0">追加</p>
-                                        <input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg" class="postImgInput"
-                                        hidden>
-                                    </label>
-                            </li>`;
-        var postImg_delete = `<button class="postImg_delete"><i class="fa-solid fa-xmark"></i></button>`;
+                        <div class="postImg_preview_unit d-none">
+                            <button class="postImg_delete"><i class="fa-solid fa-xmark"></i></button>
+                            <img src="" alt="画像プレビュー" class="postImg_preview mb-2">
+                        </div>
+                        <label class="btn">
+                            <i class="fas fa-image"></i>
+                            <p class="mb-0">追加</p>
+                            <input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg" class="postImgInput" value="" hidden>
+                        </label>
+                    </li>`;
         $(document).on("change", 'input[type="file"]', function () {
             var changedInput = $(this);
-            var postImg_preview = changedInput
+            var cahngedPostInputItem = changedInput.parent().parent();
+            var postImg_preview_unit = changedInput
                 .parent()
-                .prev(".postImg_preview");
-            var previewLength = $(".postImg-input_item").length;
+                .siblings(".postImg_preview_unit");
+            var currentImg_preview_unit = changedInput
+                .parent()
+                .siblings(".currentImg_preview_unit");
+            var inputLength = $(".postImg-input_item").length;
+            var currentImgId = currentImg_preview_unit
+                .children("img")
+                .attr("id");
+            var cahngedInputIndex = cahngedPostInputItem.index(
+                ".postImg-input_container li"
+            );
             var fileReader = new FileReader();
             fileReader.onload = function (e) {
-                postImg_preview.attr("src", e.target.result);
+                postImg_preview_unit
+                    .children("img")
+                    .attr("src", e.target.result);
             };
             if (this.files[0]) {
+                var exchanges =
+                    `<input type="hidden" name="exchanges[]" value="` +
+                    cahngedInputIndex +
+                    `/` +
+                    currentImgId +
+                    `">`;
                 fileReader.readAsDataURL(this.files[0]);
-                postImg_preview.addClass("d-block");
-                $(this).parent().parent().append(postImg_delete);
+                postImg_preview_unit.removeClass("d-none");
+                currentImg_preview_unit.addClass("d-none");
+                changedInput.attr("value", currentImgId);
+                cahngedPostInputItem.append(exchanges);
                 if (
                     changedInput.prev("p").text() == "追加" &&
-                    previewLength < 4
+                    inputLength < 4
                 ) {
                     $(".postImg-input_container").append(postImgInputItem);
                 }
                 changedInput.prev("p").text("変更");
+            } else {
+                if (currentImg_preview_unit.length == 1) {
+                    postImg_preview_unit.addClass("d-none");
+                    currentImg_preview_unit.removeClass("d-none");
+                    cahngedPostInputItem
+                        .children('input[name="exchanges"]')
+                        .remove();
+                    postImg_preview_unit.children("img").attr("src", "");
+                } else {
+                    let lastInputText = $(".postImg-input_container li:last")
+                        .find("p")
+                        .text();
+                    if (lastInputText == "変更") {
+                        $(".postImg-input_container").append(postImgInputItem);
+                    }
+                    cahngedPostInputItem.remove();
+                }
             }
         });
         $(document).on("click", ".postImg_delete", function () {
-            let previewLength = $(".postImg_delete").length;
-            $(this).parent().remove();
-            if (previewLength == 4) {
+            let lastInputText = $(".postImg-input_container li:last")
+                .find("p")
+                .text();
+            $(this).parent().parent().remove();
+            if (lastInputText == "変更") {
                 $(".postImg-input_container").append(postImgInputItem);
+            }
+            if ($(this).parent().parent().find(".currentImg_preview").length) {
+                let deleteImgId = $(this)
+                    .parent()
+                    .parent()
+                    .find(".currentImg_preview")
+                    .attr("id");
+                var inputDelete = $('input[name="deleteImg"]');
+                var deleteImgValue = inputDelete.attr("value");
+                if (deleteImgValue == " ") {
+                    inputDelete.attr("value", deleteImgId);
+                } else {
+                    inputDelete.attr(
+                        "value",
+                        deleteImgValue + `/` + deleteImgId
+                    );
+                }
             }
         });
     }

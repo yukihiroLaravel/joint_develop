@@ -52,15 +52,16 @@ class PostsController extends Controller
         $post->save();
 
         if (request()->file()) {
-            $this->savePostImages($post->id);
+            $requestFiles = request()->file('postImgs');
+            $this->savePostImages($requestFiles, $post->id);
         }
 
         return back();
     }
 
-    public function savePostImages($postId)
+    public function savePostImages($requestFiles, $postId)
     {
-        foreach (request()->file('postImgs') as $postFile) {
+        foreach ($requestFiles as $postFile) {
             $fileName = $postFile->store('public/images/postImgs');
             $fileName = str_replace('public/images/postImgs/', '', $fileName);
             $postImage = new PostImage;
@@ -75,8 +76,7 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
         if (\Auth::id() === $post->user_id) {
             foreach ($post->postImages as $postImage) {
-                Storage::disk('public')->delete('images/postImgs/' . $postImage->image_name);
-                $postImage->delete();
+                $this->postImageDelete($postImage);
             }
             $post->delete();
         }
@@ -99,9 +99,43 @@ class PostsController extends Controller
         if (\Auth::id() === $post->user_id) {
             $post->content = $request->content;
             $post->save();
+
+            $deleteImgsId = explode("/", $request->deleteImg);
+            if ($deleteImgsId[0] !== "") {
+                foreach ($deleteImgsId as $deleteImgId) {
+                    $postImage = PostImage::findOrFail($deleteImgId);
+                    $this->postImageDelete($postImage);
+                }
+            }
+
+            if (request()->file()) {
+                $requestFiles = request()->file('postImgs');
+                foreach ($request->exchanges as $value) {
+                    $exchanges = explode("/", $value);
+                    $postImage = PostImage::findOrFail($exchanges[1]);
+                    Storage::disk('public')->delete('images/postImgs/' . $postImage->image_name);
+
+                    $postFile = $requestFiles[$exchanges[0]];
+
+                    $fileName = $postFile->store('public/images/postImgs');
+                    $fileName = str_replace('public/images/postImgs/', '', $fileName);
+                    $postImage->image_name = $fileName;
+                    $postImage->save();
+
+                    unset($requestFiles[$exchanges[0]]);
+                }
+                $this->savePostImages($requestFiles, $post->id);
+            }
+
             return redirect('/');
         } else {
             return back();
         }
+    }
+
+    public function postImageDelete($postImage)
+    {
+        Storage::disk('public')->delete('images/postImgs/' . $postImage->image_name);
+        $postImage->delete();
     }
 }
