@@ -10,7 +10,7 @@
         <div class="">
             <div class="text-left d-inline-block w-75">
                 <!-- $post が使われている部分 -->
-                <p class="mb-2">{{ $post->content }}</p>
+                <div>{!! nl2br($post->content_with_link) !!}</div>
             @if($post->image)
                 <div class="">
                     <img src="{{ Storage::url($post->image) }}" alt="投稿画像" class="img-fluid">
