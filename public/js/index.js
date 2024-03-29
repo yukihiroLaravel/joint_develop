@@ -35,17 +35,19 @@ $(function () {
                     .attr("src", e.target.result);
             };
             if (this.files[0]) {
-                var exchanges =
-                    `<input type="hidden" name="exchanges[]" value="` +
-                    cahngedInputIndex +
-                    `/` +
-                    currentImgId +
-                    `">`;
                 fileReader.readAsDataURL(this.files[0]);
                 postImg_preview_unit.removeClass("d-none");
                 currentImg_preview_unit.addClass("d-none");
-                changedInput.attr("value", currentImgId);
-                cahngedPostInputItem.append(exchanges);
+                console.log(currentImg_preview_unit.length);
+                if (currentImg_preview_unit.length == 1) {
+                    var exchanges =
+                        `<input type="hidden" name="exchanges[]" value="` +
+                        cahngedInputIndex +
+                        `/` +
+                        currentImgId +
+                        `">`;
+                    cahngedPostInputItem.append(exchanges);
+                }
                 if (
                     changedInput.prev("p").text() == "追加" &&
                     inputLength < 4
@@ -58,14 +60,14 @@ $(function () {
                     postImg_preview_unit.addClass("d-none");
                     currentImg_preview_unit.removeClass("d-none");
                     cahngedPostInputItem
-                        .children('input[name="exchanges"]')
+                        .children('input[name="exchanges[]"]')
                         .remove();
                     postImg_preview_unit.children("img").attr("src", "");
                 } else {
-                    let lastInputText = $(".postImg-input_container li:last")
-                        .find("p")
-                        .text();
-                    if (lastInputText == "変更") {
+                    let tuikaBtnLength = $(
+                        ".postImg-input_container li label"
+                    ).children("p:contains('追加')").length;
+                    if (tuikaBtnLength == 0) {
                         $(".postImg-input_container").append(postImgInputItem);
                     }
                     cahngedPostInputItem.remove();
@@ -73,11 +75,11 @@ $(function () {
             }
         });
         $(document).on("click", ".postImg_delete", function () {
-            let lastInputText = $(".postImg-input_container li:last")
-                .find("p")
-                .text();
+            let tuikaBtnLength = $(
+                ".postImg-input_container li label"
+            ).children("p:contains('追加')").length;
             $(this).parent().parent().remove();
-            if (lastInputText == "変更") {
+            if (tuikaBtnLength == 0) {
                 $(".postImg-input_container").append(postImgInputItem);
             }
             if ($(this).parent().parent().find(".currentImg_preview").length) {
@@ -88,7 +90,7 @@ $(function () {
                     .attr("id");
                 var inputDelete = $('input[name="deleteImg"]');
                 var deleteImgValue = inputDelete.attr("value");
-                if (deleteImgValue == " ") {
+                if (deleteImgValue == "none") {
                     inputDelete.attr("value", deleteImgId);
                 } else {
                     inputDelete.attr(

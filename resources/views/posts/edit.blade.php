@@ -43,7 +43,7 @@
                         </li>
                     @endif
                 </ul>
-                <input type="hidden" name="deleteImg" value=" ">
+                <input type="hidden" name="deleteImg" value="none">
                 <button type="submit" class="ml-auto btn btn_accent-color">更新する</button>
             </div>
         </div>
