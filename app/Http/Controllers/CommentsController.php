@@ -23,7 +23,7 @@ class CommentsController extends Controller
         $comment->post_id = $request->post_id;
         $comment->save();
 
-        return back();
+        return back()->with('comment_register_message', 'コメントしました');
     }
 
     public function show($id)

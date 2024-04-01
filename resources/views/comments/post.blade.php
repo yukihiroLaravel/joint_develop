@@ -1,4 +1,9 @@
 <div class="container mt-3">
+    @if (session('comment_register_message'))
+        <div class="alert alert-success">
+            {{ Session::get('comment_register_message') }}
+        </div>
+    @endif
     <h5 class="text-center">投稿内容</h5>
     <div class="text-center">
         <div class="text-left d-inline-block w-75 mb-2 border rounded">
