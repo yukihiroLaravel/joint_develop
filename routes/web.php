@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'posts/{id}'],function(){
         Route::post('favorite','FavoriteController@store')->name('favorite');
         Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
+        Route::get('favorite','UsersController@favorites')->name('user.favorites');
     });
 
     // ユーザ　

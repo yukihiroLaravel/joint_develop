@@ -49,7 +49,6 @@
         <li class="nav-item"><a href="{{ route('user.show', ['id' => $user->id]) }}" class="nav-link {{ Request::is('users/' . $user->id) ? 'active' : '' }}">タイムライン</a></li>
             <li class="nav-item"><a href="{{ url('/following') }}" class="nav-link {{ Request::is('following') ? 'active' : '' }}">フォロー中</a></li>
             <li class="nav-item"><a href="{{ url('/followers') }}" class="nav-link {{ Request::is('followers') ? 'active' : '' }}">フォロワー</a></li>
-            <!-- <li class="nav-item"><a href="{{ url('/favorites') }}" class="nav-link {{ Request::is('favorites') ? 'active' : '' }}">いいね</a></li> -->
             <li class="nav-item nav-link {{ Request::is('users/'. $user->id. '/favorites') ? 'active' : '' }}"><a href="{{ route('user.favorites', $user->id) }}">いいね<br><div class="badge badge-secondary">{{ $countFavorites }}</div></a></li>
         </ul>
         </ul>
