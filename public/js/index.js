@@ -38,7 +38,6 @@ $(function () {
                 fileReader.readAsDataURL(this.files[0]);
                 postImg_preview_unit.removeClass("d-none");
                 currentImg_preview_unit.addClass("d-none");
-                console.log(currentImg_preview_unit.length);
                 if (currentImg_preview_unit.length == 1) {
                     var exchanges =
                         `<input type="hidden" name="exchanges[]" value="` +
