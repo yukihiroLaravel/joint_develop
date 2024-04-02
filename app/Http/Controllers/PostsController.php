@@ -52,15 +52,15 @@ class PostsController extends Controller
         $post->save();
 
         if (request()->file()) {
-            $this->savePostImages($post->id);
+            $requestFiles = request()->file('postImgs');
+            $this->savePostImages($requestFiles, $post->id);
         }
-
         return back();
     }
 
-    public function savePostImages($postId)
+    public function savePostImages($requestFiles, $postId)
     {
-        foreach (request()->file('postImgs') as $postFile) {
+        foreach ($requestFiles as $postFile) {
             $fileName = $postFile->store('public/images/postImgs');
             $fileName = str_replace('public/images/postImgs/', '', $fileName);
             $postImage = new PostImage;
@@ -75,8 +75,7 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
         if (\Auth::id() === $post->user_id) {
             foreach ($post->postImages as $postImage) {
-                Storage::disk('public')->delete('images/postImgs/' . $postImage->image_name);
-                $postImage->delete();
+                $this->postImageDelete($postImage);
             }
             $post->delete();
         }
@@ -99,9 +98,47 @@ class PostsController extends Controller
         if (\Auth::id() === $post->user_id) {
             $post->content = $request->content;
             $post->save();
+
+            $deleteImgsId = explode("/", $request->deleteImg);
+            if ($deleteImgsId[0] !== "none") {
+                $deletePostImgs = PostImage::where('post_id', '=', $id)->whereIn('id', $deleteImgsId)->get();
+                foreach ($deletePostImgs as $deletePostImg) {
+                    $this->postImageDelete($deletePostImg);
+                }
+            }
+            if (request()->file()) {
+                $requestFiles = request()->file('postImgs');
+                foreach ((array)$request->exchanges as $value) {
+                    $exchanges[] = explode("/", $value);
+                }
+                foreach ($requestFiles as $index => $postFile) {
+                    if (isset($exchanges) && in_array($index, array_column($exchanges, '0'))) {
+                        $exchangePostImageIndex = $exchanges[array_search($index, array_column($exchanges, '0'))][1];
+                        $exchangePostImage = PostImage::where('post_id', '=', $id)->findOrFail($exchangePostImageIndex);
+                        Storage::disk('public')->delete('images/postImgs/' . $exchangePostImage->image_name);
+                        $fileName = $postFile->store('public/images/postImgs');
+                        $fileName = str_replace('public/images/postImgs/', '', $fileName);
+                        $exchangePostImage->image_name = $fileName;
+                        $exchangePostImage->save();
+                    } else {
+                        $fileName = $postFile->store('public/images/postImgs');
+                        $fileName = str_replace('public/images/postImgs/', '', $fileName);
+                        $postImage = new PostImage;
+                        $postImage->post_id = $id;
+                        $postImage->image_name = $fileName;
+                        $postImage->save();
+                    }
+                }
+            }
             return redirect('/');
         } else {
             return back();
         }
+    }
+
+    public function postImageDelete($postImage)
+    {
+        Storage::disk('public')->delete('images/postImgs/' . $postImage->image_name);
+        $postImage->delete();
     }
 }

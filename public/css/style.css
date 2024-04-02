@@ -181,6 +181,10 @@ main {
   height: 4px;
   background-color: #ed5235;
 }
+.show_category_list > li.active:hover {
+  opacity: 1;
+  cursor: default;
+}
 
 .category_container {
   display: flex;
@@ -336,4 +340,55 @@ label {
 }
 .timeline-category .btn.active:hover {
   opacity: 1;
+}
+
+.postImg-input_container {
+  row-gap: 0.5rem;
+}
+.postImg-input_container .postImg-input_item {
+  position: relative;
+  min-width: 100px;
+}
+.postImg-input_container .postImg-input_item > .btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.2rem 0;
+  border: 1px solid darkgray;
+  border-radius: 3rem;
+  background-color: white;
+  font-size: 0.8rem;
+  line-height: 1em;
+}
+.postImg-input_container .postImg-input_item > .btn svg {
+  font-size: 1rem;
+  align-self: center;
+}
+.postImg-input_container .postImg-input_item > .btn:hover {
+  opacity: 0.65;
+}
+.postImg-input_container .postImg-input_item .currentImg_preview,
+.postImg-input_container .postImg-input_item .postImg_preview {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 10%;
+}
+.postImg-input_container .postImg-input_item .currentImg_delete,
+.postImg-input_container .postImg-input_item .postImg_delete {
+  position: absolute;
+  top: 2px;
+  right: 18px;
+  background-color: rgba(255, 255, 255, 0.65);
+  color: dimgray;
+  border-radius: 50%;
+  width: 18%;
+  aspect-ratio: 1/1;
+  border: none;
+}
+.postImg-input_container .postImg-input_item .currentImg_delete:hover,
+.postImg-input_container .postImg-input_item .postImg_delete:hover {
+  opacity: 0.65;
 }/*# sourceMappingURL=style.css.map */

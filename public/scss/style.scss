@@ -174,6 +174,10 @@ main {
                 height: 4px;
                 background-color: $accentColor;
             }
+            &:hover {
+                opacity: 1;
+                cursor: default;
+            }
         }
     }
 }
@@ -313,6 +317,55 @@ label {
             color: white;
             &:hover {
                 opacity: 1;
+            }
+        }
+    }
+}
+.postImg-input_container {
+    row-gap: 0.5rem;
+    .postImg-input_item {
+        position: relative;
+        min-width: 100px;
+        > .btn {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.2rem 0;
+            border: 1px solid darkgray;
+            border-radius: 3rem;
+            background-color: white;
+            font-size: 0.8rem;
+            line-height: 1em;
+            svg {
+                font-size: 1rem;
+                align-self: center;
+            }
+            &:hover {
+                opacity: 0.65;
+            }
+        }
+        .currentImg_preview,
+        .postImg_preview {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 10%;
+        }
+        .currentImg_delete,
+        .postImg_delete {
+            position: absolute;
+            top: 2px;
+            right: 18px;
+            background-color: rgb(white, 0.65);
+            color: dimgray;
+            border-radius: 50%;
+            width: 18%;
+            aspect-ratio: 1/1;
+            border: none;
+            &:hover {
+                opacity: 0.65;
             }
         }
     }

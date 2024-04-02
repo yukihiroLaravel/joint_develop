@@ -22,19 +22,27 @@
     <div class="w-75 m-auto">@include('commons.error_messages')</div>
     @if (Auth::check())
         <div class="text-center mb-3 pt-3">
-            <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75"
+            <form method="POST" action="{{ route('post.store') }}" class="d-inline-block col-lg-9 col-sm-10 col-11"
                 enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                    <textarea class="form-control" name="content" rows="4">{{ old('content') }}</textarea>
-                    <div>
-                        <input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg">
-                        <input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg">
-                        <input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg">
-                        <input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg">
-                    </div>
-                    <div class="text-right mt-3">
-                        <button type="submit" class="btn btn_accent-color">投稿する</button>
+                    <textarea class="form-control" name="content" rows="4" placeholder="本文は入力必須です。">{{ old('content') }}</textarea>
+                    <div class="d-flex flex-column mt-3" style="row-gap: 0.5rem">
+                        <ul class="postImg-input_container d-flex flex-wrap align-items-center list-unstyled mb-0 col">
+                            <li class="postImg-input_item col-md-3 col-6">
+                                <div class="postImg_preview_unit d-none">
+                                    <button class="postImg_delete"><i class="fa-solid fa-xmark"></i></button>
+                                    <img src="" alt="画像プレビュー" class="postImg_preview mb-2">
+                                </div>
+                                <label class="btn">
+                                    <i class="fas fa-image"></i>
+                                    <p class="mb-0">追加</p>
+                                    <input type="file" name="postImgs[]" accept=".png, .jpg, .jpeg" class="postImgInput"
+                                        hidden>
+                                </label>
+                            </li>
+                        </ul>
+                        <button type="submit" class="ml-auto btn btn_accent-color">投稿する</button>
                     </div>
                 </div>
             </form>
