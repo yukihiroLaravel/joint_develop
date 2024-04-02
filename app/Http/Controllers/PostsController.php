@@ -108,11 +108,11 @@ class PostsController extends Controller
             }
             if (request()->file()) {
                 $requestFiles = request()->file('postImgs');
-                foreach ($request->exchanges as $value) {
+                foreach ((array)$request->exchanges as $value) {
                     $exchanges[] = explode("/", $value);
                 }
                 foreach ($requestFiles as $index => $postFile) {
-                    if (in_array($index, array_column($exchanges, '0'))) {
+                    if (isset($exchanges) && in_array($index, array_column($exchanges, '0'))) {
                         $exchangePostImageIndex = $exchanges[array_search($index, array_column($exchanges, '0'))][1];
                         $exchangePostImage = PostImage::where('post_id', '=', $id)->findOrFail($exchangePostImageIndex);
                         Storage::disk('public')->delete('images/postImgs/' . $exchangePostImage->image_name);
