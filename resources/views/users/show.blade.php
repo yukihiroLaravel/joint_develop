@@ -12,7 +12,22 @@
                         @if ($user->id === Auth::id())
                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                         @endif
-                        @include('follows.follow_button', ['id' => $user->id])
+                        @if (Auth::check() && Auth::id() !== $user->id)
+                            @if (Auth::user()->isFollow($user->id))
+                                <form method="POST" action="{{ route('unfollow', $user->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-light w-100"
+                                        style="color: dimgray">フォローを外す</button>
+                                </form>
+                            @else
+                                <form method="POST" action="{{ route('follow', $user->id) }}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-warning w-100">フォローする</button>
+                                </form>
+                            @endif
+                        @endif
+
                     </div>
                 </div>
             </div>
