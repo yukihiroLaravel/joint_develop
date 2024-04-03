@@ -184,4 +184,19 @@ $(function () {
             }
         };
     }
+
+    // 画像クリック時にモーダルを表示
+    if ($(".post-image").length) {
+        $(document).on("click", ".post-image img", function () {
+            let $imgScr = $(this).attr("src");
+            $("html, body").css("overflow", "hidden");
+            $("#post-img_modal img").attr("src", $imgScr);
+            $("#post-img_modal").addClass("active");
+        });
+        $(document).on("click", "#post-img_modal", function () {
+            $("html, body").css("overflow", "");
+            $("#post-img_modal img").attr("src", "");
+            $("#post-img_modal").removeClass("active");
+        });
+    }
 });

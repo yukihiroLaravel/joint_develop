@@ -1,17 +1,22 @@
-@if (Auth::check() && Auth::id() !== $id)
-    <div class="d-inline-block ml-3">
+<div class="d-inline-block">
+
+    <div class="d-inline-block" style="color: dimgray;"><i
+            class="fas fa-user-friends mr-2"></i>{{ $user->followerUsers()->count() }}
+    </div>
+
+    @if (Auth::check() && Auth::id() !== $id)
         @if (Auth::user()->isFollow($id))
-            <form method="POST" action="{{ route('unfollow', $id) }}">
+            <form method="POST" action="{{ route('unfollow', $id) }}" class="ml-3 d-inline-block">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-secondary">フォロー解除&nbsp;<i class="fa fa-user-minus"></i></button>
+                <button type="submit" class="follow_btn">フォローを外す</button>
             </form>
         @else
-            <form method="POST" action="{{ route('follow', $id) }}">
+            <form method="POST" action="{{ route('follow', $id) }}" class="ml-3 d-inline-block">
                 @csrf
-                <button type="submit" class="btn" style="background-color: orange; color:white">フォローする&nbsp;<i
-                        class="fa fa-user-plus" aria-hidden="true"></i></button>
+                <button type="submit" class="follow_btn orange">フォローする</button>
             </form>
         @endif
-    </div>
-@endif
+    @endif
+
+</div>
