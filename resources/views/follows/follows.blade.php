@@ -9,13 +9,12 @@
     @else
         @foreach ($usersList as $item)
             <li class="col-10">
-                <div class="d-flex">
+                <div class="d-flex align-items-center">
                     <div class="mr-2" style="width: 55px">
                         @include('commons.user_icon', ['user' => $item])
                     </div>
-                    <p class="mt-3 mb-0 d-inline-block"><a
-                            href="{{ route('user.show', $item->id) }}">{{ $item->name }}</a>
-                        @include('follows.follow_button', ['id' => $item->id])</p>
+                    <a href="{{ route('user.show', $item->id) }}" class="ml-2">{{ $item->name }}</a>
+                    <div class="ml-auto">@include('follows.follow_button', ['id' => $item->id])</div>
                 </div>
             </li>
         @endforeach
