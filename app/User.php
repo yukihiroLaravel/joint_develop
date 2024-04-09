@@ -5,10 +5,12 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes; //laravelに備え付けの論理削除を使えるようにする記述
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes; //クラス内で呼び出す宣言
 
     /**
      * The attributes that are mass assignable.
