@@ -12,5 +12,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(UsersTableSeeder::class); //コメントアウトを外す事でUsersTableSeederが実行される
+        $this->call(PostsTableSeeder::class);
     }
 }
