@@ -1,3 +1,4 @@
+@extends('layouts.app')
 <div class="text-center">
         <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
     </div>
