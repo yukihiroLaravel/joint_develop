@@ -8,11 +8,11 @@ use App\Post;
 
 class UsersController extends Controller
 {
-    // public function index()
-    // {
-    //     $users = User::orderBy('created_at', 'desc')->paginate(5);
-    //     return view('welcome', [
-    //         'users' => $users,
-    //     ]);
-    // }
+    public function index()
+    {
+        $users = User::orderBy('created_at', 'desc')->paginate(5);
+        return view('welcome', [
+            'users' => $users,
+        ]);
+    }
 }

@@ -12,6 +12,7 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
+        
         $faker = Faker::create();
 
         $min = 1;
@@ -19,13 +20,15 @@ class PostsTableSeeder extends Seeder
 
         foreach (range(1, 10) as $index) {
             $createdAt = $faker->dateTimeBetween('-1 year', 'now');
-
             DB::table('posts')->insert([
-                'user_id' => $faker->numberBetween($min, $max),
+                'user_id' => $faker->numberBetween($min,$max),
                 'content' => $faker->paragraph,
-                'created_at' => $createdAt,
-                'updated_at' => $createdAt,
+                'created_at' => $createdAt(),
+                'updated_at' => $createdAt(),
             ]);
         }
+    
     }
 }
+
+
