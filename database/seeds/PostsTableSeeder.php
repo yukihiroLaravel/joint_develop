@@ -12,14 +12,48 @@ class PostsTableSeeder extends Seeder
     public function run()
     {
         DB::table('posts')->insert([
-            'title' => 'test1',
-            'content' => 'testcontent',
-           
+            'user_id' => 1,
+            'content' => 'test1が投稿した文１個目',  
         ]);
         DB::table('posts')->insert([
-            'title' => 'テストタイトル',
-            'content' => '投稿した文',
-           
+            'user_id' => 1,
+            'content' => 'test1が投稿した文２個目',  
         ]);
+        DB::table('posts')->insert([
+            'user_id' => 1,
+            'content' => 'test1が投稿した文３個目',  
+        ]);
+        DB::table('posts')->insert([
+            'user_id' => 2,
+            'content' => 'test2が投稿した文１個目',  
+        ]);
+        DB::table('posts')->insert([
+            'user_id' => 2,
+            'content' => 'test2が投稿した文２個目',  
+        ]);
+        DB::table('posts')->insert([
+            'user_id' => 1,
+            'content' => 'test1が投稿した文４個目',  
+        ]);
+        DB::table('posts')->insert([
+            'user_id' => 3,
+            'content' => 'test3が投稿した文１個目',  
+        ]);
+        DB::table('posts')->insert([
+            'user_id' => 3,
+            'content' => 'test3が投稿した文２個目',  
+        ]);
+        DB::table('posts')->insert([
+            'user_id' => 3,
+            'content' => 'test3が投稿した文３個目',  
+        ]);
+        DB::table('posts')->insert([
+            'user_id' => 3,
+            'content' => 'test3が投稿した文４個目',  
+        ]);
+        DB::table('posts')->insert([
+            'user_id' => 4,
+            'content' => 'test4が投稿した文１個目',  
+        ]);        
     }
 }
