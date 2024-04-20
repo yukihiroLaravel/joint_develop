@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Faker\Factory as Faker;
 
 class PostsTableSeeder extends Seeder
@@ -14,20 +15,20 @@ class PostsTableSeeder extends Seeder
     {
         
         $faker = Faker::create();
+        $date = now()->startOfDay();
 
-        $min = 1;
-        $max = 10;
 
-        foreach (range(1, 10) as $index) {
-            $createdAt = $faker->dateTimeBetween('-1 year', 'now');
+        for ($i = 1; $i <= 30; $i++) {
+            $currentDate = (clone $date)->addDays($i - 1);
+
             DB::table('posts')->insert([
-                'user_id' => $faker->numberBetween($min,$max),
+                'user_id' => $i,
                 'content' => $faker->paragraph,
-                'created_at' => $createdAt(),
-                'updated_at' => $createdAt(),
+                'created_at' => $currentDate,
+                'updated_at' => $currentDate,
             ]);
         }
-    
+
     }
 }
 
