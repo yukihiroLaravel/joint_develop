@@ -18,7 +18,7 @@ class PostsTableSeeder extends Seeder
         $date = now()->startOfDay();
 
 
-        for ($i = 1; $i <= 30; $i++) {
+        for ($i = 1; $i <= 4; $i++) {
             $currentDate = (clone $date)->addDays($i - 1);
 
             DB::table('posts')->insert([
