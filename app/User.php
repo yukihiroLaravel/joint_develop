@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes; // 追記
+// use App\Posts;
 
 class User extends Authenticatable
 {
@@ -41,8 +42,8 @@ class User extends Authenticatable
 
     public function posts()
     {
-        $post = new Posts;
-
-        // return $this->hasMany(Post::class);
+        return $this->hasMany(Posts::class)
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
     }
 }

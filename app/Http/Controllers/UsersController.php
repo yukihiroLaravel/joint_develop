@@ -15,11 +15,8 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        // $posts = $user->posts()
-        // 取得情報
-        // ユーザ（名前、メールアドレス）
-        // 投稿（投稿内容、投稿日時）
-        $data = ['user'=> $user];
+        $posts = $user->posts();
+        $data = ['user'=> $user, 'posts'=>$posts];
         return view('users.show', $data);
     }
 
