@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Faker\Factory as Faker;
 
 class PostsTableSeeder extends Seeder
@@ -12,16 +13,23 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
+        
         $faker = Faker::create();
+        $date = now()->startOfDay();
 
-        foreach (range(1, 30) as $index) {
+
+        for ($i = 1; $i <= 4; $i++) {
+            $currentDate = (clone $date)->addDays($i - 1);
+
             DB::table('posts')->insert([
-                'user_id' => $faker->randomDigitNotNull(),
-                'title' => $faker->sentence,
+                'user_id' => $i,
                 'content' => $faker->paragraph,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => $currentDate,
+                'updated_at' => $currentDate,
             ]);
         }
+
     }
 }
+
+
