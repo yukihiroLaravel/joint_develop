@@ -16,7 +16,10 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $posts = $user->posts();
-        $data = ['user'=> $user, 'posts'=>$posts];
+        $data = [
+            'user'=> $user,
+            'posts'=>$posts
+        ];
         return view('users.show', $data);
     }
 
