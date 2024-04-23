@@ -13,10 +13,10 @@ class User extends Authenticatable
     use Notifiable;
     use SoftDeletes; // 追記
 
-    public function posts()
-    {
-        return $this->hasMany(Post::class);
-    }
+    // public function posts()
+    // {
+    //     return $this->hasMany(Post::class);
+    // }
 
     /**
      * The attributes that are mass assignable.
@@ -47,7 +47,7 @@ class User extends Authenticatable
 
     public function posts()
     {
-        return $this->hasMany(Posts::class)
+        return $this->hasMany(Post::class)
             ->orderBy('id', 'desc')
             ->paginate(10);
     }
