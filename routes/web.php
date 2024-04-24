@@ -21,4 +21,7 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 // ユーザ
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
+    Route::get('{user}/edit', 'UserController@edit')->name('users.edit');
+　　Route::put('{user}', 'UserController@update')->name('users.update');
 });
+
