@@ -10,6 +10,5 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
- //トップページを表示
-Route::get('/', 'UsersController@index');
-
+// トップページの投稿表示
+Route::get('/', 'PostsController@index');
