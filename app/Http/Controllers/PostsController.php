@@ -7,5 +7,14 @@ use App\Post;
 
 class PostsController extends Controller
 {
-
+  public function index()
+    {
+      $user = User::all();
+      $posts = Post::orderBy('id', 'desc')->paginate(10);
+      
+      return view('welcome', [
+          'user' => $user,
+          'posts' => $posts
+      ]);
+    }
 }
