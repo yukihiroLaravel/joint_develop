@@ -22,5 +22,24 @@ class UsersController extends Controller
         ];
         return view('users.show', $data);
     }
-
+    // public function edit($id)
+    // {
+    //     $user = User::findOrFail($id);
+    //     $posts = $user->posts();
+    //     $data = [
+    //         'user'=> $user,
+    //         'posts'=>$posts
+    //     ];
+    //     return view('users.edit', $data);
+    // }
+    // public function update($id)
+    // {
+    //     $user = User::findOrFail($id);
+    //     $posts = $user->posts();
+    //     $data = [
+    //         'user'=> $user,
+    //         'posts'=>$posts
+    //     ];
+    //     return view('users.update', $data);
+    // }
 }
