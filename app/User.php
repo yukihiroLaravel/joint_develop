@@ -13,10 +13,7 @@ class User extends Authenticatable
     use Notifiable;
     use SoftDeletes; // 追記
 
-    // public function posts()
-    // {
-    //     return $this->hasMany(Post::class);
-    // }
+    
 
     /**
      * The attributes that are mass assignable.

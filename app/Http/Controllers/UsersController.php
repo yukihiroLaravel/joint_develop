@@ -10,10 +10,12 @@ class UsersController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $user = User::all();
+        $posts = Post::orderBy('id', 'desc')->paginate(10);
         
         return view('welcome', [
-            'users' => $users,
+            'user' => $user,
+            'posts' => $posts
         ]);
     }
 
