@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2be5b46626a338c96827315da91b750c",
+    "content-hash": "e7933c3fa8a24ed8f4a224cb01dd3429",
     "packages": [
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -74,6 +74,50 @@
                 }
             ],
             "time": "2023-12-11T17:09:12+00:00"
+        },
+        {
+            "name": "dionbosschieter/gravatar",
+            "version": "0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dionbosschieter/gravatar.git",
+                "reference": "b89f7c983c11c56256cbabc60fe8402c435cc5de"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dionbosschieter/gravatar/zipball/b89f7c983c11c56256cbabc60fe8402c435cc5de",
+                "reference": "b89f7c983c11c56256cbabc60fe8402c435cc5de",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpspec/phpspec": "~2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Gravatar\\": "src/Gravatar"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "dionbosschieter",
+                    "email": "dionbosschieter@gmail.com"
+                }
+            ],
+            "description": "Simple transformer to get a gravatar url on a User model",
+            "keywords": [
+                "gravatar",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/dionbosschieter/gravatar/issues",
+                "source": "https://github.com/dionbosschieter/gravatar/tree/0.2"
+            },
+            "time": "2015-11-15T13:16:30+00:00"
         },
         {
             "name": "doctrine/inflector",
