@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
-    public function index()
-    {
-       //
-    }
-
     public function show($id)
     {
         $user = User::findOrFail($id);
@@ -45,18 +40,6 @@ class UsersController extends Controller
         $data=[
             'user' => $user,
         ];
-        return view('users.edit', $data);
+        return view('users.show', $data);
     }
-
-    public function destroy($id)
-    {
-        $user = User::findOrFail($id);
-        if (\Auth::id() === $user->id) {
-            $user->delete();
-        } else {
-            
-            return back();
-        }
-        return back();
-    }    
 }
