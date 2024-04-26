@@ -31,6 +31,6 @@ Route::prefix('users')->group(function () {
 Route::group(['middleware' => 'auth'], function () {
     // 投稿
     Route::prefix('post')->group(function () {
-        Route::post('', 'PostsController@store')->name('post.store');
+        Route::post('/', 'PostsController@store')->name('post.store');
     });
 });
