@@ -14,15 +14,15 @@
             <label for="email">メールアドレス</label>
             <input id="email" class="form-control" type="text" value="{{ old('email', $user->email) }}" name="email" />
         </div>
-
+{{ old('email') }}
         <div class="form-group">
             <label for="password">パスワード</label>
-            <input id="password" class="form-control" type="password" value="{{ old('password', $user->password) }}" name="password" />
+            <input id="password" class="form-control" type="password" value="" name="password" />
         </div>
 
         <div class="form-group">
             <label for="password_confirmation">パスワードの確認</label>
-            <input id="password_confirmation" class="form-control" type="password_confirmation" value="{{ old('password_confirmation', $user->password_confirmation) }}" name="password_confirmation"/>
+            <input id="password_confirmation" class="form-control" type="password" value="" name="password_confirmation"/>
         </div>
 
         <div class="d-flex justify-content-between">

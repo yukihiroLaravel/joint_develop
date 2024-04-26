@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use App\User;
-
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -25,7 +25,6 @@ class UsersController extends Controller
 
     public function edit($id)
     {
-        // $user = \Auth::user();
         $user = User::findOrFail($id);
 
         $data=[
@@ -40,9 +39,13 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = $request->password;
+        $user->password = Hash::make($request->password);
         $user->save();
-        return back();
+
+        $data=[
+            'user' => $user,
+        ];
+        return view('users.edit', $data);
     }
 
     public function destroy($id)
