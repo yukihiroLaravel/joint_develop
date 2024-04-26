@@ -26,3 +26,10 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
 });
+
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('post')->group(function () {
+        Route::post('', 'PostsController@store')->name('post.store');
+    });
+});
