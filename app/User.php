@@ -13,8 +13,6 @@ class User extends Authenticatable
     use Notifiable;
     use SoftDeletes; // 追記
 
-    
-
     /**
      * The attributes that are mass assignable.
      *
