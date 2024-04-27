@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<div class="center jumbotron bg-info">
+    <div class="center jumbotron bg-info">
         <div class="text-center text-white mt-2 pt-1">
             <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
         </div>
@@ -19,5 +19,11 @@
                 </div>
             </form>
         </div>
- @endsection
+    <!-- 投稿一覧を表示するコンテンツを追加 -->
+    <div class="post-list">
+        <!--　第一引数　postsフォルダのposts.blade.phpファイルを表示　-->
+        <!--  第二引数　「$posts」を配列の形で記述し、第一引数のposts.blade.phpに持っていき表示させる-->
+        @include('posts.posts',['posts' => $posts])
+    </div>
+@endsection
 
