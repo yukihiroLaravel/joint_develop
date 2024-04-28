@@ -9,24 +9,12 @@ use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
-    public function show($id)
-    {
-        $user = User::findOrFail($id);
-        $data=[
-            'user' => $user,
-        ];
-        return view('users.show',$data);   
-    }
-
     public function edit($id)
     {
         $user = User::findOrFail($id);
 
-        $data=[
-            'user' => $user,
-
-        ];
-        return view('users.edit', $data);
+    
+        return view('users.edit', ['user' => $user,]);
     }
 
     public function update(UserRequest $request, $id)
@@ -37,9 +25,6 @@ class UsersController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        $data=[
-            'user' => $user,
-        ];
-        return view('users.show', $data);
+        return view('users.edit', ['user' => $user,]);
     }
 }
