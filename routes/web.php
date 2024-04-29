@@ -17,3 +17,6 @@ Route::get('/', 'PostsController@index');
 Route::group(['middleware'=>'auth'], function () {
   Route::post('posts', 'PostsController@store')->name('posts.store');
 });
+
+// ユーザ詳細
+Route::get('/users/{id}', 'UserController@show')->name('users.show');
