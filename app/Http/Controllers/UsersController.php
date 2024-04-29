@@ -12,8 +12,7 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-
-    
+        
         return view('users.edit', ['user' => $user,]);
     }
 
@@ -28,3 +27,4 @@ class UsersController extends Controller
         return view('users.edit', ['user' => $user,]);
     }
 }
+ß
