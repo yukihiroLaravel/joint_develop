@@ -12,3 +12,8 @@
 */
 // トップページの投稿表示
 Route::get('/', 'PostsController@index');
+
+// 投稿新規作成
+Route::group(['middleware'=>'auth'], function () {
+  Route::post('posts', 'PostsController@store')->name('posts.store');
+});
