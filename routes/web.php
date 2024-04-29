@@ -18,3 +18,11 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/', 'PostsController@index')->name('posts.index');
+
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    // 動画
+    Route::prefix('posts')->group(function () {
+        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
+    });
+});
