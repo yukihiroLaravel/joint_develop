@@ -5,7 +5,6 @@
 <form method="POST" action="{{ route('user.update', $user->id) }}">
         @csrf
         @method('PUT')
-        <input type="hidden" name="_method" value="PUT">
         <div class="form-group">
             <label for="name">ユーザ名</label>
             <input class="form-control" type="text" value="{{ old('name', $user->name) }}" name="name" />
