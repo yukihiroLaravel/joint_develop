@@ -27,9 +27,11 @@ Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
 });
 
-//ログイン後
+// ログイン後
 Route::group(['middleware' => 'auth'], function () {
+    // 投稿・削除
     Route::prefix('post')->group(function () {
+        Route::post('/', 'PostsController@store')->name('post.store');
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     });
 });
