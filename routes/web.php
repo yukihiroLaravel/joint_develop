@@ -32,5 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
     // 投稿
     Route::prefix('post')->group(function () {
         Route::post('/', 'PostsController@store')->name('post.store');
+        Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
+        Route::put('{id}', 'PostsController@update')->name('post.update');
     });
 });
