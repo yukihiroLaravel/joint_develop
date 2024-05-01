@@ -24,7 +24,7 @@ class PostsController extends Controller
         return back();
     }
 
-   public function edit($id)
+    public function edit($id)
     {
         $post = Post::findOrFail($id);
         if (\Auth::id() == $post->user_id) {
