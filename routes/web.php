@@ -16,12 +16,20 @@
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-
+//top page 表示
 Route::get('/', 'PostsController@index')->name('posts.index');
+//ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    //ユーザー情報関連
+    Route::prefix('users')->group(function () {
+        Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
+        Route::put('{id}', 'UsersController@update')->name('user.update');
+});
+});
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
-    // 動画
+    // 投稿関連
     Route::prefix('posts')->group(function () {
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     });
