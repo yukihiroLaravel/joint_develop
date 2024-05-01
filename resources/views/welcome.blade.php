@@ -6,24 +6,28 @@
         </div>
     </div>
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
+    @if (Auth::check()) <!-- ビューファイル内で直接認証をチェックし認証済みユーザのみにフォームを表示 -->
         <div class="w-75 m-auto">
             @include('commons.error_messages')
         </div>
         <div class="text-center mb-3">
-            <form method="" action="" class="d-inline-block w-75">
+            <form method="POST" action="{{ route('posts.store') }}" class="d-inline-block w-75"> <!-- フォームの送信方法 (method) と送信先 (action) の属性を指定 -->
+                @csrf
                 <div class="form-group">
-                    <textarea class="form-control" name="" rows=""></textarea>
+                    <!-- ユーザが投稿内容を入力するための部分 -->
+                    <textarea class="form-control" name="content" rows="4">{{ old('content') }}</textarea> <!-- rows="4"と指定（テキストエリアは初期状態で4行分の高さを持つ） -->
                     <div class="text-left mt-3">
                         <button type="submit" class="btn btn-primary">投稿する</button>
                     </div>
                 </div>
             </form>
         </div>
-    <!-- 投稿一覧を表示するコンテンツを追加 -->
-    <div class="post-list">
-        <!--　第一引数　postsフォルダのposts.blade.phpファイルを表示　-->
-        <!--  第二引数　「$posts」を配列の形で記述し、第一引数のposts.blade.phpに持っていき表示させる-->
-        @include('posts.posts',['posts' => $posts])
-    </div>
+    @endif
+        <!-- 投稿一覧を表示するコンテンツを追加 -->
+        <div class="post-list">
+            <!--　第一引数　postsフォルダのposts.blade.phpファイルを表示　-->
+            <!--  第二引数　「$posts」を配列の形で記述し、第一引数のposts.blade.phpに持っていき表示させる-->
+            @include('posts.posts',['posts' => $posts])
+        </div>
 @endsection
 

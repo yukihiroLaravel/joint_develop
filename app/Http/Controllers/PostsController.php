@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post; //Postモデルを使用する為のインポート、投稿データを取得する為に使用
-use App\User;//Userモデルを使用する為のインポート、ユーザーデータを取得する為に使用
+use App\User; //Userモデルを使用する為のインポート、ユーザーデータを取得する為に使用
+use App\Http\Requests\PostRequest; //フォームリクエストの宣言（バリデーションを切り分ける）
 
 class PostsController extends Controller
 {
@@ -19,5 +20,15 @@ class PostsController extends Controller
         return view('welcome', [
             'posts' => $posts,
         ]);
+    }
+    
+    //通常のRequestクラスの代わりにPostRequestクラスをメソッドの引数として指定
+    public function store(PostRequest $request) //これにより、メソッドが呼び出される前に自動的にリクエストデータがバリデーションされる
+    {
+        $post = new Post; //$postをオブジェクト化
+        $post->content = $request->content; //welcome.blade.phpの<form>内で入力したcontentがname属性として$requestに代入される
+        $post->user_id = $request->user()->id; //Laravelが自動でログインユーザ情報を$requestの中に入れる
+        $post->save();
+        return back();
     }
 }
