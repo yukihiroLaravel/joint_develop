@@ -14,7 +14,6 @@ class PostsController extends Controller
             'posts' => $posts
         ]);
     }
-
     public function store(PostRequest $request)
     {
         $post = new Post;
@@ -41,5 +40,14 @@ class PostsController extends Controller
         $post->user_id = $request->user()->id;
         $post->save();
         return redirect('/');
+    }
+    
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            $post->delete();
+        }
+        return back();
     }
 }
