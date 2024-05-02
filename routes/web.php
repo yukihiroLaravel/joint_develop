@@ -23,12 +23,6 @@ Route::get('/', 'PostsController@index')->name('posts.index');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
-// ユーザ
-Route::get('/', 'UsersController@index');
-Route::prefix('users')->group(function () {
-    Route::get('{id}', 'UsersController@show')->name('user.show');
-});
-
 //ログイン後
 Route::group(['middleware' => 'auth'], function () {
     //ユーザー情報関連
