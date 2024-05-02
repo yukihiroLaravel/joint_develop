@@ -1,20 +1,20 @@
 @extends('layouts.app')
 @section('content')
     <div class="text-center">
-        <h1><i class="fas fa-chalkboard-teacher pr-3 d-inline"></i>Topic Posts</h1>
+        <h1><i class="fas fa-chalkboard-teacher pr-3 d-inline"></i>Topic Posts></h1>
     </div>
     <div class="text-center mt-3">
         <p class="d-inlin-black">新規ユーザ登録すると、<br>あなたのチャンネル作成／動画登録等ができるようになります。</p>
     </div>
-    <div class="text-center mt-5">
-      <h3 class="d-inlin-block">新規ユーザ登録</h3>
+    <div class="text-center">
+      <h3 class="login_title d-inlin-block mt-5">新規ユーザ登録<h/3>
     </div>
     @include('commons.error_messages')
     <div class="row mt-5 mb-5">
         <div class="col-sm-6 offset-sm-3">
-            <form method="POST" action="{{ route('signup.post') }}"
+            <form method="POST" action="{{ route('signup.post') }}">
                 @csrf
-                <div class="form-group">    
+                <div class="form-group">
                     <lavel for="name">名前</label>
                     <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
                 </div>
