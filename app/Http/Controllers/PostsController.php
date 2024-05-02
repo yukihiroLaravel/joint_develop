@@ -17,10 +17,19 @@ class PostsController extends Controller
         ]);
     }
 
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            $post->delete();
+        }
+        return back();
+    }
+
     public function edit($id) 
     {
         $post = Post::findOrFail($id);
-        if(\Auth::id() == $post->id) {
+        if(\Auth::id() == $post->user_id) {
             return view('posts.edit', ['post' => $post]);
         } else{
             abort(404);
