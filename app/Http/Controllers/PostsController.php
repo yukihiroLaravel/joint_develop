@@ -21,7 +21,7 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
         if(\Auth::id() == $post->id) {
-            return view('posts.edit', ['post' => $post,]);
+            return view('posts.edit', ['post' => $post]);
         } else{
             abort(404);
         }
@@ -33,6 +33,6 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->save();
         
-        return redirect()->route('posts.index'); //toppageへリダイレクト
+        return redirect()->route('posts.index'); 
     }
 }
