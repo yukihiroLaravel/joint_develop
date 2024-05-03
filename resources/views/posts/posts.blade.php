@@ -13,6 +13,12 @@
                     <p class="mb-2">{{ $post->content }}</p><!-- 投稿内容を表示 -->
                     <p class="text-muted">{{ $post->created_at }}</p><!-- 投稿日時を相対時間表記で表示 -->
                 </div>
+                @if (Auth::id() == $post->user->id)
+                    <div class="d-flex justify-content-between w-75 pb-3 m-auto">
+                        <!-- 後ほどformタグと削除ボタンを配置 -->
+                        <a href="{{ route('posts.edit', ['id' => $post->id]) }}" class="btn btn-primary">編集する</a>
+                    </div>
+                @endif
             </div>
         </li>
     @endforeach

@@ -14,14 +14,14 @@ class PostsController extends Controller
         //DB上の全投稿情報をid順で降順に並べ換える
         //->paginate(10)⇒1ページに10個のアイテムを表示するように指定
         $posts = Post::orderBy('id','desc')->paginate(10);
-        
+
         //第一引数にはviewの名前を指定
         //第二引数にはviewに渡すデータを連想配列で指定し、「$posts」をviewの'welcome.blade.php'に投稿一覧を渡す記述
         return view('welcome', [
             'posts' => $posts,
         ]);
     }
-    
+
     //通常のRequestクラスの代わりにPostRequestクラスをメソッドの引数として指定
     public function store(PostRequest $request) //これにより、メソッドが呼び出される前に自動的にリクエストデータがバリデーションされる
     {
@@ -30,5 +30,23 @@ class PostsController extends Controller
         $post->user_id = $request->user()->id; //Laravelが自動でログインユーザ情報を$requestの中に入れる
         $post->save();
         return back();
+    }
+
+    // 投稿編集ページ
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id);
+
+        return view('posts.edit', compact('post'));
+    }
+
+    // 投稿編集処理
+    public function update(Request $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        $post->content = $request->content;
+        $post->save();
+
+        return redirect()->route('/');
     }
 }
