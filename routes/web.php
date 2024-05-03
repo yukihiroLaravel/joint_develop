@@ -23,3 +23,6 @@ Route::group(['middleware'=>'auth'], function () {
 });
 // ユーザ詳細
 Route::get('/users/{id}', 'UserController@show')->name('users.show');
+// ユーザ編集画面・更新
+Route::get('/users/{id}/edit', 'UsersController@edit')->name('users.edit');
+Route::put('/users/{id}', 'UsersController@update')->name('users.update');
