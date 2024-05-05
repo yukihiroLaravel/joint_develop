@@ -28,10 +28,7 @@ class UsersController extends Controller
         if (Auth::user()->id !== $user->id) {
             abort(403);
         }
-        $data = [
-            'user'=> $user,
-        ];
-        return view('users.edit', $data);
+        return view('users.edit', ['user' => $user]);
     }
     
     public function update(UserRequest $request, $id)
