@@ -14,7 +14,7 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        $posts = $user->posts();
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
         $data = [
             'user'=> $user,
             'posts'=>$posts
@@ -39,5 +39,18 @@ class UsersController extends Controller
         $user->password = Hash::make($request->password); 
         $user->save();
         return redirect()->route('user.show',['id'=> $user->id]);
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        if (\Auth::user()->id === $user->id) {
+            \Auth::logout();
+            $user->posts->each(function ($post) {
+                $post->update(['deleted_at' => now()]);
+            });
+            $user->delete();
+        }
+        return redirect('/');
     }
 }
