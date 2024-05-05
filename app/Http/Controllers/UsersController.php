@@ -7,21 +7,34 @@ use App\User;
 
 class UsersController extends Controller
 
-// ユーザ編集画面・更新
 {
+    // ユーザ詳細
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+
+        return view('users.show', compact('user', $user));
+    }
+
+    // ユーザ編集画面・更新
     public function edit($id)
     {
         $user = User::find($id);
-        return view('users.edit', compact('user'));
+        if (\Auth::check() && \Auth::id() == $id) {
+            return view('users.edit', ['user' => $user]);
+        }
+        abort(404); // デモ画面は、ログイン画面に遷移させていたが、挙動がうまくいかなかったため、404エラーを返すように実装
     }
 
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
         $user->name = $request->input('name');
-        // ユーザ情報の更新処理を追加する
+        $user->email = $request->input('email');
         $user->save();
-
-        return view('users.posts', compact('user', $user));
+        
+        return redirect()->route('users.show', ['user' => $user,]);
     }
 }
+
+

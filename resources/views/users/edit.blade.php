@@ -2,28 +2,28 @@
 @section('content')
 <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
         @include('commons.error_messages')
-    <form method="POST" action="{{ route('users.edit', $user->id) }}">
+    <form method="POST" action="{{ route('users.update', $user->id) }}">
         @csrf
         @method('PUT')
         <input type="hidden" name="id" value="" />
         <div class="form-group">
             <label for="name">ユーザ名</label>
-            <input class="form-control" value="{{old('name',$user->name)}}" name="name" />
+            <input class="form-control" value="{{ old('name', $user->name) }}" name="name" />
         </div>
 
         <div class="form-group">
             <label for="email">メールアドレス</label>
-            <input class="form-control" value="{{old('email',$user->email)}}" name="email" />
+            <input id="email" class="form-control" value="{{ old('email', $user->email) }}" name="email" />
         </div>
 
         <div class="form-group">
             <label for="password">パスワード</label>
-            <input class="form-control" type="password" name="password" />
+            <input id="password" class="form-control" type="password" value="" name="password" />
         </div>
 
         <div class="form-group">
             <label for="password_confirmation">パスワードの確認</label>
-            <input class="form-control" type="password" name="" />
+            <input id="password_confirmation" class="form-control" type="password" value="" name="password_confirmation"/>
         </div>
 
         <div class="d-flex justify-content-between">

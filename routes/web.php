@@ -10,6 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+ // ユーザ新規登録
+ Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+
 // トップページの投稿表示
 Route::get('/', 'PostsController@index');
 
@@ -17,12 +22,20 @@ Route::get('/', 'PostsController@index');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+
 // 投稿新規作成
 Route::group(['middleware'=>'auth'], function () {
   Route::post('posts', 'PostsController@store')->name('posts.store');
 });
+
 // ユーザ詳細
 Route::get('/users/{id}', 'UserController@show')->name('users.show');
-// ユーザ編集画面・更新
-Route::get('/users/{id}/edit', 'UsersController@edit')->name('users.edit');
-Route::put('/users/{id}', 'UsersController@update')->name('users.update');
+Route::get('/users/{id}', 'UsersController@show')->name('users.show');
+
+// ユーザ編集画面・更新(ログインユーザのみ、prefixでグループ化)
+Route::group(['middleware' => 'auth'], function(){
+  Route::prefix('users')->group(function() {
+    Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
+    Route::put('{id}', 'UsersController@update')->name('users.update');
+  });
+});
