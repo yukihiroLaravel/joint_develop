@@ -7,6 +7,7 @@ use App\User;
 use App\Post;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -23,8 +24,10 @@ class UsersController extends Controller
 
     public function edit($id)
     {
-        $user = \Auth::user();
         $user = User::findOrFail($id);
+        if (Auth::user()->id !== $user->id) {
+            abort(403);
+        }
         $data = [
             'user'=> $user,
         ];
