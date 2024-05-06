@@ -18,6 +18,13 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 //top page 表示
 Route::get('/', 'PostsController@index')->name('posts.index');
+
+// ユーザ
+Route::get('/', 'UsersController@index');
+Route::prefix('users')->group(function () {
+    Route::get('{id}', 'UsersController@show')->name('user.show');
+});
+
 //ログイン後
 Route::group(['middleware' => 'auth'], function () {
     //ユーザー情報関連
