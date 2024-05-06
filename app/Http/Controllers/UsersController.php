@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class UsersController extends Controller
 {
-    public function index()
+    // ユーザ詳細
+    public function show($id)
     {
-        return view('welcome');
-     }
+        $user = User::findOrFail($id);
+
+        return view('users.show', compact('user', $user));
+    }
 }
