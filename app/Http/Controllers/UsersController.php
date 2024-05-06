@@ -29,4 +29,13 @@ class UsersController extends Controller
 
         return view('users.edit', ['user' => $user,]);
     }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        if(\Auth::id() === $user->id) {
+            $user->delete();
+        }
+        return redirect()->route('posts.index');
+    }
 }
