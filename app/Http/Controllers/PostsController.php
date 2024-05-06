@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post; //Postモデルを使用する為のインポート、投稿データを取得する為に使用
 use App\User; //Userモデルを使用する為のインポート、ユーザーデータを取得する為に使用
 use App\Http\Requests\PostRequest; //フォームリクエストの宣言（バリデーションを切り分ける）
+use Illuminate\Support\Facades\Auth; // Authファサードをインポート
 
 class PostsController extends Controller
 {
@@ -37,6 +38,11 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
 
+        // ユーザー認証チェック
+        if (Auth::id() !== $post->user_id) {
+            return redirect()->route('top')->with('error', 'アクセス権限がありません。');
+        }
+
         return view('posts.edit', compact('post'));
     }
 
@@ -44,9 +50,20 @@ class PostsController extends Controller
     public function update(Request $request, $id)
     {
         $post = Post::findOrFail($id);
+
+        // ユーザー認証チェック
+        if (Auth::id() !== $post->user_id) {
+            return redirect()->route('top')->with('error', 'アクセス権限がありません。');
+        }
+
+        // バリデーション
+        $request->validate([
+            'content' => 'required',
+        ]);
+
         $post->content = $request->content;
         $post->save();
 
-        return redirect()->route('/');
+        return redirect()->route('top');
     }
 }
