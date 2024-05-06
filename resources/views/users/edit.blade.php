@@ -35,8 +35,7 @@
                 <div class="modal-body">
                     <label>本当に退会しますか？</label>
                 </div>
-                <div class="modal-footer d-flex justify-content-between">
-                    
+                <div class="modal-footer d-flex justify-content-between">            
                     <form action="{{ route('user.delete', $user->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
