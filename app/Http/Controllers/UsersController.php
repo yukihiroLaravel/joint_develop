@@ -45,10 +45,6 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         if (\Auth::user()->id === $user->id) {
-            \Auth::logout();
-            $user->posts->each(function ($post) {
-                $post->update(['deleted_at' => now()]);
-            });
             $user->delete();
         }
         return redirect('/');
