@@ -47,7 +47,7 @@ class PostsController extends Controller
     }
 
     // 投稿編集処理
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
 
@@ -55,11 +55,6 @@ class PostsController extends Controller
         if (Auth::id() !== $post->user_id) {
             return redirect()->route('top')->with('error', 'アクセス権限がありません。');
         }
-
-        // バリデーション
-        $request->validate([
-            'content' => 'required',
-        ]);
 
         $post->content = $request->content;
         $post->save();
