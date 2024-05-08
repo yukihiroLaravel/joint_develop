@@ -81,4 +81,14 @@ class User extends Authenticatable
     {
         return $this->following()->where('followed_user_id', $userId)->exists();
     }
+    
+    
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($user){
+            $user->posts()->delete();
+        });
+    }
 }
