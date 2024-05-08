@@ -18,6 +18,10 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 //top page 表示
 Route::get('/', 'PostsController@index')->name('posts.index');
+Route::group(['prefix' => 'users/{id}'],function(){
+    Route::get('', 'UsersController@index')->name('user.index');
+    Route::get('follows','UsersController@follow')->name('user.follow');
+});
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
@@ -35,5 +39,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
+    });
+    //フォロー
+    Route::group(['prefix' => 'user/{id}'],function(){
+        Route::post('follows','FollowController@store')->name('follow');
+        Route::delete('unfollow','FollowController@destroy')->name('unfollow');
     });
 });
