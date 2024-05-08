@@ -36,6 +36,6 @@ class UsersController extends Controller
         if(\Auth::id() === $user->id) {
             $user->delete();
         }
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index')->with('alertMessage', '退会が完了しました');
     }
 }
