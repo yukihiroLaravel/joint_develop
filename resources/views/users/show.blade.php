@@ -33,4 +33,5 @@
         </div>
     </div>
 </div>
+@include('commons.flash_message')
 @endsection
