@@ -54,30 +54,43 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followed_id');
     }
-    // ユーザーをフォロー
-    public function follow(User $user)
+    // ユーザーをフォローする機能
+    public function follow($userId)
     {
-        // 既にフォローしているかどうかを確認
-        if ($this->isFollowing($user)) {
-            return false; // すでにフォローしているため、何もせずに false を返す
-        } else {
-            $this->following()->attach($user); // フォローしていない場合、フォローを実行
-            return true; // フォロー成功
+        // 自分自身をフォローしようとした場合は処理を拒否
+        if ($this->id == $userId) {
+            return false;
         }
+
+        // 対象ユーザーを取得し、既にフォローしているか確認
+        $user = self::findOrFail($userId);
+        if ($this->isFollowing($user)) {
+            return false;
+        }
+        
+        // 対象ユーザーをフォロー
+        $this->following()->attach($user);
+        return true;
     }
-    // ユーザーのフォローを解除
-    public function unfollow(User $user)
+
+    // ユーザーのフォローを解除する機能
+    public function unfollow($userId)
     {
-        // ユーザーをフォローしているかどうかを確認
-        if ($this->isFollowing($user)) {
-            $this->following()->detach($user); // フォローしている場合、フォローを解除
-            return true; // フォロー解除成功
-        } else {
-            return false; // フォローしていないため、何もせずに false を返す
+        // 自分自身のアンフォローは拒否
+        if ($this->id == $userId) {
+            return false;
         }
+        // 対象ユーザーを取得し、フォロー中か確認
+        $user = self::findOrFail($userId);
+        if ($this->isFollowing($user)) {
+            // フォロー中なら解除
+            $this->following()->detach($user);
+            return true;
+        }
+        return false;
     }
-    // 特定のユーザーをフォローしているかどうか確認
-    public function isFollowing(User $user)
+    // 対象ユーザーをフォローしているか確認
+    public function isFollowing($user)
     {
         return $this->following()->where('followed_id', $user->id)->exists();
     }

@@ -10,15 +10,17 @@ class FollowController extends Controller
     // ユーザーをフォローするアクション
     public function store($id)
     {
-        $user = User::findOrFail($id); // フォローされるユーザー
-        auth()->user()->follow($user); // 現在認証されているユーザーがフォローを実行
-        return back(); // 前のページに戻る
+        // フォロー実行と結果の取得
+        $result = auth()->user()->follow($id);
+        // フラッシュメッセージなしでページをリダイレクト
+        return back();
     }
     // ユーザーのフォローを解除するアクション
     public function destroy($id)
     {
-        $user = User::findOrFail($id); // アンフォローされるユーザー
-        auth()->user()->unfollow($user); // 現在認証されているユーザーがフォロー解除を実行
-        return back(); // 前のページに戻る
+        // アンフォロー実行と結果の取得
+        $result = auth()->user()->unfollow($id);
+        // フラッシュメッセージなしでページをリダイレクト
+        return back();
     }
 }
