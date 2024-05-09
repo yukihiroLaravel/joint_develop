@@ -39,8 +39,59 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // リレーション定義 「1対多」の1側
     public function post()
     {
-        return $this->hasMany(Post::class); //リレーション定義 「1対多」の1側
+        return $this->hasMany(Post::class);
+    }
+    // フォロワー関連（他のユーザーにフォローされている）
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id');
+    }
+    // フォローしているユーザー関連（他のユーザーをフォローしている）
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followed_id');
+    }
+    // ユーザーをフォローする機能
+    public function follow($userId)
+    {
+        // 自分自身をフォローしようとした場合は処理を拒否
+        if ($this->id == $userId) {
+            return false;
+        }
+
+        // 対象ユーザーを取得し、既にフォローしているか確認
+        $user = self::findOrFail($userId);
+        if ($this->isFollowing($user)) {
+            return false;
+        }
+        
+        // 対象ユーザーをフォロー
+        $this->following()->attach($user);
+        return true;
+    }
+
+    // ユーザーのフォローを解除する機能
+    public function unfollow($userId)
+    {
+        // 自分自身のアンフォローは拒否
+        if ($this->id == $userId) {
+            return false;
+        }
+        // 対象ユーザーを取得し、フォロー中か確認
+        $user = self::findOrFail($userId);
+        if ($this->isFollowing($user)) {
+            // フォロー中なら解除
+            $this->following()->detach($user);
+            return true;
+        }
+        return false;
+    }
+    // 対象ユーザーをフォローしているか確認
+    public function isFollowing($user)
+    {
+        return $this->following()->where('followed_id', $user->id)->exists();
     }
 }

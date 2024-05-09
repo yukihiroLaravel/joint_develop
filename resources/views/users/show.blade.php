@@ -13,6 +13,10 @@
                     </div>
                 </div>
             </div>
+            <!-- ここにフォローボタンを挿入 -->
+            <div style="margin-top: 20px;"> <!-- 20ピクセルの上マージンを追加 -->
+                @include('follow.follow_button', ['user' => $user])
+            </div>
         </aside>
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">

@@ -28,6 +28,9 @@ Route::group(['prefix' => 'posts', 'middleware' => 'auth'], function () {
     Route::post('/', 'PostsController@store')->name('posts.store');
     Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit');
     Route::patch('{id}/update', 'PostsController@update')->name('posts.update');
+    // フォロー機能
+    Route::post('/follow/{id}', 'FollowController@store')->name('follow.store');
+    Route::delete('/unfollow/{id}', 'FollowController@destroy')->name('follow.destroy');
 });
 
 // ユーザ詳細
