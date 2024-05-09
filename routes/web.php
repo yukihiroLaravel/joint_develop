@@ -1,4 +1,5 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,8 +14,10 @@
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+
 // トップページの投稿表示
 Route::get('/', 'PostsController@index')->name('top');
+
 // ユーザー　ログイン・ログアウト
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
@@ -29,7 +32,8 @@ Route::group(['prefix' => 'posts', 'middleware' => 'auth'], function () {
     Route::post('/follow/{id}', 'FollowController@store')->name('follow.store');
     Route::delete('/unfollow/{id}', 'FollowController@destroy')->name('follow.destroy');
 });
- //　ログイン後
+    
+    //　ログイン後
 Route::group(['middleware' => 'auth'], function () {
     //　ユーザ退会・更新
      Route::prefix('users')->group(function () {
@@ -38,5 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
      Route::put('{id}', 'UsersController@update')->name('users.update'); //ユーザ退会用で作成
     });
 });
+
+
 // ユーザ詳細
 Route::get('/users/{id}', 'UsersController@show')->name('users.show');
