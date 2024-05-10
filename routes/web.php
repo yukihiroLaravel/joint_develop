@@ -18,10 +18,6 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 //top page 表示
 Route::get('/', 'PostsController@index')->name('posts.index');
-Route::group(['prefix' => 'users/{id}'],function(){
-    Route::get('', 'UsersController@index')->name('user.index');
-    Route::get('follows','UsersController@follow')->name('user.follow');
-});
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
