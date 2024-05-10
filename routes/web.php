@@ -13,6 +13,9 @@
 
 // 投稿
 Route::get('/', 'PostsController@index');
+// 投稿検索
+Route::get('/search', 'SearchController@index')->name('search');
+// Route::get('/search', [SearchController::class, 'index'])->name('search');
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');

@@ -4,6 +4,10 @@
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>
         </button>
+            <form action="{{ route('search') }}" method="GET">
+                <input type="text" name="keyword" placeholder="記事を検索">
+                <button type="submit">検索</button>
+            </form>
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
