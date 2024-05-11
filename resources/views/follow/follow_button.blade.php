@@ -1,7 +1,7 @@
-<!-- 自分自身をフォロー出来ない様にする記述 -->
-@if (Auth::check() && Auth::id() !== $user->id)
+ <!-- 自分自身をフォロー出来ない様にする記述 -->
+ @if (Auth::check() && Auth::id() !== $user->id)
     <!-- 現在のユーザが対象のユーザをフォローしているかどうかを判断し、条件に応じて異なるフォームを表示 -->
-    @if (Auth::user()->isFollowing($user))
+    @if (Auth::user()->isFollowing($user->id))
         <form method="POST" action="{{ route('follow.destroy', $user->id) }}">
             @csrf
             @method('DELETE')

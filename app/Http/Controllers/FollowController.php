@@ -12,15 +12,16 @@ class FollowController extends Controller
     {
         // フォロー実行と結果の取得
         $result = auth()->user()->follow($id);
-        // フラッシュメッセージなしでページをリダイレクト
+        // ページをリダイレクト
         return back();
     }
+    
     // ユーザーのフォローを解除するアクション
     public function destroy($id)
     {
         // アンフォロー実行と結果の取得
         $result = auth()->user()->unfollow($id);
-        // フラッシュメッセージなしでページをリダイレクト
+        // ページをリダイレクト
         return back();
     }
 }
