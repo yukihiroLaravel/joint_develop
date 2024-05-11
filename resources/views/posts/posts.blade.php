@@ -1,11 +1,18 @@
-<div class="conteiner">//コンテナを使って全要素をラップしている
-        @if (session('alertMessage'))
+<div class="conteiner"><!-- コンテナを使って全要素をラップしてスタイルを整えた -->
+        @if (session('alertMessage'))<!-- ユーザー退会後のフラッシュメッセージの実装 -->
                 <div class="alert alert-danger text-center mx-auto w-75 mb-3">
                         {{ session('alertMessage') }}
                 </div>
+        @elseif (session('info'))<!-- 投稿編集後のフラッシュメッセージの実装 -->
+                <div class="alert alert-success text-center mx-auto w-75 mb-3">
+                        {{ session('info') }}
+                </div>
+        @elseif (session('success'))<!-- 投稿削除後のフラッシュメッセージの実装 -->
+                <div class="alert alert-danger text-center mx-auto w-75 mb-3">
+                        {{ session('success') }}
+                </div>        
         @endif
-        <ul class="list-unstyled">    
-                        
+        <ul class="list-unstyled">           
                 @foreach ($posts as $post)
                 <li class="mb-3 text-center">
                         <div class="text-left d-inline-block w-75 mb-2">

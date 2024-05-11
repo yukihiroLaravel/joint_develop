@@ -27,7 +27,7 @@ class UsersController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        return view('users.edit', ['user' => $user,]);
+        return redirect()->route('user.edit', $user->id)->with('successMessage', 'ユーザー情報を更新しました。');
     }
 
     public function destroy($id)
