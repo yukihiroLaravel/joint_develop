@@ -37,9 +37,7 @@ Route::group(['prefix' => 'posts', 'middleware' => 'auth'], function () {
 Route::group(['middleware' => 'auth'], function () {
     //　ユーザ退会・更新
      Route::prefix('users')->group(function () {
-     Route::delete('/users{id}', 'UsersController@destroy')->name('users.delete'); //ユーザ削除
-     Route::get('/users/{id}', 'UsersController@edit')->name('users.edit'); //ユーザ退会用で作成
-     Route::put('{id}', 'UsersController@update')->name('users.update'); //ユーザ退会用で作成
+     Route::delete('{id}/edit', 'UsersController@destroy')->name('users.delete'); //ユーザ削除
     });
 });
 
