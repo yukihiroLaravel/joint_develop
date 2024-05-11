@@ -27,7 +27,7 @@ class UsersController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        return redirect()->route('user.edit', $user->id)->with('successMessage', 'ユーザー情報を更新しました。');
+        return redirect()->route('user.edit', $user->id)->with('greenMessage', 'ユーザー情報を更新しました。');//withメソッドを使用してユーザー編集フラッシュメッセージを記述
     }
 
     public function destroy($id)
@@ -36,6 +36,6 @@ class UsersController extends Controller
         if(\Auth::id() === $user->id) {
             $user->delete();
         }
-        return redirect()->route('posts.index')->with('alertMessage', '退会が完了しました');
+        return redirect()->route('posts.index')->with('redMessage', '退会が完了しました');//withメソッドを使用してユーザー退会フラッシュメッセージを記述
     }
 }

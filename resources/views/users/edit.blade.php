@@ -2,9 +2,9 @@
 @section('content')
 <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
 @include('commons.error_messages')   
-@if (session('successMessage'))<!-- ユーザー情報変更後のフラッシュメッセージの実装 -->
+@if (session('greenMessage'))<!-- ユーザー情報変更後のフラッシュメッセージの実装 -->
     <div class="alert alert-success text-center  mx-auto">
-        {{ session('successMessage') }}
+        {{ session('greenMessage') }}
     </div>
 @endif
 <form method="POST" action="{{ route('user.update', $user->id) }}">

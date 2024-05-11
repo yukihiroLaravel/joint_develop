@@ -23,7 +23,7 @@ class PostsController extends Controller
         if (\Auth::id() === $post->user_id) {
             $post->delete();
         }
-        return redirect()->route('posts.index')->with('success', '投稿を削除しました。');//withメソッドを使用して投稿削除フラッシュメッセージを記述
+        return redirect()->route('posts.index')->with('redMessage', '投稿を削除しました。');//withメソッドを使用して投稿削除フラッシュメッセージを記述
     }
 
     public function edit($id) 
@@ -42,6 +42,6 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->save();
         
-        return redirect()->route('posts.index')->with('info','更新が成功しました。'); //withメソッドを使用して投稿編集フラッシュメッセージを記述
+        return redirect()->route('posts.index')->with('greenMessage','更新が成功しました。'); //withメソッドを使用して投稿編集フラッシュメッセージを記述
     }
 }
