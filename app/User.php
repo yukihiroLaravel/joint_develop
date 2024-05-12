@@ -40,7 +40,7 @@ class User extends Authenticatable
     ];
 
     // リレーション定義 「1対多」の1側
-    public function post()
+    public function posts()
     {
         return $this->hasMany(Post::class);
     }
@@ -52,7 +52,7 @@ class User extends Authenticatable
     }
 
     // フォローしているユーザー関連（他のユーザーをフォローしている）
-    public function following()
+    public function followings()
     {
         return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followed_id');
     }
@@ -65,7 +65,7 @@ class User extends Authenticatable
             return false;
         }
         // 対象ユーザーをフォロー
-        $this->following()->attach($userId);
+        $this->followings()->attach($userId);
         return true;
     }
 
@@ -77,13 +77,13 @@ class User extends Authenticatable
             return false;
         }
         // フォロー中なら解除
-        $this->following()->detach($userId);
+        $this->followings()->detach($userId);
         return true;
     }
 
     // 指定されたユーザーIDがフォローされているかを確認
     public function isFollowing($userId)
     {
-        return $this->following()->where('followed_id', $userId)->exists();
+        return $this->followings()->where('followed_id', $userId)->exists();
     }
 }

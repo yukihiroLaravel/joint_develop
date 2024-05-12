@@ -24,6 +24,25 @@
                 <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
             </ul>
+        <!-- タイムライン表示 -->
+            <div class="tab-content">
+                <div class="tab-pane active" id="timeline">
+                    @foreach ($posts as $post)
+                    <div class="media mb-3">
+                        <img class="mr-3 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
+                        <div class="media-body">
+                            <h5 class="mt-0 mb-1">{{ $post->user->name }}</h5>
+                            <p>{{ $post->content }}</p>
+                            <small>{{ $post->created_at->diffForHumans() }}</small>
+                            @if (Auth::id() == $post->user->id)
+                            <a href="#" class="btn btn-primary">編集する</a>
+                            @endif
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            {{ $posts->links('pagination::bootstrap-4') }}
         </div>
     </div>
 @endsection
