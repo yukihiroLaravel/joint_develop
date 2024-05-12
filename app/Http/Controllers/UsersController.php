@@ -24,20 +24,20 @@ class UsersController extends Controller
     }
     
     // ユーザがフォローしている他のユーザ一覧を表示
-    // public function followings($id)
-    // {
-    //     $user = User::findOrFail($id);
-    //     $followings = $user->followings()->orderBy('id', 'desc')->paginate(10);
+    public function followings($id)
+    {
+        $user = User::findOrFail($id);
+        $followings = $user->followings()->orderBy('id', 'desc')->paginate(10);
 
-    //     return view('users.followings', compact('user', 'followings'));
-    // }
+        return view('users.followings', compact('user', 'followings'));
+    }
 
-    // // フォロワー一覧を表示
-    // public function followers($id)
-    // {
-    //     $user = User::findOrFail($id);
-    //     $followers = $user->followers()->orderBy('id', 'desc')->paginate(10);
+    // フォロワー一覧を表示
+    public function followers($id)
+    {
+        $user = User::findOrFail($id);
+        $followers = $user->followers()->orderBy('id', 'desc')->paginate(10);
 
-    //     return view('users.followers', compact('user', 'followers'));
-    // }
+        return view('users.followers', compact('user', 'followers'));
+    }
 }

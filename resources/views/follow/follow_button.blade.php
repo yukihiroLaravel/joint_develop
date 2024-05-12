@@ -2,7 +2,7 @@
  @if (Auth::check() && Auth::id() !== $user->id)
     <!-- 現在のユーザが対象のユーザをフォローしているかどうかを判断し、条件に応じて異なるフォームを表示 -->
     @if (Auth::user()->isFollowing($user->id))
-        <form method="POST" action="{{ route('follow.destroy', $user->id) }}">
+        <form method="POST" action="{{ route('unfollow.destroy', $user->id) }}">
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-danger">フォローを解除する</button>

@@ -30,8 +30,13 @@ Route::group(['prefix' => 'posts', 'middleware' => 'auth'], function () {
     Route::patch('{id}/update', 'PostsController@update')->name('posts.update');
     // フォロー機能
     Route::post('/follow/{id}', 'FollowController@store')->name('follow.store');
-    Route::delete('/unfollow/{id}', 'FollowController@destroy')->name('follow.destroy');
+    Route::delete('/unfollow/{id}', 'FollowController@destroy')->name('unfollow.destroy');
 });
 
 // ユーザ詳細
-Route::get('/users/{id}', 'UsersController@show')->name('users.show');
+Route::group(['prefix' => 'users/{id}'],function(){
+    Route::get('/', 'UsersController@show')->name('users.show');
+    //フォロー、フォロワー投稿表示
+    Route::get('followings','UsersController@followings')->name('followings');
+    Route::get('followers','UsersController@followers')->name('followers');
+});
