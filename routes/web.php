@@ -18,6 +18,9 @@ Route::get('/', 'PostsController@index');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
+// ユーザー詳細
+Route::get('users/{id}', 'UsersController@show')->name('user.show');
+
 // ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
@@ -26,7 +29,6 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'users/{id}'],function(){
-        Route::get('', 'UsersController@show')->name('user.show');
         Route::get('edit', 'UsersController@edit')->name('user.edit');
         Route::put('', 'UsersController@update')->name('user.update');
         Route::delete('', 'UsersController@destroy')->name('user.delete');

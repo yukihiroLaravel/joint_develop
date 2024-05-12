@@ -19,11 +19,4 @@ class FavoriteController extends Controller
         \Auth::user()->unfavorite($id);
         return back();
     }
-
-    public function showModal($postId)
-    {
-        $post = Post::findOrFail($postId);
-        $favorites = $post->favoriteUsers()->get();
-        return view('modal', ['favorites' => $favorites]);
-    }
 }
