@@ -1,14 +1,5 @@
 <div class="conteiner"><!-- コンテナを使って全要素をラップしてスタイルを整えた -->
-        @if (session('redMessage'))<!-- ユーザー退会後のフラッシュメッセージの実装 -->
-                <div class="alert alert-danger text-center mx-auto w-75 mb-3">
-                        {{ session('redMessage') }}
-                </div>
-        @elseif (session('greenMessage'))<!-- 投稿編集後のフラッシュメッセージの実装 -->
-                <div class="alert alert-success text-center mx-auto w-75 mb-3">
-                        {{ session('greenMessage') }}
-                </div>
-      
-        @endif
+
         <ul class="list-unstyled">           
                 @foreach ($posts as $post)
                 <li class="mb-3 text-center">
