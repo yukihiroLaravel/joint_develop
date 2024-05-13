@@ -1,11 +1,10 @@
 @extends('layouts.app')
 @section('content')
 <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
-        @include('commons.error_messages')
     <form method="POST" action="{{ route('users.update', $user->id) }}">
         @csrf
         @method('PUT')
-        <input type="hidden" name="id" value="" />
+        @include('commons.error_messages')
         <div class="form-group">
             <label for="name">ユーザ名</label>
             <input class="form-control" value="{{ old('name', $user->name) }}" name="name" />
