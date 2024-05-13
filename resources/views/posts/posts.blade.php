@@ -30,11 +30,8 @@
                 <a href="" class="btn btn-primary">編集する</a>
         </div>
                 @endif
-
-            </li>
-        @endforeach
-
 </ul>
+
 <div class="m-auto" style="width: fit-content">
 {{ $posts->links('pagination::bootstrap-4') }}
 </div>
