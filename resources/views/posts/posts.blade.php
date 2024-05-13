@@ -1,4 +1,4 @@
-
+<div class="conteiner"><!-- コンテナを使って全要素をラップしてスタイルを整えた -->
 <ul class="list-unstyled">
                     
         @foreach ($posts as $post)
@@ -18,7 +18,7 @@
                     <p>{{ $post->content }}</p>
                     <p>{{ $post->created_at }}</p> 
             </li>
-                @endforeach
+        @endforeach
         
         <div class="d-flex justify-content-between w-75 pb-3 m-auto">
                 @if (Auth::id() === $post->user_id)
@@ -27,11 +27,14 @@
                 @method('DELETE')
                         <button type="submit" class="btn btn-danger">削除</button>
                 </form>
-                <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">編集する</a>
+                <a href="" class="btn btn-primary">編集する</a>
         </div>
                 @endif
 
+            </li>
+        @endforeach
+
 </ul>
 <div class="m-auto" style="width: fit-content">
-    {{ $posts->links('pagination::bootstrap-4') }}
+{{ $posts->links('pagination::bootstrap-4') }}
 </div>
