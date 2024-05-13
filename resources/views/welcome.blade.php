@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+@include('commons.success_messages')
     <div class="center jumbotron bg-info">
         <div class="text-center text-white mt-2 pt-1">
             <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
@@ -30,4 +31,3 @@
             @include('posts.posts',['posts' => $posts])
         </div>
 @endsection
-
