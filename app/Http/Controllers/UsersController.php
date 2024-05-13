@@ -8,7 +8,6 @@ use App\User;
 use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
-
 {
     // ユーザ詳細
     public function show($id)
@@ -40,5 +39,3 @@ class UsersController extends Controller
         return redirect()->route('users.show', ['id' => $user->id]);
     }
 }
-
-
