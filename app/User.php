@@ -45,16 +45,16 @@ class User extends Authenticatable
         return $this->hasMany(Post::class)->orderBy('id', 'desc');
     }
 
-// フォローしているユーザーのリレーションを定義するメソッド
+    // フォローしているユーザーのリレーションを定義するメソッド
     public function following()
     {
         return $this->belongsToMany(User::class, 'follows', 'user_id', 'followed_user_id')->withTimestamps();
     }
 
-// 指定されたユーザーをフォローするメソッド
+    // 指定されたユーザーをフォローするメソッド
     public function follow($userId)
     {
- // フォローしているかどうかを確認する
+        // フォローしているかどうかを確認する
         $exist = $this->isFollowing($userId);
         if ($exist) {
             return false;
@@ -64,7 +64,7 @@ class User extends Authenticatable
         }
     }
 
- // 指定されたユーザーのフォローを解除するメソッド
+    // 指定されたユーザーのフォローを解除するメソッド
     public function unfollow($userId)
     {
         $exist = $this->isFollowing($userId);
@@ -76,7 +76,7 @@ class User extends Authenticatable
         }
     }
 
-// 指定されたユーザーをフォローしているかどうかを確認するメソッド
+    // 指定されたユーザーをフォローしているかどうかを確認するメソッド
     public function isFollowing($userId)
     {
         return $this->following()->where('followed_user_id', $userId)->exists();
