@@ -36,3 +36,11 @@ Route::group(['prefix' => 'posts', 'middleware' => 'auth'], function () {
 
 // ユーザ詳細
 Route::get('/users/{id}', 'UsersController@show')->name('users.show');
+
+// ユーザ編集画面・更新(ログインユーザのみ、prefixでグループ化)
+Route::group(['middleware' => 'auth'], function(){
+    Route::prefix('users')->group(function() {
+      Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
+      Route::put('{id}', 'UsersController@update')->name('users.update');
+    });
+  });
