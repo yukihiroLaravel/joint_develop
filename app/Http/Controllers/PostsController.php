@@ -61,4 +61,16 @@ class PostsController extends Controller
 
         return redirect()->route('top')->with('success', 'ポストの更新に成功しました。');
     }
+
+    // 投稿削除
+    public function destroy($post)
+    {
+        $post = post::findOrFail($post);
+        if (\Auth::id() === $post->user_id) {
+            $post->delete();
+        }
+        return back();
+    }
 }
+
+    
