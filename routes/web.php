@@ -23,11 +23,12 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-// 投稿新規作成
+// 投稿
 Route::group(['prefix' => 'posts', 'middleware' => 'auth'], function () {
     Route::post('/', 'PostsController@store')->name('posts.store');
     Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit');
     Route::patch('{id}/update', 'PostsController@update')->name('posts.update');
+    Route::delete('/{id}', 'PostsController@destroy')->name('posts.destroy');
     // フォロー機能
     Route::post('/follow/{id}', 'FollowController@store')->name('follow.store');
     Route::delete('/unfollow/{id}', 'FollowController@destroy')->name('follow.destroy');
@@ -35,11 +36,3 @@ Route::group(['prefix' => 'posts', 'middleware' => 'auth'], function () {
 
 // ユーザ詳細
 Route::get('/users/{id}', 'UsersController@show')->name('users.show');
-
-// ユーザ編集画面・更新(ログインユーザのみ、prefixでグループ化)
-Route::group(['middleware' => 'auth'], function(){
-  Route::prefix('users')->group(function() {
-    Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
-    Route::put('{id}', 'UsersController@update')->name('users.update');
-  });
-});

@@ -15,7 +15,11 @@
                 </div>
                 @if (Auth::id() == $post->user->id)
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                        <!-- 後ほどformタグと削除ボタンを配置 -->
+                        <form method="POST" action="{{ route('posts.destroy', $post->id) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">削除</button>
+                        </form>
                         <a href="{{ route('posts.edit', ['id' => $post->id]) }}" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
