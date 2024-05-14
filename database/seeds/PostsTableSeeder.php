@@ -11,23 +11,22 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-        $seedMaxUser = 4; // UsersTableSeederでは4件のレコードが作成される
+        $seedMaxUser = 100; // 4から100に変更、100人のユーザーが存在するため
         $posts = []; // 空配列を初期値として設定
 
         // 繰り返し処理で初期ポスト用の多次元配列を作成
-        for ($i = 1; $i <= 30; $i++) {
-            // 4で割り切ればい場合→余りの数値をuser_idに設定
-            // 4で割り切れる場合→4をuser_idに設定
+        for ($i = 1; $i <= 100; $i++) { // 30回から100回に変更、100件の投稿を生成
+            // ユーザーIDを割り算の余りで計算
             $userId = ($i % $seedMaxUser !== 0) ? $i % $seedMaxUser : $seedMaxUser;
             $posts[] = [
-                'user_id' => $userId, // 1〜4
+                'user_id' => $userId, // 1から100までのユーザーIDを割り当て
                 'content' => '初期ポスト' . $i, // 初期ポスト1〜30
                 'created_at' => now(), // 現在日時
                 'updated_at' => now() // 現在日時
             ];
         }
 
-        // postsテーブルのシーダとして、30件のレコードを作成
+        // データベースに投稿を挿入
         DB::table('posts')->insert($posts);
     }
 }

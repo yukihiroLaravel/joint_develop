@@ -24,6 +24,7 @@
                 <li class="nav-item"><a href="{{ route('followings', $user->id) }}" class="nav-link {{ Request::routeIs('followings') ? 'active' : '' }}">フォロー中</a></li>                                                                      
                 <li class="nav-item"><a href="{{ route('followers', $user->id) }}"  class="nav-link {{ Request::routeIs('followers') ? 'active' : '' }}">フォロワー</a></li>
             </ul>
+            <!-- ここからタイムライン投稿一覧部分追加 -->
             @include('posts.posts', ['posts' => $posts])
         </div>
     </div>
