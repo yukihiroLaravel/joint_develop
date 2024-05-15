@@ -20,7 +20,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/', 'PostsController@index')->name('posts.index');
 
 Route::prefix('users')->group(function () {
-Route::get('{id}', 'UsersController@show')->name('user.show');
+    Route::get('{id}', 'UsersController@show')->name('user.show');
 });
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
