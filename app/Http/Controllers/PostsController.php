@@ -30,7 +30,7 @@ class PostsController extends Controller
         $post->content = $request->content; //welcome.blade.phpの<form>内で入力したcontentがname属性として$requestに代入される
         $post->user_id = $request->user()->id; //Laravelが自動でログインユーザ情報を$requestの中に入れる
         $post->save();
-        return back();
+        return back()->with('success', 'ポストの投稿に成功しました。');
     }
 
     // 投稿編集ページ
@@ -59,6 +59,18 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->save();
 
-        return redirect()->route('top');
+        return redirect()->route('top')->with('success', 'ポストの更新に成功しました。');
+    }
+
+    // 投稿削除
+    public function destroy($post)
+    {
+        $post = post::findOrFail($post);
+        if (\Auth::id() === $post->user_id) {
+            $post->delete();
+        }
+        return back();
     }
 }
+
+    

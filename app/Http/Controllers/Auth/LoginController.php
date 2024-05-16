@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -36,5 +37,25 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    // AuthenticatesUsersトレイトのauthenticatedメソッドをオーバーライド
+    protected function authenticated(Request $request, $user)
+    {
+        // ログイン成功時、トップ画面へ遷移し、フラッシュメッセージを表示
+        return redirect()->route('top')->with('success', 'ログインに成功しました。');
+    }
+
+    // AuthenticatesUsersトレイトのlogoutメソッドをオーバーライド
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        // ログアウト成功時、トップ画面へ遷移し、フラッシュメッセージを表示
+        return redirect()->route('top')->with('success', 'ログアウトしました。');
     }
 }
