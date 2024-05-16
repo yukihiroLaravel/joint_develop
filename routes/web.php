@@ -18,9 +18,12 @@ Route::get('/', 'PostsController@index');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
-// ユーザー詳細
-Route::get('users/{id}', 'UsersController@show')->name('user.show');
-
+// ユーザー
+// Route::get('/', 'UsersController@index');
+Route::group(['prefix' => 'users/{id}'],function(){
+    Route::get('', 'UsersController@show')->name('user.show');
+    Route::get('following', 'UsersController@following')->name('following');
+});
 // ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
@@ -45,4 +48,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('favorite','FavoriteController@store')->name('favorite');
         Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
     });
+    // フォロー
+    Route::group(['prefix' => 'users/{id}'],function(){
+        Route::post('follow','FollowingController@store')->name('follow');
+        Route::delete('unfollow','FollowingController@destroy')->name('unfollow');
+    });
 });
+
