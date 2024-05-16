@@ -5,7 +5,9 @@
         <div class="card bg-info">
             <div class="card-header">
                 <h3 class="card-title text-light">{{ $user->name }}</h3>
-                @include('follow.follow_button', ['user' => $user])
+                @if (Auth::check() && Auth::id() !== $user->id)
+                    @include('follow.follow_button', ['user' => $user])
+                @endif
             </div>
             <div class="card-body">
                 <img class="rounded-circle img-fluid" src="{{ Gravatar::src( $user->email , 400) }}" alt="ユーザのアバター画像">
