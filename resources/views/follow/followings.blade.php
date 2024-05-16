@@ -31,22 +31,24 @@
     </aside>
     <div class="col-sm-8">
         <ul class="nav nav-tabs nav-justified mb-3">
-            <li class="nav-item"><a href="{{ route('users.show', $user->id) }}"  class="nav-link {{ Request::routeIs('users.show') ? 'active' : '' }} ">タイムライン</a></li>
-            <li class="nav-item"><a href="{{ route('followings', $user->id) }}" class="nav-link {{ Request::routeIs('followings') ? 'active' : '' }}">フォロー中</a></li>                                                                     
-            <li class="nav-item"><a href="{{ route('followers', $user->id) }}"  class="nav-link {{ Request::routeIs('followers') ? 'active' : '' }}">フォロワー</a></li>
+            <li class="nav-item"><a href="{{ route('users.show', $user->id) }}" class="nav-link {{ Request::routeIs('users.show') ? 'active' : '' }}">タイムライン</a>
+            <div class="badge badge-secondary">{{ $counts['countPosts'] }}</div></li>
+            <li class="nav-item"><a href="{{ route('followings', $user->id) }}" class="nav-link {{ Request::routeIs('followings') ? 'active' : '' }}">フォロー中</a>
+            <div class="badge badge-secondary">{{ $counts['countFollowings'] }}</div></li>
+            <li class="nav-item"><a href="{{ route('followers', $user->id) }}"  class="nav-link {{ Request::routeIs('followers') ? 'active' : '' }}">フォロワー</a>
+            <div class="badge badge-secondary">{{ $counts['countFollowers'] }}</div></li>
         </ul>
-        <ul class="list-unstyled">
-        @foreach($followings as $following)
-        <li class="mb-3 text-center">
-            <div class="text-left d-inline-block w-75 mb-2">
-                <img class="mr-2 rounded-circle" src="{{ Gravatar::src($following->email, 50) }}" alt="ユーザのアバター画像">
-                <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('users.show', $following->id) }}">{{ $following->name }}</a></p>
-            </div>
-        </li>   
-        @endforeach
+        <div class="list-unstyled">
+            @foreach($followings as $following)
+                <li class="mb-3 text-center">
+                    <div class="text-left d-inline-block w-75 mb-2">
+                        <img class="mr-2 rounded-circle" src="{{ Gravatar::src($following->email, 50) }}" alt="ユーザのアバター画像">
+                        <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('users.show', $following->id) }}">{{ $following->name }}</a></p>
+                    </div>
+                </li>   
+            @endforeach
+        </div> 
         <div class="m-auto" style="width: fit-content">{{ $followings->links('pagination::bootstrap-4') }}</div>
-        </ul> 
     </div>
 </div>    
-</ul>    
 @endsection

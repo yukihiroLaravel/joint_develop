@@ -9,29 +9,23 @@ use App\Post;
 class UsersController extends Controller
 {
     // ユーザ詳細
-    // 特定のユーザーの詳細情報とそのユーザーの最新投稿をページネーション付きで取得
     public function show($id)
     {
         $user = User::findOrFail($id);
-
-        // フォローしているユーザーのIDリストを取得
-        $followingIds = $user->followings()->pluck('users.id')->toArray();
-        $followingIds[] = $user->id; // 自分のIDをリストに追加
-
-        // 自分とフォローしているユーザーの投稿を取得
-        $posts = Post::whereIn('user_id', $followingIds)->latest()->paginate(10);
-        
-
-        return view('users.show', compact('user', 'posts'));
-    }
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
+        $counts = $this->userCounts($user);  // カウント情報を取得
     
+        return view('users.show', compact('user', 'posts', 'counts')); // compactを使って配列を作成
+    }
+
     // ユーザがフォローしている他のユーザ一覧を表示
     public function followings($id)
     {
         $user = User::findOrFail($id);
         $followings = $user->followings()->orderBy('created_at', 'desc')->paginate(10);
-
-        return view('follow.followings', compact('user', 'followings'));
+        $counts = $this->userCounts($user);  // Userモデルの投稿数、フォロー数、フォロワー数を取得
+    
+        return view('follow.followings', compact('user', 'followings', 'counts'));  // 'counts'を追加
     }
 
     // フォロワー一覧を表示
@@ -39,7 +33,9 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $followers = $user->followers()->orderBy('created_at', 'desc')->paginate(10);
-
-        return view('follow.followers', compact('user', 'followers'));
+        $counts = $this->userCounts($user);  // Userモデルの投稿数、フォロー数、フォロワー数を取得
+    
+        return view('follow.followers', compact('user', 'followers', 'counts'));  // 'counts'を追加
     }
+
 }
