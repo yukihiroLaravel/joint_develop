@@ -11,6 +11,18 @@
 </div>
 @if (Auth::check())
 <div class="text-center mb-3">
+<div>
+    <label for="pet-select">タグ：</label>
+    <select name="pets" id="pet-select">
+      <option value="">--選択する--</option>
+      <option value="dog">そば</option>
+      <option value="cat">うどん</option>
+      <option value="hamster">ラーメン</option>
+      <option value="parrot">寿司</option>
+      <option value="spider">焼き肉</option>
+      <option value="goldfish">イタリアン</option>
+    </select>
+</div>
     <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
         @csrf
         <div class="form-group">
