@@ -20,6 +20,7 @@ class PostsController extends Controller
         $post->user_id = \Auth::id();
         $post->content = $request->content;
         $post->save();
+        session()->flash('flash_message', '登録しました！');
         return back();
     }
 
@@ -39,15 +40,17 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
         $post->save();
+        session()->flash('flash_message', '投稿を更新しました！');
         return redirect('/');
     }
-    
+
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
         if (\Auth::id() === $post->user_id) {
             $post->delete();
         }
+        session()->flash('flash_message', '投稿を削除しました！');
         return back();
     }
 }

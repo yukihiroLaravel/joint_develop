@@ -38,6 +38,7 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password); 
         $user->save();
+        session()->flash('flash_message', 'ユーザ情報を更新しました！');
         return redirect()->route('user.show',['id'=> $user->id]);
     }
 
@@ -47,6 +48,7 @@ class UsersController extends Controller
         if (\Auth::user()->id === $user->id) {
             $user->delete();
         }
+        session()->flash('flash_message', '退会が完了しました！');
         return redirect('/');
     }
 }

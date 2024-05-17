@@ -26,9 +26,11 @@
 <ul class="list-unstyled">
     @foreach ($posts as $post)
         @include('posts.post', ['post' => $post])
+        @include('favorite.favorite_button', ['post' => $post])
     @endforeach
 </ul>
 <div class="m-auto" style="width: fit-content">
     {{ $posts->links('pagination::bootstrap-4') }}
 </div>
+@include('commons.flash_message')
 @endsection
