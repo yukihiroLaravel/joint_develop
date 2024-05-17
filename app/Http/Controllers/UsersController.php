@@ -51,16 +51,4 @@ class UsersController extends Controller
         session()->flash('flash_message', '退会が完了しました！');
         return redirect('/');
     }
-
-    public function following($id)
-    {
-        $user = User::findOrFail($id);
-        $follows = $user->following();
-        $data=[
-            'user' => $user,
-            'follows' => $follows,
-        ];
-        $data += $this->userCounts($user);
-        return view('users.show', $data);
-    }
 }

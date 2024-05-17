@@ -15,6 +15,7 @@ class FollowingController extends Controller
     public function destroy($id)
     {
         \Auth::user()->unfollow($id);
+        session()->flash('flash_message', 'フォロー解除しました！');
         return back();
     }
 }
