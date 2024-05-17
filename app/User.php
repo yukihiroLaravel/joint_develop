@@ -94,4 +94,43 @@ class User extends Authenticatable
     {
         return $this->following()->where('followed_id', $user->id)->exists();
     }
+    // いいね機能 
+    // UserモデルとPostモデルの間に「1対多」のリレーションシップを定義
+    // hasManyメソッドを使用して、「1対多」
+    public function posts()
+    {
+        return $this->hasMany(Post::class); 
+    }
+    // UserモデルとPostモデルの間に「多対多」のリレーションシップを定義
+    public function favorites()
+    {
+        return $this->belongsToMany(Post::class, 'favorites', 'user_id', 'post_id')->withTimestamps();
+    }
+    // ユーザーが特定の投稿をお気に入りに追加
+    public function favorite($postId)
+    {
+        $exist = $this->isFavorite($postId); // 投稿が既にお気に入りに追加されているかどうかを確認
+        if ($exist) {
+            return false;
+        } else {
+            $this->favorites()->attach($postId); // お気に入りに追加
+            return true;
+        }
+    }
+    // ユーザーが特定の投稿をお気に入りから削除
+    public function unfavorite($postId)
+    {
+        $exist = $this->isFavorite($postId); //投稿が既にお気に入りに追加されているかどうかを確認
+        if ($exist) {
+            $this->favorites()->detach($postId); //既にお気に入りに追加されている場合は、お気に入りから削除
+            return true;
+        } else {
+            return false;
+        }
+    }
+    // 特定の投稿がユーザーのお気に入りに追加されているかどうかを確認
+    public function isFavorite($postId)
+    {
+        return $this->favorites()->where('post_id', $postId)->exists();
+    }
 }

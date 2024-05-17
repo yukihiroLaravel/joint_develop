@@ -1,3 +1,7 @@
+<head>
+    <!-- カスタムCSSファイルのリンク -->
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+</head>
 <header class="mb-5">
     <nav class="navbar navbar-expand-sm navbar-dark bg-info">
         <a class="navbar-brand" href="/">Topic Posts</a>

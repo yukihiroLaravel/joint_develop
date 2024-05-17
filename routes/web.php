@@ -44,3 +44,9 @@ Route::group(['middleware' => 'auth'], function(){
       Route::put('{id}', 'UsersController@update')->name('users.update');
     });
   });
+
+  // いいね機能
+  Route::group(['prefix' => 'posts/{id}'],function(){
+    Route::post('favorite','FavoriteController@store')->name('favorite');
+    Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
+});

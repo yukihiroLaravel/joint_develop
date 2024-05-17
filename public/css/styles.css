@@ -1,0 +1,9 @@
+.like-button-container {
+    display: flex;
+    justify-content: flex-start; /* 左揃えにする */
+    margin-bottom: 15px; /* 必要に応じてマージンを調整 */
+}
+
+.like-button-container form {
+    margin-right: 10px; /* 複数のボタンがある場合にスペースを追加 */
+}
