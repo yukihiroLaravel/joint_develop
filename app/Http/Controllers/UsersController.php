@@ -24,20 +24,20 @@ class UsersController extends Controller
     public function followings($id)
     {
         $user = User::findOrFail($id);
-        $followings = $user->followings()->orderBy('created_at', 'desc')->paginate(10);
+        $users = $user->followings()->orderBy('created_at', 'desc')->paginate(10);
         $counts = $this->userCounts($user);  // Userモデルの投稿数、フォロー数、フォロワー数を取得
     
-        return view('follow.followings', compact('user', 'followings', 'counts'));  // 'counts'を追加
+        return view('follow.follow_list', compact('user', 'users', 'counts'));
     }
 
     // フォロワー一覧を表示
     public function followers($id)
     {
         $user = User::findOrFail($id);
-        $followers = $user->followers()->orderBy('created_at', 'desc')->paginate(10);
+        $users = $user->followers()->orderBy('created_at', 'desc')->paginate(10);
         $counts = $this->userCounts($user);  // Userモデルの投稿数、フォロー数、フォロワー数を取得
     
-        return view('follow.followers', compact('user', 'followers', 'counts'));  // 'counts'を追加
+        return view('follow.follow_list', compact('user', 'users', 'counts'));
     }
 
     // ユーザ編集画面・更新
