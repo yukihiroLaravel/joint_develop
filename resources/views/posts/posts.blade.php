@@ -1,10 +1,3 @@
-<style>
-.post-content {
-    word-wrap: break-word;  /* 長い単語も画面幅に合わせて改行する */
-    white-space: normal;    /* 改行や空白を通常通り扱う */
-    overflow-wrap: break-word; /* 古いブラウザをサポートするための設定 */
-}
-</style>
 <ul class="list-unstyled">
     <!-- PostsControllerから受け取った変数「$posts」から一つ一つの投稿を取り出して繰り返す -->
     @foreach ($posts as $post)

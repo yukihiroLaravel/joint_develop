@@ -11,6 +11,6 @@
     </div>
 </div>
 <!-- ここにフォローボタンを挿入 -->
-<div style="margin-top: 20px;"> <!-- 20ピクセルの上マージンを追加 -->
+<div class="mt-3"> <!-- 20ピクセルの上マージンをBootstrapクラスで追加 -->
     @include('follow.follow_button', ['user' => $user])
 </div>
