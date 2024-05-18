@@ -11,19 +11,14 @@
 </div>
 @if (Auth::check())
 <div class="text-center mb-3">
-<div>
-    <label for="pet-select">タグ：</label>
-    <select name="pets" id="pet-select">
-      <option value="">--選択する--</option>
-      <option value="dog">そば</option>
-      <option value="cat">うどん</option>
-      <option value="hamster">ラーメン</option>
-      <option value="parrot">寿司</option>
-      <option value="spider">焼き肉</option>
-      <option value="goldfish">イタリアン</option>
-    </select>
-</div>
     <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
+        <label for="tag">タグ：</label>
+        <select name="tag" id="tag">
+            <option value="{{null}}" class="text-light">--選択する--</option>
+            @foreach ($tags as $tag)
+                <option value="{{$tag->id}}">{{$tag->tag_name}}</option>
+            @endforeach
+        </select>
         @csrf
         <div class="form-group">
             <textarea class="form-control" name="content" rows="4"></textarea>
@@ -39,6 +34,7 @@
     @foreach ($posts as $post)
         @include('posts.post', ['post' => $post])
         @include('favorite.favorite_button', ['post' => $post])
+        <hr>
     @endforeach
 </ul>
 <div class="m-auto" style="width: fit-content">
