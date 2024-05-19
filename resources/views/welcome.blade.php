@@ -12,6 +12,15 @@
 @if (Auth::check())
 <div class="text-center mb-3">
     <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
+        <div class="text-left mt-2">
+            <label for="tag">タグ：</label>
+            <select name="tag" id="tag">
+                <option value="{{null}}">未選択</option>
+                @foreach ($tags as $tag)
+                    <option value="{{$tag->id}}">{{$tag->name}}</option>
+                @endforeach
+            </select>
+        </div>
         @csrf
         <div class="form-group">
             <textarea class="form-control" name="content" rows="4"></textarea>
@@ -28,6 +37,7 @@
         @include('posts.post', ['post' => $post])
         @include('favorite.favorite_button', ['post' => $post])
         @include('comments.comment', ['post' => $post])
+        <hr>
     @endforeach
 </ul>
 <div class="m-auto" style="width: fit-content">

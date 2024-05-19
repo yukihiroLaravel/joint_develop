@@ -10,7 +10,7 @@ class Post extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'user_id', 'content', 'deleted_at',
+        'user_id', 'content', 'tag_id', 'deleted_at',
     ];
 
     public function user()
@@ -28,4 +28,8 @@ class Post extends Model
         return $this->belongsToMany(User::class, 'favorites', 'post_id', 'user_id')->withTimestamps();
     }
 
+    public function tag()
+    {
+        return $this->belongsTo(Tag::class);
+    }
 }

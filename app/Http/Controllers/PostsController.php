@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use App\Comment;
+use App\Tag;
 use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
@@ -14,8 +15,10 @@ class PostsController extends Controller
         foreach ($posts as $post) {
             $post->comments = $post->comments()->orderBy('created_at', 'desc')->get();
         }
+        $tags = Tag::orderBy('id')->get();
         return view('welcome', [
-            'posts' => $posts
+            'posts' => $posts,
+            'tags' => $tags,
         ]);
     }
     public function store(PostRequest $request)
@@ -23,6 +26,7 @@ class PostsController extends Controller
         $post = new Post;
         $post->user_id = \Auth::id();
         $post->content = $request->content;
+        $post->tag_id = $request->tag;
         $post->save();
         session()->flash('flash_message', '登録しました！');
         return back();

@@ -18,8 +18,10 @@ Route::get('/', 'PostsController@index');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
-// ユーザー詳細
-Route::get('users/{id}', 'UsersController@show')->name('user.show');
+// ユーザー
+Route::group(['prefix' => 'users/{id}'],function(){
+    Route::get('', 'UsersController@show')->name('user.show');
+});
 
 // ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -51,4 +53,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{comment_id}', 'CommentsController@update')->name('comment.update');
         Route::delete('{comment_id}', 'CommentsController@destroy')->name('comment.destroy');
     });
+    // フォロー
+    Route::group(['prefix' => 'users/{id}'],function(){
+        Route::post('follow','FollowingController@store')->name('follow');
+        Route::delete('unfollow','FollowingController@destroy')->name('unfollow');
+    });
 });
+
