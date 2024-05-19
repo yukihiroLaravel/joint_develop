@@ -77,6 +77,10 @@ class User extends Authenticatable
         return $this->favorites()->where('post_id', $postId)->exists();
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 
     public static function boot()
     {

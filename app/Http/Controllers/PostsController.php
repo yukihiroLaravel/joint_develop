@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Comment;
 use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
@@ -10,6 +11,9 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::orderBy('id', 'desc')->paginate(10);
+        foreach ($posts as $post) {
+            $post->comments = $post->comments()->orderBy('created_at', 'desc')->get();
+        }
         return view('welcome', [
             'posts' => $posts
         ]);
