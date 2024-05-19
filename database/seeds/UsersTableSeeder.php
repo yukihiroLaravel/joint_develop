@@ -9,27 +9,14 @@ class UsersTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run() //run()メソッドが実行されると下記のユーザ情報がユーザーズテーブルに登録される
+    public function run()
     {
-        DB::table('users')->insert([
-            'name' => 'test1',
-            'email' => 'test1@test.com',
-            'password' => bcrypt('test1')
-        ]);
-        DB::table('users')->insert([
-            'name' => 'test2',
-            'email' => 'test2@test.com',
-            'password' => bcrypt('test2')
-        ]);
-        DB::table('users')->insert([
-            'name' => 'test3',
-            'email' => 'test3@test.com',
-            'password' => bcrypt('test3')
-        ]);
-        DB::table('users')->insert([
-            'name' => 'test4',
-            'email' => 'test4@test.com',
-            'password' => bcrypt('test4')
-        ]);
+        for ($i = 1; $i <= 100; $i++) {
+            DB::table('users')->insert([
+                'name' => 'test'.$i,
+                'email' => "test".$i."@test.com",
+                'password' => bcrypt("test".$i)
+            ]);
+        }
     }
 }
