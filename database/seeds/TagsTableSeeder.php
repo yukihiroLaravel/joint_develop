@@ -15,19 +15,19 @@ class TagsTableSeeder extends Seeder
         $currentDateTime = Carbon::now();
 
         DB::table('tags')->insert([
-            'tag_name' => '吉野家',
+            'name' => '吉野家',
             'created_at' => $currentDateTime,
         ]);
         DB::table('tags')->insert([
-            'tag_name' => '松屋',
+            'name' => '松屋',
             'created_at' => $currentDateTime,
         ]);
         DB::table('tags')->insert([
-            'tag_name' => 'すき家',
+            'name' => 'すき家',
             'created_at' => $currentDateTime,
         ]);
         DB::table('tags')->insert([
-            'tag_name' => 'なか卯',
+            'name' => 'なか卯',
             'created_at' => $currentDateTime,
         ]);
     }

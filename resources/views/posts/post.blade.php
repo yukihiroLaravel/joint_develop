@@ -7,7 +7,7 @@
         <div class="text-left d-inline-block w-75">
             @if($post->tag)
             <p class="small text-secondary mb-1 border border-secondary rounded-sm d-inline-block p-1">
-                #{{ $post->tag->tag_name }}
+                #{{ $post->tag->name }}
             </p>
             @endif
             <p class="mb-2">{{ $post->content }}</p>
