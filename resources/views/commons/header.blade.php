@@ -6,19 +6,19 @@
         </button>
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto">
-            {{-- 検索ワード入力 --}}
+                {{-- 検索ワード入力 --}}
                 <li class="nav-item">
-                    @include('posts.search')
+                    @include('posts.search', ['keyword' => $keyword ?? '', 'user' => $user ?? null])
                 </li>
             </ul>
             <ul class="navbar-nav">
-            @if (Auth::check())
+                @if (Auth::check())
                     <li class="nav-item"><a href="{{ route('users.show', ['id' => Auth::id()]) }}" class="nav-link text-light">{{ Auth::user()->name }}</a></li>
                     <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link text-light">ログアウト</a></li>
-            @else
+                @else
                     <li class="nav-item"><a href="{{ route('login') }}" class="nav-link text-light">ログイン</a></li>
                     <li class="nav-item"><a href="{{ route('signup') }}" class="nav-link text-light">新規ユーザ登録</a></li>
-            @endif
+                @endif
             </ul>
         </div>
     </nav>

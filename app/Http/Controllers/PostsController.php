@@ -13,7 +13,7 @@ class PostsController extends Controller
     public function index(Request $request)
     {
         // 検索キーワードを取得
-        $keyword = $request->input('keyword');
+        $keyword = $request->input('keyword', '');  // デフォルト値として空の文字列を設定
 
         // Postクエリを初期化
         $query = Post::query();
