@@ -21,6 +21,11 @@ Route::get('/search', 'SearchController@index')->name('search');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
+// ユーザー
+Route::group(['prefix' => 'users/{id}'],function(){
+    Route::get('', 'UsersController@show')->name('user.show');
+});
+
 // ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
@@ -28,12 +33,10 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
-    // ユーザ
-    Route::prefix('users')->group(function () {
-        Route::get('{id}', 'UsersController@show')->name('user.show');
-        Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
-        Route::put('{id}', 'UsersController@update')->name('user.update');
-        Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
+    Route::group(['prefix' => 'users/{id}'],function(){
+        Route::get('edit', 'UsersController@edit')->name('user.edit');
+        Route::put('', 'UsersController@update')->name('user.update');
+        Route::delete('', 'UsersController@destroy')->name('user.delete');
     });
     // 投稿・削除
     Route::prefix('post')->group(function () {
@@ -42,4 +45,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{id}', 'PostsController@update')->name('post.update');
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     });
+    // いいね
+    Route::group(['prefix' => 'movies/{id}'],function(){
+        Route::post('favorite','FavoriteController@store')->name('favorite');
+        Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
+    });
+    // フォロー
+    Route::group(['prefix' => 'users/{id}'],function(){
+        Route::post('follow','FollowingController@store')->name('follow');
+        Route::delete('unfollow','FollowingController@destroy')->name('unfollow');
+    });
 });
+
