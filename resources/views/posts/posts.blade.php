@@ -7,14 +7,8 @@
                     <div class="col-5 w-75">
                         <div class="text-left d-inline-block mb-2">
                              <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
-                        </div>         
-                             <p class="mt-3 mb-0 d-inline-block"><a href="#">{{ $post->user->name }}</a></p>
-                    </div>
-                    
-                        <div class="col-7 text-right">
-                             @include('follow.follow_button', ['post' => $post])
+                             <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('user.show', ['id' => $post->user->id]) }}">{{ $post->user->name }}</a></p>
                         </div>
-                </div>
                     <p>{{ $post->content }}</p>
                     <p>{{ $post->created_at }}</p> 
             </li>
@@ -31,7 +25,7 @@
         </div>
                 @endif
 </ul>
-
 <div class="m-auto" style="width: fit-content">
 {{ $posts->links('pagination::bootstrap-4') }}
+</div>
 </div>

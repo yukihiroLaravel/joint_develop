@@ -17,7 +17,6 @@ class PostsTableSeeder extends Seeder
         $faker = Faker::create();
         $date = now()->startOfDay();
 
-
         for ($i = 1; $i <= 4; $i++) {
             $currentDate = (clone $date)->addDays($i - 1);
 
