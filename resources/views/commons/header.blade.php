@@ -5,12 +5,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="nav-bar">
-            <ul class="navbar-nav mr-auto">
-                {{-- 検索ワード入力 --}}
-                <li class="nav-item">
-                    @include('posts.search', ['keyword' => $keyword ?? '', 'user' => $user ?? null])
-                </li>
-            </ul>
+            <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
                 @if (Auth::check())
                     <li class="nav-item"><a href="{{ route('users.show', ['id' => Auth::id()]) }}" class="nav-link text-light">{{ Auth::user()->name }}</a></li>
