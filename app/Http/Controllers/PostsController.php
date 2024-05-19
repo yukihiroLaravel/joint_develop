@@ -3,15 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Tag;
 use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('id', 'desc')->paginate(10);
+        $posts = Post::orderBy('id', 'desc')->with('tag')->paginate(10);
+        $tags = Tag::orderBy('id')->get();
         return view('welcome', [
-            'posts' => $posts
+            'posts' => $posts,
+            'tags' => $tags,
         ]);
     }
     public function store(PostRequest $request)
@@ -19,6 +22,7 @@ class PostsController extends Controller
         $post = new Post;
         $post->user_id = \Auth::id();
         $post->content = $request->content;
+        $post->tag_id = $request->tag;
         $post->save();
         session()->flash('flash_message', '登録しました！');
         return back();
