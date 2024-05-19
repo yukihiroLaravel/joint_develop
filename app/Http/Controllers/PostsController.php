@@ -10,19 +10,26 @@ use Illuminate\Support\Facades\Auth; // Authファサードをインポート
 
 class PostsController extends Controller
 {
-    public function index() //Postモデルから投稿情報を取得
+    public function index(Request $request)
     {
-        //DB上の全投稿情報をid順で降順に並べ換える
-        //->paginate(10)⇒1ページに10個のアイテムを表示するように指定
-        $posts = Post::orderBy('id','desc')->paginate(10);
+        // 検索キーワードを取得
+        $keyword = $request->input('keyword');
 
-        //第一引数にはviewの名前を指定
-        //第二引数にはviewに渡すデータを連想配列で指定し、「$posts」をviewの'welcome.blade.php'に投稿一覧を渡す記述
-        return view('welcome', [
-            'posts' => $posts,
-        ]);
+        // Postクエリを初期化
+        $query = Post::query();
+
+        // キーワードが存在する場合は検索条件を追加
+        if (!empty($keyword)) {
+            $query->where('content', 'LIKE', "%{$keyword}%");
+        }
+
+        // 投稿をIDの降順で並べ替えてページネーション
+        $posts = $query->orderBy('id', 'desc')->paginate(10);
+
+        // ビューに渡すデータを指定
+        return view('welcome', compact('posts', 'keyword'));
     }
-
+    
     //通常のRequestクラスの代わりにPostRequestクラスをメソッドの引数として指定
     public function store(PostRequest $request) //これにより、メソッドが呼び出される前に自動的にリクエストデータがバリデーションされる
     {
