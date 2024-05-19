@@ -38,4 +38,14 @@ class UsersController extends Controller
 
         return redirect()->route('users.show', ['id' => $user->id]);
     }
+
+       //ユーザ削除
+       protected function destroy($id)
+       {
+       // 指定されたIDのユーザーを取得
+       $user = User::findOrFail($id);
+
+       $user->delete();// ユーザーを削除
+       return redirect()->route('top'); // 一覧画面へのルート名を適宜変更 // 削除したらリダイレクト
+       }
 }
