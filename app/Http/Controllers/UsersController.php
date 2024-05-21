@@ -27,14 +27,6 @@ class UsersController extends Controller
         return view('users.show', compact('user', 'posts', 'counts', 'keyword'));
     }
 
-    // {
-    //     $user = User::findOrFail($id);
-    //     $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
-    //     $counts = $this->userCounts($user);  // カウント情報を取得
-    
-    //     return view('users.show', compact('user', 'posts', 'counts')); // compactを使って配列を作成
-    // }
-
     // ユーザがフォローしている他のユーザ一覧を表示
     public function followings($id)
     {
