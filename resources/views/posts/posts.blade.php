@@ -9,8 +9,8 @@
                              <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
                              <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('user.show', ['id' => $post->user->id]) }}">{{ $post->user->name }}</a></p>
                         </div>
-                    <p>{{ $post->content }}</p>
-                    <p>{{ $post->created_at }}</p> 
+                            <p>{{ $post->content }}</p>
+                            <p>{{ $post->created_at }}</p> 
             </li>
         @endforeach
         
