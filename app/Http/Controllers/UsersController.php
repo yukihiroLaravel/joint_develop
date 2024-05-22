@@ -44,8 +44,13 @@ class UsersController extends Controller
        {
        // 指定されたIDのユーザーを取得
        $user = User::findOrFail($id);
-
-       $user->delete();// ユーザーを削除
+       
+       // 指定されたユーザかどうかを確認
+       if (\Auth::check() && \Auth::id() == $id) {
        return redirect()->route('top'); // 一覧画面へのルート名を適宜変更 // 削除したらリダイレクト
        }
+       $user->delete();// ユーザーを削除
+       return redirect()->route('top'); // 一覧画面へのルート名を適宜変更 // 削除したらリダイレクト
+
+    }
 }

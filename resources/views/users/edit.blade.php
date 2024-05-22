@@ -40,12 +40,14 @@
                 <div class="modal-body">
                     <label>本当に退会しますか？</label>
                 </div>
+                @if (Auth::id() === $user->id) ユーザ名とメールアドレスがログインユーザ名と一致しないため退会できません。
                 <div class="modal-footer d-flex justify-content-between">
                     <form action="{{ route('users.delete', $user->id) }}" method="POST">
                         @csrf<!-- ハッキングの手口から守る（POST実行時は必ず記載） -->
                         @method('DELETE')<!-- HTTPメソッドをDELETEに指定 -->
                         <button type="submit" class="btn btn-danger">退会する</button>
                     </form>
+                @endif
                     <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
                 </div>
             </div>
