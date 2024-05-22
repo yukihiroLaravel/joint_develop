@@ -11,13 +11,20 @@ use Illuminate\Support\Facades\Hash;
 class UsersController extends Controller
 {
     // ユーザ詳細
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
-        $counts = $this->userCounts($user);  // カウント情報を取得
+        $keyword = $request->input('keyword', '');  // デフォルト値として空の文字列を設定
+        $query = $user->posts()->orderBy('id', 'desc');
     
-        return view('users.show', compact('user', 'posts', 'counts')); // compactを使って配列を作成
+        if (!empty($keyword)) {
+            $query->where('content', 'LIKE', "%{$keyword}%");
+        }
+    
+        $posts = $query->paginate(10);
+        $counts = $this->userCounts($user);
+    
+        return view('users.show', compact('user', 'posts', 'counts', 'keyword'));
     }
 
     // ユーザがフォローしている他のユーザ一覧を表示

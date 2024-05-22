@@ -15,7 +15,7 @@
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
-// トップページの投稿表示
+// トップページの投稿表示、検索フォーム表示
 Route::get('/', 'PostsController@index')->name('top');
 
 // ユーザー　ログイン・ログアウト
