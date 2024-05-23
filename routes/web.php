@@ -21,6 +21,7 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 // ユーザー
 Route::group(['prefix' => 'users/{id}'],function(){
     Route::get('', 'UsersController@show')->name('user.show');
+    Route::get('followings', 'UsersController@followings')->name('followings');
 });
 
 // ログイン

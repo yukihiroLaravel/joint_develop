@@ -22,7 +22,7 @@
     <div class="col-sm-8">
         <ul class="nav nav-tabs nav-justified mb-3">
             <li class="nav-item"><a href="{{ route('user.show', $user->id) }}" class=" nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}">タイムライン</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">フォロー</a></li>
+            <li class="nav-item nav-link {{ Request::is('users/'. $user->id.'followings') ? 'active' : '' }}"><a href="{{ route('followings', $user->id) }}">フォロー<br><div class="badge badge-secondary">{{ $countFollows }}</div></a></li>
             <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
         </ul>
         <!-- ここから投稿表示部分追加 -->

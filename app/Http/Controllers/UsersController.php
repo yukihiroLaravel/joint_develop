@@ -19,6 +19,7 @@ class UsersController extends Controller
             'user'=> $user,
             'posts'=>$posts
         ];
+        $data += $this->usersCounts($user);
         return view('users.show', $data);
     }
 
@@ -50,5 +51,19 @@ class UsersController extends Controller
         }
         session()->flash('flash_message', '退会が完了しました！');
         return redirect('/');
+    }
+
+    public function followings($id)
+    {
+        $user = User::findOrFail($id);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
+        $follows = $user->following()->orderBy('id', 'desc')->paginate(10);
+        $data=[
+            'user' => $user,
+            'posts'=>$posts,
+            'follows' => $follows,
+        ];
+        $data += $this->usersCounts($user);
+        return view('users.show', $data);
     }
 }
