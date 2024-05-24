@@ -9,12 +9,16 @@ use App\Post;
 
 class PostsController extends Controller
 {
-     public function index()
+     public function index(Request $request)
     {
-        $posts = Post::orderBy('id','desc')->paginate(10);
-        return view('welcome', [
-            'posts' => $posts,
-        ]);
+        $search = $request->input('keyword');  //リクエストからkeywordパラメーターの値を取得し、$search変数に代入、ユーザーが検索フォームに入力したキーワードが格納される
+        $query = Post::query();   //モデルに対してクエリビルダを作成し、$query変数に代入してこのクエリビルダを使ってデータベースクエリを構築
+
+        if (!empty($search)) {  //$search変数が空でない時、ユーザーがキーワードを入力した場合に、検索条件を追加
+            $query->where('content', 'LIKE', "%{$search}%");  //contentカラムがユーザーの入力したキーワードを部分一致で含む場合に検索条件を追加する。% はワイルドカード文字で、任意の文字列を表す
+        }
+        $posts = $query->orderBy('id','desc')->paginate(10);  //クエリビルダに対して、id カラムで降順に並び替えを行い、ページネーションを適用し取得するデータは1ページあたり10件
+        return view('welcome', ['posts' => $posts, 'search' => $search]);  //welcome ビューにデータを渡して、ビューを表示、$posts変数には検索結果が格納され、$search 変数にはユーザーが入力したキーワードが格納。ビュー内でこれらの変数を使用して結果を表示
     }
 
     public function destroy($id)
