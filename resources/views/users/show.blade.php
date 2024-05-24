@@ -30,6 +30,7 @@
             @foreach ($posts as $post)
                 @include('posts.post', ['user' => $user, 'post' => $post])
                 @include('favorite.favorite_button', ['post' => $post])
+                @include('comments.comment', ['post' => $post])
                 <hr>
             @endforeach
         </ul>

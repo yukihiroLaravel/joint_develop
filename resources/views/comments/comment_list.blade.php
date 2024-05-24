@@ -1,4 +1,10 @@
-@foreach ($post->comments as $comment) 
+@foreach ($post->comments as $comment)
+    <!-- 編集エラー時 -->
+    <div id="flash-message" class="alert alert-danger" style="display: none;"></div>
+    <!-- 編集成功時 -->
+    <div id="flash-message-edit-{{ $comment->id }}" class="alert alert-info" style="display: none;"></div>
+    <!-- 削除成功時 -->
+    <div id="flash-message-delete-{{ $comment->id }}" class="alert alert-success" style="display: none;"></div>
     <div class="comment-container" data-comment-id="{{ $comment->id }}">
         <div class="d-flex justify-content-between m-auto" style="width: 100%;">
             <div class="w-100">
@@ -16,7 +22,7 @@
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        <textarea class="form-control w-100" name="comment_content" rows="3">{{ $comment->comment }}</textarea>
+                        <textarea id="comment_content_{{ $comment->id }}" class="form-control w-100" name="comment_content" rows="10" required>{{ $comment->comment }}</textarea>
                     </div>
                     <button type="submit" class="btn btn-sm btn-primary">更新</button>
                     <button type="button" class="btn btn-sm btn-secondary cancel-edit">キャンセル</button>
@@ -86,14 +92,45 @@
             }
         });
 
+        // フラッシュメッセージを表示する関数
+        function showFlashMessage(message) {
+            const flashMessageElement = document.getElementById('flash-message');
+            flashMessageElement.textContent = message;
+            flashMessageElement.style.display = 'block';
+            // 3秒後にメッセージを非表示にする
+            setTimeout(() => {
+                flashMessageElement.style.display = 'none';
+            }, 3000);
+        }
+
+        // コメント編集成功時のフラッシュメッセージ
+        function showEditSuccessMessage(commentId) {
+            const flashMessageElement = document.getElementById(`flash-message-edit-${commentId}`);
+            flashMessageElement.textContent = 'コメントを更新しました。';
+            flashMessageElement.style.display = 'block';
+            // 3秒後にメッセージを非表示にする
+            setTimeout(() => {
+                flashMessageElement.style.display = 'none';
+            }, 3000);
+        }
+
         // 編集フォームが送信されたときの処理
         document.querySelectorAll('.edit-comment-form').forEach(form => {
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
                 const commentId = form.getAttribute('data-comment-id');
                 const content = form.querySelector('textarea').value;
+                
+                 // 文字数をカウント
+                const characterCount = content.length;
 
-                // Ajaxリクエストの例 (必要な場合)
+                // 500文字を超える場合は送信をキャンセル
+                if (characterCount > 500) {
+                    showFlashMessage('コメントは500文字以内で入力してください。');
+                    return;
+                }
+
+                // Ajaxリクエスト(edit)
                 fetch(form.action, {
                     method: 'POST',
                     headers: {
@@ -114,6 +151,7 @@
                         form.classList.add('d-none');
                         // 更新後、コメント内容を変数に保存
                         commentContents[commentId] = content;
+                        showEditSuccessMessage(commentId); // 編集成功メッセージを表示
                     } else {
                         // エラーハンドリング
                     }
@@ -124,6 +162,17 @@
             });
         });
 
+        // コメント削除成功時のフラッシュメッセージ
+        function showDeleteSuccessMessage(commentId) {
+            const flashMessageElement = document.getElementById(`flash-message-delete-${commentId}`);
+            flashMessageElement.textContent = 'コメントを削除しました。';
+            flashMessageElement.style.display = 'block';
+            // 3秒後にメッセージを非表示にする
+            setTimeout(() => {
+                flashMessageElement.style.display = 'none';
+            }, 3000);
+        }
+
         // 削除リンクがクリックされたときの処理
         document.querySelectorAll('.delete-comment').forEach(link => {
             link.addEventListener('click', (event) => {
@@ -131,7 +180,7 @@
                 const commentId = link.getAttribute('data-comment-id');
                 const commentElement = document.querySelector(`.comment-container[data-comment-id="${commentId}"]`);
 
-                // Ajaxリクエストの例 (必要な場合)
+                // Ajaxリクエスト(delete)
                 fetch(`/comments/${commentId}`, {
                     method: 'DELETE',
                     headers: {
@@ -144,6 +193,7 @@
                     if (data.success) {
                         // コメントをDOMから削除
                         commentElement.remove();
+                        showDeleteSuccessMessage(commentId); // 削除成功メッセージを表示
                     } else {
                         // エラーハンドリング
                         console.error('Failed to delete comment:', data.message);
