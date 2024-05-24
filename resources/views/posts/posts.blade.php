@@ -48,6 +48,6 @@
     </ul>
 
     <div class="m-auto" style="width: fit-content">
-        {{ $posts->links('pagination::bootstrap-4') }}
+        {{ $posts->appends(request()->query())->links('pagination::bootstrap-4') }}
     </div>
 </div>
