@@ -1,0 +1,19 @@
+.post-content {
+  word-wrap: break-word;  /* 長い単語も画面幅に合わせて改行する */
+  white-space: normal;    /* 改行や空白を通常通り扱う */
+  overflow-wrap: break-word; /* 古いブラウザをサポートするための設定 */
+}
+
+.search-form-container {
+  display: flex;
+  justify-content: center;
+}
+
+.search-form {
+  width: 100%;
+  max-width: 600px; /* 投稿コメント欄に合わせて適切な幅に設定 */
+}
+
+.search-form .form-control {
+  flex: 1;
+}

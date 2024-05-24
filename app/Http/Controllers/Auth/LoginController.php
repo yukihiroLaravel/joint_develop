@@ -42,8 +42,8 @@ class LoginController extends Controller
     // AuthenticatesUsersトレイトのauthenticatedメソッドをオーバーライド
     protected function authenticated(Request $request, $user)
     {
-        // ログイン成功時、トップ画面へ遷移し、フラッシュメッセージを表示
-        return redirect()->route('top')->with('success', 'ログインに成功しました。');
+        // ログイン成功時、ログインユーザーに表示させたいページへ遷移し、フラッシュメッセージを表示
+        return redirect()->intended($this->redirectPath())->with('success', 'ログインに成功しました。');
     }
 
     // AuthenticatesUsersトレイトのlogoutメソッドをオーバーライド

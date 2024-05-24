@@ -15,7 +15,7 @@
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
-// トップページの投稿表示
+// トップページの投稿表示、検索フォーム表示
 Route::get('/', 'PostsController@index')->name('top');
 
 // ユーザー　ログイン・ログアウト
@@ -31,11 +31,16 @@ Route::group(['prefix' => 'posts', 'middleware' => 'auth'], function () {
     Route::delete('/{id}', 'PostsController@destroy')->name('posts.destroy');
     // フォロー機能
     Route::post('/follow/{id}', 'FollowController@store')->name('follow.store');
-    Route::delete('/unfollow/{id}', 'FollowController@destroy')->name('follow.destroy');
+    Route::delete('/unfollow/{id}', 'FollowController@destroy')->name('unfollow.destroy');
 });
 
 // ユーザ詳細
-Route::get('/users/{id}', 'UsersController@show')->name('users.show');
+Route::group(['prefix' => 'users/{id}'],function(){
+    Route::get('/', 'UsersController@show')->name('users.show');
+    //フォロー、フォロワー投稿表示
+    Route::get('followings','UsersController@followings')->name('followings');
+    Route::get('followers','UsersController@followers')->name('followers');
+});
 
 // ユーザ編集画面・更新(ログインユーザのみ、prefixでグループ化)
 Route::group(['middleware' => 'auth'], function(){
@@ -45,4 +50,4 @@ Route::group(['middleware' => 'auth'], function(){
         //ユーザ退会
         Route::delete('{id}', 'UsersController@destroy')->name('users.delete'); 
     });
-  });
+});
