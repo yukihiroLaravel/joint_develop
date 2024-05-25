@@ -91,4 +91,9 @@ class User extends Authenticatable
             $user->posts()->delete();
         });
     }
+    //コメントとの一対多メソッド
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

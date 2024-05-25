@@ -45,4 +45,20 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('follows','FollowController@store')->name('follow');
         Route::delete('unfollow','FollowController@destroy')->name('unfollow');
     });
+    //コメント関連
+    Route::prefix('comments')->group(function () {
+        //コメントを全件表示する
+        // Route::get('/', 'CommentsController@index')->name('comments.index');
+        //コメントを個別に表示する
+        // Route::get('{id}', 'CommentsController@show')->name('comments.show');
+        //コメント新規登録画面表示
+        Route::get('create', 'CommentsController@create')->name('comment.create');
+        // コメント投稿機能
+        Route::post('/', 'CommentsController@store')->name('comment.store');
+        //コメントの編集
+        //Route::put('{id}/edit', 'CommentsController@edit')->name('comment.update');
+        //コメントの削除
+        Route::delete('{id}', 'CommentsController@destroy')->name('comment.delete');
+    });
+
 });

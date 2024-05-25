@@ -1,6 +1,5 @@
 <div class="conteiner"><!-- コンテナを使って全要素をラップしてスタイルを整えた -->
-<ul class="list-unstyled">
-                    
+        <ul class="list-unstyled">            
         @foreach ($posts as $post)
             <li class="mb-3">
                 <div class="row">
@@ -9,11 +8,16 @@
                              <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
                              <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('user.show', ['id' => $post->user->id]) }}">{{ $post->user->name }}</a></p>
                         </div>
+                        <!-- 謎に消えていた箇所を修正 -->
+                        <div class="col-7 text-right">
+                            @include('follow.follow_button', ['user' => $post->user])
+                        </div> 
+                    </div>
                     <p>{{ $post->content }}</p>
-                    <p>{{ $post->created_at }}</p> 
-            </li>
+                    <p>{{ $post->created_at }}</p>
+             </li>
         @endforeach
-        
+        </ul>
         <div class="d-flex justify-content-between w-75 pb-3 m-auto">
                 @if (Auth::id() === $post->user_id)
                 <form method="POST" action="{{ route('post.delete', $post->id) }}">
