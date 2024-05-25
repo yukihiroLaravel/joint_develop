@@ -56,4 +56,3 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('unfollow','FollowingController@destroy')->name('unfollow');
     });
 });
-

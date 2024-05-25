@@ -22,6 +22,3 @@
         </div>
     </nav>
 </header>
-
-
-

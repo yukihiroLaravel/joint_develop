@@ -6,7 +6,6 @@ use App\Http\Controllers\SearchController;
 use App\Post;
 use Illuminate\Http\Request;
 
-
 class SearchController extends Controller
 {
 
@@ -34,13 +33,3 @@ public function index(Request $request)
 }
 
 }
-
-
-
-
-
-
-
-
-
-
