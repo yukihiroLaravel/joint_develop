@@ -30,7 +30,6 @@
             <button type="submit" class="btn btn-primary">更新する</button>
         </div>
     </form>
-        @if (Auth::id() === $user->id) <!-- ログインユーザと退会ユーザが一致した場合に退会ボタンを -->
             <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -46,7 +45,6 @@
                         @method('DELETE')<!-- HTTPメソッドをDELETEに指定 -->
                         <button type="submit" class="btn btn-danger">退会する</button>
                     </form>
-        @endif
                     <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
                 </div>
             </div>

@@ -70,19 +70,19 @@ class UsersController extends Controller
     }
 
        //ユーザ削除
-       protected function destroy(UserRequest $request, $id)
+       protected function destroy($id)
        {
            // 指定されたユーザIDを取得
            $user = User::findOrFail($id);
        
            // ログインユーザのIDと指定されたIDが一致する場合のみユーザを削除
-           if (\Auth::check() && \Auth::id() == $id) {
+           if (\Auth::id() === $user->id) {
                $user->delete(); // ユーザを削除
                return redirect()->route('top'); // 一覧画面へリダイレクト
            } else {
                // ユーザ削除の条件を満たしていない場合はエラーメッセージを表示
                return back()->with('error', 'ユーザ削除は許可されていません。');
            }
-       }
+       }       
 }
 
