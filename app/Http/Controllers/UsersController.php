@@ -7,6 +7,7 @@ use App\Http\Requests\UserRequest;
 use App\User;
 use App\Post;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class UsersController extends Controller
 {
@@ -18,7 +19,13 @@ class UsersController extends Controller
         $query = $user->posts()->orderBy('id', 'desc');
     
         if (!empty($keyword)) {
-            $query->where('content', 'LIKE', "%{$keyword}%");
+            $keywords = mb_split('\s+', $keyword);  // マルチバイト文字の空白文字でキーワードを分割
+            Log::info('Search keywords: ', $keywords); // ログ出力
+            $query->where(function ($q) use ($keywords) {
+                foreach ($keywords as $word) {
+                    $q->orwhere('content', 'LIKE', "%{$word}%");
+                }
+            });
         }
     
         $posts = $query->paginate(10);
