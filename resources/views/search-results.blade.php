@@ -27,11 +27,6 @@
     }
 }
 
-/* .flowing-text-container {
-   
-    overflow: hidden; 
-} */
-
 .flowing-text {
     white-space: nowrap; /* テキストが改行されないようにする */
     animation: flowing 25s linear infinite; /* アニメーションを追加 */
@@ -51,7 +46,7 @@
     </ul>
 
     <div class="m-auto" style="width: fit-content">
-        {{ $posts->links('pagination::bootstrap-4') }}
+        {{ $posts->appends(request()->query())->links('pagination::bootstrap-4') }}
     </div>
 @endif
 

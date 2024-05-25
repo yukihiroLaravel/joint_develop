@@ -5,7 +5,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
             <form action="{{ route('search') }}" method="GET">
-                <input type="text" name="keyword" placeholder="記事を検索">
+                <input type="text" name="keyword" placeholder="記事を検索" value="{{ request()->input('keyword') }}">
                 <button type="submit"><i class="fas fa-search"></i></button>
             </form>
         <div class="collapse navbar-collapse" id="nav-bar">
@@ -22,3 +22,6 @@
         </div>
     </nav>
 </header>
+
+
+
