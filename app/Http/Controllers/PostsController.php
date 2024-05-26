@@ -76,7 +76,7 @@ class PostsController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id); //テーブルpostからidが$IDのレコードを探し出す
-        return view('post.show')->with('post', $post);// viewとしてshow.bladeの呼び出す　with()メソッドをつなげてshow.blade内で$post変数として使用　
+        return view('posts.show')->with('post', $post);// viewとしてshow.bladeの呼び出す　with()メソッドをつなげてshow.blade内で$post変数として使用　
     }
 }
 

@@ -49,4 +49,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::put('{id}', 'UsersController@update')->name('users.update');
     });
 });
+// ユーザ詳細
+Route::get('/posts/{id}', 'PostsController@show')->name('posts.show');
+
 
