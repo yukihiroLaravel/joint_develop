@@ -7,6 +7,7 @@
         <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 308) }}" alt="ユーザのアバター画像">
         <div class="mt-3">
             <a href="{{ route('users.edit', ['id' => $user->id]) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+            <a href="{{ route('users.edit', ['id' => $user->id]) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
         </div>
     </div>
 </div>
