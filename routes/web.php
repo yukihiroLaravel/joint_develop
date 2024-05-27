@@ -15,7 +15,7 @@
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
-// トップページの投稿表示
+// トップページの投稿表示、検索フォーム表示
 Route::get('/', 'PostsController@index')->name('top');
 
 // ユーザー　ログイン・ログアウト
@@ -45,8 +45,10 @@ Route::group(['prefix' => 'users/{id}'],function(){
 // ユーザ編集画面・更新(ログインユーザのみ、prefixでグループ化)
 Route::group(['middleware' => 'auth'], function(){
     Route::prefix('users')->group(function() {
-        Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
-        Route::put('{id}', 'UsersController@update')->name('users.update');
+      Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
+      Route::put('{id}', 'UsersController@update')->name('users.update');
+        //ユーザ退会
+        Route::delete('{id}', 'UsersController@destroy')->name('users.delete'); 
     });
 });
 // 投稿詳細

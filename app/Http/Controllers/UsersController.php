@@ -11,13 +11,20 @@ use Illuminate\Support\Facades\Hash;
 class UsersController extends Controller
 {
     // ユーザ詳細
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
-        $counts = $this->userCounts($user);  // カウント情報を取得
+        $keyword = $request->input('keyword', '');  // デフォルト値として空の文字列を設定
+        $query = $user->posts()->orderBy('id', 'desc');
     
-        return view('users.show', compact('user', 'posts', 'counts')); // compactを使って配列を作成
+        if (!empty($keyword)) {
+            $query->where('content', 'LIKE', "%{$keyword}%");
+        }
+    
+        $posts = $query->paginate(10);
+        $counts = $this->userCounts($user);
+    
+        return view('users.show', compact('user', 'posts', 'counts', 'keyword'));
     }
 
     // ユーザがフォローしている他のユーザ一覧を表示
@@ -61,4 +68,22 @@ class UsersController extends Controller
 
         return redirect()->route('users.show', ['id' => $user->id]);
     }
+
+       //ユーザ削除　UsersControllerのclassメソッド
+       protected function destroy($id)
+       {
+           // 指定されたユーザIDを取得
+           $user = User::findOrFail($id);
+       
+           // ログインユーザのIDと指定されたIDが一致する場合のみユーザを削除
+           if (\Auth::id() === $user->id) {
+               $user->delete(); // ユーザを削除
+               return redirect()->route('top'); // 一覧画面へリダイレクト
+           }//ログインユーザのIDと指定されたIDが一致する場合のみユーザを削除 する範囲         
+           else {//そうでなけらばの条件分岐
+               // ユーザ削除の条件を満たしていない場合はエラーメッセージを表示
+               return back()->with('error', 'ユーザ削除は許可されていません。');
+           }
+       }       
 }
+

@@ -24,6 +24,10 @@
             </form>
         </div>
     @endif
+        <!-- 検索フォームを追加 -->
+        <div class="text-center mb-3 search-form-container">
+            @include('posts.search', ['keyword' => $keyword ?? '', 'user' => $user ?? null])
+        </div>
         <!-- 投稿一覧を表示するコンテンツを追加 -->
         <div class="post-list">
             <!--　第一引数　postsフォルダのposts.blade.phpファイルを表示　-->
