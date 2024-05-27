@@ -9,10 +9,27 @@
   justify-content: center;
 }
 
+.search-form-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .search-form {
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .search-form .form-control {
   flex: 1;
+}
+
+.search-description {
+  margin-top: 0.5rem;
+  color: #6c757d; /* グレーのテキストカラー */
+  font-size: 0.9rem; /* 少し小さめのフォントサイズ */
+  text-align: center; /* 中央寄せに設定 */
+  width: 100%; /* 検索フォームと同じ幅にする */
 }
