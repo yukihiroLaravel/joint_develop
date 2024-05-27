@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="text-center">
-        <h1><i class="fas fa-chalkboard-teacher pr-3 d-inline"></i>Topic Posts></h1>
+        <h1><i class="fas fa-chalkboard-teacher pr-3 d-inline"></i>Topic Posts</h1>
     </div>
     <div class="text-center mt-3">
         <p class="d-inlin-black">新規ユーザ登録すると、<br>あなたのチャンネル作成／動画登録等ができるようになります。</p>
