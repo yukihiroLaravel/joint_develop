@@ -6,6 +6,7 @@
             <div class="text-left d-inline-block w-75 mb-2">
                 <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像"><!-- アバター画像のURLを指定(アバターサービスGravatar使用) -->
                 <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('users.show', ['id' => $post->user->id]) }}">{{ $post->user->name }}</a></p><!-- ユーザ名と関連するリンクのhref属性に、ユーザのプロフィールページへのURLを指定 -->
+                <p class="mt-4 mb-1 btn btn-warning"><a href="{{ route('posts.show', ['id' => $post->id]) }}">投稿詳細</a></p><!--  投稿詳細のURL-->
             </div>
             <!-- 投稿内容 -->
             <div class="">

@@ -8,9 +8,6 @@
         <div class="mt-3">
             <a href="{{ route('users.edit', ['id' => $user->id]) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
         </div>
-        <div class="mt-4">
-            <a href="{{ route('posts.show', ['id' => $user->id]) }}" class="btn btn-primary btn-block">投稿詳細</a>
-        <div>
     </div>
 </div>
 <!-- ここにフォローボタンを挿入 -->
