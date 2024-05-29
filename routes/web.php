@@ -12,7 +12,10 @@
 */
 
 // 投稿
-Route::get('/', 'PostsController@index');
+Route::get('/', 'PostsController@index')->name('home');
+
+// 投稿検索
+Route::get('/search', 'SearchController@index')->name('search');
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
@@ -55,4 +58,3 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('unfollow','FollowingController@destroy')->name('unfollow');
     });
 });
-
