@@ -7,6 +7,7 @@ use App\Post; //Postモデルを使用する為のインポート、投稿デー
 use App\User; //Userモデルを使用する為のインポート、ユーザデータを取得する為に使用
 use App\Http\Requests\PostRequest; //フォームリクエストの宣言（バリデーションを切り分ける）
 use Illuminate\Support\Facades\Auth; // Authファサードをインポート
+use Illuminate\Support\Facades\Log;
 
 class PostsController extends Controller
 {
@@ -20,7 +21,13 @@ class PostsController extends Controller
 
         // キーワードが存在する場合は検索条件を追加
         if (!empty($keyword)) {
-            $query->where('content', 'LIKE', "%{$keyword}%");
+            $keywords = mb_split('\s+', $keyword);  // マルチバイト文字の空白文字でキーワードを分割
+            Log::info('Search keywords: ', $keywords); // ログ出力
+            $query->where(function ($q) use ($keywords) {
+                foreach ($keywords as $word) {
+                    $q->orwhere('content', 'LIKE', "%{$word}%");
+                }
+            });
         }
 
         // 投稿をIDの降順で並べ替えてページネーション
@@ -78,6 +85,7 @@ class PostsController extends Controller
         // 認証しているユーザと投稿のuser_idが一致した場合は削除
         if (\Auth::id() === $post->user_id) {
             $post->delete();
+            return back()->with('success', 'ポストの削除に成功しました。');
         }
 
         return back();

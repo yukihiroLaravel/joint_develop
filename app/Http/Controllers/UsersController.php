@@ -8,6 +8,7 @@ use App\User;
 use App\Post;
 use Illuminate\Support\Facades\Hash;
 use App\Services\UserService;
+use Illuminate\Support\Facades\Log;
 
 class UsersController extends Controller
 {
@@ -19,11 +20,17 @@ class UsersController extends Controller
         $query = $user->posts()->orderBy('id', 'desc');
 
         if (!empty($keyword)) {
-            $query->where('content', 'LIKE', "%{$keyword}%");
+            $keywords = mb_split('\s+', $keyword);  // マルチバイト文字の空白文字でキーワードを分割
+            Log::info('Search keywords: ', $keywords); // ログ出力
+            $query->where(function ($q) use ($keywords) {
+                foreach ($keywords as $word) {
+                    $q->orwhere('content', 'LIKE', "%{$word}%");
+                }
+            });
         }
 
         $posts = $query->paginate(10);
-        $counts = UserService::userCounts($user); // FatControllerになるのを防ぐため、Serviceに記載
+        $counts = UserService::userCounts($user); // Userモデルの投稿数、フォロー数、フォロワー数を取得
 
         return view('users.show', compact('user', 'posts', 'counts', 'keyword'));
     }
@@ -33,7 +40,7 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $users = $user->followings()->orderBy('created_at', 'desc')->paginate(10);
-        $counts = UserService::userCounts($user);  // Userモデルの投稿数、フォロー数、フォロワー数を取得
+        $counts = UserService::userCounts($user); // Userモデルの投稿数、フォロー数、フォロワー数を取得
 
         return view('follow.follow_list', compact('user', 'users', 'counts'));
     }
@@ -43,7 +50,7 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $users = $user->followers()->orderBy('created_at', 'desc')->paginate(10);
-        $counts = UserService::userCounts($user);  // Userモデルの投稿数、フォロー数、フォロワー数を取得
+        $counts = UserService::userCounts($user); // Userモデルの投稿数、フォロー数、フォロワー数を取得
 
         return view('follow.follow_list', compact('user', 'users', 'counts'));
     }
@@ -72,5 +79,21 @@ class UsersController extends Controller
         $user->save();
 
         return redirect()->route('users.show', ['id' => $user->id]);
+    }
+
+    // ユーザ削除
+    protected function destroy($id)
+    {
+        // 指定されたユーザIDを取得
+        $user = User::findOrFail($id);
+
+        // ログインユーザのIDと指定されたIDが一致する場合のみユーザを削除
+        if (\Auth::id() === $user->id) {
+            $user->delete(); // ユーザを削除
+            return redirect()->route('top')->with('success', '退会処理が完了しました'); // 一覧画面へリダイレクト
+        } else {
+            // ユーザ削除の条件を満たしていない場合はエラーメッセージを表示
+            return back()->with('error', 'ユーザの削除は許可されていません');
+        }
     }
 }

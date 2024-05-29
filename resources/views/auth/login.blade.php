@@ -25,7 +25,7 @@
                 </div>
                 <button type="submit" class="btn btn-primary mt-2">ログイン</button>
             </form>
-            <div class="mt-2"><a href="">新規ユーザ登録する？</a></div>
+            <div class="mt-2"><a href="{{ route('signup') }}">新規ユーザ登録する？</a></div><!-- 新規ユーザ登録画面への遷移ルーティング追記 -->
         </div>
     </div>
 @endsection

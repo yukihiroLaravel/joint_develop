@@ -26,7 +26,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 // ユーザ詳細
 Route::group(['prefix' => 'users/{id}'],function(){
     Route::get('/', 'UsersController@show')->name('users.show');
-    //フォロー、フォロワー投稿表示
+    // フォロー、フォロワー投稿表示
     Route::get('followings','UsersController@followings')->name('followings');
     Route::get('followers','UsersController@followers')->name('followers');
 });
@@ -36,6 +36,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::prefix('users')->group(function() {
         Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
         Route::put('{id}', 'UsersController@update')->name('users.update');
+        // ユーザ退会
+        Route::delete('{id}', 'UsersController@destroy')->name('users.delete');
     });
 });
 
