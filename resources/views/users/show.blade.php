@@ -60,7 +60,7 @@
        <!-- 下３行不要か？ -->
         <!-- <div class="m-auto" style="width: fit-content"> -->
             {{-- {{ $posts->links('pagination::bootstrap-4') }} --}}
-        </div>
+        <!-- </div> -->
     </div>
 </div>
 @include('commons.flash_message')
