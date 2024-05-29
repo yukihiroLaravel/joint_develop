@@ -58,7 +58,7 @@
         </ul>
         @endif
        <!-- 下３行不要か？ -->
-        <div class="m-auto" style="width: fit-content">
+        <!-- <div class="m-auto" style="width: fit-content"> -->
             {{-- {{ $posts->links('pagination::bootstrap-4') }} --}}
         </div>
     </div>
