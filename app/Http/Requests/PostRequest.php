@@ -11,7 +11,8 @@ class PostRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize() //このフォームリクエストを使うか否かを表す
+    // このフォームリクエストを使うか否かを表す
+    public function authorize()
     {
         return true;
     }
@@ -21,10 +22,11 @@ class PostRequest extends FormRequest
      *
      * @return array
      */
-    public function rules() //rules()配列の形でリターンさせる決まりがある
+    // rules()配列の形でリターンさせる決まりがある
+    public function rules()
     {
         return [
-            'content' => 'required|max:140',  //投稿内容は140文字以内とする
+            'content' => 'required|max:140', // 投稿内容は140文字以内とする
         ];
     }
 }

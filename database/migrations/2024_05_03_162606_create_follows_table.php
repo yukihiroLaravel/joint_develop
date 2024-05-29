@@ -15,12 +15,16 @@ class CreateFollowsTable extends Migration
     {
         Schema::create('follows', function (Blueprint $table) {
             $table->bigIncrements('id');
-            // カラムを先に作成する
+
+            // カラムを先に作成し、後から外部キー制約を設定
             $table->unsignedBigInteger('follower_id'); // フォロワーID
+            $table->foreign('follower_id')->references('id')->on('users')
+                  ->onUpdate('cascade')->onDelete('cascade');
+
             $table->unsignedBigInteger('followed_id'); // フォローされる側のユーザID
-            // 外部キーとして設定
-            $table->foreign('follower_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('followed_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('followed_id')->references('id')->on('users')
+                  ->onUpdate('cascade')->onDelete('cascade');
+
             $table->timestamps();
             $table->unique(['follower_id', 'followed_id']);  // 同じフォロー関係が重複しないように
         });

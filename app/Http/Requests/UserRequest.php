@@ -22,14 +22,16 @@ class UserRequest extends FormRequest
      *
      * @return array
      */
+    // ユーザ更新におけるバリデーション
     public function rules()
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($this->user()->id)],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($this->user()->id)], // 更新時は現在のユーザーを除外してユニークチェック
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
+
     public function attributes()
     {
         return [
