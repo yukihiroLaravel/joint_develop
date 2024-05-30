@@ -46,7 +46,7 @@ Route::group(['middleware' => 'auth'], function(){
   });
 
   // いいね機能
-  Route::group(['prefix' => 'posts/{id}'],function(){
+ Route::group(['prefix' => 'posts/{id}', 'middleware' => 'auth'], function() {
     Route::post('favorite','FavoriteController@store')->name('favorite');
     Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
 });
