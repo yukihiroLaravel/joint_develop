@@ -40,59 +40,62 @@ class User extends Authenticatable
     ];
 
     // リレーション定義 「1対多」の1側
-    public function post()
+    public function posts()
     {
         return $this->hasMany(Post::class);
     }
-    // フォロワー関連（他のユーザーにフォローされている）
+
+    // フォロワー関連（他のユーザにフォローされている）
     public function followers()
     {
         return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id');
     }
-    // フォローしているユーザー関連（他のユーザーをフォローしている）
-    public function following()
+
+    // フォローしているユーザ関連（他のユーザをフォローしている）
+    public function followings()
     {
         return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followed_id');
     }
-    // ユーザーをフォローする機能
+
+    // ユーザIDを用いてユーザをフォロー
     public function follow($userId)
     {
-        // 自分自身をフォローしようとした場合は処理を拒否
-        if ($this->id == $userId) {
+        // 自分自身をフォローしようとした場合や既にフォローしている場合は何もしない
+        if ($this->id == $userId || $this->isFollowing($userId)) {
             return false;
         }
-
-        // 対象ユーザーを取得し、既にフォローしているか確認
-        $user = self::findOrFail($userId);
-        if ($this->isFollowing($user)) {
-            return false;
-        }
-        
-        // 対象ユーザーをフォロー
-        $this->following()->attach($user);
+        // 対象ユーザをフォロー
+        $this->followings()->attach($userId);
         return true;
     }
 
-    // ユーザーのフォローを解除する機能
+    // ユーザIDを用いてフォローを解除
     public function unfollow($userId)
     {
-        // 自分自身のアンフォローは拒否
-        if ($this->id == $userId) {
+        // 自分自身のアンフォローは拒否し、フォローしていない場合も何もしない
+        if ($this->id == $userId || !$this->isFollowing($userId)) {
             return false;
         }
-        // 対象ユーザーを取得し、フォロー中か確認
-        $user = self::findOrFail($userId);
-        if ($this->isFollowing($user)) {
-            // フォロー中なら解除
-            $this->following()->detach($user);
-            return true;
-        }
-        return false;
+        // フォロー中なら解除
+        $this->followings()->detach($userId);
+        return true;
     }
-    // 対象ユーザーをフォローしているか確認
-    public function isFollowing($user)
+
+    // 指定されたユーザIDがフォローされているかを確認
+    public function isFollowing($userId)
     {
-        return $this->following()->where('followed_id', $user->id)->exists();
+        return $this->followings()->where('followed_id', $userId)->exists();
+    }
+
+    // 退会ユーザ所有の投稿削除
+    // ユーザデータ削除後に投稿データを削除
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleted(function ($user) {
+            $user->posts()->delete();
+        });
     }
     // いいね機能 
     // UserモデルとPostモデルの間に「1対多」のリレーションシップを定義
