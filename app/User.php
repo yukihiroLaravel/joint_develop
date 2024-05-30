@@ -44,32 +44,32 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
-    
-    // フォロワー関連（他のユーザーにフォローされている）
+
+    // フォロワー関連（他のユーザにフォローされている）
     public function followers()
     {
         return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id');
     }
 
-    // フォローしているユーザー関連（他のユーザーをフォローしている）
+    // フォローしているユーザ関連（他のユーザをフォローしている）
     public function followings()
     {
         return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followed_id');
     }
 
-    // ユーザーIDを用いてユーザーをフォロー
+    // ユーザIDを用いてユーザをフォロー
     public function follow($userId)
     {
         // 自分自身をフォローしようとした場合や既にフォローしている場合は何もしない
         if ($this->id == $userId || $this->isFollowing($userId)) {
             return false;
         }
-        // 対象ユーザーをフォロー
+        // 対象ユーザをフォロー
         $this->followings()->attach($userId);
         return true;
     }
 
-    // ユーザーIDを用いてフォローを解除
+    // ユーザIDを用いてフォローを解除
     public function unfollow($userId)
     {
         // 自分自身のアンフォローは拒否し、フォローしていない場合も何もしない
@@ -81,14 +81,14 @@ class User extends Authenticatable
         return true;
     }
 
-    // 指定されたユーザーIDがフォローされているかを確認
+    // 指定されたユーザIDがフォローされているかを確認
     public function isFollowing($userId)
     {
         return $this->followings()->where('followed_id', $userId)->exists();
     }
 
-    //退会ユーザ所有の投稿削除 
-    //ユーザデータ削除後に投稿データを削除    
+    // 退会ユーザ所有の投稿削除
+    // ユーザデータ削除後に投稿データを削除
     public static function boot()
     {
         parent::boot();

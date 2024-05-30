@@ -11,13 +11,13 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-        $seedMaxUser = 100; // 100人のユーザーが存在するため
+        $seedMaxUser = 100; // 100人のユーザが存在するため
         $posts = []; // 空配列を初期値として設定
 
         // スポーツや趣味の名前リストを作成
         $hobbies = [
             'サッカー', 'バスケットボール', 'テニス', 'ロードバイク', 'ジョギング',
-            'スイミング', 'スキー', 'スノーボード', '登山', '釣り', 
+            'スイミング', 'スキー', 'スノーボード', '登山', '釣り',
             'キャンプ', 'ハイキング', '絵画', '音楽', 'ダンス',
             '料理', '読書', '映画鑑賞', '写真撮影', 'ガーデニング',
             'マウンテンバイク', 'グラベルロードバイク', 'ピストバイク', 'フットサル', '卓球',
@@ -48,8 +48,8 @@ class PostsTableSeeder extends Seeder
                 // ランダムに趣味を選択
                 $hobby = $hobbies[array_rand($hobbies)];
                 $posts[] = [
-                    'user_id' => $userId, // 1から100までのユーザーIDを割り当て
-                    'content' => 'ユーザー' . $userId . 'の初期ポスト' . $i . ' ' . $hobby, // ユーザーごとの初期ポスト1〜11に趣味を追加
+                    'user_id' => $userId, // 1から100までのユーザIDを割り当て
+                    'content' => 'ユーザ' . $userId . 'の初期ポスト' . $i . ' ' . $hobby, // ユーザごとの初期ポスト1〜11に趣味を追加
                     'created_at' => now(), // 現在日時
                     'updated_at' => now() // 現在日時
                 ];

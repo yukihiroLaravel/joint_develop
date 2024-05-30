@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-        public function user() //Postモデルにuserメソッド定義
+    // Postモデルにuserメソッド定義
+    public function user()
     {
-        return $this->belongsTo(User::class); //リレーション定義 「1対多」の多側
+        // リレーションを定義 「1対多」の多側
+        return $this->belongsTo(User::class);
     }
 }

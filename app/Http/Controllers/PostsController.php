@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post; //Postモデルを使用する為のインポート、投稿データを取得する為に使用
-use App\User; //Userモデルを使用する為のインポート、ユーザーデータを取得する為に使用
+use App\User; //Userモデルを使用する為のインポート、ユーザデータを取得する為に使用
 use App\Http\Requests\PostRequest; //フォームリクエストの宣言（バリデーションを切り分ける）
 use Illuminate\Support\Facades\Auth; // Authファサードをインポート
 use Illuminate\Support\Facades\Log;
@@ -36,14 +36,15 @@ class PostsController extends Controller
         // ビューに渡すデータを指定
         return view('welcome', compact('posts', 'keyword'));
     }
-    
-    //通常のRequestクラスの代わりにPostRequestクラスをメソッドの引数として指定
-    public function store(PostRequest $request) //これにより、メソッドが呼び出される前に自動的にリクエストデータがバリデーションされる
+
+    // 通常のRequestクラスの代わりにPostRequestクラスをメソッドの引数として指定
+    public function store(PostRequest $request) // これにより、メソッドが呼び出される前に自動的にリクエストデータがバリデーションされる
     {
-        $post = new Post; //$postをオブジェクト化
-        $post->content = $request->content; //welcome.blade.phpの<form>内で入力したcontentがname属性として$requestに代入される
-        $post->user_id = $request->user()->id; //Laravelが自動でログインユーザ情報を$requestの中に入れる
+        $post = new Post; // $postをオブジェクト化
+        $post->content = $request->content; // welcome.blade.phpの<form>内で入力したcontentがname属性として$requestに代入される
+        $post->user_id = $request->user()->id; // Laravelが自動でログインユーザ情報を$requestの中に入れる
         $post->save();
+
         return back()->with('success', 'ポストの投稿に成功しました。');
     }
 
@@ -52,7 +53,7 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
 
-        // ユーザー認証チェック
+        // ユーザ認証チェック
         if (Auth::id() !== $post->user_id) {
             return redirect()->route('top')->with('error', 'アクセス権限がありません。');
         }
@@ -60,12 +61,12 @@ class PostsController extends Controller
         return view('posts.edit', compact('post'));
     }
 
-    // 投稿編集処理
+    // 投稿更新処理
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
 
-        // ユーザー認証チェック
+        // ユーザ認証チェック
         if (Auth::id() !== $post->user_id) {
             return redirect()->route('top')->with('error', 'アクセス権限がありません。');
         }
@@ -77,14 +78,16 @@ class PostsController extends Controller
     }
 
     // 投稿削除
-    public function destroy($post)
+    public function destroy($id)
     {
-        $post = post::findOrFail($post);
+        $post = post::findOrFail($id);
+
+        // 認証しているユーザと投稿のuser_idが一致した場合は削除
         if (\Auth::id() === $post->user_id) {
             $post->delete();
+            return back()->with('success', 'ポストの削除に成功しました。');
         }
+
         return back();
     }
 }
-
-    
