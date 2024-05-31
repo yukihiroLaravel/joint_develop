@@ -57,25 +57,3 @@ Route::group(['prefix' => 'posts', 'middleware' => 'auth'], function () {
     Route::post('/follow/{id}', 'FollowController@store')->name('follow.store');
     Route::delete('/unfollow/{id}', 'FollowController@destroy')->name('unfollow.destroy');
 });
-
-// ユーザ詳細
-Route::group(['prefix' => 'users/{id}'],function(){
-    Route::get('/', 'UsersController@show')->name('users.show');
-    //フォロー、フォロワー投稿表示
-    Route::get('followings','UsersController@followings')->name('followings');
-    Route::get('followers','UsersController@followers')->name('followers');
-});
-
-// ユーザ編集画面・更新(ログインユーザのみ、prefixでグループ化)
-Route::group(['middleware' => 'auth'], function(){
-    Route::prefix('users')->group(function() {
-      Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
-      Route::put('{id}', 'UsersController@update')->name('users.update');
-        //ユーザ退会
-        Route::delete('{id}', 'UsersController@destroy')->name('users.delete'); 
-    });
-});
-// 投稿詳細
-Route::get('/posts/{id}', 'PostsController@show')->name('posts.show');
-
-
