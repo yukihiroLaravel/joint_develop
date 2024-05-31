@@ -11,6 +11,23 @@ class CommentRequest extends FormRequest
      *
      * @return bool
      */
+    public function rules()
+    {
+        $postId = $this->route('post_id');
+        return [
+            'comment_' . $postId => 'required|max:140'
+        ];
+    }
+
+    public function attributes()
+    {
+        $postId = $this->route('post_id');
+        return [
+            'comment_' . $postId => 'コメント'
+        ];
+    }
+
+
     public function authorize()
     {
         return true;
@@ -21,17 +38,5 @@ class CommentRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
-        return [
-            'comment' => 'required|max:500'
-        ];
-    }
-
-    public function attributes()
-    {
-        return [
-            'comment' => 'コメント'
-        ];
-    }
+    
 }

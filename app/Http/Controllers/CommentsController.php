@@ -12,31 +12,32 @@ class CommentsController extends Controller
 {
     public function store(CommentRequest $request)
     {
+        $postId = $request->post_id;
+        $commentContent = $request->input('comment_' . $postId);
         $comment = new Comment;
-        $comment->comment = $request->comment;
-        $comment->post_id = $request->post_id;
+        $comment->comment = $commentContent;
+        $comment->post_id = $postId;
         $comment->user_id = \Auth::id();
         $comment->save();
         session()->flash('flash_message', 'コメント登録しました！');
-        return redirect('/');
+        return redirect()->back()->withInput([]);
     }
 
-    public function update(Request $request, $comment_id)
+    public function update(Request $request, $commentId)
     {
-        $comment = Comment::findOrFail($comment_id);
+        $comment = Comment::findOrFail($commentId);
         $comment->comment = $request->comment_content;
         $comment->save();
         return response()->json(['success' => true, 'message' => 'Comment updated']);
     }
 
-    public function destroy(Request $request, $comment_id)
+    public function destroy(Request $request, $commentId)
     {
-        $comment = Comment::find($comment_id);
+        $comment = Comment::find($commentId);
         if ($comment) {
             $comment->delete();
             return response()->json(['success' => true, 'message' => 'Comment deleted']);
-        } else {
-            return response()->json(['success' => false, 'message' => 'Comment not found'], 404);
         }
+        return response()->json(['success' => false, 'message' => 'Comment not found'], 404);
     }
 }

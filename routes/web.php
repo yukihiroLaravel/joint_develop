@@ -49,9 +49,10 @@ Route::group(['middleware' => 'auth'], function () {
     });
     // コメント
     Route::prefix('comments')->group(function () {
-        Route::post('/','CommentsController@store')->name('comment.store');
-        Route::put('{comment_id}', 'CommentsController@update')->name('comment.update');
-        Route::delete('{comment_id}', 'CommentsController@destroy')->name('comment.destroy');
+        // Route::post('/','CommentsController@store')->name('comment.store');
+        Route::post('/{post_id}', 'CommentsController@store')->name('comment.store');
+        Route::put('{commentId}', 'CommentsController@update')->name('comment.update');
+        Route::delete('{commentId}', 'CommentsController@destroy')->name('comment.destroy');
     });
     // フォロー
     Route::group(['prefix' => 'users/{id}'],function(){

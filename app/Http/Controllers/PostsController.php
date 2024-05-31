@@ -11,16 +11,17 @@ class PostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('id', 'desc')->paginate(10);
-        foreach ($posts as $post) {
-            $post->comments = $post->comments()->orderBy('created_at', 'desc')->get();
-        }
+        $posts = Post::with(['comments' => function ($query) {
+            $query->orderBy('created_at', 'desc');
+        }])->orderBy('id', 'desc')->paginate(10);
+        
         $tags = Tag::orderBy('id')->get();
         return view('welcome', [
             'posts' => $posts,
             'tags' => $tags,
         ]);
     }
+    
     public function store(PostRequest $request)
     {
         $post = new Post;

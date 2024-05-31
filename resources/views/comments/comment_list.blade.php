@@ -1,14 +1,10 @@
 @foreach ($post->comments as $comment)
-    <!-- 編集エラー時 -->
-    <div id="flash-message" class="alert alert-danger" style="display: none;"></div>
-    <!-- 編集成功時 -->
-    <div id="flash-message-edit-{{ $comment->id }}" class="alert alert-info" style="display: none;"></div>
-    <!-- 削除成功時 -->
-    <div id="flash-message-delete-{{ $comment->id }}" class="alert alert-success" style="display: none;"></div>
+    <!-- フラッシュメッセージ -->
+    <div id="flash-message-{{ $comment->id }}" class="alert" style="display: none;"></div>
     <div class="comment-container" data-comment-id="{{ $comment->id }}">
         <div class="d-flex justify-content-between m-auto" style="width: 100%;">
             <div class="w-100">
-                <img class="mr-2 rounded-circle" src="{{ Gravatar::src( $comment->user->email, 55) }}" alt="ユーザのアバター画像">
+                <img class="mr-2 rounded-circle" src="{{ Gravatar::src($comment->user->email, 55) }}" alt="ユーザのアバター画像">
                 <a class="no-text-decoration black-color" style="font-size: 18px;" href="/users/{{ $comment->user->id }}">{{ $comment->user->name }}</a>
                 <span class="ml-4" style="font-size: 18px;">{{ $comment->created_at->diffForHumans() }}</span>
                 @if (Auth::check() && $comment->user && $comment->user->id == Auth::user()->id)
@@ -18,11 +14,11 @@
                 <div class="w-100 text-left mb-2 mt-3 comment-content" data-comment-id="{{ $comment->id }}">
                     {{ $comment->comment }}
                 </div>
-                <form action="{{ route('comment.update', ['comment_id' => $comment->id]) }}" method="POST" class="edit-comment-form d-none w-100" data-comment-id="{{ $comment->id }}">
+                <form action="{{ route('comment.update', ['commentId' => $comment->id]) }}" method="POST" class="edit-comment-form d-none w-100" data-comment-id="{{ $comment->id }}">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        <textarea id="comment_content_{{ $comment->id }}" class="form-control w-100" name="comment_content" rows="10" required>{{ $comment->comment }}</textarea>
+                        <textarea id="comment_content_{{ $comment->id }}" class="form-control w-100" name="comment_content" rows="4" required>{{ $comment->comment }}</textarea>
                     </div>
                     <button type="submit" class="btn btn-sm btn-primary">更新</button>
                     <button type="button" class="btn btn-sm btn-secondary cancel-edit">キャンセル</button>
@@ -41,6 +37,12 @@
     .edit-comment-form {
         width: 100% !important;
     }
+    .comment-content {
+        overflow-wrap: break-word;
+    }
+    .alert-success, .alert-info, .alert-danger {
+        margin-top: 10px;
+    }
 </style>
 
 <script>
@@ -48,7 +50,6 @@
         // コメント内容を一時保存するための変数
         const commentContents = {};
 
-        // 編集リンクがクリックされたときの処理
         document.querySelectorAll('.edit-comment-link').forEach(link => {
             link.addEventListener('click', (event) => {
                 event.preventDefault();
@@ -93,22 +94,12 @@
         });
 
         // フラッシュメッセージを表示する関数
-        function showFlashMessage(message) {
-            const flashMessageElement = document.getElementById('flash-message');
+        function showFlashMessage(message, type, commentId) {
+            const flashMessageElement = document.getElementById(`flash-message-${commentId}`);
+            flashMessageElement.className = `alert alert-${type}`;
             flashMessageElement.textContent = message;
             flashMessageElement.style.display = 'block';
-            // 3秒後にメッセージを非表示にする
-            setTimeout(() => {
-                flashMessageElement.style.display = 'none';
-            }, 3000);
-        }
-
-        // コメント編集成功時のフラッシュメッセージ
-        function showEditSuccessMessage(commentId) {
-            const flashMessageElement = document.getElementById(`flash-message-edit-${commentId}`);
-            flashMessageElement.textContent = 'コメントを更新しました。';
-            flashMessageElement.style.display = 'block';
-            // 3秒後にメッセージを非表示にする
+             // 3秒後にメッセージを非表示にする
             setTimeout(() => {
                 flashMessageElement.style.display = 'none';
             }, 3000);
@@ -120,13 +111,11 @@
                 event.preventDefault();
                 const commentId = form.getAttribute('data-comment-id');
                 const content = form.querySelector('textarea').value;
-                
-                 // 文字数をカウント
                 const characterCount = content.length;
 
-                // 500文字を超える場合は送信をキャンセル
-                if (characterCount > 500) {
-                    showFlashMessage('コメントは500文字以内で入力してください。');
+                // 文字数をカウント
+                if (characterCount > 140) {
+                    showFlashMessage('コメントは140文字以内で入力してください。', 'danger', commentId);
                     return;
                 }
 
@@ -151,9 +140,10 @@
                         form.classList.add('d-none');
                         // 更新後、コメント内容を変数に保存
                         commentContents[commentId] = content;
-                        showEditSuccessMessage(commentId); // 編集成功メッセージを表示
+                        // 編集成功メッセージを表示
+                        showFlashMessage('コメントを更新しました。', 'info', commentId);
                     } else {
-                        // エラーハンドリング
+                        console.error('Failed to edit comment:', data.message);
                     }
                 })
                 .catch(error => {
@@ -161,17 +151,6 @@
                 });
             });
         });
-
-        // コメント削除成功時のフラッシュメッセージ
-        function showDeleteSuccessMessage(commentId) {
-            const flashMessageElement = document.getElementById(`flash-message-delete-${commentId}`);
-            flashMessageElement.textContent = 'コメントを削除しました。';
-            flashMessageElement.style.display = 'block';
-            // 3秒後にメッセージを非表示にする
-            setTimeout(() => {
-                flashMessageElement.style.display = 'none';
-            }, 3000);
-        }
 
         // 削除リンクがクリックされたときの処理
         document.querySelectorAll('.delete-comment').forEach(link => {
@@ -190,12 +169,12 @@
                 })
                 .then(response => response.json())
                 .then(data => {
+                    // コメントをDOMから削除
                     if (data.success) {
-                        // コメントをDOMから削除
                         commentElement.remove();
-                        showDeleteSuccessMessage(commentId); // 削除成功メッセージを表示
+                        // 削除成功メッセージを表示
+                        showFlashMessage('コメントを削除しました。', 'success', commentId);
                     } else {
-                        // エラーハンドリング
                         console.error('Failed to delete comment:', data.message);
                     }
                 })
@@ -206,4 +185,3 @@
         });
     });
 </script>
-

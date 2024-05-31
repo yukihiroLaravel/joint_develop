@@ -9,8 +9,7 @@
             <form method="POST" action="{{ route('comment.store', ['post_id' => $post->id]) }}" class="w-100 d-inline-block w-75">
                 @csrf
                 <div class="form-group">
-                    <textarea class="form-control w-100" name="comment" placeholder="コメントを入力..." rows="10">{{ old('comment') }}</textarea>
-                    {{ csrf_field() }}
+                    <textarea class="form-control w-100" name="comment_{{ $post->id }}" placeholder="コメントを入力..." rows="4">{{ old('comment_' . $post->id) }}</textarea>
                     <div class="text-left mt-3">
                         <button type="submit" class="btn btn-sm btn-primary">コメント登録</button>
                     </div>
@@ -19,3 +18,5 @@
         </div>
     </div>
 @endif
+
+
