@@ -57,3 +57,6 @@ Route::group(['prefix' => 'posts', 'middleware' => 'auth'], function () {
     Route::post('/follow/{id}', 'FollowController@store')->name('follow.store');
     Route::delete('/unfollow/{id}', 'FollowController@destroy')->name('unfollow.destroy');
 });
+
+// 投稿詳細
+Route::get('/posts/{id}', 'PostsController@show')->name('posts.show');
