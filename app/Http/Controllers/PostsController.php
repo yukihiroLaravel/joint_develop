@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Comment;
 use App\Tag;
 use App\Http\Requests\PostRequest;
 
@@ -10,13 +11,17 @@ class PostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('id', 'desc')->with('tag')->paginate(10);
+        $posts = Post::with(['comments' => function ($query) {
+            $query->orderBy('created_at', 'desc');
+        }])->orderBy('id', 'desc')->paginate(10);
+        
         $tags = Tag::orderBy('id')->get();
         return view('welcome', [
             'posts' => $posts,
             'tags' => $tags,
         ]);
     }
+    
     public function store(PostRequest $request)
     {
         $post = new Post;

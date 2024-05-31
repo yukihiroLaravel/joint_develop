@@ -48,9 +48,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     });
     // いいね
-    Route::group(['prefix' => 'movies/{id}'],function(){
+    Route::group(['prefix' => 'posts/{id}'],function(){
         Route::post('favorite','FavoriteController@store')->name('favorite');
         Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
+    });
+    // コメント
+    Route::prefix('comments')->group(function () {
+        Route::post('/{postId}', 'CommentsController@store')->name('comment.store');
+        Route::put('{commentId}', 'CommentsController@update')->name('comment.update');
+        Route::delete('{commentId}', 'CommentsController@destroy')->name('comment.destroy');
     });
     // フォロー
     Route::group(['prefix' => 'users/{id}'],function(){
