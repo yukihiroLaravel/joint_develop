@@ -12,13 +12,13 @@ class FollowsTableSeeder extends Seeder
         $userIds = $users->pluck('id')->toArray();
 
         foreach ($users as $user) {
-            // 自分を除いたユーザーIDの配列を作成
+            // 自分を除いたユーザIDの配列を作成
             $otherUserIds = array_diff($userIds, [$user->id]);
-            
-            // その配列からランダムに30人のユーザーIDを選択
+
+            // その配列からランダムに30人のユーザIDを選択
             $selectedUserIds = array_rand(array_flip($otherUserIds), 30);
 
-            // 選択したユーザーIDに対してフォロー関係を設定
+            // 選択したユーザIDに対してフォロー関係を設定
             foreach ($selectedUserIds as $followId) {
                 DB::table('follows')->insert([
                     'follower_id' => $user->id,
