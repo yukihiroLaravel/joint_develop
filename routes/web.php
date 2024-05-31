@@ -56,21 +56,7 @@ Route::group(['prefix' => 'posts', 'middleware' => 'auth'], function () {
     // フォロー機能
     Route::post('/follow/{id}', 'FollowController@store')->name('follow.store');
     Route::delete('/unfollow/{id}', 'FollowController@destroy')->name('unfollow.destroy');
-});
-
-// ユーザ詳細
-Route::get('/users/{id}', 'UsersController@show')->name('users.show');
-
-// ユーザ編集画面・更新(ログインユーザのみ、prefixでグループ化)
-Route::group(['middleware' => 'auth'], function(){
-    Route::prefix('users')->group(function() {
-      Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
-      Route::put('{id}', 'UsersController@update')->name('users.update');
-    });
-  });
-
-  // いいね機能
-  Route::group(['prefix' => 'posts/{id}'],function(){
-    Route::post('favorite','FavoriteController@store')->name('favorite');
-    Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
+    // いいね機能
+    Route::post('{id}/favorite','FavoriteController@store')->name('favorite');
+    Route::delete('{id}/unfavorite','FavoriteController@destroy')->name('unfavorite');
 });

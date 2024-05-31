@@ -98,13 +98,6 @@ class User extends Authenticatable
         });
     }
     // いいね機能 
-    // UserモデルとPostモデルの間に「1対多」のリレーションシップを定義
-    // hasManyメソッドを使用して、「1対多」
-    public function posts()
-    {
-        return $this->hasMany(Post::class); 
-    }
-    // UserモデルとPostモデルの間に「多対多」のリレーションシップを定義
     public function favorites()
     {
         return $this->belongsToMany(Post::class, 'favorites', 'user_id', 'post_id')->withTimestamps();
