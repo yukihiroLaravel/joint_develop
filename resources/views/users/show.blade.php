@@ -21,7 +21,7 @@
     </aside>
     <div class="col-sm-8">
         <ul class="nav nav-tabs nav-justified mb-3">
-            <li class="nav-item"><a href="{{ route('user.show', $user->id) }}" class=" nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}">タイムライン</a></li>
+            <li class="nav-item nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}"><a href="{{ route('user.show', $user->id) }}">タイムライン</a></li>
             <li class="nav-item nav-link {{ Request::is('users/'. $user->id.'/followings') ? 'active' : '' }}"><a href="{{ route('followings', $user->id) }}">フォロー<br><div class="badge badge-secondary">{{ $countFollows }}</div></a></li>
             <li class="nav-item nav-link {{ Request::is('users/'. $user->id.'/followers') ? 'active' : '' }}"><a href="{{ route('followers', $user->id) }}">フォロワー<br><div class="badge badge-secondary">{{ $countFollowers }}</div></a></li>
         </ul>
@@ -37,6 +37,9 @@
                     </li>
                 @endforeach
             </ul>
+            <div class="m-auto" style="width: fit-content">
+                {{ $follows->links('pagination::bootstrap-4') }}
+            </div>
         @elseif(isset($followers))
             <ul class="list-unstyled">
                 @foreach($followers as $follower)
@@ -47,20 +50,22 @@
                         </div>
                     </li>
                 @endforeach
-            </ul>    
+            </ul>
+            <div class="m-auto" style="width: fit-content">
+                {{ $followers->links('pagination::bootstrap-4') }}
+            </div>
         @else
-        <ul class="list-unstyled">
-            @foreach ($posts as $post)
-                @include('posts.post', ['user' => $user, 'post' => $post])
-                @include('favorite.favorite_button', ['post' => $post])
-                <hr>
-            @endforeach
-        </ul>
+            <ul class="list-unstyled">
+                @foreach ($posts as $post)
+                    @include('posts.post', ['user' => $user, 'post' => $post])
+                    @include('favorite.favorite_button', ['post' => $post])
+                @endforeach
+            </ul>
+            <div class="m-auto" style="width: fit-content">
+                {{ $posts->links('pagination::bootstrap-4') }}
+            </div>
         @endif
        
-        <div class="m-auto" style="width: fit-content">
-            {{ {{ $posts->links('pagination::bootstrap-4') }} }}
-        </div>
     </div>
 </div>
 @include('commons.flash_message')
