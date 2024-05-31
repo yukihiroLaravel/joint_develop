@@ -12,7 +12,7 @@ class CommentsController extends Controller
 {
     public function store(CommentRequest $request)
     {
-        $postId = $request->post_id;
+        $postId = $request->route('postId');
         $commentContent = $request->input('comment_' . $postId);
         $comment = new Comment;
         $comment->comment = $commentContent;

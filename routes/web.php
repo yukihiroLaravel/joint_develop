@@ -12,7 +12,10 @@
 */
 
 // 投稿
-Route::get('/', 'PostsController@index');
+Route::get('/', 'PostsController@index')->name('home');
+
+// 投稿検索
+Route::get('/search', 'SearchController@index')->name('search');
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
@@ -21,6 +24,8 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 // ユーザー
 Route::group(['prefix' => 'users/{id}'],function(){
     Route::get('', 'UsersController@show')->name('user.show');
+    Route::get('followings', 'UsersController@followings')->name('followings');
+    Route::get('followers', 'UsersController@followers')->name('followers');
 });
 
 // ログイン
@@ -49,8 +54,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
     // コメント
     Route::prefix('comments')->group(function () {
-        // Route::post('/','CommentsController@store')->name('comment.store');
-        Route::post('/{post_id}', 'CommentsController@store')->name('comment.store');
+        Route::post('/{postId}', 'CommentsController@store')->name('comment.store');
         Route::put('{commentId}', 'CommentsController@update')->name('comment.update');
         Route::delete('{commentId}', 'CommentsController@destroy')->name('comment.destroy');
     });
@@ -60,4 +64,3 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('unfollow','FollowingController@destroy')->name('unfollow');
     });
 });
-

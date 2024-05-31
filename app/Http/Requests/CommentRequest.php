@@ -13,7 +13,7 @@ class CommentRequest extends FormRequest
      */
     public function rules()
     {
-        $postId = $this->route('post_id');
+        $postId = $this->route('postId');
         return [
             'comment_' . $postId => 'required|max:140'
         ];
@@ -21,7 +21,7 @@ class CommentRequest extends FormRequest
 
     public function attributes()
     {
-        $postId = $this->route('post_id');
+        $postId = $this->route('postId');
         return [
             'comment_' . $postId => 'コメント'
         ];

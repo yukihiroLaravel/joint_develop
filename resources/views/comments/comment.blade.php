@@ -6,7 +6,7 @@
 @if(Auth::check() && Auth::id() !== $post->user_id)
     <div class="text-center">
         <div class="d-flex w-75 pb-3 m-auto">
-            <form method="POST" action="{{ route('comment.store', ['post_id' => $post->id]) }}" class="w-100 d-inline-block w-75">
+            <form method="POST" action="{{ route('comment.store', ['postId' => $post->id]) }}" class="w-100 d-inline-block w-75">
                 @csrf
                 <div class="form-group">
                     <textarea class="form-control w-100" name="comment_{{ $post->id }}" placeholder="コメントを入力..." rows="4">{{ old('comment_' . $post->id) }}</textarea>
