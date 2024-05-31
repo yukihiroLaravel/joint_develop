@@ -22,7 +22,18 @@
                 <li class="nav-item"><a href="{{ route('followings', $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id . '/followings') ? 'active' : '' }}">フォロー中</a></li>
                 <li class="nav-item"><a href="{{ route('followers', $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id . '/followers') ? 'active' : '' }}">フォロワー</a></li>
             </ul>
-        @include('posts.posts', ['posts' => $posts])
+            <ul class="list-unstyled">
+            @foreach($followings as $following)
+            <li class="mb-3 text-center">
+                 <div class="text-left d-inline-block w-75 mb-2">
+                    <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 50) }}" alt="">
+                    <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('user.show', $following->id) }}">{{ $following->name }}</a></p>
+                 </div>
+            </li>   
+            @endforeach
+            <div class="text-right">{{ $followings->links('pagination::bootstrap-4') }}</div>
+            </ul> 
         </div>
-    </div>
+    </div>    
+    </ul>    
 @endsection

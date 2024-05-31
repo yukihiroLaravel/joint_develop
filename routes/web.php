@@ -40,9 +40,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{id}', 'PostsController@update')->name('post.update');
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     });
-    //フォロー
+    //フォロー、フォロワー
     Route::group(['prefix' => 'user/{id}'],function(){
         Route::post('follows','FollowController@store')->name('follow');
         Route::delete('unfollow','FollowController@destroy')->name('unfollow');
+        Route::get('followings','UsersController@followings')->name('followings');
+        Route::get('followers','UsersController@followers')->name('followers');
     });
 });

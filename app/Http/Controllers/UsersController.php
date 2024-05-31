@@ -49,4 +49,27 @@ class UsersController extends Controller
         }
         return redirect()->route('posts.index')->with('redMessage', '退会が完了しました');//withメソッドを使用してユーザー退会フラッシュメッセージを記述
     }
+
+    public function followings($id)
+    {
+        $user = User::findOrFail($id);
+        $followings = $user->followings()->orderBy('id','desc')->paginate(10);
+        $data = [
+            'user' => $user,
+            'followings' => $followings,
+        ];
+        return view('follow.followings' ,$data);
+    }
+
+    public function followers($id)
+    {
+        $user = User::findOrFail($id);
+        $followers = $user->followers()->orderBy('id','desc')->paginate(10);
+        $data = [
+            'user' => $user,
+            'followers' => $followers,
+        ];
+        return view('follow.followers' ,$data);
+    }
 }
+    
