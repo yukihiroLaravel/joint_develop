@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 @include('commons.success_messages')
-    <div class="center jumbotron bg-color">
+    <div class="center jumbotron app-bg-color">
         <div class="text-center text-white mt-2 pt-1">
             <h1><i class="fas fa-snowboarding mr-1"></i><span class="app-title-font">趣味共有館</span></h1>
         </div>

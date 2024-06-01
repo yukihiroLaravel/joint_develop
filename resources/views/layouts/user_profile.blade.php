@@ -1,5 +1,5 @@
 <!-- 共通レイアウト -->
-<div class="card bg-color">
+<div class="card app-bg-color">
     <div class="card-header">
         <h3 class="card-title text-light">{{ $user->name }}</h3>
     </div>
