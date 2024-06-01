@@ -7,9 +7,9 @@
         <p class="d-inlin-black">新規ユーザ登録すると、<br>あなたのチャンネル作成／動画登録等ができるようになります。</p>
     </div>
     <div class="text-center">
-      <h3 class="login_title d-inlin-block mt-5">新規ユーザ登録<h/3>
+        <h3 class="login_title d-inlin-block mt-5">新規ユーザ登録<h/3>
     </div>
-     
+
     <div class="row mt-5 mb-5">
         <div class="col-sm-6 offset-sm-3">
             @include('commons.error_messages')
@@ -31,7 +31,9 @@
                     <lavel for="password_confirmation">パスワード確認</label>
                     <input id="password_confirmation" type="password" class="form-control" name="password_confirmation">
                 </div>
-                <button type="submit" class="btn btn-primary mt-2">新規登録</button>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary mt-2">登録</button>
+                </div>
             </from>
         </div>
     </div>

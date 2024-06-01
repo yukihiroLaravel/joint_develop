@@ -1,35 +1,47 @@
+body {
+    min-height: 100vh; /* ビューポートの高さの100%を最低高さに設定 */
+    display: flex; /* フレックスボックスレイアウトを適用 */
+    flex-direction: column; /* フレックスアイテムを縦方向に配置 */
+}
+
+.container {
+    display: flex; /* フレックスボックスレイアウトを適用 */
+    flex-direction: column; /* フレックスアイテムを縦方向に配置 */
+    flex: 1; /* コンテナが利用可能なスペースを占有 */
+}
+
 .post-content {
-  word-wrap: break-word;  /* 長い単語も画面幅に合わせて改行する */
-  white-space: normal;    /* 改行や空白を通常通り扱う */
-  overflow-wrap: break-word; /* 古いブラウザをサポートするための設定 */
+    word-wrap: break-word; /* 長い単語も画面幅に合わせて改行する */
+    white-space: normal; /* 改行や空白を通常通り扱う */
+    overflow-wrap: break-word; /* 古いブラウザをサポートするための設定 */
 }
 
 .search-form-container {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 .search-form-wrapper {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .search-form {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .search-form .form-control {
-  flex: 1;
+    flex: 1;
 }
 
 .search-description {
-  margin-top: 0.5rem;
-  color: #6c757d; /* グレーのテキストカラー */
-  font-size: 0.9rem; /* 少し小さめのフォントサイズ */
-  text-align: center; /* 中央寄せに設定 */
-  width: 100%; /* 検索フォームと同じ幅にする */
+    margin-top: 0.5rem;
+    color: #6c757d; /* グレーのテキストカラー */
+    font-size: 0.9rem; /* 少し小さめのフォントサイズ */
+    text-align: center; /* 中央寄せに設定 */
+    width: 100%; /* 検索フォームと同じ幅にする */
 }

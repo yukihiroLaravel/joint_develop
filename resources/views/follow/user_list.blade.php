@@ -5,7 +5,7 @@
                 <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 50) }}" alt="ユーザのアバター画像">
                 <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('users.show', $user->id) }}">{{ $user->name }}</a></p>
             </div>
-        </li>   
-    @endforeach 
+        </li>
+    @endforeach
 </ul>
 <div class="m-auto" style="width: fit-content">{{ $users->links('pagination::bootstrap-4') }}</div>

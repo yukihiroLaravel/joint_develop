@@ -8,5 +8,5 @@
         @include('layouts.user_nav_tabs', ['user' => $user, 'counts' => $counts])
         @include('follow.user_list', ['users' => $users])
     </div>
-</div>    
+</div>
 @endsection
