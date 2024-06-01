@@ -10,7 +10,15 @@
                 #{{ $post->tag->name }}
             </p>
             @endif
-            <p class="mb-2">{{ $post->content }}</p>
+            
+            <!-- New post content section with image -->
+            <div class="post">
+                <p class="mb-2">{{ $post->content }}</p>
+                @if ($post->image)
+                    <img src="{{ asset('storage/' . $post->image) }}" alt="投稿された画像" class="img-fluid">
+                @endif
+            </div>
+            
             <p class="text-muted text-right">{{ $post->created_at }}</p>
         </div>
         @if (Auth::check() && Auth::id() === $post->user->id)

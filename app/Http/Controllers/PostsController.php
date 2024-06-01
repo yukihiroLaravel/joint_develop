@@ -23,6 +23,12 @@ class PostsController extends Controller
         $post->user_id = \Auth::id();
         $post->content = $request->content;
         $post->tag_id = $request->tag;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $filename);
+            $post->image_path = 'images/' . $filename;  // 画像のパスをモデルに保存
+        }
         $post->save();
         session()->flash('flash_message', '登録しました！');
         return back();
