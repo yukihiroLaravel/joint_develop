@@ -91,7 +91,7 @@ class PostsController extends Controller
         return back();
     }
 
-    // 投稿詳細
+    // 投稿詳細遷移
     public function show($id)
     {
         $post = Post::findOrFail($id); //テーブルpostからidが$IDのレコードを探し出す
