@@ -17,23 +17,23 @@
                 <div class="form-group">
                     <!-- ユーザが投稿内容を入力するための部分 -->
                     <textarea class="form-control" name="content" placeholder="本文を入力（例：サッカー観戦楽しかった！）" rows="4">{{ old('content') }}</textarea> <!-- rows="4"と指定（テキストエリアは初期状態で4行分の高さを持つ） -->
-                    <div class="text-left mt-3">
-                        <button type="submit" class="btn btn-primary">投稿する</button>
+                    <div class="text-right mt-3">
+                        <button type="submit" class="btn btn-primary">投稿</button>
                     </div>
                 </div>
             </form>
         </div>
     @endif
-        <!-- 検索フォームを追加 -->
-        <div class="text-center mb-3 search-form-container">
-            @include('posts.search', ['keyword' => $keyword ?? '', 'user' => $user ?? null])
-        </div>
-        <!-- 検索結果の表示 -->
-        @include('commons.no_results_message')
-        <!-- 投稿一覧を表示するコンテンツを追加 -->
-        <div class="post-list">
-            <!--　第一引数　postsフォルダのposts.blade.phpファイルを表示　-->
-            <!--  第二引数　「$posts」を配列の形で記述し、第一引数のposts.blade.phpに持っていき表示させる-->
-            @include('posts.posts',['posts' => $posts])
-        </div>
+    <!-- 検索フォームを追加 -->
+    <div class="text-center mb-3 search-form-container">
+        @include('posts.search', ['keyword' => $keyword ?? '', 'user' => $user ?? null])
+    </div>
+    <!-- 検索結果の表示 -->
+    @include('commons.no_results_message')
+    <!-- 投稿一覧を表示するコンテンツを追加 -->
+    <div class="post-list">
+        <!--　第一引数　postsフォルダのposts.blade.phpファイルを表示　-->
+        <!--  第二引数　「$posts」を配列の形で記述し、第一引数のposts.blade.phpに持っていき表示させる-->
+        @include('posts.posts',['posts' => $posts])
+    </div>
 @endsection
