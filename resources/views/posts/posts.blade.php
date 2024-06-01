@@ -12,15 +12,16 @@
             <div class="text-left d-inline-block w-75">
                 <p class="mb-2 post-content">{!! nl2br(e($post->content)) !!}</p> <!-- 投稿内容を表示（改行コード付きの変数を表示） -->
             </div>
-            @if (Auth::id() == $post->user->id)
-                <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                    <div class="d-flex align-items-center">
-                        <p class="text-muted mb-0">{{ $post->created_at }}</p> <!-- 投稿日時を相対時間表記で表示 -->
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <button class="btn btn-info mr-2">詳細(仮)</button>
-                        <a href="{{ route('posts.edit', ['id' => $post->id]) }}" class="btn btn-primary mr-2">編集</a>
-                        <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">削除</a>
+            <div class="d-flex justify-content-between w-75 pb-3 m-auto">
+                <div class="d-flex align-items-center">
+                    <p class="text-muted mb-0">{{ $post->created_at->format('Y年n月j日 G時i分') }}</p> <!-- 投稿日時を相対時間表記で表示 -->
+                </div>
+                <div class="d-flex align-items-center">
+                    @include('favorite.favorite_button', ['post' => $post])
+                    <button class="btn btn-info btn-sm mr-2">詳細(仮)</button>
+                    @if (Auth::id() == $post->user->id)
+                        <a href="{{ route('posts.edit', ['id' => $post->id]) }}" class="btn btn-primary btn-sm mr-2">編集</a>
+                        <a class="btn btn-danger btn-sm text-light" data-toggle="modal" data-target="#deleteConfirmModal">削除</a>
                         <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -41,9 +42,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
-            @endif
+            </div>
         </li>
     @endforeach
 </ul>

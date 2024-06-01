@@ -1,6 +1,9 @@
 @extends('layouts.app')
 @section('content')
-<h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
+    <div class="d-flex justify-content-between align-items-center mt-5 mb-3">
+        <h2 class="mb-0">ユーザ情報を編集する</h2>
+        <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">退会</a>
+    </div>
     <form method="POST" action="{{ route('users.update', $user->id) }}">
         @csrf
         @method('PUT')
@@ -24,9 +27,8 @@
             <label for="password_confirmation">パスワードの確認</label>
             <input id="password_confirmation" class="form-control" type="password" value="" name="password_confirmation"/>
         </div>
-        <div class="d-flex flex-column align-items-end">
+        <div class="d-flex justify-content-center">
             <button type="submit" class="btn btn-primary mb-2">更新</button>
-            <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">退会</a>
         </div>
     </form>
     <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">

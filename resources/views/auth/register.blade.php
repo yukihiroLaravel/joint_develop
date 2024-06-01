@@ -32,7 +32,7 @@
                     <input id="password_confirmation" type="password" class="form-control" name="password_confirmation">
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary mt-2">新規登録</button>
+                    <button type="submit" class="btn btn-primary mt-2">登録</button>
                 </div>
             </from>
         </div>
