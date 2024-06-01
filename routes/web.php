@@ -56,7 +56,14 @@ Route::group(['prefix' => 'posts', 'middleware' => 'auth'], function () {
     // フォロー機能
     Route::post('/follow/{id}', 'FollowController@store')->name('follow.store');
     Route::delete('/unfollow/{id}', 'FollowController@destroy')->name('unfollow.destroy');
+<<<<<<< HEAD
 });
 
 // 投稿詳細
 Route::get('/posts/{id}', 'PostsController@show')->name('posts.show');
+=======
+    // いいね機能
+    Route::post('{id}/favorite','FavoriteController@store')->name('favorite');
+    Route::delete('{id}/unfavorite','FavoriteController@destroy')->name('unfavorite');
+});
+>>>>>>> develop_c_uduki_dra

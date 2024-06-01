@@ -97,4 +97,46 @@ class User extends Authenticatable
             $user->posts()->delete();
         });
     }
+    // いいね機能 
+    public function favorites()
+    {
+        return $this->belongsToMany(Post::class, 'favorites', 'user_id', 'post_id')->withTimestamps();
+    }
+    // ユーザーが特定の投稿をお気に入りに追加
+    public function favorite($postId)
+    {   
+        $post = Post::findOrFail($postId);
+        // 投稿が自分のものであるかを確認
+        if ($post->user_id == $this->id) {
+            return false; // 自分の投稿の場合、falseを返す
+        }
+        $exist = $this->isFavorite($postId); // 投稿が既にお気に入りに追加されているかどうかを確認
+        if ($exist) {
+            return false;
+        } else {
+            $this->favorites()->attach($postId); // お気に入りに追加
+            return true;
+        }
+    }
+    // ユーザーが特定の投稿をお気に入りから削除
+    public function unfavorite($postId)
+    {
+        $post = Post::findOrFail($postId);
+        // 投稿が自分のものであるかを確認
+        if ($post->user_id == $this->id) {
+            return false; // 自分の投稿の場合、falseを返す
+        }
+        $exist = $this->isFavorite($postId); //投稿が既にお気に入りに追加されているかどうかを確認
+        if ($exist) {
+            $this->favorites()->detach($postId); //既にお気に入りに追加されている場合は、お気に入りから削除
+            return true;
+        } else {
+            return false;
+        }
+    }
+    // 特定の投稿がユーザーのお気に入りに追加されているかどうかを確認
+    public function isFavorite($postId)
+    {
+        return $this->favorites()->where('post_id', $postId)->exists();
+    }
 }
