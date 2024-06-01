@@ -10,6 +10,15 @@ body {
     flex: 1; /* コンテナが利用可能なスペースを占有 */
 }
 
+.app-bg-color {
+    background-color: #004986;
+}
+
+.app-title-font {
+    font-family: "Hiragino Maru Gothic Pro", "Rounded M+ 1c",
+        "Arial Rounded MT Bold", "Meiryo", "メイリオ", sans-serif;
+}
+
 .post-content {
     word-wrap: break-word; /* 長い単語も画面幅に合わせて改行する */
     white-space: normal; /* 改行や空白を通常通り扱う */
