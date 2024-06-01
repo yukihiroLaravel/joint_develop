@@ -7,7 +7,7 @@
         <p class="d-inlin-black">新規ユーザ登録すると、<br>あなたのチャンネル作成／動画登録等ができるようになります。</p>
     </div>
     <div class="text-center">
-      <h3 class="login_title d-inlin-block mt-5">新規ユーザ登録<h/3>
+      <h3 lass="login_title d-inlin-block mt-5">新規ユーザ登録<h/3>
     </div>
      
     <div class="row mt-5 mb-5">
