@@ -1,6 +1,6 @@
 <header class="mb-5">
-    <nav class="navbar navbar-expand-sm navbar-dark bg-info">
-        <a class="navbar-brand" href="/">Topic Posts</a>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-color">
+        <a class="navbar-brand" href="/"><i class="fas fa-snowboarding mr-1"></i><span class="app-title-font">趣味共有館</span></a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>
         </button>
