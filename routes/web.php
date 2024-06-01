@@ -47,6 +47,9 @@ Route::group(['middleware' => 'auth'], function(){
 // トップページの投稿表示、検索フォーム表示
 Route::get('/', 'PostsController@index')->name('top');
 
+// 投稿詳細
+Route::get('/posts/{id}', 'PostsController@show')->name('posts.show');
+
 // 投稿
 Route::group(['prefix' => 'posts', 'middleware' => 'auth'], function () {
     Route::post('/', 'PostsController@store')->name('posts.store');
@@ -56,14 +59,9 @@ Route::group(['prefix' => 'posts', 'middleware' => 'auth'], function () {
     // フォロー機能
     Route::post('/follow/{id}', 'FollowController@store')->name('follow.store');
     Route::delete('/unfollow/{id}', 'FollowController@destroy')->name('unfollow.destroy');
-<<<<<<< HEAD
 });
 
-// 投稿詳細
-Route::get('/posts/{id}', 'PostsController@show')->name('posts.show');
-=======
-    // いいね機能
-    Route::post('{id}/favorite','FavoriteController@store')->name('favorite');
-    Route::delete('{id}/unfavorite','FavoriteController@destroy')->name('unfavorite');
-});
->>>>>>> develop_c_uduki_dra
+// いいね機能
+Route::post('{id}/favorite','FavoriteController@store')->name('favorite');
+Route::delete('{id}/unfavorite','FavoriteController@destroy')->name('unfavorite');
+
