@@ -12,4 +12,9 @@ class Post extends Model
         // リレーションを定義 「1対多」の多側
         return $this->belongsTo(User::class);
     }
+
+    public function favoriteUsers()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'post_id', 'user_id')->withTimestamps();
+    }
 }

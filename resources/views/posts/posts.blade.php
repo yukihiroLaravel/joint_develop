@@ -13,6 +13,7 @@
                     <p class="mb-2 post-content">{{ $post->content }}</p><!-- 投稿内容を表示 -->
                     <p class="text-muted">{{ $post->created_at }}</p><!-- 投稿日時を相対時間表記で表示 -->
                 </div>
+                @include('favorite.favorite_button', ['post' => $post])
                 @if (Auth::id() == $post->user->id)
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
                         <form method="POST" action="{{ route('posts.destroy', $post->id) }}">
