@@ -29,11 +29,11 @@ class UsersTableSeeder extends Seeder
             $isMale = rand(0, 1) == 1;
             $nameList = $isMale ? $maleNames : $femaleNames;
             $name = $nameList[array_rand($nameList)];
-            
+
             DB::table('users')->insert([
                 'name' => $name,
                 'email' => "test" . $i . "@test.com",
-                'password' => bcrypt("test" . $i)
+                'password' => bcrypt("password" . $i) // 8文字以上のパスワードに変更
             ]);
         }
     }
