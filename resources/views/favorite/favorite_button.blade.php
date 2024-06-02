@@ -1,4 +1,4 @@
-<div class="d-flex w-75 pb-3 m-auto">
+<div class="d-flex w-75 pb-4 m-auto">
     @php
         $totalFavorites = 0;
         $totalFavorites += $post->favoriteUsers->count();

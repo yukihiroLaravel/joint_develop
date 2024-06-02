@@ -43,6 +43,7 @@
             <img src="{{ asset('storage/' . $post->image_path) }}" alt="画像" style="width: 100%; height: auto;">
         @endif
         @include('favorite.favorite_button', ['post' => $post])
+        @include('comments.comment', ['post' => $post])
         <hr>
     @endforeach
 </ul>
