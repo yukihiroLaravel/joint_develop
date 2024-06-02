@@ -18,7 +18,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 //top page 表示
 Route::get('/', 'PostsController@index')->name('posts.index');
-
+//ユーザー詳細
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
 });
@@ -39,26 +39,26 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
+        Route::get('{id}', 'PostsController@show')->name('post.show'); // ここでposts.showを追加
     });
     //フォロー
-    Route::group(['prefix' => 'user/{id}'],function(){
-        Route::post('follows','FollowController@store')->name('follow');
-        Route::delete('unfollow','FollowController@destroy')->name('unfollow');
+    Route::group(['prefix' => 'user/{id}'], function () {
+        Route::post('follows', 'FollowController@store')->name('follow');
+        Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
     });
     //コメント関連
     Route::prefix('comments')->group(function () {
-        //コメントを全件表示する
-        // Route::get('/', 'CommentsController@index')->name('comments.index');
-        //コメントを個別に表示する
-        // Route::get('{id}', 'CommentsController@show')->name('comments.show');
-        //コメント新規登録画面表示
-        Route::get('create', 'CommentsController@create')->name('comment.create');
-        // コメント投稿機能
-        Route::post('/', 'CommentsController@store')->name('comment.store');
+        //コメント作成画面
+        Route::get('create/{post}', 'CommentsController@create')->name('comments.create');
+        //コメントを新規投稿する
+        Route::post('/', 'CommentsController@store')->name('comments.store');
         //コメントの編集
-        //Route::put('{id}/edit', 'CommentsController@edit')->name('comment.update');
+        Route::get('{comment}/edit', 'CommentsController@edit')->name('comments.edit');
+        //コメントの更新
+        Route::patch('{comment}', 'CommentsController@update')->name('comments.update');
         //コメントの削除
-        Route::delete('{id}', 'CommentsController@destroy')->name('comment.delete');
+        Route::delete('{comment}', 'CommentsController@destroy')->name('comments.delete');
     });
-
+    //投稿に関するコメントを一覧表示する
+    Route::get('/posts/{post}/coments', 'CommentsController@index')->name('comment.index');
 });

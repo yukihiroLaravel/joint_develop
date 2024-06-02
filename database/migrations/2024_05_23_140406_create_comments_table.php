@@ -15,12 +15,16 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->bigIncrements('id');
+            //教材の書き方
             $table->bigInteger('user_id')->unsigned()->index();
-            $table->text('content',140);
+            //調べた書き方 こちらの方が完結かと思い記述　どちらが良いですか？
+            $table->unsignedBigInteger('post_id')->index();
+            $table->string('content', 140);
             $table->timestamps();
             $table->softDeletes();
             //外部キー制約
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

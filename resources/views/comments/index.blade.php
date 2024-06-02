@@ -1,35 +1,39 @@
 @extends('layouts.app')
+
 @section('content')
-<div class="text-center mb-3">
-            <ul class="nav nav-tabs nav-justified mb-3">
-            <li class="nav-item">コメント一覧</li>
-            </ul>
-            <ul>
-                @foreach ($comments as $comment)
-                    <li>
-                        <a href="{{ route('comments.show', $comment->id) }}">
-                            {{ $comment->content }}
-                        </a>
-                    </li>
-                @endforeach
-            </ul>
-            <!-- コメント投稿機能 -->
-            <h1>コメント投稿</h1>
-            <div>
-                <form method="post" action="{{ route('comments.store') }}">
-                    @csrf
-                    <p>
-                        <label for="content">content: </label>
-                        <textarea name="content" id="content" rows="4" cols="60" >{{ old('content') }}</textarea>
-                        @if ($errors->has('content'))
-                            <span class="error">{{ $error->first('content') }}</span>
-                        @endif
-                    </p>
-                    <p>
-                        <input type="submit" value="投稿">
-                    </p>
-                </form>
-            </div>
+<div class="container">
+    <h2>コメント一覧</h2>
+
+    <!-- 成功メッセージの表示 -->
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('greenMessage') }}
+    </div>
+    @endif
+
+    <!-- エラーメッセージの表示 -->
+    @if($errors->any())
+    <div class="alert alert-danger">
+        @foreach ($errors->all() as $error)
+        <p>{{ $error }}</p>
+        @endforeach
+    </div>
+    @endif
+
+    <!-- コメント一覧 -->
+    @foreach ($comments as $comment)
+    <div class="comment">
+        <p>{{ $comment->content }}</p>
+        <p>by {{ $comment->user->name }} at {{ $comment->created_at }}</p>
+        @if(auth()->id() === $comment->user_id)
+        <a href="{{ route('comments.edit', $comment) }}">編集</a>
+        <form action="{{ route('comments.delete', $comment) }}" method="POST" style="display:inline;">
+            @csrf
+            @method('DELETE')
+            <button type="submit">削除</button>
+        </form>
+        @endif
+    </div>
+    @endforeach
 </div>
-        
 @endsection

@@ -8,9 +8,24 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Comment extends Model
 {
     use SoftDeletes;
+    /*
+    * The attributes that are mass assignable.
+    *
+    * @var array
+    */
+    protected $fillable = [
+        'content',
+        'user_id',
+        'post_id',
+    ];
+    //ユーザに対して所属する　一対多
     public function user()
     {
-        //一対多の宣言
-        return $this->belongsTo(User::class);    
+        return $this->belongsTo(User::class);
+    }
+    //投稿に対して所属する　一対多
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
     }
 }
