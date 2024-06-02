@@ -6,7 +6,6 @@
             <div class="text-left d-inline-block w-75 mb-2">
                 <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像"> <!-- アバター画像のURLを指定(アバターサービスGravatar使用) -->
                 <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('users.show', ['id' => $post->user->id]) }}">{{ $post->user->name }}</a></p><!-- ユーザ名と関連するリンクのhref属性に、ユーザのプロフィールページへのURLを指定 -->
-                <p class="mt-4 mb-1 d-inline-block"><a href="{{ route('posts.show', ['id' => $post->id]) }}">投稿詳細</a></p> <!--  投稿詳細のURL-->
             </div>
 
             <!-- 投稿内容 -->
@@ -19,7 +18,7 @@
                 </div>
                 <div class="d-flex align-items-center">
                     @include('favorite.favorite_button', ['post' => $post])
-                    <button class="btn btn-info btn-sm mr-2">詳細(仮)</button>
+                    <p class="btn btn-dark mt-4 mb-1 d-inline-block"><a href="{{ route('posts.show', ['id' => $post->id]) }}">投稿詳細</a></p> <!--  投稿詳細のURL-->
                     @if (Auth::id() == $post->user->id)
                         <a href="{{ route('posts.edit', ['id' => $post->id]) }}" class="btn btn-primary btn-sm mr-2">編集</a>
                         <a class="btn btn-danger btn-sm text-light" data-toggle="modal" data-target="#deleteConfirmModal">削除</a>
