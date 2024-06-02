@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class PostsTableSeeder extends Seeder
 {
@@ -653,11 +654,15 @@ class PostsTableSeeder extends Seeder
                 $hobby = $hobbies[array_rand($hobbies)];
                 // 選ばれた趣味に対応するランダムなコメントを取得
                 $comment = $hobby_comments[$hobby][array_rand($hobby_comments[$hobby])];
+                
+                // 現在から過去1週間の範囲でランダムな日時を生成
+                $createdAt = Carbon::now()->subDays(rand(0, 7))->subHours(rand(0, 23))->subMinutes(rand(0, 59));
+                
                 $posts[] = [
                     'user_id' => $userId, // 1から100までのユーザIDを割り当て
                     'content' => $comment, // ランダムなコメントを追加
-                    'created_at' => now(), // 現在日時
-                    'updated_at' => now() // 現在日時
+                    'created_at' => $createdAt, // ランダムな日時を設定
+                    'updated_at' => $createdAt // 同じランダムな日時を設定
                 ];
             }
         }
