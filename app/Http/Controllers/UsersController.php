@@ -17,7 +17,7 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         $keyword = $request->input('keyword', '');  // デフォルト値として空の文字列を設定
-        $query = $user->posts()->orderBy('id', 'desc');
+        $query = $user->posts()->orderBy('created_at', 'desc');
 
         if (!empty($keyword)) {
             $keywords = mb_split('\s+', $keyword);  // マルチバイト文字の空白文字でキーワードを分割

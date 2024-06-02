@@ -31,7 +31,7 @@ class PostsController extends Controller
         }
 
         // 投稿をIDの降順で並べ替えてページネーション
-        $posts = $query->orderBy('id', 'desc')->paginate(10);
+        $posts = $query->orderBy('created_at', 'desc')->paginate(10);
 
         // ビューに渡すデータを指定
         return view('welcome', compact('posts', 'keyword'));
