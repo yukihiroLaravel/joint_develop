@@ -90,4 +90,11 @@ class PostsController extends Controller
 
         return back();
     }
+
+    // 投稿詳細遷移
+    public function show($id)
+    {
+        $post = Post::findOrFail($id); //テーブルpostからidが$IDのレコードを探し出す
+        return view('posts.show')->with('post', $post);// viewとしてshow.bladeの呼び出す　with()メソッドをつなげてshow.blade内で$post変数として使用　
+    }
 }
