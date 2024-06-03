@@ -55,6 +55,9 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
         $user = auth()->user(); //現在認証されているユーザーを取得
 
-        return view('posts.show', compact('post', 'user'));
+        return view('posts.show', [
+            'post' => $post,
+            'user' => $user,
+        ]);
     }
 }

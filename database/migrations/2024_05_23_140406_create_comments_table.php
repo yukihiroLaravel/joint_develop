@@ -15,9 +15,8 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            //教材の書き方
-            $table->bigInteger('user_id')->unsigned()->index();
-            //調べた書き方 こちらの方が完結かと思い記述　どちらが良いですか？
+            //調べた書き方 こちらの方が簡潔でなので採用
+            $table->unsignedBigInteger('user_id')->index();
             $table->unsignedBigInteger('post_id')->index();
             $table->string('content', 140);
             $table->timestamps();

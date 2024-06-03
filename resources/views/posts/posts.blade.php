@@ -33,7 +33,7 @@
             <p>{{ $post->created_at }}</p>
             <!-- コメントボタン -->
             <div class="mt-3">
-                <a href="{{ route('comments.create', ['post' => $post->id]) }}" class="btn btn-primary mt-3">コメントする</a>
+                <a href="{{ route('comments.create', ['post' => $post->id]) }}" class="btn btn-primary mt-3">コメント</a>
             </div>
             @if (Auth::id() === $post->user_id)
             <div class="d-flex justify-content-between w-75 pb-3 mt-3">

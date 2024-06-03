@@ -20,7 +20,10 @@ class CommentsController extends Controller
     public function index(Post $post)
     {
         $comments = $post->comments;
-        return view('comments.index', compact('comments', 'post'));
+        return view('comments.index', [
+            'comments' => $comments,
+            'post' => $post,
+        ]);
     }
 
     /**
@@ -31,7 +34,10 @@ class CommentsController extends Controller
     public function create(Post $post)
     {
         $comments = $post->comments;
-        return view('comments.create', compact('comments', 'post'));
+        return view('comments.create', [
+            'comments' => $comments,
+            'post' => $post,
+        ]);
     }
 
     /**
@@ -42,11 +48,6 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
-        //この書き方以外もあるっぽいので調べる　ヒントはpostcontroller update(PostRequest $request, $id)
-        $request->validate([
-            'content' => 'required|max:140',
-        ]);
-
         Comment::create([
             'user_id' => auth()->id(),
             'post_id' => $request->post_id,
@@ -54,17 +55,6 @@ class CommentsController extends Controller
         ]);
         // //withメソッドを使用してコメント投稿フラッシュメッセージを記述
         return redirect()->route('post.show', $request->post_id)->with('greenMessage', 'コメントを投稿しました');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($comment_id)
-    {
-        //   
     }
 
     /**
@@ -79,7 +69,9 @@ class CommentsController extends Controller
             return back()->withErrors('権限がありません');
         }
 
-        return view('comments.edit', compact('comment'));
+        return view('comments.edit', [
+            'comment' => $comment,
+        ]);
     }
 
     /**
@@ -114,9 +106,6 @@ class CommentsController extends Controller
      */
     public function destroy(Request $request, Comment $comment)
     {
-        // dd($comment);
-        // dd($comment->user_id !== auth()->id());
-
         //コメントの所有者であるかを確認
         if ($comment->user_id !== auth()->id()) {
             //所有者でない場合、エラーメッセージを表示し元のページにリダイレクト
@@ -124,7 +113,7 @@ class CommentsController extends Controller
         }
 
         $comment->delete();
-        //withメソッドを使用してコメント削除フラッシュメッセージを記述
+        //withメソッドを使用してフラッシュメッセージを記述
         return redirect()->route('post.show', $comment->post_id)->with('redMessage', 'コメントを削除しました');
     }
 }
