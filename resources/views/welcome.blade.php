@@ -1,11 +1,114 @@
 @extends('layouts.app')
 @section('content')
-<div class="center jumbotron bg-info">
-    <div class="text-center text-white mt-2 pt-1">
-        <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
+<style>
+    .carousel-item {
+        height: 100%;
+    }
+    .carousel-item img {
+        width: 100%;
+        height: 250px;
+        background-size: 100% 100%;
+        filter: brightness(90%);
+    }
+    .title, .title2, .title3 {
+        text-align: center;
+        position: absolute;
+        top: -90%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 45px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    .title {
+        color: yellow;
+    }
+    .title2 {
+        color: red;
+    }
+    .title3 {
+        color: orange;
+    }
+    @media (max-width: 768px) {
+        .title, .title2, .title3 {
+            font-size: 30px;
+        }
+        .theme1 {
+            font-size: 15px;
+        }
+    }
+    .animated-text {
+        display: inline-block;
+        font-size: 24px;
+        color: blue;
+        padding: 10px;
+        animation: invertColors 10s infinite;
+        }
+        @keyframes invertColors {
+        0% {
+            color: black;
+        }
+        20% {
+            color: black;
+        }
+        60% {
+            background-color: yellow;
+            color: red;
+        }
+        80% {
+            background-color: yellow;
+            color: blue;
+        }
+        100% {
+            background-color: yellow;
+            color: blue;
+        }
+    }
+</style>
+
+<div class="center">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{{ asset('img/matsuya.jpg') }}" class="d-block w-100" alt="Image 1">
+                <div class="carousel-caption d-block">
+                    <h1 class="title"><i class="fas fa-utensils fa-lg pr-3"></i>Don-Don Talks!</h1>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{{ asset('img/sukiya.jpg') }}" class="d-block w-100" alt="Image 2">
+                <div class="carousel-caption d-block">
+                    <h1 class="title2"><i class="fas fa-utensils fa-lg pr-3"></i>Don-Don Talks!</h1>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="{{ asset('img/yoshinoya.jpg') }}" class="d-block w-100" alt="Image 3">
+                <div class="carousel-caption d-block">
+                    <h1 class="title3"><i class="fas fa-utensils fa-lg pr-3"></i>Don-Don Talks!</h1>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
 </div>
-<h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
+
+<h5 class="theme1 text-center mb-2 mt-3">
+    <span class="animated-text" style="font-weight: bold; font-size: 24px;">"身近な丼物屋"</span>について<br>140字以内で会話しよう！
+</h5>
 <div class="w-75 m-auto">
     @include('commons.error_messages')
 </div>
