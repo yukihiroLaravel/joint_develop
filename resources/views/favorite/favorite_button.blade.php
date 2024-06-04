@@ -1,7 +1,7 @@
 <div class="ml-2 text-right">
-    @if (Auth::check() && Auth::id() !== $post->user_id) <!-- ユーザーがログインしているかつ、投稿の所有者ではないことを確認 -->
+    @if (Auth::check() && Auth::id() !== $post->user_id) <!-- ユーザがログインしているかつ、投稿の所有者ではないことを確認 -->
         <div class="ml-auto">
-            @if (Auth::user()->isFavorite($post->id)) <!-- 現在ログインしているユーザーがこの投稿を既に「いいね！」しているかを確認 -->
+            @if (Auth::user()->isFavorite($post->id)) <!-- 現在ログインしているユーザがこの投稿を既に「いいね！」しているかを確認 -->
                 <form id="unfavorite-form-{{ $post->id }}" method="POST" action="{{ route('unfavorite', $post->id) }}" style="display: none;">
                     @csrf <!--  CSRF（クロスサイトリクエストフォージェリ）対策のためのトークン -->
                     @method('DELETE')
