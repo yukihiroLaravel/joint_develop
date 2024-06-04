@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post; //Postモデルを使用する為のインポート、投稿データを取得する為に使用
-use App\User; //Userモデルを使用する為のインポート、ユーザデータを取得する為に使用
 use App\Http\Requests\PostRequest; //フォームリクエストの宣言（バリデーションを切り分ける）
 use Illuminate\Support\Facades\Auth; // Authファサードをインポート
 use Illuminate\Support\Facades\Log;
 
 class PostsController extends Controller
 {
+    // 投稿一覧ページ
     public function index(Request $request)
     {
         // 検索キーワードを取得
@@ -37,6 +37,7 @@ class PostsController extends Controller
         return view('welcome', compact('posts', 'keyword'));
     }
 
+    // 投稿保存処理
     // 通常のRequestクラスの代わりにPostRequestクラスをメソッドの引数として指定
     public function store(PostRequest $request) // これにより、メソッドが呼び出される前に自動的にリクエストデータがバリデーションされる
     {
@@ -46,6 +47,16 @@ class PostsController extends Controller
         $post->save();
 
         return back()->with('success', 'ポストの投稿に成功しました。');
+    }
+
+    // 投稿詳細ページ
+    public function show($id)
+    {
+        //テーブルpostからidが$IDのレコードを探し出す
+        $post = Post::findOrFail($id);
+
+        // viewとしてshow.bladeの呼び出す with()メソッドをつなげてshow.blade内で$post変数として使用
+        return view('posts.show')->with('post', $post);
     }
 
     // 投稿編集ページ
@@ -77,7 +88,7 @@ class PostsController extends Controller
         return redirect()->route('top')->with('success', 'ポストの更新に成功しました。');
     }
 
-    // 投稿削除
+    // 投稿削除処理
     public function destroy($id)
     {
         $post = post::findOrFail($id);
@@ -89,12 +100,5 @@ class PostsController extends Controller
         }
 
         return back();
-    }
-
-    // 投稿詳細遷移
-    public function show($id)
-    {
-        $post = Post::findOrFail($id); //テーブルpostからidが$IDのレコードを探し出す
-        return view('posts.show')->with('post', $post);// viewとしてshow.bladeの呼び出す　with()メソッドをつなげてshow.blade内で$post変数として使用　
     }
 }

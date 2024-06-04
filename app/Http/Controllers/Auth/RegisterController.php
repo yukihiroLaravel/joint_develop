@@ -77,7 +77,7 @@ class RegisterController extends Controller
     // RegistersUsersトレイトのregisteredメソッドをオーバーライド
     protected function registered(Request $request, $user)
     {
-        // ユーザ新規登録成功時、トップ画面へ遷移し、フラッシュメッセージを表示
+        // ユーザ新規登録成功時、トップページへ遷移し、フラッシュメッセージを表示
         return redirect()->route('top')->with('success', 'ユーザ新規登録に成功しました');
     }
 }

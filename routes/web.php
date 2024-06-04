@@ -31,7 +31,7 @@ Route::group(['prefix' => 'users/{id}'],function(){
     Route::get('followers','UsersController@followers')->name('followers');
 });
 
-// ユーザ編集画面・更新(ログインユーザのみ、prefixでグループ化)
+// ユーザ編集ページ・更新(ログインユーザのみ、prefixでグループ化)
 Route::group(['middleware' => 'auth'], function(){
     Route::prefix('users')->group(function() {
         Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
@@ -64,4 +64,3 @@ Route::group(['prefix' => 'posts', 'middleware' => 'auth'], function () {
 // いいね機能
 Route::post('{id}/favorite','FavoriteController@store')->name('favorite');
 Route::delete('{id}/unfavorite','FavoriteController@destroy')->name('unfavorite');
-

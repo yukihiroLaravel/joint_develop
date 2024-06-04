@@ -5,14 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\User;
-use App\Post;
 use Illuminate\Support\Facades\Hash;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Log;
 
 class UsersController extends Controller
 {
-    // ユーザ詳細
+    // ユーザ詳細ページ
     public function show(Request $request, $id)
     {
         $user = User::findOrFail($id);
@@ -55,17 +54,17 @@ class UsersController extends Controller
         return view('follow.follow_list', compact('user', 'users', 'counts'));
     }
 
-    // ユーザ編集画面
+    // ユーザ編集ページ
     public function edit($id)
     {
         $user = User::findOrFail($id);
 
-        // ユーザが認証しており、且つ認証しているユーザのidとリクエストのidが一致している場合、ユーザ編集画面を表示
+        // ユーザが認証しており、且つ認証しているユーザのidとリクエストのidが一致している場合、ユーザ編集ページを表示
         if (\Auth::check() && \Auth::id() == $id) {
             return view('users.edit', ['user' => $user]);
         }
 
-        abort(404); // デモ画面は、ログイン画面に遷移させていたが、挙動がうまくいかなかったため、404エラーを返すように実装
+        abort(404); // デモ画面は、ログインページに遷移させていたが、挙動がうまくいかなかったため、404エラーを返すように実装
     }
 
     // ユーザ更新処理
@@ -81,7 +80,7 @@ class UsersController extends Controller
         return redirect()->route('users.show', ['id' => $user->id]);
     }
 
-    // ユーザ削除
+    // ユーザ削除処理
     protected function destroy($id)
     {
         // 指定されたユーザIDを取得
@@ -90,7 +89,7 @@ class UsersController extends Controller
         // ログインユーザのIDと指定されたIDが一致する場合のみユーザを削除
         if (\Auth::id() === $user->id) {
             $user->delete(); // ユーザを削除
-            return redirect()->route('top')->with('success', '退会処理が完了しました'); // 一覧画面へリダイレクト
+            return redirect()->route('top')->with('success', '退会処理が完了しました'); // トップページへリダイレクト
         } else {
             // ユーザ削除の条件を満たしていない場合はエラーメッセージを表示
             return back()->with('error', 'ユーザの削除は許可されていません');

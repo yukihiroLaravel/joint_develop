@@ -6,14 +6,17 @@ use Illuminate\Http\Request;
 
 class FavoriteController extends Controller
 {
-    public function store($id) //ユーザが$idの投稿に対して、いいね！を実行
+    // ユーザが$idの投稿に対して、いいねを実行
+    public function store($id)
     {
-        \Auth::user()->favorite($id); // 認証されているユーザーが指定した投稿（Post）をお気に入りに追加
+        \Auth::user()->favorite($id); // 認証されているユーザが指定した投稿をいいねに追加
         return back(); // 元のページにリダイレクト
     }
-    public function destroy($id) //ユーザが$idの投稿に対して、いいね！を解除
+
+    // ユーザが$idの投稿に対して、いいね！を解除
+    public function destroy($id)
     {
-        \Auth::user()->unfavorite($id); // 認証されているユーザーが指定した投稿（Post）のお気に入りを解除
-        return back();// 元のページにリダイレクト
+        \Auth::user()->unfavorite($id); // 認証されているユーザが指定した投稿のいいねを解除
+        return back(); // 元のページにリダイレクト
     }
 }

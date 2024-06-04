@@ -654,10 +654,10 @@ class PostsTableSeeder extends Seeder
                 $hobby = $hobbies[array_rand($hobbies)];
                 // 選ばれた趣味に対応するランダムなコメントを取得
                 $comment = $hobby_comments[$hobby][array_rand($hobby_comments[$hobby])];
-                
+
                 // 現在から過去1週間の範囲でランダムな日時を生成
                 $createdAt = Carbon::now()->subDays(rand(0, 7))->subHours(rand(0, 23))->subMinutes(rand(0, 59));
-                
+
                 $posts[] = [
                     'user_id' => $userId, // 1から100までのユーザIDを割り当て
                     'content' => $comment, // ランダムなコメントを追加
@@ -671,4 +671,3 @@ class PostsTableSeeder extends Seeder
         DB::table('posts')->insert($posts);
     }
 }
-

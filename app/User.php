@@ -5,12 +5,12 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\SoftDeletes; //laravelに備え付けの論理削除を使えるようにする記述
+use Illuminate\Database\Eloquent\SoftDeletes; // Laravelに備え付けの論理削除を使えるようにする記述
 
 class User extends Authenticatable
 {
     use Notifiable;
-    use SoftDeletes; //クラス内で呼び出す宣言
+    use SoftDeletes; // クラス内で呼び出す宣言
 
     /**
      * The attributes that are mass assignable.
@@ -64,8 +64,10 @@ class User extends Authenticatable
         if ($this->id == $userId || $this->isFollowing($userId)) {
             return false;
         }
+
         // 対象ユーザをフォロー
         $this->followings()->attach($userId);
+
         return true;
     }
 
@@ -76,8 +78,10 @@ class User extends Authenticatable
         if ($this->id == $userId || !$this->isFollowing($userId)) {
             return false;
         }
+
         // フォロー中なら解除
         $this->followings()->detach($userId);
+
         return true;
     }
 
@@ -87,8 +91,7 @@ class User extends Authenticatable
         return $this->followings()->where('followed_id', $userId)->exists();
     }
 
-    // 退会ユーザ所有の投稿削除
-    // ユーザデータ削除後に投稿データを削除
+    // 退会ユーザ所有の投稿削除（ユーザデータ削除後に投稿データを削除）
     public static function boot()
     {
         parent::boot();
@@ -97,44 +100,58 @@ class User extends Authenticatable
             $user->posts()->delete();
         });
     }
-    // いいね機能 
+
+    // いいね機能
     public function favorites()
     {
         return $this->belongsToMany(Post::class, 'favorites', 'user_id', 'post_id')->withTimestamps();
     }
-    // ユーザーが特定の投稿をお気に入りに追加
+
+    // ユーザが特定の投稿をいいねに追加
     public function favorite($postId)
-    {   
+    {
         $post = Post::findOrFail($postId);
+
         // 投稿が自分のものであるかを確認
         if ($post->user_id == $this->id) {
-            return false; // 自分の投稿の場合、falseを返す
+            // 自分の投稿の場合、falseを返す
+            return false;
         }
-        $exist = $this->isFavorite($postId); // 投稿が既にお気に入りに追加されているかどうかを確認
+
+        // 投稿が既にいいねに追加されているかどうかを確認
+        $exist = $this->isFavorite($postId);
         if ($exist) {
             return false;
         } else {
-            $this->favorites()->attach($postId); // お気に入りに追加
+            // いいねに追加
+            $this->favorites()->attach($postId);
             return true;
         }
     }
-    // ユーザーが特定の投稿をお気に入りから削除
+
+    // ユーザが特定の投稿をいいねから削除
     public function unfavorite($postId)
     {
         $post = Post::findOrFail($postId);
+
         // 投稿が自分のものであるかを確認
         if ($post->user_id == $this->id) {
-            return false; // 自分の投稿の場合、falseを返す
+            // 自分の投稿の場合、falseを返す
+            return false;
         }
-        $exist = $this->isFavorite($postId); //投稿が既にお気に入りに追加されているかどうかを確認
+
+        // 投稿が既にいいねに追加されているかどうかを確認
+        $exist = $this->isFavorite($postId);
         if ($exist) {
-            $this->favorites()->detach($postId); //既にお気に入りに追加されている場合は、お気に入りから削除
+            // 既にいいねに追加されている場合は、いいねから削除
+            $this->favorites()->detach($postId);
             return true;
         } else {
             return false;
         }
     }
-    // 特定の投稿がユーザーのお気に入りに追加されているかどうかを確認
+
+    // 特定の投稿がユーザのいいねに追加されているかどうかを確認
     public function isFavorite($postId)
     {
         return $this->favorites()->where('post_id', $postId)->exists();

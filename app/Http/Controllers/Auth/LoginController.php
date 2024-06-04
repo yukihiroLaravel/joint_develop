@@ -55,7 +55,7 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        // ログアウト成功時、トップ画面へ遷移し、フラッシュメッセージを表示
+        // ログアウト成功時、トップページへ遷移し、フラッシュメッセージを表示
         return redirect()->route('top')->with('success', 'ログアウトしました。');
     }
 }
