@@ -1,4 +1,4 @@
-<div class="mr-2 text-right">
+<div class="ml-2 text-right">
     @if (Auth::check() && Auth::id() !== $post->user_id) <!-- ユーザーがログインしているかつ、投稿の所有者ではないことを確認 -->
         <div class="ml-auto">
             @if (Auth::user()->isFavorite($post->id)) <!-- 現在ログインしているユーザーがこの投稿を既に「いいね！」しているかを確認 -->
