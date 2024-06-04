@@ -6,6 +6,7 @@ use App\Post;
 use App\Comment;
 use App\Tag;
 use App\Http\Requests\PostRequest;
+use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
@@ -31,8 +32,8 @@ class PostsController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $filename = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('images'), $filename);
-            $post->image_path = 'images/' . $filename;  // 画像のパスをモデルに保存
+            $path = $image->storeAs('images', $filename, 'public');
+            $post->image_path = 'storage/' . $path;
         }
         $post->save();
         session()->flash('flash_message', '登録しました！');

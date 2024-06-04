@@ -25,8 +25,6 @@ class PostRequest extends FormRequest
     {
         return [
             'content' => 'required|max:140',
-            // 'tag' => 'required|exists:tags,id',
-            // 'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',  // 画像のバリデーションルールを追加
         ];
     }
 

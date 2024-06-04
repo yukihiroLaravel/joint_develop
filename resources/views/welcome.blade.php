@@ -40,7 +40,22 @@
     @foreach ($posts as $post)
         @include('posts.post', ['post' => $post])
         @if ($post->image_path)
-            <img src="{{ asset('storage/' . $post->image_path) }}" alt="画像" style="width: 100%; height: auto;">
+            <style>
+                .image-container {
+                    width: 600px;
+                    height: 400px;
+                    overflow: hidden;
+                    position: relative;
+                }
+                .image-container img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                }
+            </style>
+            <div class="image-container">
+                <img src="{{ asset($post->image_path) }}" alt="Example Image">
+            </div>
         @endif
         @include('favorite.favorite_button', ['post' => $post])
         @include('comments.comment', ['post' => $post])
@@ -52,4 +67,3 @@
 </div>
 @include('commons.flash_message')
 @endsection
-
