@@ -4,7 +4,7 @@
     <h2 class="mt-5">コメントを編集する</h2>
     <!-- これで文字数のバリデーション -->
     @include('commons.error_messages')
-    <form action="{{ route('comments.update', $comment) }}" method="POST">
+    <form action="{{ route('comments.update', $comment->id) }}" method="POST">
         @csrf
         @method('PATCH') <!-- PATCHメソッドを指定 -->
         <div class="form-group">

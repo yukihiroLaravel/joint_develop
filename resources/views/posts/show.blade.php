@@ -38,7 +38,8 @@
     <div class="comment">
         <p>{{ $comment->content }}</p>
         <p>by {{ $comment->user->name }} at {{ $comment->created_at }}</p>
-        @if(auth()->id() === $comment->user_id)
+        <!-- this fix -->
+        @if(Auth::check() && auth()->id() === $comment->user_id)
         <a href="{{ route('comments.edit', $comment) }} " class="btn btn-primary">編集</a>
         <!-- 削除するフラッシュメッセージ -->
         <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal-{{ $comment->id }}">削除する</a>
@@ -65,10 +66,12 @@
         @endif
     </div>
     @endforeach
-    <!-- コメント投稿フォームへのリンク -->
+    <!-- コメント投稿フォームへのリンク （ログインしている場合のみ表示）-->
+    @if(Auth::check())
     <div class="mt-3">
-        <a href="{{ route('comments.create', ['post' => $post->id]) }}" class="btn btn-primary">コメントを追加する</a>
+        <a href="{{ route('comments.create', ['id' => $post->id]) }}" class="btn btn-primary">コメントを追加する</a>
     </div>
+    @endif
 </div>
 
 @endsection

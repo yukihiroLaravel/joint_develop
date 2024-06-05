@@ -25,6 +25,12 @@ Route::prefix('users')->group(function () {
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+//コメント表示
+Route::prefix('comments')->group(function () {
+    Route::get('index/{id}', 'CommentsController@index')->name('comment.index');
+    //コメント作成画面
+    Route::get('create/{id}', 'CommentsController@create')->name('comments.create');
+});
 
 //ログイン後
 Route::group(['middleware' => 'auth'], function () {
@@ -48,17 +54,13 @@ Route::group(['middleware' => 'auth'], function () {
     });
     //コメント関連
     Route::prefix('comments')->group(function () {
-        //コメント作成画面
-        Route::get('create/{post}', 'CommentsController@create')->name('comments.create');
         //コメントを新規投稿する
         Route::post('/', 'CommentsController@store')->name('comments.store');
         //コメントの編集
-        Route::get('{comment}/edit', 'CommentsController@edit')->name('comments.edit');
+        Route::get('{id}/edit', 'CommentsController@edit')->name('comments.edit');
         //コメントの更新
-        Route::patch('{comment}', 'CommentsController@update')->name('comments.update');
+        Route::patch('{id}', 'CommentsController@update')->name('comments.update');
         //コメントの削除
-        Route::delete('{comment}', 'CommentsController@destroy')->name('comments.delete');
+        Route::delete('{id}', 'CommentsController@destroy')->name('comments.delete');
     });
-    //投稿に関するコメントを一覧表示する
-    Route::get('/posts/{post}/coments', 'CommentsController@index')->name('comment.index');
 });

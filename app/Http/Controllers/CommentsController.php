@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Http\Requests\CommentRequest;
 use App\Http\Requests\PostRequest;
 use App\Post;
 use Illuminate\Http\Request;
@@ -17,8 +18,10 @@ class CommentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Post $post)
+    public function index($id)
     {
+        $post = Post::findOrFail($id);
+
         $comments = $post->comments;
         return view('comments.index', [
             'comments' => $comments,
@@ -31,8 +34,10 @@ class CommentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Post $post)
+    public function create($id)
     {
+        $post = Post::findOrFail($id);
+
         $comments = $post->comments;
         return view('comments.create', [
             'comments' => $comments,
@@ -46,7 +51,7 @@ class CommentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CommentRequest $request)
     {
         Comment::create([
             'user_id' => auth()->id(),
@@ -63,8 +68,10 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Comment $comment)
+    public function edit($id)
     {
+        $comment = Comment::findOrFail($id);
+
         if ($comment->user_id !== auth()->id()) {
             return back()->withErrors('権限がありません');
         }
@@ -81,15 +88,13 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(CommentRequest $request, $id)
     {
+        $comment = Comment::findOrFail($id);
+
         if ($comment->user_id !== auth()->id()) {
             return back()->withErrors('権限がありません');
         }
-
-        $request->validate([
-            'content' => 'required|max:140',
-        ]);
 
         $comment->update([
             'content' => $request->input('content'),
@@ -104,12 +109,14 @@ class CommentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Comment $comment)
+    public function destroy($id)
     {
+        $comment = Comment::findOrFail($id);
+
         //コメントの所有者であるかを確認
         if ($comment->user_id !== auth()->id()) {
             //所有者でない場合、エラーメッセージを表示し元のページにリダイレクト
-            return back();
+            return back()->withErrors('権限がありません');
         }
 
         $comment->delete();

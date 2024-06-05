@@ -17,7 +17,7 @@
 <p>{{ $post->created_at }}</p>
 
 <div class="container">
-    <h2>コメントを投稿する</h2>
+    <!-- <h2>コメントを投稿する</h2> -->
 
     <!-- 成功メッセージの表示 -->
     @if(session('greenMessage'))
@@ -41,7 +41,8 @@
         @endforeach
     </div>
     @endif
-
+    <!-- コメント投稿フォーム（ログイン時のみ表示） -->
+    @if(Auth::check())
     <form action="{{ route('comments.store') }}" method="POST">
         @csrf
         <div class="form-group">
@@ -51,14 +52,15 @@
         <input type="hidden" name="post_id" value="{{ $post->id }}">
         <button type="submit" class="btn btn-primary">投稿</button>
     </form>
+    @endif
 </div>
 <!-- コメント一覧 -->
 @foreach ($comments as $comment)
 <div class="comment">
     <p>{{ $comment->content }}</p>
     <p>by {{ $comment->user->name }} at {{ $comment->created_at }}</p>
-    @if(auth()->id() === $comment->user_id)
-    <a href="{{ route('comments.edit', $comment) }}" class="btn btn-primary">編集</a>
+    @if(Auth::check() && auth()->id() === $comment->user_id)
+    <a href="{{ route('comments.edit', ['id' => $comment->id]) }}" class="btn btn-primary">編集</a>
 
     <!-- 削除するフラッシュメッセージ -->
     <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal-{{ $comment->id }}">削除する</a>
@@ -72,7 +74,7 @@
                     <label>本当に削除しますか？</label>
                 </div>
                 <div class="modal-footer d-flex justify-content-between">
-                    <form action="{{ route('comments.delete', $comment) }}" method="POST">
+                    <form action="{{ route('comments.delete', ['id' => $comment->id]) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">削除する</button>

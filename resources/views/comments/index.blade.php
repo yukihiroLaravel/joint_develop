@@ -26,8 +26,8 @@
         <p>{{ $comment->content }}</p>
         <p>by {{ $comment->user->name }} at {{ $comment->created_at }}</p>
         @if(auth()->id() === $comment->user_id)
-        <a href="{{ route('comments.edit', $comment) }}">編集</a>
-        <form action="{{ route('comments.delete', $comment) }}" method="POST" style="display:inline;">
+        <a href="{{ route('comments.edit', $id) }}">編集</a>
+        <form method="POST" action="{{ route('comments.delete', $id) }}" style="display:inline;">
             @csrf
             @method('DELETE')
             <button type="submit">削除</button>
