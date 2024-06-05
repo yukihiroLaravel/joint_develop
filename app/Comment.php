@@ -5,27 +5,27 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Post extends Model
+class Comment extends Model
 {
     use SoftDeletes;
-
     /*
     * The attributes that are mass assignable.
     *
     * @var array
     */
-
     protected $fillable = [
-        'content'
+        'content',
+        'user_id',
+        'post_id',
     ];
-    //ユーザーとのリレーション　ユーザに所属している　一対多
+    //ユーザに対して所属する　一対多
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-    //コメントとのリレーション　投稿に対して複数存在する　一対多
-    public function comments()
+    //投稿に対して所属する　一対多
+    public function post()
     {
-        return $this->hasMany(Comment::class);
+        return $this->belongsTo(Post::class);
     }
 }

@@ -18,13 +18,19 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 //top page 表示
 Route::get('/', 'PostsController@index')->name('posts.index');
-
+//ユーザー詳細
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
 });
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+//コメント表示
+Route::prefix('comments')->group(function () {
+    Route::get('index/{id}', 'CommentsController@index')->name('comment.index');
+    //コメント作成画面
+    Route::get('create/{id}', 'CommentsController@create')->name('comments.create');
+});
 
 //ログイン後
 Route::group(['middleware' => 'auth'], function () {
@@ -39,12 +45,26 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
+        Route::get('{id}', 'PostsController@show')->name('post.show'); // ここでposts.showを追加
     });
+    
     //フォロー、フォロワー
     Route::group(['prefix' => 'user/{id}'],function(){
         Route::post('follows','FollowController@store')->name('follow');
         Route::delete('unfollow','FollowController@destroy')->name('unfollow');
         Route::get('followings','UsersController@followings')->name('followings');
         Route::get('followers','UsersController@followers')->name('followers');
+    });
+
+    //コメント関連
+    Route::prefix('comments')->group(function () {
+        //コメントを新規投稿する
+        Route::post('/', 'CommentsController@store')->name('comments.store');
+        //コメントの編集
+        Route::get('{id}/edit', 'CommentsController@edit')->name('comments.edit');
+        //コメントの更新
+        Route::patch('{id}', 'CommentsController@update')->name('comments.update');
+        //コメントの削除
+        Route::delete('{id}', 'CommentsController@destroy')->name('comments.delete');
     });
 });
