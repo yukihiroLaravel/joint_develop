@@ -25,8 +25,9 @@ Route::prefix('users')->group(function () {
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
-//コメント表示
+//コメント関連
 Route::prefix('comments')->group(function () {
+    //コメント表示
     Route::get('index/{id}', 'CommentsController@index')->name('comment.index');
     //コメント作成画面
     Route::get('create/{id}', 'CommentsController@create')->name('comments.create');
