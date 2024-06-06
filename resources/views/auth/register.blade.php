@@ -13,19 +13,19 @@
                 @csrf
                 <div class="form-group">
                     <lavel for="name">名前</label>
-                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
+                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="名前を入力">
                 </div>
                 <div class="form-group">
                     <lavel for="email">メールアドレス</label>
-                    <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}">
+                    <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" placeholder="メールアドレスを入力">
                 </div>
                 <div class="form-group">
                     <lavel for="password">パスワード</label>
-                    <input id="password" type="password" class="form-control" name="password">
+                    <input id="password" type="password" class="form-control" name="password" placeholder="パスワードを入力">
                 </div>
                 <div class="form-group">
                     <lavel for="password_confirmation">パスワード確認</label>
-                    <input id="password_confirmation" type="password" class="form-control" name="password_confirmation">
+                    <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" placeholder="パスワード確認を入力">
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary mt-2">登録</button>

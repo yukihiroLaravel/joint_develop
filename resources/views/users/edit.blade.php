@@ -10,22 +10,22 @@
         @include('commons.error_messages')
         <div class="form-group">
             <label for="name">ユーザ名</label>
-            <input class="form-control" value="{{ old('name', $user->name) }}" name="name" />
+            <input class="form-control" value="{{ old('name', $user->name) }}" name="name" placeholder="ユーザ名を入力" />
         </div>
 
         <div class="form-group">
             <label for="email">メールアドレス</label>
-            <input id="email" class="form-control" value="{{ old('email', $user->email) }}" name="email" />
+            <input id="email" class="form-control" value="{{ old('email', $user->email) }}" name="email" placeholder="メールアドレスを入力" />
         </div>
 
         <div class="form-group">
             <label for="password">パスワード</label>
-            <input id="password" class="form-control" type="password" value="" name="password" />
+            <input id="password" class="form-control" type="password" value="" name="password" placeholder="パスワードを入力" />
         </div>
 
         <div class="form-group">
-            <label for="password_confirmation">パスワードの確認</label>
-            <input id="password_confirmation" class="form-control" type="password" value="" name="password_confirmation"/>
+            <label for="password_confirmation">パスワード確認</label>
+            <input id="password_confirmation" class="form-control" type="password" value="" name="password_confirmation" placeholder="パスワード確認を入力" />
         </div>
         <div class="d-flex justify-content-center">
             <button type="submit" class="btn btn-primary mb-2">更新</button>
