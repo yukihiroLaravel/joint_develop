@@ -1,1 +1,14 @@
-//
+/* resources/sass/app.scss */
+// Bootstrapの変数をオーバーライド
+$theme-colors: (
+  "primary": #9fa6ba,
+  "secondary": #6c757d,
+  "success": #a3b6aa,
+  "info": #101106,
+  "warning": #ffc107,
+  "danger": #ba9fa3,
+  "light": #f8f9fa,
+  "dark": #343a40
+);
+
+@import '~bootstrap/scss/bootstrap';
