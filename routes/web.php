@@ -47,11 +47,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
         Route::get('{id}', 'PostsController@show')->name('post.show'); // ここでposts.showを追加
     });
-    //フォロー
-    Route::group(['prefix' => 'user/{id}'], function () {
-        Route::post('follows', 'FollowController@store')->name('follow');
-        Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
+    
+    //フォロー、フォロワー
+    Route::group(['prefix' => 'user/{id}'],function(){
+        Route::post('follows','FollowController@store')->name('follow');
+        Route::delete('unfollow','FollowController@destroy')->name('unfollow');
+        Route::get('followings','UsersController@followings')->name('followings');
+        Route::get('followers','UsersController@followers')->name('followers');
     });
+
     //コメント関連
     Route::prefix('comments')->group(function () {
         //コメントを新規投稿する
