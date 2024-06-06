@@ -40,11 +40,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function posts()
-    {
-        return $this->hasMany(Post::class)->orderBy('id', 'desc');
-    }
-
     // フォローしているユーザーのリレーションを定義するメソッド
     public function following()
     {
@@ -82,13 +77,36 @@ class User extends Authenticatable
         return $this->following()->where('followed_user_id', $userId)->exists();
     }
     
-    
+    // ユーザーがフォローしているユーザーの一覧を取得するメソッド
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'followed_user_id')->withTimestamps();
+    }
+
+    // ユーザーをフォローしているユーザーの一覧を取得するメソッド
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'followed_user_id', 'user_id')->withTimestamps();
+    }
+
+
     public static function boot()
     {
         parent::boot();
 
-        static::deleting(function ($user){
+        static::deleting(function ($user) {
             $user->posts()->delete();
         });
+    }
+
+    //投稿とのリレーション　一対多
+    public function posts()
+    {
+        return $this->hasMany(Post::class)->orderBy('id', 'desc');
+    }
+    //コメントとのリレーション　一対多
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

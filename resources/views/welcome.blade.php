@@ -21,16 +21,17 @@
                          </div>
                          </div>
                        </form>
-                     </div>                         
-            @endif       
-          @if (session('redMessage'))
-                <div class="alert alert-danger text-center mx-auto w-75 mb-3">
-                        {{ session('redMessage') }}
-                </div>
-          @elseif (session('greenMessage'))
-                <div class="alert alert-success text-center mx-auto w-75 mb-3">
-                        {{ session('greenMessage') }}
-                </div>
-          @endif
-          @include('posts.posts', ['posts => $posts'])
+                     </div>     
+            @endif                    
+<!-- 投稿時のフラッシュメッセージ -->
+@if (session('redMessage'))
+<div class="alert alert-danger text-center mx-auto w-75 mb-3">
+    {{ session('redMessage') }}
+</div>
+@elseif (session('greenMessage'))
+<div class="alert alert-success text-center mx-auto w-75 mb-3">
+    {{ session('greenMessage') }}
+</div>
+@endif
+@include('posts.posts', ['posts => $posts'])
 @endsection
