@@ -76,6 +76,18 @@ class User extends Authenticatable
     {
         return $this->following()->where('followed_user_id', $userId)->exists();
     }
+    
+    // ユーザーがフォローしているユーザーの一覧を取得するメソッド
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'followed_user_id')->withTimestamps();
+    }
+
+    // ユーザーをフォローしているユーザーの一覧を取得するメソッド
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'followed_user_id', 'user_id')->withTimestamps();
+    }
 
 
     public static function boot()

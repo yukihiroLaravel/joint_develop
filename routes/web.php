@@ -35,6 +35,7 @@ Route::prefix('comments')->group(function () {
 
 //ログイン後
 Route::group(['middleware' => 'auth'], function () {
+    });
     //ユーザー情報関連
     Route::prefix('users')->group(function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
@@ -44,15 +45,20 @@ Route::group(['middleware' => 'auth'], function () {
     // 投稿関連
     Route::prefix('posts')->group(function () {
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
+        Route::post('/', 'PostsController@store')->name('post.store');
         Route::put('{id}', 'PostsController@update')->name('post.update');
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
         Route::get('{id}', 'PostsController@show')->name('post.show'); // ここでposts.showを追加
     });
-    //フォロー
-    Route::group(['prefix' => 'user/{id}'], function () {
-        Route::post('follows', 'FollowController@store')->name('follow');
-        Route::delete('unfollow', 'FollowController@destroy')->name('unfollow');
+    
+    //フォロー、フォロワー
+    Route::group(['prefix' => 'user/{id}'],function(){
+        Route::post('follows','FollowController@store')->name('follow');
+        Route::delete('unfollow','FollowController@destroy')->name('unfollow');
+        Route::get('followings','UsersController@followings')->name('followings');
+        Route::get('followers','UsersController@followers')->name('followers');
     });
+
     //コメント関連
     Route::prefix('comments')->group(function () {
         //コメントを新規投稿する
@@ -64,4 +70,4 @@ Route::group(['middleware' => 'auth'], function () {
         //コメントの削除
         Route::delete('{id}', 'CommentsController@destroy')->name('comments.delete');
     });
-});
+
