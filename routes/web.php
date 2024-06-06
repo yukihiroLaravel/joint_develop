@@ -28,6 +28,7 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 //ログイン後
 Route::group(['middleware' => 'auth'], function () {
+    });
     //ユーザー情報関連
     Route::prefix('users')->group(function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
@@ -37,6 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
     // 投稿関連
     Route::prefix('posts')->group(function () {
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
+        Route::post('/', 'PostsController@store')->name('post.store');
         Route::put('{id}', 'PostsController@update')->name('post.update');
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     });
@@ -45,4 +47,3 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('follows','FollowController@store')->name('follow');
         Route::delete('unfollow','FollowController@destroy')->name('unfollow');
     });
-});
