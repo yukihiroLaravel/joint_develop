@@ -24,7 +24,7 @@
                 </div>
                 <div class="form-group">
                     <label for="password">パスワード</label>
-                    <input id="password" type="password" class="form-control" name="password" value=" ">
+                    <input id="password" type="password" class="form-control" name="password" value="">
                 </div>
                 <div class="form-group">
                     <label for="password_confirmation">パスワード確認</label>
