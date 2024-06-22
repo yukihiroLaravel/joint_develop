@@ -3,8 +3,7 @@
         @foreach ($errors->all() as $error)
             <li class="ml-4">
                  @include('commons.error_messages')
-                 @yield('content')
-                </li>
+             </li>
         @endforeach
     </ul>
 @endif
