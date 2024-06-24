@@ -7,8 +7,10 @@
     </div>
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
         <div class="w-75 m-auto">エラーメッセージが入る場所</div>
+
+        @if(Auth::check())
         <div class="text-center mb-3">
-            <form method="" action="" class="d-inline-block w-75">
+        <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
                 <div class="form-group">
                     <textarea class="form-control" name="" rows=""></textarea>
                     <div class="text-left mt-3">
@@ -17,4 +19,11 @@
                 </div>
             </form>
         </div>
+        @endif
+
+   @include('posts.posts', ['posts' => $posts]) 
+   
+    <div class="pagination justify-content-center">
+        {{ $posts->links('pagination::bootstrap-4') }}  {{-- ページ送り機能 --}}
+    </div>
 @endsection
