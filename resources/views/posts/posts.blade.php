@@ -23,3 +23,6 @@
     @endforeach
 </ul>
 <div class="m-auto" style="width: fit-content"></div>
+<div class="pagination justify-content-center">
+        {{ $posts->links('pagination::bootstrap-4') }}  {{-- ページ送り機能 --}}
+</div>
