@@ -3,7 +3,6 @@
     <h1>{{ $user->name }}</h1>
     <ul class="nav nav-tabs nav-justified mt-5 mb-2">
         <li class="nav-item nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}">
-        <a href="{{ route('user.show', $user->id) }}">投稿<br>
         <div class="row">
         <aside class="col-sm-4 mb-5">
             <div class="card bg-info">
@@ -26,5 +25,5 @@
             </ul>
         </div>
     </div>
-    @include('posts.posts',['user' => $user, 'posts'=> $posts])
+    @include('posts.posts', ['posts' => $posts]) 
 @endsection
