@@ -10,7 +10,7 @@
                     <h3 class="card-title text-light"></h3>
                 </div>
                 <div class="card-body">
-                    <img class="rounded-circle img-fluid" src="" alt="">
+                <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
                         <div class="mt-3">
                             <a href="" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                         </div>
