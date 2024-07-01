@@ -12,17 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
-    public function show($id)
-    {
-        $user = User::findOrFail($id);
-        $posts = $user->posts();
-        $data = [
-            'user'=> $user,
-            'posts'=>$posts
-        ];
-        return view('users.show', $data);
-    }
-    
     //ユーザ編集画面・更新
     public function edit($id)
     {
@@ -40,6 +29,6 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password); 
         $user->save();
-        return redirect()->route('',);
+        return back();
     }
 }
