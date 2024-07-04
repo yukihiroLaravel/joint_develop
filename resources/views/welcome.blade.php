@@ -21,5 +21,5 @@
         </div>
         @endif
         
-     @include('posts.posts', ['posts' => $posts]) 
+    @include('posts.posts', ['posts' => $posts]) 
 @endsection
