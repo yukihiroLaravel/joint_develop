@@ -33,8 +33,8 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         if (Auth::user()->id !== $user->id) {
-             abort(403);
-         }
+            abort(403);
+        }
         return view('users.edit', ['user' => $user]);
     }   
     public function update(UserRequest $request, $id)
