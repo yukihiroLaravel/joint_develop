@@ -11,13 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
-    public function index()
-    {
-        $post = Post::orderBy('id','desc')->paginate(10);
-        return view('welcome', [
-            'posts' => $post,
-        ]);
-    }
     public function show($id)
     {
         $user = User::findOrFail($id);
