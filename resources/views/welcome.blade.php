@@ -6,9 +6,11 @@
         </div>
     </div>
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
+    @include('commons.error_messages')
         <div class="w-75 m-auto">
         </div>
         <div class="text-center mb-3">
+        @if (Auth::check())
             <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
                 @csrf
                 <div class="form-group">
@@ -18,6 +20,7 @@
                     </div>
                 </div>
             </form>
+        @endif
         </div>
         @include('posts.posts',['posts'=> $posts])
 @endsection
