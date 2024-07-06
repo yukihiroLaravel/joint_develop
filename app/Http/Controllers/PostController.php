@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 use App\Post;
 
 class PostController extends Controller
@@ -14,7 +15,6 @@ class PostController extends Controller
             'posts' => $posts,
         ]);
     }
-
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
