@@ -8,8 +8,7 @@
     </head>
     <body>
         @include('commons.header')
-        <div class="container">
-            @include('commons.error_messages')
+        <div class="container"> 
             @yield('content')
         </div>
         @include('commons.footer')
