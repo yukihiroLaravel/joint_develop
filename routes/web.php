@@ -12,7 +12,7 @@
 */
 
 //トップページ表示
-Route::get('/', 'PostController@index');
+Route::get('/', 'PostController@index')->name('top');
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
@@ -27,5 +27,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('users')->group(function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
         Route::put('{id}', 'UsersController@update')->name('users.update');
+    });
+});
+
+//投稿編集・更新
+Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('posts')->group(function () {
+        Route::get('{id}/edit', 'PostController@edit')->name('posts.edit');
+        Route::patch('{id}/update', 'PostController@update')->name('posts.update');
     });
 });

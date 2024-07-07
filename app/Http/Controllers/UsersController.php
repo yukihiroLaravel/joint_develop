@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\PostRequest;
 use App\User;
 use App\Post;
 use Illuminate\Support\Facades\Hash;
