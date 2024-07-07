@@ -1,11 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\User;
 use Illuminate\Http\Request;
 use App\Post;
-use App\Http\Requests\PostRequest;
-use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -22,12 +20,7 @@ class PostController extends Controller
     {
         $post = Post::find($id);
 
-        // ユーザー認証チェック
-        //if (Auth::id() !== $post->user_id) {
-        //    return redirect()->route('top')->with('error', 'アクセス権限がありません。');
-        //}
-
-        return view('posts.edit', compact('post'));
+        return view('post.edit', compact('post'));
     }
 
     // 投稿編集処理
@@ -45,4 +38,13 @@ class PostController extends Controller
 
         return redirect()->route('top');
     }
+
+    public function destroy($id)
+        {
+            $post = Post::findOrFail($id);
+            if (\Auth::id() === $post->user_id) {
+                $post->delete();
+            }
+            return back();
+        }
 }

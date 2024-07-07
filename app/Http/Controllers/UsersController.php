@@ -10,10 +10,19 @@ use App\Post;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
-
 class UsersController extends Controller
 {
-    //ユーザ編集画面・更新
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        $post = $user->posts()->orderBy('id', 'desc')->paginate(10);
+        $data=[
+            'user' => $user,
+            'posts' => $post,
+        ];
+        return view('users.show',$data);
+    }
+     //ユーザ編集画面・更新
     public function edit($id)
     {
         $user = User::findOrFail($id);
@@ -22,7 +31,6 @@ class UsersController extends Controller
         }
         return view('users.edit', ['user' => $user]);
     }   
-    
     public function update(UserRequest $request, $id)
     {
         $user = User::findOrFail($id);
@@ -33,3 +41,4 @@ class UsersController extends Controller
         return back();
     }
 }
+
