@@ -5,8 +5,7 @@
             <h1><i class="pr-3"></i>Topic Posts</h1>
         </div>
     </div>
-    <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
-    @include('commons.error_messages')
+    <h5 class="text-center mb-3">"ディズニー"について140字以内で会話しよう！</h5>
         <div class="w-75 m-auto">
         </div>
         <div class="text-center mb-3">
