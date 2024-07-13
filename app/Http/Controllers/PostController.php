@@ -36,7 +36,7 @@ class PostController extends Controller
             $post->save();
             return redirect('/');
         } 
-            return back();
+        return back();
     }
 
     public function destroy($id)
