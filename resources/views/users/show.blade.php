@@ -7,9 +7,9 @@
                     <h3 class="card-title text-light">{{ $user->name }}</h3>
                 </div>
                 <div class="card-body">
-                    <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 55+500) }}" alt="">
+                    <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 555) }}" alt="">
                         <div class="mt-3">
-                            <a href="＠{{ $user->name }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                            <a href="" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                         </div>
                 </div>
             </div>
