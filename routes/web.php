@@ -38,6 +38,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('', 'PostController@store')->name('posts.store');
     });
 
+// 投稿編集・更新
+    Route::prefix('posts')->group(function () {  
+        Route::get('{id}/edit', 'PostController@edit')->name('posts.edit');
+        Route::put('{id}', 'PostController@update')->name('posts.update');
+    });
 //投稿削除
     Route::prefix('posts')->group(function () {    
         Route::delete('{id}', 'PostController@destroy')->name('posts.delete');

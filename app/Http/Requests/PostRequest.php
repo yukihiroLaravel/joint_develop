@@ -1,6 +1,10 @@
 <?php
+
 namespace App\Http\Requests;
+
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
 class PostRequest extends FormRequest
 {
     /**
@@ -20,9 +24,10 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'max:140',
+            'content' => ['required', 'string', 'max:144'],
         ];
     }
+
     public function attributes()
     {
         return [
