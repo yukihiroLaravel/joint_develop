@@ -26,7 +26,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function(){
         Route::post('','PostsController@store')->name('post.store');
-});
+    });
     Route::prefix('users')->group(function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
         Route::put('{id}', 'UsersController@update')->name('users.update');
