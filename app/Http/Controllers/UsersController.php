@@ -32,4 +32,11 @@ class UsersController extends Controller
         $user->save();
         return back();
     }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user -> posts() -> forceDelete();
+        return redirect('/');
+    }
 }
