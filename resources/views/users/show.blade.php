@@ -10,6 +10,7 @@
                     <img class="rounded-circle img-fluid" src="" alt="">
                         <div class="mt-3">
                             <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                                @include('follow.follow_button', ['post' => $post])
                         </div>
                 </div>
             </div>

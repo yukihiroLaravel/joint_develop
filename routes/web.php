@@ -13,6 +13,10 @@
 
 //トップページ表示
 Route::get('/', 'PostController@index');
+Route::group(['prefix' => 'users/{id}'],function(){
+    Route::get('follows','UsersController@follows')->name('user.follows');
+});
+
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
@@ -31,5 +35,10 @@ Route::group(['middleware' => 'auth'], function () {
     //投稿削除
     Route::prefix('posts')->group(function () {    
         Route::delete('{id}', 'PostController@destroy')->name('posts.delete');
+    });
+    //フォロー
+    Route::group(['prefix' => 'users/{id}'],function(){
+        Route::post('follows','FollowController@store')->name('follow');
+        Route::delete('unfollow','FollowController@destroy')->name('unfollow');
     });
 });
