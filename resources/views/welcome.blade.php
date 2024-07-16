@@ -6,6 +6,7 @@
         </div>
     </div>
     <h5 class="text-center mb-3">"ディズニー"について140字以内で会話しよう！</h5>
+    @include('commons.error_messages')
         <div class="w-75 m-auto">
         </div>
         <div class="text-center mb-3">
