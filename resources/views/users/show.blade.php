@@ -8,9 +8,11 @@
                 </div>
                 <div class="card-body">
                     <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 555) }}" alt="">
+                    @if (Auth::id() == $user->id)
                         <div class="mt-3">
                             <a href="{{ route('users.edit', Auth::id()) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                         </div>
+                    @endif    
                 </div>
             </div>
         </aside>
