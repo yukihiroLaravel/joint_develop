@@ -12,7 +12,17 @@ use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
-    
+    //ユーザ詳細
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
+        $data=[
+            'user' => $user,
+            'posts' => $posts,
+        ];
+        return view('users.show',$data);
+    }
     //ユーザ編集画面・更新
     public function edit($id)
     {
