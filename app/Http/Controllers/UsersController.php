@@ -9,6 +9,7 @@ use App\Post;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
+
 class UsersController extends Controller
 {
     public function show($id)
@@ -21,7 +22,8 @@ class UsersController extends Controller
         ];
         return view('users.show',$data);
     }
-     //ユーザ編集画面・更新
+
+    //ユーザ編集画面・更新
     public function edit($id)
     {
         $user = User::findOrFail($id);
@@ -30,6 +32,7 @@ class UsersController extends Controller
         }
         return view('users.edit', ['user' => $user]);
     }   
+    
     public function update(UserRequest $request, $id)
     {
         $user = User::findOrFail($id);
@@ -37,14 +40,6 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password); 
         $user->save();
-        return back();
+        return back()->with('flashSuccess', 'ユーザ情報を更新しました。');
     }
-    public function destroy($id)
-    {
-        $user = User::findOrFail($id);
-        $user->delete();
-        return redirect('/');
-    } 
 }
-
-
