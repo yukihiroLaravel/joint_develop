@@ -41,7 +41,9 @@
                         <label>本当に退会しますか？</label>
                     </div>
                     <div class="modal-footer d-flex justify-content-between">
-                        <form action="" method="POST">
+                        <form method="POST" action="{{ route('users.delete', $user->id) }}" >
+                            @csrf
+                            @method('DELETE')
                             <button type="submit" class="btn btn-danger">退会する</button>
                         </form>
                         <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
