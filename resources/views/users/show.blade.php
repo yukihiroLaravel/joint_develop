@@ -8,9 +8,11 @@
                 </div>
                 <div class="card-body">
                     <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 300) }}" alt="ユーザのアバター画像">
-                    <div class="mt-3">
-                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>          
-                    </div>
+                    @if (Auth::id() == $user->id)
+                        <div class="mt-3">
+                            <a href="{{ route('users.edit', Auth::id()) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>          
+                        </div>
+                    @endif 
                 </div>
             </div>
         </aside>
@@ -22,6 +24,6 @@
             </ul>
             @include('posts.posts', ['posts' => $posts]) 
         </div>
-    </div>
-    
+    </div>   
+
 @endsection
