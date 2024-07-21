@@ -34,7 +34,7 @@ class PostController extends Controller
         if (\Auth::id() === $post->user_id){
             $post->content = $request->content;
             $post->save();
-            return redirect('/');
+            return redirect('/')->with('flashSuccess', '・投稿編集に成功しました。');
         } 
         return back();
     }
@@ -45,7 +45,7 @@ class PostController extends Controller
         if (\Auth::id() === $post->user_id) {
             $post->delete();
         }
-        return back();
+        return back()->with('flashSuccess', '・投稿削除に成功しました。');
     }
     public function store(PostRequest $request)
     {
@@ -53,6 +53,6 @@ class PostController extends Controller
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
         $post->save();
-        return back();
+        return back()->with('flashSuccess', '・投稿に成功しました。');
     }
 }
