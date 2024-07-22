@@ -42,4 +42,10 @@ class UsersController extends Controller
         $user->save();
         return back()->with('flashSuccess', 'ユーザ情報を更新しました。');
     }
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect('/')->with('flashSuccess', '退会しました。');
+    } 
 }
