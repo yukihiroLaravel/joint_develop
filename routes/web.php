@@ -13,6 +13,7 @@
 
 //トップページ表示
 Route::get('/', 'PostController@index');
+Route::get('/', 'PostController@index')->name('post.index');
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
@@ -44,6 +45,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'PostController@edit')->name('posts.edit');
         Route::put('{id}', 'PostController@update')->name('posts.update');
     });
+    // 投稿検索
+    Route::get('/', [PostController::class, 'index'])
+    ->name('posts.index');
     //投稿削除
     Route::prefix('posts')->group(function () {    
         Route::delete('{id}', 'PostController@destroy')->name('posts.delete');

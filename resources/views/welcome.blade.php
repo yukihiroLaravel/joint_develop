@@ -21,6 +21,16 @@
                 </div>
             </form>
         @endif
+            <form method="GET" action="{{ route('posts.index') }}" >
+                <input type="text" name="keyword" value="{{ $keyword }}">
+                <input type="submit" value="検索">
+                <div class="form-group">
+                    <textarea class="form-control" name="content" rows="4"></textarea>
+                    <div class="text-left mt-3">
+                        <button type="submit" class="btn btn-primary">検索する</button>
+                    </div>
+                </div>
+             </form>
         </div>
          @include('posts.posts', ['posts' => $posts]) 
 @endsection

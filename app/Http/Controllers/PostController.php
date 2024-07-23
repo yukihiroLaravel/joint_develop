@@ -19,6 +19,25 @@ class PostController extends Controller
         ]);
     }
 
+    public function getIndex(Request $rq)
+    {
+    //キーワード受け取り
+    $keyword = $rq->input('keyword');
+
+    //クエリ生成
+    $query = \App\Post::query();
+
+    //もしキーワードがあったら
+    if(!empty($keyword))
+    {
+        $query->where('content','like','%'.$keyword.'%');
+    }
+
+    // 全件取得 +ページネーション
+    $posts = $query->orderBy('id','desc')->paginate(10);
+    return view('welcome',['posts'=> $posts,]);
+    }
+
     public function edit($id)
     {
         $post = Post::findOrFail($id);
