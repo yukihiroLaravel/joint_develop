@@ -37,19 +37,19 @@ Route::group(['middleware' => 'auth'], function () {
     });
     //新規投稿
     Route::prefix('posts')->group(function () {    
-        Route::post('', 'PostController@store')->name('posts.store');
+        Route::post('', 'PostsController@store')->name('posts.store');
     });
 
     // 投稿編集・更新
     Route::prefix('posts')->group(function () {  
-        Route::get('{id}/edit', 'PostController@edit')->name('posts.edit');
-        Route::put('{id}', 'PostController@update')->name('posts.update');
+        Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit');
+        Route::put('{id}', 'PostsController@update')->name('posts.update');
     });
     // 投稿検索
     Route::get('/', [PostController::class, 'index'])
     ->name('posts.index');
     //投稿削除
     Route::prefix('posts')->group(function () {    
-        Route::delete('{id}', 'PostController@destroy')->name('posts.delete');
+        Route::delete('{id}', 'PostsController@destroy')->name('posts.delete');
     });
 });

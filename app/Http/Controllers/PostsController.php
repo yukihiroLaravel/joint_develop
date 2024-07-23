@@ -9,7 +9,7 @@ use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
-class PostController extends Controller
+class PostsController extends Controller
 {
     public function index()
     {
@@ -53,9 +53,8 @@ class PostController extends Controller
         if (\Auth::id() === $post->user_id){
             $post->content = $request->content;
             $post->save();
-            return redirect('/');
+            return redirect('/')->with('flashSuccess', '投稿を編集しました。');
         } 
-        return back();
     }
 
     public function destroy($id)
@@ -64,7 +63,7 @@ class PostController extends Controller
         if (\Auth::id() === $post->user_id) {
             $post->delete();
         }
-        return back();
+        return back()->with('flashSuccess', '投稿を削除しました。');
     }
     public function store(PostRequest $request)
     {
@@ -72,6 +71,6 @@ class PostController extends Controller
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
         $post->save();
-        return back();
+        return back()->with('flashSuccess', '投稿しました。');
     }
 }
