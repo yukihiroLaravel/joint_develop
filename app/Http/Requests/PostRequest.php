@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class PostRequest extends FormRequest
 {
@@ -24,7 +25,7 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'required|max:140',
+            'content' => ['required', 'string', 'max:144'],
         ];
     }
 

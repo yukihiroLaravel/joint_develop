@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\User;
 use App\Http\Requests\PostRequest;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
@@ -17,12 +19,32 @@ class PostsController extends Controller
         ]); 
     }
 
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            return view('posts.edit',['post' => $post,]);
+        }
+        return back();
+    }
+
     public function store(PostRequest $request) 
     {
         $post = new Post;
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
         $post->save();
+        return back();
+    }
+
+    public function update(PostRequest $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id){
+            $post->content = $request->content;
+            $post->save();
+            return redirect('/');
+        } 
         return back();
     }
 
