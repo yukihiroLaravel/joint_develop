@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\User;
 use App\Http\Requests\PostRequest;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
@@ -45,7 +43,6 @@ class PostsController extends Controller
             $post->save();
             return redirect('/');
         } 
-        return back();
     }
 
     public function destroy($id)

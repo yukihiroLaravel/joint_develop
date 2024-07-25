@@ -10,3 +10,4 @@
         </div>
         <button type="submit" class="btn btn-primary">更新する</button>
     </form>
+@endsection
