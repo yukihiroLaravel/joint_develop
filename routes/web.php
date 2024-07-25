@@ -37,5 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {    
         Route::delete('{id}', 'PostsController@destroy')->name('posts.delete');
         Route::post('','PostsController@store')->name('post.store');
+        Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit');
+        Route::put('{id}', 'PostsController@update')->name('posts.update');
     });
 });  
