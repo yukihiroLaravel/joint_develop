@@ -6,6 +6,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes; // 追記
+use App\Post;
+
+
 
 class User extends Authenticatable
 {
@@ -46,7 +49,7 @@ class User extends Authenticatable
 
     public function following()
     {
-        return $this->belongsToMany(Users::class, 'follows', 'user_id', 'followed_user_id')->withTimestamps();
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'followed_user_id')->withTimestamps();
     }
 
     public function follow($userId)
@@ -71,8 +74,10 @@ class User extends Authenticatable
         }
     }
 
-    public function isfollowing($postId)
+    public function isfollowing($userId)
     {
         return $this->following()->where('followed_user_id', $userId)->exists();
     }
 }
+
+
