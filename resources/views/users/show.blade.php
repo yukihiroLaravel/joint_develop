@@ -14,6 +14,7 @@
                         </div>
                     @endif    
                 </div>
+                @include('follow.follow_button',['user' => $user])
             </div>
         </aside>
         <div class="col-sm-8">
@@ -25,5 +26,4 @@
             @include('posts.posts', ['posts' => $posts])
         </div>
     </div>
-    
 @endsection
