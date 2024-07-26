@@ -16,7 +16,7 @@
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">削除</button>
-                        </form>
+                        </form>    
                         <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
