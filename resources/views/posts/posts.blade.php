@@ -17,11 +17,6 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>    
-                    @if (session('flashSuccess'))
-                        <div class="alert alert-success text-center">
-                            {{ session('flashSuccess')}}
-                        </div>    
-                    @endif
                         <a href="" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
