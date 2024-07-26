@@ -32,6 +32,7 @@ class PostsController extends Controller
         if (\Auth::id() === $post->user_id) {
             $post->delete();
         }
-        return back();
+        //フラッシュメッセージ
+        return back()->with('flashSuccess', '投稿を削除しました');
     }
 }

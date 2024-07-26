@@ -16,7 +16,12 @@
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">削除</button>
-                        </form>
+                        </form>    
+                    @if (session('flashSuccess'))
+                        <div class="alert alert-success text-center">
+                            {{ session('flashSuccess')}}
+                        </div>    
+                    @endif
                         <a href="" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
@@ -24,4 +29,4 @@
         </li>
     @endforeach
 </ul>
-<div class="m-auto" style="width: fit-content">{{ $posts->links('pagination::bootstrap-4') }}</div>
+<div class="m-auto" style="width: fit-content">{{ $posts->links('pagination::bootstrap-4') }}</div
