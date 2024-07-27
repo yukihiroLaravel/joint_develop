@@ -25,6 +25,6 @@
             </ul>
             @include('posts.posts', ['posts' => $posts]) 
         </div>
-    </div>
-    
+    </div>   
+
 @endsection

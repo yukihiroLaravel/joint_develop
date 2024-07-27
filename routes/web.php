@@ -12,7 +12,7 @@
 */
 
 //トップページ表示
-Route::get('/', 'PostController@index');
+Route::get('/', 'PostsController@index');
 Route::group(['prefix' => 'users/{id}'],function(){
     Route::get('follows','UsersController@follows')->name('user.follows');
 });
@@ -36,20 +36,21 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('users')->group(function () {
         Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
         Route::put('{id}', 'UsersController@update')->name('users.update');
+        Route::delete('{id}', 'UsersController@destroy')->name('users.delete');
     });
     //新規投稿
     Route::prefix('posts')->group(function () {    
-        Route::post('', 'PostController@store')->name('posts.store');
+        Route::post('', 'PostsController@store')->name('posts.store');
     });
 
     // 投稿編集・更新
     Route::prefix('posts')->group(function () {  
-        Route::get('{id}/edit', 'PostController@edit')->name('posts.edit');
-        Route::put('{id}', 'PostController@update')->name('posts.update');
+        Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit');
+        Route::put('{id}', 'PostsController@update')->name('posts.update');
     });
     //投稿削除
     Route::prefix('posts')->group(function () {    
-        Route::delete('{id}', 'PostController@destroy')->name('posts.delete');
+        Route::delete('{id}', 'PostsController@destroy')->name('posts.delete');
     });
     //フォロー
     Route::group(['prefix' => 'users/{id}'],function(){

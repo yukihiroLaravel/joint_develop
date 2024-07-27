@@ -6,9 +6,6 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes; // 追記
-use App\Post;
-
-
 
 class User extends Authenticatable
 {
@@ -78,6 +75,12 @@ class User extends Authenticatable
     {
         return $this->following()->where('followed_user_id', $userId)->exists();
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::deleting(function ($user) {
+            $user->posts()->delete();
+        });
+    }
 }
-
-
