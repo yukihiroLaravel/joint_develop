@@ -32,7 +32,7 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
         $post->save();
-        return back();
+        return back()->with('flashSuccess','投稿しました');
     }
 
     public function update(PostRequest $request, $id)
