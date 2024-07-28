@@ -24,6 +24,6 @@
         </li>
     @endforeach
 </ul>
-<div class="pagination justify-content-center">
+<div class="pagination justify-content-center">{{ $posts->appends(['keyword' => request('keyword')])->links('pagination::bootstrap-4') }}</div>
         {{ $posts->links('pagination::bootstrap-4') }}  {{-- ページ送り機能 --}}
 </div>

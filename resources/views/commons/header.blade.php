@@ -4,6 +4,12 @@
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>
         </button>
+            <form method="GET" action="{{ route('posts.keyword') }}" class="text-center search-form-container" style= "height: 30px;">
+                <input type="text" name="keyword" placeholder= "投稿を検索" value="{{request('keyword')}}" >
+                <button type="submit" class="search_text" style= "top: 15px;, height: 30px;"> 検索</button>
+                <div class="form-group">
+                </div>
+            </form>    
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">

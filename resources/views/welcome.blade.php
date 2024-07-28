@@ -10,6 +10,7 @@
         <div class="w-75 m-auto">  
         @include('commons.flash_messages')
         </div>
+        <div class="text-center mb-3">
         @if(Auth::check())
             <form method="POST" action="{{ route('posts.store') }}" class="d-inline-block w-75">
                @csrf
@@ -19,18 +20,21 @@
                         <button type="submit" class="btn btn-primary">投稿する</button>
                     </div>
                 </div>
-            </form>
+            </form>       
         @endif
-            <form method="GET" action="{{ route('posts.index') }}" >
-                <input type="text" name="keyword" value="{{ $keyword }}">
-                <input type="submit" value="検索">
-                <div class="form-group">
-                    <textarea class="form-control" name="content" rows="4"></textarea>
-                    <div class="text-left mt-3">
-                        <button type="submit" class="btn btn-primary">検索する</button>
-                    </div>
-                </div>
-             </form>
         </div>
-         @include('posts.posts', ['posts' => $posts]) 
+        <!-- フラッシュメッセージの表示 -->
+        @if(session('flash_msg'))
+        <div class="alert alert-{{ session('cls') }}">
+        {{ session('flash_msg') }}
+        </div>
+        @endif
+             <form method="GET" action="{{ route('posts.keyword') }}" class="text-center mb-3">
+             </form>
+        @if(isset($keyword_result))
+            <div class="alert alert-info">
+                {{ $keyword_result }}
+            </div>
+        @endif   
+        @include('posts.posts', ['posts' => $posts]) 
 @endsection
