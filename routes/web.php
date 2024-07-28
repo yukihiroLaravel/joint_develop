@@ -13,10 +13,6 @@
 
 //トップページ表示
 Route::get('/', 'PostsController@index');
-Route::group(['prefix' => 'users/{id}'],function(){
-    Route::get('follows','UsersController@follows')->name('user.follows');
-});
-
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
