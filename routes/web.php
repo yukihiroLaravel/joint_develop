@@ -12,8 +12,7 @@
 */
 
 //トップページ表示
-Route::get('/', 'PostController@index');
-Route::get('/', 'PostController@index')->name('post.index');
+Route::get('/', 'PostsController@index')->name('post.index');
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
