@@ -31,6 +31,9 @@ class PostsController extends Controller
         $post = new Post;
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
+        if ($request->hasFile('image')){
+            $post->image_path = $request->file('image')->store('posts','public');
+        }
         $post->save();
         return back();
     }
