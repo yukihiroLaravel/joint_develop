@@ -11,6 +11,7 @@
                     @if (Auth::id() == $user->id)
                         <div class="mt-3">
                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                        </div>
                     @endif
                     @if (Auth::check() && Auth::id() !== $user->id)
                             @include('follow.follow_button', ['user' => $user])
