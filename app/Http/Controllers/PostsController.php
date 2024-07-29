@@ -11,48 +11,53 @@ use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::orderBy('id','desc')->paginate(10);
+            // キーワード受け取り
+        $keyword = $request->input('keyword');
+
+            // クエリ生成
+        $query = Post::query();
+
+            // キーワードが空の場合の処理
+        if (empty($keyword)) {
+            // 初回アクセス時の全件取得 + ページネーション
+            $posts = Post::orderBy('id', 'desc')->paginate(10);
+            // デバッグ用のログ出力
+            \Log::info('Empty keyword, showing all posts');
+            return view('welcome', [
+                'posts' => $posts,
+                'keyword_result' => '',
+                'keyword' => $keyword,
+            ])->with([
+                'flash_msg' => 'キーワードを入力してください',
+                'cls' => 'warning'
+            ]);
+        }
+
+            // キーワードがあった場合のクエリ
+        $query->where('content', 'like', "%{$keyword}%");
+
+            // 全件取得 + ページネーション
+        $posts = $query->orderBy('id', 'desc')->paginate(10);
+        $keyword_result = '検索の結果 ' . $posts->total() . ' 件';
+
         return view('welcome', [
             'posts' => $posts,
+            'keyword_result' => $keyword_result,
+            'keyword' => $keyword,
         ]);
     }
 
-    public function keyword(Request $rq)
-    {
-    //キーワード受け取り
-    $keyword = $rq->input('keyword');
 
-    // キーワードが空の場合の処理
-    if (empty($keyword)) {
-        return redirect('/')->with([
-            'flash_msg' => 'キーワードを入力してください',
-            'cls' => 'warning'
-        ]);
-    }
-
-    //クエリ生成
-    $query = \App\Post::query();
-    
-    //もしキーワードがあったら
-    if(!empty($keyword))
-    {
-        $query->where('content','like',"%{$rq->keyword}%");
-    }
-    // 全件取得 +ページネーション
-        $posts = $query->orderBy('id','desc')->paginate(10);
-        $keyword_result = '検索の結果'.count($posts). '件';
-        return view('welcome',['posts'=> $posts,
-        'keyword_result'=>$keyword_result]);
-    }   
 
     public function edit($id)
     {
         $post = Post::findOrFail($id);
         if (\Auth::id() === $post->user_id) {
-            return view('posts.edit',['post' => $post,
-        ]);
+            return view('posts.edit',[
+                    'post' => $post,
+            ]);
         }
         return back();
     }   

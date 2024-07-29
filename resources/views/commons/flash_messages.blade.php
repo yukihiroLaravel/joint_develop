@@ -20,9 +20,10 @@
         toastr.warning("{{ session('flashWarning') }}");
     @endif
 
-    @if (session('flash_msg'))
-    <div class="alert alert-{{ session('cls') }}">
+    @if(session('flash_msg'))
+        {{ dd(session()->all()) }}
+        <div class="alert alert-{{ session('cls') }}">
         {{ session('flash_msg') }}
-    </div>
+        </div>
     @endif
 </script>

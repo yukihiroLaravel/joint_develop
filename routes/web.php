@@ -13,8 +13,7 @@
 
 //トップページ表示
 Route::get('/', 'PostsController@index')->name('posts.index');
-// 投稿検索機能
-Route::get('/keyword', 'PostsController@keyword')->name('posts.keyword');
+
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');

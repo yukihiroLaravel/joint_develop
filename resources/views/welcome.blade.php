@@ -29,10 +29,10 @@
         {{ session('flash_msg') }}
         </div>
         @endif
-             <form method="GET" action="{{ route('posts.keyword') }}" class="text-center mb-3">
+             <form method="GET" action="{{ route('posts.index') }}" class="text-center mb-3">
              </form>
-        @if(isset($keyword_result))
-            <div class="alert alert-info">
+        @if(isset($keyword_result) && !empty($keyword_result))
+            <div class="alert alert-info text-center">
                 {{ $keyword_result }}
             </div>
         @endif   
