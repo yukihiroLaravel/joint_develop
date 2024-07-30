@@ -8,6 +8,9 @@
             <div>
                 <div class="text-left d-inline-block w-75">
                     <p class="mb-2">{{ $post->content }}</p>
+                    @if ($post->image_path)
+                    <img src="{{ asset('storage/'.$post->image_path) }}" class="card-img-top" alt="投稿した画像">
+                    @endif
                     <p class="text-muted">{{ $post->created_at }}</p>
                 </div>
                 @if (Auth::id() === $post->user_id)
