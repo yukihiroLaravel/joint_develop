@@ -40,13 +40,13 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password); 
         $user->save();
-        return back();
+        return redirect('/')->with('flashSuccess', 'ユーザ情報を更新しました');
     }
 
     public function destroy($id)
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect('/');
+        return redirect('/')->with('flashSuccess', '退会しました。');
     }
 }
