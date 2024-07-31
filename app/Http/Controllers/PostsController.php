@@ -44,7 +44,7 @@ class PostsController extends Controller
         if (\Auth::id() === $post->user_id){
             $post->content = $request->content;
             $post->save();
-            return redirect('/');
+            return redirect('/')->with('flashSuccess','投稿を更新しました');
         } 
     }
 
