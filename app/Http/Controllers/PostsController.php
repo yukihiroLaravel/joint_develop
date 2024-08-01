@@ -41,8 +41,11 @@ class PostsController extends Controller
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
-        if (\Auth::id() === $post->user_id){
+        if (\Auth::id() === $post->user_id){ 
             $post->content = $request->content;
+            if ($request->hasFile('image')){
+                $post->image_path = $request->file('image')->store('posts','public');
+            }
             $post->save();
             return redirect('/')->with('flashSuccess','投稿を更新しました');
         } 
