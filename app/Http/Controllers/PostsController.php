@@ -46,9 +46,9 @@ class PostsController extends Controller
             if ($request->hasFile('image')){
                 $post->image_path = $request->file('image')->store('posts','public');
             }
-        $post->save();
-        return redirect('/');
-        }
+            $post->save();
+            return redirect('/')->with('flashSuccess','投稿を更新しました');
+        } 
     }
 
     public function destroy($id)
