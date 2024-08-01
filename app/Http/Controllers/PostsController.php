@@ -13,35 +13,46 @@ class PostsController extends Controller
 {
     public function index(Request $request)
     {
+            // 初回アクセスの確認
+        if (!session()->has('visited')) {
+            session(['visited' => true]);
+            $initial_visit = true;
+        } else {
+            $initial_visit = false;
+        }
+            // ログイン直後のアクセスの確認
+        if (session()->has('logged_in')) {
+            session()->forget('logged_in');
+            $initial_visit = true;
+        }
             // キーワード受け取り
         $keyword = $request->input('keyword');
-
             // クエリ生成
         $query = Post::query();
-
             // キーワードが空の場合の処理
         if (empty($keyword)) {
             // 初回アクセス時の全件取得 + ページネーション
             $posts = Post::orderBy('id', 'desc')->paginate(10);
-            // デバッグ用のログ出力
-            \Log::info('Empty keyword, showing all posts');
+            // 初回アクセス時にはフラッシュメッセージを表示しない
+            if (!$initial_visit) {
+                session()->flash('flash_msg', 'キーワードを入力してください');
+                session()->flash('cls', 'alert-warning');
+            }
             return view('welcome', [
                 'posts' => $posts,
                 'keyword_result' => '',
                 'keyword' => $keyword,
-            ])->with([
-                'flash_msg' => 'キーワードを入力してください',
-                'cls' => 'warning'
             ]);
+        } else {
+            // キーワードがある場合はフラッシュメッセージを削除
+            session()->forget('flash_msg');
+            session()->forget('cls');
         }
-
             // キーワードがあった場合のクエリ
         $query->where('content', 'like', "%{$keyword}%");
-
             // 全件取得 + ページネーション
         $posts = $query->orderBy('id', 'desc')->paginate(10);
         $keyword_result = '検索の結果 ' . $posts->total() . ' 件';
-
         return view('welcome', [
             'posts' => $posts,
             'keyword_result' => $keyword_result,
@@ -49,8 +60,7 @@ class PostsController extends Controller
         ]);
     }
 
-
-
+    
     public function edit($id)
     {
         $post = Post::findOrFail($id);
