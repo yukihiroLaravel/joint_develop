@@ -33,7 +33,7 @@ class PostsController extends Controller
         if (empty($keyword)) {
             // 初回アクセス時の全件取得 + ページネーション
             $posts = Post::orderBy('id', 'desc')->paginate(10);
-            // 初回アクセス時にはフラッシュメッセージを表示しない
+            // アクセス時にはフラッシュメッセージを表示しない
             if (!$initial_visit) {
                 session()->flash('flash_msg', 'キーワードを入力してください');
                 session()->flash('cls', 'alert-warning');
@@ -53,20 +53,21 @@ class PostsController extends Controller
             // 全件取得 + ページネーション
         $posts = $query->orderBy('id', 'desc')->paginate(10);
         $keyword_result = '検索の結果 ' . $posts->total() . ' 件';
+            // フラッシュメッセージをクリア
+        session()->forget('flashSuccess');
         return view('welcome', [
             'posts' => $posts,
             'keyword_result' => $keyword_result,
             'keyword' => $keyword,
         ]);
     }
-
     
     public function edit($id)
     {
         $post = Post::findOrFail($id);
         if (\Auth::id() === $post->user_id) {
             return view('posts.edit',[
-                    'post' => $post,
+                'post' => $post,
             ]);
         }
         return back();
@@ -75,7 +76,7 @@ class PostsController extends Controller
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
-        if (\Auth::id() === $post->user_id){
+        if (\Auth::id() === $post->user_id) {
             $post->content = $request->content;
             $post->save();
             return redirect('/')->with('flashSuccess', '投稿を編集しました。');
@@ -90,6 +91,7 @@ class PostsController extends Controller
         }
         return back()->with('flashSuccess', '投稿を削除しました。');
     }
+
     public function store(PostRequest $request)
     {
         $post = new Post;

@@ -11,6 +11,7 @@
 |
 */
 
+
 //トップページ表示
 Route::get('/', 'PostsController@index')->name('posts.index');
 

@@ -2,10 +2,10 @@
 @section('content')
     <div class="center jumbotron bg-info">
         <div class="text-center text-white mt-2 pt-1">
-            <h1><i class="pr-3"></i>Topic Posts</h1>
+            <h1><i class="pr-3"></i>駅伝について語り尽くそう!!</h1>
         </div>
     </div>
-    <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
+    <h5 class="text-center mb-3">"駅伝"について140字以内で会話しよう！</h5>
     @include('commons.error_messages')
     <div class="w-75 m-auto">
         @include('commons.flash_messages')
@@ -24,13 +24,16 @@
         @endif
     </div>
     <!-- フラッシュメッセージの表示 -->
-    @if(session('flash_msg') && request()->routeIs('posts.index'))
+    @if(session('flashSuccess'))
+        <div class="alert alert-success text-center">
+            {{ session('flashSuccess') }}
+        </div>
+    @elseif(session('flash_msg') && request()->routeIs('posts.index'))
         <div class="alert {{ session('cls') }} text-center">
             {{ session('flash_msg') }}
         </div>
     @endif
-        <form method="GET" action="{{ route('posts.index') }}" class="text-center mb-3">
-        </form>
+    
     @if(isset($keyword_result) && !empty($keyword_result))
         <div class="alert alert-info text-center">
             {{ $keyword_result }}
@@ -38,5 +41,3 @@
     @endif
     @include('posts.posts', ['posts' => $posts])
 @endsection
-
-
