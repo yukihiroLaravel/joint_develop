@@ -13,28 +13,27 @@ class PostsController extends Controller
 {
     public function index(Request $request)
     {
-            // 初回アクセスの確認
+        // 初回アクセスの確認
+        $initialVisit = false;
         if (!session()->has('visited')) {
             session(['visited' => true]);
-            $initial_visit = true;
-        } else {
-            $initial_visit = false;
+            $initialVisit = true;
         }
-            // ログイン直後のアクセスの確認
+        // ログイン直後のアクセスの確認
         if (session()->has('logged_in')) {
             session()->forget('logged_in');
-            $initial_visit = true;
+            $initialVisit = true;
         }
-            // キーワード受け取り
+        // キーワード受け取り
         $keyword = $request->input('keyword');
-            // クエリ生成
+        // クエリ生成
         $query = Post::query();
-            // キーワードが空の場合の処理
+        // キーワードが空の場合の処理
         if (empty($keyword)) {
             // 初回アクセス時の全件取得 + ページネーション
             $posts = Post::orderBy('id', 'desc')->paginate(10);
             // アクセス時にはフラッシュメッセージを表示しない
-            if (!$initial_visit) {
+            if (!$initialVisit) {
                 session()->flash('flash_msg', 'キーワードを入力してください');
                 session()->flash('cls', 'alert-warning');
             }
@@ -43,17 +42,16 @@ class PostsController extends Controller
                 'keyword_result' => '',
                 'keyword' => $keyword,
             ]);
-        } else {
-            // キーワードがある場合はフラッシュメッセージを削除
-            session()->forget('flash_msg');
-            session()->forget('cls');
         }
-            // キーワードがあった場合のクエリ
+        // キーワードがある場合はフラッシュメッセージを削除
+        session()->forget('flash_msg');
+        session()->forget('cls');
+        // キーワードがあった場合のクエリ
         $query->where('content', 'like', "%{$keyword}%");
-            // 全件取得 + ページネーション
+        // 全件取得 + ページネーション
         $posts = $query->orderBy('id', 'desc')->paginate(10);
         $keyword_result = '検索の結果 ' . $posts->total() . ' 件';
-            // フラッシュメッセージをクリア
+        // フラッシュメッセージをクリア
         session()->forget('flashSuccess');
         return view('welcome', [
             'posts' => $posts,
@@ -101,3 +99,4 @@ class PostsController extends Controller
         return back()->with('flashSuccess', '投稿しました。');
     }
 }
+
