@@ -83,4 +83,14 @@ class User extends Authenticatable
             $user->posts()->delete();
         });
     }
+
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'followed_user_id')->withTimestamps();
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'followed_user_id', 'user_id')->withTimestamps();
+    }
 }
