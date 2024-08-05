@@ -1,11 +1,8 @@
 @font-face{
     font-family:'waltograph';
-    src:url('waltograph42.ttf')
-    format('truetype');
-        font-weight:normal;
-        font-style:normal;
+    src:url('waltograph42.ttf')format('truetype');       
 }
 
 body{
-        font-family: 'waltograph', sans-serif;
+ font-family: 'waltograph', sans-serif;
 }
