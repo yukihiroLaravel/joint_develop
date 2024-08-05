@@ -12,47 +12,47 @@ class PostsTableSeeder extends Seeder
     public function run()
     {    
         DB::table('posts')->insert([
-            'content' => 'test1',
+            'content' => 'ディズニー最高！',
             'user_id' => 1,
         ]);
         DB::table('posts')->insert([
-            'content' => 'test2',
+            'content' => 'ラプンツェル可愛かったね！',
             'user_id' => 2,
         ]);
         DB::table('posts')->insert([
-            'content' => 'test3',
+            'content' => 'ランドって時計回りに周りに‘過去’‘現在’‘未来’になってるんだって！',
             'user_id' => 3,
         ]);
         DB::table('posts')->insert([
-            'content' => 'test4',
+            'content' => '11月18日はミッキーの誕生日だよ！',
             'user_id' => 4,
         ]);
         DB::table('posts')->insert([
-            'content' => 'test5',
+            'content' => 'シーの夜景綺麗すぎ！',
             'user_id' => 1,
         ]);
         DB::table('posts')->insert([
-            'content' => 'test6',
+            'content' => 'キャラメルポップコーンが一番好き！',
             'user_id' => 2,
         ]);
         DB::table('posts')->insert([
-            'content' => 'test7',
+            'content' => 'タワテラ怖すぎ！シリキ・ウトゥンドゥの目が・・・',
             'user_id' => 3,
         ]);
         DB::table('posts')->insert([
-            'content' => 'test8',
+            'content' => 'やばーい！ソアリン100分待ち(泣)',
             'user_id' => 4,
         ]);
         DB::table('posts')->insert([
-            'content' => 'test9',
+            'content' => '新アトラクション楽しすぎ！！',
             'user_id' => 1,
         ]);
         DB::table('posts')->insert([
-            'content' => 'test10',
+            'content' => 'ランドでもお酒飲めるようになったよ！',
             'user_id' => 2,
         ]);
         DB::table('posts')->insert([
-            'content' => 'test11',
+            'content' => 'スプラッシュマウンテンのカメラは右側にあるよ！',
             'user_id' => 3,
         ]);
     }
