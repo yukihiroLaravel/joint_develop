@@ -20,20 +20,22 @@
                         <input type="submit" value="写真をアップロード">
                     </form>
                         <div class="mt-3">
-                            <a href="{{ route('users.edit', Auth::id()) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>          
+                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                         </div>
-                    @endif 
+                    @endif
+                    @if (Auth::check() && Auth::id() !== $user->id)
+                            @include('follow.follow_button', ['user' => $user])
+                    @endif
                 </div>
             </div>
         </aside>
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
-                <li class="nav-item"><a href="#" class="nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}">タイムライン</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
+                <li class="nav-item"><a href="{{ route('users.show', ['id' => $user->id]) }}" class="nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}">タイムライン</a></li>
+                <li class="nav-item"><a href="{{ route('followings', $user->id) }}" class="nav-link{{ Request::is('users/' . $user->id . '/followings') ? 'active' : '' }}">フォロー中</a></li>
+                <li class="nav-item"><a href="{{ route('followers', $user->id) }}" class="nav-link{{ Request::is('users/' . $user->id . '/followers') ? 'active' : '' }}">フォロワー</a></li>
             </ul>
             @include('posts.posts', ['posts' => $posts]) 
         </div>
     </div>   
-
 @endsection

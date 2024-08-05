@@ -11,8 +11,10 @@
 |
 */
 
+
 //トップページ表示
-Route::get('/', 'PostsController@index');
+Route::get('/', 'PostsController@index')->name('posts.index');
+
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
@@ -26,6 +28,13 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('users.show');
 });
+
+// フォロー機能によるタイムライン変更
+Route::prefix('users/{id}')->group(function () {
+    Route::get('followings','UsersController@followings')->name('followings');
+    Route::get('followers','UsersController@followers')->name('followers');
+});
+
 
 // ユーザー編集・更新
 Route::group(['middleware' => 'auth'], function () {
@@ -46,8 +55,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit');
         Route::put('{id}', 'PostsController@update')->name('posts.update');
     });
+    
     //投稿削除
     Route::prefix('posts')->group(function () {    
         Route::delete('{id}', 'PostsController@destroy')->name('posts.delete');
+    });
+    //フォロー
+    Route::group(['prefix' => 'users/{id}'],function(){
+        Route::post('follows','FollowController@store')->name('follow');
+        Route::delete('unfollow','FollowController@destroy')->name('unfollow');
     });
 });
