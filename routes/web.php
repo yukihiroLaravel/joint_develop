@@ -29,6 +29,13 @@ Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('users.show');
 });
 
+// フォロー機能によるタイムライン変更
+Route::prefix('users/{id}')->group(function () {
+    Route::get('followings','UsersController@followings')->name('followings');
+    Route::get('followers','UsersController@followers')->name('followers');
+});
+
+
 // ユーザー編集・更新
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('users')->group(function () {
