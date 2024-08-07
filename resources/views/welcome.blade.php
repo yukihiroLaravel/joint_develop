@@ -2,10 +2,10 @@
 @section('content')
     <div class="center jumbotron bg-primary">
         <div class="text-center text-white mt-2 pt-1">
-            <h1><i class="pr-3"></i><i class="fas fa-home"></i> ミッキーのお部屋 <i class="fas fa-home"></i></h1>
+            <h1><i class="pr-3"></i><i class="fas fa-home"></i> Mickey's Room <i class="fas fa-home"></i></h1>
         </div>
     </div>
-    <h5 class="text-center mb-3">"ディズニー"について140字以内で会話しよう！</h5>
+    <h5 class="text-center mb-3">"Disney"について140字以内で会話しよう！</h5>
         @include('commons.error_messages')
         <div class="w-75 m-auto">
          @include('commons.flash_messages')
