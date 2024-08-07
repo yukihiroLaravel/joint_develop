@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="text-center">
-        <h1><i class="fas fa-home" style="coler: black"></i> ミッキーのお部屋</h1>
+        <h1><i class="fas fa-home" style="coler: black"></i> Mickey's Room </h1>
     </div>
     <div class="text-center mt-3">
         <p class="text-left d-inline-block">ログインすると投稿で<br>コミュニケーションができるようになります。</p>

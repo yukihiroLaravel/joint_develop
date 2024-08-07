@@ -1,6 +1,6 @@
 <header class="mb-5">
     <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
-        <a class="navbar-brand" href="/"><i class="fas fa-home"></i> ミッキーのお部屋</a>
+        <a class="navbar-brand" href="/"><i class="fas fa-home"></i> Mickey's Room </a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>
         </button>
