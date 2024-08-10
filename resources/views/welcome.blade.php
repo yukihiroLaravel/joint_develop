@@ -29,9 +29,9 @@
             {{ session('flashSuccess') }}
         </div>
     @elseif(session('flash_msg') && request()->routeIs('posts.index'))
-        <div class="alert {{ session('cls') }} text-center">
-            {{ session('flash_msg') }}
-        </div>
+    <div class="alert {{ session('cls') }} text-center">
+        {{ session('flash_msg') }}
+    </div>
     @endif
     
     @if(isset($keyword_result) && !empty($keyword_result))
