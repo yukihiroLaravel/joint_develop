@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
         // Fakerインスタンスを英語設定で作成
         $faker = Faker::create('en_US');
         
-        // 1から4まで繰り返し、ユーザを新規作成する
+        // 5回繰り返し、ユーザを新規作成する
         for ($i = 1; $i <= 5; $i++) {
             // ランダムな一意な名前を生成（例：Ariel）
             $name = $faker->unique()->firstName;
