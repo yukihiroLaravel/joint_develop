@@ -228,4 +228,6 @@ return [
 
     ],
 
+    //TOPIC_POSTS_TITLE
+    'TopicPostsTitle' => env('TOPIC_POSTS_TITLE', 'Topic Posts'),
 ];
