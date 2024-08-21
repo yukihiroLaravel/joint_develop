@@ -13,11 +13,12 @@
                     <h3 class="card-title text-light">{{ $user->name }}</h3>
                 </div>
                 <div class="card-body">
-                    {{-- TODO 一旦、デザイン確認のため「temporaryAvatarImage.png」をダミー表示。「アバター」画像の仕様検討必要 --}}
-                    <img class="rounded-circle img-fluid" src="{{ asset('temporaryAvatarImage.png') }}" alt="">
+                    <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 400) }}" alt="">
+                    @if (Auth::id() === $user->id)
                         <div class="mt-3">
                             <a href="" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                         </div>
+                    @endif
                 </div>
             </div>
         </aside>
