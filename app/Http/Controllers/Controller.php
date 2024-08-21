@@ -16,6 +16,6 @@ class Controller extends BaseController
      */
     public function postsByUser($user)
     {
-        return $user->posts()->orderBy('created_at', 'desc')->paginate(10);
+        return $user->posts()->orderBy('id', 'desc')->paginate(10);
     }
 }
