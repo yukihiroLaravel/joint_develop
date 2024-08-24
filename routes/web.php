@@ -23,3 +23,18 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+
+// ユーザ
+Route::group(['prefix' => 'users/{id}'],function(){
+
+    // *******************
+    // ユーザ詳細
+    // *******************
+    // タイムライン
+    Route::get('', 'UsersController@show')->name('user.show');
+    // フォロー中
+    Route::get('followings','UsersController@followings')->name('user.followings');
+    // フォロワー
+    Route::get('followers','UsersController@followers')->name('user.followers');
+    // *******************
+});

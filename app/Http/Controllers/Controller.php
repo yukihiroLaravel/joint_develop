@@ -10,4 +10,12 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    /**
+     * 「$user」の投稿を取得する。
+     */
+    public function postsByUser($user)
+    {
+        return $user->posts()->orderBy('id', 'desc')->paginate(10);
+    }
 }
