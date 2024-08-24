@@ -33,3 +33,12 @@ Route::group(['prefix' => 'users/{id}'],function(){
     Route::get('followers','UsersController@followers')->name('user.followers');
     // *******************
 });
+
+// ログイン後
+Route::group(['middleware' => 'auth'], function() {
+    // 「ユーザ」
+    Route::prefix('users')->group(function(){
+        // 削除
+        Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
+    });
+});

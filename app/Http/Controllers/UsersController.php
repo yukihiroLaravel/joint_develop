@@ -52,4 +52,19 @@ class UsersController extends Controller
         
         return view('users.show', $data);
     }
+
+    /**
+     *  削除
+     */
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+
+        \DB::transaction(function () use ($user) {
+            // 「$user」および、関連モデルのレコードを削除する。
+            $this->deleteUserRelations($user);
+        });
+
+        return redirect('/');
+    }
 }
