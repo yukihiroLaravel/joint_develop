@@ -33,3 +33,12 @@ Route::group(['prefix' => 'users/{id}'],function(){
     Route::get('followers','UsersController@followers')->name('user.followers');
     // *******************
 });
+
+// ログイン後
+Route::group(['middleware' => 'auth'], function() {
+    // 「投稿」
+    Route::prefix('posts')->group(function(){
+        // 登録
+        Route::post('', 'PostsController@store')->name('post.store');
+    });
+});
