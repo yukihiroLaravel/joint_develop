@@ -19,6 +19,11 @@ Route::get('/', function () {
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post'); 
 
+// ログイン
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login.post');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+
 // ユーザ
 Route::group(['prefix' => 'users/{id}'],function(){
 
@@ -40,5 +45,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::prefix('users')->group(function(){
         // 削除
         Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
+    // 「投稿」
+    Route::prefix('posts')->group(function(){
+        // 登録
+        Route::post('', 'PostsController@store')->name('post.store');
     });
 });
