@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Post;
 
 class UsersController extends Controller
 {
@@ -16,5 +17,17 @@ class UsersController extends Controller
             // 'posts' => $posts,
         ];
         return view('users.show',$data);
+    }
+
+    public function destroy($id)
+    {
+        $posts = Post::orderBy('id', 'desc')->paginate(9);
+        $user = User::findOrFail($id);
+        if (\Auth::id() === $user->id) {
+            $user->delete();
+            // 退会に成功したフラッシュメッセージを設定し、初期画面を表示させる
+            return redirect()->route('welcome')->with('status', 'ユーザの退会処理が完了しました。');
+        }
+        return back()->with('error', 'ユーザの退会処理に失敗しました。<br>再度ログインしてからやり直してください。');
     }
 }
