@@ -41,6 +41,11 @@ Route::group(['prefix' => 'users/{id}'],function(){
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function() {
+    // 「ユーザ」
+    Route::prefix('users')->group(function(){
+        // 削除
+        Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
+    });
     // 「投稿」
     Route::prefix('posts')->group(function(){
         // 登録
