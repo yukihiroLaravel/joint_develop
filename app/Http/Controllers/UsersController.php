@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use App\Post;
 
 class UsersController extends Controller
 {
@@ -21,7 +20,6 @@ class UsersController extends Controller
 
     public function destroy($id)
     {
-        $posts = Post::orderBy('id', 'desc')->paginate(9);
         $user = User::findOrFail($id);
         if (\Auth::id() === $user->id) {
             $user->delete();
