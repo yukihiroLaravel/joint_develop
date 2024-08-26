@@ -7,6 +7,11 @@ use App\User;
 
 class UsersController extends Controller
 {
+    public function index()
+    {
+        return view('welcome');
+    }
+
     public function show($id)
     {
         $user = User::findOrFail($id);
