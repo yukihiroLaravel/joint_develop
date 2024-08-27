@@ -7,11 +7,7 @@
     </div>
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
         <div class="w-75 m-auto">
-            @if (session('error'))
-                <div class="alert alert-danger mt-3">
-                    {{ session('error') }}
-                </div>
-            @endif
+            @include('commons.error_messages')
             @if (session('status'))
                 <div class="alert alert-success mt-3">
                     {{ session('status') }}
