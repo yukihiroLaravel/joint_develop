@@ -61,8 +61,7 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
 
         \DB::transaction(function () use ($user) {
-            // 「$user」および、関連モデルのレコードを削除する。
-            $this->deleteUserRelations($user);
+            $user->delete();
         });
 
         return redirect('/');

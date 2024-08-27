@@ -18,16 +18,4 @@ class Controller extends BaseController
     {
         return $user->posts()->orderBy('id', 'desc')->paginate(10);
     }
-
-    /**
-     * 「$user」および、関連モデルのレコードを削除する。
-     */
-    protected function deleteUserRelations($user)
-    {
-        // posts
-        $user->posts()->delete();
-
-        // users
-        $user->delete();
-    }
 }
