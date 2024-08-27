@@ -27,6 +27,7 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         if (\Auth::id() === $user->id) {
+            $user->posts()->delete();
             $user->delete();
             // 退会に成功したフラッシュメッセージを設定し、初期画面を表示させる
             return redirect()->route('welcome')->with('status', 'ユーザの退会処理が完了しました。');
