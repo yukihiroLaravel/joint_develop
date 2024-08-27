@@ -120,15 +120,15 @@ class User extends Authenticatable
     /**
      * フォローする。
      */
-    public function follow($other_user_id)
+    public function follow($otherUserId)
     {
-        // 「$this」のUserが、$other_user_idのUserをフォローする。
+        // 「$this」のUserが、$otherUserIdのUserをフォローする。
 
-        $exist = $this->isFollowings($other_user_id);
+        $exist = $this->isFollowings($otherUserId);
         if ($exist) {
             return false;
         } else {
-            $this->followings()->attach($other_user_id);
+            $this->followings()->attach($otherUserId);
             return true;
         }
     }
@@ -136,13 +136,13 @@ class User extends Authenticatable
     /**
      * フォローを解除する。
      */
-    public function unfollow($other_user_id)
+    public function unfollow($otherUserId)
     {
-        // 「$this」のUserが、$other_user_idのUserをフォローを解除する。
+        // 「$this」のUserが、$otherUserIdのUserをフォローを解除する。
 
-        $exist = $this->isFollowings($other_user_id);
+        $exist = $this->isFollowings($otherUserId);
         if ($exist) {
-            $this->followings()->detach($other_user_id);
+            $this->followings()->detach($otherUserId);
             return true;
         } else {
             return false;
@@ -152,20 +152,20 @@ class User extends Authenticatable
     /**
      * 「フォロー中」かどうか
      */
-    public function isFollowings($other_user_id)
+    public function isFollowings($otherUserId)
     {
-        // 「$this」のUserが「$other_user_id」のUserを「フォロー中」かどうか
+        // 「$this」のUserが「$otherUserId」のUserを「フォロー中」かどうか
 
-        return $this->followings()->where('to_user_id', $other_user_id)->exists();
+        return $this->followings()->where('to_user_id', $otherUserId)->exists();
     }
 
     /**
      * 「フォロワー」かどうか
      */
-    public function isFollowers($other_user_id)
+    public function isFollowers($otherUserId)
     {
-        // 「$other_user_id」のUserが「$this」のUserの「フォロワー」かどうか
+        // 「$otherUserId」のUserが「$this」のUserの「フォロワー」かどうか
 
-        return $this->followers()->where('from_user_id', $other_user_id)->exists();
+        return $this->followers()->where('from_user_id', $otherUserId)->exists();
     }
 }
