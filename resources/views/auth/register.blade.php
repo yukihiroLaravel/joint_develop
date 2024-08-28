@@ -1,5 +1,6 @@
-{{-- @extends('layouts.app') --}}
-{{-- @section('content') --}}
+@extends('layouts.app')
+@section('content')
+@include('commons.error_messages')
 <div class="text-center">
   <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
 </div>
@@ -33,4 +34,4 @@
       </form>
   </div>
 </div>
-{{-- @endsection --}}
+@endsection
