@@ -18,8 +18,15 @@ Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('sign
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 // ユーザ
-// Route::get('/', 'UsersController@index');
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
     Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
+});
+
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    // 投稿
+    Route::prefix('posts')->group(function () {
+        Route::post('', 'PostsController@store')->name('post.store');
+    });
 });
