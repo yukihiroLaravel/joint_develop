@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
 @include('commons.error_messages')
 <div class="text-center">
