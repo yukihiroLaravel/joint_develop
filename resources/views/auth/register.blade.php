@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-@include('commons.error_messages')
 <div class="text-center">
   <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
 </div>
@@ -13,6 +12,7 @@
 </div>
 <div class="row mt-5 mb-5">
   <div class="col-sm-6 offset-sm-3">
+      @include('commons.error_messages')
       <form method="POST" action="{{ route('signup.post') }}">
           @csrf
           <div class="form-group">
