@@ -1,5 +1,6 @@
-{{-- @extends('layouts.app') --}}
-{{-- @section('content') --}}
+@extends('layouts.app')
+
+@section('content')
 <div class="row">
     <aside class="col-sm-4 mb-5">
         <div class="card bg-info">
@@ -37,4 +38,4 @@
     </div>
 </div>
 <script src="{{ asset('/js/confirmDelete.js') }}" defer></script>
-{{-- @endsection --}}
+@endsection
