@@ -51,4 +51,10 @@ Route::group(['middleware' => 'auth'], function() {
         // 登録
         Route::post('', 'PostsController@store')->name('post.store');
     });
+
+    // 「フォロー」
+    Route::group(['prefix' => 'follows/{id}'],function(){
+        Route::post('follow', 'FollowsController@store')->name('follow');
+        Route::delete('unfollow', 'FollowsController@destroy')->name('unfollow');
+    });
 });

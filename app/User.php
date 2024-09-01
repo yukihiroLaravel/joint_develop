@@ -55,9 +55,125 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * ユーザ名の文字数が$truncateLengthを超える場合は、
+     * 先頭の$truncateLengthの文字数分でカットして「...」を連結した文字列を返す
+     */
+    public function truncateName($truncateLength = 12)
+    {
+        if(mb_strlen($this->name) > $truncateLength) {
+            return mb_substr($this->name, 0, $truncateLength) . '...';
+        }
+        return $this->name;
+    }
+
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    /**
+     * 最新の投稿を1件取得 (投稿なしの場合はnull返却)
+     */
+    public function latestPost()
+    {
+        // $thisのUserの最新の投稿を1件取得する
+        // ただし、$thisのUserが1件も投稿がない場合は
+        // nullが返却される。
+
+        return $this->hasMany(Post::class)->orderBy('id', 'desc')->first();
+    }
+
+    // ******************************************************************************
+    // 「フォロー関連」
+    // ******************************************************************************
+    /**
+     * 「$followsParam」のデフォルトを作成する。
+     * フォロー関係のUIを表示しない仕様のケースは
+     * このデフォルト値で、後続処理のエラー回避する。
+     */
+    public static function createDefaultFollowsParam()
+    {
+        // 第2引数に、ArrayObject::ARRAY_AS_PROPS を指定して
+        // 作ったArrayObjectのインスタンスは、「->」でメンバーアクセス可能
+        // 上記、仕組みで作成する。
+        // より複雑な仕様に対応すべき時にクラス定義を考慮したときに、
+        // 利用してる側の実装について、変更なしとなるために
+        // 「->」でメンバーアクセス可能な形としたい
+        // 現状は、そこまで必要なしだが、後々に、そうなったときに
+        // 改修しやすい状況とするのが目的
+
+        $followsParam = new \ArrayObject([
+            "isControl" => false,
+            "isFollowings" => false,
+            "isFollowers" => false,
+        ], \ArrayObject::ARRAY_AS_PROPS);
+
+        return $followsParam;
+    }
+
+    /**
+     * 「Auth::id()」と「$otherUserId」の状況に従って、$followsParamを更新する。
+     */
+    public static function updateFollowsParam($followsParam, $otherUserId)
+    {
+        // 仕様しだいだが、プログラムの構造としては、
+        // 「createDefaultFollowsParam()」でデフォルトで、isControlがfalseで
+        // 当メソッドで必要に応じて更新する
+        // 2段構えとしておくことで、
+        // ユーザと投稿の1対1の表示形式のリストが
+        // フォロー関連のUIは不要だが必要となるケースが
+        // あったとしても、既存のコードが使いまわせる
+        // 柔軟性を持った状況となることを目的とする
+
+        if(!\Auth::check()) {
+            // ログインしてなければ、なにもしない
+            return;
+        }
+
+        if(\Auth::id() === $otherUserId) {
+            // ログインユーザ自身は、なにもしない
+            return;
+        }
+
+        // フォロー関係のUIを表示する仕様のケースだから当メソッドを
+        // 実行したので、trueを指定する。
+        $followsParam->isControl = true;
+
+        // ログインユーザ
+        $loginUser = \Auth::user();
+
+        // ログインユーザが、$otherUserIdを「フォロー中」かどうかを指定する
+        $followsParam->isFollowings = $loginUser->isFollowings($otherUserId);
+
+        // $otherUserIdが、ログインユーザの「フォロワー」かどうかを指定する
+        $followsParam->isFollowers = $loginUser->isFollowers($otherUserId);
+    }
+
+    /**
+     * フォロー関連のボタン表示のベースがOKかどうか
+     */
+    public static function isFollowsBaseOk($followsParam, $otherUserId)
+    {
+        // 処理負荷が低い順に判定
+
+        if(!$followsParam->isControl) {
+            // 「isControl：インクルード元が画面仕様としてフォローの表示制御がしたい」
+            // ではないケースは対象外
+            return false;
+        }
+
+        if(!\Auth::check()) {
+            // ログインしてなければ対象外
+            return false;
+        }
+
+        if(\Auth::id() === $otherUserId) {
+            // ログインユーザ自身は、対象外にする
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -168,4 +284,5 @@ class User extends Authenticatable
 
         return $this->followers()->where('from_user_id', $otherUserId)->exists();
     }
+    // ******************************************************************************
 }
