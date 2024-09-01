@@ -10,7 +10,6 @@
     <body class="d-flex flex-column">
         @include('commons.header')
         <div class="container mb-auto">
-            @include('commons.error_messages')
             @yield('content')
         </div>
         @include('commons.footer')
