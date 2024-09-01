@@ -17,9 +17,10 @@ class FollowsController extends Controller
             ]);
         }
 
-        \Auth::user()->follow($otherUserId);
-
-        $this->showFlashSuccess("{$otherUser->name} さんをフォローしました。");
+        $ret = \Auth::user()->follow($otherUserId);
+        if($ret) {
+            $this->showFlashSuccess("{$otherUser->name} さんをフォローしました。");
+        }
 
         return back()->with([
             'followsOperationBack' => true,
@@ -36,9 +37,10 @@ class FollowsController extends Controller
             ]);
         }
 
-        \Auth::user()->unfollow($otherUserId);
-
-        $this->showFlashSuccess("{$otherUser->name} さんをフォロー解除しました。");
+        $ret = \Auth::user()->unfollow($otherUserId);
+        if($ret) {
+            $this->showFlashSuccess("{$otherUser->name} さんをフォロー解除しました。");
+        }
 
         return back()->with([
             'followsOperationBack' => true,
