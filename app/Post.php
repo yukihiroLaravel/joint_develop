@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\App\Use;
+// use Illuminate\App\Use;
 
 class Post extends Model
 {
