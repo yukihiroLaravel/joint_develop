@@ -5,12 +5,11 @@
         $isActiveFollowings = Request::is('users/' . $user->id . '/followings');
         $isActiveFollowers = Request::is('users/' . $user->id . '/followers');
 
+        require_once app_path('Helpers/ViewHelper.php');
+        $viewHelper = \App\Helpers\ViewHelper::getInstance();
 
-        $followsParam = App\User::createDefaultFollowsParam();
-        $otherUserId = $user->id;
-        App\User::updateFollowsParam($followsParam, $otherUserId);
-
-        $isFollowsBaseOk = App\User::isFollowsBaseOk($followsParam, $user->id);
+        // 「$followsParam」を作成する。
+        $followsParam = $viewHelper->createFollowsParam($user);
     @endphp
 
     <div class="row">
@@ -18,7 +17,7 @@
             <div class="card bg-info">
                 <div class="card-header">
 
-                    @if ($isFollowsBaseOk && $followsParam->isFollowers)
+                    @if ($followsParam->isFollowerIndicatorVisible)
                         <div class="text-left d-inline-block w-75 mb-2">
                             <i class="fas fa-user"></i>&nbsp;<span>フォローされています</span>
                         </div>
@@ -27,8 +26,8 @@
                         {{ $user->truncateName(5) }}
 
                         {{-- 「右寄せ」のために同じH3タグ内に置く必要あり--}}
-                        @if ($isFollowsBaseOk)
-                            @include('follows.button', ['user' => $user, 'followsParam' => $followsParam])
+                        @if ($followsParam->isFollowsBaseOk)
+                            @include('follows.button', ['followsParam' => $followsParam])
                         @endif
                     </h3>
                 </div>

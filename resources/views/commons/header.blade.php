@@ -17,4 +17,5 @@
             </ul>
         </div>
     </nav>
+    @include('commons.flash_messages')
 </header>

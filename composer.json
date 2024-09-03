@@ -15,6 +15,7 @@
         "thomaswelton/laravel-gravatar": "~1.0"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.0",
         "facade/ignition": "^1.16.15",
         "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.0",

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\User;
 
 class FollowsController extends Controller
 {
-    public function store(Request $request, $otherUserId)
+    /**
+     * フォローする。
+     */
+    public function store($otherUserId)
     {
         $otherUser = User::find($otherUserId);
         if(is_null($otherUser)) {
@@ -27,7 +29,10 @@ class FollowsController extends Controller
         ]);
     }
     
-    public function destroy(Request $request, $otherUserId)
+    /**
+     * フォローを解除する。
+     */
+    public function destroy($otherUserId)
     {
         $otherUser = User::find($otherUserId);
         if(is_null($otherUser)) {
