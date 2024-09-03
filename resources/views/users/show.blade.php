@@ -24,12 +24,14 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-secondary rounded-pill">フォロー中</button>
                         </form>
-                    @endif
-                @else
+                    @else
                     <form method="POST" action="{{ route('follow', $user->id) }}" class="d-inline">
                         @csrf
                         <button type="submit" class="btn btn-primary rounded-pill">フォローする</button>
                     </form>
+                    @endif
+                @elseif (!Auth::check())  {{-- ログインしていない場合 --}}
+                    <a href="{{-- route('login') --}}" class="btn btn-primary rounded-pill">フォローする</a>
                 @endif
             </div>
             <div class="card-body">

@@ -14,12 +14,14 @@
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-outline-secondary rounded-pill">フォロー中</button>
                                 </form>
+                            @else
+                                <form method="POST" action="{{ route('follow', $following->id) }}" class="d-inline">
+                                    @csrf
+                                    <button type="submit" class="btn btn-outline-primary rounded-pill">フォローする</button>
+                                </form>
                             @endif
-                        @else
-                            <form method="POST" action="{{ route('follow', $following->id) }}" class="d-inline">
-                                @csrf
-                                <button type="submit" class="btn btn-outline-primary rounded-pill">フォローする</button>
-                            </form>
+                        @elseif (!Auth::check())  {{-- ログインしていない場合 --}}
+                            <a href="{{-- route('login') --}}" class="btn btn-outline-primary rounded-pill">フォローする</a>
                         @endif
                     </div>
                     <p class="mb-0 text-muted">{{ $following->email }}</p>
