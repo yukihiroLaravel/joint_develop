@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
@@ -66,5 +68,25 @@ class UsersController extends Controller
         });
 
         return redirect('/');
+    }
+
+    //編集
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        return view('users.edit', compact('user'));
+    }
+    
+    //更新
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        if($request->filled('password')){
+            $user->password = Hash::make($request->input('password'));
+        }
+        $user->save();
+        return back();
     }
 }
