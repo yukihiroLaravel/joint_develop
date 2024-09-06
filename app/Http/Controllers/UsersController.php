@@ -7,7 +7,10 @@ use App\User;
 
 class UsersController extends Controller
 {
-    //  トップページを表示させるためのindexメソッドはココに入る
+    public function index()
+    {
+        return view('welcome');
+    }
 
     public function show($id)
     {
