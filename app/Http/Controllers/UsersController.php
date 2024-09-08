@@ -131,6 +131,7 @@ class UsersController extends Controller
         \DB::transaction(function () use ($user) {
             $user->delete();
         });
+        $this->showFlashSuccess("退会しました。");
 
         return redirect('/');
     }
@@ -138,8 +139,10 @@ class UsersController extends Controller
     //編集
     public function edit($id)
     {
-        $user = User::findOrFail($id);
-        return view('users.edit', compact('user'));
+        $user = \Auth::user();
+        return view('users.edit',[
+            'user'=>$user,
+        ]);
     }
     
     //更新
