@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
         $faker = Faker::create('en_US');
         
         // 5回繰り返し、ユーザを新規作成する
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= 12; $i++) {
             // ランダムな一意な名前を生成（例：Ariel）
             $name = $faker->unique()->firstName;
             // 名前+@example.com （例：Ariel@example.com）
