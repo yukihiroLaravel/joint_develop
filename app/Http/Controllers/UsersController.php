@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UserRequest;
 
 class UsersController extends Controller
 {
@@ -129,7 +131,31 @@ class UsersController extends Controller
         \DB::transaction(function () use ($user) {
             $user->delete();
         });
+        $this->showFlashSuccess("退会しました。");
 
         return redirect('/');
+    }
+
+    //編集
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        if (\Auth::user()->id !== $user->id) {
+            abort(403);
+        }
+        return view('users.edit',['user'=>$user,]);
+    }
+    
+    //更新
+    public function update(UserRequest $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        if($request->filled('password')){
+            $user->password = Hash::make($request->input('password'));
+        }
+        $user->save();
+        return back();
     }
 }

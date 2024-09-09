@@ -1,5 +1,5 @@
-{{-- @extends('layouts.app') --}}
-{{-- @section('content') --}}
+@extends('layouts.app')
+@section('content')
     <div class="text-center">
         <h1><i class="fab fa-telegram fa-lg pr-3"></i>{{ config('app.TopicPostsTitle') }}</h1>
     </div>
@@ -10,6 +10,7 @@
         <h3 class="login_title text-left d-inline-block mt-5">ログイン</h3>
     </div>
     <div class="row mt-5 mb-5">
+        <div class="w-75 m-auto">@include('commons.error_messages')</div>
         <div class="col-sm-6 offset-sm-3">
             <form method="POST" action="{{ route('login.post') }}">
                 @csrf
@@ -26,4 +27,4 @@
             <div class="mt-2"><a href="{{ route('signup') }}">新規ユーザ登録する？</a></div>
         </div>
     </div>
-{{-- @endsection --}}
+@endsection
