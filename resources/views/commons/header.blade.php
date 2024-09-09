@@ -8,11 +8,11 @@
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
                 @if (Auth::check())
-                    <li class="nav-item"><a href="{{ route('user.show', Auth::user()->id) }}" class="nav-link {{ Request::is('users/'. Auth::user()->id) ? 'active' : '' }}">{{ Auth::user()->name }}</a></li>
-                    <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link text-ilght">ログアウト</a></li>
+                    <li class="nav-item"><a href="{{ route('user.show', Auth::user()->id) }}" class="nav-link text-white {{ Request::is('users/'. Auth::user()->id) ? 'active' : '' }}">{{ Auth::user()->name }}</a></li>
+                    <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link text-white">ログアウト</a></li>
                 @else
-                    <li class="nav-item"><a href="{{ route('login') }}" class="nav-link text-light">ログイン</a></li>
-                    <li class="nav-item"><a href="{{ route('signup') }}" class="nav-link text-light">新規ユーザ登録</a></li>
+                    <li class="nav-item"><a href="{{ route('login') }}" class="nav-link text-white">ログイン</a></li>
+                    <li class="nav-item"><a href="{{ route('signup') }}" class="nav-link text-white">新規ユーザ登録</a></li>
                 @endif
         </div>
     </nav>
