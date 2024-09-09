@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\UserRequest;
 
 class UsersController extends Controller
 {
@@ -139,14 +139,15 @@ class UsersController extends Controller
     //編集
     public function edit($id)
     {
-        $user = \Auth::user();
-        return view('users.edit',[
-            'user'=>$user,
-        ]);
+        $user = User::findOrFail($id);
+        if (\Auth::user()->id !== $user->id) {
+            abort(403);
+        }
+        return view('users.edit',['user'=>$user,]);
     }
     
     //更新
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
         $user = User::findOrFail($id);
         $user->name = $request->input('name');
