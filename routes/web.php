@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/', 'UsersController@index')->name('welcome');
+
+// トップページの投稿表示
+Route::get('/', 'PostsController@index')->name('welcome');
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
