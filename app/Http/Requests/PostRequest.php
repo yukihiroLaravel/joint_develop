@@ -25,6 +25,7 @@ class PostRequest extends FormRequest
     {
         return [
             'post' => 'required|max:140',
+            'image' => 'file|mimes:jpeg,png,jpg,gif,mp4|max:51200', // 最大50MB
         ];
     }
 
@@ -37,6 +38,7 @@ class PostRequest extends FormRequest
     {
         return [
             'post' => '投稿',
+            'image' => '画像もしくは動画',
         ];
     }
 }

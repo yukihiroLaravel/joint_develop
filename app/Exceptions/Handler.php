@@ -50,6 +50,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof PostTooLargeException) {
+            return redirect()->back()->withErrors(['image' => 'ファイルサイズが大きすぎます。最大50MBまでです。']);
+        }
         return parent::render($request, $exception);
     }
 }

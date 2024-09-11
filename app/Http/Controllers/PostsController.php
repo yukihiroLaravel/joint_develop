@@ -12,6 +12,12 @@ class PostsController extends Controller
         $post = new Post;
         $post->post = $request->post;
         $post->user_id = $request->user()->id;
+
+        // 画像or動画ファイルがアップロードされている場合
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('images', 'public');
+            $post->image_path = $path;
+        }
         $post->save();
 
         // フラッシュメッセージを設定
