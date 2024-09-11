@@ -53,6 +53,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::prefix('posts')->group(function(){
         // 登録
         Route::post('', 'PostsController@store')->name('post.store');
+        //削除
+        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     });
 
     // 「フォロー」
