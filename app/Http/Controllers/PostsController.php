@@ -17,4 +17,12 @@ class PostsController extends Controller
         // フラッシュメッセージを設定
         return back()->with('status', '投稿が完了しました。');
     }
+
+    public function index()
+    {
+        $posts = Post::orderBy('id', 'desc')->paginate(10);
+        return view('welcome', [
+            'posts' => $posts
+        ]);
+    }
 }
