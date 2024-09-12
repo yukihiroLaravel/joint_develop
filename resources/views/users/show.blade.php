@@ -31,7 +31,7 @@
                     </form>
                     @endif
                 @elseif (!Auth::check())  {{-- ログインしていない場合 --}}
-                    <a href="{{-- route('login') --}}" class="btn btn-primary rounded-pill">フォローする</a>
+                    <a href="{{ route('login') }}" class="btn btn-primary rounded-pill">フォローする</a>
                 @endif
             </div>
             <div class="card-body">
@@ -63,6 +63,26 @@
                 <a href="{{ route('user.followers', $user->id) }}" class="nav-link {{ Request::is('users/'.$user->id.'/followers') ? 'active bg-primary text-white' : '' }}">フォロワー</a>
             </li>
         </ul>
+
+        {{-- タイムラインの投稿一覧 --}}
+        @if (Request::is('users/'.$user->id))
+            <h5 class="mt-5 mb-4">最近の投稿</h5>
+            @if ($posts->count() > 0)
+                <div class="list-group">
+                    @foreach ($posts as $post)
+                        <div class="list-group-item">
+                            <h6>{{ $post->created_at->format('Y/m/d H:i') }}</h6>
+                            <p>{{ $post->post }}</p>
+                        </div>
+                    @endforeach
+                </div>
+                {{-- ページネーションリンク --}}
+                {{ $posts->links('pagination::bootstrap-4') }}
+            @else
+                <p>投稿がありません。</p>
+            @endif
+        @endif
+
 
         {{-- フォロー中のユーザー一覧 --}}
         @if (Request::is('users/'.$user->id.'/followings'))
