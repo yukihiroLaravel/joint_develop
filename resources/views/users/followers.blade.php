@@ -2,7 +2,8 @@
 @foreach ($followers as $follower)
     <div class="list-group-item">
         <li class="media mb-2">
-            <img class="mr-3 rounded-circle" src="{{ Gravatar::src($follower->email, 55) }}" alt="{{ $follower->name }}のアバター画像">
+            <img class="mr-3 rounded-circle" 
+                  src="{{ Gravatar::src($follower->email, 55) }}" alt="{{ $follower->name }}のアバター画像">
             <div class="media-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <h5 class="mt-0 mb-1"><a href="{{ route('user.show', $follower->id) }}">{{ $follower->name }}</a></h5>

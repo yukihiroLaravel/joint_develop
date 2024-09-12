@@ -54,13 +54,16 @@
     <div class="col-sm-8">
         <ul class="nav nav-tabs nav-justified mb-3">
             <li class="nav-item">
-                <a href="{{ route('user.show', $user->id ) }}" class="nav-link {{ Request::is('users/'.$user->id) ? 'active bg-primary text-white' : '' }}">タイムライン</a>
+                <a href="{{ route('user.show', $user->id ) }}" 
+                    class="nav-link {{ Request::is('users/'.$user->id) ? 'active bg-primary text-white' : '' }}">タイムライン</a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('user.followings', $user->id) }}" class="nav-link {{ Request::is('users/'.$user->id.'/followings') ? 'active bg-primary text-white' : '' }}">フォロー中</a>
+                <a href="{{ route('user.followings', $user->id) }}" 
+                    class="nav-link {{ Request::is('users/'.$user->id.'/followings') ? 'active bg-primary text-white' : '' }}">フォロー中</a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('user.followers', $user->id) }}" class="nav-link {{ Request::is('users/'.$user->id.'/followers') ? 'active bg-primary text-white' : '' }}">フォロワー</a>
+                <a href="{{ route('user.followers', $user->id) }}" 
+                    class="nav-link {{ Request::is('users/'.$user->id.'/followers') ? 'active bg-primary text-white' : '' }}">フォロワー</a>
             </li>
         </ul>
 
