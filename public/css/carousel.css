@@ -1,0 +1,125 @@
+/* サムネイル画像 */
+.thumbnail-wrapper {
+    /* サムネイル同士のスペース */
+    gap: 10px;
+
+    /* サムネイルのセンタリング */
+    /* justify-content: center; */
+}
+
+/* サムネイル画像の大きさ */
+.thumbnail-wrapper .img-thumbnail {
+    width: 150px;
+    height: 100px;
+}
+
+/* モーダル画面の大きさを画面の90%で追随させる */
+.modal-dialog {
+    max-width: 90vw;
+    max-height: 90vh;
+}
+
+.modal-content {
+    /* 画像の周囲に余白(prev、nextボタン画像の外に置くため */
+    padding: 80px;
+}
+
+.modal-body {
+    /* モーダル画像のセンタリング関連 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* スクロール*/
+    overflow: auto;
+
+    /* これを指定しない縦幅が小さい画像の時にモーダル画面が小さくなる */
+    height: 70vh;
+}
+
+/* 閉じるボタンを右上に配置し、背景を半透明に */
+.modal-close-btn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+    font-size: 24px;
+    border: none;
+    cursor: pointer;
+    z-index: 1050;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 10px;
+
+    /* 
+        ×の文字が微妙に四角形の中心より下に見えたのを解消するため
+        下にpadding指定し若干上に移動させた
+    */
+    padding-bottom: 6px;
+}
+
+.carousel-item img {
+    width: auto;
+    height: auto;
+
+    /* 画面サイズに合わす */
+    max-width: 100%;
+    max-height: 100%;
+
+    /* 縦横比 */
+    object-fit: contain;
+    display: block;
+    margin: auto;
+}
+
+/* カルーセルの矢印 */
+.carousel-control-prev,
+.carousel-control-next {
+    width: 50px;
+    height: 50px;
+
+    /* 半透明で黒背景 */
+    background-color: rgba(0, 0, 0, 0.5);
+
+    /* 丸い形 */
+    border-radius: 50%;
+    
+    /* 縦の中央に置く */
+    top: 50%;
+    transform: translateY(-50%);
+
+    position: absolute;
+    z-index: 1000;
+}
+
+/* カルーセルの矢印(prev) */
+.carousel-control-prev {
+    /* 画像の左側に置く */
+    left: 20px;
+}
+
+/* カルーセルの矢印(next) */
+.carousel-control-next {
+    /* 画像の右側に置く */
+    right: 20px;
+}
+
+/* カルーセルの矢印(prevの内部の文字) */
+.carousel-control-prev-icon::before {
+    content: '<';
+    font-size: 16px;
+    color: white;
+    display: block;
+    text-align: center;
+}
+
+/* カルーセルの矢印(nextの内部の文字) */
+.carousel-control-next-icon::before {
+    content: '>';
+    font-size: 16px;
+    color: white;
+    display: block;
+    text-align: center;
+}

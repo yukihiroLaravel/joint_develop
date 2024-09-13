@@ -8,4 +8,6 @@
 @foreach ($posts as $post)
     @include('posts.show', ['user' => $user, 'post' => $post, 'followsParam' => $followsParam])
 @endforeach
-{{ $posts->links('pagination::bootstrap-4') }}
+<div class="m-auto" style="width: fit-content">
+    {{ $posts->links('pagination::bootstrap-4') }}
+</div>
