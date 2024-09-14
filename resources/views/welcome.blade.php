@@ -19,5 +19,6 @@
             </div>
         </form>
     </div>
-    @endif
+    @endif    
 @include('posts.posts', ['posts => $posts'])
+
