@@ -1,10 +1,16 @@
  {{-- @extends('layouts.app') --}}
  {{-- @section --}}
     <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
+    @if (count($errors) > 0)
+    <ul class="alert alert-danger" role="alert">
+        @foreach ($errors->all() as $error)
+            <li class="ml-4">{{ $error }}</li>
+        @endforeach
+    </ul>
+    @endif
         <form method="POST" action="{{ route('user.update', $user->id) }}">
             @csrf
             @method('PUT')    
-            <input type="hidden" name="id" value="#" />
             <div class="form-group">
                 <label for="name">ユーザ名</label>
                 <input class="form-control" value="{{ old('name', $user->name) }}" name="name" />
@@ -22,7 +28,7 @@
 
             <div class="form-group">
                 <label for="password_confirmation">パスワードの確認</label>
-                <input class="form-control" type="password" name="password" />
+                <input class="form-control" type="password" name="password_confirmation" />
             </div>
 
             <div class="d-flex justify-content-between">
