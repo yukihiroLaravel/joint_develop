@@ -19,16 +19,34 @@
                 <h3 class="card-title text-light">{{ $user->name }}</h3>
                 @if (Auth::check() && Auth::id() !== $user->id)  {{-- 自分自身でないかを確認 --}}
                     @if (Auth::user()->isFollowing($user->id))
-                        <form method="POST" action="{{ route('unfollow', $user->id) }}" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-secondary rounded-pill">フォロー中</button>
-                        </form>
+                        {{-- フォロー中ボタン --}}
+                        <button type="button" 
+                                class="btn btn-secondary rounded-pill follow-btn"
+                                data-follower-name="{{ $user->name }}" 
+                                data-follower-id="{{ $user->id }}">
+                            <span>フォロー解除</span>
+                            <span>フォロー中</span>
+                        </button>
+                        {{-- フォロー解除の確認ポップアップ --}}
+                        <div id="confirm-unfollow" class="floating-confirm" style="display: none;">
+                            <div class="confirm-content">
+                                <p><span id="unfollow-message"></span>さんをフォロー解除しますか？</p>
+                                <form method="POST" action="" id="unfollow-form">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">フォロー解除</button>
+                                    <button type="button" class="btn btn-secondary" id="cancel-unfollow">キャンセル</button>
+                                </form>
+                            </div>
+                        </div>
+                        {{-- グレーアウト用の背景 --}}
+                        <div id="overlay" style="display: none;"></div>
                     @else
-                    <form method="POST" action="{{ route('follow', $user->id) }}" class="d-inline">
-                        @csrf
-                        <button type="submit" class="btn btn-primary rounded-pill">フォローする</button>
-                    </form>
+                        {{-- フォローするボタン --}}
+                        <form method="POST" action="{{ route('follow', $user->id) }}" class="d-inline">
+                            @csrf
+                            <button type="submit" class="btn btn-primary rounded-pill">フォローする</button>
+                        </form>
                     @endif
                 @elseif (!Auth::check())  {{-- ログインしていない場合 --}}
                     <a href="{{ route('login') }}" class="btn btn-primary rounded-pill">フォローする</a>
@@ -44,7 +62,7 @@
                         <form method="POST" action="{{ route('user.delete', $user->id) }}">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger" data-user-name="{{ $user->name }}" data-user-email="{{ $user->email }}">退会する</button>
+                            <button type="submit" class="btn btn-danger delete-account" data-user-name="{{ $user->name }}" data-user-email="{{ $user->email }}">退会する</button>
                         </form>
                     </div>
                 @endif
@@ -100,4 +118,5 @@
     </div>
 </div>
 <script src="{{ asset('/js/confirmDelete.js') }}" defer></script>
+<script src="{{ asset('/js/confirmUnfollow.js') }}" defer></script>
 @endsection

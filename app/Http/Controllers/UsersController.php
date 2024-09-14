@@ -35,7 +35,7 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         \Auth::user()->follow($user->id);
 
-        return back()->with('status', $user->name .'をフォローしました。');
+        return back()->with('status', $user->name .'さんをフォローしました。');
     }
 
     public function unfollow($id)
@@ -43,7 +43,7 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         \Auth::user()->unfollow($user->id);
 
-        return back()->with('status', $user->name .'のフォローを解除しました。');
+        return back()->with('status', $user->name .'さんのフォローを解除しました。');
     }
 
     public function followings($id)
