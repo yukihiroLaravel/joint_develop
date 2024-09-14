@@ -1,3 +1,7 @@
+@php
+    require_once app_path('Helpers/ViewHelper.php');
+    $viewHelper = \App\Helpers\ViewHelper::getInstance();
+@endphp
 @extends('layouts.app')
 @section('content')
     <div class="center jumbotron bg-info">
@@ -9,10 +13,11 @@
     @auth
         <div class="w-75 m-auto">@include('commons.error_messages')</div>
         <div class="text-center mb-3">
-            <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
+            <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75" onsubmit="saveUploadUIInfo(event)">
                 @csrf
                 <div class="form-group">
                     <textarea class="form-control" name="content" rows="4">{{ old('content') }}</textarea>
+                    @include('commons.upload', ['multiFlg' => 'ON', 'editFlg' => 'OFF', 'imageType' => 'post'])
                     <div class="text-left mt-3">
                         <button type="submit" class="btn btn-primary">投稿する</button>
                     </div>
@@ -21,7 +26,15 @@
         </div>
     @endauth
     @foreach ($posts as $post)
-        @include('posts.show', ['user' => $post->user, 'post' => $post])
+
+        @php
+            $user = $post->user;
+
+            //「$followsParam」を作成する。
+            $followsParam = $viewHelper->createFollowsParam($user);
+        @endphp
+
+        @include('posts.show', ['user' => $user, 'post' => $post, 'followsParam' => $followsParam])
     @endforeach
     <div class="m-auto" style="width: fit-content">
         {{ $posts->links('pagination::bootstrap-4') }}

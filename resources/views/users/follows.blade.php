@@ -53,4 +53,6 @@
 @endif
 {{-- 上記が、いずれの分岐での処理をしてようが、「paginate」してるもので --}}
 {{-- linksを実行しないとLaravelのページャー制御と整合しないだろう --}}
-{{ $users->links('pagination::bootstrap-4') }}
+<div class="m-auto" style="width: fit-content">
+    {{ $users->links('pagination::bootstrap-4') }}
+</div>

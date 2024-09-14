@@ -23,8 +23,23 @@ class User extends Authenticatable
             // to_user_idで絞って削除
             \DB::table('follows')->where('to_user_id', $user->id)->delete();
 
-            // 紐づいてるpostsの削除
-            $user->posts()->delete();
+            /*
+                親：$user、子：$post、孫 : $post_image
+                の関係性であるが、
+                下記の方式で「親：$user」に紐づいてる「子：$post」の一括削除を行うと
+                    // 紐づいてるpostsの削除
+                    $user->posts()->delete();
+                「子：$post」のdeletingイベントが発火せず
+                結果的に、「孫 : $post_image」が削除されないことが判明した。
+                この解決策として、
+                「$user->posts()」の各々の「子：$post」について、
+                明示的に、「$post->delete()」を実行し、
+                「子：$post」のdeletingイベントが発火させ、
+                「孫 : $post_image」の削除ができる状況とした。
+            */
+            foreach ($user->posts as $post) {
+                $post->delete();
+            }
         });
     }
 

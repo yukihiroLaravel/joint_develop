@@ -63,3 +63,44 @@ Route::group(['middleware' => 'auth'], function() {
         Route::delete('unfollow', 'FollowsController@destroy')->name('unfollow');
     });
 });
+
+/* #region API */
+/*
+    本来はapiなのでapi.phpに追加すべきだがweb.phpに追加しました。
+    
+    ＜経緯＞
+    api.phpでの「Route::middleware('auth:api')->」は、
+    APIリクエストに対して、OAuthやJWT(JSON Web Token)などの仕組みを使って
+    リクエストごとにそのトークンをヘッダーに付加する必要があります。
+
+    API実装のみのバックエンド側で本格的にApiを使った開発であれば
+    上記の基礎の仕組みからの準備や、リクエスト毎のセッション情報の永続化／復元などの仕組みなど、
+    基礎実装をした上での開発だが、今回はそれは割愛し、webアプリ画面側でのログイン状態ならば、認証OKとする
+    簡易的な対応としたいため、web.phpに追加し、
+    Route::group(['middleware' => 'auth'], function() {
+    での認証とすることにしました。
+    言い換えると、webアプリ画面側の認証機能を間借りした対応としたいため、web.phpに追加しました。
+    ( API実装のみのバックエンド側ではないため )
+*/
+Route::group(['middleware' => 'auth'], function() {
+    Route::group(['prefix' => 'upload', 'namespace' => 'Api'], function () {
+
+        // url=「/upload」のPOSTでアップロードで保存
+        Route::post('', 'UploadController@store');
+        
+        /*
+            url=「/upload/{id}」のPUTで更新
+
+            idが何かはImageTypeによって異なる。
+        */
+        Route::put('{id}', 'UploadController@update');
+
+        /*
+            url=「/upload/{uuid}」のDELETEで削除
+
+            uuidを指定するのは、sotrageからの削除を行うため
+        */
+        Route::delete('{uuid}', 'UploadController@destroy');
+    });
+});
+/* #endregion */ // API
