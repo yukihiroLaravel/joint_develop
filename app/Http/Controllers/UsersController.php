@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UserRequest;
 use App\User;
 
 class UsersController extends Controller
@@ -28,5 +30,25 @@ class UsersController extends Controller
             return redirect()->route('welcome')->with('status', 'ユーザの退会処理が完了しました。');
         }
         return back()->with('error', 'ユーザの退会処理に失敗しました。<br>再度ログインしてからやり直してください。');
+    }
+
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        if ($id == \Auth::id()) {
+            $user = \Auth::user();
+            return view('users.edit', ['user' => $user]);
+        }
+        abort(404);
+    }
+
+    public function update(UserRequest $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->name = $request-> name ;
+        $user->email = $request-> email ;
+        $user->password = Hash::make($request->password);
+        $user->save();
+        return redirect()->route('user.show', ['id' => $user->id]);
     }
 }
