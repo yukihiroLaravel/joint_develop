@@ -23,16 +23,23 @@
                         </div>
                     @endif
                     <h3 class="card-title text-light" title="{{ $user->name }}">
-                        {{ $user->truncateName(5) }}
-
                         {{-- 「右寄せ」のために同じH3タグ内に置く必要あり--}}
                         @if ($followsParam->isFollowsBaseOk)
+                            {{ $user->truncateName(5) }}
+
                             @include('follows.button', ['followsParam' => $followsParam])
+                        @else
+                            {{ $user->truncateName(9) }}
                         @endif
                     </h3>
                 </div>
                 <div class="card-body">
-                    <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 400) }}" alt="">
+                    @include('commons.avatar', [
+                        'editFlg' => 'OFF',
+                        'imageSize' => '310',
+                        'user' => $user,
+                        'class' => 'rounded-circle img-fluid',
+                    ])
                     @if (Auth::id() === $user->id)
                         <div class="mt-3">
                             <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>

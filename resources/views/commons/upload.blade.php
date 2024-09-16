@@ -1,4 +1,9 @@
-<div class="container">
+@php
+    if (!isset($divContainerStyle)) {
+        $divContainerStyle = '';
+    }
+@endphp
+<div class="container" {!! $divContainerStyle !!}>
     <div id="file-upload-container" style="margin: 20px;"></div>
 
     {{-- アップロード済の画像をクライアントサイドでサムネイル表示のためhrefに指定するURLのベース部分 --}}
@@ -13,6 +18,8 @@
         @php
             if (isset($post)) {
                 $baseId = $post->id;
+            } else if (isset($user)) {
+                $baseId = $user->id;
             } else {
                 throw new \Exception("編集時の基礎情報がありません");
             }
@@ -24,7 +31,7 @@
     <input id="file-upload-imageType" type="hidden" value="{{ $imageType }}" />
 
     {{-- バリデーションエラー時に動的作成UI部の復元すべきかの判定のため前回値の有無の判定用 --}}
-    {{-- サーバーに一回送って、それが返ってくるかで前回対の有無を判定するためname属性を指定している。 --}}
+    {{-- サーバーに一回送って、それが返ってくるかで前回値の有無を判定するためname属性を指定している。 --}}
     <input name="fileUploadSubmitFlg" type="hidden" value="ON" />
 
     {{-- アップロードUIの復元モードであるかどうかのフラグ --}}
@@ -44,6 +51,8 @@
         @php
             if (isset($post)) {
                 $loadInfo = $post->getLoadInfoForEditPostInitial();
+            } else if (isset($user)) {
+                $loadInfo = $user->getLoadInfoForEditUserInitial();
             } else {
                 throw new \Exception("編集時の初期表示のロードに必要な情報の引数指定がありません");
             }

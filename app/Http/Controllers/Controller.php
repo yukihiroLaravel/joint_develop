@@ -11,6 +11,21 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    /**
+     * データがログインユーザに紐づいているかを検証する。
+     * ( NGの場合は403エラーにする。)
+     */
+    function validateOwnership($targetUserId) {
+
+        if(!\Auth::check()) {
+            abort(403);
+        }
+
+        if (\Auth::id() !== $targetUserId) {
+            abort(403);
+        }
+    }
+
     /* #region フラッシュメッセージ関連 */
 
     /*

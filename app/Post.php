@@ -57,6 +57,9 @@ class Post extends Model
      * 編集の初期表示時のアップロードUIの復元情報を返す
      */
     public function getLoadInfoForEditPostInitial() {
+
+        $helper = Helper::getInstance();
+
         // $thisに紐づく「post_images」をorder順に取得
         $postImages = $this->postOrderImages()->get();
         if ($postImages->isEmpty()) {
@@ -71,13 +74,8 @@ class Post extends Model
             $fileNames[] = $postImage->file_name;
         }
 
-        // 編集の初期表示時のアップロードUIの復元情報
-        $loadInfo = new \ArrayObject([
-            // uuid
-            "fileUuids" => json_encode($fileUuids),
-            // ログインユーザ以外のuserId
-            "fileNames" => json_encode($fileNames),
-        ], \ArrayObject::ARRAY_AS_PROPS);
+        //「編集モードの初期表示時のアップロードUIの復元情報」を作成する。
+        $loadInfo = $helper->createUploadUiLoadInfo($fileUuids, $fileNames);
 
         return $loadInfo;
     }

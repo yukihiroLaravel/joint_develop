@@ -128,6 +128,8 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
 
+        $this->validateOwnership($user->id);
+
         \DB::transaction(function () use ($user) {
             $user->delete();
         });
@@ -156,6 +158,9 @@ class UsersController extends Controller
             $user->password = Hash::make($request->input('password'));
         }
         $user->save();
-        return back();
+        $this->showFlashSuccess("更新しました。");
+        return back()->with([
+            'toggleOnOff' => $request->toggleOnOff,
+        ]);
     }
 }

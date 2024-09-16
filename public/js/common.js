@@ -21,8 +21,9 @@ function stopSubmit(event) {
     event.stopPropagation();
 }
 
-// クライアントのフラッシュメッセージを非表示にする。
-function hideFlashClientMessage() {
+// フラッシュメッセージを消す。
+function hideFlashMessages() {
+    $('.myserver-flash-marking').remove();
     $('#flashClientMessage').hide();
 }
 
