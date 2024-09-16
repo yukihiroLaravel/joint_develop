@@ -1,0 +1,55 @@
+/* フォロー中ボタンのスタイル */
+.follow-btn {
+  display: flex; /* ボタン内のコンテンツをフレックスボックスで配置 */
+  justify-content: center; /* 水平に中央揃え */
+  transition: background-color 0.5s, color 0.5s; /* 背景色と文字色が0.5秒で変化する */
+  padding: 5px 20px; /* ボタンの上下に5px、左右に20pxの余白を追加 */
+}
+
+/* フォロー中ボタンをホバーした際のスタイル */
+.follow-btn:hover {
+  background-color: rgb(252, 31, 31); /* 背景色を赤色に変更 */
+  border-color: rgb(252, 31, 31); /* ボーダーも赤色に変更 */
+}
+
+/* ホバーするまで非表示「フォロー解除」テキスト */
+.follow-btn span:nth-child(1) {
+  position: absolute; /* 絶対位置に配置 */
+  display: none; /* 初期状態では表示しない */
+}
+
+/* ホバー時に「フォロー解除」テキストを表示 */
+.follow-btn:hover span:nth-child(1) {
+  display: inline-block; /* ホバー時に表示する */
+}
+
+/* ホバー時に「フォロー中」テキストを透明にする */
+.follow-btn:hover span:nth-child(2) {
+  opacity: 0; /* ホバー時に透明にして非表示に見せる */
+}
+
+/* ポップアップウィンドウのスタイル */
+.floating-confirm {
+  position: fixed; /* ウィンドウを固定し、スクロールしても位置を維持する */
+  top: 50%; /* 画面の垂直方向で中央に配置 */
+  left: 50%; /* 画面の水平方向で中央に配置 */
+  transform: translate(-50%, -50%); /* 上記のtopとleftが画面の中央を基準に動くように調整 */
+  background-color: white; /* ウィンドウの背景色を白に */
+  border-radius: 10px; /* ウィンドウの角を丸くする */
+  padding: 20px; /* ウィンドウ内のコンテンツに余白を追加 */
+  width: 300px; /* ウィンドウの幅を300pxに指定 */
+  text-align: center; /* テキストを中央揃えに */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* ウィンドウに影をつけて立体感を演出 */
+  z-index: 1001; /* 他の要素より前面に表示 */
+}
+
+/* グレーアウト用のオーバーレイ（背景） */
+#overlay {
+  position: fixed; /* 画面全体を覆うように固定 */
+  top: 0; /* ページの最上部から開始 */
+  left: 0; /* ページの最左端から開始 */
+  width: 100%; /* 横幅を画面全体に広げる */
+  height: 100%; /* 高さも画面全体を覆うように設定 */
+  background-color: rgba(0, 0, 0, 0.5); /* 半透明の黒い背景 */
+  z-index: 1000; /* ポップアップのすぐ後ろに表示する */
+}
