@@ -72,7 +72,7 @@ class PostsController extends Controller
             return back()すると、その2ページ目以降を再表示するため、
             1ページ目の先頭位置に表示される
             「今まさに投稿した分」確認できない
-            
+
             ユーザーからすると、「今まさに投稿した分」が表示されないので
             投稿できてないのではないかと、
             勘違いしてしまい、何度も投稿してしまうことになってしまう可能性があり
@@ -102,5 +102,32 @@ class PostsController extends Controller
 
         $this->showFlashSuccess("削除しました。");
         return back();
+    }
+
+    /**
+     * 編集
+     */
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() !== $post->user_id) {
+            abort(403);
+        }
+
+        return view('posts.edit', [
+            'post' => $post,
+        ]);
+    }
+
+    /**
+     * 更新
+     */
+    public function update(PostRequest $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        $post->content = $request->input('content');
+        $post->save();
+        $this->showFlashSuccess("更新しました。");
+        return redirect('/');
     }
 }

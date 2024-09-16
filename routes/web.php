@@ -44,17 +44,20 @@ Route::group(['middleware' => 'auth'], function() {
     Route::prefix('users')->group(function(){
         // 削除
         Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
-        //編集・更新
+        // 編集・更新
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
         Route::put('{id}', 'UsersController@update')->name('user.update');
     });
-    
+
     // 「投稿」
     Route::prefix('posts')->group(function(){
         // 登録
         Route::post('', 'PostsController@store')->name('post.store');
-        //削除
+        // 削除
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
+        // 編集・更新
+        Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
+        Route::put('{id}', 'PostsController@update')->name('post.update');
     });
 
     // 「フォロー」
@@ -67,7 +70,7 @@ Route::group(['middleware' => 'auth'], function() {
 /* #region API */
 /*
     本来はapiなのでapi.phpに追加すべきだがweb.phpに追加しました。
-    
+
     ＜経緯＞
     api.phpでの「Route::middleware('auth:api')->」は、
     APIリクエストに対して、OAuthやJWT(JSON Web Token)などの仕組みを使って
@@ -87,7 +90,7 @@ Route::group(['middleware' => 'auth'], function() {
 
         // url=「/upload」のPOSTでアップロードで保存
         Route::post('', 'UploadController@store');
-        
+
         /*
             url=「/upload/{id}」のPUTで更新
 
