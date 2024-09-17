@@ -53,7 +53,8 @@ class Controller extends BaseController
             その場合に開発作業上、不便にならないようには対処しておきたい。
         */
         $previousUrl = url("/");
-        return url("/");
+
+        return $previousUrl;
     }
 
     /* #region フラッシュメッセージ関連 */
