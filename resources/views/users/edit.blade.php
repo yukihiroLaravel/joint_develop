@@ -1,13 +1,6 @@
- {{-- @extends('layouts.app') --}}
- {{-- @section --}}
+ @extends('layouts.app')
+ @section('content')
     <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
-    @if (count($errors) > 0)
-    <ul class="alert alert-danger" role="alert">
-        @foreach ($errors->all() as $error)
-            <li class="ml-4">{{ $error }}</li>
-        @endforeach
-    </ul>
-    @endif
         <form method="POST" action="{{ route('user.update', $user->id) }}">
             @csrf
             @method('PUT')    
@@ -55,4 +48,4 @@
                 </div>
             </div>    
         </div>
-{{-- @endsection --}}
+@endsection
