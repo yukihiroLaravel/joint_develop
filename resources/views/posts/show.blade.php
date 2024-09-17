@@ -15,7 +15,12 @@
         @endif
 
         <div class="text-left d-inline-block w-75 mb-2">
-            <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 55) }}" alt="ユーザのアバター画像">
+            @include('commons.avatar', [
+                'editFlg' => 'OFF',
+                'imageSize' => '55',
+                'user' => $user,
+                'class' => 'mr-2 rounded-circle',
+            ])
             <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('user.show', $user->id) }}" title="{{ $user->name }}">{{ $user->truncateName() }}</a></p>
 
             @if ($followsParam->isFollowsBaseOk)

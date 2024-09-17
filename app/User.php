@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Helpers\Helper;
 
 class User extends Authenticatable
 {
@@ -22,6 +23,33 @@ class User extends Authenticatable
             \DB::table('follows')->where('from_user_id', $user->id)->delete();
             // to_user_idで絞って削除
             \DB::table('follows')->where('to_user_id', $user->id)->delete();
+
+            $helper = Helper::getInstance();
+
+            // user_images
+            /*
+                「user_images」の削除処理
+                users
+                下記の方式で「親：$user」に紐づいてる「子：$post」の一括削除を行うと
+                    // 紐づいてるpostsの削除
+                    $user->posts()->delete();
+                「子：$post」のdeletingイベントが発火せず
+                結果的に、「孫 : $post_image」が削除されないことが判明した。
+                この解決策として、
+                「$user->posts()」の各々の「子：$post」について、
+                明示的に、「$post->delete()」を実行し、
+                「子：$post」のdeletingイベントが発火させ、
+                「孫 : $post_image」の削除ができる状況とした。
+            */
+
+            $userImage = $user->userImage()->first();
+            if ($userImage) {
+                $uuid = $userImage->uuid;
+                // $imageType、$uuidを指定してstorageから削除
+                $helper->deleteImageOnStorage('avatar', $uuid); 
+                // DB上のレコード削除
+                $userImage->delete();
+            }
 
             /*
                 親：$user、子：$post、孫 : $post_image
@@ -74,7 +102,7 @@ class User extends Authenticatable
      * ユーザ名の文字数が$truncateLengthを超える場合は、
      * 先頭の$truncateLengthの文字数分でカットして「...」を連結した文字列を返す
      */
-    public function truncateName($truncateLength = 12)
+    public function truncateName($truncateLength = 17)
     {
         if(mb_strlen($this->name) > $truncateLength) {
             return mb_substr($this->name, 0, $truncateLength) . '...';
@@ -315,4 +343,64 @@ class User extends Authenticatable
     }
 
     /* #endregion */ // フォロー関連
+
+    /* #region 「user_images」関連 */
+
+    public function userImage()
+    {
+        return $this->hasOne(UserImage::class);
+    }
+
+    /**
+     * アップロード済のアバター画像の表示時にimgタグのsrcに指定値を取得する。
+     */
+    public function getUploadedAvatarImgSrcParam()
+    {
+        /*
+            imgタグのsrc属性に指定すべき値
+
+            resources/views/commons/avatar.blade.php
+            の処理の都合上、
+            取得できない場合の返却値を「''」として初期化しておく
+        */
+        $imgSrcParam = '';
+
+        $userImage = $this->userImage()->first();
+
+        if ($userImage) {
+            // 「user_images」がある場合
+
+            // 当ロジックは、固定値 (PHPでローカルスコープの定数がないため変数で代用)
+            $imageType = 'avatar';
+
+            $imgSrcParam = asset("storage/images/{$imageType}/{$userImage->uuid}/{$userImage->file_name}");
+        }
+
+        return $imgSrcParam;
+    }
+
+    /**
+     * $thisに紐づく「user_images」があれば、
+     * 編集の初期表示時のアップロードUIの復元情報を返す
+     */
+    public function getLoadInfoForEditUserInitial() {
+
+        $helper = Helper::getInstance();
+
+        // $thisに紐づく「user_images」をorder順に取得
+        $userImage = $this->userImage()->first();
+        if (!$userImage) {
+            return null;
+        }
+
+        $fileUuids = [$userImage->uuid];
+        $fileNames = [$userImage->file_name];
+
+        //「編集モードの初期表示時のアップロードUIの復元情報」を作成する。
+        $loadInfo = $helper->createUploadUiLoadInfo($fileUuids, $fileNames);
+
+        return $loadInfo;
+    }
+
+    /* #endregion */ // 「user_images」関連
 }

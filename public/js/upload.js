@@ -53,6 +53,28 @@ function changeCompleteFileWrapper(param) {
     */
     param.fileWrapper.find('.fileInputDiv').hide();
 
+    /*
+        「 <input type="file" 」の要素について、ただ表示を消しても
+        disabledがfalseであれば、親要素のformがsubmitされるときに
+        選択しているファイルの中身をリクエストにのせて送信してしまう。
+
+        アップロード自体は、ajax通信で完了させる実装で、
+        当「 <input type="file" 」はファイルの選択や、選択イベント発火、
+        選択したファイルの中身のjavascriptコードでの取得(ajaxの送信データとして指定のため)
+        に使っているだけである。
+
+        submit通信時にファイルの中身をリクエストにのせる用途では、当実装では使いたくない。
+
+        それは、submit時の無駄な通信であり、パフォーマンス低下を招くから避けたい。
+        また、それだけではなく、
+        通信サイズの最大値などの環境設定の調査や、動作確認時での
+        起きた事象に対する原因調査や、特定の「やりやすさ／やりにくさ」にも
+        影響がでると予想される。
+        
+        そのため、disabledをtrueにしておく。
+    */
+    param.fileWrapper.find('.file-input').prop('disabled', true);
+
     let fileNameLabel = param.fileWrapper.find('.file-name-label');
     fileNameLabel.text(param.fileName);
     fileNameLabel.show();
@@ -346,8 +368,8 @@ $(document).ready(function() {
     // ファイル選択時
     $(document).on('change', '.file-input', function() {
 
-        // クライアントのフラッシュメッセージを非表示にする。
-        hideFlashClientMessage();
+        // フラッシュメッセージを消す。
+        hideFlashMessages();
 
         const fileInput = $(this)[0];
         const fileWrapper = $(this).closest('.file-upload-wrapper');
@@ -435,8 +457,8 @@ $(document).ready(function() {
         // sumitを抑制(form内に配置したbuttonタグだとsubmit反応してしまうため抑制)
         stopSubmit(event);
 
-        // クライアントのフラッシュメッセージを非表示にする。
-        hideFlashClientMessage();
+        // フラッシュメッセージを消す。
+        hideFlashMessages();
 
         const fileWrapper = $(this).closest('.file-upload-wrapper');
         let uuid = fileWrapper.find('.file-uuid').val();

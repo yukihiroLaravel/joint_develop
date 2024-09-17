@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Helpers\Helper;
+use App\User;
 use App\Post;
 
 class UploadController extends Controller
@@ -99,10 +100,15 @@ class UploadController extends Controller
             $isPost = ($imageType === "post");
 
             if ($isAvatar) {
-                throw new \Exception("UploadController#update(). avatarの実装は未対応です。");
+                $userId = (int)$id;
+
+                $user = User::findOrFail($userId);
+
+                // 「user_images」の再構成を行う。
+                $helper->reconstructionUserImage($user, $fileUuids, $fileNames);
             }
             if ($isPost) {
-                $postId = $id;
+                $postId = (int)$id;
 
                 /*
                     マッチング処理を避けて、画面のアップロードUI情報に一致させた
@@ -111,13 +117,45 @@ class UploadController extends Controller
                 */
                 $post = Post::findOrFail($postId);
 
-                // 紐づくpost_imagesを削除する。
-                $post->postImages()->delete();
+                /*
+                    $post->postImages()->delete();
+                    での一括削除は行わない。
+                    親：$user、子：$post、孫 : $post_image
+                    としたときに、ひ孫　のテーブルが、もし、将来的にできたときなど
+                    考慮し、確実に「孫 : $post_image」でのdeletingが発火する方式の
+                    布石としても、このほうが都合がよいだろう。
+                */
+                $postImages = $post->postImages()->get();
+
+                /*
+                    親のpostsが存在する状況、つまり「編集モード」での
+                    アップロード／削除のajax通信でstorageの保存／削除が終わった後、
+                    別枠での「画像系のDBの再構築」の通信なので、DELETE/INSERT時の、
+                    DELETEはDB削除だけ行えばよい。(storageの削除はしない)
+                    
+                    この前提で、
+                       $post->postImages()->delete();
+                    での一括削除はしたくない。
+                    なぜなら、
+                    親：$user、子：$post、孫 : $post_image
+                    としたときに、ひ孫　のテーブルが、もし、将来的にできたときなど
+                    考慮し、確実に「孫 : $post_image」でのdeletingが発火する方式の
+                    布石としても、各々の$postImageに対して、「$postImage->delete();」
+                    明示的におこなっておきたい。
+                    
+                    そのため、
+
+                    第2引数をfalseとした形で、$postImages「DB値」のみを削除する処理を実行している。
+                */
+                $helper->deletePostImages($postImages, false);
 
                 // $postImagesのinsertをする。
                 $helper->insertPostImages($postId, $fileUuids, $fileNames);   
             }
         });
+
+        // HTTPステータス=200:OK
+        return response()->json([], 200);
     }
 
     /**
