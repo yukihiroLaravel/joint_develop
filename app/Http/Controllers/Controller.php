@@ -26,6 +26,37 @@ class Controller extends BaseController
         }
     }
 
+    /**
+     * クエリパラメータに乗ってる遷移元のURLを取得する。
+     */
+    function getPreviousUrlByQueryParameter() {
+        $previousUrl = request()->query('previousUrl');
+        if ($previousUrl) {
+            $previousUrl = urldecode($previousUrl);
+            return $previousUrl;
+        }
+
+        /*
+            例として
+            http://localhost:8080/posts/65/edit
+            のようなURLで
+            アドレスバーを手編集でエンターキーで表示させたうえで
+            動作確認したいことは多々ありますので、その場合は、
+            「request()->query('previousUrl')」の値が無かったりします
+
+            一応、その状況でも動作はできるようにしときたいので
+            url("/")でトップ画面のurl固定になるが対応しておく
+
+            別に遷移元がどうであるかなど気にせず、それ以外の実装を
+            アドレスバーのURLを手編集で画面表示のうえ、
+            デバッグをしたいケースもあるでしょうから
+            その場合に開発作業上、不便にならないようには対処しておきたい。
+        */
+        $previousUrl = url("/");
+
+        return $previousUrl;
+    }
+
     /* #region フラッシュメッセージ関連 */
 
     /*

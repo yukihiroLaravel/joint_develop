@@ -1,4 +1,7 @@
 @php
+    require_once app_path('Helpers/ViewHelper.php');
+    $viewHelper = \App\Helpers\ViewHelper::getInstance();
+
     if (!isset($followsParam)) {
         // 「$followsParam」が未定義の場合(呼び元で指定がない場合)は、デフォルト値を指定
         $followsParam = \App\User::createDefaultFollowsParam();
@@ -50,7 +53,10 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>
-                        <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">編集する</a>
+                        @php
+                            $previousUrlParameter = $viewHelper->getPreviousUrlParameter();
+                        @endphp
+                        <a href="{{ route('post.edit', ['id' => $post->id] + $previousUrlParameter) }}" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
             </div>

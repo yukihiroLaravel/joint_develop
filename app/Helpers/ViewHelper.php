@@ -304,4 +304,13 @@ class ViewHelper extends Helper
     }
 
     /* #endregion */ // 「avatar.blade.php」関連
+
+    /**
+     * previousUrlのパラメータ指定値を取得する。
+     */
+    public function getPreviousUrlParameter()
+    {
+        $ret = [ 'previousUrl' => urlencode(\Request::fullUrl()) ];
+        return $ret;
+    }
 }

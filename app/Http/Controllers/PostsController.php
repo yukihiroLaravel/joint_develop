@@ -92,15 +92,15 @@ class PostsController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
-        if (\Auth::id() !== $post->user_id) {
-            abort(403);
-        }
+
+        $this->validateOwnership($post->user_id);
 
         \DB::transaction(function () use ($post) {
             $post->delete();
         });
 
-        $this->showFlashSuccess("削除しました。");
+        $this->showFlashSuccess("投稿を削除しました。");
+
         return back();
     }
 
@@ -110,12 +110,15 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        if (\Auth::id() !== $post->user_id) {
-            abort(403);
-        }
+
+        $this->validateOwnership($post->user_id);
+
+        // クエリパラメータに乗ってる遷移元のURLを取得する。
+        $previousUrl = $this->getPreviousUrlByQueryParameter();
 
         return view('posts.edit', [
             'post' => $post,
+            'previousUrl' => $previousUrl,
         ]);
     }
 
@@ -125,9 +128,14 @@ class PostsController extends Controller
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
+
+        $this->validateOwnership($post->user_id);
+
         $post->content = $request->input('content');
         $post->save();
-        $this->showFlashSuccess("更新しました。");
-        return redirect('/');
+
+        $this->showFlashSuccess("投稿内容を更新しました。");
+
+        return redirect($request->previousUrl);
     }
 }
