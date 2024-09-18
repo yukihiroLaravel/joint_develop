@@ -36,7 +36,6 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
         if ($id == \Auth::id()) {
-            $user = \Auth::user();
             return view('users.edit', ['user' => $user]);
         }
         abort(404);

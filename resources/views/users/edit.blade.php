@@ -5,7 +5,6 @@
     <form method="POST" action="{{ route('user.update', $user->id)}}">
         @csrf
         @method('PUT')
-        <input type="hidden" name="id" value="" />
         <div class="form-group">
             <label for="name">ユーザ名</label>
             <input class="form-control" value="{{ old('name', $user->name) }}" name="name" />
@@ -42,7 +41,9 @@
                     <label>本当に退会しますか？</label>
                 </div>
                 <div class="modal-footer d-flex justify-content-between">
-                    <form action="" method="POST">
+                    <form action="{{ route('user.delete', $user->id)}}" method="POST">
+                        @csrf
+                        @method('DELETE')
                         <button type="submit" class="btn btn-danger">退会する</button>
                     </form>
                     <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
