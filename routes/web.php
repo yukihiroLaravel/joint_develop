@@ -25,9 +25,11 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ユーザ
-Route::prefix('users')->group(function () {
-    Route::get('{id}', 'UsersController@show')->name('user.show');
-    Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
+Route::prefix('users/{id}')->group(function () {
+    Route::get('', 'UsersController@show')->name('user.show');
+    Route::delete('', 'UsersController@destroy')->name('user.delete');
+    Route::get('followings', 'UsersController@followings')->name('user.followings');
+    Route::get('followers', 'UsersController@followers')->name('user.followers');
 });
 
 // ログイン後
@@ -41,5 +43,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('users/{id}')->group(function () {
         Route::get('edit', 'UsersController@edit')->name('user.edit');
         Route::put('', 'UsersController@update')->name('user.update');
+    });
+    
+    // フォロー
+    Route::prefix('users/{id}')->group(function () {
+        Route::post('follow', 'UsersController@follow')->name('follow');
+        Route::delete('unfollow', 'UsersController@unfollow')->name('unfollow');
     });
 });

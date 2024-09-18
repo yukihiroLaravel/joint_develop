@@ -1,7 +1,7 @@
 // confirmDelete.js
 
 document.addEventListener('DOMContentLoaded', function () {
-    const deleteButton = document.querySelector('.btn-danger');
+    const deleteButton = document.querySelector('.delete-account');
     
     if (deleteButton) {
         deleteButton.addEventListener('click', function (event) {
@@ -23,3 +23,4 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+

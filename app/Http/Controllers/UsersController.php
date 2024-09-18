@@ -12,10 +12,10 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        // $posts = $user->posts()->orderBy('id', 'desc')->paginate(9);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
         $data=[
             'user' => $user,
-            // 'posts' => $posts,
+            'posts' => $posts,
         ];
         return view('users.show',$data);
     }
@@ -49,5 +49,44 @@ class UsersController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
         return redirect()->route('user.show', ['id' => $user->id]);
+    }
+
+    public function follow($id)
+    {
+        $user = User::findOrFail($id);
+        \Auth::user()->follow($user->id);
+
+        return back()->with('status', $user->name .'さんをフォローしました。');
+    }
+
+    public function unfollow($id)
+    {
+        $user = User::findOrFail($id);
+        \Auth::user()->unfollow($user->id);
+
+        return back()->with('status', $user->name .'さんのフォローを解除しました。');
+    }
+
+    public function followings($id)
+    {
+        $user = User::findOrFail($id);
+        $followings = $user->followings()->orderBy('updated_at', 'desc')->paginate(10);
+        $data=[
+            'user' => $user,
+            'followings' => $followings,
+        ];
+
+        return view('users.show', $data);
+    }
+
+    public function followers($id)
+    {
+        $user = User::findOrFail($id);
+        $followers = $user->followers()->orderBy('updated_at', 'desc')->paginate(10);
+        $data=[
+            'user' => $user,
+            'followers' => $followers,
+        ];
+        return view('users.show', $data);
     }
 }
