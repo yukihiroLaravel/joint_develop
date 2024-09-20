@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Helpers\Helper;
 use App\User;
 use App\Post;
+use App\UnusedFileChecker;
 
 class UploadController extends Controller
 {
@@ -57,7 +58,11 @@ class UploadController extends Controller
             での環境設定済の状況では、
             img タグの src属性には、{{ asset('storage/XXX') }} で、XXXに、$filePathの値を指定できる。
         */
-        $filePath = $file->storeAs($folderRelativePath, $file->getClientOriginalName(), 'public');
+        $fileName = $file->getClientOriginalName();
+        $filePath = $file->storeAs($folderRelativePath, $fileName, 'public');
+
+        // 「unused_file_checkers」のinsert処理
+        UnusedFileChecker::isert($imageType, $uuid, $fileName);
 
         // 結果を返す
         $ret = new \ArrayObject([
@@ -105,7 +110,14 @@ class UploadController extends Controller
                 $user = User::findOrFail($userId);
 
                 // 「user_images」の再構成を行う。
-                $helper->reconstructionUserImage($user, $fileUuids, $fileNames);
+                $helper->doWithLock($imageType, function() use (
+                    $helper,
+                    $user,
+                    $fileUuids,
+                    $fileNames
+                ) {
+                    $helper->reconstructionUserImage($user, $fileUuids, $fileNames);
+                });
             }
             if ($isPost) {
                 $postId = (int)$id;
@@ -117,40 +129,48 @@ class UploadController extends Controller
                 */
                 $post = Post::findOrFail($postId);
 
-                /*
-                    $post->postImages()->delete();
-                    での一括削除は行わない。
-                    親：$user、子：$post、孫 : $post_image
-                    としたときに、ひ孫　のテーブルが、もし、将来的にできたときなど
-                    考慮し、確実に「孫 : $post_image」でのdeletingが発火する方式の
-                    布石としても、このほうが都合がよいだろう。
-                */
-                $postImages = $post->postImages()->get();
+                $helper->doWithLock($imageType, function() use (
+                    $helper,
+                    $postId,
+                    $post,
+                    $fileUuids,
+                    $fileNames
+                ) {
+                    /*
+                        $post->postImages()->delete();
+                        での一括削除は行わない。
+                        親：$user、子：$post、孫 : $post_image
+                        としたときに、ひ孫　のテーブルが、もし、将来的にできたときなど
+                        考慮し、確実に「孫 : $post_image」でのdeletingが発火する方式の
+                        布石としても、このほうが都合がよいだろう。
+                    */
+                    $postImages = $post->postImages()->get();
 
-                /*
-                    親のpostsが存在する状況、つまり「編集モード」での
-                    アップロード／削除のajax通信でstorageの保存／削除が終わった後、
-                    別枠での「画像系のDBの再構築」の通信なので、DELETE/INSERT時の、
-                    DELETEはDB削除だけ行えばよい。(storageの削除はしない)
-                    
-                    この前提で、
-                       $post->postImages()->delete();
-                    での一括削除はしたくない。
-                    なぜなら、
-                    親：$user、子：$post、孫 : $post_image
-                    としたときに、ひ孫　のテーブルが、もし、将来的にできたときなど
-                    考慮し、確実に「孫 : $post_image」でのdeletingが発火する方式の
-                    布石としても、各々の$postImageに対して、「$postImage->delete();」
-                    明示的におこなっておきたい。
-                    
-                    そのため、
+                    /*
+                        親のpostsが存在する状況、つまり「編集モード」での
+                        アップロード／削除のajax通信でstorageの保存／削除が終わった後、
+                        別枠での「画像系のDBの再構築」の通信なので、DELETE/INSERT時の、
+                        DELETEはDB削除だけ行えばよい。(storageの削除はしない)
+                        
+                        この前提で、
+                        $post->postImages()->delete();
+                        での一括削除はしたくない。
+                        なぜなら、
+                        親：$user、子：$post、孫 : $post_image
+                        としたときに、ひ孫　のテーブルが、もし、将来的にできたときなど
+                        考慮し、確実に「孫 : $post_image」でのdeletingが発火する方式の
+                        布石としても、各々の$postImageに対して、「$postImage->delete();」
+                        明示的におこなっておきたい。
+                        
+                        そのため、
 
-                    第2引数をfalseとした形で、$postImages「DB値」のみを削除する処理を実行している。
-                */
-                $helper->deletePostImages($postImages, false);
+                        第2引数をfalseとした形で、$postImages「DB値」のみを削除する処理を実行している。
+                    */
+                    $helper->deletePostImages($postImages, false);
 
-                // $postImagesのinsertをする。
-                $helper->insertPostImages($postId, $fileUuids, $fileNames);   
+                    // $postImagesのinsertをする。
+                    $helper->insertPostImages($postId, $fileUuids, $fileNames);       
+                });
             }
         });
 

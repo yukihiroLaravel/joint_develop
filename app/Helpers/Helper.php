@@ -33,6 +33,81 @@ class Helper
         return self::$instance;
     }
 
+    /* #region 排他ロック */
+
+    /**
+     * $lockName毎の排他ロックを取得し$callbackを実行する。
+     */
+    function doWithLock($lockName, callable $callback)
+    {
+        /*
+            fclose()自体はアトミックではなく、fclose()の内部処理でファイルクローズの途中で
+            他のスレッドがfopen()を行うことが可能である。
+            その場合は通常、ファイルハンドルは2つ以上は取得可能なため問題ないと言える。
+
+            fopen()自体はロックとは関係がなく、実際にファイルロックを行うのは flock()である。
+
+            flock() はPHPにおいてアトミックなロックが保証されており、
+            複数のスレッドが同時に flock() を使ってロックを取得しようとした場合、
+            一つのスレッドのみがロックを取得でき、他のスレッドは待ち状態となる。
+
+            したがって、fopen()やfclose()がアトミックではなくとも、
+            flock()によって、複数のスレッドが同時に$callback()を実行することはない。
+
+            これにより、ロック処理の完全性を担保した。
+
+            高負荷やリソース不足などで例外が発生する可能性はあるものの、
+            「複数スレッドが同時に$callback()を実行しない」ことが
+            doWithLock()の全体でみたときに、アトミックに担保されている実装となった。
+
+            なお、PHPのThreaded::synchronizedは、CLI環境では意図した動作をするものの
+            webアプリでは意図した動作をしない
+
+            また、DB上にlocksのテーブルを定義する方法も検討したが、
+            行ロックなどをしたときに、明示的なアンロックを意図したタイミングでするためには
+            トランザクションを開始させて、commitするしかない
+            そうすると、利用側の$callback();の内部処理までトランザクションの範囲
+            となってしまう。これは使いにくい。
+
+            このような諸事情があり、当実装に至った。
+        */
+
+        // ロックファイルのパス
+        $lockFilePath = storage_path("app/public/{$lockName}.lock");
+
+        $lockFile = fopen($lockFilePath, 'r+');
+
+        if (!$lockFile) {
+            // ロックファイルの環境準備が無い場合(または、準備はあるが、高負荷やリソース不足など)
+            throw new \Exception("cannot open : {$lockFilePath}.");
+        }
+
+        try {
+            // 排他ロック
+            if (flock($lockFile, LOCK_EX)) {
+                try {
+                    // ロック取得時、コールバック実行
+                    $callback();
+                } finally {
+                    // fclose()でロックも解放される。
+                    fclose($lockFile);
+                    $lockFile = null;
+                }
+            } else {
+                // ロック取得失敗(または、高負荷やリソース不足など)
+                throw new \Exception("cannot acquire lock: {$lockName}");
+            }
+        } catch (\Exception $e) {
+            if ($lockFile) {
+                fclose($lockFile);
+                $lockFile = null;
+            }
+            throw $e;
+        }
+    }
+
+    /* #endregion */ // 排他ロック
+
     /* #region userImage関連 */
 
     /**

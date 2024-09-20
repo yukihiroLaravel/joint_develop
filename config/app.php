@@ -230,4 +230,17 @@ return [
 
     //TOPIC_POSTS_TITLE
     'TopicPostsTitle' => env('TOPIC_POSTS_TITLE', 'Topic Posts'),
+
+    /*
+        CleanupUnusedFiles.phpでの
+        Carbon::now('Asia/Tokyo')->subDays($exclusionDays)->subHours($exclusionHours)->subMinutes($exclusionMinutes)->subSeconds($exclusionSeconds);
+        で利用する指定値
+    */
+    'exclusionDays' => env('EXCLUSION_DAYS', 1),
+    'exclusionHours' => env('EXCLUSION_HOURS', 0),
+    'exclusionMinutes' => env('EXCLUSION_MINUTES', 0),
+    'exclusionSeconds' => env('EXCLUSION_SECONDS', 0),
+
+    // CleanupUnusedFiles.phpでのtype毎の処理件数
+    'cleanupUnusedFilesTakeCount' => env('CLEANUP_UNUSED_FILES_TAKE_COUNT', 100),
 ];
