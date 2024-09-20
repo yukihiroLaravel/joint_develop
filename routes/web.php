@@ -41,12 +41,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     });
     
-    // フォロー
     Route::prefix('users/{id}')->group(function () {
+        // フォロー
         Route::post('follow', 'UsersController@follow')->name('follow');
         Route::delete('unfollow', 'UsersController@unfollow')->name('unfollow');
-
-    // ユーザー編集・更新
+        
+        // ユーザー編集・更新
         Route::get('edit', 'UsersController@edit')->name('user.edit');
         Route::put('', 'UsersController@update')->name('user.update');
     });
