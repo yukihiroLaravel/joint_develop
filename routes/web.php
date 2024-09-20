@@ -51,5 +51,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('users/{id}')->group(function () {
         Route::post('follow', 'UsersController@follow')->name('follow');
         Route::delete('unfollow', 'UsersController@unfollow')->name('unfollow');
+
+    // ユーザー編集・更新
+        Route::get('edit', 'UsersController@edit')->name('user.edit');
+        Route::put('', 'UsersController@update')->name('user.update');
     });
 });
