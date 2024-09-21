@@ -58,45 +58,65 @@ class PrepareLockFiles extends Command
                 $this->info("already exists: {$lockFilePath}");
             }
 
-            if($user && $group) {
-                /*
-                    例として、
-                        php artisan prepare:lock-files www-data www-data
-                    での実行時
-                        $userは、www-data
-                        $groupは、www-data
-                    である。
-                    このとき、
-                        chown www-data:www-data ロックファイル
-                    のLinuxコマンドに相当する処理がしたい
-                    さもなければ、
-                        ロックファイルの所有者が、
-                        php artisan prepare:lock-files www-data www-data
-                        の実行ユーザ(rootなど)となってしまい
-                        app/Helpers/Helper.phpのdoWithLock()が権限エラーで
-                        正常動作しないだろう。
-
-                    dockerコンテナ内をroot以外で作業する環境のケースは、
-                    sudoコマンドが使えるようにDockerfileを構成し、docker compose buidしているなどの前提で
-                        sudo php artisan prepare:lock-files www-data www-data
-                    などすればよろしいだろう。
-                */
-                $isOK = true;
-                if ($isOK) {
-                    if (!chown($lockFilePath, $user)) {
-                        $this->error("Failed to chwon {$lockFilePath} to {$user}");
-                        $isOK = false;
-                    }
-                }
-                if ($isOK) {
-                    if (!chgrp($lockFilePath, $group)) {
-                        $this->error("Failed to chgrp {$lockFilePath} to {$group}");
-                        $isOK = false;
-                    }
-                }
-            }
+            // 可能であればchownを実行する
+            $this->runChownIfPossible($lockFilePath, $user, $group);
         }
 
         return 0;
+    }
+
+    /**
+     * 可能であればchownを実行する
+     */
+    private function runChownIfPossible($lockFilePath, $user, $group) {
+
+        if(!$lockFilePath) {
+            return;
+        }
+
+        if(!$user) {
+            return;
+        }
+
+        if(!$group) {
+            return;
+        }
+
+        /*
+            例として、
+                php artisan prepare:lock-files www-data www-data
+            での実行時
+                $userは、www-data
+                $groupは、www-data
+            である。
+            このとき、
+                chown www-data:www-data ロックファイル
+            のLinuxコマンドに相当する処理がしたい
+            さもなければ、
+                ロックファイルの所有者が、
+                php artisan prepare:lock-files
+                の実行ユーザ(rootなど)となってしまい
+                app/Helpers/Helper.phpのdoWithLock()が権限エラーで
+                正常動作しないだろう。
+
+            dockerコンテナ内をroot以外で作業する環境のケースは、
+            sudoコマンドが使えるようにDockerfileを構成し、docker compose buidしているなどの前提で
+                sudo php artisan prepare:lock-files www-data www-data
+            などすればよろしいだろう。
+        */
+
+        if (!chown($lockFilePath, $user)) {
+            $this->error("Failed to chwon {$lockFilePath} to {$user}");
+            return;
+        }
+
+        $this->info("succeeded to chwon {$lockFilePath} to {$user}");
+
+        if (!chgrp($lockFilePath, $group)) {
+            $this->error("Failed to chgrp {$lockFilePath} to {$group}");
+            return;
+        }
+
+        $this->info("succeeded to chgrp {$lockFilePath} to {$group}");
     }
 }
