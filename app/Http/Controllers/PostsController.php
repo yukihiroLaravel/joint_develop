@@ -17,4 +17,27 @@ class PostsController extends Controller
         $post->save();
         return back();
     }
+
+    public function edit($id)
+    {
+        $user = \Auth::user();
+        $post = Post::findOrfail($id);
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(9);
+        $data=[
+            'user' => $user,
+            'post' => $post,
+            'posts' => $posts,
+        ]; 
+        return view('posts.edit', $data);
+    }
+
+    public function update(PostRequest $request, $id)
+    {
+        $post = Post::findOrfail($id);
+        $post->user_id = $request->user()->id;
+        $post->content = $request->content;
+        $post->save();
+        return redirect('/');
+    }
+
 }
