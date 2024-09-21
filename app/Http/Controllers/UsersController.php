@@ -45,4 +45,11 @@ class UsersController extends Controller
         $user->save();
         return redirect()->route('user.show', $id);
     }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect()->route('user.index');
+    }
 }

@@ -21,7 +21,7 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ユーザ
-Route::get('/', 'UsersController@index');
+Route::get('/', 'UsersController@index')->name('user.index');
 Route::prefix('users')->group(function() {
     Route::get('{id}', 'UsersController@show')->name('user.show');
 });
@@ -32,9 +32,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::prefix('posts')->group(function() {
         Route::post('', 'PostsController@store')->name('post.store');
     });
-    // ユーザ編集・更新
+    // ユーザ編集・更新・削除
     Route::prefix('users/{id}')->group(function() {
         Route::get('edit', 'UsersController@edit')->name('user.edit');
         Route::put('', 'UsersController@update')->name('user.update');
+        Route::delete('delete', 'UsersController@destroy')->name('user.delete');
     });
 });
