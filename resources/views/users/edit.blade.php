@@ -17,7 +17,15 @@
             $toggleOnOff = old('toggleOnOff', 'OFF');
         }
     @endphp
-    <a href="#" id="avatarToggleLink">アバター画像の表示／追加／削除をする</a>
+
+    <h2 class="mt-5">ユーザ情報を編集する</h2>
+
+    {{-- スペーサーとしてのdivタグ--}}
+    <div style="margin: 15px;"></div>
+
+    <div style="margin-left: 65px;">
+        <a href="#" id="avatarToggleLink">アバター画像の表示／追加／削除をする</a>
+    </div>
 
     {{-- スペーサーとしてのdivタグ--}}
     <div style="margin: 15px;"></div>
@@ -84,9 +92,6 @@
                 </div>
             </div>
         </div>
-
-        <h2 class="mt-5">ユーザ情報を編集する</h2>
-
         @include('commons.error_messages')
         <div class="form-group">
             <label for="name">名前</label>
