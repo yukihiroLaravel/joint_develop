@@ -24,9 +24,6 @@ class User extends Authenticatable
             // to_user_idで絞って削除
             \DB::table('follows')->where('to_user_id', $user->id)->delete();
 
-            $helper = Helper::getInstance();
-
-            // user_images
             /*
                 「user_images」の削除処理
                 users
@@ -41,12 +38,8 @@ class User extends Authenticatable
                 「子：$post」のdeletingイベントが発火させ、
                 「孫 : $post_image」の削除ができる状況とした。
             */
-
             $userImage = $user->userImage()->first();
             if ($userImage) {
-                $uuid = $userImage->uuid;
-                // $imageType、$uuidを指定してstorageから削除
-                $helper->deleteImageOnStorage('avatar', $uuid); 
                 // DB上のレコード削除
                 $userImage->delete();
             }
@@ -64,6 +57,21 @@ class User extends Authenticatable
                 明示的に、「$post->delete()」を実行し、
                 「子：$post」のdeletingイベントが発火させ、
                 「孫 : $post_image」の削除ができる状況とした。
+
+                ★★★★★★★★★★★★★★★★★★★★★★★★★★
+                追記
+                   投稿件数が0件のユーザの退会処理をしたところ
+                   下記の
+                   foreach ($user->posts as $post) {
+                   の箇所をXdebugで調査したところ、
+                   の「$user->posts」は
+                   Illuminate\Database\Eloquent\Collectionで件数0件
+                   空のコレクションとなっており、ループ処理をしないで正常終了した
+                   
+                   投稿件数が0件のユーザの退会処理をしても、
+                   この箇所でnull関係にまつわるエラーが発生しないことが
+                   動作確認としてわかりましたので、メンテナンス情報として書いておきました。
+                ★★★★★★★★★★★★★★★★★★★★★★★★★★
             */
             foreach ($user->posts as $post) {
                 $post->delete();

@@ -14,6 +14,10 @@
                 'imageType' => 'post',
                 'post' => $post,
             ])
+            {{-- margin-topをマイナス値にして上に移動させて「画像追加」ボタンの横に表示させている。 --}}
+            <div style="margin-left: 180px; margin-top: -50px; margin-bottom: 20px; color:red;">
+                投稿画像の変更は「更新する」で適用されます。
+            </div>
             <div class="d-flex justify-content-between">
                 <button type="submit" class="btn btn-primary">更新する</button>
                 <a href="{{ $previousUrl }}" class="btn btn-info">戻る</a>

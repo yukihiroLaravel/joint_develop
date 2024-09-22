@@ -30,8 +30,10 @@ class PostsController extends Controller
 
         $content = $request->content;
 
-        $fileUuids = $request->input('fileUuids', []); // デフォルト空配列
-        $fileNames = $request->input('fileNames', []); // デフォルト空配列
+        // フォームのsubmitで送信されたfileUuidsおよびfileNamesの配列から、null値のエントリを取り除いたものを返す。
+        $filteredFileInfo = $helper->filterFileInfoFromRequest($request);
+        $fileUuids = $filteredFileInfo["fileUuids"];
+        $fileNames = $filteredFileInfo["fileNames"];
 
         $post = new Post;
         \DB::transaction(function () use (
@@ -54,14 +56,8 @@ class PostsController extends Controller
         $this->showFlashSuccess("投稿しました。");
 
         /*
-            'submitSuccess'のセッション値が指定し「upload.blade.php」側で、
-            画像のアップロードのUIの復元処理しない制御をしたいためflashで指定するため
-            withで、'submitSuccess' => true,を指定している。
-
             また、当初、
-            return back()->with([
-                'submitSuccess' => true,
-            ]);
+            return back()
             で、return back()していたが、下記の理由により、
             redirect('/')に変更した。
 
@@ -81,9 +77,7 @@ class PostsController extends Controller
             この状況を防ぐため、新規投稿したら1ページ目を表示するように、
             return redirect('/')をすることとした。
         */
-        return redirect('/')->with([
-            'submitSuccess' => true,
-        ]);
+        return redirect('/');
     }
 
     /**
@@ -105,7 +99,7 @@ class PostsController extends Controller
     }
 
     /**
-     * 編集
+     * 投稿編集を表示する。
      */
     public function edit($id)
     {
@@ -123,16 +117,43 @@ class PostsController extends Controller
     }
 
     /**
-     * 更新
+     * 投稿内容を更新する。
      */
     public function update(PostRequest $request, $id)
     {
+        $helper = Helper::getInstance();
+
         $post = Post::findOrFail($id);
 
         $this->validateOwnership($post->user_id);
 
-        $post->content = $request->input('content');
-        $post->save();
+        $content = $request->input('content');
+
+        // フォームのsubmitで送信されたfileUuidsおよびfileNamesの配列から、null値のエントリを取り除いたものを返す。
+        $filteredFileInfo = $helper->filterFileInfoFromRequest($request);
+        $fileUuids = $filteredFileInfo["fileUuids"];
+        $fileNames = $filteredFileInfo["fileNames"];
+
+        \DB::transaction(function () use (
+            $helper,
+            $post,
+            $content,
+            $fileUuids,
+            $fileNames
+        ) {
+            $post->content = $content;
+            $post->save();
+  
+            $helper->doWithLockIfMatchCondition('avatar', function() use (
+                $helper,
+                $post,
+                $fileUuids,
+                $fileNames
+            ) {
+                // 「post_images」の再構成を行う。
+                $helper->reconstructionPostImage($post, $fileUuids, $fileNames);
+            });
+        });
 
         $this->showFlashSuccess("投稿内容を更新しました。");
 

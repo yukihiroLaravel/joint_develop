@@ -19,10 +19,8 @@ class Post extends Model
             $helper = Helper::getInstance();
 
             /*
-                「storage」も削除したいため
                 $post->postImages()->delete();
                 での一括削除は行わない。
-                また、後ほど、わかったことだが、
                 親：$user、子：$post、孫 : $post_image
                 としたときに、ひ孫　のテーブルが、もし、将来的にできたときなど
                 考慮し、確実に「孫 : $post_image」でのdeletingが発火する方式の
@@ -30,7 +28,7 @@ class Post extends Model
             */
             $postImages = $post->postImages()->get();
 
-            // $postImagesの「storage」と「DB値」を削除する
+            // $postImagesの「DB値」を削除する
             $helper->deletePostImages($postImages);
         });
     }

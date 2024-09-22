@@ -90,20 +90,6 @@ Route::group(['middleware' => 'auth'], function() {
 
         // url=「/upload」のPOSTでアップロードで保存
         Route::post('', 'UploadController@store');
-
-        /*
-            url=「/upload/{id}」のPUTで更新
-
-            idが何かはImageTypeによって異なる。
-        */
-        Route::put('{id}', 'UploadController@update');
-
-        /*
-            url=「/upload/{uuid}」のDELETEで削除
-
-            uuidを指定するのは、sotrageからの削除を行うため
-        */
-        Route::delete('{uuid}', 'UploadController@destroy');
     });
 });
 /* #endregion */ // API

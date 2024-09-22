@@ -56,13 +56,18 @@
 
     (1)、(3)については、表示専用である。
     (2)については、avatar画像の「アップロード／削除」を行うコンポーネント自体が
-       'editFlg' => 'ON'の編集モードであるため、「reconstructionImageDBCallBack」を通じた
+       'editFlg' => 'ON'の編集モードであるため、「addOrDeleteFileCallBack」を通じた
        javascript側で表示更新に対応すべく、
-       もし、「reconstructionImageDBCallBack」のコールバックの引数が空であった時、
+       もし、「addOrDeleteFileCallBack」のコールバックの引数が空であった時、
        「画像削除」の操作の結果、今、アップロード済のアバター画像がないということですから
        (b)方式でのimgとなる表示更新をjavascriptでする必要がある。
        ( ajax通信の後処理で画面全体リロードをしないからである )
-    
+       追記）
+            「更新する」などの編集画面全体の登録／更新系の処理のタイミングで画像追加、画像削除の分を
+            DB反映する実装変更を行った影響で、大元の画面のバリデーションエラー時の再表示の時も
+            avatar画像の表示の復元の必要性が生じたため、avatar.jsに
+            「validateErrorRestoreCallBack」を通じた表示更新も追加実装した。
+
     (2)は、当「avatar.blade.php」でも、'editFlg' => 'ON'の編集モードでの引数指定を
     受けてその制御をする形とすればよいだろう。
     ただし、(2)の場合は、ユーザー編集画面を見れば１画面に１つしか

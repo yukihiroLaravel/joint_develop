@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserRequest;
+use App\Helpers\Helper;
 
 class UsersController extends Controller
 {
@@ -122,7 +123,7 @@ class UsersController extends Controller
     }
 
     /**
-     *  削除
+     * ユーザの削除(退会)処理をする。
      */
     public function destroy($id)
     {
@@ -133,32 +134,83 @@ class UsersController extends Controller
         \DB::transaction(function () use ($user) {
             $user->delete();
         });
-        $this->showFlashSuccess("退会しました。");
+        $this->showFlashSuccess("退会処理が完了しました。");
 
         return redirect('/');
     }
 
-    //編集
+    /**
+     * ユーザ編集を表示する。
+     */
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        if (\Auth::user()->id !== $user->id) {
-            abort(403);
-        }
+
+        $this->validateOwnership($user->id);
+
         return view('users.edit',['user'=>$user,]);
     }
     
-    //更新
+    /**
+     * ユーザ(ログインユーザ)の情報を更新をする。
+     */
     public function update(UserRequest $request, $id)
     {
+        $helper = Helper::getInstance();
+
         $user = User::findOrFail($id);
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
+
+        $this->validateOwnership($user->id);
+
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $password = null;
         if($request->filled('password')){
-            $user->password = Hash::make($request->input('password'));
+            $password = Hash::make($request->input('password'));
+        } else {
+            /*
+                「UserRequest」でpasswordは、requiredのチェックをしているため、このelseはありえない。
+                このことを、ここで明示的に書いておいて、このありえないelseに来た場合は、
+                プログラムのバグであったり、もしくは、仕様変更の実装したケースでは部分的に実装の対応漏れがおきたときと考えられる。
+                そのときに、プログラマが気が付けるように明示的に例外を投げておく。
+
+                例外メッセージの和訳「passwordが空なのは不正な状態です。」
+            */
+            throw new \Exception("If the password is empty, it is an invalid state.");
         }
-        $user->save();
-        $this->showFlashSuccess("更新しました。");
+
+        // フォームのsubmitで送信されたfileUuidsおよびfileNamesの配列から、null値のエントリを取り除いたものを返す。
+        $filteredFileInfo = $helper->filterFileInfoFromRequest($request);
+        $fileUuids = $filteredFileInfo["fileUuids"];
+        $fileNames = $filteredFileInfo["fileNames"];
+
+        \DB::transaction(function () use (
+            $helper,
+            $user,
+            $name,
+            $email,
+            $password,
+            $fileUuids,
+            $fileNames
+        ) {
+            $user->name = $name;
+            $user->email = $email;
+            $user->password = $password;
+            $user->save();
+
+            $helper->doWithLockIfMatchCondition('avatar', function() use (
+                $helper,
+                $user,
+                $fileUuids,
+                $fileNames
+            ) {
+                // 「user_images」の再構成を行う。
+                $helper->reconstructionUserImage($user, $fileUuids, $fileNames);
+            });
+        });
+
+        $this->showFlashSuccess("あなたの基本情報を更新しました。");
+
         return back()->with([
             'toggleOnOff' => $request->toggleOnOff,
         ]);
