@@ -21,13 +21,16 @@ class PostsController extends Controller
     public function edit($id)
     {
         $user = \Auth::user();
-        $post = Post::findOrfail($id);
-        $posts = $user->posts()->orderBy('id', 'desc')->paginate(9);
+        $post = Post::findOrFail($id);
+
+        if ($post->user_id !== $user->id) {
+            abort(403, '許可されていない操作です。');
+        }
+
         $data=[
-            'user' => $user,
             'post' => $post,
-            'posts' => $posts,
         ]; 
+        
         return view('posts.edit', $data);
     }
 
