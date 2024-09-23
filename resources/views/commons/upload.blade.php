@@ -36,14 +36,21 @@
 
     {{-- アップロードUIの復元モードであるかどうかのフラグ --}}
     <input id="file-upload-ui-restore-mode-flg" type="hidden" value="OFF" />
+
+    {{-- アップロードUIの「さらに、バリデーションエラー時の」復元モードであるかどうかのフラグ --}}
+    <input id="file-upload-ui-restore-for-validate-error-mode-flg" type="hidden" value="OFF" />
 </div>
-@if (!session('submitSuccess') && old('fileUploadSubmitFlg'))
-    {{-- 'submitSuccess'の値がない、つまり、submit成功時でない --}}
-    {{-- かつ、 --}}
-    {{-- 'fileUploadSubmitFlg'の値がある、つまり、前回値がありバリデーションエラー時である --}}
+@if (old('fileUploadSubmitFlg'))
+    {{-- old('fileUploadSubmitFlg')が値ありと判定されるのは、バリデーションエラー時の時だけである --}}
+    {{--    この判定のために、name属性を'fileUploadSubmitFlg'としたhiddenタグを置いてる。 --}}
+
+    {{-- バリデーションエラー時の再表示の場合 --}}
     <script>
         // 「アップロードUIの復元モードである」と、フラグをたてる
         $('#file-upload-ui-restore-mode-flg').val('ON');
+
+        // 「アップロードUIの「さらに、バリデーションエラー時の」復元モードである」と、フラグをたてる
+        $('#file-upload-ui-restore-for-validate-error-mode-flg').val('ON');
     </script>
 @else
     {{-- 上記以外の「通常」の場合 --}}

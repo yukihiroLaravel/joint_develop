@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\UserImage;
 use App\PostImage;
+use Carbon\Carbon;
 
 /**
  * ヘルパークラス
@@ -34,6 +35,31 @@ class Helper
     }
 
     /* #region 排他ロック */
+
+    /**
+     * 条件にマッチするときだけ排他ロックを取得してコールバックを実行する。
+     */
+    function doWithLockIfMatchCondition($lockName, callable $callback)
+    {
+        // 現在時刻
+        $currentTime = Carbon::now('Asia/Tokyo');
+
+        // メンテナンスタイムの開始、終了の設定値の取得
+        $settingValueMaintenanceTimeStart = config('app.maintenanceTime.start');
+        $settingValueMaintenanceTimeEnd = config('app.maintenanceTime.end');
+
+        // メンテナンスタイムの開始、終了を取得
+        $maintenanceStartTime = Carbon::createFromFormat('H:i', $settingValueMaintenanceTimeStart, 'Asia/Tokyo');
+        $maintenanceEndTime = Carbon::createFromFormat('H:i', $settingValueMaintenanceTimeEnd, 'Asia/Tokyo');
+
+        if ($currentTime->between($maintenanceStartTime, $maintenanceEndTime)) {
+            // メンテナンスタイム内の場合、排他ロックを取得してコールバックを実行
+            static::doWithLock($lockName, $callback);
+        } else {
+            // メンテナンスタイム外の場合、そのままコールバックを実行
+            $callback();
+        }
+    }
 
     /**
      * $lockName毎の排他ロックを取得し$callbackを実行する。
@@ -140,9 +166,16 @@ class Helper
 
         if($requestFileInfoCount !== 1) {
             /*
-                アップロードUIコンポーネントは、「'multiFlg' => 'OFF'：単一画像モード」の時で、
+                アバター画像のためのアップロードUIコンポーネントは、「'multiFlg' => 'OFF'：単一画像モード」の時で、
                 既に画像が1つ登録済状態の時は、「未指定のアップロードUI」はありえない。
                 (  'imageType' => 'avatar' の時は、その想定。)
+
+                後続処理の利便性を考慮し、filterFileInfoFromRequestなどでnull要素を取り除いてる
+                コンテクストを想定している状況でもあり、
+
+                「users」と「user_images」は「1対1」または「1対0」の関係であり、
+                「user_images」へのDB反映を考える時、
+                既に0件でないと判定されている状況においては、Mustで1件であることが要求される。
 
                 よって、前処理で 0件時をケアしている状況では、
                 ここは、必ず、1でなければならない。
@@ -175,23 +208,37 @@ class Helper
     /* #region postImages関連 */
 
     /**
-     * $postImagesの「storage」と「DB値」を削除する
+     * 「post_images」の再構成を行う。
      */
-    public function deletePostImages($postImages, $isNeedDeleteStorage = true)
+    public function reconstructionPostImage($post, $fileUuids, $fileNames)
+    {
+        /*
+            $post->postImages()->delete();
+            での一括削除は行わない。
+            親：$user、子：$post、孫 : $post_image
+            としたときに、ひ孫　のテーブルが、もし、将来的にできたときなど
+            考慮し、確実に「孫 : $post_image」でのdeletingが発火する方式の
+            布石としても、このほうが都合がよいだろう。
+        */
+        $postImages = $post->postImages()->get();
+
+        // $postImagesの「DB値」を削除する
+        static::deletePostImages($postImages);
+
+        // $postImagesのinsertをする。
+        static::insertPostImages($post->id, $fileUuids, $fileNames);
+    }
+
+    /**
+     * $postImagesの「DB値」を削除する
+     */
+    public function deletePostImages($postImages)
     {
         if(is_null($postImages)) {
             return;
         }
 
         foreach($postImages as $postImage) {
-
-            if ($isNeedDeleteStorage) {
-
-                $uuid = $postImage->uuid;
-                // $imageType、$uuidを指定してstorageから削除
-                static::deleteImageOnStorage('post', $uuid);   
-            }
-
             $postImage->delete();
         }
     }
@@ -203,23 +250,12 @@ class Helper
     {
         $requestFileInfoCount = static::getRequestFileInfoCountWithValidation($fileUuids, $fileNames);
 
-        /*
-            $requestFileInfoCountの値は、
-            「if(is_null($uuid) || is_null($fileName)) {」
-            が成立するケースも含んだ件数なので、後続処理を続行する。 
-        */
-
         $order = 0;
 
         for($index = 0 ; $index < $requestFileInfoCount ; ++$index) {
 
             $uuid = $fileUuids[$index];
             $fileName = $fileNames[$index];
-
-            if(is_null($uuid) || is_null($fileName)) {
-                // ファイルが未指定のアップロードUIがあったりするのでその分は、スキップしたい
-                continue;
-            }
 
             $postImage = new PostImage;
             $postImage->post_id = $postId;
@@ -259,6 +295,54 @@ class Helper
 
 
     /* #region 「$fileUuids、$fileNames」関係のヘルパー処理 */
+
+    /**
+     * フォームのsubmitで送信されたfileUuidsおよびfileNamesの配列から、null値のエントリを取り除いたものを返す。
+     */
+    public function filterFileInfoFromRequest($request)
+    {
+        /*
+            upload.jsで動的に作成したUI項目をformのsubmitでリクエストに乗せた場合
+            「画像追加」ボタンに相当するもので、
+            fileUuids、fileNamesが、ともに、null値で1要素入ってる。
+            それがあった場合は取り除いた形のものを返す。
+
+            この取り除く処理をどのタイミングで実行するかを検討すると、
+            非GETのController側のメソッドのできるだけ早い段階でfileUuids、fileNames
+            の値をリクエストより取得するときに、この調整をしておくほうが
+            後続の処理が綺麗になると判断した。
+
+            なお、
+                ajaxのパラメータや、sessionStorageの読み書きではgetUploadUIInfo()でそれを取り除いている
+                ここで言及しているのは、あくまで、「formのsubmitでリクエストに乗せた場合」の話だということをご留意願います。
+        */
+        $tempFileUuids = $request->input('fileUuids', []); // デフォルト空配列
+        $tempFileNames = $request->input('fileNames', []); // デフォルト空配列
+
+        $requestFileInfoCount = static::getRequestFileInfoCountWithValidation($tempFileUuids, $tempFileNames);
+
+        $fileUuids = [];
+        $fileNames = [];
+
+        for ($index = 0 ; $index < $requestFileInfoCount ; ++$index) {
+            $currentTempFileUuid = $tempFileUuids[$index];
+            $currentTempFileName = $tempFileNames[$index];
+
+            if(!$currentTempFileUuid || !$currentTempFileName) {
+                continue;
+            }
+
+            $fileUuids[] = $currentTempFileUuid;
+            $fileNames[] = $currentTempFileName;
+        }
+
+        $filteredFileInfo = [
+            'fileUuids' => $fileUuids,
+            'fileNames' => $fileNames,
+        ];
+
+        return $filteredFileInfo;
+    }
 
     /**
      * リクエストのファイル情報「$fileUuids、$fileNamesの件数取得」を行う。

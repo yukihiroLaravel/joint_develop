@@ -1,4 +1,3 @@
-
 // 動的にファイルアップロードUIを追加する関数
 function createFileUpload() {
     /*
@@ -188,107 +187,118 @@ function getUploadUIInfo()
 }
 
 /**
- * 画像関係のDBの再構成を行う。
+ * 「addOrDeleteFileCallBack」によるコールバック実行の必要性があれば、コールバック実行する。
  */
-function reconstructionImageDB(baseId, imageType, baseErrorMessage)
-{
+function doAddOrDeleteFileCallBack(imageType) {
+
     /*
-        当メソッドの存在理由
+        アップロードのUIのサムネイル画像とは別に、画面に該当の画像をまさに表示中の状況で
+        画像追加、画像削除のたびに、その画像を表示更新すべきケースもあるかもしれない
 
-        編集系の画面でファイルのアップロード／削除をした後で
-        DBの更新系の操作をせずに、別画面に遷移などしてしまったケースで
-        該当データについて、画像関係のDBとstorageのファイルの有無状況で
-        不一致が発生するがゆえに画像表示に不整合が発生する問題点が考えられる
+        「アップロード／削除」コンポーネントの実装は、ajax通信であるため、画面全体のリロードは行わないが、
+        「アップロード／削除」コンポーネントを利用側の画面では、「画像追加」、「画像削除」の結果
+        表示更新に必要な、imgタグのsrc属性値にそのまま、指定可能な形でのpath
+        欲しくかつ、表示更新の処理のトリガーを発火させてほしいケースがあると予想される。
 
-        そこで、編集モードの際には、
-        ファイルのアップロード／削除をした毎に、
-        スピナー表示中を維持したまま、
-        当メソッドにより、画像関係のDBの再構成を行う
-        仕様とするしかないはずである。
-        ( その代わり、編集系画面の更新系のDB処理では、画像関係のDB処理は行わない仕様とする )
+        imgタグのsrc属性値にそのまま、指定可能な形でのpathを求めるのは、
+        当「アップロード／削除」コンポーネントが最も得意なので、それを当「アップロード／削除」コンポーネントの責務として
+        外部より、依存性の注入をされた関数をに引数指定しコールバック実行することとした。
 
-        ファイルの「アップロード」処理と、「削除」処理では、
-        ajax通信に乗せる引数情報は、異なり、処理内容の考え方も、かなり異なる
-        1発目の、それらのajax通信のサーバー処理で
-        画像関係のDBの再構成を共通化して、実行するのは
-        非常に対応しずらいため、
+        その必要性が発生する画面においては、その画面が動いた場合のみ
+        グローバルスコープとして見えるように( 他画面に影響が無いよう、そのようにしたうえで )
+        addOrDeleteFileCallBackの名前で関数定義を行ったうえで、当コンポーネントを利用する形とする。
 
-        スピナー表示を維持したまま、
-        当メソッドによる2発目のajax通信を新たに設けて、共通化する方向性で実装した。
+        当コンポーネントとしては、「 let isDefineCallBack = (typeof addOrDeleteFileCallBack === 'function');」にて、
+        それがあると判定された場合は、imgタグのsrc属性値にそのまま、
+        指定可能な形でのpathを引数指定しコールバック実行をする。
     */
 
-    // 現在のアップロードUIの情報を取得する。
+    let isDefineCallBack = (typeof addOrDeleteFileCallBack === 'function');
+
+    if(!isDefineCallBack) {
+        return;
+    }
+
+    let filePaths = getFilePaths(imageType);
+
+    // コールバック実行 ( 利用先での画像更新処理がなされることを期待 )
+    addOrDeleteFileCallBack(filePaths);
+}
+
+/**
+ * 「validateErrorRestoreCallBack」によるコールバック実行の必要性があれば、コールバック実行する。
+ */
+function doValidateErrorRestoreCallBack(imageType) {
+
+    /*
+        バリデーションエラー時の再表示は、submit系の処理での画面リロードでの
+        表示更新となるため、
+        アップロードのUIのサムネイル画像とは別に、画面に該当の画像をまさに表示中
+        のものは、DB値の画像で表示更新されてしまうことになる。
+        
+        画像追加、画像削除のたびに、DB反映をせず、「更新する」などのボタンで
+        DB反映をする実装にしているため
+
+        画像追加、画像削除で変更していても、バリデーションエラーで、
+        その分が、未だ、DB反映されていないため
+
+        前回、DB反映されてた分でのDB値の画像で、
+        アップロードのUIのサムネイル画像とは別に、画面に該当の画像をまさに表示中
+        のものは、表示更新されることになる
+
+        つまり、画像追加、画像削除して「更新する」ボタンなどを押して
+        バリデーションエラーになって、画面が表示更新されると
+        画像追加、画像削除の操作を行う前の状態で表示更新されてしまうことになる。
+
+        そうでなくて、
+        画像追加、画像削除の操作を行ったアップロードのUIのサムネイル画像の表示状態
+        で、バリデーションエラー時も表示更新されて、
+        そして、バリデーションエラーを解決したら、
+        画像追加、画像削除の操作を行ったアップロードのUIのサムネイル画像の表示状態
+        を、正しく、DB反映できる状況したい
+
+        その必要性が発生する画面においては、その画面が動いた場合のみ
+        グローバルスコープとして見えるように( 他画面に影響が無いよう、そのようにしたうえで )
+        validateErrorRestoreCallBackの名前で関数定義を行ったうえで、当コンポーネントを利用する形とする。
+
+        当コンポーネントとしては、「 let isDefineCallBack = (typeof validateErrorRestoreCallBack === 'function');」にて、
+        それがあると判定された場合は、imgタグのsrc属性値にそのまま、
+        指定可能な形でのpathを引数指定しコールバック実行をする。
+    */
+
+    let isDefineCallBack = (typeof validateErrorRestoreCallBack === 'function');
+
+    if(!isDefineCallBack) {
+        return;
+    }
+
+    let filePaths = getFilePaths(imageType);
+
+    // コールバック実行 ( 利用先での画像更新処理がなされることを期待 )
+    validateErrorRestoreCallBack(filePaths);
+}
+
+/**
+ * 現在のアップロードUIの状態に基づいて、
+ * imgタグのsrc属性値にそのまま、指定可能な形でのpathのリストを返す。
+ */
+function getFilePaths(imageType)
+{
     let uploadUIInfo = getUploadUIInfo();
 
-    $.ajax({
-        url: '/upload/' + baseId,
-        type: 'PUT',
-        data: {
-            'imageType': imageType,
-            'fileUuids': uploadUIInfo.fileUuids,
-            'fileNames': uploadUIInfo.fileNames,
-        },
-        success: function() {
+    let filePaths = [];
 
-            if (typeof reconstructionImageDBCallBack === 'function') {
-                /*
-                    アップロードのUIのサムネイル画像とは別に、画面に該当の画像をまさに表示中の状況で
-                    「画像関係のDBの再構成」を行った場合、その画像を表示更新すべきケースもあるかもしれない
+    for (let index = 0 ; index < uploadUIInfo.fileUuids.length ; ++index) {
+        let currentFileUuid = uploadUIInfo.fileUuids[index];
+        let currentFileName = uploadUIInfo.fileNames[index];
 
-                    当実装は、ajax通信であるため、画面全体のリロードは行わないが、
-                    当「アップロード／削除」コンポーネントを利用側の画面では、「画像関係のDBの再構成」の結果
-                    表示更新に必要な、imgタグのsrc属性値にそのまま、指定可能な形でのpath
-                    欲しくかつ、表示更新の処理のトリガーを発火させてほしいケースがあると予想される。
+        let currentFilePath = `images/${imageType}/${currentFileUuid}/${currentFileName}`;
+        currentFilePath = $('#file-upload-base-path').val() + '/' + currentFilePath;
 
-                    imgタグのsrc属性値にそのまま、指定可能な形でのpathを求めるのは、
-                    当「アップロード／削除」コンポーネントが最も得意なので、それを当「アップロード／削除」コンポーネントの責務として
-                    外部より、依存性の注入をされた関数をに引数指定しコールバック実行することとした。
+        filePaths.push(currentFilePath);
+    }
 
-                    その必要性が発生する画面においては、その画面が動いた場合のみ
-                    グローバルスコープとして見えるように( 他画面に影響が無いよう、そのようにしたうえで )
-                    reconstructionImageDBCallBackの名前で関数定義を行ったうえで、当コンポーネントを利用する形とする。
-
-                    当コンポーネントとしては、「 if (typeof reconstructionImageDBCallBack === 'function') { 」にて、
-                    それがあると判定された場合は、imgタグのsrc属性値にそのまま、
-                    指定可能な形でのpathを引数指定しコールバック実行をする。
-                */
-                let filePaths = [];
-
-                for (let index = 0 ; index < uploadUIInfo.fileUuids.length ; ++index) {
-                    let currentFileUuid = uploadUIInfo.fileUuids[index];
-                    let currentFileName = uploadUIInfo.fileNames[index];
-
-                    let currentFilePath = `images/${imageType}/${currentFileUuid}/${currentFileName}`;
-                    currentFilePath = $('#file-upload-base-path').val() + '/' + currentFilePath;
-
-                    filePaths.push(currentFilePath);
-                }
-                // コールバック実行 ( 利用先での画像更新処理がなされることを期待 )
-                reconstructionImageDBCallBack(filePaths);
-            }
-
-            // スピナーを消す
-            hideSpinner();
-        },
-        error: function(xhr) {
-            /*
-                スピナー表示中におけるajax通信の2発目の実行であるため
-                1発目のajax通信のエラーメッセージに踏襲する形で
-                引数、baseErrorMessageを活用する。
-
-                ただし、これだと、1発目か2発目のどちらでのエラーなのか
-                プログラマが判別しにくい
-
-                デバッガーは、当実装を見るはずなので、
-                [ ] 記号で囲むことで当ajax通信側でのエラーだとわかるようにした。
-            */
-            let msg = "[" + baseErrorMessage + "]";
-            procShowFlashDanger(msg, xhr);
-
-            // スピナーを消す
-            hideSpinner();
-        },
-    });
+    return filePaths;
 }
 
 /**
@@ -302,6 +312,7 @@ function procShowFlashDanger(msg, xhr)
 }
 
 $(document).ready(function() {
+    let imageType = $('#file-upload-imageType').val();
     let isMulti = $('#file-upload-multiFlg').val() === 'ON';
     let isEdit = $('#file-upload-editFlg').val() === 'ON';
     let baseId = null;
@@ -330,7 +341,6 @@ $(document).ready(function() {
             // 現時点の最終追加分を取得
             var fileWrapper = $('#file-upload-container').children().last();
 
-            let imageType = $('#file-upload-imageType').val();
             let filePath = `images/${imageType}/${uuid}/${fileName}`;
 
             let param = {
@@ -341,6 +351,13 @@ $(document).ready(function() {
             }
             // fileWrapperをupload完了済のUI状態にする
             changeCompleteFileWrapper(param);
+        }
+
+        // アップロードUIの「さらに、バリデーションエラー時の」復元モードであるかどうか
+        let isValidateErrorModeFlg = $('#file-upload-ui-restore-for-validate-error-mode-flg').val() === 'ON';
+        if(isValidateErrorModeFlg) {
+            // 「validateErrorRestoreCallBack」によるコールバック実行の必要性があれば、コールバック実行する。
+           doValidateErrorRestoreCallBack(imageType);
         }
     }
 
@@ -364,7 +381,7 @@ $(document).ready(function() {
         // 最初に1つ目のファイルアップロードUIを作成
         createFileUpload();
     }
-    
+
     // ファイル選択時
     $(document).on('change', '.file-input', function() {
 
@@ -382,7 +399,6 @@ $(document).ready(function() {
         // Ajaxでファイルをアップロード
         const formData = new FormData();
         formData.append('file', file);
-        let imageType = $('#file-upload-imageType').val();
         formData.append('imageType', imageType);
 
         let baseErrorMessage = "アップロードに失敗しました。「jpg、jpeg、png、またはgif」で2MBまでお願いします。";
@@ -390,15 +406,16 @@ $(document).ready(function() {
         /*
             「$.ajax({」のdataへの指定値について
 
+            リクエストでファイルの中身を乗せない一般的なケースは、
+            data: {
+            },
+            key, value方式で行うのが通常であるとのこと。
+
+            ただし、
             リクエストでファイルの中身を乗せるときは、
             javascriptのFormDataを用いるとのこと。
             この場合は、一般的にはPOSTで行うとのこと。
             ( POST以外だと周辺のライブラリが対応してないことがある )
-
-            リクエストでファイルの中身を乗せない一般的なケースは、
-            data: {
-            },
-            key, value方式で行うのが一般的であるとのこと。
         */
         $.ajax({
             url: '/upload',
@@ -411,33 +428,28 @@ $(document).ready(function() {
                 showSpinner();
             },
             success: function(response) {
+                try {
+                    let param = {
+                        fileWrapper: fileWrapper,
+                        filePath: response.filePath,
+                        uuid: response.uuid,
+                        fileName: file.name,
+                    }
+                    // fileWrapperをupload完了済のUI状態にする
+                    changeCompleteFileWrapper(param);
 
-                let param = {
-                    fileWrapper: fileWrapper,
-                    filePath: response.filePath,
-                    uuid: response.uuid,
-                    fileName: file.name,
-                }
-                // fileWrapperをupload完了済のUI状態にする
-                changeCompleteFileWrapper(param);
+                    if(isMulti) {
+                        /*
+                            isMultiの場合
+                            複数画像モードの場合は、アップロードに成功時に
+                            新しいUIを作成し、追加アップロードできるようにする。
+                        */
+                        createFileUpload();
+                    }
 
-                if(isMulti) {
-                    /*
-                        isMultiの場合
-                        複数画像モードの場合は、アップロードに成功時に
-                        新しいUIを作成し、追加アップロードできるようにする。
-                    */
-                    createFileUpload();
-                }
-
-                if (isEdit) {
-                    // 編集モードの場合
-
-                    //  画像関係のDBの再構成を行う。
-                    reconstructionImageDB(baseId, imageType, baseErrorMessage);
-                } else {
-                    // 新規モードの場合
-
+                    // 「addOrDeleteFileCallBack」によるコールバック実行の必要性があれば、コールバック実行する。
+                    doAddOrDeleteFileCallBack(imageType);
+                } finally {
                     // スピナーを消す
                     hideSpinner();
                 }
@@ -457,57 +469,30 @@ $(document).ready(function() {
         // sumitを抑制(form内に配置したbuttonタグだとsubmit反応してしまうため抑制)
         stopSubmit(event);
 
-        // フラッシュメッセージを消す。
-        hideFlashMessages();
+        try {
+            // フラッシュメッセージを消す。
+            hideFlashMessages();
 
-        const fileWrapper = $(this).closest('.file-upload-wrapper');
-        let uuid = fileWrapper.find('.file-uuid').val();
+            // スピナーを表示
+            showSpinner();
 
-        let imageType = $('#file-upload-imageType').val();
+            const fileWrapper = $(this).closest('.file-upload-wrapper');
+            fileWrapper.remove();
 
-        let baseErrorMessage = "削除に失敗しました。";
+            if(!isMulti) {
+                /*
+                    isMultiでない場合
+                    単一画像モードの場合は、削除で消した場合に
+                    再度、アップロードできるようにUIを追加する
+                */
+                createFileUpload();
+            }
 
-        $.ajax({
-            url: '/upload/' + uuid,
-            type: 'DELETE',
-            data: {
-                'imageType': imageType,
-            },
-            beforeSend: function() {
-                // スピナーを表示
-                showSpinner();
-            },
-            success: function() {
-                fileWrapper.remove();
-
-                if(!isMulti) {
-                    /*
-                        isMultiでない場合
-                        単一画像モードの場合は、削除で消した場合に
-                        再度、アップロードできるようにUIを追加する
-                    */
-                    createFileUpload();
-                }
-
-                if (isEdit) {
-                    // 編集モードの場合
-
-                    //  画像関係のDBの再構成を行う。
-                    reconstructionImageDB(baseId, imageType, baseErrorMessage);
-                } else {
-                    // 新規モードの場合
-
-                    // スピナーを消す
-                    hideSpinner();
-                }
-            },
-            error: function(xhr) {
-                let msg = baseErrorMessage;
-                procShowFlashDanger(msg, xhr);
-
-                // スピナーを消す
-                hideSpinner();
-            },
-        });
+            // 「addOrDeleteFileCallBack」によるコールバック実行の必要性があれば、コールバック実行する。
+            doAddOrDeleteFileCallBack(imageType);
+        } finally {
+            // スピナーを消す
+            hideSpinner();
+        }
     });
 });

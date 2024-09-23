@@ -232,6 +232,19 @@ return [
     'TopicPostsTitle' => env('TOPIC_POSTS_TITLE', 'Topic Posts'),
 
     /*
+        日本時間でのメンテナンス時刻の開始、終了時刻の設定。
+
+        Helper.phpのdoWithLockIfMatchCondition()で排他ロックするかの判定に使っている
+        例として、
+        ここの設定値は少し範囲を広めに、'01:55'、'04:05'としておいて
+        不要ファイルのクリーンナップ処理などのメンテナンスは、'02:00'、'04:00'範囲で動くように設定
+    */
+    'maintenanceTime' => [
+        'start' => env('MAINTENANCE_TIME_START', '01:55'),
+        'end' => env('MAINTENANCE_TIME_END', '04:05'),
+    ],
+
+    /*
         CleanupUnusedFiles.phpでの
         Carbon::now('Asia/Tokyo')->subDays($exclusionDays)->subHours($exclusionHours)->subMinutes($exclusionMinutes)->subSeconds($exclusionSeconds);
         で利用する指定値
