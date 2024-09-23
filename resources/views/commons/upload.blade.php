@@ -40,11 +40,32 @@
     {{-- アップロードUIの「さらに、バリデーションエラー時の」復元モードであるかどうかのフラグ --}}
     <input id="file-upload-ui-restore-for-validate-error-mode-flg" type="hidden" value="OFF" />
 </div>
+
+@php
+    /*
+        sessionStorage.removeItem()をするかどうかのフラグ
+
+        前のsessionStorageが残ってることによる誤作動を防ぎたいため確実に制御したい
+        一旦、ここでtrueで定義しておき、やってはまずい制御パスのときだけ、falseにすることで
+        すべきときに確実に、なされるように制御する。
+        完全性を担保するために、「if, else」が複雑にからんだケースに一個一個、
+        「sessionStorage.removeItem()」を実装していく形を避けたいため、やりたくないケースだけfalseを指定し
+        下のほうでtrueの時だけやるという形にして、完全性を担保したい。そのために使うフラグ。
+    */
+    $isSessionStorageRemoveItem = true;
+@endphp
+
 @if (old('fileUploadSubmitFlg'))
     {{-- old('fileUploadSubmitFlg')が値ありと判定されるのは、バリデーションエラー時の時だけである --}}
     {{--    この判定のために、name属性を'fileUploadSubmitFlg'としたhiddenタグを置いてる。 --}}
 
     {{-- バリデーションエラー時の再表示の場合 --}}
+
+    @php
+        // このケースでは、sessionStorage.removeItem()をしたくないのでfalseを指定
+        $isSessionStorageRemoveItem = false;
+    @endphp
+
     <script>
         // 「アップロードUIの復元モードである」と、フラグをたてる
         $('#file-upload-ui-restore-mode-flg').val('ON');
@@ -65,6 +86,12 @@
             }
         @endphp
         @if (!is_null($loadInfo))
+
+            @php
+                // このケースでは、sessionStorage.removeItem()をしたくないのでfalseを指定
+                $isSessionStorageRemoveItem = false;
+            @endphp
+
             <input id="file-upload-ui-load-info-fileUuids" type="hidden" value="{{ $loadInfo->fileUuids }}" />
             <input id="file-upload-ui-load-info-fileNames" type="hidden" value="{{ $loadInfo->fileNames }}" />
 
@@ -85,12 +112,16 @@
                 prepareUploadUIInfo();
             </script>
         @endif
-    @else
-        <script>
-            // sessionStorageから削除する処理
-            sessionStorage.removeItem('uploadUiRestoreInfoFileUuids');
-            sessionStorage.removeItem('uploadUiRestoreInfoFileNames');
-        </script>
     @endif
 @endif
+
+@if ($isSessionStorageRemoveItem)
+    {{-- sessionStorage.removeItem()をすべき場合 --}}
+    <script>
+        // sessionStorageから削除する処理
+        sessionStorage.removeItem('uploadUiRestoreInfoFileUuids');
+        sessionStorage.removeItem('uploadUiRestoreInfoFileNames');
+    </script>
+@endif
+
 <script src="{{ asset('js/upload.js') }}"></script>
