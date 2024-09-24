@@ -31,4 +31,13 @@ class PostsController extends Controller
             'posts' => $posts
         ]);
     }
+
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            $post->delete();
+        }
+        return back()->with('status', '投稿を削除しました。');
+    }
 }
