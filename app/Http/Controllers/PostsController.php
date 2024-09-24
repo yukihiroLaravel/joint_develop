@@ -34,4 +34,21 @@ class PostsController extends Controller
         }
         return back()->with('status', '投稿を削除しました。');
     }
+
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() == $post->user_id) {
+            return view('posts.edit', ['post' => $post]);
+        }
+        abort(404);
+    }
+
+    public function update(PostRequest $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        $post->post = $request->post;
+        $post->save();
+        return redirect('/');
+    }
 }
