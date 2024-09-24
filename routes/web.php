@@ -36,7 +36,7 @@ Route::prefix('users/{id}')->group(function () {
 Route::group(['middleware' => 'auth'], function () {
     // 投稿
     Route::prefix('posts')->group(function () {
-        Route::post('', 'PostsController@store')->name('post.store');
+        Route::post('', 'PostsController@store')->name('post.store')->middleware('image.post');
         //削除
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     });
