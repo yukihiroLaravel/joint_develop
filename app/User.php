@@ -52,4 +52,41 @@ class User extends Authenticatable
             $user->posts()->delete();
         });
     }
+
+    public function follows()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'follow_id')->withTimestamps();
+    }
+
+    public function followUsers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follow_id', 'user_id')->withTimestamps();
+    }
+
+    public function follow($followId)
+    {
+        $exist = $this->isFollow($followId);
+        if ($exist) {
+            return false;
+        } else {
+            $this->follows()->attach($followId);
+            return true;
+        }
+    }
+
+    public function unfollow($followId)
+    {
+        $exist = $this->isFollow($followId);
+        if ($exist) {
+            $this->follows()->detach($followId);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function isFollow($followId)
+    {
+        return $this->follows()->where('follow_id', $followId)-> exists();
+    }
 }
