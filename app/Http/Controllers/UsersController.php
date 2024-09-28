@@ -61,7 +61,7 @@ class UsersController extends Controller
         // フォローした人を取得
         $followingId = $user->follows()->pluck('follow_id');
         // フォローした人の投稿を取得
-        $posts = Post::whereIn('user_id', $followingId)->orderBy('created_at', 'desc')->paginate(10);
+        $posts = Post::whereIn('user_id', $followingId)->orderBy('id', 'desc')->paginate(10);
         $data = [
             'user' => $user,
             'posts' => $posts,
@@ -77,7 +77,7 @@ class UsersController extends Controller
         // フォロワーを取得
         $followerId = $user->followUsers()->pluck('user_id');
         // フォロワーの投稿を取得
-        $posts = Post::whereIn('user_id', $followerId)->orderBy('created_at', 'desc')->paginate(10);  //最後はget(); の代わりにpaginate(10);
+        $posts = Post::whereIn('user_id', $followerId)->orderBy('id', 'desc')->paginate(10);  //最後はget(); の代わりにpaginate(10);
         $data = [
             'user' => $user,
             'posts' => $posts,
