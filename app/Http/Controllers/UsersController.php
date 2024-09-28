@@ -26,6 +26,7 @@ class UsersController extends Controller
             'user' => $user,
             'posts' => $posts
         ];
+        $data += $this->countUsers($user);
         return view('users.show', $data); 
     }
 
@@ -51,5 +52,51 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
         return redirect()->route('user.index');
+    }
+
+    // 「フォロー中」タイムライン
+    public function timelineFollowing($id)
+    {
+        $user = User::findOrFail($id);
+        // フォローした人を取得
+        $followingId = $user->follows()->pluck('follow_id');
+        // フォローした人の投稿を取得
+        $posts = Post::whereIn('user_id', $followingId)->orderBy('created_at', 'desc')->paginate(10);
+        $data = [
+            'user' => $user,
+            'posts' => $posts,
+        ];
+        $data += $this->countUsers($user);
+        return view('users.show', $data);
+    }
+    
+    // 「フォロワー」タイムライン
+    public function timelineFollowers($id)
+    {
+        $user = User::findOrFail($id);
+        // フォロワーを取得
+        $followerId = $user->followUsers()->pluck('user_id');
+        // フォロワーの投稿を取得
+        $posts = Post::whereIn('user_id', $followerId)->orderBy('created_at', 'desc')->paginate(10);  //最後はget(); の代わりにpaginate(10);
+        $data = [
+            'user' => $user,
+            'posts' => $posts,
+        ];
+        $data += $this->countUsers($user);
+        return view('users.show', $data);
+    }
+
+    // ユーザの投稿数・フォロー数・フォロワー数(３つのタブに共通させるべき内容なので分けて作っておく)
+    public function countUsers($user)
+    {
+        $countPosts = $user->posts()->count();
+        $countFollowing = $user->follows()->count();
+        $countFollowers = $user->followUsers()->count();
+        $data = [
+            'countPosts' => $countPosts,
+            'countFollowing' => $countFollowing,
+            'countFollowers' => $countFollowers,
+        ];
+        return $data;
     }
 }

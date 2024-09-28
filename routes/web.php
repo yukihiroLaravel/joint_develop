@@ -22,8 +22,12 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ユーザ
 Route::get('/', 'UsersController@index')->name('user.index');
-Route::prefix('users')->group(function() {
-    Route::get('{id}', 'UsersController@show')->name('user.show');
+Route::prefix('users/{id}')->group(function() {
+    // ユーザ詳細
+    Route::get('', 'UsersController@show')->name('user.show');
+    // フォロー中・フォロワーのタブ
+    Route::get('timelineFollowing', 'UsersController@timelineFollowing')->name('timelineFollowing');
+    Route::get('timelineFollowers', 'UsersController@timelineFollowers')->name('timelineFollowers');
 });
 
 // ログイン後
