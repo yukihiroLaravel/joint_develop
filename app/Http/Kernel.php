@@ -51,7 +51,6 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'image.post' => \App\Http\Middleware\CustomPostSizeMiddleware::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,

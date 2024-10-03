@@ -27,9 +27,12 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::orderBy('id', 'desc')->paginate(10);
-        return view('welcome', [
-            'posts' => $posts
-        ]);
+        $uploadMaxSize = ini_get('upload_max_filesize');
+        $data = [
+            'posts' => $posts,
+            'uploadMaxSize' => $uploadMaxSize
+        ];
+        return view('welcome', $data);
     }
 
     public function destroy($id)

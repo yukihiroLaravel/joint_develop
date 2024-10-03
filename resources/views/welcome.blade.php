@@ -21,7 +21,7 @@
                 <textarea class="form-control" name="post" rows="3" value="{{ old('post') }}" placeholder="投稿内容を入力..." style="border: 1px solid #ddd; border-radius: 5px;"></textarea>
                 <div class="form-group mt-4">
                     <label for="image" class="font-weight-bold">画像または動画を選択
-                        <small class="text-muted font-weight-light">(jpeg,png,jpg,gif,mp4 最大50MB)</small>
+                        <small id="size-limit-text" class="text-muted font-weight-light"></small>
                     </label>
                     <div class="input-group">
                         <div class="custom-file">
@@ -44,13 +44,50 @@
     <script>
         bsCustomFileInput.init();
 
+        const uploadMaxSize = '{{ $uploadMaxSize }}';
+
+        // サイズ制限を表示
+        document.getElementById('size-limit-text').innerText = `(jpeg,png,jpg,gif,mp4 最大${uploadMaxSize}B)`;
+
+        // ファイル選択キャンセル機能
         document.getElementById('inputFileReset').addEventListener('click', function() {
-            bsCustomFileInput.destroy();
-            var elem = document.getElementById('image');
+            const elem = document.getElementById('image');
             elem.value = '';
-            var clone = elem.cloneNode(false);
+            const clone = elem.cloneNode(false);
             elem.parentNode.replaceChild(clone, elem);
             bsCustomFileInput.init();
+        });
+
+        // サイズ文字列をバイトに変換する関数
+        function convertSizeToBytes(size) {
+            // 末尾の文字を取得して単位を判定（'B', 'K', 'M', 'G' など）
+            const unit = size.slice(-1).toLowerCase();
+            // 数値部分を取得して整数に変換（例: '10M' -> 10）
+            const sizeValue = parseInt(size);
+
+            switch (unit) {
+                case 'g':
+                    return sizeValue * 1024 * 1024 * 1024; // GB
+                case 'm':
+                    return sizeValue * 1024 * 1024; // MB
+                case 'k':
+                    return sizeValue * 1024; // KB
+                default:
+                    return sizeValue; // B
+            }
+        }
+
+        // upload_max_size に基づくファイルサイズチェック
+        document.getElementById('image').addEventListener('change', function() {
+            const file = this.files[0];
+            const maxSizeBytes = convertSizeToBytes(uploadMaxSize); // 単位に応じたバイト数に変換
+
+            if (file && file.size > maxSizeBytes) {
+                alert(`ファイルサイズが ${uploadMaxSize}B を超えています。別のファイルを選択してください。`);
+                this.value = '';
+                bsCustomFileInput.destroy();
+                bsCustomFileInput.init();
+            }
         });
     </script>
 @endsection
