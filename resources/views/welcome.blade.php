@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('content')
+@php
+    $keyword = $keyword ?? '';
+@endphp
 <div class="center jumbotron bg-info">
     <div class="text-center text-white mt-2 pt-1">
         <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
@@ -19,6 +22,6 @@
             </div>
         </form>
     </div>
-    @endif    
-@include('posts.posts', ['posts => $posts'])
+    @endif
+@include('posts.posts', ['posts' => $posts, 'keyword' => $keyword])
 @endsection

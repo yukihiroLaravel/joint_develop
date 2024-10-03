@@ -24,5 +24,8 @@
         </li>
     @endforeach    
 </ul>
-<div class="m-auto" style="width: fit-content">{{ $posts->links('pagination::bootstrap-4') }}</div>
-
+@if (!empty($keyword))
+<div class="m-auto" style="width: fit-content">{{ $posts->appends(['keyword' => request()->input('keyword')])->links('pagination::bootstrap-4') }}</div>
+@else
+<div class="m-auto" style="width: fit-content">{{ $posts->links('pagination::bootstrap-4') }}</div>   
+@endif

@@ -53,4 +53,14 @@ class PostsController extends Controller
         return back();
     }
 
+    public function searchPosts(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        if (!empty($keyword)) {
+            $posts = Post::where('content', 'like', "%{$keyword}%")->orderBy('id', 'desc')->paginate(10);
+        } else {
+            $posts = Post::orderBy('id', 'desc')->paginate(10);
+        }
+        return view('welcome', ['posts' => $posts, 'keyword' => $keyword]);  
+    } 
 }

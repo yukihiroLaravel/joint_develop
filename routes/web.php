@@ -30,6 +30,9 @@ Route::prefix('users/{id}')->group(function() {
     Route::get('timelineFollowers', 'UsersController@timelineFollowers')->name('timelineFollowers');
 });
 
+// 投稿の検索機能
+Route::get('searchPosts', 'PostsController@searchPosts')->name('searchPosts');
+
 // ログイン後
 Route::group(['middleware' => 'auth'], function() {
     // 投稿
