@@ -20,6 +20,18 @@
             </div>
         </div>
 
+        {{--
+             トーストメッセージ出力エリア 
+                フラッシュメッセージが画面上部であるため、画面のスクロール位置が下の方である場合に、
+                メッセージが出力されたのかどうかがわかりにくいと感じたため、
+                画面上部のフラッシュメッセージに連動してトーストメッセージを画面中央に表示する対応とした。
+        --}}
+        <div id="toastContainer" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1055;">
+            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true" data-delay="3000">
+                <div class="toast-body"></div>
+            </div>
+        </div>
+
         <script src="{{ asset('js/common.js') }}"></script>
         <script>
             /*
@@ -41,8 +53,29 @@
             */
             window.addEventListener('error', function (event) {
                 let errorMessage = getErrorMessageOnGlobalError(event);
+
+                let isAlert = true;
+                /*
+                    videoタグをカルーセルに入れてから、
+                    カルーセルでページ切り替え中に、時々、
+                    message : ResizeObserver loop completed with undelivered notifications.
+                    のようなエラーメッセージで、ここに飛んでくる。原因不明である。
+
+                    ただ、ここにエラーが飛んでくるだけで画面表示がおかしくなったりもしない
+                    特に実害がないため、
+                    ブラウザのデバッガーで見れるコンソールには出力しておくが、alert表示をしないことにした。
+                */
+                let specialError00100 = errorMessage.includes('ResizeObserver loop completed');
+                if(specialError00100) {
+                    isAlert = false;
+                }
+
                 console.error('エラーが発生しました:', errorMessage);
-                alert('エラーが発生しました');
+
+                if(isAlert) {
+                    alert('エラーが発生しました');
+                }
+                
                 // スピナーを消す
                 hideSpinner();
             });

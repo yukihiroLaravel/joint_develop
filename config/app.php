@@ -232,6 +232,25 @@ return [
     'TopicPostsTitle' => env('TOPIC_POSTS_TITLE', 'Topic Posts'),
 
     /*
+        ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+        ★注意！！★
+        ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+        ローカル用と、fly.io用の(fly.io用は現在、この記述は無し)
+        entrypoint.shの
+        echo "upload_max_filesize = 50M" >> $PHP_INI_PATH
+        と同期をとってメンテナンスすること！！
+        # ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+
+        1ファイルあたりの最大アップロードサイズ(単位:MB)
+    */
+    'uploadMaxFilesize' => env('UPLOAD_MAX_FILESIZE', '50'),
+
+    /*
+        画像の場合の仕様で決めたアップロードの最大サイズ(単位:MB)
+    */
+    'uploadImageMaxFilesize' => env('UPLOAD_IMAGE_MAX_FILESIZE', '5'),
+
+    /*
         日本時間でのメンテナンス時刻の開始、終了時刻の設定。
 
         Helper.phpのdoWithLockIfMatchCondition()で排他ロックするかの判定に使っている

@@ -228,7 +228,7 @@ class CleanupUnusedFiles extends Command
         foreach ($toDeleteList as $item) {
 
             // ストレージから削除
-            $helper->deleteImageOnStorage($item['type'], $item['uuid']);
+            $helper->deleteImageOnStorage($item['type'], $item['uuid'], $item['file_name']);
 
             // DBからレコード削除
             $QueryBuilder = $this->getCommonUnusedFileQueryBuilder($item['type'], $item['uuid'], $item['file_name']);

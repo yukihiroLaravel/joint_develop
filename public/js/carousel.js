@@ -39,6 +39,10 @@ $(document).ready(function() {
 
     // prev/nextボタンを押した時
     $('[id^="carousel"]').on('slid.bs.carousel', function () {
+
+        // ページ内のvideoタグで再生中のものは停止する。
+        stopAllPlayingVideos();
+
         /*
             イベントが発生した
             <div id="carousel{{ $strPostIdPostfix }}" class="carousel slide" data-ride="carousel" data-interval="false">
@@ -48,6 +52,40 @@ $(document).ready(function() {
 
         // 最も近い祖先でclass属性にmodalを持つ要素を取得する。
         let modal = carousel.closest('.modal');
+
+        /*
+            どうしても、carousel.cssではvideoタグの大きさ調整がうまくいかなかった
+            そこで、javascriptのコードでvideoタグの大きさ調整を試みたが
+            元の動画のサイズが小さかった場合、枠だけ大きくなって結局、動画の再生部分は
+            小さくなって、枠の一部でしか動作再生されないような特性があった
+
+            これは、videoタグの仕様なのだろうと、あきらめました。
+            ただし、縦スクロールが発生しているケースで、
+            スクロール位置が0となって表示するため、動画の再生ボタンのUIが
+            下のほうにあるなどして、スクロール位置を下に下げないと
+            再生ボタンが押せない状況となった。
+
+            これは気持ち悪いため、縦スクロールが出ているケースでは、
+            スクロール位置を一番下に下げる対応をした。
+
+            javascriptはシングルスレッドモードで動作するなどがあり、
+            setTimeout(function() { で、再度、スレッド起動させる方式をとらないと
+            うまく動かなかった。
+            1msのsetTimeoutでよい。
+            1msという時間ではなく、別スレッドで行うことが重要だった。
+        */
+       let modalBody = modal.find('.modal-body');
+       setTimeout(function() {
+            // modal-bodyに縦スクロールが発生している場合は、一番下にスクロール位置を持っていく
+            if (modalBody[0].scrollHeight > modalBody[0].clientHeight) {
+                modalBody.scrollTop(modalBody[0].scrollHeight);
+            }
+
+            // modal-bodyに横スクロールが発生している場合は、一番左にスクロール位置を持っていく
+            if (modalBody[0].scrollWidth > modalBody[0].clientWidth) {
+                modalBody.scrollLeft(0);
+            }
+       }, 1);
 
         // strPostIdPostfixを取得する。
         let strPostIdPostfix = getStrPostIdPostfix(modal);
@@ -113,5 +151,11 @@ $(document).ready(function() {
         let strPostIdPostfix = getStrPostIdPostfix(modal);
 
         $('#carousel' + strPostIdPostfix).trigger('slid.bs.carousel');
+    });
+
+    // カルーセルのモーダルが閉じられるときのイベントハンドラ
+    $('[id^="imageModal"]').on('hidden.bs.modal', function () {
+        // ページ内のvideoタグで再生中のものは停止する。
+        stopAllPlayingVideos();
     });
 });

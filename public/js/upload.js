@@ -1,5 +1,13 @@
 // 動的にファイルアップロードUIを追加する関数
 function createFileUpload() {
+
+    let enableVideoFlg = $('#enable-video-flg').val();
+    let isEnableVideo = (enableVideoFlg === 'ON');
+    let targetLabel = "画像";
+    if(isEnableVideo) {
+        targetLabel = "画像・動画";
+    }
+
     /*
         同じnameを持つ複数のinput要素が存在すると、nameに[]をつけて複数送信できる状況にして
         サーバー側でその値が配列として送信されるようにする。
@@ -11,11 +19,11 @@ function createFileUpload() {
             <input name="fileUuids[]" class="file-uuid" type="hidden" value=""/>
             <input name="fileNames[]" class="file-name" type="hidden" value=""/>
             <img src="" class="thumbnail" style="display:none; margin-top: 10px; width: 150px; height: 100px;" />
-            <button class="btn btn-danger delete-file mr-2" style="display:none; min-width: 100px; margin-left: 10px">画像削除</button>
+            <button class="btn btn-danger delete-file mr-2" style="display:none; min-width: 100px; margin-left: 10px">${targetLabel}削除</button>
 
             <div class="fileInputDiv">
                 <input type="file" class="form-control-file file-input mr-2" style="display:none" />
-                <button class="btn btn-info file-input-button mr-2" onclick="fileInputButton(event); return false;" style="min-width: 100px; margin-left: 10px">画像追加</button>
+                <button class="btn btn-info file-input-button mr-2" onclick="fileInputButton(event); return false;" style="min-width: 100px; margin-left: 10px">${targetLabel}追加</button>
             </div>
 
             <span class="file-name-label mr-2" style="display:none;"></span>
@@ -41,6 +49,47 @@ function fileInputButton(event) {
     */
     event.preventDefault();
     $(event.target).closest('.file-upload-wrapper').find('.file-input').click();
+}
+
+/**
+ * ファイルの相対パスについて必要性があれば、サムネイル画像のパスに調整する。
+ */
+function adjustThumbnailRelativeFilePath(relativeFilePath) {
+    /*
+        例として、
+            引数のrelativeFilePathには、
+            "videos/post/2cfe38b9-6a39-4bb1-9b93-d425a487a3a8/2003　世にも奇妙な物語　迷路.mp4"
+            や、
+            "images/post/2cfe38b9-6a39-4bb1-9b93-d425a487a3a8/someimage.jpg"
+        のような値が格納されています
+
+        この時に、
+            先頭がvideosからはじまってる、の文字列だった場合に、
+            "videos/post/2cfe38b9-6a39-4bb1-9b93-d425a487a3a8/2003　世にも奇妙な物語　迷路.mp4"
+            を
+            "videos/post/2cfe38b9-6a39-4bb1-9b93-d425a487a3a8/thumbnail.jpg"
+            に、変換し、ファイル名の部分を固定のサムネイル画像のthumbnail.jpgに変換調整を行うのが当メソッドの役割である。
+
+        一方、
+
+            "images/post/2cfe38b9-6a39-4bb1-9b93-d425a487a3a8/someimage.jpg"
+            のように、
+            そもそも、先頭がvideosからはじまっていない場合は、
+            引数で受けた文字列を、そのまま返却する。
+    */
+
+    // スラッシュで区切って最初の要素を取得
+    const pathParts = relativeFilePath.split('/');
+    const firstPart = pathParts[0];
+
+    // 先頭の文字列が "videos" の場合
+    if (firstPart === 'videos') {
+        // "videos/post/{uuid}/thumbnail.jpg" の形式を作成して返却
+        return `${pathParts[0]}/${pathParts[1]}/${pathParts[2]}/thumbnail.jpg`;
+    }
+
+    // それ以外の場合はそのまま返却
+    return relativeFilePath;
 }
 
 // fileWrapperをupload完了済のUI状態にする
@@ -80,8 +129,11 @@ function changeCompleteFileWrapper(param) {
 
     param.fileWrapper.find('.delete-file').show();
 
+    // ファイルの相対パスについて必要性があれば、サムネイル画像のパスに調整する。
+    let thumbnailRelativeFilePath = adjustThumbnailRelativeFilePath(param.filePath);
+
     // サムネイル画像を表示
-    const filePath = $('#file-upload-base-path').val() + '/' + param.filePath;
+    const filePath = $('#file-upload-base-path').val() + '/' + thumbnailRelativeFilePath;
     param.fileWrapper.find('.thumbnail').attr('src', filePath).show();
 
     param.fileWrapper.find('.file-uuid').val(param.uuid);
@@ -292,7 +344,10 @@ function getFilePaths(imageType)
         let currentFileUuid = uploadUIInfo.fileUuids[index];
         let currentFileName = uploadUIInfo.fileNames[index];
 
-        let currentFilePath = `images/${imageType}/${currentFileUuid}/${currentFileName}`;
+        const fileTypeInstance = new FileType(currentFileName);
+        let baseDirName = fileTypeInstance.getBaseDirName();
+
+        let currentFilePath = `${baseDirName}/${imageType}/${currentFileUuid}/${currentFileName}`;
         currentFilePath = $('#file-upload-base-path').val() + '/' + currentFilePath;
 
         filePaths.push(currentFilePath);
@@ -320,6 +375,34 @@ $(document).ready(function() {
         baseId = $('#file-upload-baseId').val();
     }
 
+    /*
+        動画のアップロードが可能なモードかどうか
+        
+        補足説明
+            フラグ値は、フロントエンド、バックエンド間の通信を挟むと
+            true, falseのbool値が文字列の"true", "false"になったり
+            1, 0になったり、1, 0が数値だったり、文字列だったり
+            どのように変換されるか予想がつかないし、そこがバグの温床になる。
+
+            それが開発言語や、フレームワークや、それらのバージョンや環境などで変わるかもしれない。
+            そのような細かい話をイチイチ、ケアしてられない。
+
+            文字列の"ON", "OFF"でフロントエンド、バックエンド間の通信で受け渡ししておいて
+            ロジック部分で局所的に"ON"ならboolのtrue、そうでなければ、boolのfalse
+            にする方式の一択にしておけば、実装が安定して動くことを個人の経験上わかってるため
+            このようにしている
+    */
+    let enableVideoFlg = $('#enable-video-flg').val();
+    let isEnableVideo = (enableVideoFlg === 'ON');
+
+    // 1ファイルあたりの最大アップロードサイズ(単位:MB)
+    let uploadMaxFilesize = $('#upload-max-file-size').val();
+    uploadMaxFilesize = parseInt(uploadMaxFilesize);
+
+    // 画像の場合の仕様で決めたアップロードの最大サイズ(単位:MB)
+    let uploadImageMaxFilesize = $('#upload-image-max-file-size').val();
+    uploadImageMaxFilesize = parseInt(uploadImageMaxFilesize);
+
     let isRestoreMode = $('#file-upload-ui-restore-mode-flg').val() === 'ON';
     if (isRestoreMode) {
         // 「アップロードUIの復元モード」の場合
@@ -341,7 +424,10 @@ $(document).ready(function() {
             // 現時点の最終追加分を取得
             var fileWrapper = $('#file-upload-container').children().last();
 
-            let filePath = `images/${imageType}/${uuid}/${fileName}`;
+            const fileTypeInstance = new FileType(fileName);
+            let baseDirName = fileTypeInstance.getBaseDirName();
+
+            let filePath = `${baseDirName}/${imageType}/${uuid}/${fileName}`;
 
             let param = {
                 fileWrapper: fileWrapper,
@@ -384,24 +470,111 @@ $(document).ready(function() {
 
     // ファイル選択時
     $(document).on('change', '.file-input', function() {
+        // 後続処理で参照する変数定義をここでまとめた
+        let fileWrapper = null;
+        let file = null;
+        let formData = null;
+        let fileInput = $(this)[0];
+        const baseErrorMessage = "アップロードに失敗しました。(サーバーエラー)。";
 
-        // フラッシュメッセージを消す。
-        hideFlashMessages();
+        // ajax通信処理をすべきかどうか
+        let isAjax = true;
+        try {
+            /*
+                ファイルの追加の操作を行ったら、なるべく、早く、スピナー表示をしてほしいため
+                この位置でスピナー表示するように変更した。
 
-        const fileInput = $(this)[0];
-        const fileWrapper = $(this).closest('.file-upload-wrapper');
-        const file = fileInput.files[0];
+                ただ、これでも、動画のサイズによっては、ここまで到達するのに時間かかるときがあります。
+                ブラウザ本体がファイルを認識し、イベントを発火させるまでの処理時間であり
+                これは、どうしようもありません。
+            */
+            // スピナーを表示
+            showSpinner();
 
-        if (!file) {
-            return;
+            // フラッシュメッセージを消す。
+            hideFlashMessages();
+
+            let isFileSelectOk = false;
+
+            fileInput = $(this)[0];
+
+            if (fileInput.files.length > 0) {
+
+                file = fileInput.files[0];
+
+                if (file) {
+                    /*
+                        ユーザがファイル選択ダイアログで、キャンセル押した場合や、
+                        ブラウザがファイルを正常に認識しないことが稀にある
+                        それらのときは、ここは通過しません。
+                    */
+                    isFileSelectOk = true;
+                }
+            }
+
+            if(isFileSelectOk) {
+
+                const fileTypeInstance = new FileType(file.name);
+
+                let fileSize = file.size;
+
+                /*
+                    アップロードに関してバリデーションチェックをする(クライアント側)
+                */
+                let validateRet = fileTypeInstance.validate(
+                    // 動画のアップロードが可能なモードかどうか
+                    isEnableVideo,
+            
+                    // 1ファイルあたりの最大アップロードサイズ(単位:MB)
+                    uploadMaxFilesize,
+            
+                    // 画像の場合の仕様で決めたアップロードの最大サイズ(単位:MB)
+                    uploadImageMaxFilesize,
+            
+                    // 今回、アップロードしようとしているファイルのサイズ(単位:バイト数)
+                    fileSize
+                );
+
+                if(validateRet) {
+                    showFlashDanger(validateRet);
+                    
+                    // スピナーを消す
+                    hideSpinner();
+
+                    if(fileInput) {
+                        fileInput.value = '';
+                    }
+
+                    return;
+                }
+
+                fileWrapper = $(this).closest('.file-upload-wrapper');
+
+                // Ajaxでファイルをアップロードデータを作る
+                formData = new FormData();
+                formData.append('file', file);
+                formData.append('imageType', imageType);
+                formData.append('enableVideoFlg', enableVideoFlg);
+            } else {
+                isAjax = false;
+            }
+        } catch (error) {
+            isAjax = false;
+            // エラー発生時の処理
+            console.error('エラーが発生しました:', error);
+            alert('エラーが発生しました : ' + error.message);
         }
 
-        // Ajaxでファイルをアップロード
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('imageType', imageType);
+        if(!isAjax) {
+            // スピナーを消す
+            hideSpinner();
 
-        let baseErrorMessage = "アップロードに失敗しました。「jpg、jpeg、png、またはgif」で2MBまでお願いします。";
+            if(fileInput) {
+                fileInput.value = '';
+            }
+
+            return;
+        }
 
         /*
             「$.ajax({」のdataへの指定値について
@@ -423,35 +596,52 @@ $(document).ready(function() {
             data: formData,
             processData: false,
             contentType: false,
-            beforeSend: function() {
-                // スピナーを表示
-                showSpinner();
-            },
+            //** スピナーの表示の位置を変更した
+            //** beforeSend: function() {
+            //**     // スピナーを表示
+            //**     showSpinner();
+            //** },
             success: function(response) {
+                let isFileInputValueClear = true;
                 try {
-                    let param = {
-                        fileWrapper: fileWrapper,
-                        filePath: response.filePath,
-                        uuid: response.uuid,
-                        fileName: file.name,
-                    }
-                    // fileWrapperをupload完了済のUI状態にする
-                    changeCompleteFileWrapper(param);
+                    if(response.validateRet) {
+                        // サーバーサイドのバリデーションエラー時
+                        showFlashDanger(response.validateRet);
+                    } else {
+                        // 上記以外で、サーバーサイドでアップロード完了時
 
-                    if(isMulti) {
-                        /*
-                            isMultiの場合
-                            複数画像モードの場合は、アップロードに成功時に
-                            新しいUIを作成し、追加アップロードできるようにする。
-                        */
-                        createFileUpload();
-                    }
+                        let param = {
+                            fileWrapper: fileWrapper,
+                            filePath: response.filePath,
+                            uuid: response.uuid,
+                            fileName: file.name,
+                        }
+                        // fileWrapperをupload完了済のUI状態にする
+                        changeCompleteFileWrapper(param);
 
-                    // 「addOrDeleteFileCallBack」によるコールバック実行の必要性があれば、コールバック実行する。
-                    doAddOrDeleteFileCallBack(imageType);
+                        isFileInputValueClear = false;
+    
+                        if(isMulti) {
+                            /*
+                                isMultiの場合
+                                複数画像モードの場合は、アップロードに成功時に
+                                新しいUIを作成し、追加アップロードできるようにする。
+                            */
+                            createFileUpload();
+                        }
+    
+                        // 「addOrDeleteFileCallBack」によるコールバック実行の必要性があれば、コールバック実行する。
+                        doAddOrDeleteFileCallBack(imageType);
+                    }
                 } finally {
                     // スピナーを消す
                     hideSpinner();
+
+                    if(isFileInputValueClear) {
+                        if(fileInput) {
+                            fileInput.value = '';
+                        }
+                    }
                 }
             },
             error: function(xhr) {
@@ -460,6 +650,10 @@ $(document).ready(function() {
 
                 // スピナーを消す
                 hideSpinner();
+
+                if(fileInput) {
+                    fileInput.value = '';
+                }
             },
         });
     });

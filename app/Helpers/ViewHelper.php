@@ -306,6 +306,22 @@ class ViewHelper extends Helper
     /* #endregion */ // 「avatar.blade.php」関連
 
     /**
+     * トーストメッセージ用のjavascriptコードが実装されたscriptタグを取得する。
+     * 
+     * @param string $message メッセージ
+     * @param string $alertClass アラートのクラス名(例:'success','danger')
+     * @return string トーストメッセージ表示用のscriptタグ
+     */
+    public function getToastMessageScript($message, $alertClass)
+    {
+        // json_encodeしとくとjavascriptに指定しやすいとのこと
+        $escapedMessage = json_encode(nl2br(e($message)));
+        $escapedAlertClass = json_encode($alertClass);
+        
+        return "<script>showToast({$escapedMessage}, {$escapedAlertClass});</script>";
+    }
+
+    /**
      * previousUrlのパラメータ指定値を取得する。
      */
     public function getPreviousUrlParameter()

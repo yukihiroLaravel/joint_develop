@@ -21,7 +21,11 @@ function showFlashCommon(message, alertClass) {
 
     // フラッシュメッセージ表示
     $('#flashClientMessage').show();
+
+    // トーストメッセージを表示する。
+    showToast(message, alertClass);
 }
+
 /**
     「success」にてCientからメッセージの表示をする
 */
@@ -29,6 +33,7 @@ function showFlashSuccess(message)
 {
     showFlashCommon(message, 'success');
 }
+
 /**
     「danger」にてCientからメッセージの表示をする
 */
@@ -36,6 +41,7 @@ function showFlashDanger(message)
 {
     showFlashCommon(message, 'danger');
 }
+
 /**
     「warning」にてCientからメッセージの表示をする
 */
@@ -43,6 +49,7 @@ function showFlashWarning(message)
 {
     showFlashCommon(message, 'warning');
 }
+
 /**
     「info」にてCientからメッセージの表示をする
 */
