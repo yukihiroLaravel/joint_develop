@@ -67,6 +67,22 @@
                         <div class="list-group-item">
                             <h6>{{ $post->created_at->format('Y/m/d H:i') }}</h6>
                             <p>{{ $post->post }}</p>
+                            @if ($post->image_path)
+                            @php
+                                // ファイルの拡張子を取得
+                                $extension = pathinfo($post->image_path, PATHINFO_EXTENSION);
+                            @endphp
+                            @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
+                                <!-- 画像の場合 -->
+                                <img src="{{ asset('storage/' . $post->image_path) }}" alt="投稿画像" class="img-fluid">
+                            @elseif (in_array($extension, ['mp4']))
+                                <!-- 動画の場合 -->
+                                <video controls width="1000" playsinline class="img-fluid">
+                                    <source src="{{ asset('storage/' . $post->image_path) }}" type="video/{{ $extension }}">
+                                        <p>動画を使用できるブラウザで閲覧して下さい。</p>
+                                </video>
+                            @endif
+                        @endif
                         </div>
                     @endforeach
                 </div>

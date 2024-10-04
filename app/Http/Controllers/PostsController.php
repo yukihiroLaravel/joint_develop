@@ -12,6 +12,12 @@ class PostsController extends Controller
         $post = new Post;
         $post->post = $request->post;
         $post->user_id = $request->user()->id;
+
+        // 画像or動画ファイルがアップロードされている場合
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('images', 'public');
+            $post->image_path = $path;
+        }
         $post->save();
 
         // フラッシュメッセージを設定
@@ -21,9 +27,12 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::orderBy('id', 'desc')->paginate(10);
-        return view('welcome', [
-            'posts' => $posts
-        ]);
+        $uploadMaxSize = ini_get('upload_max_filesize');
+        $data = [
+            'posts' => $posts,
+            'uploadMaxSize' => $uploadMaxSize
+        ];
+        return view('welcome', $data);
     }
 
     public function destroy($id)
