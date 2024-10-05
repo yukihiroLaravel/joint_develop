@@ -13,11 +13,11 @@
                 @csrf
                 <div class="form-group">
                     <label for="email">メールアドレス</label>
-                    <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" placeholder="メールアドレスを入力">
+                    <input id="email" type="text" class="form-control" name="email" value="{{ old('email', 'test1@test.com') }}" placeholder="メールアドレスを入力">
                 </div>
                 <div class="form-group">
                     <label for="password">パスワード</label>
-                    <input id="password" type="password" class="form-control" name="password" value="" placeholder="パスワードを入力">
+                    <input id="password" type="password" class="form-control" name="password" value="password1" placeholder="パスワードを入力">
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary mt-2">ログイン</button>
