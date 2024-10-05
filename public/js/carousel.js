@@ -59,8 +59,16 @@ $(document).ready(function() {
             元の動画のサイズが小さかった場合、枠だけ大きくなって結局、動画の再生部分は
             小さくなって、枠の一部でしか動作再生されないような特性があった
 
-            これは、videoタグの仕様なのだろうと、あきらめました。
-            ただし、縦スクロールが発生しているケースで、
+            後でわかったことだが、style.widthなどではなく
+            直接的に、<videに、widthを書く方式だと
+            「枠の一部でしか動作再生されないような特性」はないようだ
+            この件は、
+            app/PostImage.php
+            に、
+            ★★★widthを固定にする一旦の処置★★★
+            で書いている。
+
+            縦スクロールが発生しているケースで、
             スクロール位置が0となって表示するため、動画の再生ボタンのUIが
             下のほうにあるなどして、スクロール位置を下に下げないと
             再生ボタンが押せない状況となった。
@@ -75,17 +83,27 @@ $(document).ready(function() {
             1msという時間ではなく、別スレッドで行うことが重要だった。
         */
        let modalBody = modal.find('.modal-body');
-       setTimeout(function() {
-            // modal-bodyに縦スクロールが発生している場合は、一番下にスクロール位置を持っていく
-            if (modalBody[0].scrollHeight > modalBody[0].clientHeight) {
-                modalBody.scrollTop(modalBody[0].scrollHeight);
-            }
 
-            // modal-bodyに横スクロールが発生している場合は、一番左にスクロール位置を持っていく
-            if (modalBody[0].scrollWidth > modalBody[0].clientWidth) {
-                modalBody.scrollLeft(0);
-            }
-       }, 1);
+        // jqueryオブジェクトのmodalより、DOMの要素を取得
+        let modalBodyDom = modalBody[0];
+
+        // <div class="modal-body">の配下でvideoタグを取得
+        let video = modalBodyDom.querySelector('video');
+        if (video) {
+            // 動画のカルーセルページの場合だけ、下記を適用する。
+
+            setTimeout(function() {
+                // modal-bodyに縦スクロールが発生している場合は、一番下にスクロール位置を持っていく
+                if (modalBody[0].scrollHeight > modalBody[0].clientHeight) {
+                    modalBody.scrollTop(modalBody[0].scrollHeight);
+                }
+    
+                // modal-bodyに横スクロールが発生している場合は、一番左にスクロール位置を持っていく
+                if (modalBody[0].scrollWidth > modalBody[0].clientWidth) {
+                    modalBody.scrollLeft(0);
+                }
+           }, 1);    
+        }
 
         // strPostIdPostfixを取得する。
         let strPostIdPostfix = getStrPostIdPostfix(modal);

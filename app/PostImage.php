@@ -127,8 +127,25 @@ class PostImage extends Model
 
                 上記のタグを作成する形で、実装する。
             */
+
+            /*
+                ★★★★★★★★★★★★★★★★★★★★
+                ★★★widthを固定にする一旦の処置★★★
+                ★★★★★★★★★★★★★★★★★★★★
+                public/js/carousel.jsにも書いたが、動的なサイズ調整をcss, javascritpでするのが
+                うまく、いかない、<video タグを作るときに、最初から widthを指定しておくと
+                枠内の動画も広がることが後でわかった
+                ある程度の大きさで、固定的にはなるが指定しておくと縦幅も元の動画の縦横比を保って
+                調整される。縦スクロールも出る
+                縦スクロールが出た場合は、一番下のスクロール位置にする対応を
+                public/js/carousel.js
+                側でしているため、一旦の暫定的での見た目調整をしておく
+                もっといい方法が、見つかれば後で検討する。
+                ★★★★★★★★★★★★★★★★★★★★
+            */
             $ret =
-                "<video controls=\"\"  preload=\"auto\" title=\"{$this->file_name}\" \">" .
+                // ★ 「width=\"800\"」は、一旦の、今できる見た目調整です。★
+                "<video width=\"800\" controls=\"\"  preload=\"auto\" title=\"{$this->file_name}\" \">" .
                     "<source src=\"{$asetValue}\" type=\"video/mp4\">" .
                     "Your browser does not support the video tag." .
                 "</video>"
