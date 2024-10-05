@@ -53,58 +53,6 @@ $(document).ready(function() {
         // 最も近い祖先でclass属性にmodalを持つ要素を取得する。
         let modal = carousel.closest('.modal');
 
-        /*
-            どうしても、carousel.cssではvideoタグの大きさ調整がうまくいかなかった
-            そこで、javascriptのコードでvideoタグの大きさ調整を試みたが
-            元の動画のサイズが小さかった場合、枠だけ大きくなって結局、動画の再生部分は
-            小さくなって、枠の一部でしか動作再生されないような特性があった
-
-            後でわかったことだが、style.widthなどではなく
-            直接的に、<videに、widthを書く方式だと
-            「枠の一部でしか動作再生されないような特性」はないようだ
-            この件は、
-            app/PostImage.php
-            に、
-            ★★★widthを固定にする一旦の処置★★★
-            で書いている。
-
-            縦スクロールが発生しているケースで、
-            スクロール位置が0となって表示するため、動画の再生ボタンのUIが
-            下のほうにあるなどして、スクロール位置を下に下げないと
-            再生ボタンが押せない状況となった。
-
-            これは気持ち悪いため、縦スクロールが出ているケースでは、
-            スクロール位置を一番下に下げる対応をした。
-
-            javascriptはシングルスレッドモードで動作するなどがあり、
-            setTimeout(function() { で、再度、スレッド起動させる方式をとらないと
-            うまく動かなかった。
-            1msのsetTimeoutでよい。
-            1msという時間ではなく、別スレッドで行うことが重要だった。
-        */
-       let modalBody = modal.find('.modal-body');
-
-        // jqueryオブジェクトのmodalより、DOMの要素を取得
-        let modalBodyDom = modalBody[0];
-
-        // <div class="modal-body">の配下でvideoタグを取得
-        let video = modalBodyDom.querySelector('video');
-        if (video) {
-            // 動画のカルーセルページの場合だけ、下記を適用する。
-
-            setTimeout(function() {
-                // modal-bodyに縦スクロールが発生している場合は、一番下にスクロール位置を持っていく
-                if (modalBody[0].scrollHeight > modalBody[0].clientHeight) {
-                    modalBody.scrollTop(modalBody[0].scrollHeight);
-                }
-    
-                // modal-bodyに横スクロールが発生している場合は、一番左にスクロール位置を持っていく
-                if (modalBody[0].scrollWidth > modalBody[0].clientWidth) {
-                    modalBody.scrollLeft(0);
-                }
-           }, 1);    
-        }
-
         // strPostIdPostfixを取得する。
         let strPostIdPostfix = getStrPostIdPostfix(modal);
 
@@ -137,6 +85,60 @@ $(document).ready(function() {
             .index()は、その要素が兄弟要素の中での0はじまりのindexを返す
         */       
         var currentIndex = carousel.find('.carousel-item.active').index();
+
+        /*
+            どうしても、carousel.cssではvideoタグの大きさ調整がうまくいかなかった
+
+            javascriptで調整するしかない
+
+            let video = carousel[0].children[0].children[currentIndex].querySelector('video');
+            だと今のカルーセルのページでのvideoタグを正確に取得できるようだ。
+
+            縦横の比率が動画によって、バラバラであるが
+
+            video.width = modalBody[0].clientWidth * 0.6;
+            としておけば、
+            縦幅は元の動画の縦横比をキープしたまま、拡大縮小される
+
+            多くの動画は縦スクロールが発生せずに、収まりそうである。
+
+            該当動画の縦横比によっては、縦スクロールが発生することもある。
+
+            縦スクロールが発生しているケースで、
+            スクロール位置が0となって表示するため、動画の再生ボタンのUIが
+            下のほうにあるなどして、スクロール位置を下に下げないと
+            再生ボタンが押せない状況となった。
+
+            これは気持ち悪いため、縦スクロールが出ているケースでは、
+            スクロール位置を一番下に下げる対応をした。
+
+            javascriptはシングルスレッドモードで動作するなどがあり、
+            setTimeout(function() { で、再度、スレッド起動させる方式をとらないと
+            うまく動かなかった。
+            1msのsetTimeoutでよい。
+            1msという時間ではなく、別スレッドで行うことが重要だった。
+        */
+        let modalBody = modal.find('.modal-body');
+
+        let video = carousel[0].children[0].children[currentIndex].querySelector('video');
+        if (video) {
+            // 動画のカルーセルページの場合だけ、下記を適用する。
+
+            setTimeout(function() {
+
+                video.width = modalBody[0].clientWidth * 0.6;
+
+                // modal-bodyに縦スクロールが発生している場合は、一番下にスクロール位置を持っていく
+                if (modalBody[0].scrollHeight > modalBody[0].clientHeight) {
+                    modalBody.scrollTop(modalBody[0].scrollHeight);
+                }
+    
+                // modal-bodyに横スクロールが発生している場合は、一番左にスクロール位置を持っていく
+                if (modalBody[0].scrollWidth > modalBody[0].clientWidth) {
+                    modalBody.scrollLeft(0);
+                }
+            }, 1);
+        }
 
         // 最初のスライドはprevを非表示
         if (currentIndex === 0) {
