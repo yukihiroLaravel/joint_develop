@@ -3,13 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Helpers\FileType;
 
 class PostImage extends Model
 {
     /**
      * imgタグのsrc属性に指定する「{{ asset(XXX) }}」の「XXX」の値を取得する。
      */
-    public function assetParam()
+    private function assetParam($fileType, $isThumbnailImg)
     {
         /*
             例として
@@ -36,9 +37,18 @@ class PostImage extends Model
             {{ asset('storage/images/post/5b493bb7-b12e-4a12-aba3-3d1227a29bf8/imageP.jpg') }}
             の形となるように「{{ asset(XXX) }}」のXXXに相当する値を取得するのが当メソッドの役割である。
         */
-        
+        $folderRelativePath = $fileType->getFolderRelativePath($this->uuid);
+
+        /*
+            サムネイル画像としてのコンテクスト($isThumbnailImgがtrueの場合)で、かつ、動画の場合は、
+            同じuuidフォルダ内に、別で生成しているサムネイル画像名を返却する。
+            
+            上記以外は、純粋に本体のファイル名を返却する。
+        */
+        $adjustFileName = $fileType->adjustFileName($isThumbnailImg);
+
         // 例）{{ asset('storage/images/post/5b493bb7-b12e-4a12-aba3-3d1227a29bf8/imageP.jpg') }}
-        $ret = "storage/images/post/{$this->uuid}/{$this->file_name}";
+        $ret = "storage/{$folderRelativePath}/{$adjustFileName}";
         return $ret;
     }
 
@@ -62,9 +72,15 @@ class PostImage extends Model
 
         $strOrder = strval($this->order);
 
+        // 当ロジックは、固定値 (PHPでローカルスコープの定数がないため変数で代用)
+        $imageType = 'post';
+        $fileType = new FileType($this->file_name, $imageType);
+
+        $asetValue = asset($this->assetParam($fileType, true));
+
         // Xdebugで確認しやすいように、一旦、変数で受ける
         $ret =
-            "<img src=\"" . asset($this->assetParam()) . "\"" .
+            "<img src=\"{$asetValue}\"" .
 
             // ツールチップを追加
             "title=\"{$this->file_name}\"" . 
@@ -86,15 +102,47 @@ class PostImage extends Model
         // 例)
         // <img src="{{ asset('storage/images/post/5b493bb7-b12e-4a12-aba3-3d1227a29bf8/imageP.jpg') }}" class="d-block" alt="imageP.jpg">
 
+        // 当ロジックは、固定値 (PHPでローカルスコープの定数がないため変数で代用)
+        $imageType = 'post';
+        $fileType = new FileType($this->file_name, $imageType);
+
         // Xdebugで確認しやすいように、一旦、変数で受ける
-        $ret =
-            "<img src=\"" . asset($this->assetParam()) . "\"" .
+        $ret = "";
 
-            // ツールチップを追加
-            "title=\"{$this->file_name}\"" . 
+        $asetValue = asset($this->assetParam($fileType, false));
 
-            "class=\"d-block\" alt=\"{$this->file_name}\">"
+        if($fileType->isVideo) {
+            // 動画の場合
+
+            /*
+                事前調査として、
+                storageの領域に該当の動画ファイルを置いてみて、
+                カルーセルでページ切り替えで表示している画像のimgタグを
+                ブラウザのデバッガーで下記のvideoタグに、置き換えてみたところストリーミング再生が可能なことが分かっている。
+
+                <video controls="" preload="auto" title="2003　世にも奇妙な物語　迷路.mp4">
+                    <source src="http://localhost:6080/storage/images/2003　世にも奇妙な物語　迷路.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+
+                上記のタグを作成する形で、実装する。
+            */
+            $ret =
+                "<video controls=\"\"  preload=\"auto\" title=\"{$this->file_name}\" \">" .
+                    "<source src=\"{$asetValue}\" type=\"video/mp4\">" .
+                    "Your browser does not support the video tag." .
+                "</video>"
             ;
+        } else {
+            $ret =
+                "<img src=\"{$asetValue}\"" .
+
+                // ツールチップを追加
+                "title=\"{$this->file_name}\"" . 
+
+                "class=\"d-block\" alt=\"{$this->file_name}\">"
+            ;
+        }
         
         return $ret;
     }

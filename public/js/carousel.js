@@ -39,6 +39,10 @@ $(document).ready(function() {
 
     // prev/nextボタンを押した時
     $('[id^="carousel"]').on('slid.bs.carousel', function () {
+
+        // ページ内のvideoタグで再生中のものは停止する。
+        stopAllPlayingVideos();
+
         /*
             イベントが発生した
             <div id="carousel{{ $strPostIdPostfix }}" class="carousel slide" data-ride="carousel" data-interval="false">
@@ -82,6 +86,86 @@ $(document).ready(function() {
         */       
         var currentIndex = carousel.find('.carousel-item.active').index();
 
+        /*
+            どうしても、carousel.cssではvideoタグの大きさ調整がうまくいかなかった
+
+            javascriptで調整するしかない
+
+            let video = carousel[0].children[0].children[currentIndex].querySelector('video');
+            だと今のカルーセルのページでのvideoタグを正確に取得できるようだ。
+
+            縦横の比率が動画によって、バラバラであるが
+
+            video.width = modalBody[0].clientWidth * 「倍率」;
+            としておけば、
+            縦幅は元の動画の縦横比をキープしたまま、拡大縮小される
+
+            「倍率」を段階的に大きい値から小さい値に段階的に小さくしながら
+            縦スクロールがなくなるまでするが
+
+            ある程度のところで、打ち切る
+
+            上記でもまだ、縦スクロールが発生しているケースで、
+            動画の再生ボタンのUIが下のほうにあるので、
+            スクロール位置を一番下に下げて、再生ボタンが見えてる状況とする。
+
+            javascriptはシングルスレッドモードで動作するなどがあり、
+            setTimeout(function() { で、再度、スレッド起動させる方式をとらないと
+            うまく動かなかった。
+            1msのsetTimeoutでよい。
+            1msという時間ではなく、別スレッドで行うことが重要だった。
+        */
+        let modalBody = modal.find('.modal-body');
+
+        let video = carousel[0].children[0].children[currentIndex].querySelector('video');
+        if (video) {
+            // 動画のカルーセルページの場合だけ、下記を適用する。
+
+            setTimeout(function() {
+
+                /*
+                    なるべくぴったりフィットを目指したいので、多めの倍率から横幅調整し、
+                    縦スクロールがなくなった時点で、サイズ調整を終える。
+                */
+                let ratioArray = [0.95, 0.9, 0.85, 0.8, 0.75, 0.7, 0.65, 0.6, 0.55, 0.5, 0.45, 0.4, 0.35, 0.3];
+                for(let index = 0 ; index < ratioArray.length ; ++index) {
+                    let currentRatio = ratioArray[index];
+                    video.width = modalBody[0].clientWidth * currentRatio;
+
+                    // 縦スクロールが発生しているかどうか
+                    let isHeightScroll = (modalBody[0].scrollHeight > modalBody[0].clientHeight);
+                    if(!isHeightScroll) {
+                        // 
+                        /*
+                            縦スクロールが発生していない今の横幅を基点とした
+                            元画像の縦横比率キープでの大きさ調整に
+                            縦スクロールが発生せず、ピッタリフィットの状況だと言えたので、
+                            ここで、サイズ調整を終える。
+                        */
+                        break;
+                    }
+                }
+
+                /*
+                    上記でのサイズ調整プロセスでも、縦スクロールが発生してしまう状況であれば
+                    画像によっては、縦横比の関係でそのようなものもあるでしょう。
+                    そのときは、下部の再生ボタンが見えるように、
+                    縦スクロール位置を一番下に持っていこう
+                    また、ついでに、横スクロール発生時は、一番左の調整もやっておこう
+                */
+
+                // modal-bodyに縦スクロールが発生している場合は、一番下にスクロール位置を持っていく
+                if (modalBody[0].scrollHeight > modalBody[0].clientHeight) {
+                    modalBody.scrollTop(modalBody[0].scrollHeight);
+                }
+    
+                // modal-bodyに横スクロールが発生している場合は、一番左にスクロール位置を持っていく
+                if (modalBody[0].scrollWidth > modalBody[0].clientWidth) {
+                    modalBody.scrollLeft(0);
+                }
+            }, 1);
+        }
+
         // 最初のスライドはprevを非表示
         if (currentIndex === 0) {
             prevDiv.style.visibility = 'hidden';
@@ -113,5 +197,11 @@ $(document).ready(function() {
         let strPostIdPostfix = getStrPostIdPostfix(modal);
 
         $('#carousel' + strPostIdPostfix).trigger('slid.bs.carousel');
+    });
+
+    // カルーセルのモーダルが閉じられるときのイベントハンドラ
+    $('[id^="imageModal"]').on('hidden.bs.modal', function () {
+        // ページ内のvideoタグで再生中のものは停止する。
+        stopAllPlayingVideos();
     });
 });

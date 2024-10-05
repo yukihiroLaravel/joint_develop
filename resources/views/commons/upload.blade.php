@@ -2,6 +2,16 @@
     if (!isset($divContainerStyle)) {
         $divContainerStyle = '';
     }
+
+    if (!isset($enableVideoFlg)) {
+        $enableVideoFlg = 'OFF';
+    }
+
+    // 1ファイルあたりの最大アップロードサイズ(単位:MB)
+    $uploadMaxFilesize = config('app.uploadMaxFilesize');
+
+    // 画像の場合の仕様で決めたアップロードの最大サイズ(単位:MB)
+    $uploadImageMaxFilesize = config('app.uploadImageMaxFilesize');
 @endphp
 <div class="container" {!! $divContainerStyle !!}>
     <div id="file-upload-container" style="margin: 20px;"></div>
@@ -29,6 +39,15 @@
 
     {{-- アップロードする画像タイプ --}}
     <input id="file-upload-imageType" type="hidden" value="{{ $imageType }}" />
+
+    {{-- 動画のアップロードが可能なモードかどうか --}}
+    <input id="enable-video-flg" type="hidden" value="{{ $enableVideoFlg }}" />
+
+    {{-- 1ファイルあたりの最大アップロードサイズ(単位:MB) --}}
+    <input id="upload-max-file-size" type="hidden" value="{{ $uploadMaxFilesize }}" />
+
+    {{-- 画像の場合の仕様で決めたアップロードの最大サイズ(単位:MB) --}}
+    <input id="upload-image-max-file-size" type="hidden" value="{{ $uploadImageMaxFilesize }}" />
 
     {{-- バリデーションエラー時に動的作成UI部の復元すべきかの判定のため前回値の有無の判定用 --}}
     {{-- サーバーに一回送って、それが返ってくるかで前回値の有無を判定するためname属性を指定している。 --}}

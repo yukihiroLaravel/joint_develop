@@ -1,5 +1,8 @@
 {{-- 仕組み上、複数件、可能な状況として柔軟性を高める --}}
 @php
+    require_once app_path('Helpers/ViewHelper.php');
+    $viewHelper = \App\Helpers\ViewHelper::getInstance();
+
     /*
         前処理にて「'flashMessageInfos'でsessionにない、または、あるが0件」
         の場合は、なにもしないでreturnしている
@@ -12,6 +15,9 @@
     if (count($flashMessageInfos) <= 0) {
         return;
     }
+
+    $lastAlertClass = null;
+    $lastMessage = null;
 @endphp
 @foreach ($flashMessageInfos as $info)
 
@@ -34,6 +40,10 @@
 
         {!! nl2br(e($info->message)) !!}
     </div>
+    @php
+        $lastAlertClass = $info->alertClass;
+        $lastMessage = $info->message;
+    @endphp
 @endforeach
 @php
     /*
@@ -55,4 +65,12 @@
         今回のケースのように消す処理も視野に入れたほうがよいだろう
     */
     session()->forget('flashMessageInfos');
+
+    /*
+        複数出力対応のサーバーのフラッシュメッセージのうち、
+        最後に出力された分だけ、トーストメッセージ出力対応をした。
+    */
+    if ($lastAlertClass && $lastMessage) {
+        echo $viewHelper->getToastMessageScript($lastMessage, $lastAlertClass);
+    }
 @endphp

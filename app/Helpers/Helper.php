@@ -134,6 +134,127 @@ class Helper
 
     /* #endregion */ // 排他ロック
 
+    /* #region 動画からサムネイル生成 */
+
+    /**
+     * $videoFilePathと$thumbnailFilePathを指定してサムネイル画像を作成する。
+     */
+    public function generateThumbnailFromVideo($videoFilePath, $thumbnailFilePath)
+    {
+        /*
+            Laravelでは、本来、ffmpegを使用するためのライブラリをcomposerでインストールする方法がある。
+            一般的なパッケージとしては、「pbmedia/laravel-ffmpeg」が存在する。
+            これはffmpegのラッパーライブラリで、Laravelプロジェクト内で簡単に動画処理を行うために使われる。
+            インストールコマンドは
+            composer require pbmedia/laravel-ffmpeg
+            である。
+
+            ただし、上記の「pbmedia/laravel-ffmpeg」は使えない。
+            理由としては、
+            apt-get update
+            apt-get install -y --fix-missing ffmpeg libx264-dev libx265-dev
+            で、ffmpegおよび、関連の*.soをシステム領域にインストールされている前提で動くものだからだ。
+
+            fly.ioの制約で、1つのみのパスがマウントして永続化できる
+            他の領域は、システム領域を含め休止したマシンが復帰時には消えてしまうため
+            ffmpegおよび、関連の*.soがシステム領域に存在しなくなる。
+            このため「pbmedia/laravel-ffmpeg」は動作しなくなってしまう。
+
+            そこで、下記のようにやり方を変更した。
+
+            まず、デプロイ時に、Dockerfileにて
+            apt-get update
+            apt-get install -y --fix-missing ffmpeg libx264-dev libx265-dev
+            で、ffmpegおよび、関連の*.soをシステム領域にインストールした。
+
+            storage/app/publicのみをflyボリュームのマウントで永続化する運用方針のため
+            entrypoint.shにて、
+            インストールされたばかりのシステム領域にあるffmpegや*.soファイルを
+            storage/app/public/ffmpeg-binにコピーして所有者をwww-dataに変更する。
+            
+            このようにすることで、その後、マシンの休止などでシステム領域のffmpegや*.soファイルが消えても
+            コピーしたstorage/app/public/ffmpeg-binの配下のffmpegや*.soファイルは永続化され残っている。
+
+            その前提で、直接コマンドラインからstorage/app/public/ffmpeg-bin配下の
+            ffmpegを実行してサムネイル生成を行うことにした。
+
+            上記のデプロイ環境の制約より、この方法しか無かった。
+
+            コマンドラインで実行される具体的なffmpegのコマンドラインは以下の通り
+            /var/www/html/laravelapp/storage/app/public/ffmpeg-bin/ffmpeg -ss 00:00:10 -i "{動画ファイルパス}" -vframes 1 -an "{サムネイルファイルパス}" -y -nostats -loglevel quiet 2>&1
+
+            各引数の説明
+            -ss 00:00:10      : 動画の10秒目からサムネイルを作成
+            -i                : 入力ファイルのパスを指定
+            -vframes 1        : 出力するフレーム数（ここでは1フレームのみ）
+            -an               : 音声を無効にする（サムネイル画像には音声は不要）
+            -y                : 既存のサムネイルファイルがあれば自動で上書き
+            -nostats          : 処理の進捗などの出力を表示しない
+            -loglevel quiet   : エラーメッセージ以外は表示しない
+            2>&1              : 標準エラー出力も標準出力にリダイレクトすることで、エラーメッセージを取得可能にする
+
+            動画全体を読み込まず、いろいろな情報を無視して開始から10秒目の1フレームのみ
+            ピックアップし、そこだけ画像化するような引数指定にしてある
+            これにより、画像サイズが大きい場合でも高速にサムネイル画像が作成可能となる。
+
+            ためしに、当関数の単体テストで、6.17 GBの巨大な、mp4の動画ファイルについて、サムネイル画像を作成時、1秒かからなかった。
+            1秒かからないのであれば、画面実装でスピナー表示の対応をしているのもあり、問題にはならない。
+        */
+        try {
+            /*
+                エラー時に前のサムネイル画像ファイルがロックされ
+                次同じサムネイルファイルに対して処理した時に
+                固まる現象があり、既にあれば、一旦削除する処理を追加した
+                そうするとその現象が無くなった。
+
+                同じサムネイル画像を上書き保存するケースが、当関数だけの単体テスト時しか発生しえないと思われるが
+                この方法でロックを解放できてるため、実運用でもしてたほうが、信頼性が高まると思うため
+                この実装を入れっぱなしにしている。
+            */
+            if (file_exists($thumbnailFilePath)) {
+                unlink($thumbnailFilePath);
+            }
+
+            $ffmpegPath = storage_path('app/public/ffmpeg-bin/ffmpeg');
+
+            /*
+                一応、コマンドの中にも「-y」を追加し、ユーザ確認で止まることがないようにした。
+                最悪エラーだったとしても処理自体はすぐ終わる形にしたい。
+
+                ファイル名にスペースが含まれているケースでも動作可能になるように、
+                パスの変数値をダブルコーテーションで囲った形でコマンドラインを作成する。
+            */
+            $command = "{$ffmpegPath} -ss 00:00:10 -i \"{$videoFilePath}\" -vframes 1 -an \"{$thumbnailFilePath}\" -y -nostats -loglevel quiet 2>&1";
+
+            // FFmpegのコマンドラインをログに出力
+            \Log::info("ffmpegコマンド: " . $command);
+
+            exec($command, $output, $return_var);
+
+            // FFmpegの標準出力をログに出力
+            \Log::info("ffmpeg出力: " . implode("\n", $output));
+
+            if ($return_var !== 0) {
+                throw new \Exception(
+                    "************************************************\n" .
+                    "エラーが発生しました: " . implode("\n", $output) .
+                    "************************************************\n"
+                );
+            }
+        } catch (\Exception $e) {
+            // ログにエラーメッセージを出力
+            \Log::error(
+                "************************************************\n" .
+                "サムネイル生成中にエラーが発生しました: " . $e->getMessage() .
+                "************************************************\n"
+            );
+            // 再度例外をスロー
+            throw $e;
+        }
+    }
+
+    /* #endregion */ // 動画からサムネイル生成
+
     /* #region userImage関連 */
 
     /**
@@ -273,10 +394,12 @@ class Helper
     /**
      *  $imageType、$uuidを指定してstorageから削除
      */
-    public function deleteImageOnStorage($imageType, $uuid)
+    public function deleteImageOnStorage($imageType, $uuid, $fileName)
     {
+        $fileType = new FileType($fileName, $imageType);
+        
         // storage/app/public　の配下の相対パス
-        $folderRelativePath = "images/{$imageType}/{$uuid}";   
+        $folderRelativePath = $fileType->getFolderRelativePath($uuid);
 
         /*
             config/filesystems.phpの'public'での定義しているフォルダの

@@ -39,9 +39,10 @@ class InsertUnusedFileCheckers extends Command
      */
     public function handle()
     {
-        $types = [
-            'avatar',
-            'post',
+        $paramMap = [
+            ['baseDirName' => 'images', 'type' => 'avatar'],
+            ['baseDirName' => 'images', 'type' => 'post'],
+            ['baseDirName' => 'videos', 'type' => 'post'],
         ];
 
         /*
@@ -61,65 +62,72 @@ class InsertUnusedFileCheckers extends Command
 
             ローカル環境での完全にテスト用のコマンド。
         */
+        foreach ($paramMap as $pair) {
+            $baseDirName = $pair['baseDirName'];
+            $type = $pair['type'];
 
-        foreach ($types as $type) {
-            $directoryPath = storage_path("app/public/images/{$type}");
+            $directoryPath = storage_path("app/public/{$baseDirName}/{$type}");
 
-            if (!\File::exists($directoryPath)) {
-                $this->error("directory not found: {$directoryPath}");
-                continue;
-            }
-
-            // ディレクトリ内のUUIDフォルダを取得
-            $uuidDirectories = \File::directories($directoryPath);
-            // ls -ltrのイメージになるように古いもの順で並び替え
-            usort($uuidDirectories, function ($a, $b) {
-                return filemtime($a) - filemtime($b);
-            });
-
-            // 各UUIDフォルダの中身を確認
-            foreach ($uuidDirectories as $uuidDirectory) {
-
-                // uuidのフォルダ内に1ファイルの構成だから基本的に1回しかループを回らないはず
-
-                // uuid
-                $uuid = basename($uuidDirectory);
-
-                $files = \File::files($uuidDirectory);
-                // ls -ltrのイメージになるように古いもの順で並び替え
-                usort($files, function ($a, $b) {
-                    return filemtime($a) - filemtime($b);
-                });
-
-                foreach ($files as $file) {
-                    // fileName
-                    $fileName = $file->getFilename();
-
-                    $exists = UnusedFileChecker::where('type', $type)
-                        ->where('uuid', $uuid)
-                        ->where('file_name', $fileName)
-                        ->exists();
-                    if ($exists) {
-                        $this->info("already exists. uuid: {$uuid}, fileName: {$fileName}, type: {$type}");
-                    } else {
-                        // ファイルの最終更新日時を取得し、日本時間に変換
-                        $fileCreatedAt = Carbon::createFromTimestamp(filemtime($file))->timezone('Asia/Tokyo');
-
-                        // insert
-                        $unusedFileChecker = new UnusedFileChecker;
-                        $unusedFileChecker->type = $type;
-                        $unusedFileChecker->check_count = 0;
-                        $unusedFileChecker->uuid = $uuid;
-                        $unusedFileChecker->file_name = $fileName;
-                        $unusedFileChecker->created_at = $fileCreatedAt;
-                        $unusedFileChecker->save();
-
-                        $this->info("Inserted record. uuid: {$uuid}, fileName: {$fileName}, type: {$type}");
-                    }
-                }
-            }
+            $this->eachDirectory($type, $directoryPath);
         }
 
         return 0;
+    }
+
+    private function eachDirectory($type, $directoryPath)
+    {
+        if (!\File::exists($directoryPath)) {
+            $this->info("directory not found: {$directoryPath}");
+            return;
+        }
+
+        // ディレクトリ内のUUIDフォルダを取得
+        $uuidDirectories = \File::directories($directoryPath);
+        // ls -ltrのイメージになるように古いもの順で並び替え
+        usort($uuidDirectories, function ($a, $b) {
+            return filemtime($a) - filemtime($b);
+        });
+
+        // 各UUIDフォルダの中身を確認
+        foreach ($uuidDirectories as $uuidDirectory) {
+
+            // uuidのフォルダ内に1ファイルの構成だから基本的に1回しかループを回らないはず
+
+            // uuid
+            $uuid = basename($uuidDirectory);
+
+            $files = \File::files($uuidDirectory);
+            // ls -ltrのイメージになるように古いもの順で並び替え
+            usort($files, function ($a, $b) {
+                return filemtime($a) - filemtime($b);
+            });
+
+            foreach ($files as $file) {
+                // fileName
+                $fileName = $file->getFilename();
+
+                $exists = UnusedFileChecker::where('type', $type)
+                    ->where('uuid', $uuid)
+                    ->where('file_name', $fileName)
+                    ->exists();
+                if ($exists) {
+                    $this->info("already exists. uuid: {$uuid}, fileName: {$fileName}, type: {$type}");
+                } else {
+                    // ファイルの最終更新日時を取得し、日本時間に変換
+                    $fileCreatedAt = Carbon::createFromTimestamp(filemtime($file))->timezone('Asia/Tokyo');
+
+                    // insert
+                    $unusedFileChecker = new UnusedFileChecker;
+                    $unusedFileChecker->type = $type;
+                    $unusedFileChecker->check_count = 0;
+                    $unusedFileChecker->uuid = $uuid;
+                    $unusedFileChecker->file_name = $fileName;
+                    $unusedFileChecker->created_at = $fileCreatedAt;
+                    $unusedFileChecker->save();
+
+                    $this->info("Inserted record. uuid: {$uuid}, fileName: {$fileName}, type: {$type}");
+                }
+            }
+        }
     }
 }

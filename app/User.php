@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Helpers\Helper;
+use App\Helpers\FileType;
 
 class User extends Authenticatable
 {
@@ -381,7 +382,11 @@ class User extends Authenticatable
             // 当ロジックは、固定値 (PHPでローカルスコープの定数がないため変数で代用)
             $imageType = 'avatar';
 
-            $imgSrcParam = asset("storage/images/{$imageType}/{$userImage->uuid}/{$userImage->file_name}");
+            $fileName = $userImage->file_name;
+            $fileType = new FileType($fileName, $imageType);
+            $folderRelativePath = $fileType->getFolderRelativePath($userImage->uuid);
+
+            $imgSrcParam = asset("storage/{$folderRelativePath}/{$fileName}");
         }
 
         return $imgSrcParam;
