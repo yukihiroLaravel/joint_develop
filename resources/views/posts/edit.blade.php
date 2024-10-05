@@ -6,8 +6,10 @@
         @csrf
         @method('PATCH')
         <div class="form-group">
-            <textarea id="content" class="form-control" name="content" rows="5">{{ old('content', $post->content) }}</textarea>
+            <textarea id="content" class="form-control" name="content" rows="4" placeholder="本文を入力（例：サッカー観戦楽しかった！）">{{ old('content', $post->content) }}</textarea>
         </div>
-        <button type="submit" class="btn btn-primary">更新</button>
+        <div class="text-right">
+            <button type="submit" class="btn btn-primary">更新</button>
+        </div>
     </form>
 @endsection

@@ -13,17 +13,17 @@
                 @csrf
                 <div class="form-group">
                     <label for="email">メールアドレス</label>
-                    <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}">
+                    <input id="email" type="text" class="form-control" name="email" value="{{ old('email', 'test1@test.com') }}" placeholder="メールアドレスを入力">
                 </div>
                 <div class="form-group">
                     <label for="password">パスワード</label>
-                    <input id="password" type="password" class="form-control" name="password" value="">
+                    <input id="password" type="password" class="form-control" name="password" value="password1" placeholder="パスワードを入力">
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary mt-2">ログイン</button>
                 </div>
             </form>
-            <div class="text-center mt-4"><a href="{{ route('signup') }}">新規ユーザ登録はこちら</a></div> <!-- 新規ユーザ登録画面への遷移ルーティング追記 -->
+            <div class="text-center mt-4"><a href="{{ route('signup') }}">新規ユーザ登録はこちら</a></div> <!-- 新規ユーザ登録ページへ遷移 -->
         </div>
     </div>
 @endsection

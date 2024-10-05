@@ -15,13 +15,13 @@
             <div class="d-flex justify-content-between w-75 pb-3 m-auto">
                 <div class="d-flex align-items-center">
                     <p class="text-muted mb-0">{{ $post->created_at->format('Y年n月j日 G時i分') }}</p> <!-- 投稿日時を相対時間表記で表示 -->
+                    @include('favorite.favorite_button', ['post' => $post])
                 </div>
                 <div class="d-flex align-items-center">
-                    @include('favorite.favorite_button', ['post' => $post])
-                    <p class="btn btn-dark mt-4 mb-1 d-inline-block"><a href="{{ route('posts.show', ['id' => $post->id]) }}">投稿詳細</a></p> <!--  投稿詳細のURL-->
+                    <a href="{{ route('posts.show', ['id' => $post->id]) }}" class="btn btn-info btn-sm">詳細</a>
                     @if (Auth::id() == $post->user->id)
-                        <a href="{{ route('posts.edit', ['id' => $post->id]) }}" class="btn btn-primary btn-sm mr-2">編集</a>
-                        <a class="btn btn-danger btn-sm text-light" data-toggle="modal" data-target="#deleteConfirmModal">削除</a>
+                        <a href="{{ route('posts.edit', ['id' => $post->id]) }}" class="btn btn-primary btn-sm ml-2">編集</a>
+                        <a class="btn btn-danger btn-sm text-light ml-2" data-toggle="modal" data-target="#deleteConfirmModal">削除</a>
                         <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
