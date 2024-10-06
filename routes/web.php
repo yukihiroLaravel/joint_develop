@@ -43,6 +43,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
     });
+
+        // 返信機能
+        Route::post('replies', 'RepliesController@store')->name('replies.store');
     
     Route::prefix('users/{id}')->group(function () {
         // フォロー
@@ -53,4 +56,5 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('edit', 'UsersController@edit')->name('user.edit');
         Route::put('', 'UsersController@update')->name('user.update');
     });
+
 });
