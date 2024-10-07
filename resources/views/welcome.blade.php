@@ -1,8 +1,5 @@
 @extends('layouts.app')
 @section('content')
-@php
-    $keyword = $keyword ?? '';
-@endphp
 <div class="center jumbotron bg-info">
     <div class="text-center text-white mt-2 pt-1">
         <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
@@ -22,6 +19,17 @@
             </div>
         </form>
     </div>
+    @endif
+    @if (isset($submitted) && $submitted)  {{-- 「検索ボタン」を押されている場合で、 --}}
+        @if ($keyword == "" || $keyword == NULL)
+            <p class="text-center">キーワードを入力してください。</p>
+        @else
+            @if (count($posts) > 0)
+                <p class="text-center">「{{ $keyword }}」で検索しました。</p>
+            @else
+                <p class="text-center">「{{ $keyword }}」を含む投稿が見つかりません…</p>
+            @endif
+        @endif
     @endif
 @include('posts.posts', ['posts' => $posts, 'keyword' => $keyword])
 @endsection
