@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for hobby-share-laravel-app on 2024-06-06T13:27:45Z
+# fly.toml app configuration file generated for hobby-share on 2024-10-05T05:47:00Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'hobby-share-laravel-app'
+app = 'hobby-share'
 primary_region = 'nrt'
 console_command = 'php /var/www/html/artisan tinker'
 
@@ -23,7 +23,7 @@ console_command = 'php /var/www/html/artisan tinker'
 [http_service]
   internal_port = 8080
   force_https = true
-  auto_stop_machines = true
+  auto_stop_machines = 'stop'
   auto_start_machines = true
   min_machines_running = 0
   processes = ['app']
