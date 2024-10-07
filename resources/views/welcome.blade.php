@@ -33,6 +33,10 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="scheduled_at">予約投稿日時:</label>
+                    <input type="datetime-local" name="scheduled_at" class="form-control">
+                </div>
                 <div class="text-left mt-4 mb-10">
                     <button type="submit" class="btn btn-primary btn-lg btn-block" style="border-radius: 50px;">投稿する</button>
                 </div>
