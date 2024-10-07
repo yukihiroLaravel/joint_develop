@@ -21,7 +21,6 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ユーザ
-// Route::get('/', 'UsersController@index')->name('user.index');
 Route::prefix('users/{id}')->group(function() {
     // ユーザ詳細
     Route::get('', 'UsersController@show')->name('user.show');

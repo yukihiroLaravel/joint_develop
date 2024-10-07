@@ -63,6 +63,6 @@ class PostsController extends Controller
             $query->where('content', 'like', "%{$keyword}%"); // contentカラムにキーワードが含まれる投稿を検索条件に追加
         } 
         $posts = $query->orderBy('id', 'desc')->paginate(10); // if文を通らなかったら、そのまま投稿を全件表示
-        return view('welcome', compact('posts', 'keyword', 'submitted'));
+        return view('welcome', ['posts' => $posts, 'keyword' => $keyword, 'submitted' => $submitted]);
     } 
 }
