@@ -35,7 +35,7 @@
                 </div>
                 <div class="form-group">
                     <label for="scheduled_at">予約投稿日時:</label>
-                    <input type="datetime-local" name="scheduled_at" class="form-control">
+                    <input type="datetime-local" name="scheduled_at" class="form-control" id="scheduledAt" min="">
                 </div>
                 <div class="text-left mt-4 mb-10">
                     <button type="submit" class="btn btn-primary btn-lg btn-block" style="border-radius: 50px;">投稿する</button>
@@ -91,6 +91,27 @@
                 this.value = '';
                 bsCustomFileInput.destroy();
                 bsCustomFileInput.init();
+            }
+        });
+
+        // 過去の日付を選択できないようにする処理
+        const scheduledAt = document.getElementById('scheduledAt');
+        
+        // 現在の日本時間（JST）を取得
+        const now = new Date();
+        const jstNow = new Date(now.getTime() + (9 * 60 * 60 * 1000)); // UTC+9 に変換
+        
+        // 日本時間を ISO 形式（yyyy-MM-ddTHH:mm）にフォーマット
+        const jstFormatted = jstNow.toISOString().slice(0, 16); 
+        
+        // min属性に現在の日時をセット（過去の日時は選択不可）
+        scheduledAt.min = jstFormatted;
+
+        // フォーム送信時に過去の日時を選択した場合、エラーにする
+        document.getElementById('postForm').addEventListener('submit', function(event) {
+            if (scheduledAt.value < jstFormatted) {
+                alert('過去の日付は選択できません。');
+                event.preventDefault();
             }
         });
     </script>
