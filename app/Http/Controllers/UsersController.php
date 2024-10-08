@@ -10,14 +10,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
-    /*public function index()
-    {
-        $posts = Post::orderBy('id', 'desc')->paginate(10);
-        return view('welcome', [
-            'posts' => $posts
-        ]);
-    } */
-
     public function show($id)
     {
         $user = User::findOrFail($id);
