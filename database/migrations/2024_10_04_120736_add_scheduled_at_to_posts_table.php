@@ -15,6 +15,7 @@ class AddScheduledAtToPostsTable extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             $table->datetime('scheduled_at')->nullable(); // 予約投稿日時
+            $table->boolean('is_published')->default(false);
         });
     }
 
@@ -27,6 +28,7 @@ class AddScheduledAtToPostsTable extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             $table->dropColumn('scheduled_at');
+            $table->dropColumn('is_published');
         });
     }
 }

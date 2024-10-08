@@ -17,6 +17,7 @@ class PostsTableSeeder extends Seeder
             Post::create([
                 'user_id' => $user->id,
                 'post' => $faker->realText(50, 5), // ランダムな日本語テキストを生成
+                'is_published' => true,
             ]);
         }
     }
