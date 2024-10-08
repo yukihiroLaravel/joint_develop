@@ -1,5 +1,5 @@
  @extends('layouts.app')
- @setion('content')
+ @section('content')
     <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
         <form method="POST" action="{{ route('user.update', $user->id) }}">
             @csrf

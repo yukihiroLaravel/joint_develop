@@ -14,6 +14,12 @@
                   <li class="nav-item"><a href="{{ route('login') }}" class="nav-link text-light">ログイン</a></li>
                   <li class="nav-item"><a href="{{ route('signup') }}" class="nav-link text-light">新規ユーザ登録</a></li>
               @endif
+                  <li class="nav-item">
+                      <form action="{{ route('index') }}" method="GET" class="form-inline my-2 my-lg-0 ml-2">
+                        <input type="search" name="keyword" class="form-control mr-sm-2" value="{{ request('keyword') }}" placeholder="キーワードを入力" aria-label="検索">
+                        <button class="btn btn-outline-success my-2 my-sm-0 search-button" type="submit">投稿を検索</button>
+                      </form>
+                  </li>
             </ul>
         </div>
     </nav>

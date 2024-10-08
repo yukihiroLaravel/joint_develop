@@ -19,6 +19,17 @@
             </div>
         </form>
     </div>
-    @endif    
-@include('posts.posts', ['posts => $posts'])
+    @endif
+    @if (isset($submitted) && $submitted)  {{-- 「検索ボタン」を押されている場合で、 --}}
+        @if ($keyword == "" || $keyword == NULL)
+            <p class="text-center">キーワードを入力してください。</p>
+        @else
+            @if (count($posts) > 0)
+                <p class="text-center">「{{ $keyword }}」で検索しました。</p>
+            @else
+                <p class="text-center">「{{ $keyword }}」を含む投稿が見つかりません…</p>
+            @endif
+        @endif
+    @endif
+@include('posts.posts', ['posts' => $posts, 'keyword' => $keyword])
 @endsection
