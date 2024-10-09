@@ -44,14 +44,14 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
-        return redirect()->route('user.show', $id);
+        return redirect()->route('user.show', $id)->with('flashmessage', '更新が完了しました！');
     }
 
     public function destroy($id)
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('flashmessage', '退会が完了されました。。。');
     }
 
     // 「フォロー中」タイムライン
