@@ -141,8 +141,19 @@ class PostImage extends Model
                     どのみち表示できたとしてもyoutubeIdである。
                     ツールチップのために、youtubeApiで動画のタイトルを取得するのは大掛かりすぎる
                     一旦は、ツールチップ表示は、あきらめました。
+
+                    ツールチップを、あきらめた代わりに、テキストボックスでコピペできるようにする。
             */
-            $ret = "<iframe src=\"{$asetValue}\" frameborder=\"0\"></iframe>";
+            $ret = 
+                "<iframe src=\"{$asetValue}\" frameborder=\"0\"></iframe>" .
+
+                // YouTubeのURLをコピペできるようにしておこう。(カルーセル表示中のYouTube動画が気になったときに、そのurlをコピペできるように)
+                "<div class=\"form-group d-flex align-items-center\">" .
+                    "<label class=\"mr-2 mb-0\">YouTubeURL</label>" .
+                    "<input type=\"text\" class=\"form-control mr-2\" value=\"https://www.youtube.com/watch?v={$fileType->youtubeId}\" readonly>" .
+                    "<button class=\"btn btn-primary btn-sm h-100\" onclick=\"navigator.clipboard.writeText(this.previousElementSibling.value).then(() => alert('copied!!'));\">copy</button>" .
+                "</div>"
+            ;
         } else if($fileType->isVideo) {
             // 動画の場合
 
