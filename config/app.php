@@ -229,7 +229,7 @@ return [
     ],
 
     //TOPIC_POSTS_TITLE
-    'TopicPostsTitle' => env('TOPIC_POSTS_TITLE', 'Topic Posts'),
+    'TopicPostsTitle' => env('TOPIC_POSTS_TITLE', '６ちゃんねる powerd by ゆきひろ'),
 
     /*
         ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
@@ -268,9 +268,9 @@ return [
         Carbon::now('Asia/Tokyo')->subDays($exclusionDays)->subHours($exclusionHours)->subMinutes($exclusionMinutes)->subSeconds($exclusionSeconds);
         で利用する指定値
     */
-    'exclusionDays' => env('EXCLUSION_DAYS', 1),
+    'exclusionDays' => env('EXCLUSION_DAYS', 0),
     'exclusionHours' => env('EXCLUSION_HOURS', 0),
-    'exclusionMinutes' => env('EXCLUSION_MINUTES', 0),
+    'exclusionMinutes' => env('EXCLUSION_MINUTES', 15),
     'exclusionSeconds' => env('EXCLUSION_SECONDS', 0),
 
     // CleanupUnusedFiles.phpでのtype毎の処理件数

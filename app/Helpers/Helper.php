@@ -397,7 +397,11 @@ class Helper
     public function deleteImageOnStorage($imageType, $uuid, $fileName)
     {
         $fileType = new FileType($fileName, $imageType);
-        
+        if($fileType->isYoutube) {
+            // youTubeの場合は、そもそも、storage保存しないため、なにもしない
+            return;
+        }
+
         // storage/app/public　の配下の相対パス
         $folderRelativePath = $fileType->getFolderRelativePath($uuid);
 
@@ -507,4 +511,39 @@ class Helper
     }
 
     /* #endregion */ // 「$fileUuids、$fileNamesの検証と件数取得」
+
+    /* #region YouTube関連 */
+
+    /**
+     * youtubeIdを指定して、YouTube動画のサムネイル画像のURLを取得する。
+     */
+    public function getYoutubeThumbnailUrl($youtubeId)
+    {
+        $youtubeThumbnailUrl = "https://img.youtube.com/vi/{$youtubeId}/hqdefault.jpg";
+        return $youtubeThumbnailUrl;
+    }
+
+    /**
+     * YouTube動画のiframeのsrc属性値の値を取得する
+     */
+    public function getYoutubeIframeSrc($youtubeId)
+    {
+        /*
+            ＜特記事項＞
+            <script src="https://www.youtube.com/iframe_api"></script>
+            を通じた
+            const player = new YT.Player(iframe, {
+            で、
+            'onReady': function(event) {
+            が発火させるには、
+            &enablejsapi=1
+            を追加する必要があった。
+        */
+
+        $ret = "https://www.youtube.com/embed/{$youtubeId}?controls=1&loop=1&enablejsapi=1";
+
+        return $ret;
+    }
+
+    /* #endregion */ // YouTube関連
 }

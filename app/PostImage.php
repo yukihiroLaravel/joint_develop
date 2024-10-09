@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Helpers\FileType;
+use App\Helpers\Helper;
 
 class PostImage extends Model
 {
@@ -60,6 +61,8 @@ class PostImage extends Model
      */
     public function getThumbnailImg($strPostIdPostfix)
     {
+        $helper = Helper::getInstance();
+
         /*
             例として
             <img src="{{ asset('storage/images/post/5b493bb7-b12e-4a12-aba3-3d1227a29bf8/imageP.jpg') }}" class="img-thumbnail" alt="imageP.jpg" data-toggle="modal" data-target="#imageModal{{ $strPostIdPostfix }}" data-slide-to="0">
@@ -76,19 +79,27 @@ class PostImage extends Model
         $imageType = 'post';
         $fileType = new FileType($this->file_name, $imageType);
 
-        $asetValue = asset($this->assetParam($fileType, true));
+        $asetValue = "";
+        $fileName = "";
+        if($fileType->isYoutube) {
+            $asetValue = $helper->getYoutubeThumbnailUrl($fileType->youtubeId);
+            $fileName = $fileType->youtubeId;
+        } else {
+            $asetValue = asset($this->assetParam($fileType, true));
+            $fileName = $this->file_name;
+        }
 
         // Xdebugで確認しやすいように、一旦、変数で受ける
         $ret =
             "<img src=\"{$asetValue}\"" .
 
             // ツールチップを追加
-            "title=\"{$this->file_name}\"" . 
+            "title=\"{$fileName}\"" . 
 
-            "class=\"img-thumbnail\" alt=\"{$this->file_name}\"" . 
+            "class=\"img-thumbnail\" alt=\"{$fileName}\"" . 
             "data-toggle=\"modal\" data-target=\"#imageModal{$strPostIdPostfix}\" data-slide-to=\"{$strOrder}\">"
             ;
-        
+
         return $ret;
     }
 
@@ -99,6 +110,8 @@ class PostImage extends Model
      */
     public function getCarouselItemImg()
     {
+        $helper = Helper::getInstance();
+
         // 例)
         // <img src="{{ asset('storage/images/post/5b493bb7-b12e-4a12-aba3-3d1227a29bf8/imageP.jpg') }}" class="d-block" alt="imageP.jpg">
 
@@ -106,12 +119,31 @@ class PostImage extends Model
         $imageType = 'post';
         $fileType = new FileType($this->file_name, $imageType);
 
-        // Xdebugで確認しやすいように、一旦、変数で受ける
         $ret = "";
 
-        $asetValue = asset($this->assetParam($fileType, false));
+        $asetValue = "";
 
-        if($fileType->isVideo) {
+        if($fileType->isYoutube) {
+            $asetValue = $helper->getYoutubeIframeSrc($fileType->youtubeId);
+        } else {
+            $asetValue = asset($this->assetParam($fileType, false));
+        }
+
+        if($fileType->isYoutube) {
+            // YouTubeの場合
+
+            /*
+                特記事項
+                    title属性を指定してもツールチップを表示することができなかった
+                    divタグで囲って、そのdivタグにtitle属性を指定してもツールチップを表示することができなかった
+
+                    これはwebの仕様のようである。
+                    どのみち表示できたとしてもyoutubeIdである。
+                    ツールチップのために、youtubeApiで動画のタイトルを取得するのは大掛かりすぎる
+                    一旦は、ツールチップ表示は、あきらめました。
+            */
+            $ret = "<iframe src=\"{$asetValue}\" frameborder=\"0\"></iframe>";
+        } else if($fileType->isVideo) {
             // 動画の場合
 
             /*
@@ -129,7 +161,7 @@ class PostImage extends Model
             */
             $ret =
                 "<video controls=\"\"  preload=\"auto\" title=\"{$this->file_name}\" \">" .
-                    "<source src=\"{$asetValue}\" type=\"video/mp4\">" .
+                    "<source src=\"{$asetValue}\" type=\"{$fileType->typeValue}\">" .
                     "Your browser does not support the video tag." .
                 "</video>"
             ;

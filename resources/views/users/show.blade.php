@@ -18,7 +18,7 @@
                 <div class="card-header">
 
                     @if ($followsParam->isFollowerIndicatorVisible)
-                        <div class="text-left d-inline-block w-75 mb-2">
+                        <div class="text-left d-inline-block w-75 mb-2" style="color: white;">
                             <i class="fas fa-user"></i>&nbsp;<span>フォローされています</span>
                         </div>
                     @endif

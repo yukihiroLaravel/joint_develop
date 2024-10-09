@@ -117,8 +117,29 @@ $(document).ready(function() {
         */
         let modalBody = modal.find('.modal-body');
 
+        // サイズ調整すべきターゲット
+        let sizeAdjustTarget = null;
+        // サイズ調整すべきアスペクト比
+        let sizeAdjustAspectRatio = null;
+
         let video = carousel[0].children[0].children[currentIndex].querySelector('video');
         if (video) {
+            sizeAdjustTarget = video;
+        }
+        let iframe = carousel[0].children[0].children[currentIndex].querySelector('iframe');
+        if (iframe) {
+            sizeAdjustTarget = iframe;
+
+            /*
+                viedeタグと異なり、YouTube動画のiframeタグは、
+                widthを指定しても、heightが調整されない。結果的に横長になってなってしまった
+
+                ただし、YouTube動画では、ほとんどの動画のアスペクト比が16:9であるとのこと
+                ですので、16:9になるようにheightを自動調整すればよい。
+            */
+            sizeAdjustAspectRatio = (9 / 16);
+        }
+        if (sizeAdjustTarget) {
             // 動画のカルーセルページの場合だけ、下記を適用する。
 
             setTimeout(function() {
@@ -130,7 +151,11 @@ $(document).ready(function() {
                 let ratioArray = [0.95, 0.9, 0.85, 0.8, 0.75, 0.7, 0.65, 0.6, 0.55, 0.5, 0.45, 0.4, 0.35, 0.3];
                 for(let index = 0 ; index < ratioArray.length ; ++index) {
                     let currentRatio = ratioArray[index];
-                    video.width = modalBody[0].clientWidth * currentRatio;
+                    sizeAdjustTarget.width = modalBody[0].clientWidth * currentRatio;
+
+                    if(sizeAdjustAspectRatio) {
+                        sizeAdjustTarget.height = sizeAdjustTarget.width * sizeAdjustAspectRatio;
+                    }
 
                     // 縦スクロールが発生しているかどうか
                     let isHeightScroll = (modalBody[0].scrollHeight > modalBody[0].clientHeight);

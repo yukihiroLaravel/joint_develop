@@ -14,7 +14,7 @@
     $uploadImageMaxFilesize = config('app.uploadImageMaxFilesize');
 @endphp
 <div class="container" {!! $divContainerStyle !!}>
-    <div id="file-upload-container" style="margin: 20px;"></div>
+    <div id="file-upload-container" style="margin: 10px;"></div>
 
     {{-- アップロード済の画像をクライアントサイドでサムネイル表示のためhrefに指定するURLのベース部分 --}}
     <input id="file-upload-base-path" type="hidden" value="{{ asset('storage') }}" />

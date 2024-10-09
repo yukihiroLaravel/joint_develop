@@ -4,8 +4,18 @@ function createFileUpload() {
     let enableVideoFlg = $('#enable-video-flg').val();
     let isEnableVideo = (enableVideoFlg === 'ON');
     let targetLabel = "画像";
+    let youtubeUI = "";
     if(isEnableVideo) {
         targetLabel = "画像・動画";
+
+        youtubeUI = `
+            <div class="divYoutubeAdd input-group">
+                <input type="text" class="form-control txtYoutubeUrl" placeholder="YouTube動画を追加" aria-label="YouTube動画を追加" aria-describedby="button-addon2" style="min-width: 520px;">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary btnYoutubeAdd" type="button" id="button-addon2">追加</button>
+                </div>
+            </div>
+        `;
     }
 
     /*
@@ -15,15 +25,22 @@ function createFileUpload() {
         submit時のリクエストに乗せれる形にする
     */
     const fileUploadHtml = `
-        <div class="file-upload-wrapper d-flex align-items-center" style="margin-bottom: 20px;">
+        <div class="file-upload-wrapper d-flex align-items-center">
             <input name="fileUuids[]" class="file-uuid" type="hidden" value=""/>
             <input name="fileNames[]" class="file-name" type="hidden" value=""/>
+
+            <button type="button" class="btn btn-primary btnUp"      style="display: none; margin: 5px;">↑</button>
+            <button type="button" class="btn btn-secondary btnDown"  style="display: none; margin: 5px;">↓</button>
+
             <img src="" class="thumbnail" style="display:none; margin-top: 10px; width: 150px; height: 100px;" />
             <button class="btn btn-danger delete-file mr-2" style="display:none; min-width: 100px; margin-left: 10px">${targetLabel}削除</button>
 
-            <div class="fileInputDiv">
-                <input type="file" class="form-control-file file-input mr-2" style="display:none" />
-                <button class="btn btn-info file-input-button mr-2" onclick="fileInputButton(event); return false;" style="min-width: 100px; margin-left: 10px">${targetLabel}追加</button>
+            <div class="d-flex align-items-center" style="margin-top: 10px; margin-bottom: 10px;">
+                <div class="fileInputDiv">
+                    <input type="file" class="form-control-file file-input mr-2" style="display:none" />
+                    <button class="btn btn-info file-input-button mr-2" onclick="fileInputButton(event); return false;" style="min-width: 150px;">${targetLabel}追加</button>
+                </div>
+                ${youtubeUI}
             </div>
 
             <span class="file-name-label mr-2" style="display:none;"></span>
@@ -94,6 +111,11 @@ function adjustThumbnailRelativeFilePath(relativeFilePath) {
 
 // fileWrapperをupload完了済のUI状態にする
 function changeCompleteFileWrapper(param) {
+
+    let isMulti = $('#file-upload-multiFlg').val() === 'ON';
+
+    let isYoutube = (param.uuid === "youtube_uuid_marking");
+
     /*
         param.fileWrapper.find('.file-input-button').hide();
         をやっても、なぜか、非表示にならず、
@@ -124,20 +146,46 @@ function changeCompleteFileWrapper(param) {
     param.fileWrapper.find('.file-input').prop('disabled', true);
 
     let fileNameLabel = param.fileWrapper.find('.file-name-label');
-    fileNameLabel.text(param.fileName);
+    if(isYoutube) {
+        fileNameLabel.text("YouTube動画: " + param.fileName);
+    } else {
+        fileNameLabel.text(param.fileName);
+    }
     fileNameLabel.show();
 
     param.fileWrapper.find('.delete-file').show();
 
-    // ファイルの相対パスについて必要性があれば、サムネイル画像のパスに調整する。
-    let thumbnailRelativeFilePath = adjustThumbnailRelativeFilePath(param.filePath);
+    let thumbnailRelativeFilePath = null;
+    if(isYoutube) {
+        // param.fileNameにyoutubeIdが指定されていることを前提にyoutubeの仕様で決まったサムネイル画像URLを求める。
+        thumbnailRelativeFilePath = getYoutubeThumbnailUrl(param.fileName);
+    } else {
+        // ファイルの相対パスについて必要性があれば、サムネイル画像のパスに調整する。
+        thumbnailRelativeFilePath = adjustThumbnailRelativeFilePath(param.filePath);
+        thumbnailRelativeFilePath = $('#file-upload-base-path').val() + '/' + thumbnailRelativeFilePath;
+    }
+
+    if(isMulti) {
+        param.fileWrapper.find('.btnUp').show();
+        param.fileWrapper.find('.btnDown').show();
+    }
 
     // サムネイル画像を表示
-    const filePath = $('#file-upload-base-path').val() + '/' + thumbnailRelativeFilePath;
+    const filePath = thumbnailRelativeFilePath;
     param.fileWrapper.find('.thumbnail').attr('src', filePath).show();
 
     param.fileWrapper.find('.file-uuid').val(param.uuid);
-    param.fileWrapper.find('.file-name').val(param.fileName);
+
+    let updateFileName = param.fileName;
+    if(isYoutube) {
+        // param.fileNameにyoutubeIdが指定されているを前提にバックエンド側での拡張子判定でyoutubeと判定できるようにする特別な拡張子を付加する。
+        updateFileName += ".youtube";
+    }
+    param.fileWrapper.find('.file-name').val(updateFileName);
+    
+
+    // hide()ではなく、.remove()しておかないと、btnYoutubeAddのclick時に、txtYoutubeUrlや、btnYoutubeAddが複数反応する誤動作になる。
+    param.fileWrapper.find('.divYoutubeAdd').remove();
 }
 
 /*
@@ -425,15 +473,24 @@ $(document).ready(function() {
             var fileWrapper = $('#file-upload-container').children().last();
 
             const fileTypeInstance = new FileType(fileName);
-            let baseDirName = fileTypeInstance.getBaseDirName();
+            let filePath = "";
+            let paramFileName = "";
+            if(fileTypeInstance.isYoutube) {
+                filePath = "YOUTUBE_FILE_PATH_MARKING";
 
-            let filePath = `${baseDirName}/${imageType}/${uuid}/${fileName}`;
+                paramFileName = fileTypeInstance.youtubeId;
+            } else {
+                let baseDirName = fileTypeInstance.getBaseDirName();
+
+                filePath = `${baseDirName}/${imageType}/${uuid}/${fileName}`;
+                paramFileName = fileName;
+            }
 
             let param = {
                 fileWrapper: fileWrapper,
                 filePath: filePath,
                 uuid: uuid,
-                fileName: fileName,
+                fileName: paramFileName,
             }
             // fileWrapperをupload完了済のUI状態にする
             changeCompleteFileWrapper(param);
@@ -688,5 +745,142 @@ $(document).ready(function() {
             // スピナーを消す
             hideSpinner();
         }
+    });
+
+    // YouTube動画を追加ボタンを押した時
+    $(document).on('click', '.btnYoutubeAdd', function(event) {
+        // sumitを抑制(form内に配置したbuttonタグだとsubmit反応してしまうため抑制)
+        stopSubmit(event);
+
+        try {
+            // フラッシュメッセージを消す。
+            hideFlashMessages();
+
+            // スピナーを表示
+            showSpinner();
+
+            const fileWrapper = $(this).closest('.file-upload-wrapper');
+
+            let url = fileWrapper.find('.txtYoutubeUrl').val();
+            url = url.trim();
+
+            // urlからyoutubeIdを取得する。
+            let youtubeId = getYouTubeId(url);
+            if(!youtubeId) {
+                showFlashDanger("入力したURLが無効です。");
+                return;
+            }
+
+            let param = {
+                fileWrapper: fileWrapper,
+                filePath: "YOUTUBE_FILE_PATH_MARKING",
+                uuid: "youtube_uuid_marking",
+                fileName: youtubeId,
+            }
+            // fileWrapperをupload完了済のUI状態にする
+            changeCompleteFileWrapper(param);
+
+            if(isMulti) {
+                /*
+                    isMultiの場合
+                    複数画像モードの場合は、アップロードに成功時に
+                    新しいUIを作成し、追加アップロードできるようにする。
+                */
+                createFileUpload();
+            }
+
+            // 「addOrDeleteFileCallBack」によるコールバック実行の必要性があれば、コールバック実行する。
+            doAddOrDeleteFileCallBack(imageType);
+        } finally {
+            // スピナーを消す
+            hideSpinner();
+        }
+    });
+
+    /**
+     * ↑ボタン、↓ボタンの共通処理
+     */
+    function commonBtnUpDown(currentFileWrapper, isUp) {
+        try {
+            // フラッシュメッセージを消す。
+            hideFlashMessages();
+
+            // スピナーを表示
+            showSpinner();
+
+            let hitIndex = -1;
+            let fileWrappers = $('#file-upload-container').find('.file-upload-wrapper');
+
+            for(let index = 0 ; index < fileWrappers.length ; ++index) {
+                if(currentFileWrapper[0] === fileWrappers[index]) {
+                    hitIndex = index;
+                    break;
+                }
+            }
+
+            if (hitIndex < 0) {
+                // hitIndexが0以上でない場合は処理をしない(ありえない話だが、ガード)
+                return;
+            }
+
+            // 配置場所の変更を行う
+            if (isUp) {
+                // ↑ボタンの処理の場合
+
+                if (hitIndex > 0) {
+                    // hitIndexが0の一番上は除いて、それ以外の場合
+
+                    // ↑ボタンの処理: 1つ上に移動
+
+                    // 1つ前の要素を取得
+                    let prevElement = fileWrappers.eq(hitIndex - 1);
+
+                    // currentFileWrapperをprevElementの1つ前に挿入する操作をして結果的にcurrentFileWrapperを1つ前にする
+                    currentFileWrapper.insertBefore(prevElement);
+                }
+            }
+            if (!isUp) {
+                // ↓ボタンの処理の場合
+
+                if (hitIndex < fileWrappers.length - 2) {
+                    // hitIndexが「fileWrappersの個数 - 2」の一番下は除いて、それ以外の場合
+
+                    /*
+                        「fileWrappersの個数 - 2」としている理由の説明
+                            「画像・動画追加や、youTube動画を追加」があるものは、fileWrapperの１つである
+                            それが一番下にあり、それを除いて考えるため
+                        「fileWrappersの個数 - 1」ではなく「fileWrappersの個数 - 2」となる。
+                    */
+
+                    // ↓ボタンの処理: 1つ下に移動
+
+                    // 1つ後の要素を取得
+                    let nextElement = fileWrappers.eq(hitIndex + 1);
+
+                    // currentFileWrapperをnextElementの1つ後に挿入する操作をして結果的にcurrentFileWrapperを1つ後にする
+                    currentFileWrapper.insertAfter(nextElement);
+                }    
+            }
+
+        } finally {
+            // スピナーを消す
+            hideSpinner();
+        }
+    }
+
+    // 「↑」ボタンを押した時
+    $(document).on('click', '.btnUp', function(event) {
+        // sumitを抑制(form内に配置したbuttonタグだとsubmit反応してしまうため抑制)
+        stopSubmit(event);
+        let fileWrapper = $(this).closest('.file-upload-wrapper');
+        commonBtnUpDown(fileWrapper, true);
+    });
+
+    // 「↓」ボタンを押した時
+    $(document).on('click', '.btnDown', function(event) {
+        // sumitを抑制(form内に配置したbuttonタグだとsubmit反応してしまうため抑制)
+        stopSubmit(event);
+        let fileWrapper = $(this).closest('.file-upload-wrapper');
+        commonBtnUpDown(fileWrapper, false);
     });
 });
