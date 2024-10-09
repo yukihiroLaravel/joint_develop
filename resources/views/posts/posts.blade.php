@@ -42,24 +42,14 @@
                 @endif
             </div>
         </li>
-            <div class="ml-5">
-                @foreach ($post->replies as $reply)
-                 <div class="border p-2 mb-2">
-                    <strong>{{ $reply->user->name }}</strong>
-                    <p>{{ $reply->reply }}</p>
-                    <p class="text-muted">{{ $reply->created_at }}</p>
-                 </div>
-                @endforeach
-                @if (Auth::check())
-        <form method="POST" action="{{ route('replies.store', $post->id) }}">
-            @csrf
-            <div class="form-group">
-                <textarea name="reply" class="form-control" placeholder="返信を入力" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">返信する</button>
-        </form>
+
+        @if (Auth::check())
+            <!-- ログインしている場合にコメントボタンを表示 -->
+            <a href="{{ route('posts.reply', ['post' => $post->id]) }}" class="btn btn-primary reply-button">コメント</a>
         @endif
-</div>
+
+
+
     @endforeach
 </ul>
 <div class="m-auto" style="width: fit-content">

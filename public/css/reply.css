@@ -1,0 +1,94 @@
+.reply-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    text-align: left; /* text-align: -webkit-match-parent を上書き */
+}
+
+.reply-avatar {
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.reply-avatar img {
+    width: 55px;
+    height: 55px;
+    object-fit: cover; /* アバター画像が指定サイズに収まるようにする */
+}
+
+.reply-content {
+    flex-grow: 1;
+    min-width: 0;
+    overflow: hidden; /* コンテンツが溢れないように */
+}
+
+.reply-username {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #007bff;
+    margin: 0; /* 上下の余白を完全になくす */
+}
+
+.reply-text {
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+.reply-timestamp {
+    color: #888888;
+    font-size: 0.9em;
+}
+
+.reply-button {
+    margin-top: -100px; /* 必要に応じてこの値を調整してボタンを上に移動 */
+    background-color: orange;
+    border: none; /* 青色の枠を削除 */
+    color: white; /* 文字色 */
+}
+
+/* ホバー時の背景色を暗めのオレンジに変更 */
+.reply-button:hover {
+    background-color: darkorange;
+}
+
+/* オリジナル投稿のユーザ名、投稿内容、投稿日時のスタイル */
+.original-post.user-info-post {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.original-post .reply-avatar {
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.original-post .reply-avatar img {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+}
+
+.original-post .reply-content {
+    flex-grow: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.original-post .reply-username {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #007bff;
+    margin: 0;
+}
+
+.original-post .post-text {
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+.original-post .post-timestamp {
+    color: #888888;
+    font-size: 0.9em;
+}
