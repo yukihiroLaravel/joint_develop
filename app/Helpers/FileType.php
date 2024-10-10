@@ -25,14 +25,27 @@ class FileType
     public const IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif'];
     // 許可した動画の拡張子
     public const VIDEO_EXTENSIONS = ['mp4', 'webm', 'ogv', 'm4v'];
+    // youTubeの拡張子(実際には存在しない拡張子だが、upload.jsにて、youtubeIdに、この拡張子を付与する形でファイル名を指定している)
+    public const YOUTUBE_EXTENSIONS = ['youtube'];
 
     public $isImage;
     public $isVideo;
+    public $isYoutube;
     public $isOther;
 
     public $isAvatar;
     public $isPost;
     public $isOtherType;
+
+    /**
+     * videoタグのtype属性に指定すべき値
+     */
+    public $typeValue = "";
+
+    /**
+     * YouTubeId
+     */
+    public $youtubeId = "";
 
     /**
      * ファイル名
@@ -49,6 +62,8 @@ class FileType
         $this->fileName = $argFileName;
         $this->type = $argType;
 
+        $tempArray = null;
+
         // ファイルの拡張子を取得して小文字に変換
         $extension = strtolower(pathinfo($this->fileName, PATHINFO_EXTENSION));
 
@@ -57,7 +72,44 @@ class FileType
 
         // 動画ファイルかどうか
         $this->isVideo = in_array($extension, self::VIDEO_EXTENSIONS);
+        if($this->isVideo) {
+            if($extension === 'mp4') {
+                $this->typeValue = 'video/mp4';
+            }
+            if($extension === 'webm') {
+                $this->typeValue = 'video/webm';
+            }
+            if($extension === 'ogv') {
+                $this->typeValue = 'video/ogg';
+            }
+            if($extension === 'm4v') {
+                $this->typeValue = 'video/x-m4v';
+            }
+        }
 
+        // youTubeかどうか
+        $this->isYoutube = in_array($extension, self::YOUTUBE_EXTENSIONS);
+
+        if($this->isYoutube) {
+            $tempArray = explode(".", $this->fileName);
+            $this->youtubeId = $tempArray[count($tempArray) - 2];
+        }
+
+        /*
+            特記事項
+            「 && !$this->isYoutube」の連結はあえて行わない
+
+            バリデーションチェックなどに影響ある。
+            $this->isYoutubeの時は、完全に別ロジック対応です。
+            間違って、バリデーションチェックが動いても
+            $this->isOtherのときと同じ、NGにしておきたい。
+
+            おそらくないと思うが、.youtube の拡張子のテキストファイルなどを
+            アップロードしてきたときに、誤動作にならいように、
+            $this->isOtherとしてのバリデーションチェックが働く形としたい
+            このような意図があり、
+            「 && !$this->isYoutube」の連結はあえて行わない
+        */
         // どちらにも該当しない場合
         $this->isOther = !$this->isImage && !$this->isVideo;
 

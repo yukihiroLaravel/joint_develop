@@ -147,6 +147,9 @@
 
         <script>
             $(document).ready(function() {
+                //ページ内の一番最後の「$(document).ready(function() {」ですべき処理
+                lastReadyProc();
+
                 // スピナーを消す
                 hideSpinner();
             });

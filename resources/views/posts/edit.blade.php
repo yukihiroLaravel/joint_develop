@@ -15,9 +15,8 @@
                 'post' => $post,
                 'enableVideoFlg' => 'ON',
             ])
-            {{-- margin-topをマイナス値にして上に移動させて「画像追加」ボタンの横に表示させている。 --}}
-            <div style="margin-left: 200px; margin-top: -50px; margin-bottom: 20px; color:red;">
-                投稿画像・動画の変更は「更新する」で適用されます。
+            <div style="margin-left: 25px; margin-top: -10px; margin-bottom: 20px; color:red;">
+                「投稿画像・動画、YouTube動画」の変更は「更新する」で適用されます。
             </div>
             <div class="d-flex justify-content-between">
                 <button type="submit" class="btn btn-primary">更新する</button>

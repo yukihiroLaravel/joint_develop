@@ -1,3 +1,8 @@
 body {
     min-height: 100vh;
 }
+
+/* bootstrapのbg-infoの背景色を置き換える */
+.bg-info {
+    background-color: black !important;
+}
