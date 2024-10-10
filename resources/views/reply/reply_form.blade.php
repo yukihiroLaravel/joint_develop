@@ -24,10 +24,10 @@
     <form action="{{ route('posts.reply', ['post' => $post->id]) }}" method="POST">
         @csrf
         <div class="form-group">
-            <label for="reply">返信内容</label>
+            <label for="reply">かんおす</label>
             <textarea name="reply" id="reply" class="form-control" rows="5"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">返信する</button>
+        <button type="submit" class="btn btn-primary">コメントする</button>
     </form>
 
     <!-- 返信リスト -->
