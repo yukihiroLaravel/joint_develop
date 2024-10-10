@@ -2,6 +2,7 @@
  @section('content')
     <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
         <form method="POST" action="{{ route('user.update', $user->id) }}">
+        @include('commons.error_messages')
             @csrf
             @method('PUT')    
             <div class="form-group">
@@ -29,7 +30,7 @@
                 <button type="submit" class="btn btn-primary">更新する</button>
             </div>
         </form>
-
+    
         <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -51,3 +52,5 @@
             </div>    
         </div>
 @endsection
+
+

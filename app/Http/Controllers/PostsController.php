@@ -15,7 +15,7 @@ class PostsController extends Controller
         $post->user_id = $request->user()->id;
         $post->content = $request->content;
         $post->save();
-        return back();
+        return back()->with('flashmessage', '投稿が完了しました！');
     }
 
     public function edit($id)
@@ -40,7 +40,7 @@ class PostsController extends Controller
         $post->user_id = $request->user()->id;
         $post->content = $request->content;
         $post->save();
-        return redirect('/');
+        return redirect('/')->with('flashmessage', '編集が完了しました！');
     }
 
     public function destroy($id)
@@ -48,6 +48,8 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
         if (\Auth::id() === $post->user_id) {
             $post->delete();
+
+            return back()->with('flashmessage', '投稿が削除されました！');
         }
 
         return back();
