@@ -1,0 +1,10 @@
+.search-button {
+    color: white !important;
+    background-color: rgba(0, 0, 255, 0.774) !important;
+    border-color: rgba(0, 0, 255, 0.774) !important;
+}
+
+.search-button:hover {
+    background-color: darkblue !important;
+    border-color: darkblue !important;
+}
