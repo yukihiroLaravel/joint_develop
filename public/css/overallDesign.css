@@ -1,0 +1,87 @@
+body {
+    padding-top: 70px; /* fixed-top のヘッダーがコンテンツに被らないように調整 */
+}
+
+h2, h5 {
+  font-family: "Roboto", sans-serif;
+  background: linear-gradient(45deg, #e12862 0%, #1679fa 20%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 固定表示のスタイル */
+.fixed-top {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* ナビゲーションに影を追加して浮いた感じに */
+}
+
+.navbar {
+  background: linear-gradient(45deg, rgba(255, 65, 108, 0.9) 0%, rgba(23, 156, 245, 0.9) 100%);
+  padding: 10px;
+}
+
+/* グラデーションのボタンスタイルを追加 */
+.btn-primaryX {
+  background: linear-gradient(45deg, #ff2a6d 0%, #4294ff 100%);
+  border: none;
+  color: white;
+  transition: background 0.3s ease;
+}
+
+.btn-primaryX:hover {
+  color: white;
+  background: linear-gradient(45deg, #bb2f5b 0%, #165ab3 100%);
+}
+
+.nav-link.active.tab {
+  background: linear-gradient(45deg, #dc89a3 0%, #a7b2e2 100%);
+  border: none;
+  color: white !important;
+}
+
+.subtitle {
+  font-size: 28px;
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  padding-bottom: 50px;
+  background: linear-gradient(45deg, #e12862 0%, #1679fa 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* トグルスイッチのスタイル */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}

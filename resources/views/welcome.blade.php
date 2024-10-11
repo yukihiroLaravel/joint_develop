@@ -1,11 +1,15 @@
 @extends('layouts.app')
 @section('content')
-    <div class="center jumbotron bg-info">
-        <div class="text-center text-white mt-2 pt-1">
-            <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
+    <div class="center jumbotron bg-gradient-info text-white py-5" style="background: linear-gradient(45deg, #bb2f5b 0%, #165ab3 100%);">
+        <div class="text-center mt-2 pt-1">
+            <h1 style="font-family: 'Poppins', sans-serif; font-size: 48px;">
+                <i class="fas fa-camera-retro fa-lg pr-3"></i>Hobby Posts
+            </h1>
         </div>
     </div>
-    <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
+    <h5 class="text-center mb-3 subtitle">
+        お気に入りの趣味について、画像や動画で共有しよう！
+    </h5>
     <div class="w-75 m-auto">
         @include('commons.error_messages')
         @if (session('status'))
@@ -15,7 +19,7 @@
         @endif
     </div>
     <div class="text-center mb-3">
-        <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75" enctype="multipart/form-data" id="postForm">
             @csrf
             <div class="form-group">
                 <textarea class="form-control" name="post" rows="3" value="{{ old('post') }}" placeholder="投稿内容を入力..." style="border: 1px solid #ddd; border-radius: 5px;"></textarea>
@@ -33,17 +37,77 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="scheduled_at">予約投稿日時:</label>
+
+                {{-- スタイリッシュなトグルスイッチ --}}
+                <div class="form-group d-flex justify-content-start align-items-center">
+                    <label class="mr-3" for="scheduleToggle">予約投稿</label>
+                    <label class="switch">
+                        <input type="checkbox" id="scheduleToggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                {{-- 折りたたみの予約投稿日時フィールド（初期は非表示） --}}
+                <div class="form-group" id="scheduledAtContainer" style="display: none;">
                     <input type="datetime-local" name="scheduled_at" class="form-control" id="scheduledAt" min="">
                 </div>
+
                 <div class="text-left mt-4 mb-10">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" style="border-radius: 50px;">投稿する</button>
+                    <button type="submit" class="btn btn-primaryX btn-lg btn-block" style="border-radius: 50px;">投稿する</button>
                 </div>
             </div>
         </form>
         @include('posts.posts', ['posts' => $posts])
     </div>
+
+    <style>
+        /* トグルスイッチのスタイル */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background: linear-gradient(45deg, #ff2a6d 0%, #4294ff 100%);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+    </style>
+
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
     <script>
         bsCustomFileInput.init();
@@ -107,9 +171,19 @@
         // min属性に現在の日時をセット（過去の日時は選択不可）
         scheduledAt.min = jstFormatted;
 
-        // フォーム送信時に過去の日時を選択した場合、エラーにする
+        const scheduleToggle = document.getElementById('scheduleToggle');
+        const scheduledAtContainer = document.getElementById('scheduledAtContainer');
+
+        scheduleToggle.addEventListener('change', function() {
+            if (this.checked) {
+                scheduledAtContainer.style.display = 'block';
+            } else {
+                scheduledAtContainer.style.display = 'none';
+            }
+        });
+
         document.getElementById('postForm').addEventListener('submit', function(event) {
-            if (scheduledAt.value < jstFormatted) {
+            if (scheduleToggle.checked && scheduledAt.value < jstFormatted) {
                 alert('過去の日付は選択できません。');
                 event.preventDefault();
             }

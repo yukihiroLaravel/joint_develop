@@ -1,6 +1,6 @@
 <header class="mb-5">
-    <nav class="navbar navbar-expand-sm navbar-light bg-info">
-        <a class="navbar-brand text-light" href="/">Topic Posts</a>
+    <nav class="navbar navbar-expand-sm navbar-light fixed-top">
+        <a class="navbar-brand text-light" href="/" style="font-family: 'Courier New', sans-serif; font-size: 24px;">Hobby Posts</a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -14,7 +14,7 @@
                     <li class="nav-item"><a href="{{ route('login') }}" class="nav-link text-white">ログイン</a></li>
                     <li class="nav-item"><a href="{{ route('signup') }}" class="nav-link text-white">新規ユーザ登録</a></li>
                 @endif
+            </ul>
         </div>
     </nav>
 </header>
-
