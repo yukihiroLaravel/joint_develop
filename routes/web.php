@@ -43,18 +43,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
 
-                // 返信画面を表示するルート
-                Route::get('{post}/reply', 'PostsController@showReplyForm')->name('posts.reply_form');
+        // 返信画面を表示するルート
+        Route::get('{post}/reply', 'PostsController@showReplyForm')->name('posts.reply_form');
 
-                // 投稿への返信を処理するルート
-                Route::post('{post}/reply', 'PostsController@reply')->name('posts.reply');
+        // 投稿への返信を処理するルート
+        Route::post('{post}/reply', 'PostsController@reply')->name('posts.reply');
 
-                //返信削除
-                Route::delete('reply/{reply}', 'PostsController@deleteReply')->name('reply.delete');
-        
-                // 返信機能zanji
-                //Route::post('replies', 'RepliesController@store')->name('replies.store');
-
+        //返信削除
+        Route::delete('reply/{reply}', 'PostsController@deleteReply')->name('reply.delete');
     });
 
     Route::prefix('users/{id}')->group(function () {

@@ -24,7 +24,19 @@
     <form action="{{ route('posts.reply', ['post' => $post->id]) }}" method="POST">
         @csrf
         <div class="form-group">
-            <label for="reply">かんおす</label>
+        @include('commons.error_messages')
+        @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+            <label for="reply"></label>
             <textarea name="reply" id="reply" class="form-control" rows="5"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">コメントする</button>
@@ -49,8 +61,19 @@
                     <p class="reply-text">{{ $reply->reply }}</p>
                     <!-- 返信日時 -->
                     <p class="reply-timestamp">{{ $reply->created_at->format('Y-m-d H:i:s') }}</p>
+                    <!-- 返信削除ボタン（返信したユーザーのみ表示） -->
+                @if (Auth::id() === $reply->user_id)
+                    <form action="{{ route('reply.delete', $reply->id) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm">削除</button>
+                    </form>
+                @endif
                 </div>
             </li>
         @endforeach
     </ul>
+    <div class="m-auto" style="width: fit-content">
+    {{ $replies->links('pagination::bootstrap-4') }}
+</div>
 @endsection

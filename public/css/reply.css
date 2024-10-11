@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 20px;
-    text-align: left; /* text-align: -webkit-match-parent を上書き */
+    text-align: left;
 }
 
 .reply-avatar {
@@ -13,20 +13,20 @@
 .reply-avatar img {
     width: 55px;
     height: 55px;
-    object-fit: cover; /* アバター画像が指定サイズに収まるようにする */
+    object-fit: cover;
 }
 
 .reply-content {
     flex-grow: 1;
     min-width: 0;
-    overflow: hidden; /* コンテンツが溢れないように */
+    overflow: hidden;
 }
 
 .reply-username {
     font-size: 1.2em;
     font-weight: bold;
     color: #007bff;
-    margin: 0; /* 上下の余白を完全になくす */
+    margin: 0;
 }
 
 .reply-text {
@@ -40,15 +40,14 @@
 }
 
 .reply-button {
-    margin-top: -100px; /* 必要に応じてこの値を調整してボタンを上に移動 */
-    background-color: orange;
-    border: none; /* 青色の枠を削除 */
-    color: white; /* 文字色 */
+    margin-top: -100px;
+    background-color: #ffa07a;
+    border: none;
+    color: white;
 }
 
-/* ホバー時の背景色を暗めのオレンジに変更 */
 .reply-button:hover {
-    background-color: darkorange;
+    background-color: #fa8072;
 }
 
 /* オリジナル投稿のユーザ名、投稿内容、投稿日時のスタイル */
