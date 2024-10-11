@@ -6,7 +6,7 @@
         <h4>忙しい毎日に、小さな魔法</h4>
     </div>
 </div>
-<h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
+<h5 class="text-center mb-3">"暮らしの工夫"について140字以内で会話しよう！</h5>
     <div class="w-75 m-auto">@include('commons.error_messages')</div>
     <!-- フラッシュメッセージ用モーダル -->
             @if (session('flashmessage'))
