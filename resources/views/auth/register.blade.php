@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')  
     <div class="text-center">
-        <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
+        <h1><i class="fab fa-brands fa-pagelines fa-2x pr-3"></i>暮らしの工夫をシェアしよう！</h1>
     </div>
     <div class="text-center mt-3">
         <p class="text-left d-inline-block">新規ユーザ登録すると投稿で<br>コミュニケーションができるようになります。</p>
@@ -30,7 +30,7 @@
                     <label for="password_confirmation">パスワード確認</label>
                     <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" value="{{ old('password_confirmation') }}">
                 </div>
-                <button type="submit" class="btn btn-primary mt-2">新規登録</button>
+                <button type="submit" class="btn custom-btn-success mt-2">新規登録</button>
             </form>
         </div>
     </div>

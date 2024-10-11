@@ -1,10 +1,29 @@
 .search-button {
     color: white !important;
-    background-color: rgba(0, 0, 255, 0.774) !important;
-    border-color: rgba(0, 0, 255, 0.774) !important;
+    background-color:#c28633 !important;
+    border-color: #c28633 !important;
 }
 
 .search-button:hover {
-    background-color: darkblue !important;
-    border-color: darkblue !important;
+    background-color: #edc57a !important;
+    border-color: #edc57a !important;
+}
+
+.smaller-text {
+    font-size: 17px !important; /* ヘッダー左上タイトル　フォントサイズ */
+}
+
+.custom-bg-success {
+    background-color: #3cb371 !important; 
+}
+
+.custom-btn-success {
+    background-color: #3cb371; 
+    color: #fff; 
+}
+
+.custom-btn-warning {
+    color: white !important;
+    background-color:#c28633 !important;
+    border-color: #c28633 !important;
 }

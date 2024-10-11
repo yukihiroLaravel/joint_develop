@@ -8,7 +8,7 @@
     @else
         <form method="POST" action="{{ route('follow', $user->id) }}">
             @csrf
-            <button type="submit" class="btn btn-success">フォローする</button>
+            <button type="submit" class="btn btn-warning">フォローする</button>
         </form>
     @endif
 @endif

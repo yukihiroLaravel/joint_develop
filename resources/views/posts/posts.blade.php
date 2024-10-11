@@ -7,7 +7,7 @@
             </div>
             <div class="post">
                 <div class="text-left d-inline-block w-75">
-                    <p class="mb-2">{{ $post->content }}</p>
+                    <p class="mb-2">{!! nl2br($post->makeLink(e($post->content))) !!}</p>
                     <p class="text-muted">{{ $post->created_at }}</p>
                 </div>
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
@@ -17,7 +17,7 @@
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">削除</button>
                             </form>
-                            <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">編集する</a>
+                            <a href="{{ route('post.edit', $post->id) }}" class="btn custom-btn-success">編集する</a>
                         @endif
                     </div>        
             </div>
