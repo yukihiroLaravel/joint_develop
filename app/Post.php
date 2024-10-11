@@ -30,6 +30,12 @@ class Post extends Model
 
             // $postImagesの「DB値」を削除する
             $helper->deletePostImages($postImages);
+
+
+            $categoryPostList = CategoryPost::getCategoryPostQueryByPostId($post->id)->get();
+
+            // 「category_post」の「DB値」を削除する
+            $helper->deleteCategoryPost($categoryPostList);
         });
     }
 
