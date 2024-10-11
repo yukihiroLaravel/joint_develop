@@ -8,7 +8,7 @@ use App\Post;
 use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
-{
+{   
     public function store(PostRequest $request)
     {
         $post = new Post;

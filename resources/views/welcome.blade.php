@@ -1,8 +1,9 @@
 @extends('layouts.app')
 @section('content')
-<div class="center jumbotron bg-info">
-    <div class="text-center text-white mt-2 pt-1">
-        <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
+<div class="center jumbotron custom-bg-success">
+    <div class="text-center text-white">
+        <h2><i class="fab fa-brands fa-pagelines fa-2x pr-3"></i>暮らしの工夫をシェアしよう！<br></h2>
+        <h4>忙しい毎日に、小さな魔法</h4>
     </div>
 </div>
 <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
@@ -14,7 +15,7 @@
             <div class="form-group">
                 <textarea class="form-control" name="content" rows="4"></textarea>
                 <div class="text-left mt-3">
-                    <button type="submit" class="btn btn-primary">投稿する</button>
+                    <button type="submit" class="btn custom-btn-success">投稿する</button>
                 </div>
             </div>
         </form>

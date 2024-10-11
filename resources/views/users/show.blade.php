@@ -2,7 +2,7 @@
 @section('content')
     <div class="row">
         <aside class="col-sm-4 mb-5">
-            <div class="card bg-info">
+            <div class="card custom-bg-success">
                 <div class="card-header">
                     <h3 class="card-title text-light">{{ $user->name }}</h3>
                     @include('follow.follow_button', ['user' => $user])
@@ -11,7 +11,7 @@
                     <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 350) }}" alt="ユーザのアバター画像">
                         @if (Auth::check())
                         <div class="mt-3">
-                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                            <a href="{{ route('user.edit', $user->id) }}" class="btn custom-btn-warning btn-block">ユーザ情報の編集</a>
                         </div>
                         @endif
                 </div>

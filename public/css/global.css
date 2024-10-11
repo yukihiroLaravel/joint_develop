@@ -1,0 +1,11 @@
+/* 全画面の背景画像 */
+body {
+    width: 100% !important;
+    height:100vh !important;
+    background-image: url(../images/background.jpg) !important;  
+    background-position: center center !important; 
+    background-repeat: no-repeat !important;  
+    background-attachment: fixed !important; 
+    background-size: cover !important;
+   }
+  
