@@ -58,6 +58,10 @@ Route::group(['middleware' => 'auth'], function() {
         // 編集・更新
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
+        //返信画面
+        Route::get('{id}/replies', 'RepliesController@show')->name('reply.show');
+        //返信投稿
+        Route::post('{id}/replies','RepliesController@store')->name('reply.store');
     });
 
     // 「フォロー」

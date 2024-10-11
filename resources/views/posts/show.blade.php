@@ -60,6 +60,24 @@
                         <a href="{{ route('post.edit', ['id' => $post->id] + $previousUrlParameter) }}" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
+                <div class="card bg-light d-inline-block w-75 px-5 pt-0 pb-3">
+                    <div class="row">
+                        <div class="col-6 px-4 pt-3">
+                            @if ($post->replies->count())
+                            <a href="{{ route('reply.show', $post->id, $user->id) }}">
+                                返信 {{$post->replies->count()}}件
+                            </a>
+                            @else
+                            <a>返信はまだありません。</a>
+                            @endif
+                        </div>
+                        <div class="col-6 px-4 pt-3"> 
+                        <button type="button" class="btn btn-primary">
+                            <a class="text-decoration-none" href="{{ route('reply.show', $post->id, $user->id) }}" style="color:white;">返信する</a>
+                        </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         @endif
     </li>
