@@ -322,6 +322,23 @@ class ViewHelper extends Helper
     }
 
     /**
+     * $categoryIdについて、選択状態か判定し、'checked'か、空文字列を返却する。
+     * カテゴリIDが選択されているかどうかを判定し、checked文字列を返す
+     */
+    public function getCurrentCategoryCheckedOrEmpty($categoryId, $initialSelectedCategories)
+    {
+        // 選択値
+        $selectedCategories = old('categories', $initialSelectedCategories);
+
+        $ret = '';
+        if(in_array($categoryId, $selectedCategories)) {
+            $ret = 'checked';
+        }
+
+        return $ret;
+    }
+
+    /**
      * previousUrlのパラメータ指定値を取得する。
      */
     public function getPreviousUrlParameter()

@@ -35,13 +35,17 @@ class PostsController extends Controller
         $fileUuids = $filteredFileInfo["fileUuids"];
         $fileNames = $filteredFileInfo["fileNames"];
 
+        // 画面で選択状態のカテゴリIDを取得する。
+        $categories =$request->input('categories', []); // デフォルト空配列 
+
         $post = new Post;
         \DB::transaction(function () use (
             $helper,
             $post,
             $content,
             $fileUuids,
-            $fileNames
+            $fileNames,
+            $categories
         ) {
             $post->user_id = \Auth::id();
             $post->content = $content;
@@ -51,6 +55,9 @@ class PostsController extends Controller
 
             // $postImagesのinsertをする。
             $helper->insertPostImages($postId, $fileUuids, $fileNames);
+
+            // 「category_post」のinsertをする。
+            $helper->insertCategoryPost($postId, $categories);
         });
 
         $this->showFlashSuccess("投稿しました。");
@@ -134,24 +141,32 @@ class PostsController extends Controller
         $fileUuids = $filteredFileInfo["fileUuids"];
         $fileNames = $filteredFileInfo["fileNames"];
 
+        // 画面で選択状態のカテゴリIDを取得する。
+        $categories =$request->input('categories', []); // デフォルト空配列
+
         \DB::transaction(function () use (
             $helper,
             $post,
             $content,
             $fileUuids,
-            $fileNames
+            $fileNames,
+            $categories
         ) {
             $post->content = $content;
             $post->save();
-  
+
             $helper->doWithLockIfMatchCondition('avatar', function() use (
                 $helper,
                 $post,
                 $fileUuids,
-                $fileNames
+                $fileNames,
+                $categories
             ) {
                 // 「post_images」の再構成を行う。
                 $helper->reconstructionPostImage($post, $fileUuids, $fileNames);
+
+                // 「category_post」の再構成を行う。
+                $helper->reconstructionCategoryPost($post->id, $categories);
             });
         });
 

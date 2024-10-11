@@ -44,6 +44,7 @@
                     <p class="mb-2"></p>
                     <p class="text-muted">{!! nl2br(e($post->content)) !!}</p>
                     @include('commons.carousel', ['post' => $post])
+                    @include('commons.categories_links', ['post' => $post])
                     <p class="text-muted">{{ $post->created_at }}</p>
                 </div>
                 @if (Auth::id() === $post->user_id)

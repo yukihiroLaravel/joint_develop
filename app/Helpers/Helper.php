@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\UserImage;
 use App\PostImage;
+use App\CategoryPost;
 use Carbon\Carbon;
 
 /**
@@ -511,6 +512,56 @@ class Helper
     }
 
     /* #endregion */ // 「$fileUuids、$fileNamesの検証と件数取得」
+
+    /* #region category_post関連 */
+
+    /**
+     * 「category_post」のinsertをする。
+     */
+    public function insertCategoryPost($postId, $categories)
+    {
+        $categoriesLength = count($categories);
+
+        for($index = 0 ; $index < $categoriesLength ; ++$index) {
+
+            $categoryId = $categories[$index];
+
+            $categoryPost = new CategoryPost;
+            $categoryPost->category_id = $categoryId;
+            $categoryPost->post_id = $postId;
+            $categoryPost->save();
+        }
+    }
+
+    /**
+     * 「category_post」の再構成を行う。
+     */
+    public function reconstructionCategoryPost($postId, $categories)
+    {
+        $categoryPostList = CategoryPost::getCategoryPostQueryByPostId($postId)->get();
+
+        //「category_post」の「DB値」を削除する
+        static::deleteCategoryPost($categoryPostList);
+
+        //「category_post」のinsertをする。
+        static::insertCategoryPost($postId, $categories);
+    }
+
+    /**
+     * 「category_post」の「DB値」を削除する
+     */
+    public function deleteCategoryPost($categoryPostList)
+    {
+        if(is_null($categoryPostList)) {
+            return;
+        }
+
+        foreach($categoryPostList as $categoryPost) {
+            $categoryPost->delete();
+        }
+    }
+
+    /* #endregion */ // 「category_post関連」
 
     /* #region YouTube関連 */
 
