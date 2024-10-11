@@ -9,7 +9,7 @@
 @endif
 <div class="row">
     <aside class="col-sm-4 mb-5">
-        <div class="card bg-info">
+        <div class="card" style="background: linear-gradient(60deg, rgba(201, 2, 48, 0.573) 0%, rgb(8, 140, 227) 140%);">
             @if (session('error'))
                 <div class="alert alert-danger mt-3">
                     {!! session('error') !!}
@@ -28,7 +28,6 @@
                 <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 300) }}" alt="ユーザのアバター画像">
                 @if (Auth::check() && Auth::id() === $user->id)
                     <div class="mt-3">
-
                         <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                     </div>
                     <div class="mt-3">
@@ -46,15 +45,15 @@
         <ul class="nav nav-tabs nav-justified mb-3">
             <li class="nav-item">
                 <a href="{{ route('user.show', $user->id ) }}" 
-                    class="nav-link {{ Request::is('users/'.$user->id) ? 'active bg-primary text-white' : '' }}">タイムライン</a>
+                    class="nav-link {{ Request::is('users/'.$user->id) ? 'active tab bg-primary text-white' : '' }}">タイムライン</a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('user.followings', $user->id) }}" 
-                    class="nav-link {{ Request::is('users/'.$user->id.'/followings') ? 'active bg-primary text-white' : '' }}">フォロー中</a>
+                    class="nav-link {{ Request::is('users/'.$user->id.'/followings') ? 'active tab bg-primary text-white' : '' }}">フォロー中</a>
             </li>
             <li class="nav-item">
                 <a href="{{ route('user.followers', $user->id) }}" 
-                    class="nav-link {{ Request::is('users/'.$user->id.'/followers') ? 'active bg-primary text-white' : '' }}">フォロワー</a>
+                    class="nav-link {{ Request::is('users/'.$user->id.'/followers') ? 'active tab bg-primary text-white' : '' }}">フォロワー</a>
             </li>
         </ul>
 
