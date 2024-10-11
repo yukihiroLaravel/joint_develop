@@ -15,7 +15,7 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    // $value は makeLink メソッドの引数で使われている。このメソッド内でのみ動作。コントローラーでは、このメソッドを呼び出す際に実際の投稿内容を渡している
+    // $value は makeLink メソッドの引数で使われている。このメソッド内でのみ動作。
     public function makeLink($value) {
         $pattern = '/(https?:\/\/[^\s]+)/';
         $replacement = '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a> ';

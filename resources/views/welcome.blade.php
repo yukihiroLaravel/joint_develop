@@ -39,7 +39,6 @@
         </form>
     </div>
     @endif    
-@include('posts.posts', ['posts => $posts'])
     <!-- フラッシュメッセージ用モーダルを表示し、5秒後に自動的に閉じるスクリプト -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
