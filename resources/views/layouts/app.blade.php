@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="{{ asset('/css/followButton.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/darkmodeButton.css') }}">
         <link rel="stylesheet" href="{{ asset('/css/reply.css') }}">
+        <link rel="stylesheet" href="{{ asset('/css/overallDesign.css') }}">
     </head>
     <body>
         @include('commons.header')
