@@ -32,6 +32,13 @@
         <p class="text-muted">
         {{ $reply->comment }}
         </p>
+        @if(Auth::id() === $reply->user_id)
+            <form method="POST" action="{{ route('reply.delete', $reply->id) }}">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger">削除する</button>
+            </form>
+        @endif
     </div>
     @endforeach
     <hr noshade="">
