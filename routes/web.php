@@ -58,16 +58,21 @@ Route::group(['middleware' => 'auth'], function() {
         // 編集・更新
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
-        //返信画面
-        Route::get('{id}/replies', 'RepliesController@show')->name('reply.show');
-        //返信投稿
-        Route::post('{id}/replies','RepliesController@store')->name('reply.store');
     });
 
     // 「フォロー」
     Route::group(['prefix' => 'follows/{id}'],function(){
         Route::post('follow', 'FollowsController@store')->name('follow');
         Route::delete('unfollow', 'FollowsController@destroy')->name('unfollow');
+    });
+});
+
+//返信画面
+Route::prefix('replies')->group(function () {
+    Route::get('{id}', 'RepliesController@show')->name('reply.show');
+//投稿
+    Route::group(['middleware' => 'auth'], function () {
+        Route::post('','RepliesController@store')->name('reply.store');
     });
 });
 

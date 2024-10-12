@@ -34,7 +34,4 @@ class RepliesController extends Controller
         $data += $this->replyCounts($post);
         return view('posts.replies',$data);
     }
-    
-
-
 }

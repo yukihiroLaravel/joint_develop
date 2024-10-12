@@ -64,18 +64,20 @@
                     <div class="row">
                         <div class="col-6 px-4 pt-3">
                             @if ($post->replies->count())
-                            <a href="{{ route('reply.show', $post->id, $user->id) }}">
+                            <a href="{{ route('reply.show', $post->id) }}">
                                 返信 {{$post->replies->count()}}件
                             </a>
                             @else
                             <a>返信はまだありません。</a>
                             @endif
                         </div>
-                        <div class="col-6 px-4 pt-3"> 
-                        <button type="button" class="btn btn-primary">
-                            <a class="text-decoration-none" href="{{ route('reply.show', $post->id, $user->id) }}" style="color:white;">返信する</a>
-                        </button>
-                        </div>
+                        @auth
+                            <div class="col-6 px-4 pt-3"> 
+                            <button type="button" class="btn btn-primary">
+                                <a class="text-decoration-none" href="{{ route('reply.show', $post->id) }}" style="color:white;">返信する</a>
+                            </button>
+                            </div>
+                        @endauth
                     </div>
                 </div>
             </div>
