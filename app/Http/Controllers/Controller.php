@@ -167,4 +167,13 @@ class Controller extends BaseController
     {
         return $user->posts()->orderBy('id', 'desc')->paginate(10);
     }
+
+    //replyのカウント
+    public function replyCounts($post)
+    {
+        $countReplies = $post->replies()->count();
+        return [
+            'countreplies' => $countReplies,
+        ];
+    }
 }

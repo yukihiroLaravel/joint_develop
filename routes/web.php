@@ -67,6 +67,15 @@ Route::group(['middleware' => 'auth'], function() {
     });
 });
 
+//返信画面
+Route::prefix('replies')->group(function () {
+    Route::get('{id}', 'RepliesController@show')->name('reply.show');
+//投稿
+    Route::group(['middleware' => 'auth'], function () {
+        Route::post('','RepliesController@store')->name('reply.store');
+    });
+});
+
 /* #region API */
 /*
     本来はapiなのでapi.phpに追加すべきだがweb.phpに追加しました。

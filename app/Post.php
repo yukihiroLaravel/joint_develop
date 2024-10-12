@@ -49,6 +49,11 @@ class Post extends Model
         return $this->hasMany(PostImage::class);
     }
 
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
+
     /**
      * $thisに紐づく「post_images」をorder順に取得
      */
