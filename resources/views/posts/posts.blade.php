@@ -42,14 +42,7 @@
                 @endif
             </div>
         </li>
-
-        @if (Auth::check())
-            <!-- ログインしている場合にコメントボタンを表示 -->
-            <a href="{{ route('posts.reply', ['post' => $post->id]) }}" class="btn btn-primary reply-button">コメント</a>
-        @endif
-
-
-
+        <a href="{{ route('posts.reply_form', ['post' => $post->id]) }}" class="btn btn-primary reply-button">コメント</a>
     @endforeach
 </ul>
 <div class="m-auto" style="width: fit-content">

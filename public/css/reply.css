@@ -50,6 +50,16 @@
     background-color: #fa8072;
 }
 
+.comment-button {
+    background-color: #ffa07a;
+    border: none;
+    color: white;
+}
+
+.comment-button:hover {
+    background-color: #fa8072;
+}
+
 /* オリジナル投稿のユーザ名、投稿内容、投稿日時のスタイル */
 .original-post.user-info-post {
     display: flex;
