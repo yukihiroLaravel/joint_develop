@@ -174,4 +174,26 @@ class PostsController extends Controller
 
         return redirect($request->previousUrl);
     }
+
+    /**
+     * 投稿内容を検索する。
+     */
+    public function search(Request $request)
+    {
+        $q = trim($request->input('q'));
+        $c = trim($request->input('c'));
+        if (filled($q) || filled($c)) {
+            $helper = Helper::getInstance();
+            $postQuery = Post::query();
+            $posts = $helper->commonSearch($postQuery, 'content', $q, $c);
+        } else {
+            return back();
+        }
+
+        return view('searches.results', [
+            'posts' => $posts,
+            'q' => $q,
+            'c' => $c,
+        ]);
+    }
 }

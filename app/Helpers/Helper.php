@@ -597,4 +597,35 @@ class Helper
     }
 
     /* #endregion */ // YouTube関連
+
+    /* #region 検索クエリ */
+
+    /**
+     * 検索クエリ共通化
+     */
+    public function commonSearch($argQuery, $column, $keyword, $strCategoryId = "")
+    {
+        $query = null;
+        if($keyword) {
+            $escapedKeyword  = str_replace(['\\', '%', '_'], ['\\\\\\', '\%', '\_'], $keyword);
+            $query = $argQuery->where($column, 'LIKE', '%' . $escapedKeyword . '%');
+        } else {
+            $query = $argQuery;
+        }
+
+        if($strCategoryId) {
+            $categoryId = intval($strCategoryId);
+
+            $query = $query->join('category_post', "posts.id", '=', 'category_post.post_id')
+                            ->where('category_post.category_id', $categoryId)
+                            ->select('posts.*');
+        }
+
+        return $query->orderBy('id', 'desc')
+                ->paginate(10)
+                ->appends(['q' => $keyword, 'c' => $strCategoryId, ]);
+    }
+
+    /* #endregion */ // 検索クエリ
+
 }
