@@ -18,6 +18,12 @@ class Post extends Model
 
             $helper = Helper::getInstance();
 
+            // 紐づくReplyを削除
+            $replies = Reply::where('post_id', $post->id)->get();
+            foreach($replies as $reply) {
+                $reply->delete();
+            }
+
             /*
                 $post->postImages()->delete();
                 での一括削除は行わない。
