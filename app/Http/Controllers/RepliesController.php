@@ -34,4 +34,13 @@ class RepliesController extends Controller
         $data += $this->replyCounts($post);
         return view('posts.replies',$data);
     }
+
+    public function destroy(Reply $reply)
+    {
+        if (\Auth::id() === $reply->user_id) {
+            $reply->delete();
+        }
+        $this->showFlashSuccess("削除しました。");
+        return back();
+    }
 }

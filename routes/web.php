@@ -70,9 +70,11 @@ Route::group(['middleware' => 'auth'], function() {
 //返信画面
 Route::prefix('replies')->group(function () {
     Route::get('{id}', 'RepliesController@show')->name('reply.show');
-//投稿
+    //投稿
     Route::group(['middleware' => 'auth'], function () {
         Route::post('','RepliesController@store')->name('reply.store');
+        //削除
+        Route::delete('{reply}','RepliesController@destroy')->name('reply.delete');
     });
 });
 
