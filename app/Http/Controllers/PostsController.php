@@ -69,6 +69,6 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
         $post->post = $request->post;
         $post->save();
-        return redirect('/');
+        return redirect('/')->with('status', '投稿を更新しました。');
     }
 }
