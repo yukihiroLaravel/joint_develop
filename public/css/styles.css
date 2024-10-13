@@ -1,8 +1,54 @@
 body {
+    /* フッターを下部に固定、class="d-flex flex-column"を適用 */
     min-height: 100vh;
 }
 
 /* bootstrapのbg-infoの背景色を置き換える */
 .bg-info {
     background-color: black !important;
+}
+
+/* 子要素の検索inputがfocusされたら親要素もfocusする */
+#search-bar:focus-within {
+    outline: auto;
+    /* for Chrome */
+    outline: auto -webkit-focus-ring-color;
+}
+
+/* 検索inputのスタイルをリセット、focusされたらでるoutlineをなくす */
+#search {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    outline: 0;
+}
+
+@media screen and (max-width: 575px) {
+    #search-form {
+        padding-top: .5rem;
+        padding-bottom: .5rem;
+    }
+}
+
+@media screen and (min-width: 576px) {
+    #nav-item-search {
+        display: flex;
+        align-items: center;
+    }
+
+    #search-form {
+        padding-right: .5rem;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    #search-bar {
+        width: 320px;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    #search-bar {
+        width: 500px;
+    }
 }

@@ -23,6 +23,10 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
+// 検索
+Route::get('posts/search', 'PostsController@search')->name('post.search');
+Route::get('users/search', 'UsersController@search')->name('user.search');
+
 // ユーザ
 Route::group(['prefix' => 'users/{id}'],function(){
 

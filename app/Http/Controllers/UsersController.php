@@ -215,4 +215,27 @@ class UsersController extends Controller
             'toggleOnOff' => $request->toggleOnOff,
         ]);
     }
+
+    /**
+     * ユーザ名を検索する。
+     */
+    public function search(Request $request)
+    {
+        $q = trim($request->input('q'));
+        // ユーザはカテゴリでの絞りはないけどパラメータを引き継ぐために取得をしておく
+        $c = trim($request->input('c'));
+        if (filled($q)) {
+            $helper = Helper::getInstance();
+            $userQuery = User::query();
+            $users = $helper->commonSearch($userQuery, 'name', $q);
+        } else {
+            return back();
+        }
+
+        return view('searches.results', [
+            'users' => $users,
+            'q' => $q,
+            'c' => $c,
+        ]);
+    }
 }

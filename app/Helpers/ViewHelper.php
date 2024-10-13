@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use Thomaswelton\LaravelGravatar\Facades\Gravatar;
+use App\Category;
 
 /**
  * viewの処理のヘルパークラス
@@ -335,6 +336,41 @@ class ViewHelper extends Helper
             $ret = 'checked';
         }
 
+        return $ret;
+    }
+
+    /**
+     * 検索結果画面などに表示する検索条件の文字列を取得する。
+     */
+    public function getSearchConditionString($q, $c) {
+        $ret = "";
+
+        $joinString = "";
+        if($q && $c) {
+            $joinString = ", ";
+        }
+
+        if($q) {
+            $ret .= "キーワード: " . $q;
+        }
+
+        $ret .= $joinString;
+
+        if($c) {
+            $categoryId = intval($c);
+            $category = Category::findOrFail($categoryId);
+
+            $ret .= "カテゴリ: " . $category->name;
+        }
+
+        return $ret;
+    }
+
+    /**
+     * 検索結果がない時に表示する文字列を取得する。
+     */
+    public function getSearchNotFoundString() {
+        $ret = '(´・ω・｀)見つかりませんでした。';
         return $ret;
     }
 
