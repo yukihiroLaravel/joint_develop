@@ -280,7 +280,7 @@ return [
         投稿内容の最大文字数
 
         2024/10/15時点
-        postsのcontenがvarchar(255)
+        postsのcontentがvarchar(255)
         repliesのcommentがvarchar(255)
         だから一旦、255にしたが
         本当はもっと増やしたいが、一旦は、255にしとく

@@ -9,7 +9,7 @@
             <h1><i class="fab fa-telegram fa-lg pr-3"></i>{{ config('app.TopicPostsTitle') }}</h1>
         </div>
     </div>
-    <h5 class="text-center mb-3"><img src="{{ asset('img/tamori.png') }}" style="margin-top: -5px;" alt="Tamori">な気分の話題について{{ $contentMaxLength = config('app.contentMaxLength') }}字以内で会話しよう！</h5>
+    <h5 class="text-center mb-3"><img src="{{ asset('img/tamori.png') }}" style="margin-top: -5px;" alt="Tamori">な気分の話題について{{ config('app.contentMaxLength') }}字以内で会話しよう！</h5>
     @auth
         <div class="w-75 m-auto">@include('commons.error_messages')</div>
         <div class="text-center mb-3">
