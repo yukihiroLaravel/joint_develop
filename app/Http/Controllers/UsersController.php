@@ -48,7 +48,7 @@ class UsersController extends Controller
         $user->email = $request-> email ;
         $user->password = Hash::make($request->password);
         $user->save();
-        return redirect()->route('user.show', ['id' => $user->id]);
+        return redirect()->route('user.show', ['id' => $user->id])->with('status', 'ユーザ情報を更新しました。');
     }
 
     public function follow($id)
