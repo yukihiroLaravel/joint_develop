@@ -104,8 +104,8 @@ class PostsController extends Controller
     public function deleteReply(Reply $reply)
     {
         if (Auth::id() === $reply->user_id) {
-        $reply->delete();
-        return redirect()->back()->with('success', 'コメントを削除しました');
+            $reply->delete();
+            return redirect()->back()->with('success', 'コメントを削除しました');
         }
         return redirect()->back()->with('error', 'コメントの削除に失敗しました');
     }
