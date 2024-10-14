@@ -182,16 +182,19 @@ class PostsController extends Controller
     {
         $q = trim($request->input('q'));
         $c = trim($request->input('c'));
+
         if (filled($q) || filled($c)) {
             $helper = Helper::getInstance();
             $postQuery = Post::query();
             $posts = $helper->commonSearch($postQuery, 'content', $q, $c);
+            $totalCount = $posts->total();
         } else {
             return back();
         }
 
         return view('searches.results', [
             'posts' => $posts,
+            'totalCount' => $totalCount,
             'q' => $q,
             'c' => $c,
         ]);
