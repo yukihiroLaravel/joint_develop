@@ -32,6 +32,9 @@ Route::prefix('users/{id}')->group(function () {
     Route::get('followers', 'UsersController@followers')->name('user.followers');
 });
 
+// 返信画面を表示するルート
+Route::get('{post}/reply', 'PostsController@showReplyForm')->name('posts.reply_form');
+
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
     // 投稿
@@ -42,8 +45,12 @@ Route::group(['middleware' => 'auth'], function () {
         //投稿編集・更新
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
+        // 投稿への返信
+        Route::post('{post}/reply', 'PostsController@reply')->name('posts.reply');
+        //返信削除
+        Route::delete('reply/{reply}', 'PostsController@deleteReply')->name('reply.delete');
     });
-    
+
     Route::prefix('users/{id}')->group(function () {
         // フォロー
         Route::post('follow', 'UsersController@follow')->name('follow');

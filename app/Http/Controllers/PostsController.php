@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Reply;
 use App\Http\Requests\PostRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
@@ -71,4 +74,40 @@ class PostsController extends Controller
         $post->save();
         return redirect('/')->with('status', '投稿を更新しました。');
     }
+
+    public function showReplyForm(Post $post)
+    {
+        // 返信をページネートして取得
+        $replies = $post->replies()->orderBy('id', 'desc')->paginate(10);
+    
+        return view('reply.reply_form', [
+            'post' => $post,
+            'replies' => $replies,
+        ]);
+    }
+
+    public function reply(Request $request, Post $post)
+    {
+        $request->validate([
+            'reply' => 'required|max:140',
+        ]);
+
+        $reply = new Reply();
+        $reply->reply = $request->input('reply');
+        $reply->user_id = Auth::id();
+        $reply->post_id = $post->id;
+        $reply->save();
+
+        return redirect()->back()->with('success', 'コメントを投稿しました');
+    }
+
+    public function deleteReply(Reply $reply)
+    {
+        if (Auth::id() === $reply->user_id) {
+            $reply->delete();
+            return redirect()->back()->with('success', 'コメントを削除しました');
+        }
+        return redirect()->back()->with('error', 'コメントの削除に失敗しました');
+    }
+
 }
