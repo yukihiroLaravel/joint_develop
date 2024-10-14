@@ -23,8 +23,9 @@ class PostRequest extends FormRequest
      */
     public function rules()
     {
+        $contentMaxLength = config('app.contentMaxLength');
         return [
-            'content' => 'required|max:140',
+            'content' => "required|max:{$contentMaxLength}",
         ];
     }
 
