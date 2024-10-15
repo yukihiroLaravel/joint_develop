@@ -14,7 +14,7 @@
     </div>
     <div class="text-left d-inline-block w-75">
         <p class="text-muted">
-        <span style="font-size: 30px;">{{ $post->content }}</span>
+        <span style="font-size: 30px;">@include('commons.show_content', ['currentContent' => $post->content, ])</span>
         </p>
     </div>
     <hr noshade="">
@@ -30,7 +30,7 @@
     </div>
     <div class="text-left d-inline-block w-75">
         <p class="text-muted">
-        {{ $reply->comment }}
+        @include('commons.show_content', ['currentContent' => $reply->comment, ])
         </p>
         @if(Auth::id() === $reply->user_id)
             <form method="POST" action="{{ route('reply.delete', $reply->id) }}">

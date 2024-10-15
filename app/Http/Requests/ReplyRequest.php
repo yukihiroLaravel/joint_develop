@@ -23,8 +23,9 @@ class ReplyRequest extends FormRequest
      */
     public function rules()
     {
+        $contentMaxLength = config('app.contentMaxLength');
         return [
-            'comment' => 'required|max:140',
+            'comment' => "required|max:{$contentMaxLength}",
         ];
     }
 

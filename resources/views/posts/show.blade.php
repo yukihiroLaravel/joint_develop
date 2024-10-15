@@ -42,7 +42,7 @@
             <div class="">
                 <div class="text-left d-inline-block w-75">
                     <p class="mb-2"></p>
-                    <p class="text-muted">{!! nl2br(e($post->content)) !!}</p>
+                    <p class="text-muted">@include('commons.show_content', ['currentContent' => $post->content, ])</p>
                     @include('commons.carousel', ['post' => $post])
                     @include('commons.categories_links', ['post' => $post])
                     <p class="text-muted">{{ $post->created_at }}</p>

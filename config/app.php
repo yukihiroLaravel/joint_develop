@@ -275,4 +275,15 @@ return [
 
     // CleanupUnusedFiles.phpでのtype毎の処理件数
     'cleanupUnusedFilesTakeCount' => env('CLEANUP_UNUSED_FILES_TAKE_COUNT', 100),
+
+    /*
+        投稿内容の最大文字数
+
+        2024/10/15時点
+        postsのcontentがvarchar(255)
+        repliesのcommentがvarchar(255)
+        だから一旦、255にしたが
+        本当はもっと増やしたいが、一旦は、255にしとく
+    */
+    'contentMaxLength' => env('CONTENT_MAX_LENGTH', '255'),
 ];

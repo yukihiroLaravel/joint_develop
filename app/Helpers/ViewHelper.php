@@ -382,4 +382,15 @@ class ViewHelper extends Helper
         $ret = [ 'previousUrl' => urlencode(\Request::fullUrl()) ];
         return $ret;
     }
+
+    /**
+     * 文字列中のurlを_blankのaタグに変換する。
+     */
+    function toLink($content)
+    {
+        $pat = '/((http|https):\/\/[-_.!~*\'()a-zA-Z0-9;\/?:@&=+$,%#]+)/';
+        $replace = '<a href="$1" target="_blank">$1</a>';
+        $ret = preg_replace($pat, $replace, $content);
+        return $ret;
+    }
 }
