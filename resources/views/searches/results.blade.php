@@ -7,7 +7,7 @@
         $isActivePostsSearch = Request::routeIs('post.search');
         $isActiveUsersSearch = Request::routeIs('user.search');
     @endphp
-    <h5 class="text-center mb-3">「{{ $viewHelper->getSearchConditionString($q, $c) }}」の検索結果</h5>
+    <h5 class="text-center mb-3">「{{ $viewHelper->getSearchConditionString($q, $c) }}」{{ $totalCount }}件の検索結果</h5>
     <ul class="nav nav-tabs nav-justified mb-3">
         <li class="nav-item"><a href="{{ route('post.search', ['q' => $q, 'c' => $c,]) }}" class="nav-link {{ $isActivePostsSearch ? 'active' : '' }}">ポスト</a></li>
         <li class="nav-item">

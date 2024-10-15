@@ -224,16 +224,19 @@ class UsersController extends Controller
         $q = trim($request->input('q'));
         // ユーザはカテゴリでの絞りはないけどパラメータを引き継ぐために取得をしておく
         $c = trim($request->input('c'));
+
         if (filled($q)) {
             $helper = Helper::getInstance();
             $userQuery = User::query();
             $users = $helper->commonSearch($userQuery, 'name', $q);
+            $totalCount = $users->total();
         } else {
             return back();
         }
 
         return view('searches.results', [
             'users' => $users,
+            'totalCount' => $totalCount,
             'q' => $q,
             'c' => $c,
         ]);
