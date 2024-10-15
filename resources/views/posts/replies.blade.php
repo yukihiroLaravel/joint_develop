@@ -52,8 +52,18 @@
             <div class="form-group">
                 <textarea id="comment" class="form-control" name="comment" rows="5">{{ old('comment') }}</textarea>
             </div>
-            <div class="form-group mt-4">
-                <button class="btn btn-success float-right mb-3 mr-3">返信する</button>
+
+            {{-- 
+                2024/10/15
+                それでいいかは別として、投稿編集画面にあわせ「戻る」を右に一旦する。
+                「返信する」のclass属性より「float-right」を一旦削除
+                「返信する」と「戻る」縦の位置がそろわなかったため
+                devの「class="form-group mt-4"」を「class="d-flex justify-content-between"」に変更した
+                「戻る」に「style="height: 38px;"」を書いておかないとデザイン崩れる。38pxは微調整の結果。
+            --}}
+            <div class="d-flex justify-content-between">
+                <button class="btn btn-success mb-3 mr-3">返信する</button>
+                <a href="{{ $previousUrl }}" class="btn btn-info" style="margin-top: -2px; width: 95px; height: 38px;">戻る</a>
             </div>
             <input type="hidden" name='postId' value="{{ $post->id }}">
         </form>
