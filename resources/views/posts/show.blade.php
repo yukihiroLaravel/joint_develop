@@ -9,7 +9,6 @@
 
     $previousUrlParameter = $viewHelper->getPreviousUrlParameter();
 @endphp
-
 <ul class="list-unstyled">
 
     <li class="mb-3 text-center">
