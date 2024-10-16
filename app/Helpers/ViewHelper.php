@@ -383,14 +383,90 @@ class ViewHelper extends Helper
         return $ret;
     }
 
+    /* #region 「show_content.blade.php」関連 */
+
+
+    /**
+     * 「show_content.blade.php」での変換処理をする。
+     */
+    function convShowContent($argContent)
+    {
+        // 文字列中のurlを_blankのaタグに変換する。
+        $content = static::toLink($argContent);
+
+        // タグの外側にある半角スペースを&nbsp;に変換する。
+        $content = static::changeSpacesOutTag($content);
+        return $content;
+    }
+
     /**
      * 文字列中のurlを_blankのaタグに変換する。
      */
-    function toLink($content)
+    private function toLink($content)
     {
         $pat = '/((http|https):\/\/[-_.!~*\'()a-zA-Z0-9;\/?:@&=+$,%#]+)/';
         $replace = '<a href="$1" target="_blank">$1</a>';
         $ret = preg_replace($pat, $replace, $content);
         return $ret;
     }
+
+    /**
+     * タグの外側にある半角スペースを&nbsp;に変換する。
+     */
+    private function changeSpacesOutTag($content)
+    {
+        /*
+            例として
+                あああ
+                  https://www.youtube.com/watch?v=yQUC6z3OHzc
+                いいいああ
+            がテキストエリアに入力されたときに、
+
+            font-sizeが変わってしまうなどの問題により安直に、<pre></pre>タグが
+            使えないケースにおいて、
+            改行を<br />に変換し
+            https://www.youtube.com/watch?v=yQUC6z3OHzc
+            を
+            <a href="https://www.youtube.com/watch?v=yQUC6z3OHzc" target="_blank">https://www.youtube.com/watch?v=yQUC6z3OHzc</a><br />
+            に変換しているケースにおいて
+
+                あああ<br />
+                  <a href="https://www.youtube.com/watch?v=yQUC6z3OHzc" target="_blank">https://www.youtube.com/watch?v=yQUC6z3OHzc</a><br />
+                いいいああ
+            の状況になったときなどで
+            >と<の間にある半角スペースについては、&nbsp;に変換かけたいが、
+            <a hrefのaとhの間の半角スペースなど、つまり、タグの中の半角スペースについては、
+            変換したくない。
+
+            />([^<]+)</ の正規表現について、
+            /と/が正規表現の開始と終了の記号で
+            ([^<]+)が、「<」以外の文字が1回以上きたというキャプチャーグループで
+            それを受けるのは、$matches[1]  ( $matches[0] は正規表現の全体。)
+
+            />([^<]+)</
+            は、
+            「>」の後に、「 「<」以外の文字が1回以上 」きて、その後「<」
+            となっているということで、それでヒットする全体ならば、$matches[0]であり、
+            そのうち、「 「<」以外の文字が1回以上 」の部分での局所的にヒットした文字列は、$matches[1]である。
+            その$matches[1]でヒットした「 「<」以外の文字が1回以上 」の部分について
+            半角スペースを&nbsp;に変換する。
+
+            そのため、
+            テキストエリアに半角スペースを入力して保存しているデータについて
+            そのまま、半角スペースがあるような見た目で、web画面に表示できる配慮とする
+
+            以上の事柄を、
+            font-sizeなどが変わってしまう<pre></pre>を使わないで
+            実現するために当メソッドがある。
+
+            なお、全角スペースについては、なにもしなくてもtextareに入力したイメージで
+            web画面に表示されるので対処不要。
+        */
+        // タグの外側にある半角スペースを変換
+        return preg_replace_callback('/>([^<]+)</', function ($matches) {
+            return '>' . str_replace(' ', '&nbsp;', $matches[1]) . '<';
+        }, $content);
+    }
+
+    /* #endregion */ // 「show_content.blade.php」関連
 }

@@ -27,9 +27,14 @@ class RepliesController extends Controller
     {
         $post = Post::findOrFail($id);
         $reply = $post->replies()->orderBy('id', 'desc');
+
+        // クエリパラメータに乗ってる遷移元のURLを取得する。
+        $previousUrl = $this->getPreviousUrlByQueryParameter();
+
         $data=[
             'post' => $post,
             'replies' => $reply,
+            'previousUrl' => $previousUrl,
         ];
         $data += $this->replyCounts($post);
         return view('posts.replies',$data);

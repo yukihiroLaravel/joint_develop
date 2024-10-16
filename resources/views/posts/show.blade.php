@@ -6,6 +6,8 @@
         // 「$followsParam」が未定義の場合(呼び元で指定がない場合)は、デフォルト値を指定
         $followsParam = \App\User::createDefaultFollowsParam();
     }
+
+    $previousUrlParameter = $viewHelper->getPreviousUrlParameter();
 @endphp
 <ul class="list-unstyled">
 
@@ -54,9 +56,6 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>
-                        @php
-                            $previousUrlParameter = $viewHelper->getPreviousUrlParameter();
-                        @endphp
                         <a href="{{ route('post.edit', ['id' => $post->id] + $previousUrlParameter) }}" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
@@ -74,7 +73,7 @@
                         @auth
                             <div class="col-6 px-4 pt-3"> 
                             <button type="button" class="btn btn-primary">
-                                <a class="text-decoration-none" href="{{ route('reply.show', $post->id) }}" style="color:white;">返信する</a>
+                                <a class="text-decoration-none" href="{{ route('reply.show', [$post->id] + $previousUrlParameter) }}" style="color:white;">返信する</a>
                             </button>
                             </div>
                         @endauth
