@@ -24,7 +24,7 @@ class CreatePostsTable extends Migration
             $table->softDeletes(); // 論理削除(優しい削除)
 
             // 外部キー制約
-            //$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // ユーザーテーブルのidとポストテーブルのuser_idを外部キー制約。
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // ユーザーテーブルのidとポストテーブルのuser_idを外部キー制約。
         });
     }
 
