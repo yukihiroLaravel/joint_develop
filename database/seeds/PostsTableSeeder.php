@@ -13,7 +13,7 @@ class PostsTableSeeder extends Seeder
     {
         for($i = 1; $i <= 15; $i ++){ // テストを15件
             DB::table('posts')->insert([
-                'content' => 'テスト投稿だよ' .$i,
+                'content' => 'テスト投稿だよ'. $i,
                 'user_id' => $i,
             ]);
         }
