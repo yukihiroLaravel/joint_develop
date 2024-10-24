@@ -11,9 +11,5 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 // トップページの表示
-Route::get('/', 'UsersController@index');
+Route::get('/', 'PostsController@index');
