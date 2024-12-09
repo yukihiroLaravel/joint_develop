@@ -24,8 +24,12 @@
             <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
             <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
         </ul>
-        {{-- 投稿 --}}
-        @include('posts.posts',['posts'=> $posts])
     </div>
-</div>
+    <h1>{{ $user->name }}</h1>
+    <ul class="nav nav-tabs nav-justified mt-5 mb-2">
+        <li class="nav-item nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}"><a href="{{ route('user.show', $user->id) }}">動 画<br><div class="badge badge-secondary">{{ $countMovies }}</div></a></li>
+        <li class="nav-item nav-link><a href="">お気に入り<br><div class="badge badge-secondary"></div></a></li>
+    </ul>
+    @include('movies.movies', ['user' => $user, 'movies' => $movies])
+    </div>
 @endsection
