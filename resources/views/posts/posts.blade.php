@@ -15,7 +15,7 @@
                         <form method="POST" action="{{ route('post.delete', $post->id) }}">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">削除</button>
+                            <button type="submit" class="btn btn-danger">削除する</button>
                         </form>
                         <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">編集する</a>
                     </div>
