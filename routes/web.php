@@ -38,7 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}/unlike', 'LikeController@destroy')->name('posts.unlike');
         // コメント
         Route::post('{post}/comments', 'CommentController@store')->name('comments.store');
-        // 投稿内容削除
+        // 投稿削除
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     });
 });
