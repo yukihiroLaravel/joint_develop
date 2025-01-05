@@ -24,6 +24,14 @@
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger ml-2">削除</button>
                                 </form>
+                                <!-- 画像を投稿していれば、ボタンが表示される -->
+                                @if ($post->image !== null)
+                                    <form method="POST" action="{{ route('image.delete', $post->id) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger ml-2">画像のみ削除</button>
+                                    </form>
+                                @endif
                             </div>
                         @endif
                     </div>

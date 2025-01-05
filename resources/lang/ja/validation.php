@@ -77,7 +77,7 @@ return [
     ],
     'max' => [
         'numeric' => ':attributeには、:max以下の数字を指定してください。',
-        'file' => ':attributeには、:max KB以下のファイルを指定してください。',
+        'file' => ':attributeには、:maxKB以下のファイルを指定してください。',
         'string' => ':attributeは、:max文字以下にしてください。',
         'array' => ':attributeの項目は、:max個以下にしてください。',
     ],

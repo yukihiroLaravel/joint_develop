@@ -7,6 +7,10 @@
     </div>
     <div class="text-left d-inline-block w-75">
         <p class="mb-2">{{ $post->content }}</p>
+        <!-- 画像を選択していれば、画像が表示される -->
+        @if ($post->image !== null)
+            <img class="mb-2" src="{{ Storage::url($post->image) }}" alt="画像投稿">
+        @endif
         <p class="text-muted">{{ $post->updated_at }}</p>
     </div>
 </div>
@@ -15,12 +19,13 @@
     </div>
     @if (Auth::check())
     <div class="text-center mb-3">
-        <form method="POST" action="{{ route('post.replies', $post->id) }}" class="d-inline-block w-75">
+        <form method="POST" action="{{ route('post.replies', $post->id) }}" enctype="multipart/form-data" class="d-inline-block w-75">
         @csrf
             <div class="form-group">
-                <textarea class="form-control" name="content" rows="4"></textarea>
+                <textarea class="form-control" name="content" rows="4">{{ old('content') }}</textarea>
                 <div class="text-left mt-3">
                     <button type="submit" class="btn btn-primary">返信する({{ $post->replies->count() }})</button>
+                    <input class="ml-3" type="file" name="image">
                 </div>
             </div>
         </form>
@@ -37,6 +42,10 @@
                 <div class="">
                     <div class="text-left d-inline-block w-75">
                         <p class="mb-2">{{ $reply->content }}</p>
+                        <!-- 画像を選択していれば、画像が表示される -->
+                        @if ($reply->image !== null)
+                            <img class="mb-2" src="{{ Storage::url($reply->image) }}" alt="画像投稿">
+                        @endif
                         <p class="text-muted">{{ $reply->updated_at }}</p>
                     </div>
                     <!-- ログインしている場合 -->
@@ -49,7 +58,14 @@
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger ml-2">削除</button>
                                 </form>
-                                
+                                    <!-- 画像を投稿していれば、ボタンが表示される -->
+                                    @if ($reply->image !== null)
+                                        <form method="POST" action="{{ route('picture.delete', $reply->id) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger ml-2">画像のみ削除</button>
+                                        </form>
+                                    @endif
                             </div>
                         
                         </div>

@@ -26,7 +26,7 @@ class PostRequest extends FormRequest
     {
         return [
             'content' => ['required', 'max:140'],
-            'image' => ['image', 'mimes:jpeg,png,jpg', new PictureRule],
+            'image' => ['image', 'mimes:jpeg,png,jpg', 'max:200', new PictureRule],
         ];
     }
     public function attributes()
