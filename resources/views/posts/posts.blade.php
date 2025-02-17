@@ -31,7 +31,7 @@
                                 </video>
                             @endif
                         </div>
-                        <p class="mb-2">{!! nl2br(e($post->content)) !!}</p>
+                        <p class="mb-2" id="output">{!! nl2br($post->content) !!}</p>
                         <div class="tags-link">
                             @foreach ($post->tags as $tag)
                                 <a href="{{ route('tag.show', $tag->id) }}">#{{ $tag->name }}</a>
