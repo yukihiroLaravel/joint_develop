@@ -1,0 +1,78 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #F5F5DC !important;
+}
+
+.header-navbar-text {
+    color: #F5F5DC !important;
+    font-family: 'Courier New', monospace !important;
+}
+
+.footer-navbar-text {
+    color: #F5F5DC !important;
+    font-family: 'Courier New', monospace !important;
+}
+
+.card-bg-common {
+    background-color: #6B8E23;
+}
+
+.btn-bg-common {
+    background-color: #0078ba;
+    color: white;
+}
+
+.btn-bg-common:hover {
+    background-color: #005a8c;
+    color: #fffbe6;
+    transform: scale(1.01);
+}
+
+.user-name {
+    color: #ffffff !important;
+}
+
+.nav-link.active {
+    background-color: #EEE8AA !important;
+    color: #556B2F !important;
+    font-weight: bold;
+    border: 2px solid #556B2F;
+    border-radius: 5px;
+}
+
+.pagination li a {
+    color: #019a66 !important;
+}
+
+.page-link {
+    background-color: #fffafa;
+}
+
+.page-item.active .page-link  {
+    background-color: #006400 !important;
+    color: white !important;
+}
+
+.page-item.disabled .page-link  {
+    background-color: #fffafa;
+}
+
+.target-posts {
+    background-color: #EEE8AA;
+}
+
+.reply > a:hover span {
+    color: #007bff;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.dropdown-menu {
+    min-width: auto;
+    width: 90px;
+}
