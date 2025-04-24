@@ -5,10 +5,13 @@
     <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
     {{-- バリデーションエラーの表示 --}}
     @include('commons.error_messages')
+
+    {{-- 共通削除モーダル。user_withdrawalボタンの中に入れると、formがネストされる。退会ボタンを押した瞬間に処理が発動してしまう。よって外に出した。 --}}
+    @include('commons.delete_modal')
+
     <form method="POST" action="{{route('users.update', $user->id)}}">
         @csrf
         @method('PUT')
-        <input type="hidden" name="id" value="" />
         <div class="form-group">
             <label for="name">ユーザ名</label>
             <input class="form-control" value="{{$user->name}}" name="name" />
@@ -30,27 +33,8 @@
         </div>
 
         <div class="d-flex justify-content-between">
-            <a class="btn btn-danger text-light" data-toggle="modal" data-target="#deleteConfirmModal">退会する</a>
+            @include('buttons.user_withdrawal_button')
             <button type="submit" class="btn btn-primary">更新する</button>
         </div>
     </form>
-
-    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4>確認</h4>
-                </div>
-                <div class="modal-body">
-                    <label>本当に退会しますか？</label>
-                </div>
-                <div class="modal-footer d-flex justify-content-between">
-                    <form action="" method="POST">
-                        <button type="submit" class="btn btn-danger">退会する</button>
-                    </form>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
