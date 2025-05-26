@@ -15,7 +15,7 @@
                 </div>
                 @if (Auth::id() === $post->user_id)
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                       <form method="POST" action="">   {{-- 削除ルート実装後に記述 --}}
+                       <form method="POST" action="{{ route('posts.delete', $post->id) }}">   
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">削除</button>
