@@ -47,19 +47,18 @@ class Review extends Model
     }
 
     // 評価の平均を丸めて返す
-    public static function getRoundedAverage($collection, $key)
+    public static function getRoundedAverageFromCollection($collection, $key)
     {
         $average = $collection->avg($key);
         return $average ? round($average, 1) : null;
     }
 
     // 投稿に対するレビュー評価の平均を計算
-    public static function averageRatingsForPost(Post $post)
+    public static function averageRatingsFromCollection($reviews)
     {
-        $reviews = $post->reviews()->whereNull('deleted_at');
-        $service = self::getRoundedAverage($reviews, 'rating_service');
-        $cost    = self::getRoundedAverage($reviews, 'rating_cost');
-        $quality = self::getRoundedAverage($reviews, 'rating_quality');
+        $service = self::getRoundedAverageFromCollection($reviews, 'rating_service');
+        $cost    = self::getRoundedAverageFromCollection($reviews, 'rating_cost');
+        $quality = self::getRoundedAverageFromCollection($reviews, 'rating_quality');
         $values = collect([$service, $cost, $quality])->filter();
         $overall = $values->isNotEmpty() ? round($values->avg(), 1) : null;
         return [

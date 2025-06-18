@@ -15,14 +15,18 @@ class PostsController extends Controller
     public function index(SearchRequest $request)
     {
         $keyword = $request->input('keyword');
-        $posts = Post::withCount('reviews')
+        $posts = Post::with(['user','reviews' => function ($query) {
+                    $query->whereNull('deleted_at');
+                }
+            ])
+            ->withCount('reviews')
             ->when($keyword, function ($query, $keyword) {
                 return $query->where('content', 'like', "%{$keyword}%");
             })
             ->orderBy('id', 'desc')
             ->paginate(9);
         foreach ($posts as $post) {
-            $post->average_ratings = Review::averageRatingsForPost($post);
+            $post->average_ratings = Review::averageRatingsFromCollection($post->reviews);
         }
         $data = [
             'keyword' => $keyword,
@@ -33,15 +37,15 @@ class PostsController extends Controller
 
     public function show($id)
     {
-        $post = Post::findOrFail($id);
-        $post->load('user');
+        $post = Post::with('user')->findOrFail($id);
+        $allReviews = $post->reviews()->whereNull('deleted_at')->get();
         $reviews = $post->reviews()->with('user')->orderBy('id', 'desc')->paginate(10);
         $latestReview = Review::latestReview($post);
         $hasReviewed = false;
         if (Auth::check() && Auth::id() !== $post->user_id) {
             $hasReviewed = Review::hasReviewed(Auth::user(), $post);
         }
-        $averageRatings = Review::averageRatingsForPost($post);
+        $averageRatings = Review::averageRatingsFromCollection($allReviews);
         $data = [
             'post' => $post,
             'reviews' => $reviews,
@@ -56,13 +60,12 @@ class PostsController extends Controller
     public function create()
     {
         $keyword = '';
-        $posts = Post::withCount('reviews')
-            ->with('user')
-            ->orderBy('id', 'desc')
-            ->paginate(9);
-        foreach ($posts as $post) {
-            $post->average_ratings = Review::averageRatingsForPost($post);
-        }
+        $posts = Post::with(['user', 'reviews' => function ($query) {
+            $query->whereNull('deleted_at');
+        }])
+        ->withCount('reviews')
+        ->orderBy('id', 'desc')
+        ->paginate(9);
         return view('posts.create', [
             'posts' => $posts,
             'keyword' => $keyword,
