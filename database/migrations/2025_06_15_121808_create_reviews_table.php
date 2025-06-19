@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostsTable extends Migration
+class CreateReviewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,17 @@ class CreatePostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('reviews', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('post_id')->unsigned()->index();
             $table->bigInteger('user_id')->unsigned()->index();
-            $table->text('content');
-            $table->string('image')->nullable();
+            $table->string('comment', 1000);
+            $table->tinyInteger('rating_service')->unsigned()->nullable();
+            $table->tinyInteger('rating_cost')->unsigned()->nullable();
+            $table->tinyInteger('rating_quality')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
@@ -31,6 +35,6 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('reviews');
     }
 }

@@ -1,0 +1,35 @@
+.star-rating {
+    display: inline-flex;
+    font-size: 1.1rem;
+    line-height: 1;
+    gap: 0.1em;
+}
+
+.star {
+    position: relative;
+    display: inline-block;
+    color: #ccc;
+    width: 1.1em;
+    height: 1.1em;
+    flex-shrink: 0;
+}
+
+.star:last-child {
+    margin-right: 0;
+}
+
+.star-base {
+    position: relative;
+    z-index: 1;
+    color: #ccc;
+}
+
+.star-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    z-index: 2;
+    color: gold;
+}

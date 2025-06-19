@@ -44,6 +44,11 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
     public function followers()
     {
         return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id')->withTimestamps();
@@ -76,7 +81,7 @@ class User extends Authenticatable
 
     public function isFollowing($userId)
     {
-        return $this->followings()->where('user_id', $userId)->exists();
+        return $this->followings()->where('users.id', $userId)->exists();
     }
 
     public function userCounts()
@@ -90,5 +95,3 @@ class User extends Authenticatable
         ];
     }
 }
-
-
