@@ -39,7 +39,7 @@ console_command = 'php /var/www/html/artisan tinker'
 
 [mounts]
   source = "storage_volume"
-  destination = "/var/www/html/laravelapp/storage"
+  destination = "/var/www/html/storage"
 
 [deploy]
-  release_command = "/bin/bash /var/www/html/laravelapp/.fly/scripts/00_storage_init.sh"
+  release_command = "/bin/bash /var/www/html/.fly/scripts/00_storage_init.sh"
