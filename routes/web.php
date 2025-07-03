@@ -14,6 +14,7 @@ Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('sign
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 Route::get('/ranking/followers', 'UsersController@followerRanking')->name('ranking.followers');
+Route::get('/ranking/favorites', 'UsersController@favoriteRanking')->name('ranking.favorites');
 
 Route::prefix('users/{id}')->group(function () {
     Route::get('', 'UsersController@show')->name('user.show');

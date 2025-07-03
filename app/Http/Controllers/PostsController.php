@@ -9,6 +9,7 @@ use App\Post;
 use App\User;
 use App\Tag;
 
+
 class PostsController extends Controller
 {   
     public function index(Request $request)
@@ -32,9 +33,14 @@ class PostsController extends Controller
             ->orderByDesc('created_at')
             ->paginate(10);
 
-        $rankingUsers = User::withCount('followers')->orderByDesc('followers_count')->orderByDesc('updated_at')->take(10)->get();
+        $rankingUsers = User::withCount('followers')->orderByDesc('followers_count')->take(10)->get();
+        $favorites = User::withCount([
+            'posts as likes_received_count' => function ($query) {
+                $query->join('favorites', 'posts.id', '=', 'favorites.post_id');
+            }
+        ])->orderByDesc('likes_received_count')->take(10)->get();
 
-        return view('welcome', compact('posts', 'keyword', 'tags', 'rankingUsers', 'tab'));
+        return view('welcome', compact('posts', 'keyword', 'tags', 'rankingUsers', 'tab', 'favorites'));
     }
 
     public function show($id)

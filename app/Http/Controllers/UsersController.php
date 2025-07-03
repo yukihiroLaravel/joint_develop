@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB; 
 use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use App\User;
 
 class UsersController extends Controller
-{
+｛
     public function show($id)
     {
         $user = User::findOrFail($id);
@@ -21,7 +22,7 @@ class UsersController extends Controller
 
         return view('users.show',$data);
     }
-    
+｝
     public function edit($id)
     {
         $user = \Auth::user();
@@ -127,5 +128,16 @@ class UsersController extends Controller
             return redirect()->route('user.show', $user->id)->with('success', 'アイコンを変更しました');
         }
     }
-    
-}
+
+    public function favoriteRanking() 
+    {
+        $rankingUsers = User::select('users.*', DB::raw('COALESCE(SUM(fav_count), 0) as likes_received_count'))
+            ->leftJoin('posts', 'users.id', '=', 'posts.user_id')
+            ->leftJoin(DB::raw('(SELECT post_id, COUNT(*) as fav_count FROM favorites GROUP BY post_id) as f'), 'posts.id', '=', 'f.post_id')
+            ->groupBy('users.id')
+            ->orderByDesc('likes_received_count')
+            ->take(10)
+            ->get();
+
+        return view('users.nice_ranking', compact('rankingUsers'));
+    }
