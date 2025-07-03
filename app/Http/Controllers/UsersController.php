@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\User;
 
 class UsersController extends Controller
-｛
+{
     public function show($id)
     {
         $user = User::findOrFail($id);
@@ -22,7 +22,7 @@ class UsersController extends Controller
 
         return view('users.show',$data);
     }
-｝
+
     public function edit($id)
     {
         $user = \Auth::user();
@@ -141,3 +141,4 @@ class UsersController extends Controller
 
         return view('users.nice_ranking', compact('rankingUsers'));
     }
+}
