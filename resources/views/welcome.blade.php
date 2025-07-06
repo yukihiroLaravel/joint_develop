@@ -87,11 +87,13 @@
                 <div class="col-lg-8 col-md-8">
                     @include('posts.posts', ['posts' => $posts])
                 </div>
-                <div class="col-lg-4 col-md-4"> 
+                <div class="col-lg-4 col-md-4">
                     @include('users.follower_ranking', ['rankingUsers' => $rankingUsers])
-                    @include('users.nice_ranking')
+
+                    <div style="margin-top: 20px;">
+                        @include('users.nice_ranking')
+                    </div>
                 </div>
-            </div>
         </div>
     </div>
 @endsection
