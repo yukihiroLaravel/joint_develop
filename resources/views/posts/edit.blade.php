@@ -20,6 +20,10 @@
                 </label>
             @endforeach
         </div>
+
+        <input type="hidden" name="redirect_to" value="{{ url()->previous() }}">
+        
+        <button type="submit" class="btn btn-primary mt-5 mb-5">更新する</button>
         {{-- 画像の表示 --}}
         @if ($post->image_path)
             <div class="mt-4">

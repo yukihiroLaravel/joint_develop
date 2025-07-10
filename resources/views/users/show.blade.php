@@ -9,7 +9,7 @@
                 @include('follow.follow_button', ['user' => $user])
             </div>
             <div class="card-body text-center px-4 py-0">
-                <img class="rounded-circle my-5" src="{{ $user->avatar_image_url }}" width="250" height="250" style="object-fit: cover;" alt="ユーザのアバター画像">
+                <img class="rounded-circle my-5" src="{{ $user->avatar_image_url }}" style="width: 100%; max-width: 250px; aspect-ratio: 1/1; object-fit: cover;" alt="ユーザのアバター画像">
 
                 @if (Auth::check() && Auth::id() === $user->id)
                     {{-- アイコン編集リンク --}}

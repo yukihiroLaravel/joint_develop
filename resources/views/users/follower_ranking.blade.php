@@ -1,4 +1,4 @@
-<div class="card mx-auto" style="max-width: 350px;">
+<div class="card mx-auto mb-4" style="max-width: 350px;">
     <div class="card-body p-4">
         <h5 class="text-center mb-4">フォロワーランキング</h5>
         @php
