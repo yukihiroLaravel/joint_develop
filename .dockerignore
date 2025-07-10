@@ -13,20 +13,17 @@ frankenphp
 vendor
 
 # 2. Ignore common files/directories we don't need
-fly.toml
 .vscode
 .idea
-**/*node_modules
-**.git
-**.gitignore
-**.gitattributes
-**.sass-cache
-**/*~
-**/*.log
-**/.DS_Store
-**/Thumbs.db
+node_modules
+.git
+.gitattributes
+.gitignore
+.sass-cache
+*~
+*.log
+.DS_Store
+Thumbs.db
 public/hot
-:wq
-:wp
 
-
+# ✅ .fly は含める（除外しない！）

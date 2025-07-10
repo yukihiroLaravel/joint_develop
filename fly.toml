@@ -36,3 +36,10 @@ console_command = 'php /var/www/html/artisan tinker'
 [[services]]
   internal_port = 8080
   force_https = true
+
+[mounts]
+  source = "storage_volume"
+  destination = "/var/www/html/laravelapp/storage"
+
+[deploy]
+  release_command = "/bin/bash /var/www/html/laravelapp/.fly/scripts/00_storage_init.sh"
