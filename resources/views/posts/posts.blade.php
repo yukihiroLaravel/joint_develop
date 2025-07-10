@@ -1,5 +1,5 @@
 @foreach ($posts as $post)
-    <div class="card mb-4" style="width: 700px;">
+    <div class="card mb-4 w-100" style="max-width: 700px;">
         <div class="card-body">
         
             {{-- ユーザ―情報 --}}
@@ -91,6 +91,9 @@
                         <form method="POST" action="{{ route('post.destroy', $post->id) }}">
                             @csrf
                             @method('DELETE')
+
+                            <input type="hidden" name="redirect_to" value="{{ url()->current() }}">
+
                             <button type="submit" class="btn btn-light p-1 ml-3" onclick="return confirm('本当に削除しますか？')">
                                 <img src="{{ asset('images/icons/ゴミ箱のアイコン素材.png') }}" alt="削除" style="width: 20px; height: 20px;">
                             </button>

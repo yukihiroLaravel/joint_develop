@@ -84,7 +84,8 @@ class PostsController extends Controller
 
         $post->tags()->sync($request->input('tags', []));
         
-        return redirect()->route('post.index')->with('success', '更新が完了しました！');
+        $redirectTo = $request->input('redirect_to', route('post.index'));
+        return redirect($redirectTo)->with('success', '更新が完了しました！');
     }
 
     public function store(PostRequest $request)
@@ -106,7 +107,7 @@ class PostsController extends Controller
         return redirect()->route('post.index')->with('success', '投稿が完了しました！');
     }
     
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $post = Post::findOrFail($id);
 
@@ -114,7 +115,8 @@ class PostsController extends Controller
             $post->delete();
         }
 
-        return redirect()->route('post.index')->with('success', '投稿を削除しました。');
+        $redirectTo = $request->input('redirect_to', route('post.index'));
+        return redirect($redirectTo)->with('success', '投稿を削除しました。');
     }
 
     public function create()
