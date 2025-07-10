@@ -89,6 +89,7 @@
                 </div>
                 <div class="col-lg-4 col-md-4"> 
                     @include('users.follower_ranking', ['rankingUsers' => $rankingUsers])
+                    @include('users.nice_ranking')
                 </div>
             </div>
         </div>

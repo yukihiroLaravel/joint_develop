@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Post;
 use App\User;
 use App\Tag;
+
 
 class PostsController extends Controller
 {   
@@ -28,12 +30,17 @@ class PostsController extends Controller
 
         $posts = $query
             ->when($keyword, fn ($q) => $q->where('content', 'like', "%{$keyword}%"))
-            ->latest()
+            ->orderByDesc('created_at')
             ->paginate(10);
 
-        $rankingUsers = User::withCount('followers')->orderByDesc('followers_count')->orderByDesc('updated_at')->take(10)->get();
+        $rankingUsers = User::withCount('followers')->orderByDesc('followers_count')->take(10)->get();
+        $favorites = User::withCount([
+            'posts as likes_received_count' => function ($query) {
+                $query->join('favorites', 'posts.id', '=', 'favorites.post_id');
+            }
+        ])->orderByDesc('likes_received_count')->take(10)->get();
 
-        return view('welcome', compact('posts', 'keyword', 'tags', 'rankingUsers', 'tab'));
+        return view('welcome', compact('posts', 'keyword', 'tags', 'rankingUsers', 'tab', 'favorites'));
     }
 
     public function show($id)
@@ -77,9 +84,10 @@ class PostsController extends Controller
         $post->user_id = $request->user()->id;
 
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('public/images');
-            $post->image_path = str_replace('public/', 'storage/', $path);
+            $path = $request->file('image')->store('images', 'public');
+            $post->image_path = $path;
         }
+        
         $post->save();
 
         $post->tags()->sync($request->input('tags', []));
@@ -93,9 +101,9 @@ class PostsController extends Controller
         $path = null;
 
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('public/images');
-            $path = str_replace('public/', 'storage/', $path); 
+            $path = $request->file('image')->store('images', 'public'); 
         }
+
         $post = new Post;
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
@@ -125,4 +133,20 @@ class PostsController extends Controller
         return view('posts.form', compact('tags'));
     }
 
+    public function destroyImage(Post $post)
+    {
+        // 認可（投稿者本人のみ）
+        if (auth()->id() !== $post->user_id) {
+            abort(403);
+        }
+
+        // ストレージに画像が存在すれば削除
+        if ($post->image_path) {
+            \Storage::delete('public/' . $post->image_path);
+            $post->image_path = null;
+            $post->save();
+
+            return redirect()->route('post.edit', $post->id)->with('success', '画像を削除しました');
+        }
+    }
 }

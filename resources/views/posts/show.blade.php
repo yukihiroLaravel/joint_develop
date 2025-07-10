@@ -37,7 +37,7 @@
                 @if ($post->image_path)
                     <div class="mb-2" style="max-width: 200px;">
                         <img 
-                            src="{{ asset($post->image_path) }}" 
+                            src="{{ asset('storage/' . $post->image_path) }}" 
                             alt="投稿画像" 
                             class="img-fluid mt-2" 
                             style="max-height: 100px; object-fit: contain;"
@@ -57,7 +57,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body text-center">
-                                    <img src="{{ asset($post->image_path) }}" class="img-fluid" alt="拡大画像">
+                                    <img src="{{ asset('storage/' . $post->image_path) }}" class="img-fluid" alt="拡大画像">
                                 </div>
                             </div>
                         </div>
