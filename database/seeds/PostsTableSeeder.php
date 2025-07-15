@@ -1,14 +1,32 @@
 <?php
 
+namespace Database\Seeds;
+
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Models\User;
 
-public function run()
+
+class PostsTableSeeder extends Seeder
 {
-    DB::table('posts')->insert([
-        'content' => 'これはテスト用の投稿本文です。',
-        'created_at' => now(),
-        'updated_at' => now(),
-    ]);
+    public function run()
+    {
+        $users = User::all();
+
+        if ($users->count() === 0) {
+            $this->command->info('ユーザが存在しないため、投稿を作成しません。');
+            return;
+        }
+
+        for ($i = 1; $i <= 11; $i++) {
+            DB::table('posts')->insert([
+                'user_id' => $users->random()->id,
+                'content' => 'これはテスト投稿その' . $i . 'です。' . Str::random(30),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+    }
 }
 
