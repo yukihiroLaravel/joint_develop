@@ -9,7 +9,10 @@
     <body>
         @include('commons.header')
         <div class="container">
-            @include('commons.error_messages')
+            @if (!View::hasSection('disable_global_errors'))
+                @include('commons.error_messages')
+            @endif
+                
             @yield('content')
         </div>
         @include('commons.footer')
