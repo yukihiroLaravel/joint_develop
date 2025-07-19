@@ -8,11 +8,7 @@
     </head>
     <body>
         @include('commons.header')
-        <div class="container">
-            @if (!View::hasSection('disable_global_errors'))
-                @include('commons.error_messages')
-            @endif
-                
+        <div class="container">                                 
             @yield('content')
         </div>
         @include('commons.footer')
