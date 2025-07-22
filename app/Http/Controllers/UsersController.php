@@ -7,8 +7,7 @@ use App\User;
 
 class UsersController extends Controller
 {
-    
-   public function show($id)
+    public function show($id)
     {
         $user = User::findOrFail($id);
         $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
@@ -16,8 +15,6 @@ class UsersController extends Controller
             'user' => $user,
             'posts' => $posts,
         ];
-        $data += $this->userCounts($user);
-
         return view('users.show',$data);
     } 
 }
