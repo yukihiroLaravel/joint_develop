@@ -11,7 +11,7 @@
                     @auth
                         @if (Auth::id() === $user->id)
                             <div class="mt-3">
-                                <a href="" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                                <a href="{{route('user.edit', $user->id)}}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                             </div>
                         @endif
                     @endauth    
@@ -24,6 +24,7 @@
                 <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
             </ul>
+            @include('posts.posts', ['posts' => $posts])
         </div>
     </div>
-@endsection    
+@endsection
