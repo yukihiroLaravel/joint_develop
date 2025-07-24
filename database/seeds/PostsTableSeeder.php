@@ -20,7 +20,7 @@ class PostsTableSeeder extends Seeder
         for ($i = 1; $i <= 11; $i++) {
             DB::table('posts')->insert([
                 'user_id' => $users->random()->id,
-                'content' => 'これはテスト投稿その' . $i . 'です。' . Str::random(30),
+                'content' => 'これはテスト投稿その' . $i . 'です。',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
