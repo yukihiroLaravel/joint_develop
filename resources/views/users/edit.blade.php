@@ -13,7 +13,7 @@
 
         <div class="form-group">
             <label for="email">メールアドレス</label>
-            <input class="form-control" value="{{old('email', $user->email)}}" name="name" />
+            <input class="form-control" value="{{old('email', $user->email)}}" name="email" />
         </div>
 
         <div class="form-group">
@@ -23,7 +23,7 @@
 
         <div class="form-group">
             <label for="password_confirmation">パスワードの確認</label>
-            <input class="form-control" type="password" name="password" />
+            <input class="form-control" type="password" name="password_confirmation" />
         </div>
 
         <div class="d-flex justify-content-between">

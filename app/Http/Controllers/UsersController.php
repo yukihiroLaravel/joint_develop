@@ -39,6 +39,6 @@ class UsersController extends Controller
             $user->password = bcrypt($request->password);     
             $user->save();           
         }     
-        return back();
+        return redirect()->route('user.show', ['id' => $id])->with('success', 'ユーザ情報を更新しました。');
     }
 }
