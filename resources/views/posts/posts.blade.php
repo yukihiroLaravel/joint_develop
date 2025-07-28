@@ -12,7 +12,7 @@
                 </div>
                 @if (Auth::id() === $post->user_id)
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                        <form method="POST" action="{{ route('posts.destroy', $post->id) }}">
+                        <form method="POST" action="">
                             @csrf
                             <button type="submit" class="btn btn-danger">削除</button>
                         </form>
@@ -24,4 +24,3 @@
     @endforeach
 </ul>
 <div class="m-auto" style="width: fit-content">{{ $posts->links('pagination::bootstrap-4') }}</div>
-

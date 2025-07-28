@@ -30,7 +30,6 @@ Route::prefix('users')->group(function () {
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/edit/{id}', 'PostsController@edit')->name('posts.edit');
     Route::post('/update/{id}', 'PostsController@update')->name('posts.update');
-    Route::post('/delete/{id}', 'PostsController@destroy')->name('posts.destroy')->middleware('auth');
 });
 // トップページ
 Route::get('/', 'PostsController@index'); 
