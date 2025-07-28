@@ -1,5 +1,7 @@
 <?php
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +25,12 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 // ユーザ詳細
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show'); 
+});
+// 投稿編集・更新
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/edit/{id}', 'PostsController@edit')->name('posts.edit');
+    Route::post('/update/{id}', 'PostsController@update')->name('posts.update');
+    Route::post('/delete/{id}', 'PostsController@destroy')->name('posts.destroy')->middleware('auth');
 });
 // トップページ
 Route::get('/', 'PostsController@index'); 
