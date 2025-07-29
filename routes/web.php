@@ -30,3 +30,11 @@ Route::prefix('users/{id}')->group(function () {
 });
 //トップページ
 Route::get('/', 'PostsController@index'); 
+
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('posts')->group(function () {
+        // 新規投稿
+        Route::post('', 'PostsController@store')->name('post.store');
+    });
+});
