@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Post;
+use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
 {
@@ -15,24 +16,35 @@ class PostsController extends Controller
             'posts' => $posts,
         ]);
     }
-    public function edit($id) 
+
+    public function store(PostRequest $request)
     {
-        $post = Post::findOrFail($id);
-        if (Auth::id() !== $post->user_id) abort(403);
-        return view('posts.edit', compact('post'));
+        $post = new Post;
+        $post->content = $request->content;
+        $post->user_id = \Auth::id();
+        $post->save();
+        return back();
     }
-    public function update(Request $request, $id) 
+    public function edit($id)
+    {
+        $user = \Auth::user();
+        $post = Post::findOrFail($id);
+        $posts = $user->posts()->orderBy('id', 'desc')->get();
+        $data=[
+            'user' => $user,
+            'post' => $post,
+            'posts' => $posts,
+        ];
+        return view('posts.edit', $data);
+    }
+    public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
-        if (Auth::id() !== $post->user_id) abort(403);
-
-        $request->validate([
-        'content' => 'required|string|max:1000',
-    ]);
-
+        if (\Auth::id() !== $post->user_id) {
+        abort(403);
+        }
         $post->content = $request->content;
         $post->save();
-
         return redirect('/');
     }
 }

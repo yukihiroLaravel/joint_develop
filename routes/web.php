@@ -30,10 +30,16 @@ Route::prefix('users/{id}')->group(function () {
     // ユーザ情報更新
     Route::put('', 'UsersController@update')->name('user.update');
 });
-// 投稿編集・更新
-Route::group(['middleware' => 'auth'], function () {
-    Route::get('/edit/{id}', 'PostsController@edit')->name('posts.edit');
-    Route::post('/update/{id}', 'PostsController@update')->name('posts.update');
-});
-// トップページ
+//トップページ
 Route::get('/', 'PostsController@index'); 
+
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('posts')->group(function () {
+        // 新規投稿
+        Route::post('', 'PostsController@store')->name('post.store');
+        // 投稿編集・更新
+        Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit');
+        Route::put('{id}', 'PostsController@update')->name('posts.update');
+    });
+});
