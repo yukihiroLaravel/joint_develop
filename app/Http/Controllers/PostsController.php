@@ -29,19 +29,18 @@ class PostsController extends Controller
     {
         $user = \Auth::user();
         $post = Post::findOrFail($id);
-        $posts = $user->posts()->orderBy('id', 'desc')->get();
         $data=[
             'user' => $user,
             'post' => $post,
-            'posts' => $posts,
         ];
+        
         return view('posts.edit', $data);
     }
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
         if (\Auth::id() !== $post->user_id) {
-        abort(403);
+            abort(403);
         }
         $post->content = $request->content;
         $post->save();
