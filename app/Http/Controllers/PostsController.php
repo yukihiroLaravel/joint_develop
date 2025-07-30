@@ -25,6 +25,7 @@ class PostsController extends Controller
         $post->save();
         return back();
     }
+    
     public function edit($id)
     {
         $user = \Auth::user();
@@ -36,6 +37,7 @@ class PostsController extends Controller
         
         return view('posts.edit', $data);
     }
+
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
