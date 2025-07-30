@@ -41,4 +41,13 @@ class UsersController extends Controller
         }     
         return redirect()->route('user.show', ['id' => $id])->with('success', 'ユーザ情報を更新しました。');
     }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        if (\Auth::id() === $user->id) {
+            $user->delete();
+        }
+        return redirect('/')->with('success', 'ユーザ情報を削除しました。');
+    }
 }

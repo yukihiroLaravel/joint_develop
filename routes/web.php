@@ -27,6 +27,8 @@ Route::prefix('users/{id}')->group(function () {
     Route::get('edit', 'UsersController@edit')->name('user.edit');
     // ユーザ情報更新
     Route::put('', 'UsersController@update')->name('user.update');
+    // ユーザ削除
+    Route::delete('', 'UsersController@destroy')->name('user.delete');
 });
 //トップページ
 Route::get('/', 'PostsController@index'); 
