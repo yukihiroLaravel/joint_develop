@@ -1,5 +1,7 @@
 <?php
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,13 +24,13 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 // ユーザ詳細
 Route::prefix('users/{id}')->group(function () {
-    Route::get('', 'UsersController@show')->name('user.show'); 
+    Route::get('', 'UsersController@show')->name('users.show'); 
     // ユーザ情報編集
-    Route::get('edit', 'UsersController@edit')->name('user.edit');
+    Route::get('edit', 'UsersController@edit')->name('users.edit');
     // ユーザ情報更新
-    Route::put('', 'UsersController@update')->name('user.update');
+    Route::put('', 'UsersController@update')->name('users.update');
     // ユーザ削除
-    Route::delete('', 'UsersController@destroy')->name('user.delete');
+    Route::delete('', 'UsersController@destroy')->name('users.delete');
 });
 //トップページ
 Route::get('/', 'PostsController@index'); 
@@ -37,6 +39,9 @@ Route::get('/', 'PostsController@index');
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
         // 新規投稿
-        Route::post('', 'PostsController@store')->name('post.store');
+        Route::post('', 'PostsController@store')->name('posts.store');
+        // 投稿編集・更新
+        Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit');
+        Route::put('{id}', 'PostsController@update')->name('posts.update');
     });
 });
