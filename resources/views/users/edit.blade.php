@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
-    <form method="POST" action="{{ route('user.update', $user->id ) }}">
+    <form method="POST" action="{{ route('users.update', $user->id ) }}">
         @csrf
         @method('PUT')
         @include('commons.error_messages')
@@ -42,7 +42,9 @@
                     <label>本当に退会しますか？</label>
                 </div>
                 <div class="modal-footer d-flex justify-content-between">
-                    <form action="" method="POST">
+                    <form action="{{ route('users.delete', $user->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
                         <button type="submit" class="btn btn-danger">退会する</button>
                     </form>
                     <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>

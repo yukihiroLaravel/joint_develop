@@ -1,10 +1,6 @@
 @extends('layouts.app')
 @section('content')
-@if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
+@include('commons.success_messages')
 <div class="row">
         <aside class="col-sm-4 mb-5">
             <div class="card bg-info">
@@ -16,7 +12,7 @@
                     @auth
                         @if (Auth::id() === $user->id)
                             <div class="mt-3">
-                                <a href="{{route('user.edit', $user->id)}}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                                <a href="{{route('users.edit', $user->id)}}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                             </div>
                         @endif
                     @endauth    

@@ -43,4 +43,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+
+    // ユーザが削除されたときに、そのユーザの投稿も削除する
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleted(function ($user) {
+            $user->posts()->delete();
+        });
+    }
 }
