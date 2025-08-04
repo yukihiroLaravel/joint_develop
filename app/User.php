@@ -53,4 +53,47 @@ class User extends Authenticatable
             $user->posts()->delete();
         });
     }
+
+     public function followings()
+    // ユーザがフォローしているユーザを取得
+    {
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'followed_user_id')->withTimestamps();
+    }
+
+    public function followers()
+    // ユーザをフォローしているユーザを取得
+    {
+        return $this->belongsToMany(User::class, 'follows', 'followed_user_id', 'user_id')->withTimestamps();
+    }
+
+    public function isFollow($userId)
+    // ユーザが特定のユーザをフォローしているか確認
+    {
+        return $this->followings()->where('followed_user_id', $userId)->exists();
+    }
+
+
+    public function follow($userId)
+    // ユーザをフォローする
+    {
+        $exist = $this->isFollow($userId);
+        if ($exist) {
+            return false;
+        } else {
+            $this->followings()->attach($userId);
+            return true;
+        }
+    }
+
+    public function unfollow($userId)
+    // ユーザのフォローを解除する
+    {
+        $exist = $this->isFollow($userId);
+        if ($exist) {
+            $this->followings()->detach($userId);
+            return true;
+        }else {
+            return false;
+        }
+    }
 }
