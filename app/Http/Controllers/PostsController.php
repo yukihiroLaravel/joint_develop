@@ -57,4 +57,24 @@ class PostsController extends Controller
         $post->delete();
         return back(); 
     }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+
+        $query = Post::query();
+
+        if (!empty($keyword)) {
+            $query->where(function($q) use ($keyword) {
+                $q->where('content', 'like', '%' . $keyword . '%');
+            });
+        }
+
+        $posts = $query->latest()->paginate(10);
+
+        return view('welcome', [
+            'posts' => $posts,
+            'keyword' => $keyword,   
+        ]);
+    }    
 }
