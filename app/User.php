@@ -54,7 +54,7 @@ class User extends Authenticatable
         });
     }
 
-     public function followings()
+    public function followings()
     // ユーザがフォローしているユーザを取得
     {
         return $this->belongsToMany(User::class, 'follows', 'user_id', 'followed_user_id')->withTimestamps();
@@ -92,7 +92,7 @@ class User extends Authenticatable
         if ($exist) {
             $this->followings()->detach($userId);
             return true;
-        }else {
+        } else {
             return false;
         }
     }
