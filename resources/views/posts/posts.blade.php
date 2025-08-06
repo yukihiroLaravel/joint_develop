@@ -3,8 +3,8 @@
         <p>「{{ $keyword }}」の検索結果：{{ $posts->total() }}件</p>
     </div>    
 @endif
-@if ($posts->isEmpty())
-        <p class="text-center mt-4">検索結果はありませんでした。</p>
+@if ($posts->isEmpty())    
+    <p class="text-center mt-4">検索結果はありませんでした。</p>
 @else
 <ul class="list-unstyled">
     @foreach ($posts as $post)

@@ -1,14 +1,8 @@
 @extends('layouts.app')
 @section('content')
 @include('commons.success_messages')
-    <div class="d-flex">
-        <form action="{{ route('posts.search') }}" method="GET" class="form-inline ml-auto">
-            <input type="text" name="keyword" class="form-control mr-2" placeholder="キーワードを入力" value="{{ request('keyword') }}">
-            <button type="submit" class="btn btn-primary">検索</button>
-        </form>
-    </div>
     <div class="center jumbotron bg-info">
-        <div class="text-center text-white mt-2 pt-1">
+        <div class="text-center text-white mt-2 pt-1"
             <h1><i class="pr-3"></i>Topic Posts</h1>
         </div>
     </div>
