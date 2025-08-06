@@ -31,6 +31,9 @@ Route::prefix('users/{id}')->group(function () {
     Route::put('', 'UsersController@update')->name('users.update');
     // ユーザ削除
     Route::delete('', 'UsersController@destroy')->name('users.delete');
+    // フォロー・アンフォロー
+    Route::post('follow', 'FollowController@store')->name('users.follow');
+    Route::delete('unfollow', 'FollowController@destroy')->name('users.unfollow');
 });
 //トップページ
 Route::get('/', 'PostsController@index'); 
