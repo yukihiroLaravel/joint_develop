@@ -32,8 +32,13 @@ Route::prefix('users/{id}')->group(function () {
     // ユーザ削除
     Route::delete('', 'UsersController@destroy')->name('users.delete');
     // フォロー・アンフォロー
+    Route::middleware('auth')->group(function () {
     Route::post('follow', 'FollowController@store')->name('users.follow');
     Route::delete('unfollow', 'FollowController@destroy')->name('users.unfollow');
+    });
+    // フォロー中のユーザ一覧とフォロワー一覧
+    Route::get('following', 'UsersController@following')->name('users.following');
+    Route::get('followers', 'UsersController@followers')->name('users.followers');
 });
 //トップページ
 Route::get('/', 'PostsController@index'); 
