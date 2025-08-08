@@ -70,7 +70,7 @@ class PostsController extends Controller
             });
         }
 
-        $posts = $query->latest()->paginate(10);
+        $posts = $query->orderBy('id', 'desc')->paginate(10);
 
         return view('welcome', [
             'posts' => $posts,
