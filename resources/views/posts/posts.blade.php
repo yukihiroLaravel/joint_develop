@@ -1,3 +1,11 @@
+@if (!empty($keyword))
+    <div class="w-75 m-auto">
+        <p>「{{ $keyword }}」の検索結果：{{ $posts->total() }}件</p>
+    </div>    
+@endif
+@if ($posts->isEmpty())    
+    <p class="text-center mt-4">検索結果はありませんでした。</p>
+@else
 <ul class="list-unstyled">
     @foreach ($posts as $post)
         <li class="mb-3 text-center">
@@ -25,4 +33,5 @@
         </li>
     @endforeach
 </ul>
-<div class="m-auto" style="width: fit-content">{{ $posts->links('pagination::bootstrap-4') }}</div>
+<div class="m-auto" style="width: fit-content">{{ $posts->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
+@endif
