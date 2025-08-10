@@ -29,7 +29,7 @@ console_command = 'php /var/www/html/artisan tinker'
   processes = ['app']
 
 [[vm]]
-  memory = '1gb'
+  memory = '256mb'
   cpu_kind = 'shared'
   cpus = 1
 
