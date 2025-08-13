@@ -17,6 +17,13 @@
             <div class="contaier">
                 <div class="text-left d-inline-block w-75">
                     <p class="mb-2">{{$post->content}}</p>
+                    @if ($post->images->isNotEmpty())
+                        <div class="mb-2">
+                            @foreach ($post->images as $image)
+                                <img src="{{ asset('storage/' . $image->file_path) }}" alt="{{ $image->file_name }}" style="max-width: 200px; margin-right: 10px; margin-bottom: 5px;">
+                            @endforeach
+                        </div>
+                    @endif
                     <p class="text-muted">{{$post->created_at}}</p>
                 </div>
                 @if (Auth::id() === $post->user_id)

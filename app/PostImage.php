@@ -1,0 +1,18 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class PostImage extends Model
+{
+    protected $fillable = [
+        "post_id","file_name","file_path","file_size"
+    ];
+
+    public function post()
+    {
+        return $this->belongsTo(Post::class);
+    }
+}
