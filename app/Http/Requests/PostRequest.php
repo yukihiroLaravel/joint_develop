@@ -24,8 +24,18 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'required|max:140',
+            'content' => 'nullable|max:140',
+            'images.*' => 'image|max:5000',
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if (!$this->filled('content') && !$this->hasFile('images')) {
+                $validator->errors()->add('content', '投稿内容か画像のどちらかを入力してください。');
+            }
+        });
     }
 
     public function attributes()
