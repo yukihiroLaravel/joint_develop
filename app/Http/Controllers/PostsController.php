@@ -75,7 +75,7 @@ class PostsController extends Controller
     {
         $keyword = $request->input('keyword');
 
-        $query = Post::with('images');
+        $query = Post::query();
 
         if (!empty($keyword)) {
             $query->where(function($q) use ($keyword) {

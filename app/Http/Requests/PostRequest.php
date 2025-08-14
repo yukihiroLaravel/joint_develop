@@ -32,7 +32,7 @@ class PostRequest extends FormRequest
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
-            if (!$this->content && !$this->hasFile('images.*')) {
+            if (!$this->filled('content') && !$this->hasFile('images')) {
                 $validator->errors()->add('content', '投稿内容か画像のどちらかを入力してください。');
             }
         });
