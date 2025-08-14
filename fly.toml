@@ -25,11 +25,11 @@ console_command = 'php /var/www/html/artisan tinker'
   force_https = true
   auto_stop_machines = 'stop'
   auto_start_machines = true
-  min_machines_running = 0
+  min_machines_running = 1
   processes = ['app']
 
 [[vm]]
-  memory = '1gb'
+  memory = '256mb'
   cpu_kind = 'shared'
   cpus = 1
 
@@ -40,6 +40,3 @@ console_command = 'php /var/www/html/artisan tinker'
 [mounts]
   source = "storage_volume"
   destination = "/var/www/html/laravelapp/storage"
-
-[deploy]
-  release_command = "/bin/bash /var/www/html/laravelapp/.fly/scripts/00_storage_init.sh"
