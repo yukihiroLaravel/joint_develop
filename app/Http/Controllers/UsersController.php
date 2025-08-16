@@ -13,17 +13,14 @@ class UsersController extends Controller
     public function show($id, Request $request)
     {
         $user = User::findOrFail($id);
-        $tab = $request->query('tab', 'timeline');
         $posts = $user->posts()->with('user')->orderBy('id', 'desc')->paginate(10); // ユーザの投稿を取得
         $followingUsers = $user->followings()->paginate(10); // フォロー中のユーザを取得
         $followers = $user->followers()->paginate(10); // フォロワーを取得
         
         $data=[
             'user' => $user,
-            'tab' => $tab,
+            'tab' => 'timeline',
             'posts' => $posts,
-            'followingUsers' => $followingUsers,
-            'followers' => $followers,
             'followersCount' => $user->followers()->count(),
             'followingCount' => $user->followings()->count(),
         ];
@@ -33,20 +30,30 @@ class UsersController extends Controller
     public function following($id)
     {
         $user = User::findOrFail($id);
-        $followingUsers = $user->following()->get();
+        $followingUsers = $user->followings()->paginate(10);
 
-        return view('users.following', compact('user', 'followingUsers'));
+         $data=[
+            'user' => $user,
+            'followingUsers' => $followingUsers,
+            'followingCount' => $user->followings()->count(),
+            'followersCount' => $user->followers()->count(),
+        ];
+        return view('users.following',$data);
     }
 
     public function followers($id)
     {
         $user = User::findOrFail($id);
-        $followers = $user->followers()->get();
+        $followers = $user->followers()->paginate(10);
 
-        return view('users.followers', compact('user', 'followers'));
+        $data = [
+            'user' => $user,
+            'followers' => $followers,
+            'followingCount' => $user->followings()->count(),
+            'followersCount' => $user->followers()->count(),
+        ];  
+        return view('users.followers',$data);
     }
-
-
 
     public function edit($id)
     {
