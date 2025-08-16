@@ -55,3 +55,5 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}', 'PostsController@destroy')->name('posts.delete');
     });
 });
+// 投稿検索
+Route::get('posts/search','PostsController@search')->name('posts.search');

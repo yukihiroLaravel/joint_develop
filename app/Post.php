@@ -14,4 +14,10 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // 画像リレーション
+    public function images()
+    {
+        return $this->hasMany(PostImage::class);
+    }
 }

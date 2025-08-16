@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Post;
+use App\PostImage;
 use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('id', 'desc')->paginate(10);
+        $posts = Post::with('images')->orderBy('id', 'desc')->paginate(10);
         return view('welcome', [
             'posts' => $posts,
         ]);
@@ -23,7 +24,19 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->user_id = \Auth::id();
         $post->save();
-        return back();
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $imageFile) {
+                $path = $imageFile->store('uploads', 'public');
+
+                PostImage::create([
+                    'post_id'   => $post->id,
+                    'file_name' => $imageFile->getClientOriginalName(),
+                    'file_path' => $path,
+                ]);
+            }
+        }
+        return back();    
     }
 
     public function edit($id)
@@ -57,4 +70,24 @@ class PostsController extends Controller
         $post->delete();
         return back(); 
     }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+
+        $query = Post::query();
+
+        if (!empty($keyword)) {
+            $query->where(function($q) use ($keyword) {
+                $q->where('content', 'like', '%' . $keyword . '%');
+            });
+        }
+
+        $posts = $query->orderBy('id', 'desc')->paginate(10);
+
+        return view('welcome', [
+            'posts' => $posts,
+            'keyword' => $keyword,   
+        ]);
+    }    
 }
