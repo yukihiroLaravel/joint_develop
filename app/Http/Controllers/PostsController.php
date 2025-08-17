@@ -58,6 +58,23 @@ class PostsController extends Controller
         }
         $post->content = $request->content;
         $post->save();
+
+        if ($request->filled('delete_images')) {
+            $deleteIds = $request->input('delete_images');
+                PostImage::whereIn('id', $deleteIds)->where('post_id', $post->id)->delete();
+        }
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $imageFile) {
+                $path = $imageFile->store('uploads', 'public');
+
+                PostImage::create([
+                    'post_id'   => $post->id,
+                    'file_name' => $imageFile->getClientOriginalName(),
+                    'file_path' => $path,
+                ]);
+            } 
+        }  
         return redirect('/');
     }
 
