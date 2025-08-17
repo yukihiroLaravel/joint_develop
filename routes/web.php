@@ -22,6 +22,14 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
+// ユーザ詳細
+Route::prefix('users/{id}')->group(function () {
+    Route::get('', 'UsersController@show')->name('users.show'); 
+    // フォロー中のユーザ一覧とフォロワー一覧
+    Route::get('following', 'UsersController@following')->name('users.following');
+    Route::get('followers', 'UsersController@followers')->name('users.followers');
+});
+
 //トップページ
 Route::get('/', 'PostsController@index'); 
 
@@ -39,9 +47,6 @@ Route::group(['middleware' => 'auth'], function () {
         // フォロー・アンフォロー
         Route::post('follow', 'FollowController@store')->name('users.follow');
         Route::delete('unfollow', 'FollowController@destroy')->name('users.unfollow');
-        // フォロー中のユーザ一覧とフォロワー一覧
-        Route::get('following', 'UsersController@following')->name('users.following');
-        Route::get('followers', 'UsersController@followers')->name('users.followers');
     });
     Route::prefix('posts')->group(function () {
         // 新規投稿

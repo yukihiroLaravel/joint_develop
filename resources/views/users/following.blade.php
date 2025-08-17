@@ -6,14 +6,14 @@
     <div class="col-sm-8">
         @include('users.tabs')
 
-        @foreach ($followingUsers as $u)
+        @foreach ($followingUsers as $user)
             <div class="media mb-3 align-items-center">
-                <img class="rounded-circle mr-3" src="{{ Gravatar::src($u->email, 60) }}">
+                <img class="rounded-circle mr-3" src="{{ Gravatar::src($user->email, 60) }}">
                 <div class="media-body">
-                    <strong>{{ $u->name }}</strong>
+                    <strong>{{ $user->name }}</strong>
                 </div>
                 <div>
-                    @include('users.follow_button', ['user' => $u])
+                    @include('users.follow_button', ['user' => $user])
                 </div>
             </div>
         @endforeach
