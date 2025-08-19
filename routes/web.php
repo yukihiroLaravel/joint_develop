@@ -37,7 +37,6 @@ Route::get('/', 'PostsController@index');
 Route::group(['middleware' => 'auth'], function () {
     // ユーザ詳細
     Route::prefix('users/{id}')->group(function () {
-        Route::get('', 'UsersController@show')->name('users.show'); 
         // ユーザ情報編集
         Route::get('edit', 'UsersController@edit')->name('users.edit');
         // ユーザ情報更新
