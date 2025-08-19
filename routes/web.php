@@ -25,21 +25,28 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 // ユーザ詳細
 Route::prefix('users/{id}')->group(function () {
     Route::get('', 'UsersController@show')->name('users.show'); 
-    // ユーザ情報編集
-    Route::get('edit', 'UsersController@edit')->name('users.edit');
-    // ユーザ情報更新
-    Route::put('', 'UsersController@update')->name('users.update');
-    // ユーザ削除
-    Route::delete('', 'UsersController@destroy')->name('users.delete');
-    // フォロー・アンフォロー
-    Route::post('follow', 'FollowController@store')->name('users.follow');
-    Route::delete('unfollow', 'FollowController@destroy')->name('users.unfollow');
+    // フォロー中のユーザ一覧とフォロワー一覧
+    Route::get('following', 'UsersController@following')->name('users.following');
+    Route::get('followers', 'UsersController@followers')->name('users.followers');
 });
+
 //トップページ
 Route::get('/', 'PostsController@index'); 
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
+    // ユーザ詳細
+    Route::prefix('users/{id}')->group(function () {
+        // ユーザ情報編集
+        Route::get('edit', 'UsersController@edit')->name('users.edit');
+        // ユーザ情報更新
+        Route::put('', 'UsersController@update')->name('users.update');
+        // ユーザ削除
+        Route::delete('', 'UsersController@destroy')->name('users.delete');
+        // フォロー・アンフォロー
+        Route::post('follow', 'FollowController@store')->name('users.follow');
+        Route::delete('unfollow', 'FollowController@destroy')->name('users.unfollow');
+    });
     Route::prefix('posts')->group(function () {
         // 新規投稿
         Route::post('', 'PostsController@store')->name('posts.store');
