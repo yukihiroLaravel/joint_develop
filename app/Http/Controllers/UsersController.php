@@ -5,18 +5,54 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\User;
-use Illuminate\Validation\Rule;
+use App\Post;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 class UsersController extends Controller
 {
-    public function show($id)
+    public function show($id, Request $request)
     {
         $user = User::findOrFail($id);
-        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
+        $posts = $user->posts()->with('user')->orderBy('id', 'desc')->paginate(10); // ユーザの投稿を取得
+        $followingUsers = $user->followings()->paginate(10); // フォロー中のユーザを取得
+        $followers = $user->followers()->paginate(10); // フォロワーを取得
+        
         $data=[
             'user' => $user,
+            'tab' => 'timeline',
             'posts' => $posts,
+            'followersCount' => $user->followers()->count(),
+            'followingCount' => $user->followings()->count(),
         ];
         return view('users.show',$data);
+    }
+
+    public function following($id)
+    {
+        $user = User::findOrFail($id);
+        $followingUsers = $user->followings()->paginate(10);
+
+         $data=[
+            'user' => $user,
+            'followingUsers' => $followingUsers,
+            'followingCount' => $user->followings()->count(),
+            'followersCount' => $user->followers()->count(),
+        ];
+        return view('users.following',$data);
+    }
+
+    public function followers($id)
+    {
+        $user = User::findOrFail($id);
+        $followers = $user->followers()->paginate(10);
+
+        $data = [
+            'user' => $user,
+            'followers' => $followers,
+            'followingCount' => $user->followings()->count(),
+            'followersCount' => $user->followers()->count(),
+        ];  
+        return view('users.followers',$data);
     }
 
     public function edit($id)

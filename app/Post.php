@@ -18,6 +18,6 @@ class Post extends Model
     // 画像リレーション
     public function images()
     {
-        return $this->hasMany(PostImage::class);
+        return $this->hasMany(PostImage::class)->whereNull('deleted_at');
     }
 }

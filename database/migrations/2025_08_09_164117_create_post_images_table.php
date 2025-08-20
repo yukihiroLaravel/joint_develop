@@ -19,6 +19,7 @@ class CreatePostImagesTable extends Migration
             $table->string("file_name");
             $table->string("file_path");
             $table->timestamps();
+            $table->softDeletes();
             // 外部キー制約
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
         });

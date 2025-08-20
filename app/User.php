@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
@@ -66,17 +67,16 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'follows', 'followed_user_id', 'user_id')->withTimestamps();
     }
 
-    public function isFollow($userId)
+    public function isFollowing($userId): bool
     // ユーザが特定のユーザをフォローしているか確認
     {
         return $this->followings()->where('followed_user_id', $userId)->exists();
     }
 
-
     public function follow($userId)
     // ユーザをフォローする
     {
-        $exist = $this->isFollow($userId);
+        $exist = $this->isFollowing($userId);
         if ($exist) {
             return false;
         } else {
@@ -88,7 +88,7 @@ class User extends Authenticatable
     public function unfollow($userId)
     // ユーザのフォローを解除する
     {
-        $exist = $this->isFollow($userId);
+        $exist = $this->isFollowing($userId);
         if ($exist) {
             $this->followings()->detach($userId);
             return true;
@@ -96,4 +96,5 @@ class User extends Authenticatable
             return false;
         }
     }
+
 }
