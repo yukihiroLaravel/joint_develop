@@ -36,7 +36,7 @@ class PostsController extends Controller
                 ]);
             }
         }
-        return back();    
+        return back()->with('success', '投稿が完了しました！');    
     }
 
     public function edit($id)
@@ -58,6 +58,7 @@ class PostsController extends Controller
         }
         $post->content = $request->content;
         $post->save();
+        return redirect('/')->with('success', '投稿を更新しました！');
 
         if ($request->filled('delete_images')) {
             $deleteIds = $request->input('delete_images');
@@ -88,7 +89,7 @@ class PostsController extends Controller
             abort(403);
         }
         $post->delete();
-        return back(); 
+        return back()->with('success', '投稿を削除しました！'); 
     }
 
     public function search(Request $request)
