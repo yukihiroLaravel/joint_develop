@@ -20,5 +20,4 @@ class Post extends Model
     {
         return $this->hasMany(PostImage::class)->whereNull('deleted_at');
     }
-
-}    
+}
