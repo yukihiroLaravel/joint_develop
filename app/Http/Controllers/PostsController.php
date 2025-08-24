@@ -64,7 +64,7 @@ class PostsController extends Controller
             
             PostImage::whereIn('id', $deleteIds)
                 ->where('post_id', $post->id)
-                ->forceDelete();
+                ->delete();
         }
 
         if ($request->hasFile('images')) {
@@ -87,7 +87,10 @@ class PostsController extends Controller
         if (\Auth::id() !== $post->user_id) {
             abort(403);
         }
-        $post->delete();
+        foreach ($post->images()->withTrashed()->get() as $image) {
+        $image->forceDelete();
+    }
+        $post->forceDelete();
         return back(); 
     }
 
