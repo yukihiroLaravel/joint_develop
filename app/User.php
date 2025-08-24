@@ -97,4 +97,9 @@ class User extends Authenticatable
         }
     }
 
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
+
 }

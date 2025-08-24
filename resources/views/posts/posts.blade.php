@@ -42,6 +42,48 @@
                         <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
+                <div class="mt-3 text-left w-75 m-auto">
+                    @if($post->replies->isNotEmpty())
+                        <ul class="list-unstyled">
+                            @foreach($post->replies as $reply)
+                                <li class="mb-2 border p-2 rounded d-flex align-items-center">
+                                    <a href="{{ route('users.show', ['id' => $reply->user->id]) }}">
+                                        <img class="mr-2 rounded-circle" src="{{ Gravatar::src($reply->user->email, 40) }}" alt="ユーザのアバター画像">
+                                    </a>
+                                    <div>
+                                        <strong>
+                                            <a href="{{ route('users.show', ['id' => $reply->user->id]) }}">
+                                                {{ $reply->user->name }}
+                                            </a>
+                                        </strong>
+                                        <span class="text-muted small ml-2">
+                                            {{ $reply->created_at->format('Y-m-d H:i') }}
+                                        </span>
+                                        <p class="mb-1">{{ $reply->content }}</p>
+                                        @if (Auth::id() === $reply->user_id)
+                                            <form action="{{ route('replies.delete', $reply->id) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">削除</button>
+                                            </form>
+                                        @endif
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
+                    @if(Auth::check())
+                        <form method="POST" action="{{ route('replies.store', $post->id) }}">
+                            @csrf
+                            <div class="form-group">
+                                <textarea name="content" class="form-control" rows="2" placeholder="返信を書く..."></textarea>
+                            </div>
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-sm btn-secondary">返信する</button>
+                            </div>
+                        </form>
+                    @endif
+                </div>
             </div>
         </li>
     @endforeach

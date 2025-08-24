@@ -20,4 +20,10 @@ class Post extends Model
     {
         return $this->hasMany(PostImage::class)->whereNull('deleted_at');
     }
+
+    // 返信リレーション
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
 }

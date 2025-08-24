@@ -55,6 +55,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{id}', 'PostsController@update')->name('posts.update');
         // 投稿削除
         Route::delete('{id}', 'PostsController@destroy')->name('posts.delete');
+        // 返信の投稿
+        Route::post('{id}/replies', 'RepliesController@store')->name('replies.store');
+        // 返信の削除
+        Route::delete('replies/{id}', 'RepliesController@destroy')->name('replies.delete');
     });
 });
 // 投稿検索
