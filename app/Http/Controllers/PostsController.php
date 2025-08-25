@@ -12,7 +12,7 @@ class PostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::with('images',)->orderBy('id', 'desc')->paginate(10);
+        $posts = Post::with('images')->orderBy('id', 'desc')->paginate(10);
         return view('welcome', [
             'posts' => $posts,
         ]);
@@ -36,7 +36,7 @@ class PostsController extends Controller
                 ]);
             }
         }
-        return back()->with('success', '投稿が完了しました！');    
+        return back()->with('success', '投稿が完了しました！');
     }
 
     public function edit($id)

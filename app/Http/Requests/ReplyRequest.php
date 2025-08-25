@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 
-class PostRequest extends FormRequest
+class ReplyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,31 +26,23 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'nullable|max:140',
-            'images.*' => 'image|max:5000',
+            'content' => 'required|max:140',
+            'post_id' => 'required|exists:posts,id',
         ];
     }
 
-    public function withValidator($validator)
-    {
-        $validator->after(function ($validator) {
-            if (!$this->filled('content') && !$this->hasFile('images')) {
-                $validator->errors()->add('content', '投稿内容か画像のどちらかを入力してください。');
-            }
-        });
-    }
-
-    // バリデーション失敗時に 'post' エラーバッグを使用
+    // バリデーション失敗時に、返信フォームごとのエラーバッグを使用
     protected function failedValidation(Validator $validator)
     {
+        $postId = $this->input('post_id', 0); // 送信されたpost_idを取得
         throw (new ValidationException($validator))
-            ->errorBag('post');
+            ->errorBag('reply_' . $postId);
     }
 
     public function attributes()
     {
         return [
-            'content' => '投稿',
+            'content' => '返信',
         ];
     }
 }

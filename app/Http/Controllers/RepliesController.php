@@ -6,21 +6,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Reply;
 use App\Post;
+use App\Http\Requests\ReplyRequest;
 
 class RepliesController extends Controller
 {
-    public function store(Request $request, $postId)
+    public function store(ReplyRequest $request, $postId)
     {
-        // バリデーション
-        $request->validate([
-            'content' => 'required|string|max:255',
-        ]);
+        $post = Post::findOrFail($postId);
 
         // 返信を作成
         $reply = new Reply();
         $reply->content = $request->content;
         $reply->user_id = Auth::id();
-        $reply->post_id = $postId;
+        $reply->post_id = $post->id;
         $reply->save();
 
         return back()->with('success', '返信を投稿しました！');
