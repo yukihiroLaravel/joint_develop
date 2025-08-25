@@ -87,9 +87,10 @@ class PostsController extends Controller
         if (\Auth::id() !== $post->user_id) {
             abort(403);
         }
-        foreach ($post->images()->withTrashed()->get() as $image) {
-        $image->forceDelete();
-    }
+        foreach ($post->images as $image) {
+            \Storage::disk('public')->delete($image->file_path);
+            $image->forceDelete();
+        }
         $post->forceDelete();
         return back(); 
     }

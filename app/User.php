@@ -96,23 +96,4 @@ class User extends Authenticatable
             return false;
         }
     }
-
-    public function favorites()
-    // ユーザのお気に入りを取得
-    {
-        return $this->belongsToMany(Post::class, 'favorites', 'user_id', 'post_id')->withTimestamps();
-    }
-
-    public function favorite($postId)
-    // ユーザがお気に入りに投稿を追加する
-    {
-        $exist = $this->isfavorites($postId);
-        if ($exist) {
-            return false;
-        } else {
-            $this->favorites()->attach($postId);
-            return true;
-        }
-    }
-
 }
