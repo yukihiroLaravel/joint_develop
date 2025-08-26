@@ -27,14 +27,13 @@ class ReplyRequest extends FormRequest
     {
         return [
             'content' => 'required|max:140',
-            'post_id' => 'required|exists:posts,id',
         ];
     }
 
-    // バリデーション失敗時に、返信フォームごとのエラーバッグを使用
+    // バリデーション失敗時に 'reply_{postId}' エラーバッグを使用
     protected function failedValidation(Validator $validator)
     {
-        $postId = $this->input('post_id', 0); // 送信されたpost_idを取得
+        $postId = $this->route('id'); // ルートパラメータから投稿IDを取得
         throw (new ValidationException($validator))
             ->errorBag('reply_' . $postId);
     }

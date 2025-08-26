@@ -24,7 +24,11 @@
             {{-- 投稿内容 --}}
             <div class="contaier">
                 <div class="text-left d-inline-block w-75">
-                    <p class="mb-2">{{$post->content}}</p>
+                    <p class="mb-2">
+                        <a href="{{ route('posts.show', $post->id) }}">
+                            {{$post->content}}
+                        </a>
+                    </p>
                     @if ($post->images->isNotEmpty())
                         <div class="mb-2">
                             @foreach ($post->images as $image)
@@ -33,6 +37,12 @@
                         </div>
                     @endif
                     <p class="text-muted">{{$post->created_at}}</p>
+                    {{-- 返信件数 --}}
+                    <p class="text-muted small">
+                        <a href="{{ route('posts.show', $post->id) }}">
+                            返信 {{ $post->replies_count }} 件
+                        </a>
+                    </p>
                 </div>
                 {{-- 投稿の編集・削除 --}}
                 @if (Auth::id() === $post->user_id)
@@ -45,63 +55,6 @@
                         <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
-                {{-- 返信一覧 --}}
-                <div class="mt-3 text-left w-75 m-auto">
-                    @if($post->replies->isNotEmpty())
-                        <ul class="list-unstyled">
-                            @foreach($post->replies as $reply)
-                                <li class="mb-2 border p-2 rounded d-flex align-items-center">
-                                    <a href="{{ route('users.show', ['id' => $reply->user->id]) }}">
-                                        <img class="mr-2 rounded-circle" src="{{ Gravatar::src($reply->user->email, 40) }}" alt="ユーザのアバター画像">
-                                    </a>
-                                    <div>
-                                        <strong>
-                                            <a href="{{ route('users.show', ['id' => $reply->user->id]) }}">
-                                                {{ $reply->user->name }}
-                                            </a>
-                                        </strong>:
-                                        {{ $reply->content }}
-                                        <span class="text-muted small ml-2">
-                                            {{ $reply->created_at->format('Y-m-d H:i') }}
-                                        </span>
-                                        {{-- 返信削除 --}}
-                                        @if (Auth::id() === $reply->user_id)
-                                            <form action="{{ route('replies.delete', $reply->id) }}" method="POST" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">削除</button>
-                                            </form>
-                                        @endif
-                                    </div>
-                                </li>
-                            @endforeach
-                        </ul>
-                    @endif
-                    {{-- 返信フォーム --}}
-                    @if(Auth::check())
-                        <form method="POST" action="{{ route('replies.store', $post->id) }}">
-                            @csrf
-                            {{-- 投稿IDを隠しフィールドhiddenで送信 --}}
-                            <input type="hidden" name="post_id" value="{{ $post->id }}">
-                            <div class="form-group">
-                                <textarea
-                                    name="content"
-                                    class="form-control @error('content', 'reply_'.$post->id) is-invalid @enderror"
-                                    rows="2"
-                                    placeholder="返信を書く">@if(old('post_id') == $post->id){{ old('content') }}@endif</textarea>
-                                {{-- 返信フォーム用バリデーション --}}
-                                @error('content','reply_'.$post->id)
-                                    <span class="invalid-feedback d-block" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="text-right">
-                                <button type="submit" class="btn btn-sm btn-secondary">返信する</button>
-                            </div>
-                        </form>
-                    @endif
-                </div>
             </div>
         </li>
     @endforeach
