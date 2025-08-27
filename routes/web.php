@@ -30,12 +30,15 @@ Route::prefix('users/{id}')->group(function () {
     Route::get('followers', 'UsersController@followers')->name('users.followers');
 });
 
+// 投稿詳細
+Route::get('posts/{id}', 'PostsController@show')->name('posts.show');
+
 //トップページ
 Route::get('/', 'PostsController@index'); 
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
-    // ユーザ詳細
+    // ユーザ情報編集・更新・削除
     Route::prefix('users/{id}')->group(function () {
         // ユーザ情報編集
         Route::get('edit', 'UsersController@edit')->name('users.edit');
@@ -55,6 +58,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{id}', 'PostsController@update')->name('posts.update');
         // 投稿削除
         Route::delete('{id}', 'PostsController@destroy')->name('posts.delete');
+        // 返信の投稿
+        Route::post('{id}/replies', 'RepliesController@store')->name('replies.store');
+        // 返信の削除
+        Route::delete('replies/{id}', 'RepliesController@destroy')->name('replies.delete');
     });
 });
 // 投稿検索

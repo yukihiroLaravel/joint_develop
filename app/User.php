@@ -96,4 +96,10 @@ class User extends Authenticatable
             return false;
         }
     }
+
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
+
 }

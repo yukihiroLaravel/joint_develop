@@ -10,12 +10,28 @@ use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
 {
+    public function show($id)
+    {
+        $post = Post::with(['user', 'images'])->findOrFail($id);
+        $replies = $post->replies()
+                    ->with('user')
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(10);
+        $data = [
+            'post' => $post,
+            'replies' => $replies,
+        ];
+        return view('posts.show', $data);
+    }
+
     public function index()
     {
-        $posts = Post::with('images')->orderBy('id', 'desc')->paginate(10);
-        return view('welcome', [
-            'posts' => $posts,
-        ]);
+        $posts = Post::with(['user', 'images'])
+            ->withCount('replies') 
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('welcome', ['posts' => $posts]);
     }
 
     public function store(PostRequest $request)
@@ -36,7 +52,7 @@ class PostsController extends Controller
                 ]);
             }
         }
-        return back()->with('success', '投稿が完了しました！');    
+        return back()->with('success', '投稿が完了しました！');
     }
 
     public function edit($id)
