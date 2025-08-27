@@ -88,7 +88,11 @@ class PostsController extends Controller
         if (\Auth::id() !== $post->user_id) {
             abort(403);
         }
-        $post->delete();
+        foreach ($post->images as $image) {
+            \Storage::disk('public')->delete($image->file_path);
+            $image->forceDelete();
+        }
+        $post->forceDelete();
         return back()->with('success', '投稿を削除しました！'); 
     }
 
