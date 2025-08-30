@@ -32,10 +32,6 @@ class SearchController extends Controller
                 })
                 ->orderBy('created_at', 'desc')
                 ->paginate(10);
-            // 投稿はそのままの順序で取得
-            $posts = Post::with('user', 'images')
-                ->orderBy('created_at', 'desc')
-                ->paginate(10);
         }
 
         return view('welcome', compact('posts', 'users', 'keyword', 'type'));

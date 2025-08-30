@@ -55,31 +55,36 @@
             <p>「{{ $keyword }}」の検索結果</p>
         </div>
         {{-- ユーザ検索結果 --}}
-        @if (isset($users) && $users->isNotEmpty())
-            <div class="w-75 m-auto mb-5">
-                <h5>ユーザ</h5>
-                <ul class="list-unstyled">
-                    @foreach ($users as $user)
-                        <li class="mb-3">
-                            <a href="{{ route('users.show', ['id' => $user->id]) }}">
-                                <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 50) }}" alt="ユーザのアバター画像">
-                                {{ $user->name }}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-                <div>{{ $users->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
-            </div>
+        @if ($type === 'users')
+            @if ($users->isNotEmpty())
+                <div class="w-75 m-auto mb-5">
+                    <h5>ユーザ</h5>
+                        <ul class="list-unstyled">
+                            @foreach ($users as $user)
+                                <li class="mb-3">
+                                    <a href="{{ route('users.show', ['id' => $user->id]) }}">
+                                        <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 50) }}" alt="ユーザのアバター画像">
+                                        {{ $user->name }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    <div>{{ $users->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
+                </div>
+            @else
+                <p class="text-center">該当するユーザはいません。</p>
+            @endif
         @endif
-        {{-- 投稿検索結果（あれば置き換え、なければ通常タイムライン） --}}
-        @if (isset($posts) && $posts->isNotEmpty())
-            @include('posts.posts', ['posts' => $posts])
-        @else
-            {{-- 投稿がなければ通常タイムラインを出す --}}
-            @include('posts.posts', ['posts' => $timeline])
+        {{-- 投稿検索 --}}
+        @if ($type === 'posts')
+            @if ($posts->isNotEmpty())
+                @include('posts.posts', ['posts' => $posts])
+            @else
+                <p class="text-center">該当する投稿はありません。</p>
+            @endif
         @endif
     @else
         {{-- タイムライン --}}
-        @include('posts.posts', ['posts' => $posts])
+        @include('posts.posts', ['posts' => $timeline])
     @endif
 @endsection
