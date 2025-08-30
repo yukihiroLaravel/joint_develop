@@ -1,12 +1,18 @@
 @extends('layouts.app')
 @section('content')
 @include('commons.success_messages')
+    {{-- 検索フォーム --}}
     <div class="d-flex justify-content-end mb-3 pr-5">
-        <form action="{{ route('posts.search') }}" method="GET" class="form-inline d-inline-block">
+        <form action="{{ route('search') }}" method="GET" class="form-inline d-inline-block">
             <input type="text" name="keyword" class="form-control mr-2" placeholder="キーワードを入力" value="{{ request('keyword') }}">
+            <select name="type" class="form-control mr-2">
+                <option value="posts" {{ request('type') === 'posts' ? 'selected' : '' }}>投稿</option>
+                <option value="users" {{ request('type') === 'users' ? 'selected' : '' }}>ユーザ</option>
+            </select>
             <button type="submit" class="btn btn-primary">検索</button>
         </form>
     </div>
+    {{-- ヘッダー --}}
     <div class="container">
         <div class="jumbotron bg-info">
             <div class="text-center text-white mt-2 pt-1">
@@ -15,6 +21,7 @@
         </div>
     </div>
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
+    {{-- 投稿フォーム（ログイン時のみ） --}}
     @if (Auth::check())     
         <div class="w-75 m-auto">
             @include('commons.error_messages', ['errorBag' => 'post'])
@@ -42,5 +49,37 @@
             </form>
         </div>
     @endif
-    @include('posts.posts', ['posts' => $posts])
+    {{-- 検索結果表示 --}}
+    @if (!empty($keyword))
+        <div class="w-75 m-auto mb-4">
+            <p>「{{ $keyword }}」の検索結果</p>
+        </div>
+        {{-- ユーザ検索結果 --}}
+        @if (isset($users) && $users->isNotEmpty())
+            <div class="w-75 m-auto mb-5">
+                <h5>ユーザ</h5>
+                <ul class="list-unstyled">
+                    @foreach ($users as $user)
+                        <li class="mb-3">
+                            <a href="{{ route('users.show', ['id' => $user->id]) }}">
+                                <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 50) }}" alt="ユーザのアバター画像">
+                                {{ $user->name }}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+                <div>{{ $users->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
+            </div>
+        @endif
+        {{-- 投稿検索結果（あれば置き換え、なければ通常タイムライン） --}}
+        @if (isset($posts) && $posts->isNotEmpty())
+            @include('posts.posts', ['posts' => $posts])
+        @else
+            {{-- 投稿がなければ通常タイムラインを出す --}}
+            @include('posts.posts', ['posts' => $timeline])
+        @endif
+    @else
+        {{-- タイムライン --}}
+        @include('posts.posts', ['posts' => $posts])
+    @endif
 @endsection

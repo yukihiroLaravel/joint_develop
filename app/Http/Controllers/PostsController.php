@@ -112,23 +112,4 @@ class PostsController extends Controller
         return back()->with('success', '投稿を削除しました！'); 
     }
 
-    public function search(Request $request)
-    {
-        $keyword = $request->input('keyword');
-
-        $query = Post::query();
-
-        if (!empty($keyword)) {
-            $query->where(function($q) use ($keyword) {
-                $q->where('content', 'like', '%' . $keyword . '%');
-            });
-        }
-
-        $posts = $query->orderBy('id', 'desc')->paginate(10);
-
-        return view('welcome', [
-            'posts' => $posts,
-            'keyword' => $keyword,   
-        ]);
-    }    
 }
