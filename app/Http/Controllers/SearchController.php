@@ -24,16 +24,16 @@ class SearchController extends Controller
                 })
                 ->orderBy('created_at', 'desc')
                 ->paginate(10);
-        } elseif ($type === 'users') {
-            // ユーザ検索
-            $users = User::when($keyword, function ($query, $keyword) {
-                    $query->where('name', 'like', "%{$keyword}%")
-                          ->orWhere('email', 'like', "%{$keyword}%");
-                })
-                ->orderBy('created_at', 'desc')
-                ->paginate(10);
+            return view('welcome', compact('posts', 'users', 'keyword', 'type'));
         }
-
+        
+        // ユーザ検索
+        $users = User::when($keyword, function ($query, $keyword) {
+                    $query->where('name', 'like', "%{$keyword}%")
+                            ->orWhere('email', 'like', "%{$keyword}%");
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
         return view('welcome', compact('posts', 'users', 'keyword', 'type'));
     }
 

@@ -85,6 +85,6 @@
         @endif
     @else
         {{-- タイムライン --}}
-        @include('posts.posts', ['posts' => $timeline])
+        @include('posts.posts', ['posts' => $posts])
     @endif
 @endsection
