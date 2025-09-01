@@ -18,7 +18,13 @@ class Post extends Model
     // 画像リレーション
     public function images()
     {
-        return $this->hasMany(PostImage::class)->whereNull('deleted_at');
+        return $this->hasMany(PostImage::class);
+    }
+
+    // 返信リレーション
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
     }
 
     public function favoriteUsers()

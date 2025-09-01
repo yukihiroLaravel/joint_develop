@@ -9,6 +9,6 @@
         <form method="POST" action="{{ route('favorite', $post->id) }}">
             @csrf
             <button type="submit" class="btn btn-success">いいね！を押す</button>
-        </form>
-    @endif
-@endif
+        </form>      
+    @endif        
+@endif  
