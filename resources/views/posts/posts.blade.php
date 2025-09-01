@@ -22,6 +22,19 @@
             </div>
             <div class="contaier">
                 <div class="text-left d-inline-block w-75">
+                    <p>
+                        @if (isset($post->title)) 
+                            {{ $post->title }} 
+                        @endif
+                    </p>
+                    @include('favorite.favorite_button', ['post' => $post])
+                    @php
+                        $countFavoriteUsers = $post->favoriteUsers()->count(); 
+                    @endphp
+                    <div class="text-right mb-2">
+                        いいね！
+                        <span class="badge badge-pill badge-success">{{ $countFavoriteUsers }}</span>
+                    </div>
                     <p class="mb-2">{{$post->content}}</p>
                     @if ($post->images->isNotEmpty())
                         <div class="mb-2">

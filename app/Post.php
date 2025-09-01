@@ -20,4 +20,9 @@ class Post extends Model
     {
         return $this->hasMany(PostImage::class)->whereNull('deleted_at');
     }
+
+    public function favoriteUsers()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'post_id', 'user_id')->withTimestamps();
+    }
 }

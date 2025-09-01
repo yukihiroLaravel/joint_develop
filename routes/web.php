@@ -28,6 +28,8 @@ Route::prefix('users/{id}')->group(function () {
     // フォロー中のユーザ一覧とフォロワー一覧
     Route::get('following', 'UsersController@following')->name('users.following');
     Route::get('followers', 'UsersController@followers')->name('users.followers');
+    // いいね表示
+    Route::get('favorites','UsersController@favorites')->name('users.favorites');
 });
 
 //トップページ
@@ -55,6 +57,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{id}', 'PostsController@update')->name('posts.update');
         // 投稿削除
         Route::delete('{id}', 'PostsController@destroy')->name('posts.delete');
+    });
+    Route::group(['prefix' => 'posts/{id}'],function(){
+        // いいね・いいね解除
+        Route::post('favorite','FavoriteController@store')->name('favorite');
+        Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
     });
 });
 // 投稿検索
