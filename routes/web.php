@@ -64,5 +64,5 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('replies/{id}', 'RepliesController@destroy')->name('replies.delete');
     });
 });
-// 投稿検索
-Route::get('posts/search','PostsController@search')->name('posts.search');
+// ユーザ・投稿検索
+Route::get('search','SearchController@index')->name('search');
