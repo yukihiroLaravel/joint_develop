@@ -1,41 +1,46 @@
 @extends('layouts.app')
 @section('content')
-    <div class="text-center">
-        <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
-    </div>
-    <div class="text-center mt-5">
-        <p class="text-left d-inline-block">新規ユーザ登録すると投稿で<br>コミュニケーションができるようになります。</p>
-    </div>
-    <div class="text-center">
-        <h3 class="login_title text-left d-inline-block mt-5">新規ユーザ登録</h3>
-    </div>
-    <div class="row mt-5">
-        <div class="col-sm-6 offset-sm-3">
-            @include('commons.error_messages')
-        </div>
+    <div class="text-center text-white mb-4">
+        <h1><i class="fas fa-campground mr-2"></i>Enjoy the Outdoors</h1>
+        <p class="lead">キャンプの魅力について語ろう！</p>
     </div>
     <div class="row mt-5 mb-5">
-        <div class="col-sm-6 offset-sm-3">
-            <form method="POST" action="{{route('signup.post')}}">
-                @csrf
-                <div class="form-group">
-                    <label for="name">名前</label>
-                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
+        <div class="col-sm-8 offset-sm-2 col-md-6 offset-md-3">
+            <div class="card shadow-lg" style="background-color: rgba(255, 255, 255, 0.9); border: 2px solid #4a3f35;">
+                <div class="card-body">
+                    <h3 class="card-title text-center mb-4 text-success">
+                        <i class="fas fa-user-plus"></i> 新規ユーザ登録
+                    </h3>
+                    @include('commons.error_messages')
+                    <form method="POST" action="{{route('signup.post')}}">
+                        @csrf
+                        <div class="form-group">
+                            <label for="name" class="font-weight-bold">名前</label>
+                            <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="font-weight-bold">メールアドレス</label>
+                            <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="font-weight-bold">パスワード</label>
+                            <input id="password" type="password" class="form-control" name="password" value="{{ old('password') }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="password_confirmation" class="font-weight-bold">パスワード確認</label>
+                            <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" value="{{ old('password_confirmation') }}">
+                        </div>
+                        <button type="submit" class="btn btn-warning btn-block mt-3">
+                            <i class="fas fa-user-check"></i> 登録する
+                        </button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <a href="{{ route('login') }}" class="text-success font-weight-bold">
+                            <i class="fas fa-sign-in-alt"></i> すでにアカウントをお持ちですか？
+                        </a>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="email">メールアドレス</label>
-                    <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}">
-                </div>
-                <div class="form-group">
-                    <label for="password">パスワード</label>
-                    <input id="password" type="password" class="form-control" name="password" value="{{ old('password') }}">
-                </div>
-                <div class="form-group">
-                    <label for="password_confirmation">パスワード確認</label>
-                    <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" value="{{ old('password_confirmation') }}">
-                </div>
-                <button type="submit" class="btn btn-primary mt-2">新規登録</button>
-            </form>
+            </div>
         </div>
     </div>
 @endsection
