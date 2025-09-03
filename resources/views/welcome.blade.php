@@ -9,18 +9,25 @@
                 <option value="posts" {{ request('type') === 'posts' ? 'selected' : '' }}>投稿</option>
                 <option value="users" {{ request('type') === 'users' ? 'selected' : '' }}>ユーザ</option>
             </select>
-            <button type="submit" class="btn btn-primary">検索</button>
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-search"></i> 検索
+            </button>
         </form>
     </div>
     {{-- ヘッダー --}}
     <div class="container">
-        <div class="jumbotron bg-info">
-            <div class="text-center text-white mt-2 pt-1">
-                <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
+        <div class="jumbotron text-white text-center"
+             style="background: url('/images/outdoor.jpg') no-repeat center center;
+                    background-size: cover;
+                    border-radius: 15px;">
+            <div class="overlay" style="background: rgba(0,0,0,0.5); padding: 50px; border-radius: 15px;">
+                <h1 class="display-4">
+                    <i class="fas fa-campground pr-2"></i>Enjoy the Outdoors
+                </h1>
+                <p class="lead">キャンプの魅力について語ろう！</p>
             </div>
         </div>
     </div>
-    <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
     {{-- 投稿フォーム（ログイン時のみ） --}}
     @if (Auth::check())     
         <div class="w-75 m-auto">
@@ -43,7 +50,7 @@
 
                     <input type="file" name="images[]" multiple class="form-control-file mt-2">
                     <div class="text-left mt-3">
-                        <button type="submit" class="btn btn-primary">投稿する</button>
+                        <button type="submit" class="btn btn-success">つぶやく</button>
                     </div>
                 </div>
             </form>
