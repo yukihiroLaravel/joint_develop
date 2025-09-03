@@ -1,14 +1,29 @@
+@php
+    $countFavoriteUsers = $post->favoriteUsers()->count(); 
+@endphp
+
 @if (Auth::check() && Auth::id() !== $post->user_id)
     @if (Auth::user()->isFavorite($post->id))
-        <form method="POST" action="{{ route('unfavorite', $post->id) }}">
+        {{-- いいね済み（青） --}}
+        <form method="POST" action="{{ route('unfavorite', $post->id) }}" class="d-inline">
             @csrf
             @method('DELETE')
-            <button type="submit" class="btn btn-danger">いいね！を外す</button>
+            <button type="submit" class="btn btn-link p-0 text-primary d-flex align-items-center">
+                いいね <i class="bi bi-hand-thumbs-up-fill ml-1 mr-1"></i> {{ $countFavoriteUsers }}
+            </button>
         </form>
     @else
-        <form method="POST" action="{{ route('favorite', $post->id) }}">
+        {{-- 未いいね（グレー） --}}
+        <form method="POST" action="{{ route('favorite', $post->id) }}" class="d-inline">
             @csrf
-            <button type="submit" class="btn btn-success">いいね！を押す</button>
+            <button type="submit" class="btn btn-link p-0 text-muted d-flex align-items-center">
+                いいね <i class="bi bi-hand-thumbs-up ml-1 mr-1"></i> {{ $countFavoriteUsers }}
+            </button>
         </form>      
     @endif        
-@endif  
+@else
+    {{-- 未ログイン時 --}}
+    <span class="text-muted d-flex align-items-center">
+        いいね <i class="bi bi-hand-thumbs-up ml-1 mr-1"></i> {{ $countFavoriteUsers }}
+    </span>
+@endif

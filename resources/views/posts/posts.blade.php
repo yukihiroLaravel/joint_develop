@@ -19,7 +19,7 @@
                         {{ $post->user->name }}
                     </a>
                 </p>
-                @include('users.follow_button',['user'=> $post->user])
+                @include('users.follow_button',['user'=> $post->user])    
             </div>
             {{-- 投稿内容 --}}
             <div class="text-left w-75 m-auto">
@@ -28,14 +28,6 @@
                         {{ $post->title }} 
                     @endif
                 </p> 
-                @include('favorite.favorite_button', ['post' => $post])
-                @php
-                    $countFavoriteUsers = $post->favoriteUsers()->count(); 
-                @endphp
-                <div class="text-right mb-3">
-                    いいね！
-                    <span class="badge badge-pill badge-success">{{ $countFavoriteUsers }}</span>
-                </div>
                 <p class="mb-2">
                     <a href="{{ route('posts.show', $post->id) }}">
                         {{ $post->content }}
@@ -49,13 +41,17 @@
                     </div>
                 @endif
                 <p class="text-muted">{{ $post->created_at }}</p>
+                {{-- いいねボタン --}}
+                <div class="d-flex align-items-center">
+                    @include('favorite.favorite_button', ['post' => $post])
+                </div>    
                 {{-- 返信件数 --}}
                 <p class="text-muted small">
                     <a href="{{ route('posts.show', $post->id) }}">
                         返信 {{ $post->replies_count }} 件
                     </a>
                 </p>
-                </div>
+            </div>
                 {{-- 投稿の編集・削除 --}}
                 @if (Auth::id() === $post->user_id)
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">

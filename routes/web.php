@@ -28,8 +28,6 @@ Route::prefix('users/{id}')->group(function () {
     // フォロー中のユーザ一覧とフォロワー一覧
     Route::get('following', 'UsersController@following')->name('users.following');
     Route::get('followers', 'UsersController@followers')->name('users.followers');
-    // いいね表示
-    Route::get('favorites','UsersController@favorites')->name('users.favorites');
 });
 
 // 投稿詳細
