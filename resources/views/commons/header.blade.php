@@ -1,6 +1,8 @@
 <header class="mb-5">
-    <nav class="navbar navbar-expand-sm navbar-dark bg-info">
-        <a class="navbar-brand" href="/">Topic Posts</a>
+    <nav class="navbar navbar-expand-sm navbar-dark navbar-camp">
+        <a class="navbar-brand" href="/">
+            <i class="fas fa-campground mr-2"></i>Enjoy the Outdoors
+        </a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>
         </button>
