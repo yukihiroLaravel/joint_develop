@@ -28,28 +28,36 @@
                 </div>
             </div>
             {{-- 投稿内容 --}}
-            <div class="contaier">
-                <div class="text-left d-inline-block w-75">
-                    <p class="mb-2">
-                        <a href="{{ route('posts.show', $post->id) }}">
-                            {{$post->content}}
-                        </a>
-                    </p>
-                    @if ($post->images->isNotEmpty())
-                        <div class="mb-2">
-                            @foreach ($post->images as $image)
-                                <img src="{{ asset('storage/' . $image->file_path) }}" alt="{{ $image->file_name }}" style="max-width: 200px; margin-right: 10px; margin-bottom: 5px;">
-                            @endforeach
-                        </div>
+            <div class="text-left w-75 m-auto">
+                <p>
+                    @if (isset($post->title)) 
+                        {{ $post->title }} 
                     @endif
-                    <p class="text-muted">{{$post->created_at}}</p>
-                    {{-- 返信件数 --}}
-                    <p class="text-muted small">
-                        <a href="{{ route('posts.show', $post->id) }}">
-                            返信 {{ $post->replies_count }} 件
-                        </a>
-                    </p>
-                </div>
+                </p> 
+                <p class="mb-2">
+                    <a href="{{ route('posts.show', $post->id) }}">
+                        {{ $post->content }}
+                    </a>
+                </p>
+                @if ($post->images->isNotEmpty())
+                    <div class="mb-2">
+                        @foreach ($post->images as $image)
+                            <img src="{{ asset('storage/' . $image->file_path) }}" alt="{{ $image->file_name }}" style="max-width: 200px; margin-right: 10px; margin-bottom: 5px;">
+                        @endforeach
+                    </div>
+                @endif
+                <p class="text-muted">{{ $post->created_at }}</p>
+                {{-- いいねボタン --}}
+                <div class="d-flex align-items-center">
+                    @include('favorite.favorite_button', ['post' => $post])
+                </div>    
+                {{-- 返信件数 --}}
+                <p class="text-muted small">
+                    <a href="{{ route('posts.show', $post->id) }}">
+                        返信 {{ $post->replies_count }} 件
+                    </a>
+                </p>
+            </div>
                 {{-- 投稿の編集・削除 --}}
                 @if (Auth::id() === $post->user_id)
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
@@ -61,7 +69,6 @@
                         <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
-            </div>
         </li>
     @endforeach
 </ul>

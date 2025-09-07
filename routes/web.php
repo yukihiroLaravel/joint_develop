@@ -63,6 +63,11 @@ Route::group(['middleware' => 'auth'], function () {
         // 返信の削除
         Route::delete('replies/{id}', 'RepliesController@destroy')->name('replies.delete');
     });
+    Route::group(['prefix' => 'posts/{id}'],function(){
+        // いいね・いいね解除
+        Route::post('favorite','FavoriteController@store')->name('favorite');
+        Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
+    });
 });
 // ユーザ・投稿検索
 Route::get('search','SearchController@index')->name('search');
