@@ -26,7 +26,7 @@ class SearchController extends Controller
                 })
                 ->orderBy('created_at', 'desc')
                 ->paginate(10);
-            return view('welcome', compact('posts', 'users', 'tags', 'keyword'));
+            return view('welcome', compact('posts', 'users', 'tags', 'keyword','type'));
         }
         
         if ($type === 'users') {
@@ -37,7 +37,7 @@ class SearchController extends Controller
                 })
                 ->orderBy('created_at', 'desc')
                 ->paginate(10);
-            return view('welcome', compact('posts', 'users', 'tags', 'keyword',));
+            return view('welcome', compact('posts', 'users', 'tags', 'keyword', 'type'));
         }
 
         if ($type === 'tags') {
@@ -47,7 +47,7 @@ class SearchController extends Controller
                 })
                 ->orderBy('created_at', 'desc')
                 ->paginate(10);
-            return view('welcome', compact('posts', 'users', 'tags', 'keyword',));
+            return view('welcome', compact('posts', 'users', 'tags', 'keyword', 'type'));
         }
     }
 

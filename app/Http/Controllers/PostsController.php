@@ -31,6 +31,9 @@ class PostsController extends Controller
             ->withCount('replies') 
             ->orderBy('created_at', 'desc')
             ->paginate(10);
+        $users = collect(); // 空のコレクション
+        $keyword = null;   // キーワードなし
+        $type = 'posts';   // デフォルトを投稿検索にしておく
 
         return view('welcome', ['posts' => $posts]);
     }
