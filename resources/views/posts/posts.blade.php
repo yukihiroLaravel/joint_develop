@@ -42,6 +42,16 @@
                             @endforeach
                         </div>
                     @endif
+                    {{-- タグ表示 --}}
+                    @if ($post->tags->isNotEmpty())
+                        <div class="mb-2">
+                            @foreach ($post->tags as $tag)
+                                <a href="{{ route('tags.show', $tag->id) }}" class="badge badge-success">
+                                    #{{ $tag->name }}
+                                </a>
+                            @endforeach
+                        </div>
+                    @endif
                     <p class="text-muted">{{$post->created_at}}</p>
                     {{-- 返信件数 --}}
                     <p class="text-muted small">

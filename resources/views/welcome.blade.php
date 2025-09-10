@@ -8,6 +8,7 @@
             <select name="type" class="form-control mr-2">
                 <option value="posts" {{ request('type') === 'posts' ? 'selected' : '' }}>投稿</option>
                 <option value="users" {{ request('type') === 'users' ? 'selected' : '' }}>ユーザ</option>
+                <option value="tags" {{ request('type') === 'tags' ? 'selected' : '' }}>タグ</option>
             </select>
             <button type="submit" class="btn btn-success">
                 <i class="fas fa-search"></i> 検索
@@ -47,7 +48,18 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-
+                    {{-- タグ入力 --}}
+                    <input type="text" 
+                           name="tags"
+                           class="form-control mt-2 @error('tags', 'post') is-invalid @enderror"
+                           placeholder="例：キャンプ飯, ソロキャンプ, 登山"
+                           value="{{ old('tags', '', 'post') }}">
+                    @error('tags', 'post')
+                        <span class="invalid-feedback d-block" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    {{-- 画像アップロード --}}
                     <input type="file" name="images[]" multiple class="form-control-file mt-2">
                     <div class="text-left mt-3">
                         <button type="submit" class="btn btn-success">つぶやく</button>
@@ -88,6 +100,26 @@
                 @include('posts.posts', ['posts' => $posts])
             @else
                 <p class="text-center">該当する投稿はありません。</p>
+            @endif
+        @endif
+        {{-- タグ検索 --}}
+        @if ($type === 'tags')
+            @if ($tags->isNotEmpty())
+                <div class="w-75 m-auto mb-5">
+                    <h5>タグ</h5>
+                    <ul class="list-unstyled">
+                        @foreach ($tags as $tag)
+                            <li class="mb-2">
+                                <a href="{{ route('tags.show', $tag->id) }}" class="badge badge-success">
+                                    #{{ $tag->name }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                    <div>{{ $tags->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
+                </div>
+            @else
+                <p class="text-center">該当するタグはありません。</p>
             @endif
         @endif
     @else

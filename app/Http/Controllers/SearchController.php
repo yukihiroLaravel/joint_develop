@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\User;
+use App\Tag;
 
 class SearchController extends Controller
 {
@@ -15,6 +16,7 @@ class SearchController extends Controller
 
         $posts = collect();
         $users = collect();
+        $tags = collect();
 
         if ($type === 'posts') {
             // 投稿検索
@@ -24,17 +26,29 @@ class SearchController extends Controller
                 })
                 ->orderBy('created_at', 'desc')
                 ->paginate(10);
-            return view('welcome', compact('posts', 'users', 'keyword', 'type'));
+            return view('welcome', compact('posts', 'users', 'tags', 'keyword'));
         }
         
+        if ($type === 'users') {
         // ユーザ検索
-        $users = User::when($keyword, function ($query, $keyword) {
-                    $query->where('name', 'like', "%{$keyword}%")
-                            ->orWhere('email', 'like', "%{$keyword}%");
-            })
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
-        return view('welcome', compact('posts', 'users', 'keyword', 'type'));
+            $users = User::when($keyword, function ($query, $keyword) {
+                        $query->where('name', 'like', "%{$keyword}%")
+                                ->orWhere('email', 'like', "%{$keyword}%");
+                })
+                ->orderBy('created_at', 'desc')
+                ->paginate(10);
+            return view('welcome', compact('posts', 'users', 'tags', 'keyword',));
+        }
+
+        if ($type === 'tags') {
+            // タグ検索
+            $tags = Tag::when($keyword, function ($query, $keyword) {
+                        $query->where('name', 'like', "%{$keyword}%");
+                })
+                ->orderBy('created_at', 'desc')
+                ->paginate(10);
+            return view('welcome', compact('posts', 'users', 'tags', 'keyword',));
+        }
     }
 
 }

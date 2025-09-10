@@ -12,6 +12,15 @@
                 <div class="form-group">
                     <label for="content" class="font-weight-bold text-dark">内容</label>
                     <textarea id="content" class="form-control border border-success" name="content" rows="5" style="border-radius: 10px;">{{ old('content', $post->content) }}</textarea>
+                    {{-- タグ入力 --}}
+                    <label for="tags" class="mt-3 font-weight-bold text-dark">タグ</label>
+                    <input type="text" 
+                        id="tags" 
+                        name="tags" 
+                        class="form-control border border-success"
+                        style="border-radius: 10px;"
+                        placeholder="カンマ区切りで入力（例: キャンプ, BBQ, アウトドア）"
+                        value="{{ old('tags', $post->tags->pluck('name')->implode(', ')) }}">
                     @if($post->images->count() > 0)
                         <div class="mt-4">
                             <p class="font-weight-bold text-dark"><i class="fas fa-images"></i>>現在の画像:</p>
