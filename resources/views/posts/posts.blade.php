@@ -72,5 +72,7 @@
         </li>
     @endforeach
 </ul>
-<div class="m-auto" style="width: fit-content">{{ $posts->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
+    @if ($posts instanceof \Illuminate\Pagination\LengthAwarePaginator)
+        <div class="m-auto" style="width: fit-content">{{ $posts->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
+    @endif
 @endif

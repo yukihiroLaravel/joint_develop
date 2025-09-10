@@ -36,6 +36,9 @@ Route::get('posts/{id}', 'PostsController@show')->name('posts.show');
 //トップページ
 Route::get('/', 'PostsController@index'); 
 
+// いいねランキング
+Route::get('ranking', 'RankingController@index')->name('ranking.index');
+
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
     // ユーザ情報編集・更新・削除
