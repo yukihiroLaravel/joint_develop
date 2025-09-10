@@ -13,6 +13,6 @@ class RankingController extends Controller
             ->take(10)
             ->get();
 
-        return view('ranking.index', compact('posts'));
+        return view('ranking.index', ['posts' => $posts]);
     }
 }
