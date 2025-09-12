@@ -29,16 +29,27 @@
             </div>
             {{-- 投稿内容 --}}
             <div class="text-left w-75 m-auto">
-                <p>
-                    @if (isset($post->title)) 
-                        {{ $post->title }} 
-                    @endif
-                </p> 
+                {{-- タイトル --}}
+                @if (isset($post->title)) 
+                    <h5 class="font-weight-bold">{{ $post->title }}</h5>
+                @endif
+                {{-- タグ表示 --}}
+                @if ($post->tags->isNotEmpty())
+                    <div class="mb-2">
+                        @foreach ($post->tags as $tag)
+                            <a href="{{ route('tags.show', $tag->id) }}" class="badge badge-success mr-1">
+                                #{{ $tag->name }}
+                            </a>
+                        @endforeach
+                    </div>
+                @endif
+                {{-- 投稿内容 --}}
                 <p class="mb-2">
                     <a href="{{ route('posts.show', $post->id) }}">
                         {{ $post->content }}
                     </a>
                 </p>
+                {{-- 画像表示 --}}
                 @if ($post->images->isNotEmpty())
                     <div class="mb-2">
                         @foreach ($post->images as $image)
@@ -46,11 +57,12 @@
                         @endforeach
                     </div>
                 @endif
-                <p class="text-muted">{{ $post->created_at }}</p>
+                {{-- 投稿日時 --}}
+                <p class="text-muted">{{$post->created_at}}</p>
                 {{-- いいねボタン --}}
                 <div class="d-flex align-items-center">
                     @include('favorite.favorite_button', ['post' => $post])
-                </div>    
+                </div> 
                 {{-- 返信件数 --}}
                 <p class="text-muted small">
                     <a href="{{ route('posts.show', $post->id) }}">
@@ -58,19 +70,21 @@
                     </a>
                 </p>
             </div>
-                {{-- 投稿の編集・削除 --}}
-                @if (Auth::id() === $post->user_id)
-                    <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                        <form method="POST" action="{{ route('posts.delete', $post->id) }}">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">削除</button>
-                        </form>
-                        <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">編集する</a>
-                    </div>
-                @endif
+            {{-- 投稿の編集・削除 --}}
+            @if (Auth::id() === $post->user_id)
+                <div class="d-flex justify-content-between w-75 pb-3 m-auto">
+                    <form method="POST" action="{{ route('posts.delete', $post->id) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">削除</button>
+                    </form>
+                    <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">編集する</a>
+                </div>
+            @endif
         </li>
     @endforeach
 </ul>
-<div class="m-auto" style="width: fit-content">{{ $posts->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
+<div class="m-auto" style="width: fit-content">
+    {{ $posts->appends(request()->query())->links('pagination::bootstrap-4') }}
+</div>
 @endif

@@ -33,6 +33,9 @@ Route::prefix('users/{id}')->group(function () {
 // 投稿詳細
 Route::get('posts/{id}', 'PostsController@show')->name('posts.show');
 
+// タグの投稿一覧
+Route::get('tags/{tag}', 'TagController@show')->name('tags.show');
+
 //トップページ
 Route::get('/', 'PostsController@index'); 
 

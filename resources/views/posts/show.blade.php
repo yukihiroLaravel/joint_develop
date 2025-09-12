@@ -15,6 +15,20 @@
                 <strong style="color:#2e5c2b;">{{ $post->user->name }}</strong>
             </div>
             <p class="mb-3" style="font-size:1.1em;">{{ $post->content }}</p>
+            {{-- タグ表示 --}}
+            @if($post->tags->isNotEmpty())
+                <div class="mb-3">
+                    <i class="fas fa-tags text-success"></i>
+                    @foreach($post->tags as $tag)
+                        <a href="{{ route('tags.show', $tag->id) }}" 
+                        class="badge badge-success p-2 mr-1" 
+                        style="font-size:0.9em; background-color:#2e5c2b;">
+                            #{{ $tag->name }}
+                        </a>
+                    @endforeach
+                </div>
+            @endif
+            {{-- 画像表示 --}}
             @if ($post->images->isNotEmpty())
                 <div class="mb-3 d-flex flex-wrap">
                     @foreach ($post->images as $image)
@@ -48,7 +62,7 @@
                 </div>
                 <p class="mb-2">{{ $reply->content }}</p>
                 @if (Auth::id() === $reply->user_id)
-                    <form action="{{ route('replies.destroy', $reply->id) }}" method="POST" class="d-inline">
+                    <form action="{{ route('replies.delete', $reply->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-sm btn-danger"
