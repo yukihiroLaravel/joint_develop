@@ -9,8 +9,9 @@ class UsersTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()          //シーダーコマンド実行後登録されるuser情報4件
+    public function run()          
     {
+        //シーダーコマンド実行後登録されるuser情報4件
         DB::table('users')->insert([
             'name' => 'test1',
             'email' => 'test1@test.com',
