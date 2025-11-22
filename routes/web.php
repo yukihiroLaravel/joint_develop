@@ -10,7 +10,5 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
+// トップページの表示
+Route::get('/', 'UsersController@index');
