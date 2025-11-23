@@ -11,4 +11,4 @@
 |
 */
 // トップページの表示
-Route::get('/', 'UsersController@index');
+Route::get('/', 'PostsController@index');

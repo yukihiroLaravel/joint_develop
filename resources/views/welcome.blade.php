@@ -7,15 +7,8 @@
     </div>
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
         <div class="w-75 m-auto">
-        {{-- エラーメッセージ表示 --}}
-        @if (count($errors) > 0)
-            <ul class="alert alert-danger" role="alert">
-            @foreach ($errors->all() as $error)
-                <li class="ml-4">{{ $error }}</li>
-            @endforeach
-            </ul>
-        @endif
-        </div>
+            {{-- 共通のエラーメッセージ --}}
+            @include('commons.error_messages')</div>
         <div class="text-center mb-3">
             <form method="" action="" class="d-inline-block w-75">
                 <div class="form-group">
