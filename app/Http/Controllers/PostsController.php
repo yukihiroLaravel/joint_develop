@@ -20,8 +20,6 @@ class PostsController extends Controller
             'user' => $user,
             'posts' => $posts,
         ];
-        $data += $this->userCounts($user);
-
         return view('users.show', $data);
     }
 }
