@@ -13,6 +13,14 @@
 // トップページの表示
 Route::get('/', 'PostsController@index');
 
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    // 動画
+    Route::prefix('posts')->group(function () {
+        Route::post('', 'PostsController@store')->name('post.store');
+    });
+});
+
 // ユーザ詳細
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'PostsController@show')->name('user.show');
