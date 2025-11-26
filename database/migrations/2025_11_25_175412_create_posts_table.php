@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title')->nullable();
             $table->bigInteger('user_id')->unsigned()->index();
-            $table->string('youtube_id');
+            $table->string('content');
             $table->timestamps();
             $table->softDeletes();
             // 外部キー制約
