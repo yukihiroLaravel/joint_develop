@@ -11,10 +11,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-<<<<<<< HEAD
-        $this->call(PostsTableSeeder::class);
-=======
         $this->call(UsersTableSeeder::class);
->>>>>>> origin/develop_c_shimotsuki_sna
     }
 }
