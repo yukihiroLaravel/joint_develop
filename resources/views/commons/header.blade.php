@@ -17,4 +17,8 @@
                 @endguest
         </div>
     </nav>
+<<<<<<< HEAD
 </header>
+=======
+</header>
+>>>>>>> origin/develop_c_shimotsuki_sna
