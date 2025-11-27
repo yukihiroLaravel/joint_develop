@@ -13,7 +13,7 @@
                 @endauth
                 @guest
                     <li class="nav-item"><a href="" class="nav-link text-light">ログイン</a></li>
-                    <li class="nav-item"><a href="" class="nav-link text-light">新規ユーザ登録</a></li>
+                    <li class="nav-item"><a href="{{ route('signup') }}" class="nav-link">新規ユーザ登録</a></li>
                 @endguest
         </div>
     </nav>
