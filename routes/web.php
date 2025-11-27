@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\PostsController;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +14,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'PostsController@index');
+
+//投稿表示
+Route::get('/posts/top', [PostsController::class, 'top'])->name('posts.top');
+
+
+
+Route::middleware('auth')->group(function(){
+
+    //ユーザ編集画面・更新
+    Route::post('/posts/edit', [PostsController::class, 'edit'])->name('posts.edit');
+
+    //投稿削除
+    Route::get('/posts/delete/{id}', [PostsController::class, 'delete'])->name('posts.delete');
+
 });
