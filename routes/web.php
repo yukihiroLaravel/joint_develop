@@ -12,3 +12,11 @@
 */
 
 Route::get('/', 'PostsController@index');
+
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    
+        Route::post('posts/store', 'PostsController@store')->name('post.store');
+        Route::delete('posts/{id}', 'PostsController@destroy')->name('post.delete');
+        Route::get('messages/{id}/edit', 'PostsController@edit')->name('post.edit');
+    });
