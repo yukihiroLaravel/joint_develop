@@ -10,6 +10,10 @@ class Post extends Model
     use SoftDeletes;
     
     protected $fillable = [
-        'content',
-    ]
+        'content'
+    ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
