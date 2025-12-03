@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
 // ユーザ詳細
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'PostsController@show')->name('user.show');
+    Route::delete('{id}', 'PostsController@destroy')->name('user.delete');
 });
 
 // ユーザ新規登録

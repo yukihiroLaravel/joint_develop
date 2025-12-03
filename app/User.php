@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes; 
+use App\Post;
 
 class User extends Authenticatable
 {
@@ -37,9 +38,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
+    
     public function posts()
-    {
+    {    
         return $this->hasMany(Post::class);
+    }
+
+    // User が delete されたら自動で posts も delete する
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($user) {
+            $user->posts()->delete();
+        });
     }
 }

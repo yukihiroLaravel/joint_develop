@@ -33,4 +33,11 @@ class PostsController extends Controller
         $post->save();
         return back();
     }
+
+    public function destroy($id)    
+    {
+        $user = User::findOrFail($id);        
+        $user->delete();
+        return redirect('/');
+    }
 }
