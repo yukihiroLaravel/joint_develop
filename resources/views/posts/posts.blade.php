@@ -1,8 +1,8 @@
 <ul class="list-unstyled">
+    @foreach ($posts as $post)
         <li class="mb-3 text-center">
             <div class="text-left d-inline-block w-75 mb-2">
-                @foreach ($posts as $post)
-                <img class="mr-2 rounded-circle" src="<img class="mr-2 rounded-circle src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
+                <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
                 <p class="mt-3 mb-0 d-inline-block"><a href="">{{$post->user->name}}</a></p>
             </div>
             <div class="">
@@ -16,8 +16,8 @@
                         </form>
                         <a href="" class="btn btn-primary">編集する</a>
                     </div>
-                @endforeach
             </div>
         </li>
+    @endforeach
 </ul>
 <div class="m-auto" style="width: fit-content">{{$posts->links()}}</div>
