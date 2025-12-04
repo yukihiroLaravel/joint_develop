@@ -35,7 +35,7 @@ class RegisterController extends Controller
      *
      * @return void
      */
-　　 public function __construct()
+      public function __construct()
     {
         $this->middleware('guest');
     }
@@ -52,7 +52,7 @@ class RegisterController extends Controller
      'name' => ['required', 'string', 'max:255'],
      'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
      'password' => ['required', 'string', 'min:8', 'confirmed'],
-]);
+        ]);
     }
 
     /**
