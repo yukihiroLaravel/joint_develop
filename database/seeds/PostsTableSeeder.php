@@ -14,10 +14,14 @@ class PostsTableSeeder extends Seeder
     {
         //
         DB::table('posts')->insert([
-            'title' => 'サンプル投稿',
-            'content' => 'これはテスト投稿です。',
+            'user_id' =>1,
+            'content' => 'これはテスト投稿です。1',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+
+
+
     }
 }

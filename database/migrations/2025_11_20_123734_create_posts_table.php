@@ -15,8 +15,10 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title'); // タイトル
-            $table->text('content'); // 本文
+            $table->bigInteger('user_id')->unsigned()->index();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // 紐づけ
+            $table->string('content',140); // 本文
+            $table->softDeletes();
             $table->timestamps();
         });
     }
