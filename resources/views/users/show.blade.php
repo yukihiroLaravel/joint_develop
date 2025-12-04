@@ -8,6 +8,22 @@
                 </div>
                 <div class="card-body">
                     <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 300 ) }}" alt="ユーザーのアバター画像">
+                    @if (Auth::id() !== $user->id)
+                        <div class="mt-3">
+                            @if (Auth::user()->followings->contains($user->id))
+                                <form action="{{ route('user.unfollow', $user->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-block">フォロー解除</button>
+                                </form>
+                            @else
+                                <form action="{{ route('user.follow', $user->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary btn-block">フォロー</button>
+                                </form>
+                            @endif
+                        </div>
+                    @endif
                     @if (Auth::id() === $user->id)                        
                         <div class="mt-3">
                             <a href="" class="btn btn-primary btn-block">ユーザ情報の編集</a>
