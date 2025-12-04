@@ -7,8 +7,7 @@
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
-            @if(Auth::check())
-                    <li class="nav-item"><a href="" class="nav-link text-light">ログインユーザ名</a></li>
+                @if(Auth::check())       
                     <li class="nav-item"><a href="" class="nav-link text-light">ログアウト</a></li>
                     <li class="nav-item"><a href="" class="nav-link text-light">{{ Auth::user()->name }}</a></li>
                 @else
