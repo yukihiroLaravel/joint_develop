@@ -21,8 +21,11 @@ Route::group(['middleware' => 'auth'], function () {
     });
 });
 
-// ユーザ詳細
-Route::prefix('users')->group(function () {
+// ユーザ詳細・フォロー
+Route::prefix('users')->group(function () {   
+    Route::post('{id}/follow', 'FollowController@follow')->name('user.follow');
+    Route::delete('{id}/unfollow', 'FollowController@unfollow')->name('user.unfollow');
+
     Route::get('{id}', 'PostsController@show')->name('user.show');
     Route::delete('{id}', 'PostsController@destroy')->name('user.delete');
 });

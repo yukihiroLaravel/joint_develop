@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes; 
 use App\Post;
 
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -51,6 +52,20 @@ class User extends Authenticatable
 
         static::deleting(function ($user) {
             $user->posts()->delete();
+
+            // ▼ フォロー情報を論理削除（follows の deleted_at に値を入れる）
+            \DB::table('follows')->where('follower_id', $user->id)->orWhere('followed_id', $user->id)->update(['deleted_at' => now()]);
         });
+    }
+
+    //フォローしているユーザー
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'followed_id')->withTimestamps();
+    }
+    //フォロワー
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id')->withTimestamps();
     }
 }
