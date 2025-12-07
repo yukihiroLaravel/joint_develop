@@ -1,6 +1,13 @@
 <header class="mb-5">
-    <nav class="navbar navbar-expand-sm navbar-dark bg-info">
-        <a class="navbar-brand" href="/">Topic Posts</a>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">
+            <img src="{{ asset('images/tokyo-DeafLympic2025_Emblem.jpg') }}"
+             alt="デフリンピック エンブレム"
+             style="height: 32px;"
+             class="mr-2">
+
+            TOKYO 2025 デフリンピック<br>&ensp;×コミュニケーション</a>
+        
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>
         </button>
