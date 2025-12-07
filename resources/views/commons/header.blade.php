@@ -1,5 +1,5 @@
 <header class="mb-5">
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-info">
         <a class="navbar-brand" href="/">
             <img src="{{ asset('images/tokyo-DeafLympic2025_Emblem.jpg') }}"
              alt="デフリンピック エンブレム"
