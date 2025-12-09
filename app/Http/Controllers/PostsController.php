@@ -16,11 +16,13 @@ class PostsController extends Controller
             'posts' => $posts,
         ]);
     }
+
     public function store(PostRequest $request)
     {
-        $posts = new Post;
-        $posts->content = $request->content;
-        $posts->save();
+        $post = new Post;
+        $post->content = $request->content;
+        $post->user_id = $request->user()->id;
+        $post->save();
         return back();
     }
 }

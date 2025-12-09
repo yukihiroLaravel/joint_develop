@@ -20,7 +20,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
-Route::post('store', 'PostsController@store')->name('post.store');
+    Route::post('posts', 'PostsController@store')->name('post.store');
 });
 
 //新規登録
