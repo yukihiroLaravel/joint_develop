@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//トップページ
 Route::get('/', 'PostsController@index');
 
 // ログイン
