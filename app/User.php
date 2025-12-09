@@ -68,4 +68,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id')->withTimestamps();
     }
+
+    public function timeline()
+    {
+        // 自分がフォローしているユーザーのIDを取得
+        $followingIds = $this->followings()->pluck('users.id')->toArray();
+        // 自分のIDも含めてタイムライン対象にする
+        $followingIds[] = $this->id; 
+        // 投稿を取得
+        return Post::whereIn('user_id', $followingIds)->orderBy('created_at', 'desc')->paginate(9); 
+    }
 }
