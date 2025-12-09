@@ -20,5 +20,9 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
-    Route::post('/', 'PostsController@store')->name('post.store');
-    });
+Route::post('store', 'PostsController@store')->name('post.store');
+});
+
+//新規登録
+Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
