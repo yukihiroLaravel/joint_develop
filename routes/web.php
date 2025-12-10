@@ -21,8 +21,12 @@ Route::group(['middleware' => 'auth'], function () {
     });
 });
 
-// ユーザ詳細・フォロー
+
 Route::prefix('users')->group(function () {   
+    //ユーザ編集・更新
+    Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
+    Route::put('{id}', 'UsersController@update')->name('user.update');
+    // ユーザ詳細・フォロー
     Route::post('{id}/follow', 'FollowController@follow')->name('user.follow');
     Route::delete('{id}/unfollow', 'FollowController@unfollow')->name('user.unfollow');
 

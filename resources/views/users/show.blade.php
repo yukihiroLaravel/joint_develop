@@ -26,7 +26,7 @@
                     @endif
                     @if (Auth::id() === $user->id)                        
                         <div class="mt-3">
-                            <a href="" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                             <!-- 退会ボタン-->
                             <a class="btn btn-danger btn-block text-light" data-toggle="modal" data-target="#deleteConfirmModal">退会する</a>
                         </div>
