@@ -18,6 +18,10 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('posts', 'PostsController@store')->name('post.store');
+});
 
 //新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
