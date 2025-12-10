@@ -2,10 +2,19 @@
 @section('content')
     <div class="center jumbotron bg-info">
         <div class="text-center text-white mt-2 pt-1">
-            <h1><i class="pr-3"></i>Topic Posts</h1>
+            <h1>
+                <!-- <i class="fas fa-chalkboard-teacher pr-3 d-inline"></i> -->
+                <img src="{{ asset('images/tokyo-DeafLympic2025_Emblem.jpg') }}"
+                     alt="デフリンピック エンブレム"
+                     class="mx-2 align-middle"
+                     style="height: 130px;">
+            </h1>
+            <h1><i class="pr-3"></i>TOKYO 2025 デフリンピック</h1>
+            <h1>×</h1>
+            <h1>コミュニケーション</h1>
         </div>
     </div>
-    <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
+    <h5 class="text-center mb-3">デフアスリートへの応援メッセージを投稿し、自由にシェアしよう！</h5>
         <div class="w-75 m-auto">
             {{-- 共通のエラーメッセージ --}}
             @include('commons.error_messages')
