@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\PostsController;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +18,7 @@ Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('sign
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 Route::get('/', 'PostsController@index');
+
 
 //ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
