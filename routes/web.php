@@ -40,3 +40,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/posts/delete/{id}', [PostsController::class, 'delete'])->name('post.delete');
 
 });
+//ログイン
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login.post');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
