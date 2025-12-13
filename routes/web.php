@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//トップページ
 Route::get('/', 'PostsController@index');
 
 // ログイン
@@ -20,3 +20,11 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 //投稿削除
 Route::delete('posts/{id}', 'postsController@destroy')->name('post.delete');
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('posts', 'PostsController@store')->name('post.store');
+});
+
+//新規登録
+Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
