@@ -26,8 +26,8 @@ Route::prefix('users')->group(function () {
     Route::post('{id}/follow', 'FollowController@follow')->name('user.follow');
     Route::delete('{id}/unfollow', 'FollowController@unfollow')->name('user.unfollow');
 
-    Route::get('{id}', 'PostsController@show')->name('user.show');
-    Route::delete('{id}', 'PostsController@destroy')->name('user.delete');
+    Route::get('{id}', 'UsersController@show')->name('user.show');
+    Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
 });
 
 // ユーザ新規登録

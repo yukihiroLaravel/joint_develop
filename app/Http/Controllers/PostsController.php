@@ -13,10 +13,10 @@ class PostsController extends Controller
     public function index()
     {
         // 投稿順に表示させる //
-        $posts = Post::with('user')->orderBy('created_at', 'desC')->get();
+        $posts = Post::with('user')->orderBy('created_at', 'desc')->paginate(10);
 
         // トップページに //
-        return view('welcome');
+        return view('welcome', compact('posts'));
     }
     // ユーザーの投稿一覧 //
     public function show($id)
