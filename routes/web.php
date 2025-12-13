@@ -19,3 +19,13 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/', function () {
     return view('welcome');
 });
+
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+// ユーザー情報
+    Route::prefix('users')->group(function () {
+        Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
+        Route::put('{id}', 'UsersController@update')->name('user.update');
+        Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
+    });
+});

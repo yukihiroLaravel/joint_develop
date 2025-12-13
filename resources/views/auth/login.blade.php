@@ -25,3 +25,4 @@
             <div class="mt-2"><a href="">新規ユーザ登録する？</a></div>
         </div>
     </div>
+    
