@@ -19,6 +19,7 @@
             {{-- 共通のエラーメッセージ --}}
             @include('commons.error_messages')
         </div>
+            {{-- 投稿フォーム（ログイン時のみ表示） --}}
         <div class="text-center mb-3">
             @if (Auth::check())
                 <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
@@ -32,4 +33,28 @@
                 </form>
             @endif            
         </div>
+         {{-- ここから 投稿一覧を中央に表示する部分 --}}
+         <div class="d-flex flex-column align-items-center mt-4">
+
+        @foreach($posts as $post)
+            <div class="card w-75 mb-3 shadow-sm">
+
+                <div class="card-body">
+
+                    {{-- 投稿者名＋日時 --}}
+                    <div class="d-flex align-items-center mb-2">
+                        <strong class="me-2">{{ $post->user->name }}</strong>
+                        <small class="text-muted">{{ $post->created_at }}</small>
+                    </div>
+
+                    {{-- 投稿内容 --}}
+                    <p class="mb-0">
+                        {{ $post->content }}
+                    </p>
+
+                </div>
+            </div>
+        @endforeach
+
+    </div>
 @endsection

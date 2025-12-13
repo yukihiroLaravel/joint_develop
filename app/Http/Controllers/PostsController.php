@@ -9,11 +9,16 @@ use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
 {
+    // トップページを表示 //
     public function index()
     {
+        // 投稿順に表示させる //
+        $posts = Post::with('user')->orderBy('created_at', 'desC')->get();
+
+        // トップページに //
         return view('welcome');
     }
-
+    // ユーザーの投稿一覧 //
     public function show($id)
     {
         $user = User::findOrFail($id);
