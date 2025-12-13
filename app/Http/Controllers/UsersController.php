@@ -24,7 +24,7 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-        return back();
+        return view('users show');
     }
 }
 
