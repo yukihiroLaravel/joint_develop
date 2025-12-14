@@ -34,24 +34,30 @@
             @endif            
         </div>
          {{-- ここから 投稿一覧を中央に表示する部分 --}}
-         <div class="d-flex flex-column align-items-center mt-4">
-
+        <div class="d-flex flex-column align-items-center mt-4">
+        
         @foreach($posts as $post)
-            <div class="card w-75 mb-3 shadow-sm">
+            <div class="w-75 mx-auto mb-3">
+                {{-- アバター + 名前 + 日時（横並び） --}}
+                <div class="d-flex align-items-center mb-2">
 
-                <div class="card-body">
+                    {{-- アバター --}}
+                    <img src="{{ Gravatar::src($post->user->email, 32) }}" alt="ユーザのアバター画像" class="rounded-circle me-4 flex-shrink-0"style="width:40px; height:40px;">               
+                    
+                    {{-- 名前 --}}
+                    <strong><a href="{{ route('user.show', $post->user->id) }}"
+                        class="fw-bold text-dark text-decoration-underline">
+                        {{ $post->user->name }}
+                    </a></strong><br>
+                </div>
 
-                    {{-- 投稿者名＋日時 --}}
-                    <div class="d-flex align-items-center mb-2">
-                        <strong class="me-2">{{ $post->user->name }}</strong>
-                        <small class="text-muted">{{ $post->created_at }}</small>
-                    </div>
-
+                <div>
                     {{-- 投稿内容 --}}
-                    <p class="mb-0">
-                        {{ $post->content }}
-                    </p>
-
+                    <p class="mb-0">{{ $post->content }}</p>
+                </div>
+                <div>
+                    {{-- 名前・日時 --}}
+                    <small class="text-muted">{{ $post->created_at->format('Y-m-d H:i') }}</small>
                 </div>
             </div>
         @endforeach
