@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\User;
 
-class Posts extends Model
+class Post extends Model
 {
     use SoftDeletes;
     public function user()
