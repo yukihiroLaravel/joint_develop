@@ -1,5 +1,11 @@
 @extends('layouts.app')
 @section('content')
+    @php
+        $active = isset($posts) ? 'posts'
+                : (isset($followings) ? 'followings'
+                : (isset($followers) ? 'followers'
+                : null));
+    @endphp
     <div class="row">
         <aside class="col-sm-4 mb-5">
             <div class="card bg-info">
@@ -36,18 +42,12 @@
         </aside>
         <div class="col-sm-8">
             <ul class="nav nav-tabs nav-justified mb-3">
-                <li class="nav-item">
-                    <a href="{{ route('user.show', $user->id) }}" class="nav-link {{ $active === 'timeline' ? 'active' : '' }}">タイムライン</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('user.followings', $user->id) }}"class="nav-link {{ $active === 'followings' ? 'active' : '' }}">フォロー中</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('user.followers', $user->id) }}" class="nav-link {{ $active === 'followers' ? 'active' : '' }}">フォロワー</a>
-                </li>
+                <li class="nav-item"><a href="{{ route('user.show', $user->id) }}" class="nav-link {{ isset($posts) ? 'active' : '' }}">タイムライン</a></li>
+                <li class="nav-item"><a href="{{ route('user.followings', $user->id) }}"class="nav-link {{ isset($followings) ? 'active' : '' }}">フォロー中</a></li>
+                <li class="nav-item"><a href="{{ route('user.followers', $user->id) }}" class="nav-link {{ isset($followers) ? 'active' : '' }}">フォロワー</a></li>
             </ul>
             <!-- タブ内容 -->
-            @include('users.tabs.' . $active)
+                @include('users.tabs.' . $active)
         </div>
     </div>
     <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">

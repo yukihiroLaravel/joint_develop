@@ -20,11 +20,9 @@ class FollowController extends Controller
 
         return view('users.show', [
             'user'   => $user,
-            'active' => 'timeline',
             'posts'  => $posts,
         ]);
     }
-
     // フォロー中一覧
     public function followings($id)
     {
@@ -32,11 +30,9 @@ class FollowController extends Controller
 
         return view('users.show', [
             'user'       => $user,
-            'active'     => 'followings',
             'followings' => $user->followings,
         ]);
     }
-
     // フォロワー一覧
     public function followers($id)
     {
@@ -44,10 +40,10 @@ class FollowController extends Controller
 
         return view('users.show', [
             'user'      => $user,
-            'active'    => 'followers',
             'followers' => $user->followers,
         ]);
     }
+    
     public function follow($id)
     {
         $user = User::findOrFail($id);
