@@ -1,0 +1,1 @@
+@include('posts.posts', ['posts' => $posts])

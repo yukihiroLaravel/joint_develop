@@ -1,10 +1,13 @@
 <header class="mb-5">
     <nav class="navbar navbar-expand-sm navbar-dark bg-info">
-         <img src="{{ asset('images/tokyo-DeafLympic2025_Emblem.jpg') }}"
-            alt="デフリンピック エンブレム"
-            class="mx-2 align-middle"
-            style="height: 30px;">
-        <a class="navbar-brand" href="/">TOKYO 2025 DeafLympic2025</a>
+        <a class="navbar-brand" href="/">
+            <img src="{{ asset('images/tokyo-DeafLympic2025_Emblem.jpg') }}"
+             alt="デフリンピック エンブレム"
+             style="height: 32px;"
+             class="mr-2">
+
+            TOKYO 2025 デフリンピック<br>&ensp;×コミュニケーション</a>
+        
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -18,6 +21,7 @@
                     <li class="nav-item"><a href="{{ route('login') }}" class="nav-link text-light">ログイン</a></li>
                     <li class="nav-item"><a href="{{ route('signup') }}" class="nav-link text-light">新規ユーザ登録</a></li>
                 @endif
+            </ul>
         </div>
     </nav>
 </header>

@@ -23,6 +23,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 // ユーザ詳細・フォロー
 Route::prefix('users')->group(function () {   
+    Route::get('{id}', 'FollowController@timeline')->name('user.show');
+    Route::get('{id}/followings', 'FollowController@followings')->name('user.followings');
+    Route::get('{id}/followers', 'FollowController@followers')->name('user.followers');
+    
     Route::post('{id}/follow', 'FollowController@follow')->name('user.follow');
     Route::delete('{id}/unfollow', 'FollowController@unfollow')->name('user.unfollow');
 

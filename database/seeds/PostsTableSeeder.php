@@ -12,32 +12,28 @@ class PostsTableSeeder extends Seeder
     public function run()
     {
         DB::table('posts')->insert([
-            'user_id'=>1,
-            'title'=>'初投稿',
-            'body'=>'これはテスト投稿です。',
-            'created_at'=>now(),
-            'updated_at'=>now(),
+            'user_id' => 1,
+            'content' => 'これはテスト投稿です。',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
         DB::table('posts')->insert([
-            'user_id'=>1,
-            'title'=>'phpについて',
-            'body'=>'phpはわかりやすいプログラミング言語です。',
-            'created_at'=>now(),
-            'updated_at'=>now(),
+            'user_id' => 1,
+            'content' => 'phpはわかりやすいプログラミング言語です。',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
         DB::table('posts')->insert([
-            'user_id'=>1,
-            'title'=>'laravelについて',
-            'body'=>'laravelはとても便利なフレームワークです。',
-            'created_at'=>now(),
-            'updated_at'=>now(),
+            'user_id' => 1,
+            'content' => 'laravelはとても便利なフレームワークです。',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
         DB::table('posts')->insert([
-            'user_id'=>1,
-            'title'=>'プログラミングについて',
-            'body'=>'プログラミングは難しいが楽しい。',
-            'created_at'=>now(),
-            'updated_at'=>now(),
+            'user_id' => 1,
+            'content' => 'プログラミングは難しいが楽しい。',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
     }
 }
