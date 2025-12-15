@@ -13,8 +13,25 @@
 // トップページの表示
 Route::get('/', 'PostsController@index');
 
-// ユーザ新規登録
-Route::get('/', 'UsersController@index');
+// ログイン後
+Route::group(['middleware' => 'auth'], function () {
+    // 動画
+    Route::prefix('posts')->group(function () {
+        Route::post('', 'PostsController@store')->name('post.store');
+    });
+});
+
+// ユーザ詳細・フォロー
+Route::prefix('users')->group(function () {   
+    Route::get('{id}', 'FollowController@timeline')->name('user.show');
+    Route::get('{id}/followings', 'FollowController@followings')->name('user.followings');
+    Route::get('{id}/followers', 'FollowController@followers')->name('user.followers');
+    
+    Route::post('{id}/follow', 'FollowController@follow')->name('user.follow');
+    Route::delete('{id}/unfollow', 'FollowController@unfollow')->name('user.unfollow');
+
+    Route::delete('{id}', 'PostsController@destroy')->name('user.delete');
+});
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
