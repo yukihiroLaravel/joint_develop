@@ -27,20 +27,22 @@ class FollowController extends Controller
     public function followings($id)
     {
         $user = User::findOrFail($id);
+        $followings = $user->followings()->orderBy('users.id', 'desc')->paginate(10);
 
         return view('users.show', [
             'user'       => $user,
-            'followings' => $user->followings,
+            'followings' => $followings,
         ]);
     }
     // フォロワー一覧
     public function followers($id)
     {
         $user = User::findOrFail($id);
+        $followers = $user->followers()->orderBy('users.id', 'desc')->paginate(10); 
 
         return view('users.show', [
             'user'      => $user,
-            'followers' => $user->followers,
+            'followers' => $followers,
         ]);
     }
     

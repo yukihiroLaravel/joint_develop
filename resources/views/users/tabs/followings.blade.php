@@ -28,3 +28,5 @@
 @empty
     <p>フォロー中のユーザーはいません。</p>
 @endforelse
+
+{{ $followings->links() }}

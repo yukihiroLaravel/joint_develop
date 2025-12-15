@@ -47,7 +47,7 @@
                 <li class="nav-item"><a href="{{ route('user.followers', $user->id) }}" class="nav-link {{ isset($followers) ? 'active' : '' }}">フォロワー</a></li>
             </ul>
             <!-- タブ内容 -->
-                @include('users.tabs.' . $active)
+            @include('users.tabs.' . $active)
         </div>
     </div>
     <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">

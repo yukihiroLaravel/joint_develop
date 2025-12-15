@@ -28,3 +28,5 @@
 @empty
     <p>フォロワーはいません。</p>
 @endforelse
+
+{{ $followers->links() }}
