@@ -14,22 +14,6 @@ class PostsController extends Controller
         return view('welcome');
     }
 
-    public function show($id)
-    {
-        $user = User::findOrFail($id);
-        // フォロー中ユーザーのID取得
-        $followingIds = $user->followings()->pluck('users.id')->toArray();
-        // 自分自身もタイムラインに含める
-        $followingIds[] = $user->id;
-        // タイムライン投稿（フォロー + 自分）
-        $posts = Post::whereIn('user_id', $followingIds)->orderBy('id', 'desc')->paginate(9);
-        $data=[
-            'user' => $user,
-            'posts' => $posts,
-        ];
-        return view('users.show', $data);
-    }
-
     public function store(PostRequest $request)
     {
         $post = new Post;
