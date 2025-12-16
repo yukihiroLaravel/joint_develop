@@ -11,6 +11,14 @@
                     <p class="mb-2">{{ $post->content }}</p>
                     <!--投稿日時（フォーマット付き）-->
                     <p class="text-muted">{{ $post->created_at->format('Y-m-d H:i') }}</p>
+                    <!-- タグ表示 -->
+                    @if($post->tags->isNotEmpty())
+                        <div class="mt-2">
+                            @foreach($post->tags as $tag)
+                                <a href="{{ route('tags.show', $tag->id) }}" class="badge badge-secondary mr-1"> #{{ $tag->name }} </a>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
                 @if(Auth::id() === $post->user_id)
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">
