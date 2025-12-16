@@ -7,7 +7,7 @@
                     <h3 class="card-title text-light">{{$user->name}}</h3>
                 </div>
                 <div class="card-body">
-                    <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 250) }}" alt="">
+                    <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 300) }}" alt="">
                         <div class="mt-3">
                             <a href="" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                         </div>
@@ -20,7 +20,8 @@
                 <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
             </ul>
+    @include('posts.posts', ['posts' => $posts])
         </div>  
-        @include('posts.posts', ['posts' => $posts])
+        
     </div>
 @endsection
