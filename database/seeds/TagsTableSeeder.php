@@ -12,8 +12,14 @@ class TagsTableSeeder extends Seeder
      */
     public function run()
     {
-        $tags = ['Laravel', 'PHP', 'MySQL'];
-
+        $tags = [
+            'Laravel',
+            'PHP',
+            '初心者',
+            'Web',
+            'バックエンド',
+        ];
+        
         foreach ($tags as $name) {
             Tag::firstOrCreate(['name' => $name]);
         }
