@@ -1,26 +1,34 @@
-<ul class="list-unstyled">
+<ul class="list-unstyled w-75 mx-auto">
     @foreach($posts as $post)
-        <li class="mb-3 text-center">
-            <div class="text-left d-inline-block w-75 mb-2">
-                <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
-                <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('user.show', $post->user->id) }}">{{$post->user->name}}</a></p>
+        <li class="mb-4">
+            {{-- ユーザー情報 --}}
+            <div class="d-flex align-items-center mb-2">
+                <img class="mr-2 rounded-circle"
+                     src="{{ Gravatar::src($post->user->email, 55) }}"
+                     alt="ユーザのアバター画像">
+
+                <a href="{{ route('user.show', $post->user->id) }}">
+                    {{ $post->user->name }}
+                </a>
             </div>
-            <div class="">
-                <div class="text-left d-inline-block w-75">
-                    <!-- 投稿内容 -->
-                    <p class="mb-2">{{ $post->content }}</p>
-                    <!--投稿日時（フォーマット付き）-->
-                    <p class="text-muted">{{ $post->created_at->format('Y-m-d H:i') }}</p>
+
+            {{-- 投稿内容 --}}
+            <p class="mb-1">{{ $post->content }}</p>
+
+            {{-- 投稿日時 --}}
+            <p class="text-muted small">
+                {{ $post->created_at->format('Y-m-d H:i') }}
+            </p>
+
+            {{-- 操作ボタン --}}
+            @if(Auth::id() === $post->user_id)
+                <div class="d-flex justify-content-between mt-2">
+                    <form method="" action="">
+                        <button type="submit" class="btn btn-danger btn-sm">削除</button>
+                    </form>
+                    <a href="" class="btn btn-primary btn-sm">編集する</a>
                 </div>
-                @if(Auth::id() === $post->user_id)
-                    <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                        <form method="" action="">
-                            <button type="submit" class="btn btn-danger">削除</button>
-                        </form>
-                        <a href="" class="btn btn-primary">編集する</a>
-                    </div>
-                @endif
-            </div>
+            @endif
         </li>
     @endforeach
 </ul>

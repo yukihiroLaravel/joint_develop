@@ -31,38 +31,10 @@
                         </div>                        
                     </div>                    
                 </form>
-            @endif            
+                @endif
         </div>
-         {{-- ここから 投稿一覧を中央に表示する部分 --}}
-        <div class="d-flex flex-column align-items-center mt-4">
-        
-        @foreach($posts as $post)
-            <div class="w-75 mx-auto mb-3">
-                {{-- アバター + 名前 + 日時（横並び） --}}
-                <div class="d-flex align-items-center mb-2">
-
-                    {{-- アバター --}}
-                    <img src="{{ Gravatar::src($post->user->email, 32) }}" alt="ユーザのアバター画像" class="rounded-circle me-4 flex-shrink-0"style="width:40px; height:40px;">               
-                    
-                    {{-- 名前 --}}
-                    <strong><a href="{{ route('user.show', $post->user->id) }}"
-                        class="fw-bold text-dark text-decoration-underline">
-                        {{ $post->user->name }}
-                    </a></strong><br>
-                </div>
-
-                <div>
-                    {{-- 投稿内容 --}}
-                    <p class="mb-0">{{ $post->content }}</p>
-                </div>
-                <div>
-                    {{-- 名前・日時 --}}
-                    <small class="text-muted">{{ $post->created_at->format('Y-m-d H:i') }}</small>
-                </div>
+        {{-- ここから 投稿一覧 --}}
+            <div class="d-flex flex-column align-items-center mt-4">
+                @include('posts.posts')
             </div>
-        @endforeach
-        <div class="mt-4">
-            {{ $posts->links()}}
-        </div>
-    </div>
 @endsection
