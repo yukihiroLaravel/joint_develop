@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Post;
 use App\Tag;
@@ -13,9 +14,7 @@ class PostsController extends Controller
     public function index()
     {
         $tags = Tag::orderBy('name')->get();
-        $posts = Post::with(['user', 'tags'])->orderBy('id', 'desc')->paginate(9);
-
-        return view('welcome', compact('posts', 'tags'));
+        return view('welcome', compact('tags'));
     }
 
     // 投稿保存（タグ同時処理）
@@ -45,7 +44,18 @@ class PostsController extends Controller
         // ③ 紐付け
         $post->tags()->sync($tagIds);
 
-        return redirect()->back();
+        return back(); 
+    }
+
+    public function detachTag(Post $post, Tag $tag)
+    {
+        // 投稿者本人チェック
+        if (Auth::id() !== $post->user_id) {
+            abort(403);
+        }
+        $post->tags()->detach($tag->id);
+
+        return back();
     }
 
     public function destroy(User $user)
