@@ -15,7 +15,17 @@
                     @if($post->tags->isNotEmpty())
                         <div class="mt-2">
                             @foreach($post->tags as $tag)
-                                <a href="{{ route('tags.show', $tag->id) }}" class="badge badge-secondary mr-1"> #{{ $tag->name }} </a>
+                                <span class="mr-1">
+                                    <a href="{{ route('tags.show', $tag->id) }}" class="badge badge-secondary">#{{ $tag->name }}</a>
+                                    <!-- タグ解除ボタン（投稿者のみ表示） -->
+                                    @if(Auth::id() === $post->user_id)
+                                        <form method="POST" action="{{ route('post.tag.destroy', [$post->id, $tag->id]) }}" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-link text-danger p-0 ml-1">×</button>
+                                        </form>
+                                    @endif
+                                </span>
                             @endforeach
                         </div>
                     @endif

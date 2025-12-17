@@ -10,6 +10,11 @@ use App\User;
 class Post extends Model
 {
     use SoftDeletes; // 追記
+
+    protected $fillable = [
+        'content',
+        'user_id',
+    ];
     
     public function user()
     {
