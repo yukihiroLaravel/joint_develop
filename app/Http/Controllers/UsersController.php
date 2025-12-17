@@ -11,6 +11,7 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
+        if (\Auth::id() === $user_id)
 
         return view('users.edit',[
          'user' => $user  
@@ -24,7 +25,7 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-        return view('users show');
+        return redirect()->route('user.show')
     }
 }
 
