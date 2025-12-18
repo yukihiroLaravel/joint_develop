@@ -26,12 +26,7 @@ Route::get('/posts/welcome', [PostsController::class, 'index'])->name('posts.ind
 Route::middleware('auth')->group(function(){
 
     //投稿表示
-    Route::get('/posts/create', [PostsController::class, 'create'])->name('post.create');
-
-
-    //ユーザ編集画面・更新
-    Route::post('/posts/edit/{id}', [PostsController::class, 'edit'])->name('post.edit');
-
+    Route::get('/posts/index', [PostsController::class, 'index'])->name('post.index');
 
     //ユーザ編集画面・更新
     Route::post('/posts/user/{id}', [PostsController::class, 'user'])->name('post.user');
