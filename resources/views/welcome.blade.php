@@ -27,6 +27,9 @@
                             </label>
                         @endforeach
                     </div>
+                    <div class="text-left mt-1 mb-2">
+                        <a href="{{ route('tags.index') }}" class="btn btn-primary">タグを編集する</a>
+                    </div>
                     <!-- 新規タグ -->
                     <div class="form-group text-left">
                         <label>新規タグ（カンマ区切り）</label>
@@ -34,7 +37,7 @@
                     </div>
                     <div class="text-left mt-3">
                         <button type="submit" class="btn btn-primary">投稿する</button>
-                    </div>
+                    </div>                   
                 </form>
             @endif
         </div>
