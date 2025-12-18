@@ -19,6 +19,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
         Route::post('', 'PostsController@store')->name('post.store');
     });
+    // 投稿 × タグ（解除）
+    Route::delete('posts/{post}/tags/{tag}','PostsController@detachTag')->name('post.tag.destroy');
 });
 
 // ユーザ詳細・フォロー
@@ -33,6 +35,9 @@ Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
     Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
 });
+
+// タグ一覧
+Route::get('tags/{tag}', 'TagController@show')->name('tags.show');
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
