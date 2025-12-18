@@ -30,15 +30,18 @@ class UpdateRequest extends FormRequest
             'name' => [
                 'required',
                 'string',
-                'max:255',],
+                'max:255',
+            ],
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users', 'email')->ignore($userId),],
+                Rule::unique('users', 'email')->ignore($userId),
+            ],
             'password' => [
                 'nullable',
                 'confirmed',
-                'min:6',],
+                'min:6',
+            ],
         ];
     }
 }
