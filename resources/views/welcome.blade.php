@@ -14,13 +14,29 @@
             @if (Auth::check())
                 <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
                     @csrf
+                    <!-- 投稿本文 -->
                     <div class="form-group">
-                        <textarea class="form-control" name="content" rows="4">{{ old('content') }}</textarea>
-                        <div class="text-left mt-3">
-                            <button type="submit" class="btn btn-primary">投稿する</button>
-                        </div>                        
-                    </div>                    
+                        <textarea class="form-control" name="content" rows="4" required>{{ old('content') }}</textarea>
+                    </div>
+                    <!-- 既存タグ選択 -->
+                    <div class="form-group text-left">
+                        <label>既存タグ</label><br>
+                        @foreach($tags as $tag)
+                            <label class="mr-2">
+                                <input type="checkbox"name="tag_ids[]"value="{{ $tag->id }}">#{{ $tag->name }}
+                            </label>
+                        @endforeach
+                    </div>
+                    <!-- 新規タグ -->
+                    <div class="form-group text-left">
+                        <label>新規タグ（カンマ区切り）</label>
+                        <input type="text" name="new_tags" class="form-control" placeholder="Laravel, PHP">
+                    </div>
+                    <div class="text-left mt-3">
+                        <button type="submit" class="btn btn-primary">投稿する</button>
+                    </div>
                 </form>
-            @endif            
+            @endif
         </div>
+
 @endsection

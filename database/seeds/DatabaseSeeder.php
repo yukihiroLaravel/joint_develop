@@ -9,8 +9,13 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()       //php artisan db:seed実行したときにここの中を呼び出す
+    public function run()       // php artisan db:seed実行したときにここの中を呼び出す
     {
         $this->call(UsersTableSeeder::class);
+        $this->call(PostsTableSeeder::class);
+        $this->call([
+            TagsTableSeeder::class,
+            PostTagTableSeeder::class,
+        ]);
     }
 }
