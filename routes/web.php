@@ -19,6 +19,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
         Route::post('', 'PostsController@store')->name('post.store');
     });
+    // 投稿 × タグ（解除）
+    Route::delete('posts/{post}/tags/{tag}','PostsController@detachTag')->name('post.tag.destroy');
 });
 
 // ユーザ詳細・フォロー

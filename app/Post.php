@@ -10,6 +10,11 @@ use App\User;
 class Post extends Model
 {
     use SoftDeletes; // 追記
+
+    protected $fillable = [
+        'content',
+        'user_id',
+    ];
     
     public function user()
     {
@@ -18,6 +23,6 @@ class Post extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class)->withTimestamps();
     }
 }
