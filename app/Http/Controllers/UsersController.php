@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Http\Requests\UpdateRequest;
 
 class UsersController extends Controller
 {
@@ -11,24 +12,21 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
+        $this->authorize('update', $user);
         return view('users.edit', compact('user'));
     }
+    
     //更新
-    public function update(Request $request, $id) 
+    public function update(UpdateRequest $request, $id) 
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email',
-        ]);
-
         $user = User::findOrFail($id);
+        $this->authorize('update', $user);
+
         $user->name = $request->name;
         $user->email = $request->email;
+        
         //　パスワード更新
         if ($request->filled('password')) {
-            $request->validate([
-                'password' => 'confirmed|min:6'
-            ]);
             $user->password = bcrypt($request->password);
         }
 
