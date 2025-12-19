@@ -17,6 +17,20 @@
     <h5 class="text-center mb-3">デフアスリートへの応援メッセージを投稿し、自由にシェアしよう！</h5>
         <div class="w-75 m-auto">
             {{-- 共通のエラーメッセージ --}}
+     @include('commons.error_messages')
+     <div class="text-center mb-3">
+        @if (Auth::check())
+            <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
+                @csrf
+                <div class="form-group">
+                    <textarea class="form-control" name="content" rows="4">{{ old('content') }}</textarea>
+                        <div class="text-left mt-3">
+                            <button type="submit" class="btn btn-primary">投稿する</button>
+                        </div>                        
+                </div>                    
+            </form>
+        @endif            
+    </div>
             @include('commons.error_messages')
         </div>
             {{-- 投稿フォーム（ログイン時のみ表示） --}}
@@ -48,8 +62,12 @@
                 </form>
                 @endif
         </div>
+<<<<<<< HEAD
         {{-- ここから 投稿一覧 --}}
             <div class="d-flex flex-column align-items-center mt-4">
                 @include('posts.posts')
             </div>
+=======
+
+>>>>>>> develop_a_shimotsuki_sna
 @endsection

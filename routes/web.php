@@ -23,8 +23,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('posts/{post}/tags/{tag}','PostsController@detachTag')->name('post.tag.destroy');
 });
 
-// ユーザ詳細・フォロー
-Route::prefix('users')->group(function () {   
+
+Route::prefix('users')->middleware('auth')->group(function () {
+
+    //ユーザ編集・更新
+    Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
+    Route::put('{id}', 'UsersController@update')->name('user.update');
+    
+    // ユーザ詳細・フォロー   
     Route::get('{id}', 'FollowController@timeline')->name('user.show');
     Route::get('{id}/followings', 'FollowController@followings')->name('user.followings');
     Route::get('{id}/followers', 'FollowController@followers')->name('user.followers');
