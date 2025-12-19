@@ -16,7 +16,7 @@ class FollowController extends Controller
 
         $ids = $user->followings()->pluck('users.id')->toArray();
         $ids[] = $user->id;
-        $posts = Post::whereIn('user_id', $ids)->orderBy('id', 'desc')->paginate(9);
+        $posts = Post::with(['tags', 'user'])->whereIn('user_id', $ids)->orderBy('id', 'desc')->paginate(9);
 
         return view('users.show', [
             'user'   => $user,
