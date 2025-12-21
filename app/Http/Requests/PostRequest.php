@@ -26,7 +26,7 @@ class PostRequest extends FormRequest
         return [
             'content' => 'required|max:140',
             'tag_ids.*'    => 'exists:tags,id',
-            'new_tags'     => 'nullable|string|max:100',
+            'new_tags'     => 'nullable|string|max:50',
         ];
     }
 

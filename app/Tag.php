@@ -7,7 +7,12 @@ use App\Post;
 
 class Tag extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'user_id', 'update_count',];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function posts()
     {

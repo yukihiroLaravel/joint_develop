@@ -5,7 +5,6 @@
         タグ：#{{ $tag->name }}
     </h3>
 
-
     @include('posts.posts', ['posts' => $posts])
     {{ $posts->links() }}
 </div>

@@ -3,28 +3,40 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\TagRequest;
 use App\Tag;
 
 class TagController extends Controller
 {
     public function index()
     {
-        $tags = Tag::orderBy('name')->get();
+        $tags = Tag::orderBy('name')->paginate(10);
         return view('tags.index', compact('tags'));
     }
 
-    public function update(Request $request, Tag $tag)
+    public function update(TagRequest $request, Tag $tag)
     {
-        $request->validate([
-            'name' => 'required|max:50|unique:tags,name,' . $tag->id,
-        ]);
-        $tag->update(['name' => $request->name]);
+        // 作成者チェック
+        if ($tag->user_id !== auth()->id()) {
+            abort(403);
+        }
+        // 更新1回まで
+        if ($tag->update_count >= 1) {
+            return redirect()->route('tags.index')->withErrors(['name' => 'このタグは既に更新されています'])->with('error_tag_id', $tag->id);
+        }
+
+        $tag->name = $request->name;
+        $tag->update_count++;
+        $tag->save();
 
         return redirect()->route('tags.index')->with('success', 'タグを更新しました');
     }
 
     public function destroy(Tag $tag)
     {
+        if ($tag->user_id !== auth()->id()) {
+            abort(403);
+        }
         // 紐付け解除
         $tag->posts()->detach();
         $tag->delete();
