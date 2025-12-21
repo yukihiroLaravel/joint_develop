@@ -48,7 +48,6 @@
                             @endforeach
                         </div>
                     @endif
->>>>>>> origin/develop_a_shimotsuki_sna
                 </div>
             @endif
         </li>
