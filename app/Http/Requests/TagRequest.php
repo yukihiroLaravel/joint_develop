@@ -42,7 +42,7 @@ class TagRequest extends FormRequest
     protected function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(
-            redirect()->route('tags.index')->withErrors($validator)->with('error_tag_id', $this->route('tag')->id)
+            redirect()->route('tags.index')->withErrors($validator)->withInput()->with('error_tag_id', $this->route('tag')->id)
         );
     }
 }

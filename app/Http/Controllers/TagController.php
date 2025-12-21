@@ -10,7 +10,7 @@ class TagController extends Controller
 {
     public function index()
     {
-        $tags = Tag::orderBy('name')->paginate(10);
+        $tags = Tag::where('user_id', auth()->id())->orderBy('name')->paginate(10);
         return view('tags.index', compact('tags'));
     }
 
@@ -22,7 +22,11 @@ class TagController extends Controller
         }
         // 更新1回まで
         if ($tag->update_count >= 1) {
-            return redirect()->route('tags.index')->withErrors(['name' => 'このタグは既に更新されています'])->with('error_tag_id', $tag->id);
+            return redirect()->route('tags.index')->withErrors()->with('error_tag_id', $tag->id);
+        }
+        // 同じ名前チェック
+        if ($request->name === $tag->name) {
+            return redirect()->route('tags.index')->withErrors(['name' => 'タグ名が変更されていません'])->withInput()->with('error_tag_id', $tag->id);
         }
 
         $tag->name = $request->name;
