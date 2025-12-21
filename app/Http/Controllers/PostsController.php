@@ -36,15 +36,20 @@ class PostsController extends Controller
             );
 
             foreach ($names as $name) {
-                $tag = Tag::firstOrCreate(['name' => $name]);
+                $tag = Tag::firstOrCreate(
+                    ['name' => $name],
+                    [
+                        'user_id' => auth()->id(),
+                        'update_count' => 0,
+                    ]
+                );
                 $tagIds[] = $tag->id;
             }
         }
-
         // ③ 紐付け
         $post->tags()->sync($tagIds);
 
-        return back(); 
+        return back();
     }
 
     public function detachTag(Post $post, Tag $tag)
