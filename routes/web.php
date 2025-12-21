@@ -42,6 +42,12 @@ Route::prefix('users')->middleware('auth')->group(function () {
     Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
 });
 
+// ログイン後のみ タグ（編集・更新・削除）
+Route::group(['middleware' => 'auth'], function () {   
+    Route::get('tags', 'TagController@index')->name('tags.index');
+    Route::put('tags/{tag}', 'TagController@update')->name('tags.update');
+    Route::delete('tags/{tag}', 'TagController@destroy')->name('tags.destroy');
+});
 // タグ一覧
 Route::get('tags/{tag}', 'TagController@show')->name('tags.show');
 

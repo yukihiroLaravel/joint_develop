@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Tag;
+use App\User; 
 
 class TagsTableSeeder extends Seeder
 {
@@ -12,6 +13,8 @@ class TagsTableSeeder extends Seeder
      */
     public function run()
     {
+        $user = User::first();
+
         $tags = [
             'Laravel',
             'PHP',
@@ -21,7 +24,10 @@ class TagsTableSeeder extends Seeder
         ];
         
         foreach ($tags as $name) {
-            Tag::firstOrCreate(['name' => $name]);
+            Tag::firstOrCreate(
+                ['name' => $name],
+                [ 'user_id' => $user->id, 'update_count' => 0,]
+            );
         }
     }
 }
