@@ -1,0 +1,26 @@
+<?php
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class PostsTableSeeder extends Seeder
+{
+    public function run()
+    {
+        DB::table('posts')->insert([
+            'user_id' => 1,
+            'content' => 'テスト投稿１', ]);
+        DB::table('posts')->insert([
+            'user_id' => 2,
+            'content' => 'テスト投稿２',
+        ]);
+        DB::table('posts')->insert([
+            'user_id' => 3,
+            'content' => 'テスト投稿３',
+        ]);
+        DB::table('posts')->insert([
+            'user_id' => 4,
+            'content' => 'テスト投稿４',
+        ]);
+    }
+}
