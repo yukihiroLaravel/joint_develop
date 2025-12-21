@@ -6,8 +6,7 @@
                 <img class="mr-2 rounded-circle"
                      src="{{ Gravatar::src($post->user->email, 55) }}"
                      alt="ユーザのアバター画像">
-                <a href="{{ route('user.show', $post->user->id) }}">
-                    {{ $post->user->name }}</a>
+                <a href="{{ route('user.show', $post->user->id) }}">{{ $post->user->name }}</a>
             </div>
             
             {{-- 操作ボタン --}}

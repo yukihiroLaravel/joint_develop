@@ -21,6 +21,7 @@
         </div>
     <div class="text-center mb-3">
         <div class="text-center mb-3">
+            
             @if (Auth::check())
                 <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
                     @csrf
