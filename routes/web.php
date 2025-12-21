@@ -38,7 +38,7 @@ Route::prefix('users')->middleware('auth')->group(function () {
     Route::post('{id}/follow', 'FollowController@follow')->name('user.follow');
     Route::delete('{id}/unfollow', 'FollowController@unfollow')->name('user.unfollow');
 
-    Route::get('{id}', 'UsersController@show')->name('user.show');
+    // ユーザ削除
     Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
 });
 

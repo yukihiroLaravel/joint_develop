@@ -20,18 +20,7 @@ class PostsController extends Controller
         // トップページに //
         return view('welcome', compact('posts'));
     }
-    // ユーザーの投稿一覧 //
-    public function show($id)
-    {
-        $user = User::findOrFail($id);
-        $posts = $user->posts()->orderBy('id', 'desc')->paginate(9);
-        $data=[
-            'user' => $user,
-            'posts' => $posts,
-        ];
-        return view('users.show', $data);
-    }
-
+   
     // 投稿保存（タグ同時処理）
     public function store(PostRequest $request)
     {
