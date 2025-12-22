@@ -8,7 +8,9 @@
                 </div>
                 <div class="card-body">
                      @include('follow.follow_button', ['user' => $user])
-                    <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 300) }}" alt="">
+                    <div class="mt-3">
+                        <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 300) }}" alt="">
+                    </div>
                         <div class="mt-3">
                             <a href="" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                         </div>
