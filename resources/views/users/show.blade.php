@@ -7,7 +7,10 @@
                     <h3 class="card-title text-light">{{$user->name}}</h3>
                 </div>
                 <div class="card-body">
-                    <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 300) }}" alt="">
+                     @include('follow.follow_button', ['user' => $user])
+                    <div class="mt-3">
+                        <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 300) }}" alt="">
+                    </div>
                         <div class="mt-3">
                             <a href="" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                         </div>
