@@ -26,8 +26,8 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
     // つぶやき
-    Route::prefix('posts')->group(function () {
-       Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit');
-       Route::put('{id}', 'PostsController@update')->name('posts.update');
+     Route::prefix('posts')->group(function () {
+        Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit');
+        Route::put('{id}', 'PostsController@update')->name('posts.update');
     });
 });

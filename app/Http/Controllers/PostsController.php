@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Post;
+use App\Http\Requests\PostsRequest;
+use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
@@ -13,25 +14,28 @@ class PostsController extends Controller
     }
 
     public function edit($id)
-    {
-        $user = \Auth::user();
-        $posts = Post::findOrFail($id);
+{
+    $user = \Auth::user();
+    $post = Post::findOrFail($id);
 
-        return view('posts.edit', [
-            'user' => $user,
-            'posts' => $posts,
-        ]);
+    if ($user->id !== $post->user_id) {
+        abort(404);
     }
 
-    public function update(Request $request, $id)
+    return view('posts.edit', [
+        'post' => $post, 
+    ]);
+}
+    public function update(PostsRequest $request, $id)
     {
-        $posts = Post::findOrFail($id);
+        $post = Post::findOrFail($id);
 
-        $posts->content = $request->input('content');
-        $posts->user_id = $request->user()->id;
-        $posts->save();
+        if (auth()->id() !== $post->user_id) {
+            abort(404);
+        }
 
+        $post->content = $request->input('content');
+        $post->save();
         return back();
     }
 }
-
