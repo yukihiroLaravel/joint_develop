@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 //トップページ
 Route::get('/', 'PostsController@index');
 
@@ -22,12 +23,18 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
+// ユーザ
+Route::prefix('users')->group(function () {
+    Route::get('/{id}/edit', 'UsersController@edit')->name('user.edit');
+    Route::get('{id}', 'UsersController@show')->name('user.show');
+});
+
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
     Route::post('posts', 'PostsController@store')->name('post.store');
 // ユーザー情報
     Route::prefix('users')->group(function () {
-        Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
+        //Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
         Route::put('{id}', 'UsersController@update')->name('user.update');
         Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
    });
