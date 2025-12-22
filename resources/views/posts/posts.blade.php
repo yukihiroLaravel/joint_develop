@@ -8,16 +8,9 @@
                      alt="ユーザのアバター画像">
                 <a href="{{ route('user.show', $post->user->id) }}">{{ $post->user->name }}</a>
             </div>
-            
-            {{-- 操作ボタン --}}
-            @if(Auth::id() === $post->user_id)
-                <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                    <form method="" action="">
-                        <button type="submit" class="btn btn-danger btn-sm">削除</button>
-                    </form>
-                    <a href="" class="btn btn-primary btn-sm">編集する</a>
-                <div class="">
-                <div class="text-left d-inline-block w-75">
+            <div class="">
+                
+            <div class="text-left d-inline-block w-75">
                     <!-- 投稿内容 -->
                     <p class="mb-2">{{ $post->content }}</p>
                     <!--投稿日時（フォーマット付き）-->
@@ -41,8 +34,15 @@
                         </div>
                     @endif
                 </div>
-            @endif
+                @if(Auth::id() === $post->user_id)
+                    <div class="d-flex justify-content-between w-75 pb-3 m-auto">
+                        <form method="" action="">
+                            <button type="submit" class="btn btn-danger">削除</button>
+                        </form>
+                        <a href="" class="btn btn-primary">編集する</a>
+                    </div>
+                @endif
+            </div>
         </li>
     @endforeach
 </ul>
-<div class="m-auto" style="width: fit-content">{{ $posts->links('pagination::bootstrap-4') }}</div>

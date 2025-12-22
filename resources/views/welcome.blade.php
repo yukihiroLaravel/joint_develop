@@ -17,11 +17,10 @@
     <h5 class="text-center mb-3">デフアスリートへの応援メッセージを投稿し、自由にシェアしよう！</h5>
     {{-- 共通のエラーメッセージ --}}
         <div class="w-75 m-auto">
+            {{-- 共通のエラーメッセージ --}}
             @include('commons.error_messages')
         </div>
-    <div class="text-center mb-3">
         <div class="text-center mb-3">
-            
             @if (Auth::check())
                 <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
                     @csrf
@@ -38,9 +37,6 @@
                             </label>
                         @endforeach
                     </div>
-                    <div class="text-left mt-1 mb-2">
-                        <a href="{{ route('tags.index') }}" class="btn btn-primary">タグを編集する</a>
-                    </div>
                     <!-- 新規タグ -->
                     <div class="form-group text-left">
                         <label>新規タグ（カンマ区切り）</label>
@@ -48,7 +44,7 @@
                     </div>
                     <div class="text-left mt-3">
                         <button type="submit" class="btn btn-primary">投稿する</button>
-                    </div>                   
+                    </div>
                 </form>
             @endif
         </div>

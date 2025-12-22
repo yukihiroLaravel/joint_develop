@@ -39,7 +39,7 @@ Route::prefix('users')->middleware('auth')->group(function () {
     Route::delete('{id}/unfollow', 'FollowController@unfollow')->name('user.unfollow');
 
     // ユーザ削除
-    Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
+    Route::delete('{id}', 'PostsController@destroy')->name('user.delete');
 });
 
 // ログイン後のみ タグ（編集・更新・削除）
