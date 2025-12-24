@@ -19,16 +19,6 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 Route::get('/', 'PostsController@index');
 
-
-Route::middleware('auth')->group(function(){
-
-    //ユーザ編集画面・更新
-    Route::post('/posts/user/{id}', [PostsController::class, 'user'])->name('post.user');
-
-    //投稿削除
-    Route::get('/posts/delete/{id}', [PostsController::class, 'delete'])->name('post.delete');
-
-});
 //ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
