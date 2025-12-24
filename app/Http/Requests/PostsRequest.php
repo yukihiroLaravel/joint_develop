@@ -24,14 +24,12 @@ class PostsRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|max:20',
             'content' => 'required|max:140',
         ];
     }
     public function attributes()
     {
         return [
-            'user_id' => 'ユーザーネーム',
             'content' => '投稿',
         ];
     }
