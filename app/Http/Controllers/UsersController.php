@@ -10,58 +10,42 @@ use App\Post;
 use App\Tag;
 use App\Http\Requests\PostRequest; 
 
-class PostsController extends Controller
+class UsersController extends Controller
 {
-    public function index()
+    // 編集画面
+    public function edit($id)
     {
-        $tags = Tag::orderBy('name')->get();
-        return view('welcome', compact('tags'));
-    }
+        // ユーザ取得（存在しなければ404）
+        $user = User::findOrFail($id);
+        $this->authorize('update', $user);
+        return view('users.edit', compact('user'));
 
-    // 投稿保存（タグ同時処理）
-    public function store(PostRequest $request)
-    {
-        // 投稿作成
-        $post = Post::create([
-            'content' => $request->content,
-            'user_id' => $request->user()->id,
+        // そのユーザの投稿一覧を取得
+        $posts = $user->posts()->orderBy('created_at', 'desc')->paginate(9);
+        return view('users.show', 
+        [
+            'user'  => $user,
+            'posts' => $posts,
         ]);
-
-        // ① 既存タグ（checkbox）
-        $tagIds = $request->input('tag_ids', []);
-
-        // ② 新規タグ（カンマ区切り）
-        if ($request->filled('new_tags')) {
-            $names = array_unique(
-                array_filter(array_map('trim', explode(',', $request->new_tags)))
-            );
-
-            foreach ($names as $name) {
-                $tag = Tag::firstOrCreate(['name' => $name]);
-                $tagIds[] = $tag->id;
-            }
-            }
-
-        // ③ 紐付け
-        $post->tags()->sync($tagIds);
-
-        return back(); 
     }
 
-    public function detachTag(Post $post, Tag $tag)
+    //ユーザ削除
+    public function destroy($id)
     {
-        // 投稿者本人チェック
-        if (Auth::id() !== $post->user_id) {
-            abort(403);
+        $user = User::findOrFail($id);
+        $this->authorize('update', $user);
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        //　パスワード更新
+        if ($request->filled('password')) 
+        {
+            $user->password = bcrypt($request->password);
+        
+        // ※ 実運用では「本人 or 管理者か」のチェックを入れる
+            $user->delete();
+            return redirect('/')->with('success', 'ユーザを削除しました。');
         }
-        $post->tags()->detach($tag->id);
-
         return back();
-    }
-
-    public function destroy(User $user)
-    {
-        $user->delete();
-        return redirect('/');
     }
 }
