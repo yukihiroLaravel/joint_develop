@@ -30,10 +30,15 @@ Route::prefix('users')->group(function () {
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
+    // 投稿に関するルート
     Route::post('posts', 'PostsController@store')->name('post.store');
-//フォロー機能
+    // フォロー関連
     Route::group(['prefix' => 'users/{id}'],function(){
+        // フォロー、解除
         Route::post('follow','FollowController@store')->name('follow');
         Route::delete('unfollow','FollowController@destroy')->name('unfollow');
+        // フォロー、フォロワーの表示
+        Route::get('followings', 'UsersController@followings')->name('users.followings');
+        Route::get('followers', 'UsersController@followers')->name('users.followers');
     });
 });
