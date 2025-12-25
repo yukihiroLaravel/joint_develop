@@ -37,6 +37,48 @@ class PostsTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        DB::table('posts')->insert([
+            'user_id' =>5,
+            'content' => 'これはテスト投稿です。5',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('posts')->insert([
+            'user_id' =>6,
+            'content' => 'これはテスト投稿です。6',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('posts')->insert([
+            'user_id' =>7,
+            'content' => 'これはテスト投稿です。7',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('posts')->insert([
+            'user_id' =>8,
+            'content' => 'これはテスト投稿です。8',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('posts')->insert([
+            'user_id' =>9,
+            'content' => 'これはテスト投稿です。9',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('posts')->insert([
+            'user_id' =>10,
+            'content' => 'これはテスト投稿です。10',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('posts')->insert([
+            'user_id' =>11,
+            'content' => 'これはテスト投稿です。11',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
 
 
