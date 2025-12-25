@@ -8,21 +8,16 @@
     @method('PUT')
 
     <div class="form-group">
+        @include('commons.error_messages')
         <textarea
             id="content"
-            class="form-control @error('content') is-invalid @enderror"
+            class="form-control"
             name="content"
             rows="5"
         >{{ old('content', $post->content) }}</textarea>
 
-        @error('content')
-            <div class="invalid-feedback">
-                {{ $message }}
-            </div>
-        @enderror
     </div>
 
     <button type="submit" class="btn btn-primary">更新する</button>
 </form>
-
 @endsection
