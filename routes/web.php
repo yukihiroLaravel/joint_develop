@@ -17,7 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
-Route::get('/', 'PostsController@index');
+Route::get('/', 'PostsController@index')->name('welcome');;
+
+
+// ユーザ編集・更新
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('/user/edit/{id}', 'UsersController@edit')->name('user.edit');
+
+});
+
 
 //ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
