@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\Http\Requests\PostsRequest;
 use Illuminate\Http\Request;
+use App\Http\Requests\PostRequest;
+use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
     public function index()
     {
-        return view('welcome');
+        $posts = Post::orderBy('created_at', 'desc')->paginate(10);
+        return view('welcome',['posts' => $posts]);
     }
 
     public function edit($id)
