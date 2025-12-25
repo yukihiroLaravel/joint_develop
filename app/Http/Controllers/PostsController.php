@@ -63,9 +63,15 @@ class PostsController extends Controller
         return back();
     }
 
-    public function destroy(User $user)
+    // 投稿削除
+    public function destroy($id)
     {
-        $user->delete();
-        return redirect('/');
+        $post = Post::findOrFail($id);
+
+        if (\Auth::id() === $post->user_id){
+        $post->delete();
+        }
+        
+        return back();
     }
 }
