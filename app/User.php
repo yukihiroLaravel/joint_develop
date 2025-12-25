@@ -39,7 +39,44 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function follows()
+    {
+        return $this->belongsToMany(User::class, 'follows','follow_id', 'followed_id')->withTimestamps();
+    }
     
+    public function follow($followedId)
+    {
+        $exist = $this->isFollow($followedId);
+        if ($exist) {
+            return false;
+        } else {
+            $this->follows()->attach($followedId);
+            return true;
+        }
+    }
+
+    public function unfollow($followedId)
+    {
+        $exist = $this->isFollow($followedId);
+        if ($exist) {
+            $this->follows()->detach($followedId);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function isFollow($followedId)
+    {
+        return $this->follows()->where('followed_id', $followedId)->exists();
+    }
+        
+    public function followed()
+    {
+        return $this->belongsToMany(User::class, 'follows','followed_id','follow_id')->withTimestamps();
+    }
+        
     public function posts()
     {
         return $this->hasMany(Post::class);
