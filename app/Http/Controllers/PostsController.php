@@ -23,7 +23,7 @@ class PostsController extends Controller
         $imagePath = null;
 
         if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('posts', 'public');
+            $imagePath = $request->file('image')->store('posts', 'public');
         }
         
         // 投稿作成
