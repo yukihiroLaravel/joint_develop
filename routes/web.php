@@ -32,6 +32,9 @@ Route::prefix('users')->group(function () {
 Route::group(['middleware' => 'auth'], function () {
     // 投稿に関するルート
     Route::post('posts', 'PostsController@store')->name('post.store');
+    // 編集
+    Route::get('posts/{id}/edit', 'PostsController@edit')->name('posts.edit');
+    Route::put('posts/{id}', 'PostsController@update')->name('posts.update');
     // フォロー関連
     Route::group(['prefix' => 'users/{id}'],function(){
         // フォロー、解除
