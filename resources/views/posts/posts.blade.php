@@ -11,6 +11,10 @@
                     <p class="mb-2">{{ $post->content }}</p>
                     <!--投稿日時（フォーマット付き）-->
                     <p class="text-muted">{{ $post->created_at->format('Y-m-d H:i') }}</p>
+                    <!-- 画像表示 -->
+                    @if ($post->image)
+                        <img src="{{ asset('storage/' . $post->image) }}" class="img-fluid mt-2">
+                    @endif
                     <!-- タグ表示 -->
                     @if($post->tags->isNotEmpty())
                         <div class="mt-2">

@@ -28,6 +28,7 @@ class PostRequest extends FormRequest
             'content' => 'required|max:140',
             'tag_ids.*'    => 'exists:tags,id',
             'new_tags'     => 'nullable|string|max:50',
+            'image'   => 'nullable|image|max:2048',
         ];
     }
 
