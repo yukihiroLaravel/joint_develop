@@ -20,10 +20,17 @@ class PostsController extends Controller
     // 投稿保存（タグ同時処理）
     public function store(PostRequest $request)
     {
+        $imagePath = null;
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('posts', 'public');
+        }
+        
         // 投稿作成
         $post = Post::create([
             'content' => $request->content,
             'user_id' => $request->user()->id,
+            'image'   => $imagePath,
         ]);
 
         // ① 既存タグ（checkbox）

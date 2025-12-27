@@ -9,8 +9,13 @@
                 <div class="text-left d-inline-block w-75">
                     <!-- 投稿内容 -->
                     <p class="mb-2">{{ $post->content }}</p>
+                    <!-- 画像表示 -->
+                    @if ($post->image)
+                        <img src="{{ asset('storage/' . $post->image) }}" class="img-fluid mb-3">
+                    @endif
                     <!--投稿日時（フォーマット付き）-->
                     <p class="text-muted">{{ $post->created_at->format('Y-m-d H:i') }}</p>
+
                     <!-- タグ表示 -->
                     @if($post->tags->isNotEmpty())
                         <div class="mt-2">
@@ -22,7 +27,7 @@
                                         <form method="POST" action="{{ route('post.tag.destroy', [$post->id, $tag->id]) }}" class="d-inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-link text-danger p-0 ml-1">×</button>
+                                            <button type="submit" class="btn btn-sm btn-link text-danger p-0 ml-1 mb-1">×</button>
                                         </form>
                                     @endif
                                 </span>
