@@ -27,25 +27,22 @@ class PostsController extends Controller
 
     public function edit($id)
     {
-    $post = \App\Post::findOrFail($id);
-    if (\Auth::id() !== $post->user_id) {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() !== $post->user_id) {
         return redirect('/');
-    }
-    return view('posts.edit', [
+        }
+        return view('posts.edit', [
         'post' => $post,
-    ]);
+        ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, $id)
     {
-    $request->validate([
-        'content' => 'required|max:140',
-    ]);
-    $post = \App\Post::findOrFail($id);
-    if (\Auth::id() === $post->user_id) {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
         $post->content = $request->content;
         $post->save();
-    }
-    return redirect('/');
+        }
+        return redirect('/');
     }
 }
