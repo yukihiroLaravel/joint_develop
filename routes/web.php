@@ -23,23 +23,24 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-// ユーザ
-Route::prefix('users')->group(function () {
-    Route::get('{id}', 'UsersController@show')->name('user.show');
-});
-
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
+    // 投稿に関するルート
     Route::post('posts', 'PostsController@store')->name('post.store');
-// ユーザー情報
+    // ユーザー情報
     Route::prefix('users')->group(function () {
+        Route::get('{id}', 'UsersController@show')->name('user.show');
         Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
         Route::put('{id}', 'UsersController@update')->name('user.update');
         Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
-   });
-//フォロー機能
-    Route::group(['prefix' => 'users/{id}'],function(){
+    });
+    // フォロー関連
+    Route::group(['prefix' => 'users/{id}'],function() {
+        // フォロー、解除
         Route::post('follow','FollowController@store')->name('follow');
         Route::delete('unfollow','FollowController@destroy')->name('unfollow');
+        // フォロー、フォロワーの表示
+        Route::get('followings', 'UsersController@followings')->name('users.followings');
+        Route::get('followers', 'UsersController@followers')->name('users.followers');
     });
 });

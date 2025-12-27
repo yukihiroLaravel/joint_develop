@@ -16,7 +16,7 @@ class UsersController extends Controller
         }
 
         return view('users.edit',[
-         'user' => $user  
+            'user' => $user  
         ]);
     }
 
@@ -25,9 +25,11 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         $user->name = $request->name;
         $user->email = $request->email;
+
         if ($request->filled('password')) {
-        $user->password = bcrypt($request->password);
+            $user->password = bcrypt($request->password);
         }
+        
         $user->save();
         return redirect()->route('user.show',$id);
     }
@@ -35,12 +37,39 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        $posts = $user->posts()->orderBy('id', 'desc')->paginate(9);
-        $data=[
+        $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
+        $data = [
             'user' => $user,
             'posts' => $posts,
+            'users' => collect([]),
         ];
-        
-        return view('users.show',$data);
+        $data += $this->userCounts($user);
+        return view('users.show', $data);
+    }
+
+    public function followings($id)
+    {
+        $user = User::findOrFail($id);
+        $users = $user->follows()->paginate(10);
+        $data = [
+            'user' => $user,
+            'users' => $users,
+            'posts' => collect([]),
+        ];
+        $data += $this->userCounts($user);
+        return view('users.show', $data);
+    }
+
+    public function followers($id)
+    {
+        $user = User::findOrFail($id);
+        $users = $user->followed()->paginate(10);
+        $data = [
+            'user' => $user,
+            'users' => $users,
+            'posts' => collect([]),
+        ];
+        $data += $this->userCounts($user);
+        return view('users.show', $data);
     }
 }
