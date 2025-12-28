@@ -21,20 +21,27 @@
                                     <a href="{{ route('tags.show', $tag->id) }}" class="badge badge-secondary">#{{ $tag->name }}</a>
                                     <!-- タグ解除ボタン（投稿者のみ表示） -->
                                     @if(Auth::id() === $post->user_id)
-                                        <div class="d-flex justify-content-between w-75 pb-3 m-auto">
-                                            <form method="" action="">
-                                                <button type="submit" class="btn btn-danger">削除</button>
-                                            </form>
-                                            <a href="" class="btn btn-primary">編集する</a>
-                                        </div>
+                                        <form method="POST" action="{{ route('post.tag.destroy', [$post->id, $tag->id]) }}" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-link text-danger p-0 ml-1">×</button>
+                                        </form>
                                     @endif
                                 </span>
                             @endforeach
                         </div>
                     @endif
+                </div>
+                @if(Auth::id() === $post->user_id)
+                    <div class="d-flex justify-content-between w-75 pb-3 m-auto">
+                        <form method="" action="">
+                            <button type="submit" class="btn btn-danger">削除</button>
+                        </form>
+                        <a href="" class="btn btn-primary">編集する</a>
+                    </div>
+                @endif
             </div>
         </li>
     @endforeach
-    </ul>
     <div class="m-auto" style="width: fit-content">{{ $posts->links('pagination::bootstrap-4') }}</div>
 </ul>
