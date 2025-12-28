@@ -29,10 +29,10 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
         if (\Auth::id() !== $post->user_id) {
-        return redirect('/');
+            return redirect('/');
         }
         return view('posts.edit', [
-        'post' => $post,
+            'post' => $post,
         ]);
     }
 
@@ -40,8 +40,8 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
         if (\Auth::id() === $post->user_id) {
-        $post->content = $request->content;
-        $post->save();
+            $post->content = $request->content;
+            $post->save();
         }
         return redirect('/');
     }
