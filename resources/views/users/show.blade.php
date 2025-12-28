@@ -34,9 +34,16 @@
                         フォロワー<br><div class="badge badge-secondary">{{ $countFollowers }}</div>
                     </a>
                 </li>
+                @if (Auth::id() == $user->id)
+                    <li class="nav-item">
+                        <a href="{{ route('users.favorites', $user->id) }}" class="nav-link {{ Request::is('users/*/favorites') ? 'active' : '' }}">
+                            いいね！<br><div class="badge badge-secondary">{{ $countFavorites }}</div>
+                        </a>
+                    </li>
+                @endif
             </ul>
             <div class="mt-2">
-                @if (Request::is('users/' . $user->id))
+                @if (Request::is('users/' . $user->id)|| Request::is('users/*/favorites'))
                     @include('posts.posts', ['posts' => $posts])
                 @else
                     @include('users.users', ['users' => $users])

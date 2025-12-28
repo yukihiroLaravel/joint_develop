@@ -1,5 +1,7 @@
 @extends('layouts.app')
 @section('content')
+<div class="row">
+    <div class="col-sm-8">
    <div class="center jumbotron bg-info">
         <div class="text-center text-white mt-2 pt-1">
             <h1><i class="pr-3"></i>Topic Posts</h1>
@@ -23,4 +25,20 @@
         </div>
         @endif
 @include('posts.posts', ['posts' => $posts])
+    </div>
+    <aside class="col-sm-4">
+        <div class="card">
+            <div class="card-header bg-info text-white">いいね！ランキング</div>
+            <ul class="list-group list-group-flush">
+                @foreach ($ranking_posts as $rank)
+                    <li class="list-group-item">
+                        <small>{{ $rank->user->name }}</small><br>
+                        <a href="{{ route('user.show', $rank->user->id) }}">{{ Str::limit($rank->content, 30) }}</a>
+                        <span class="badge badge-pill badge-primary">{{ $rank->favorite_users_count }} いいね</span>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+    </aside>
+</div>
 @endsection
