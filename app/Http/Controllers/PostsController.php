@@ -69,7 +69,7 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
 
         if (\Auth::id() === $post->user_id){
-        $post->delete();
+            $post->delete();
         }
         
         return back();

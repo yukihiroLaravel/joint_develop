@@ -40,8 +40,6 @@ Route::prefix('users')->middleware('auth')->group(function () {
     
     Route::post('{id}/follow', 'FollowController@follow')->name('user.follow');
     Route::delete('{id}/unfollow', 'FollowController@unfollow')->name('user.unfollow');
-
-    Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
 });
 
 // ログイン後のみ タグ（編集・更新・削除）
