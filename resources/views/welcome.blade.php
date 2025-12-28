@@ -12,11 +12,16 @@
         </div>
         <div class="text-center mb-3">
             @if (Auth::check())
-                <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
+                <form method="POST" action="{{ route('post.store') }}" enctype="multipart/form-data" class="d-inline-block w-75">
                     @csrf
                     <!-- 投稿本文 -->
                     <div class="form-group">
                         <textarea class="form-control" name="content" rows="4" required>{{ old('content') }}</textarea>
+                    </div>
+                    <!-- 画像添付 -->
+                    <div class="form-group text-left">
+                        <label>画像（任意）</label>
+                        <input type="file" name="image" class="form-control-file">
                     </div>
                     <!-- 既存タグ選択 -->
                     <div class="form-group text-left">
