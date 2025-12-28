@@ -51,4 +51,5 @@
         <div class="d-flex flex-column align-items-center mt-4">
             @include('posts.posts')
         </div>
+    </div>
 @endsection
