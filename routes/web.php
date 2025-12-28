@@ -23,7 +23,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('posts/{post}/tags/{tag}','PostsController@detachTag')->name('post.tag.destroy');
 });
 
-
 Route::prefix('users')->middleware('auth')->group(function () {
 
     //ユーザ編集・更新
@@ -34,10 +33,8 @@ Route::prefix('users')->middleware('auth')->group(function () {
     Route::get('{id}', 'FollowController@timeline')->name('user.show');
     Route::get('{id}/followings', 'FollowController@followings')->name('user.followings');
     Route::get('{id}/followers', 'FollowController@followers')->name('user.followers');
-    
     Route::post('{id}/follow', 'FollowController@follow')->name('user.follow');
     Route::delete('{id}/unfollow', 'FollowController@unfollow')->name('user.unfollow');
-
     Route::delete('{id}', 'PostsController@destroy')->name('user.delete');
 });
 
@@ -47,6 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('tags/{tag}', 'TagController@update')->name('tags.update');
     Route::delete('tags/{tag}', 'TagController@destroy')->name('tags.destroy');
 });
+
 // タグ一覧
 Route::get('tags/{tag}', 'TagController@show')->name('tags.show');
 

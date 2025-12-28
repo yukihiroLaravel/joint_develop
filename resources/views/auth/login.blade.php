@@ -1,7 +1,13 @@
 @extends('layouts.app')
 @section('content')
 <div class="text-center">
-        <h1><i class="fab fa-telegram fa-lg pr-3"></i>Topic Posts</h1>
+       <h1>
+            <img src="{{ asset('images/tokyo-DeafLympic2025_Emblem.jpg') }}"
+                alt="デフリンピック エンブレム"
+                class="mx-2 align-middle"
+                style="height: 60px;">
+                TOKYO 2025 デフリンピック
+        </h1>
     </div>
     <div class="text-center mt-3">
         <p class="text-left d-inline-block">ログインすると投稿で<br>コミュニケーションができるようになります。</p>
