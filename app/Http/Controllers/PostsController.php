@@ -24,4 +24,25 @@ class PostsController extends Controller
         $post->save();
         return back();
     }
+
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() !== $post->user_id) {
+            return redirect('/');
+        }
+        return view('posts.edit', [
+            'post' => $post,
+        ]);
+    }
+
+    public function update(PostRequest $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        if (\Auth::id() === $post->user_id) {
+            $post->content = $request->content;
+            $post->save();
+        }
+        return redirect('/');
+    }
 }
