@@ -11,8 +11,13 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::orderBy('id','desc')->paginate(10);
+        $ranking_posts = Post::withCount('favoriteUsers')
+        ->orderBy('favorite_users_count', 'desc')
+        ->take(5)
+        ->get();
         return view('welcome', [
             'posts' => $posts,
+            'ranking_posts' => $ranking_posts,
         ]);
     }
 
@@ -21,6 +26,7 @@ class PostsController extends Controller
         $post = new Post;
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
+        $post->favorite_flag = $request->favorite_flag ? 1 : 0;
         $post->save();
         return back();
     }

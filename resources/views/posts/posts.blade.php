@@ -18,6 +18,9 @@
                         <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">編集する</a>
                     </div>
                 @endif
+                <div class="d-flex justify-content-center pb-3">
+                    @include('favorites.favorite_button', ['post' => $post])
+                </div>
             </div>
         </li>
     @endforeach
