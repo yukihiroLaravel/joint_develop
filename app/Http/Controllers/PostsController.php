@@ -26,6 +26,7 @@ class PostsController extends Controller
         $post = new Post;
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
+        $post->favorite_flag = $request->favorite_flag ? 1 : 0;
         $post->save();
         return back();
     }

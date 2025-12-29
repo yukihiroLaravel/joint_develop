@@ -18,8 +18,13 @@
                 <div class="form-group">
                     <textarea class="form-control" name="content" rows="4"></textarea>
                     <div class="text-left mt-3">
+                        <label for="favorite_flag" class="mt-3">
+                            <input id="favorite_flag" type="checkbox" name="favorite_flag" value="1" {{ old('favorite_flag', 1) == 1 ? 'checked' : '' }}>
+                            いいね！を許可する
+                        </label>
+                        <br>
                         <button type="submit" class="btn btn-primary">投稿する</button>
-                    </div>    
+                    </div>
                 </div>          
             </form>
         </div>
@@ -32,8 +37,16 @@
             <ul class="list-group list-group-flush">
                 @foreach ($ranking_posts as $rank)
                     <li class="list-group-item">
-                        <small>{{ $rank->user->name }}</small><br>
-                        <a href="{{ route('user.show', $rank->user->id) }}">{{ Str::limit($rank->content, 30) }}</a>
+                        <small>
+                            <a href="{{ route('user.show', $rank->user->id) }}" class="text-info">
+                                {{ $rank->user->name }}
+                            </a>
+                        </small>
+                        <br>
+                        <span class="text-dark">
+                            {{ Str::limit($rank->content, 30) }}
+                        </span>
+                        <br>
                         <span class="badge badge-pill badge-primary">{{ $rank->favorite_users_count }} いいね</span>
                     </li>
                 @endforeach

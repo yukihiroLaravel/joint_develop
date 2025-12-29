@@ -1,5 +1,5 @@
 @if (Auth::check())
-    @if (Auth::id() != $post->user_id)
+    @if (Auth::id() != $post->user_id && $post->favorite_flag)
         @if (Auth::user()->isFavorite($post->id))
             <form method="POST" action="{{ route('favorites.unfavorite', $post->id) }}">
                 @csrf
@@ -14,3 +14,10 @@
         @endif
     @endif
 @endif
+
+<div class="ml-2">
+    <span class="text-muted">
+        <i class="far fa-heart"></i>
+        {{ $post->favoriteUsers()->count() }}
+    </span>
+</div>
