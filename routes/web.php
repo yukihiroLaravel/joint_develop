@@ -18,6 +18,9 @@ Route::group(['middleware' => 'auth'], function () {
     // 動画
     Route::prefix('posts')->group(function () {
         Route::post('', 'PostsController@store')->name('post.store');
+        
+        // 投稿削除
+        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     });
     // 投稿 × タグ（解除）
     Route::delete('posts/{post}/tags/{tag}','PostsController@detachTag')->name('post.tag.destroy');
@@ -35,7 +38,8 @@ Route::prefix('users')->middleware('auth')->group(function () {
     Route::get('{id}/followers', 'FollowController@followers')->name('user.followers');
     Route::post('{id}/follow', 'FollowController@follow')->name('user.follow');
     Route::delete('{id}/unfollow', 'FollowController@unfollow')->name('user.unfollow');
-    Route::delete('{id}', 'PostsController@destroy')->name('user.delete');
+
+    Route::delete('{id}', 'UsersController@destroy')->name('user.delete');
 });
 
 // ログイン後のみ タグ（編集・更新・削除）
