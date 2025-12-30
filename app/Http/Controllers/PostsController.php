@@ -11,12 +11,17 @@ use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
 {
+    // トップページを表示 //
     public function index()
     {
         $tags = Tag::orderBy('name')->get();
-        return view('welcome', compact('tags'));
-    }
+        // 投稿順に表示させる //
+        $posts = Post::with('user')->orderBy('created_at', 'desc')->paginate(10);
 
+        // トップページに //
+        return view('welcome', compact('posts', 'tags'));
+    }
+   
     // 投稿保存（タグ同時処理）
     public function store(PostRequest $request)
     {
