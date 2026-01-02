@@ -10,14 +10,29 @@ class PostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('id','desc')->paginate(10);
-        $ranking_posts = Post::withCount('favoriteUsers')
-        ->orderBy('favorite_users_count', 'desc')
-        ->take(5)
-        ->get();
+        $posts = Post::withCount('favoriteUsers')->orderBy('id','desc')->paginate(10);
         return view('welcome', [
             'posts' => $posts,
-            'ranking_posts' => $ranking_posts,
+            'ranking_posts' => $this->getRanking(),
+        ]);
+    }
+
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $query = Post::withCount('favoriteUsers');
+
+        if (!empty($keyword)) {
+            $query->where('content', 'LIKE', "%{$keyword}%");
+        }
+
+        $posts = $query->orderBy('id', 'desc')->paginate(10);
+        $posts->appends(['keyword' => $keyword]);
+
+        return view('welcome', [
+            'posts' => $posts,
+            'ranking_posts' => $this->getRanking(),
+            'keyword' => $keyword,
         ]);
     }
 

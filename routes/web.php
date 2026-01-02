@@ -14,6 +14,9 @@
 //トップページ
 Route::get('/', 'PostsController@index');
 
+// 投稿検索
+Route::get('search', 'PostsController@search')->name('posts.search');
+
 //新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
