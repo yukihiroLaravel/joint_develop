@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Post;
-use App\Http\Requests\PostsRequest;
+use App\User;
+
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Auth;
