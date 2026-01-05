@@ -8,30 +8,19 @@ use App\Http\Requests\PostRequest;
 
 class PostsController extends Controller
 {
-    public function index()
-    {
-        $posts = Post::withCount('favoriteUsers')->orderBy('id','desc')->paginate(10);
-        return view('welcome', [
-            'posts' => $posts,
-            'ranking_posts' => $this->getRanking(),
-        ]);
-    }
-
-    public function search(Request $request)
+    public function index(Request $request)
     {
         $keyword = $request->input('keyword');
-        $query = Post::withCount('favoriteUsers');
-
+        $query = Post::query();
         if (!empty($keyword)) {
             $query->where('content', 'LIKE', "%{$keyword}%");
         }
-
         $posts = $query->orderBy('id', 'desc')->paginate(10);
         $posts->appends(['keyword' => $keyword]);
-
+        $ranking_posts = $this->getRanking();
         return view('welcome', [
             'posts' => $posts,
-            'ranking_posts' => $this->getRanking(),
+            'ranking_posts' => $ranking_posts,
             'keyword' => $keyword,
         ]);
     }

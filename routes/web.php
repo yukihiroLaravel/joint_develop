@@ -12,10 +12,7 @@
 */
 
 //トップページ
-Route::get('/', 'PostsController@index');
-
-// 投稿検索
-Route::get('search', 'PostsController@search')->name('posts.search');
+Route::get('/', 'PostsController@index')->name('welcome');
 
 //新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
