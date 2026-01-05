@@ -34,6 +34,6 @@ class PostsController extends Controller
 
         $post->content = $request->input('content');
         $post->save();
-        return back();
+        return back()->with('success', '投稿を更新しました');
     }
 }
