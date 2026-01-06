@@ -29,6 +29,25 @@
             </form>
         </div>
         @endif
+        <div class="card mt-4 mb-4">
+                <div class="card-body">
+                    <form method="GET" action="{{ route('welcome') }}">
+                        <div class="input-group">
+                            <input type="text" name="keyword" class="form-control" placeholder="投稿内容で検索..." value="{{ $keyword ?? '' }}">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-search"></i> 検索
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    @if(!empty($keyword))
+                        <div class="mt-2 text-right">
+                            <a href="{{ route('welcome') }}" class="text-muted small">検索結果をクリア</a>
+                        </div>
+                    @endif
+                </div>
+            </div>
 @include('posts.posts', ['posts' => $posts])
     </div>
     <aside class="col-sm-4">
