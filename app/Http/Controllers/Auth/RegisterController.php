@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -31,6 +32,12 @@ class RegisterController extends Controller
      */
     //ユーザ登録後、トップページに遷移。
     protected $redirectTo = '/';
+
+    protected function registered(Request $request, $user)
+    {
+        return redirect($this->redirectTo)
+            ->with('success', '新規登録が完了しました');
+    }
 
     /**
      * Create a new controller instance.
