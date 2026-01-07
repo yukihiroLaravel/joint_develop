@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Post;
@@ -64,6 +65,58 @@ class PostsController extends Controller
         return back();
     }
 
+    public function edit(Post $post)
+    {
+        if (Auth::id() !== $post->user_id) {
+            abort(403);
+        }
+
+        $tags = Tag::orderBy('name')->get();
+
+        return view('posts.edit', [
+            'post' => $post,
+            'tags' => $tags,
+        ]);
+    }
+
+    public function update(PostRequest $request, Post $post)
+    {
+        if (Auth::id() !== $post->user_id) {
+            abort(403);
+        }
+
+        // 本文更新
+        $post->update([
+            'content' => $request->content,
+        ]);
+
+        // ① 既存タグ
+        $tagIds = $request->input('tag_ids', []);
+
+        // ② 新規タグ
+        if ($request->filled('new_tags')) {
+            $names = array_unique(
+                array_filter(array_map('trim', explode(',', $request->new_tags)))
+            );
+
+            foreach ($names as $name) {
+                $tag = Tag::firstOrCreate(
+                    ['name' => $name],
+                    [
+                        'user_id' => auth()->id(),
+                        'update_count' => 0,
+                    ]
+                );
+                $tagIds[] = $tag->id;
+            }
+        }
+
+        // ③ タグ更新
+        $post->tags()->sync($tagIds);
+
+        return redirect()->route('user.show', $post->user_id);
+    }
+
     public function detachTag(Post $post, Tag $tag)
     {
         // 投稿者本人チェック
@@ -81,9 +134,69 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
 
         if (\Auth::id() === $post->user_id){
+            if ($post->image) {
+                Storage::disk('public')->delete($post->image);
+            }
+            
             $post->delete();
         }
         
         return back();
+    }
+
+    // 画像編集ページ表示
+    public function editImage(Post $post)
+    {
+        if (Auth::id() !== $post->user_id) {
+            abort(403);
+        }
+
+        return view('posts.image_edit', [
+            'post' => $post,
+        ]);
+    }
+
+    // 画像更新
+    public function updateImage(Request $request, Post $post)
+    {
+        if (Auth::id() !== $post->user_id) {
+            abort(403);
+        }
+
+        $request->validate([
+            'image' => 'required|image|max:2048',
+        ]);
+
+        // 古い画像削除
+        if ($post->image) {
+            Storage::disk('public')->delete($post->image);
+        }
+
+        // 新しい画像保存
+        $path = $request->file('image')->store('posts', 'public');
+
+        $post->update([
+            'image' => $path,
+        ]);
+
+        return redirect()->route('posts.edit', $post->id);
+    }
+
+    // 画像削除
+    public function destroyImage(Post $post)
+    {
+        if (Auth::id() !== $post->user_id) {
+            abort(403);
+        }
+
+        if ($post->image) {
+            Storage::disk('public')->delete($post->image);
+        }
+
+        $post->update([
+            'image' => null,
+        ]);
+
+        return redirect()->route('posts.edit', $post);
     }
 }
