@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Post;
 use App\Tag;
 use App\Http\Requests\PostRequest; 
+use App\Http\Requests\ImageRequest; 
 
 class PostsController extends Controller
 {
@@ -81,9 +83,65 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
 
         if (\Auth::id() === $post->user_id){
+            if ($post->image) {
+                Storage::disk('public')->delete($post->image);
+            }
+            
             $post->delete();
         }
         
         return back();
+    }
+
+    // 画像編集ページ表示
+    public function editImage(Post $post)
+    {
+        if (Auth::id() !== $post->user_id) {
+            abort(403);
+        }
+
+        return view('posts.image_edit', [
+            'post' => $post,
+        ]);
+    }
+
+    // 画像更新
+    public function updateImage(ImageRequest $request, Post $post)
+    {
+        if (Auth::id() !== $post->user_id) {
+            abort(403);
+        }
+
+        // 古い画像削除
+        if ($post->image) {
+            Storage::disk('public')->delete($post->image);
+        }
+
+        // 新しい画像保存
+        $path = $request->file('image')->store('posts', 'public');
+
+        $post->update([
+            'image' => $path,
+        ]);
+
+        return redirect()->route('posts.edit', $post);
+    }
+
+    // 画像削除
+    public function destroyImage(Post $post)
+    {
+        if (Auth::id() !== $post->user_id) {
+            abort(403);
+        }
+
+        if ($post->image) {
+            Storage::disk('public')->delete($post->image);
+        }
+
+        $post->update([
+            'image' => null,
+        ]);
+
+        return redirect()->route('posts.edit', $post);
     }
 }

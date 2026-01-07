@@ -17,10 +17,14 @@ Route::get('/', 'PostsController@index');
 Route::group(['middleware' => 'auth'], function () {
     // 動画
     Route::prefix('posts')->group(function () {
-        Route::post('', 'PostsController@store')->name('post.store');
-        
+        Route::post('', 'PostsController@store')->name('post.store');        
         // 投稿削除
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
+        
+        // 画像編集ページ表示・更新・削除
+        Route::get('{post}/image/edit', 'PostsController@editImage')->name('posts.image.edit');
+        Route::put('{post}/image', 'PostsController@updateImage')->name('posts.image.update');
+        Route::delete('{post}/image', 'PostsController@destroyImage')->name('posts.image.destroy');
     });
     // 投稿 × タグ（解除）
     Route::delete('posts/{post}/tags/{tag}','PostsController@detachTag')->name('post.tag.destroy');
