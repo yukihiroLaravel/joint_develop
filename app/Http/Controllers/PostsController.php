@@ -9,6 +9,7 @@ use App\User;
 use App\Post;
 use App\Tag;
 use App\Http\Requests\PostRequest; 
+use App\Http\Requests\ImageRequest; 
 
 class PostsController extends Controller
 {
@@ -157,15 +158,11 @@ class PostsController extends Controller
     }
 
     // 画像更新
-    public function updateImage(Request $request, Post $post)
+    public function updateImage(ImageRequest $request, Post $post)
     {
         if (Auth::id() !== $post->user_id) {
             abort(403);
         }
-
-        $request->validate([
-            'image' => 'required|image|max:2048',
-        ]);
 
         // 古い画像削除
         if ($post->image) {
@@ -179,7 +176,7 @@ class PostsController extends Controller
             'image' => $path,
         ]);
 
-        return redirect()->route('posts.edit', $post->id);
+        return redirect()->route('posts.edit', $post);
     }
 
     // 画像削除
