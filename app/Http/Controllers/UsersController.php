@@ -18,4 +18,16 @@ class UsersController extends Controller
         ];
         return view('users.show',$data);
     }
+
+    //user退会
+    public function destroy(Request $request)
+    {
+        $user = $request->user();
+        \Auth::logout(); //ログアウト処理        
+        $user->delete();// 3. ユーザー削除
+        $request->session()->invalidate();// 4. セッションの無効化と再生成
+        $request->session()->regenerateToken();
+        return redirect('/')->with('success', '退会手続きが完了しました。');
+    }
+
 }
