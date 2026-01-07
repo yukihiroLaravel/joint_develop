@@ -66,58 +66,6 @@ class PostsController extends Controller
         return back();
     }
 
-    public function edit(Post $post)
-    {
-        if (Auth::id() !== $post->user_id) {
-            abort(403);
-        }
-
-        $tags = Tag::orderBy('name')->get();
-
-        return view('posts.edit', [
-            'post' => $post,
-            'tags' => $tags,
-        ]);
-    }
-
-    public function update(PostRequest $request, Post $post)
-    {
-        if (Auth::id() !== $post->user_id) {
-            abort(403);
-        }
-
-        // 本文更新
-        $post->update([
-            'content' => $request->content,
-        ]);
-
-        // ① 既存タグ
-        $tagIds = $request->input('tag_ids', []);
-
-        // ② 新規タグ
-        if ($request->filled('new_tags')) {
-            $names = array_unique(
-                array_filter(array_map('trim', explode(',', $request->new_tags)))
-            );
-
-            foreach ($names as $name) {
-                $tag = Tag::firstOrCreate(
-                    ['name' => $name],
-                    [
-                        'user_id' => auth()->id(),
-                        'update_count' => 0,
-                    ]
-                );
-                $tagIds[] = $tag->id;
-            }
-        }
-
-        // ③ タグ更新
-        $post->tags()->sync($tagIds);
-
-        return redirect()->route('user.show', $post->user_id);
-    }
-
     public function detachTag(Post $post, Tag $tag)
     {
         // 投稿者本人チェック

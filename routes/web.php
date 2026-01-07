@@ -20,10 +20,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('', 'PostsController@store')->name('post.store');        
         // 投稿削除
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
-
-        // ===== 投稿編集 =====
-        Route::get('{post}/edit', 'PostsController@edit')->name('posts.edit');
-        Route::put('{post}', 'PostsController@update')->name('posts.update');
         
         // 画像編集ページ表示・更新・削除
         Route::get('{post}/image/edit', 'PostsController@editImage')->name('posts.image.edit');
