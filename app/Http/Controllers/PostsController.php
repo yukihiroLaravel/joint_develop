@@ -6,7 +6,7 @@ use App\Post;
 use App\User;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\PostRequest;
+use App\Http\Requests\PostsRequest;
 use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
@@ -15,6 +15,17 @@ class PostsController extends Controller
     {
         $posts = Post::orderBy('created_at', 'desc')->paginate(10);
         return view('welcome',['posts' => $posts]);
+    }
+
+    // 新規投稿
+    public function new(PostsRequest $request)
+    {
+        $user = \Auth::user();
+        $post = new Post;
+        $post->content = $request->content;
+        $post->user_id = $user->id;
+        $post->save();
+        return redirect()->back()->with('success', '新規投稿しました');;
     }
 
     public function edit($id)
