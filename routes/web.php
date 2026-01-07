@@ -28,13 +28,17 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ログイン後
 Route::group(['middleware' => 'auth'], function () {
-     Route::prefix('posts')->group(function () {
+
+    //新規投稿登録
+    Route::post('', 'PostsController@store')->name('post.store');
+
+    Route::prefix('posts')->group(function () {
         Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit');
         Route::put('{id}', 'PostsController@update')->name('posts.update');
     });
 });
 
-// ユーザ
+// ユーザ詳細
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
 });
