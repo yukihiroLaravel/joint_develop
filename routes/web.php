@@ -38,3 +38,9 @@ Route::group(['middleware' => 'auth'], function () {
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
 });
+
+// フォロー / フォロー解除
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('users/{id}/follow', 'FollowController@store')->name('follow');
+    Route::delete('users/{id}/unfollow', 'FollowController@destroy')->name('unfollow');
+});
