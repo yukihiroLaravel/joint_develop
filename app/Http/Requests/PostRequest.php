@@ -24,13 +24,17 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'content' => 'required|max:140'
+            'content' => 'required|max:140',
+            'tags'          => 'nullable|string|max:30',
+            'favorite_flag' => 'nullable|boolean',
         ];
     }
     public function attributes()
     {
         return [
-            'content' => '投稿内容'
+            'content' => '投稿内容',
+            'tags' => 'タグ',
+            'favorite_flag' => 'いいね！の許可設定',
         ];
     }
 }

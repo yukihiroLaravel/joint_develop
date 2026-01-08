@@ -9,25 +9,20 @@
     </div>
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
         @if (Auth::check())
-        <div class="w-75 m-auto">
-            @include('commons.error_messages')
-        </div>
-        <div class="text-center mb-3">
-            <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
-                @csrf
-                <div class="form-group">
-                    <textarea class="form-control" name="content" rows="4"></textarea>
-                    <div class="text-left mt-3">
-                        <label for="favorite_flag" class="mt-3">
-                            <input id="favorite_flag" type="checkbox" name="favorite_flag" value="1" {{ old('favorite_flag', 1) == 1 ? 'checked' : '' }}>
-                            いいね！を許可する
-                        </label>
-                        <br>
-                        <button type="submit" class="btn btn-primary">投稿する</button>
-                    </div>
-                </div>          
-            </form>
-        </div>
+        @include('posts.form')
+        @endif
+        @if(!empty($tag) || !empty($keyword))
+            <div class="w-75 m-auto alert alert-secondary px-3 py-2 mb-4">
+                @if(!empty($tag))
+                    タグ <strong>#{{ $tag }}</strong> で絞り込み中
+                @endif
+                @if(!empty($keyword))
+                    キーワード <strong>「{{ $keyword }}」</strong> で検索中
+                @endif
+                <a href="{{ route('welcome') }}" class="ml-2 text-dark">
+                    <i class="fas fa-times-circle"></i> 解除して全件表示
+                </a>
+            </div>
         @endif
         <div class="card mt-4 mb-4">
                 <div class="card-body">
