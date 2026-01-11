@@ -29,8 +29,8 @@ class UsersController extends Controller
         if ($request->filled('password')) {
             $user->password = bcrypt($request->password);
         }
-
         $user->save();
+        
         return redirect()->route('user.show',$id);
     }
     
@@ -44,6 +44,7 @@ class UsersController extends Controller
             'users' => collect([]),
         ];
         $data += $this->userCounts($user);
+
         return view('users.show', $data);
     }
 
@@ -57,6 +58,7 @@ class UsersController extends Controller
             'posts' => collect([]),
         ];
         $data += $this->userCounts($user);
+
         return view('users.show', $data);
     }
 
@@ -70,6 +72,7 @@ class UsersController extends Controller
             'posts' => collect([]),
         ];
         $data += $this->userCounts($user);
+
         return view('users.show', $data);
     }
 
@@ -78,8 +81,10 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         if (\Auth::id() === $user->id) {
             \Auth::logout();
+            $user->posts()->delete();
             $user->delete();
         }
+
         return redirect('/');
     }
 }
