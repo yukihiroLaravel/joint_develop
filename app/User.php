@@ -40,6 +40,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // 投稿
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    // フォロー関連
     public function follows()
     {
         return $this->belongsToMany(User::class, 'follows','follow_id', 'followed_id')->withTimestamps();
@@ -76,9 +83,41 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(User::class, 'follows','followed_id','follow_id')->withTimestamps();
     }
-        
-    public function posts()
+
+    // いいね関連
+    public function favorites()
     {
-        return $this->hasMany(Post::class);
+        return $this->belongsToMany(Post::class, 'favorites', 'user_id', 'post_id')->withTimestamps();
+    }
+
+    // いいねをするメソッド
+    public function favorite($postId)
+    {
+        $exist = $this->isFavorite($postId);
+        if ($exist) {
+            return false;
+        } else {
+            $this->favorites()->attach($postId);
+            return true;
+        }
+    }
+
+    // いいねを外すメソッド
+    public function unfavorite($postId)
+    {
+        $exist = $this->isFavorite($postId);
+        if ($exist) {
+            $this->favorites()->detach($postId);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // すでにいいねしているか判定するメソッド
+    public function isFavorite($postId)
+    {
+        // favoritesテーブルのpost_idカラムに引数の$postIdが存在するかどうかを検索(where)し真偽値で返す
+        return $this->favorites()->where('post_id', $postId)->exists();
     }
 }

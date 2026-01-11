@@ -86,6 +86,19 @@ class UsersController extends Controller
         }
 
         return redirect('/');
+    }   
+    public function favorites($id)
+    {
+        if (\Auth::id() != $id) { return redirect('/'); }
+        $user = User::findOrFail($id);
+        $posts = $user->favorites()->orderBy('created_at', 'desc')->paginate(10);
+        $data = [
+            'user' => $user,
+            'posts' => $posts,
+            'users' => collect([]),
+        ];
+        $data += $this->userCounts($user);
+        return view('users.show', $data);
     }
 }
 
