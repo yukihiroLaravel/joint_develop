@@ -22,8 +22,8 @@ Route::get('/', 'PostsController@index')->name('welcome');;
 
 // ユーザ編集・更新
 Route::group(['middleware' => 'auth'], function () {
-    Route::post('/user/edit/{id}', 'UsersController@edit')->name('user.edit');
-
+    Route::get('/user/edit/{id}', 'UserController@edit')->name('user.edit');
+    Route::post('/user/edit/{id}', 'UserController@update')->name('user.update');
 });
 
 

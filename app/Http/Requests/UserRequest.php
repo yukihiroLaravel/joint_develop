@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UserRequest extends FormRequest
 {
@@ -24,8 +25,8 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required','string','min:2','max:255'],
-            'email' => ['required','string','email','max:256','unique:users,email'],
+            'name' => ['required','string','min:2','max:256'],
+            'email' => ['required','string','email','max:256',Rule::unique('users', 'email')->ignore($this->id)],
             'password'=> ['required', 'min:4','max:256','confirmed'],
         ];
     }
@@ -36,9 +37,6 @@ class UserRequest extends FormRequest
             'name.required' => '管理者を入力して下さい。',
             'name.min' => ':attributeは:min文字以上で入力して下さい。',
             'name.max' => ':attributeは:max文字以下で入力して下さい。',
-            'username.required' => 'ログインIDを入力して下さい。',
-            'username.min' => ':attributeは:min文字以上で入力して下さい。',
-            'username.max' => ':attributeは:max文字以下で入力して下さい。',
             'password.required' => 'パスワードを入力して下さい。',
             'password.min' => ':attributeは:min文字以上で入力して下さい。',
             'password.max' => ':attributeは:max文字以下で入力して下さい。',
@@ -50,8 +48,7 @@ class UserRequest extends FormRequest
     {
         return[
         
-            'name'=> '管理者名',
-            'username' => 'ログインID',
+            'name'=> 'ユーザ名',
             'password' => 'パスワード',
         
         ];

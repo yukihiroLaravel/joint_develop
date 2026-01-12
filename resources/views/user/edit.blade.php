@@ -1,14 +1,28 @@
+@extends('layouts.app')
+@section('content')
+
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $message)
+                    <li>{{ $message }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    
     <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
-    <form method="POST" action="{{ route('○○') }}">
+    <form method="POST" action="{{ route('user.update',$user->id) }}">
+        @csrf
         <input type="hidden" name="id" value="{{ $user->id }}" />
         <div class="form-group">
             <label for="name">ユーザ名</label>
-            <input class="form-control" value="{{ auth->user->name }}" name="name" />
+            <input class="form-control" value="{{ old('name',$user->name) }}" name="name" />
         </div>
 
         <div class="form-group">
             <label for="email">メールアドレス</label>
-            <input class="form-control" value="{{ auth->user->email }}" name="email" />
+            <input class="form-control" value="{{ old('email',$user->email) }}" name="email" />
         </div>
 
         <div class="form-group">
@@ -45,4 +59,5 @@
             </div>
         </div>
     </div>
+@endsection
 
