@@ -13,10 +13,14 @@ class FollowController extends Controller
         $user = Auth::user();
 
         // 自分自身はフォローできない
-        if ($user->id === (int) $id) {return back();}
+        if ($user->id === (int) $id) {
+        return back();
+        }
 
         // すでにフォローしていなければフォロー
-        if (! $user->isFollowing($id)) {$user->followings()->attach($id);}
+        if (! $user->isFollowing($id)) {
+        $user->followings()->attach($id);
+        }
         return back();
     }
 
@@ -24,6 +28,9 @@ class FollowController extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
-        if ($user->isFollowing($id)) {$user->followings()->detach($id);return back();}
+        if ($user->isFollowing($id)) {
+        $user->followings()->detach($id);
+        return back();
+        }
     }
 }
