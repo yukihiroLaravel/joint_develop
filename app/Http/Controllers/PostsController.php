@@ -75,15 +75,42 @@ class PostsController extends Controller
         return back();
     }
 
-    // 投稿削除
-    public function destroy($id)
+    // 投稿の編集
+    public function edit(Post $post)
     {
-        $post = Post::findOrFail($id);
-
-        if (\Auth::id() === $post->user_id){
-            $post->delete();
+        //ログインユーザーの確認
+        if(Auth::id() !== $post->user_id){
+            abort(403);
         }
-        
-        return back();
+        return view('edits.edit', compact('post'));
+    }
+
+    // 更新処理
+    public function update(Request $request, Post $post)
+    {
+        // 投稿者本人かチェック
+        if (Auth::id() !== $post->user_id) {
+            abort(403);
+        }
+
+        $validated = $request->validate([
+            'content'  => ['required','string'],
+        ]);
+        $post->update($validated);
+            return redirect('/')->with('success', '投稿を更新しました');
+    }
+
+    //削除処理
+    public function destroy(Post $post)
+    {
+        // dd(Auth::id(), $post->user_id); デバックコード
+        // dd($post->exists, $post->id, $post->user_id);　デバックコード（ルートの確認）
+        if (Auth::id() !== $post->user_id) {
+        abort(403);
+        }
+
+        $post->delete();
+
+        return redirect('/')->with('success', '削除しました');
     }
 }

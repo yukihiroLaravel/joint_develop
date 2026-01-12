@@ -20,7 +20,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('', 'PostsController@store')->name('post.store');
         
         // 投稿削除
-        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
+        // Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
     });
     // 投稿 × タグ（解除）
     Route::delete('posts/{post}/tags/{tag}','PostsController@detachTag')->name('post.tag.destroy');
@@ -43,7 +43,7 @@ Route::prefix('users')->middleware('auth')->group(function () {
 });
 
 // ログイン後のみ タグ（編集・更新・削除）
-Route::group(['middleware' => 'auth'], function () {   
+Route::group(['middleware' => 'auth'], function () {
     Route::get('tags', 'TagController@index')->name('tags.index');
     Route::put('tags/{tag}', 'TagController@update')->name('tags.update');
     Route::delete('tags/{tag}', 'TagController@destroy')->name('tags.destroy');
@@ -51,6 +51,14 @@ Route::group(['middleware' => 'auth'], function () {
 
 // タグ一覧
 Route::get('tags/{tag}', 'TagController@show')->name('tags.show');
+
+//ログインユーザーの投稿の編集
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('posts/{post}/edit', 'PostsController@edit')->name('posts.edit'); //編集画面の表示
+    Route::put('posts/{post}', 'PostsController@update')->name('posts.update'); //更新ボタン
+    Route::delete('posts/{post}', 'PostsController@destroy')->name('posts.destroy'); //削除ボタン
+});
+
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
