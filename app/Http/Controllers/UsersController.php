@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use App\User; // 追記
 
 class UsersController extends Controller
-{
-    // プロフィール + 投稿一覧
+{   
+    //ユーザ詳細
     public function show($id)
     {
         $user = User::findOrFail($id);
