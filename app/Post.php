@@ -28,4 +28,15 @@ class Post extends Model
     {
         return $this->belongsToMany(Tag::class)->withTimestamps();
     }
+    
+    protected static function boot()
+    {
+        parent::boot(); // 親クラスのbootを呼び出す
+        static::deleting(function ($post) {
+            // Postが削除（論理削除を含む）されたときに実行される
+            // 中間テーブルの紐付けを解除する
+            $post->tags()->detach();
+        });
+    }
+    
 }

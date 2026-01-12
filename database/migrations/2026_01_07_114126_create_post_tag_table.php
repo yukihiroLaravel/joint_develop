@@ -15,8 +15,8 @@ class CreatePostTagTable extends Migration
     {
         Schema::create('post_tag', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('post_id')->unsigned()->index();
-            $table->integer('tag_id')->unsigned()->index();
+            $table->unsignedBigInteger('post_id')->index();
+            $table->unsignedBigInteger('tag_id')->index();
             $table->timestamps();
             // 外部キー制約
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');

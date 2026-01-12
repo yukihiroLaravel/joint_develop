@@ -24,8 +24,8 @@ class PostsController extends Controller
         }
         $posts = $query->orderBy('id', 'desc')->paginate(10);
         $posts->appends([
-        'keyword' => $keyword,
-        'tag'     => $tag,
+            'keyword' => $keyword,
+            'tag'     => $tag,
     ]);
         $ranking_posts = $this->getRanking();
         return view('welcome', [
@@ -99,5 +99,16 @@ class PostsController extends Controller
             }
         }
         return redirect('/');
+    }
+    
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+
+        if (\Auth::id() === $post->user_id) {
+            $post->delete();
+        }
+
+        return redirect('/')->with('success', '投稿を削除しました');
     }
 }
