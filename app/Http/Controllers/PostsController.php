@@ -18,15 +18,15 @@ class PostsController extends Controller
             $query->where('content', 'LIKE', "%{$keyword}%");
         }
         if (!empty($tag)) {
-        $query->whereHas('tags', function ($q) use ($tag) {
+            $query->whereHas('tags', function ($q) use ($tag) {
             $q->where('name', $tag);
-        });
+            });
         }
         $posts = $query->orderBy('id', 'desc')->paginate(10);
         $posts->appends([
             'keyword' => $keyword,
             'tag'     => $tag,
-    ]);
+        ]);
         $ranking_posts = $this->getRanking();
         return view('welcome', [
             'posts' => $posts,
