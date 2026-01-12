@@ -23,10 +23,10 @@ class UsersController extends Controller
     public function destroy(Request $request)
     {
         $user = $request->user();
-        \Auth::logout(); //ログアウト処理        
-        $user->delete();// 3. ユーザー削除
-        $request->session()->invalidate();// 4. セッションの無効化と再生成
-        $request->session()->regenerateToken();
+        $user->delete(); // ユーザー削除
+        auth()->logout(); //ログアウト処理        
+        //$request->session()->invalidate();// 4. セッションの無効化と再生成
+        //$request->session()->regenerateToken();
         return redirect('/')->with('success', '退会手続きが完了しました。');
     }
 
