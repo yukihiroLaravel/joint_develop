@@ -14,13 +14,30 @@ class PostsController extends Controller
         $keyword = $request->input('keyword');
         $tag = $request->input('tag');
         $query = Post::query();
-        if (!empty($keyword)) {
-            $query->where('content', 'LIKE', "%{$keyword}%");
-        }
-        if (!empty($tag)) {
-            $query->whereHas('tags', function ($q) use ($tag) {
-            $q->where('name', $tag);
-            });
+        $query->with(['user', 'replies.user', 'tags']);
+        // 検索やタグ絞り込みをしていない場合、リプライ（返信）が一覧のトップに混ざらないように親投稿のみ取得する
+        if (empty($keyword) && empty($tag)) {
+            // 通常時：親投稿のみ
+            $query->whereNull('parent_id');
+        } else {
+            // 検索時：キーワードかタグに一致する投稿を探す
+            $searchQuery = Post::query();
+        
+            if (!empty($keyword)) {
+                $searchQuery->where('content', 'LIKE', "%{$keyword}%");
+            }
+            if (!empty($tag)) {
+                $searchQuery->whereHas('tags', function ($q) use ($tag) {
+                    $q->where('name', $tag);
+                });
+            }
+            // ヒットした投稿の「親ID」を集める（親がいない場合は自分のID）
+            $targetIds = $searchQuery->get()->map(function ($post) {
+                return $post->parent_id ?? $post->id;
+            })->unique();
+
+            // 集めた親IDの投稿を表示対象にする
+            $query->whereIn('id', $targetIds);
         }
         $posts = $query->orderBy('id', 'desc')->paginate(10);
         $posts->appends([
@@ -42,6 +59,7 @@ class PostsController extends Controller
         $post = new Post;
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
+        $post->parent_id = $request->parent_id;
         $post->favorite_flag = $request->favorite_flag ? 1 : 0;
         $post->save();
         // タグの保存と紐付け

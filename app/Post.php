@@ -36,7 +36,20 @@ class Post extends Model
             // Postが削除（論理削除を含む）されたときに実行される
             // 中間テーブルの紐付けを解除する
             $post->tags()->detach();
+            // 子リプライを確実に連鎖削除
+            foreach ($post->replies as $reply) {
+                $reply->delete();
+            }
         });
     }
-    
+
+    public function replies()
+    {
+        return $this->hasMany(Post::class, 'parent_id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Post::class, 'parent_id');
+    }
 }

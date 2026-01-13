@@ -34,6 +34,22 @@
                 <div class="d-flex justify-content-center pb-3">
                     @include('favorites.favorite_button', ['post' => $post])
                 </div>
+                <div class="text-left w-75 m-auto">
+                    @auth
+                        <details class="mb-2">
+                            <summary class="text-primary small" style="cursor: pointer;">
+                                <i class="fas fa-reply"></i> 返信する
+                            </summary>
+                            @include('posts.reply_form', ['parent_id' => $post->id])
+                        </details>
+                    @endauth
+                    @include('posts.reply_area', [
+                        'post' => $post, 
+                        'depth' => 0,
+                        'keyword' => $keyword ?? null,
+                        'tag' => $tag ?? null
+                    ])
+                </div>
             </div>
         </li>
     @endforeach
