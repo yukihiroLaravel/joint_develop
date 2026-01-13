@@ -1,12 +1,8 @@
 @php $depth = $depth ?? 0; @endphp
 
 @if($post->replies->count() > 0)
-    @if($depth < 3)
-        <div class="replies-container mt-2 ml-4 border-left pl-3 text-left">
-    @else
-        <div class="replies-container mt-2 ml-0 border-top pt-2 text-left">
-    @endif
-
+    <div class="replies-container mt-2 {{ $depth < 2 ? 'ml-4 border-left pl-3' : 'ml-0 border-top pt-2' }} text-left">
+        
         <details {{ !empty($keyword) || !empty($tag) ? 'open' : '' }}>
             <summary class="text-muted small" style="cursor: pointer;">
                 <i class="fas fa-comments"></i> {{ $post->replies->count() }} 件の返信を表示
@@ -15,16 +11,34 @@
             <div class="mt-3">
                 @foreach($post->replies as $reply)
                     <div class="reply-item mb-3">
-                        <div class="d-flex align-items-center">
+
+                    <div class="d-flex align-items-center">
                             <img class="mr-2 rounded-circle" src="{{ Gravatar::src($reply->user->email, 30) }}" alt="アバター" style="width: 30px;">
                             <small><strong>{{ $reply->user->name }}</strong></small>
+                            <small class="text-muted ml-2">{{ $reply->created_at->diffForHumans() }}</small>
                         </div>
 
-                        <div class="{{ $depth < 3 ? 'ml-5' : 'ml-4' }}">
-                            <p class="mb-1">{{ $reply->content }}</p>
+                        <div class="{{ $depth < 2 ? 'ml-5' : 'ml-4' }}">
+                            <p class="mb-1">
+                                @if(!empty($keyword))
+                                    {!! str_replace($keyword, '<mark class="p-0">' . $keyword . '</mark>', e($reply->content)) !!}
+                                @else
+                                    {{ $reply->content }}
+                                @endif
+                            </p>
 
-                            <div class="mb-2">
+                            <div class="d-flex align-items-center mb-2">
                                 @include('favorites.favorite_button', ['post' => $reply])
+                                
+                                @if(Auth::check() && Auth::id() == $reply->user_id)
+                                    <div class="ml-3 d-flex align-items-center">
+                                        <a href="{{ route('posts.edit', $reply->id) }}" class="btn btn-primary btn-sm mr-2">編集</a>
+                                        <form method="POST" action="{{ route('posts.destroy', $reply->id) }}">
+                                            @csrf @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('この返信を削除しますか？')">削除</button>
+                                        </form>
+                                    </div>
+                                @endif
                             </div>
                             
                             @auth
@@ -47,12 +61,3 @@
         </details>
     </div>
 @endif
-
-<style>
-    /* 3階層目以降のコンテナのマージンを強制的にゼロにする */
-    .replies-container .replies-container .replies-container .replies-container {
-        margin-left: 0 !important;
-        padding-left: 0 !important;
-        border-left: none !important;
-    }
-</style>

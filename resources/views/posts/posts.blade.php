@@ -7,7 +7,13 @@
             </div>
             <div class="">
                 <div class="text-left d-inline-block w-75">
-                    <p class="mb-2">{{$post->content}}</p>
+                    <p class="mb-2">
+                        @if(!empty($keyword))
+                            {!! str_replace($keyword, '<mark class="p-0">' . $keyword . '</mark>', e($post->content)) !!}
+                        @else
+                            {{$post->content}}
+                        @endif
+                    </p>
                     @if($post->tags->count() > 0)
                         <div class="mb-2">
                             @foreach($post->tags as $tag_item)

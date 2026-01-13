@@ -31,13 +31,22 @@ class PostsController extends Controller
                     $q->where('name', $tag);
                 });
             }
-            // ヒットした投稿の「親ID」を集める（親がいない場合は自分のID）
-            $targetIds = $searchQuery->get()->map(function ($post) {
-                return $post->parent_id ?? $post->id;
-            })->unique();
+            $matchedPosts = $searchQuery->get();
+            // ヒットした投稿から「一番上の親」のIDを収集する
+            $rootIds = [];
+            foreach ($matchedPosts as $post) {
+                $current = $post;
+                // 親がいる間はずっと上に遡る（最上位を探す）
+                while ($current->parent_id !== null) {
+                    // 親投稿を取得（親を辿る）
+                    $current = Post::find($current->parent_id);
+                    if (!$current) break; // 親が見つからなければ終了
+                }
+                $rootIds[] = $current->id;
+            }
 
-            // 集めた親IDの投稿を表示対象にする
-            $query->whereIn('id', $targetIds);
+            // 重複を除去して、その最上位親IDの投稿を表示
+            $query->whereIn('id', array_unique($rootIds));
         }
         $posts = $query->orderBy('id', 'desc')->paginate(10);
         $posts->appends([
