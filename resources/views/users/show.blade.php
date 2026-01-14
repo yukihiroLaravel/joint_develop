@@ -50,15 +50,38 @@
     <div class="col-sm-8">
         <ul class="nav nav-tabs nav-justified mb-3">
             <li class="nav-item">
-                <a href="" class="nav-link {{ Request::is('users/' . $user->id) ? 'active' : '' }}">
+                <a href="{{ route('user.show', $user->id) }}" class="nav-link  {{ $tab === 'posts' ? 'active' : '' }}">
                     タイムライン
                 </a>
             </li>
-            <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
+            <li class="nav-item">
+                <a href="{{ route('user.show', $user->id) }}?tab=followings"class="nav-link {{ $tab === 'followings' ? 'active' : '' }}">
+                    フォロー中 ({{ $followings_count }})
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('user.show', $user->id) }}?tab=followers"class="nav-link {{ $tab === 'followers' ? 'active' : '' }}">
+                    フォロワー ({{ $followers_count }})
+                </a>
+            </li>
         </ul>
 
-        @include('posts.post', ['posts' => $posts])
+        @if ($tab === 'posts')
+             @include('posts.post', ['posts' => $posts])
+        @else
+              @foreach ($users as $u)
+                 <div class="media mb-3">
+                     <img class="mr-2 rounded-circle" src="{{ Gravatar::src($u->email, 50) }}">
+                     <div class="media-body">
+                        <a href="{{ route('user.show', $u->id) }}">
+                          {{ $u->name }}
+                         </a>
+                     </div>
+                </div>
+        @endforeach
+
+    {{ $users->links() }}
+@endif
     </div>
 </div>
 @endsection
