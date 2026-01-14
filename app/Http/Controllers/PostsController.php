@@ -8,6 +8,7 @@ use App\User;
 use App\Post;
 use App\Tag;
 use App\Http\Requests\PostRequest; 
+use App\Http\Requests\UsertRequest;
 
 class PostsController extends Controller
 {
@@ -82,35 +83,40 @@ class PostsController extends Controller
         if(Auth::id() !== $post->user_id){
             abort(403);
         }
-        return view('edits.edit', compact('post'));
+        $tags = Tag::orderBy('name')->get();
+        return view('edits.edit', compact('post', 'tags'));
     }
 
     // 更新処理
-    public function update(Request $request, Post $post)
+    public function update(UserRequest $request, Post $post)
     {
         // 投稿者本人かチェック
         if (Auth::id() !== $post->user_id) {
             abort(403);
         }
 
-        $validated = $request->validate([
-            'content'  => ['required','string'],
-        ]);
-        $post->update($validated);
+        $post->update($request->validated());
             return redirect('/')->with('success', '投稿を更新しました');
+    }
+
+    //画像の登録
+    public function editImage(Post $post)
+    {
+    if (Auth::id() !== $post->user_id) {
+        abort(403);
+    }
+
+    return view('posts.image_edit', compact('post'));
     }
 
     //削除処理
     public function destroy(Post $post)
     {
-        // dd(Auth::id(), $post->user_id); デバックコード
-        // dd($post->exists, $post->id, $post->user_id);　デバックコード（ルートの確認）
-        if (Auth::id() !== $post->user_id) {
+    if (Auth::id() !== $post->user_id) {
         abort(403);
-        }
+    }
 
-        $post->delete();
-
-        return redirect('/')->with('success', '削除しました');
+    $post->delete();
+    return redirect('/')->with('success', '削除しました');
     }
 }

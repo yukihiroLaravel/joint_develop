@@ -19,8 +19,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
         Route::post('', 'PostsController@store')->name('post.store');
         
-        // 投稿削除
-        // Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
+     //ログインユーザーの投稿の編集
+    Route::get('/{post}/edit', 'PostsController@edit')->name('posts.edit'); //編集画面の表示
+    Route::get('/{post}/image/edit', 'PostsController@editImage')->name('posts.image.edit'); //画像
+    Route::put('/{post}', 'PostsController@update')->name('posts.update'); //更新ボタン
+    Route::delete('/{post}', 'PostsController@destroy')->name('posts.destroy'); //投稿文削除ボタン
+
     });
     // 投稿 × タグ（解除）
     Route::delete('posts/{post}/tags/{tag}','PostsController@detachTag')->name('post.tag.destroy');
@@ -51,14 +55,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 // タグ一覧
 Route::get('tags/{tag}', 'TagController@show')->name('tags.show');
-
-//ログインユーザーの投稿の編集
-Route::group(['middleware' => 'auth'], function(){
-    Route::get('posts/{post}/edit', 'PostsController@edit')->name('posts.edit'); //編集画面の表示
-    Route::put('posts/{post}', 'PostsController@update')->name('posts.update'); //更新ボタン
-    Route::delete('posts/{post}', 'PostsController@destroy')->name('posts.destroy'); //削除ボタン
-});
-
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
