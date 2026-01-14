@@ -7,11 +7,7 @@
                 <h3 class="card-title text-light">{{ $user->name }}</h3>
             </div>
             <div class="card-body">
-
-                <img class="rounded-circle img-fluid"
-                     src="{{ Gravatar::src($user->email, 330) }}"
-                     alt="ユーザのアバター画像">
-
+                <img class="rounded-circle img-fluid"src="{{ Gravatar::src($user->email, 330) }}" alt="ユーザのアバター画像">
                 {{-- 他人のプロフィールの場合：フォローボタン --}}
                 @if (Auth::check() && Auth::id() !== $user->id)
                     <div class="mt-3">
@@ -41,6 +37,14 @@
                             ユーザ情報の編集
                         </a>
                     </div>
+                    </br>
+                    <div class="mb-3 text-center">
+                        <form method="post" action="{{ route('user.delete') }}"  onsubmit="return confirm('本当に退会しますか？（この操作は取り消せません）');">  
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="btn btn-danger">退会する</button>
+                        </form>
+                    </div>
                 @endif
 
             </div>
@@ -57,7 +61,6 @@
             <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li>
             <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
         </ul>
-
         @include('posts.post', ['posts' => $posts])
     </div>
 </div>
