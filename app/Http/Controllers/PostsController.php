@@ -9,7 +9,7 @@ use App\User;
 use App\Post;
 use App\Tag;
 use App\Http\Requests\PostRequest; 
-use App\Http\Requests\UsertRequest;
+use App\Http\Requests\UserRequest;
 use App\Http\Requests\ImageRequest; 
 
 class PostsController extends Controller
@@ -120,18 +120,6 @@ class PostsController extends Controller
 
     $post->delete();
     return redirect('/')->with('success', '削除しました');
-    }
-
-    // 画像編集ページ表示
-    public function editImage(Post $post)
-    {
-        if (Auth::id() !== $post->user_id) {
-            abort(403);
-        }
-
-        return view('posts.image_edit', [
-            'post' => $post,
-        ]);
     }
 
     // 画像更新

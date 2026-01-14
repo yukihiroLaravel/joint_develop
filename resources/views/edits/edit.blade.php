@@ -3,7 +3,6 @@
 
     <div class="container">
         <h3 class="mb-4">投稿の編集</h3>
-        @include('commons.error_messages')
         @if ($errors->any())
         <div class="alert alert-danger">
             <ul class="mb-0">
