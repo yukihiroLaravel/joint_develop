@@ -35,6 +35,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit');
         Route::put('{id}', 'PostsController@update')->name('posts.update');
     });
+
+    //user退会
+    Route::delete('/','UsersController@destroy')->name('user.delete');
 });
 
 // ユーザ詳細
