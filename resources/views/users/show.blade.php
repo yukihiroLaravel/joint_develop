@@ -70,12 +70,12 @@
         @if ($tab === 'posts')
              @include('posts.post', ['posts' => $posts])
         @else
-              @foreach ($users as $u)
+              @foreach ($users as $one)
                  <div class="media mb-3">
-                     <img class="mr-2 rounded-circle" src="{{ Gravatar::src($u->email, 50) }}">
+                     <img class="mr-2 rounded-circle" src="{{ Gravatar::src($one->email, 50) }}">
                      <div class="media-body">
-                        <a href="{{ route('user.show', $u->id) }}">
-                          {{ $u->name }}
+                        <a href="{{ route('user.show', $one->id) }}">
+                          {{ $one->name }}
                          </a>
                      </div>
                 </div>
