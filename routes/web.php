@@ -31,7 +31,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     //新規投稿登録
     Route::post('', 'PostsController@store')->name('post.store');
-
     Route::prefix('posts')->group(function () {
         Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit');
         Route::put('{id}', 'PostsController@update')->name('posts.update');

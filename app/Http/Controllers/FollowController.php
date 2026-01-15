@@ -30,7 +30,7 @@ class FollowController extends Controller
         $user = Auth::user();
         if ($user->isFollowing($id)) {
         $user->followings()->detach($id);
-        return back();
         }
+        return back();
     }
 }
