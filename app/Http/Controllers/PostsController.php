@@ -24,8 +24,25 @@ class PostsController extends Controller
         $post = new Post;
         $post->content = $request->content;
         $post->user_id = $user->id;
+        
+        // バリデーション
+        $request->validate([
+            'image' => [
+                'nullable',          // 必須チェック
+                'image',             // jpg, png, bmp, gif, svg, webp であること
+                'max:2048',          // サイズ制限（キロバイト単位。2048KB = 2MB）
+                'dimensions:min_width=100,min_height=100,max_width=3000,max_height=3000' // 縦横サイズ
+            ],
+        ]);
+
+        // 2. 画像があるかどうかをチェック！
+         if ($request->hasFile('image')) {
+        // 画像がある場合のみ、この中の store() が実行される
+        $path = $request->file('image')->store('posts', 'public');
+        $post->image_path = $path;
+        }
         $post->save();
-        return redirect()->back()->with('success', '新規投稿しました');;
+        return redirect()->back()->with('success', '新規投稿しました');
     }
 
     public function edit($id)

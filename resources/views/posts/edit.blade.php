@@ -22,7 +22,18 @@
             rows="5"
         >{{ old('content', $post->content) }}</textarea>
     </div>
+    {{-- 現在の写真を表示 --}}
+    @if($post->image_path)
+        <div class="mb-3">
+            <p>現在の写真：</p>
+            <img src="{{ asset('storage/' . $post->image_path) }}" style="max-width: 200px;">
+        </div>
+    @endif
 
+    {{-- 新しい写真を選択 --}}
+    <div class="mb-3">
+        <input type="file" name="image">
+    </div>
     <button type="submit" class="btn btn-primary">更新する</button>
 </form>
 @endsection
