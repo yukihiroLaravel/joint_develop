@@ -2,8 +2,31 @@
 
 @if($post->replies->count() > 0)
     <div class="replies-container mt-2 {{ $depth < 2 ? 'ml-4 border-left pl-3' : 'ml-0 border-top pt-2' }} text-left">
-        
-        <details {{ !empty($keyword) || !empty($tag) ? 'open' : '' }}>
+        @php
+            $currentParentId = old('parent_id');
+            $isSearching = !empty($keyword) || !empty($tag);
+            
+            // 下層のどこかにエラーがあるか判定する関数
+            $hasErrorInDescendants = function($p) use (&$hasErrorInDescendants, $currentParentId) {
+                foreach ($p->replies as $r) {
+                    if ($r->id == $currentParentId || $hasErrorInDescendants($r)) {
+                        return true;
+                    }
+                }
+                return false;
+            };
+
+            $shouldOpenOuter = false;
+            if ($isSearching) {
+                $shouldOpenOuter = true;
+            } elseif ($currentParentId) {
+                // 「自分の下」のどこかにエラーがあれば開く。
+                // ただし、自分自身がエラーの当事者の場合は、下のリスト（このdetails）は開かない。
+                $shouldOpenOuter = $hasErrorInDescendants($post);
+            }
+        @endphp
+
+        <details {{ $shouldOpenOuter ? 'open' : '' }}>
             <summary class="text-muted small" style="cursor: pointer;">
                 <i class="fas fa-comments"></i> {{ $post->replies->count() }} 件の返信を表示
             </summary>
@@ -11,8 +34,7 @@
             <div class="mt-3">
                 @foreach($post->replies as $reply)
                     <div class="reply-item mb-3">
-
-                    <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center">
                             <img class="mr-2 rounded-circle" src="{{ Gravatar::src($reply->user->email, 30) }}" alt="アバター" style="width: 30px;">
                             <small><strong>{{ $reply->user->name }}</strong></small>
                             <small class="text-muted ml-2">{{ $reply->created_at->diffForHumans() }}</small>
@@ -26,6 +48,16 @@
                                     {{ $reply->content }}
                                 @endif
                             </p>
+
+                            @if($reply->tags->count() > 0)
+                                <div class="mb-2">
+                                    @foreach($reply->tags as $tag_item)
+                                        <a href="{{ route('welcome', ['tag' => $tag_item->name]) }}" class="badge badge-info py-1 px-2" style="font-size: 0.75rem; border-radius: 12px;">
+                                            <i class="fas fa-tag small"></i> {{ $tag_item->name }}
+                                        </a>
+                                    @endforeach
+                                </div>
+                            @endif
 
                             <div class="d-flex align-items-center mb-2">
                                 @include('favorites.favorite_button', ['post' => $reply])
@@ -42,10 +74,10 @@
                             </div>
                             
                             @auth
-                                <details class="mb-2">
-                                    <summary class="text-primary small" style="cursor: pointer;">返信する</summary>
-                                    @include('posts.reply_form', ['parent_id' => $reply->id])
-                                </details>
+                            <details class="mb-2" {{ $currentParentId == $reply->id ? 'open' : '' }}>
+                                <summary class="text-primary small" style="cursor: pointer;">返信する</summary>
+                                @include('posts.reply_form', ['parent_id' => $reply->id])
+                            </details>
                             @endauth
 
                             @include('posts.reply_area', [

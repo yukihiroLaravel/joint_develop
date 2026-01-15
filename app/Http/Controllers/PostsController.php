@@ -64,19 +64,30 @@ class PostsController extends Controller
 
     public function store(PostRequest $request)
     {
+        $parentId = $request->parent_id;
+        // 1. 本文(content)の取得
+        if ($parentId) {
+            $content = $request->input("content.$parentId");
+        } else {
+            $content = $request->content; // 親投稿用（通常の投稿フォーム）
+        }
+
+        // 2. タグ(tags)の取得
+        // 親投稿なら $request->tags、返信なら $request->input("tags.$parentId") を見る
+        $tagsInput = $parentId ? $request->input("tags.$parentId") : $request->input("tags.0");
+
         // 投稿本体の保存
         $post = new Post;
-        $post->content = $request->content;
+        $post->content = $content;
         $post->user_id = $request->user()->id;
-        $post->parent_id = $request->parent_id;
+        $post->parent_id = $parentId;
         $post->favorite_flag = $request->favorite_flag ? 1 : 0;
         $post->save();
-        // タグの保存と紐付け
-        if ($request->filled('tags')) {
-            $tagNames = preg_split('/\s+/', $request->tags);
-            $tagNames = array_unique(
-                array_map('trim', $tagNames)
-            );
+
+        // 3. タグの保存と紐付け
+        if (!empty($tagsInput)) {
+            $tagNames = preg_split('/[\s\r\n]+/', $tagsInput);
+            $tagNames = preg_split('/[\s\r\n]+/u', $tagsInput, -1, PREG_SPLIT_NO_EMPTY);
             $tagIds = [];
             foreach ($tagNames as $name) {
                 if ($name === '') {

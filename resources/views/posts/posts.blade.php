@@ -42,10 +42,14 @@
                 </div>
                 <div class="text-left w-75 m-auto">
                     @auth
-                        <details class="mb-2">
-                            <summary class="text-primary small" style="cursor: pointer;">
-                                <i class="fas fa-reply"></i> 返信する
-                            </summary>
+                        <details class="mb-2" {{ 
+                            old("content.{$post->id}") || 
+                            old("tags.{$post->id}") || 
+                            $errors->has("content.{$post->id}") || 
+                            $errors->has("tags.{$post->id}") 
+                            ? 'open' : '' 
+                        }}>
+                            <summary class="text-primary small" style="cursor: pointer;">返信する</summary>
                             @include('posts.reply_form', ['parent_id' => $post->id])
                         </details>
                     @endauth
