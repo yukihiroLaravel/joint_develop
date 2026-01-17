@@ -32,7 +32,7 @@ class PostsController extends Controller
         $post->user_id = $request->user()->id;
         $post->favorite_flag = $request->favorite_flag ? 1 : 0;
         $post->save();
-        return back();
+        return back()->with('success','投稿しました');
     }
 
     public function edit($id)
@@ -53,6 +53,6 @@ class PostsController extends Controller
             $post->content = $request->content;
             $post->save();
         }
-        return redirect('/');
+        return redirect('/')->with('success','投稿を更新しました');
     }
 }
