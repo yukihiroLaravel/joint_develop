@@ -33,6 +33,22 @@ class UsersController extends Controller
         
         return redirect()->route('user.show', $id);
     }
+
+    public function likes($id)
+    {
+        $user = User::findOrFail($id);
+
+        $likes = $user->likes()->with(['user', 'tags'])->orderBy('posts.id', 'desc')->paginate(9);
+
+        $data = [
+            'user' => $user,
+            'likes' => $likes,
+        ];
+
+        $data += $this->userCounts($user);
+
+        return view('users.show', $data);
+    }
     
     public function destroy(User $user)
     {

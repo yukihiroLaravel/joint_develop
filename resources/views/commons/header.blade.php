@@ -21,6 +21,8 @@
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
+                {{-- ランキング表示 --}}
+                <li class="nav-item"><a href="{{ route('rankings.likes') }}" class="nav-link text-light">いいねランキング</a></li>
                 @if (Auth::check())
                     <li class="nav-item"><a href="{{ route('user.show', Auth::id()) }}" class="nav-link text-light">{{ Auth::user()->name }}</a></li>
                     <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link text-light">ログアウト</a></li>

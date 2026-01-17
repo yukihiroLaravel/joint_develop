@@ -39,10 +39,43 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
     public function posts()
-    {    
+    {
         return $this->hasMany(Post::class);
+    }
+    
+    //多対多関係
+    public function likes()
+    {
+        return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id')->withTimestamps();
+    }
+
+    public function like($postId)
+    {
+        $exist = $this->isLike($postId);
+        if ($exist) {
+            return false;
+        } else {
+            $this->likes()->attach($postId);
+            return true;
+        }
+    }
+
+    public function unlike($postId)
+    {
+        $exist = $this->isLike($postId);
+        if ($exist) {
+            $this->likes()->detach($postId);
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+    public function isLike($postId)
+    {
+        return $this->likes()->where('post_id', $postId)->exists();
     }
 
     // User が delete されたら自動で posts も delete する
@@ -68,5 +101,4 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id')->withTimestamps();
     }
- 
 }
