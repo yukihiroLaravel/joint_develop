@@ -44,6 +44,7 @@ class PostsController extends Controller
         $post->user_id = $request->user()->id;
         $post->favorite_flag = $request->favorite_flag ? 1 : 0;
         $post->save();
+        
         // タグの保存と紐付け
         if ($request->filled('tags')) {
             $tagNames = preg_split('/\s+/', $request->tags);
@@ -63,7 +64,7 @@ class PostsController extends Controller
             // 投稿とタグを紐付け
             $post->tags()->sync($tagIds);
         }
-        return back();
+        return back()->with('success','投稿しました');
     }
 
     public function edit($id)
@@ -98,7 +99,7 @@ class PostsController extends Controller
                 $post->tags()->sync($tagIds);
             }
         }
-        return redirect('/');
+        return redirect('/')->with('success','投稿を更新しました');
     }
     
     public function destroy($id)
@@ -109,6 +110,6 @@ class PostsController extends Controller
             $post->delete();
         }
 
-        return redirect('/')->with('success', '投稿を削除しました');
+        return redirect('/')->with('danger', '投稿を削除しました');
     }
 }

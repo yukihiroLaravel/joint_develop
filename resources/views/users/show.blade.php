@@ -1,6 +1,10 @@
 @extends('layouts.app')
 @section('content')
 <div class="row">
+    <div class="w-100 m-auto">
+        @include('commons.flash_messages')
+    </div>
+    
         <aside class="col-sm-4 mb-5">
             <div class="card bg-info">
                 <div class="card-header">
