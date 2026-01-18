@@ -14,20 +14,26 @@ class PostsController extends Controller
         $keyword = $request->input('keyword');
         $tag = $request->input('tag');
         $query = Post::query();
+        
         if (!empty($keyword)) {
             $query->where('content', 'LIKE', "%{$keyword}%");
         }
+        
         if (!empty($tag)) {
             $query->whereHas('tags', function ($q) use ($tag) {
             $q->where('name', $tag);
             });
         }
+        
         $posts = $query->orderBy('id', 'desc')->paginate(10);
+        
         $posts->appends([
             'keyword' => $keyword,
             'tag'     => $tag,
         ]);
+
         $ranking_posts = $this->getRanking();
+        
         return view('welcome', [
             'posts' => $posts,
             'ranking_posts' => $ranking_posts,
@@ -51,6 +57,7 @@ class PostsController extends Controller
                 array_map('trim', $tagNames)
             );
             $tagIds = [];
+            
             foreach ($tagNames as $name) {
                 if ($name === '') {
                     continue;
@@ -63,15 +70,18 @@ class PostsController extends Controller
             // 投稿とタグを紐付け
             $post->tags()->sync($tagIds);
         }
+        
         return back();
     }
 
     public function edit($id)
     {
         $post = Post::findOrFail($id);
+        
         if (\Auth::id() !== $post->user_id) {
             return redirect('/');
         }
+        
         return view('posts.edit', [
             'post' => $post,
         ]);
@@ -80,6 +90,7 @@ class PostsController extends Controller
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
+        
         if (\Auth::id() === $post->user_id) {
             // 本文の更新
             $post->content = $request->content;
@@ -89,8 +100,10 @@ class PostsController extends Controller
                 $tagNames = preg_split('/\s+/', $request->tags);
                 $tagNames = array_unique(array_map('trim', $tagNames));
                 $tagIds = [];
+
                 foreach ($tagNames as $name) {
                     if ($name === '') continue;
+
                     $tag = Tag::firstOrCreate(['name' => $name]);
                     $tagIds[] = $tag->id;
                 }
@@ -98,6 +111,7 @@ class PostsController extends Controller
                 $post->tags()->sync($tagIds);
             }
         }
+        
         return redirect('/');
     }
     

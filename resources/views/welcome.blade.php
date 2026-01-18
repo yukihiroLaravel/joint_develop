@@ -2,12 +2,16 @@
 @section('content')
 <div class="row">
     <div class="col-sm-8">
-   <div class="center jumbotron bg-info">
-        <div class="text-center text-white mt-2 pt-1">
-            <h1><i class="pr-3"></i>Topic Posts</h1>
+        <div class="center jumbotron">
+            <div class="text-center mt-2 pt-1">
+                <h1>
+                    <i class="fas fa-tree"></i> 
+                    <span>エンジニアの森</span>
+                    <i class="fas fa-tree"></i>
+                </h1>
+            </div>
         </div>
-    </div>
-    <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
+        <h5 class="text-center mb-3">"今のモヤモヤを140字以内で書き出してみよう！</h5>
         @if (Auth::check())
         @include('posts.form')
         @endif
@@ -43,7 +47,7 @@
                     @endif
                 </div>
             </div>
-@include('posts.posts', ['posts' => $posts])
+        @include('posts.posts', ['posts' => $posts])
     </div>
     <aside class="col-sm-4">
         <div class="card">
