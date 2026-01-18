@@ -18,8 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
-//トップページ
-Route::get('/', 'PostsController@index');
+Route::get('/', 'PostsController@index')->name('welcome');;
+
+
 
 //ログイン
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -36,14 +37,22 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{id}', 'PostsController@update')->name('posts.update');
     });
 
+    // ユーザ編集・更新
+    Route::prefix('users/{id}')->group(function () {
+        Route::get('edit', 'UsersController@edit')->name('user.edit');
+        Route::put('/', 'UsersController@update')->name('user.update');
+    });
+
+    // ユーザ詳細
+    Route::prefix('users')->group(function () {
+        Route::get('{id}', 'UsersController@show')->name('user.show');
+    });
+
     //user退会
     Route::delete('/','UsersController@destroy')->name('user.delete');
 });
 
-// ユーザ詳細
-Route::prefix('users')->group(function () {
-    Route::get('{id}', 'UsersController@show')->name('user.show');
-});
+
 
 // フォロー / フォロー解除
 Route::group(['middleware' => 'auth'], function () {
