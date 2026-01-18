@@ -97,29 +97,56 @@ class PostsController extends Controller
             abort(403);
         }
 
-        $post->update($request->validated());
+        // 本文更新（validated を使わない）
+        $post->update([
+            'content' => $request->content,
+        ]);
+
+        // 既存タグ
+        $tagIds = $request->input('tag_ids', []);
+
+        // 新規タグ
+        if ($request->filled('new_tags')) {
+            $names = array_unique(
+                array_filter(array_map('trim', explode(',', $request->new_tags)))
+            );
+
+            foreach ($names as $name) {
+                $tag = Tag::firstOrCreate(
+                    ['name' => $name],
+                    [
+                        'user_id' => auth()->id(),
+                        'update_count' => 0,
+                    ]
+                );
+                $tagIds[] = $tag->id;
+            }
+        }
+        // タグ同期（超重要）
+        $post->tags()->sync($tagIds);
             return redirect('/')->with('success', '投稿を更新しました');
     }
 
     //画像の登録
     public function editImage(Post $post)
     {
-    if (Auth::id() !== $post->user_id) {
-        abort(403);
-    }
+        if (Auth::id() !== $post->user_id) {
+            abort(403);
+        }
 
-    return view('posts.image_edit', compact('post'));
+        return view('posts.image_edit', compact('post'));
     }
 
     //削除処理
     public function destroy(Post $post)
     {
-    if (Auth::id() !== $post->user_id) {
-        abort(403);
-    }
-
-    $post->delete();
-    return redirect('/')->with('success', '削除しました');
+        if (\Auth::id() === $post->user_id){
+            if ($post->image) {
+                Storage::disk('public')->delete($post->image);
+            }
+            $post->delete();
+        }
+        return back();
     }
 
     // 画像更新

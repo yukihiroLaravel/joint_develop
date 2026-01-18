@@ -19,12 +19,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
         Route::post('', 'PostsController@store')->name('post.store');
         
-     //ログインユーザーの投稿の編集
-    Route::get('/{post}/edit', 'PostsController@edit')->name('posts.edit'); //編集画面の表示
-    Route::put('/{post}', 'PostsController@update')->name('posts.update'); //更新ボタン
-    Route::delete('/{post}', 'PostsController@destroy')->name('posts.destroy'); //投稿文削除ボタン
-
-        Route::post('', 'PostsController@store')->name('post.store');        
+        //ログインユーザーの投稿の編集
+        Route::get('/{post}/edit', 'PostsController@edit')->name('posts.edit'); //編集画面の表示
+        Route::put('/{post}', 'PostsController@update')->name('posts.update'); //更新ボタン
+        Route::delete('/{post}', 'PostsController@destroy')->name('posts.destroy'); //投稿文削除ボタン
+               
         // 投稿削除
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
         
