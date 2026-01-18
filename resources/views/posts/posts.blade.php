@@ -18,6 +18,9 @@
                     <!--投稿日時（フォーマット付き）-->
                     <p class="text-muted">{{ $post->created_at->format('Y-m-d H:i') }}</p>
 
+                    <!-- いいねボタン表示 -->
+                     @include('like.like_button', ['post' => $post])
+
                     <!-- タグ表示 -->
                     @if($post->tags->isNotEmpty())
                         <div class="mt-2">

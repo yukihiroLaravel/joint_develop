@@ -20,6 +20,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('', 'PostsController@store')->name('post.store');        
         // 投稿削除
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
+
+        //いいね
+        Route::post('{id}/like','LikeController@store')->name('like');
+        Route::delete('{id}/unlike','LikeController@destroy')->name('unlike');
         
         // 画像編集ページ表示・更新・削除
         Route::get('{post}/image/edit', 'PostsController@editImage')->name('posts.image.edit');
@@ -29,6 +33,12 @@ Route::group(['middleware' => 'auth'], function () {
     // 投稿 × タグ（解除）
     Route::delete('posts/{post}/tags/{tag}','PostsController@detachTag')->name('post.tag.destroy');
 });
+
+//いいね一覧
+    Route::get('users/{id}/likes','UsersController@likes')->name('user.likes');
+
+// ランキング表示
+Route::get('/rankings/likes', 'RankingController@likes')->name('rankings.likes');
 
 Route::prefix('users')->middleware('auth')->group(function () {
 

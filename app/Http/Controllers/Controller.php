@@ -11,4 +11,12 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    // いいねの数
+    public function userCounts($user)
+    {
+
+        return [
+            'countLikes' => $user->likes()->count(),
+        ];
+    }
 }
