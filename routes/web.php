@@ -27,26 +27,38 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ログイン後
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth'], function () 
+{
 
     //新規投稿登録
     Route::post('', 'PostsController@store')->name('post.store');
-    Route::prefix('posts')->group(function () {
+    Route::prefix('posts')->group(function () 
+    {
         Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit');
         Route::put('{id}', 'PostsController@update')->name('posts.update');
     });
 
     //user退会
     Route::delete('/','UsersController@destroy')->name('user.delete');
+    
+
+    // ユーザ詳細
+    Route::prefix('users')->group(function () 
+    {
+        Route::get('{id}', 'UsersController@show')->name('user.show');
+    });
+
+    //投稿削除
+    Route::prefix('posts')->group(function () 
+    {
+        Route::delete('posts/{id}', 'PostsController@destroy')->name('posts.delete');
+    });
 });
 
-// ユーザ詳細
-Route::prefix('users')->group(function () {
-    Route::get('{id}', 'UsersController@show')->name('user.show');
-});
 
-// フォロー / フォロー解除
-Route::group(['middleware' => 'auth'], function () {
-    Route::post('users/{id}/follow', 'FollowController@store')->name('follow');
-    Route::delete('users/{id}/unfollow', 'FollowController@destroy')->name('unfollow');
-});
+    // フォロー / フォロー解除
+    Route::group(['middleware' => 'auth'], function () 
+    {
+        Route::post('users/{id}/follow', 'FollowController@store')->name('follow');
+        Route::delete('users/{id}/unfollow', 'FollowController@destroy')->name('unfollow');
+    });
