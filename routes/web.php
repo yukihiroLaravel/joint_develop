@@ -34,6 +34,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('posts/{post}/tags/{tag}','PostsController@detachTag')->name('post.tag.destroy');
 });
 
+//いいね一覧
+    Route::get('users/{id}/likes','UsersController@likes')->name('user.likes');
+
 // ランキング表示
 Route::get('/rankings/likes', 'RankingController@likes')->name('rankings.likes');
 
@@ -42,9 +45,6 @@ Route::prefix('users')->middleware('auth')->group(function () {
     //ユーザ編集・更新
     Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
     Route::put('{id}', 'UsersController@update')->name('user.update');
-
-    //いいね一覧
-    Route::get('{id}/lies','UsersController@likes')->name('user.likes');
     
     // ユーザ詳細・フォロー   
     Route::get('{id}', 'FollowController@timeline')->name('user.show');

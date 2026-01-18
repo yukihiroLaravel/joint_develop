@@ -50,7 +50,11 @@
                 <li class="nav-item"><a href="{{ route('user.followers', $user->id) }}" class="nav-link {{ isset($followers) ? 'active' : '' }}">フォロワー</a></li>
                 <li class="nav-item nav-link {{ Request::is('users/'. $user->id. '/likes') ? 'active' : '' }}">
                     <a href="{{ route('user.likes', $user->id) }}">お気に入り<br>
-                    <div class="badge badge-secondary">{{ $countLikes ?? 0 }}</div></a></li>
+                        @if(($countLikes ?? 0) > 0)
+                            <div class="badge badge-secondary">{{ $countLikes }}</div>
+                        @endif
+                    </a>
+                </li>
             </ul>
             <!-- タブ内容 -->
             @include('users.tabs.' . $active)
