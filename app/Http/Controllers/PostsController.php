@@ -48,4 +48,19 @@ class PostsController extends Controller
         $post->save();
         return back()->with('success', '投稿を更新しました');
     }
+
+
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+
+        if (auth()->id() !== $post->user_id) 
+        {
+            abort(404);
+        }
+
+        $post->delete();
+        return back()->with('success', '投稿を削除しました');
+    }
+
 }
