@@ -15,7 +15,7 @@ class AddImageToPostsTable extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             // 画像がない投稿も許容する場合は nullable() をつけます
-        $table->string('image_path')->nullable();
+            $table->string('image_path')->nullable();
         });
     }
 
