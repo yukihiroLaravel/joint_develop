@@ -12,6 +12,9 @@
             </div>
         </div>
         <h5 class="text-center mb-3">"今のモヤモヤを140字以内で書き出してみよう！</h5>
+        <div class="w-75 m-auto">
+            @include('commons.flash_messages')
+        </div>
         @if (Auth::check())
         @include('posts.form')
         @endif

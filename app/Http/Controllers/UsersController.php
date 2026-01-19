@@ -34,7 +34,7 @@ class UsersController extends Controller
         
         $user->save();
         
-        return redirect()->route('user.show',$id);
+        return redirect()->route('user.show',$id)->with('success','ユーザ情報を更新しました');
     }
     
     public function show($id)
@@ -95,9 +95,14 @@ class UsersController extends Controller
             $user->delete();
         }
 
+<<<<<<< HEAD
         return redirect('/');
     }
 
+=======
+        return redirect('/')->with('danger','退会しました');
+    }   
+>>>>>>> develop_b_shimotsuki_sna
     public function favorites($id)
     {
         if (\Auth::id() != $id) { return redirect('/'); }
