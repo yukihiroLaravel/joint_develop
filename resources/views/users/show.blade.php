@@ -1,6 +1,10 @@
 @extends('layouts.app')
 @section('content')
 <div class="row">
+    <div class="w-100 m-auto">
+        @include('commons.flash_messages')
+    </div>
+    
         <aside class="col-sm-4 mb-5">
             <div class="card bg-info">
                 <div class="card-header">
@@ -11,6 +15,7 @@
                     <div class="mt-3">
                         <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 300) }}" alt="">
                     </div>
+                    @include('users.profile_area', ['user' => $user])
                         <div class="mt-3">
                             <a href="{{ route('user.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                         </div>

@@ -43,6 +43,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/edit', 'UsersController@edit')->name('user.edit');
         Route::put('/', 'UsersController@update')->name('user.update');
         Route::delete('/', 'UsersController@destroy')->name('user.delete');
+        // プロフィール
+        Route::put('profile', 'UsersController@updateProfile')->name('user.update_profile');
         // フォロー、解除
         Route::post('follow','FollowController@store')->name('follow');
         Route::delete('unfollow','FollowController@destroy')->name('unfollow');

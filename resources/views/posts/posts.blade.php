@@ -7,7 +7,13 @@
             </div>
             <div class="">
                 <div class="text-left d-inline-block w-75">
-                    <p class="mb-2">{{$post->content}}</p>
+                    <p class="mb-2">
+                        @if(!empty($keyword))
+                            {!! str_replace($keyword, '<mark class="p-0">' . $keyword . '</mark>', e($post->content)) !!}
+                        @else
+                            {{$post->content}}
+                        @endif
+                    </p>
                     @if($post->tags->count() > 0)
                         <div class="mb-2">
                             @foreach($post->tags as $tag_item)
@@ -33,6 +39,26 @@
                 @endif
                 <div class="d-flex justify-content-center pb-3">
                     @include('favorites.favorite_button', ['post' => $post])
+                </div>
+                <div class="text-left w-75 m-auto">
+                    @auth
+                        <details class="mb-2" {{ 
+                            old("content.{$post->id}") || 
+                            old("tags.{$post->id}") || 
+                            $errors->has("content.{$post->id}") || 
+                            $errors->has("tags.{$post->id}") 
+                            ? 'open' : '' 
+                        }}>
+                            <summary class="text-primary small" style="cursor: pointer;">返信する</summary>
+                            @include('posts.reply_form', ['parent_id' => $post->id])
+                        </details>
+                    @endauth
+                    @include('posts.reply_area', [
+                        'post' => $post, 
+                        'depth' => 0,
+                        'keyword' => $keyword ?? null,
+                        'tag' => $tag ?? null
+                    ])
                 </div>
             </div>
         </li>
