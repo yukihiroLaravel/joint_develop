@@ -7,6 +7,11 @@
         </div>
         <div class="">
             <div class="text-left d-inline-block w-75">
+                @if($post->image_path)
+                    <div class="post-image">
+                        <img src="{{ asset('storage/' . $post->image_path) }}" alt="投稿写真" style="max-width: 300px; height: auto; border-radius: 8px;">
+                    </div>
+                @endif
                 <p class="mb-2">{!! nl2br(e($post->content)) !!}</p>  <!-- 改行を表示させる --> 
                 <p class="text-muted">{{ $post->created_at }}</p>
             </div>

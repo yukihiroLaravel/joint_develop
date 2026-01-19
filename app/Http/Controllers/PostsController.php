@@ -24,8 +24,14 @@ class PostsController extends Controller
         $post = new Post;
         $post->content = $request->content;
         $post->user_id = $user->id;
+        // 画像があるかどうかをチェック！
+        if ($request->hasFile('image')) {
+        // 画像がある場合のみ、この中の store() が実行される
+            $path = $request->file('image')->store('posts', 'public');
+            $post->image_path = $path;
+        }
         $post->save();
-        return redirect()->back()->with('success', '新規投稿しました');;
+        return redirect()->back()->with('success', '新規投稿しました');
     }
 
     public function edit($id)
