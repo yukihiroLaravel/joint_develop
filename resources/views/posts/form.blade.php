@@ -10,9 +10,9 @@
                 <label for="tags" class="small text-muted">
                     <i class="fas fa-tags"></i> タグ（スペースまたはEnterで区切る）
                 </label>
-                {{-- IDを必ず "tags" に合わせる --}}
-                <input id="tags" type="text" name="tags" class="form-control form-control-sm" 
-                       placeholder="例: プログラミング Laravel" value="{{ old('tags', $tag ?? '') }}">
+                <input id="tags" type="text" name="tags[0]" class="form-control form-control-sm" 
+                    placeholder="例: プログラミング Laravel" 
+                    value="{{ is_array(old('tags')) ? old('tags.0') : old('tags', $tag ?? '') }}">
             </div>
             <div class="text-left mt-3">
                 <label for="favorite_flag" class="mt-3">
