@@ -14,6 +14,7 @@ class PostsController extends Controller
         $keyword = $request->input('keyword');
         $tag = $request->input('tag');
         $query = Post::query();
+
         $query->with(['user', 'replies.user', 'tags']);
         // 検索やタグ絞り込みをしていない場合、リプライ（返信）が一覧のトップに混ざらないように親投稿のみ取得する
         if (empty($keyword) && empty($tag)) {
@@ -48,12 +49,16 @@ class PostsController extends Controller
             // 重複を除去して、その最上位親IDの投稿を表示
             $query->whereIn('id', array_unique($rootIds));
         }
+        
         $posts = $query->orderBy('id', 'desc')->paginate(10);
+        
         $posts->appends([
             'keyword' => $keyword,
             'tag'     => $tag,
         ]);
+
         $ranking_posts = $this->getRanking();
+        
         return view('welcome', [
             'posts' => $posts,
             'ranking_posts' => $ranking_posts,
@@ -90,6 +95,7 @@ class PostsController extends Controller
             $tagNames = preg_split('/[\s\r\n]+/u', $tagsInput, -1, PREG_SPLIT_NO_EMPTY);
         
             $tagIds = [];
+            
             foreach ($tagNames as $name) {
                 if ($name === '') continue;
                 $tag = Tag::firstOrCreate(['name' => $name]);
@@ -103,9 +109,11 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
+        
         if (\Auth::id() !== $post->user_id) {
             return redirect('/');
         }
+        
         return view('posts.edit', [
             'post' => $post,
         ]);
@@ -114,6 +122,7 @@ class PostsController extends Controller
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
+        
         if (\Auth::id() === $post->user_id) {
             // 本文の更新
             $post->content = $request->content;
@@ -123,8 +132,10 @@ class PostsController extends Controller
                 $tagNames = preg_split('/\s+/', $request->tags);
                 $tagNames = array_unique(array_map('trim', $tagNames));
                 $tagIds = [];
+
                 foreach ($tagNames as $name) {
                     if ($name === '') continue;
+
                     $tag = Tag::firstOrCreate(['name' => $name]);
                     $tagIds[] = $tag->id;
                 }

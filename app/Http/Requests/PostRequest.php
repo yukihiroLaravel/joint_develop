@@ -33,6 +33,7 @@ class PostRequest extends FormRequest
             'favorite_flag' => 'nullable|boolean',
         ];
     }
+    
     public function attributes()
     {
         return [

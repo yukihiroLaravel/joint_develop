@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','profile',
     ];
 
     /**
@@ -55,6 +55,7 @@ class User extends Authenticatable
     public function follow($followedId)
     {
         $exist = $this->isFollow($followedId);
+        
         if ($exist) {
             return false;
         } else {
@@ -66,6 +67,7 @@ class User extends Authenticatable
     public function unfollow($followedId)
     {
         $exist = $this->isFollow($followedId);
+        
         if ($exist) {
             $this->follows()->detach($followedId);
             return true;
@@ -94,6 +96,7 @@ class User extends Authenticatable
     public function favorite($postId)
     {
         $exist = $this->isFavorite($postId);
+        
         if ($exist) {
             return false;
         } else {
@@ -106,6 +109,7 @@ class User extends Authenticatable
     public function unfavorite($postId)
     {
         $exist = $this->isFavorite($postId);
+        
         if ($exist) {
             $this->favorites()->detach($postId);
             return true;
