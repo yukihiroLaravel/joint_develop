@@ -77,32 +77,75 @@ class PostsController extends Controller
         return back();
     }
 
-    // 投稿削除
-    public function destroy($id)
+    // 投稿の編集
+    public function edit(Post $post)
     {
-        $post = Post::findOrFail($id);
-
-        if (\Auth::id() === $post->user_id){
-            if ($post->image) {
-                Storage::disk('public')->delete($post->image);
-            }
-            
-            $post->delete();
+        //ログインユーザーの確認
+        if(Auth::id() !== $post->user_id){
+            abort(403);
         }
-        
-        return back();
+        $tags = Tag::orderBy('name')->get();
+        return view('edits.edit', compact('post', 'tags'));
     }
 
-    // 画像編集ページ表示
+    // 更新処理
+    public function update(PostsRequest $request, Post $post)
+    {
+        // 投稿者本人かチェック
+        if (Auth::id() !== $post->user_id) {
+            abort(403);
+        }
+
+        // 本文更新（validated を使わない）
+        $post->update([
+            'content' => $request->content,
+        ]);
+
+        // 既存タグ
+        $tagIds = $request->input('tag_ids', []);
+
+        // 新規タグ
+        if ($request->filled('new_tags')) {
+            $names = array_unique(
+                array_filter(array_map('trim', explode(',', $request->new_tags)))
+            );
+
+            foreach ($names as $name) {
+                $tag = Tag::firstOrCreate(
+                    ['name' => $name],
+                    [
+                        'user_id' => auth()->id(),
+                        'update_count' => 0,
+                    ]
+                );
+                $tagIds[] = $tag->id;
+            }
+        }
+        // タグ同期（超重要）
+        $post->tags()->sync($tagIds);
+            return redirect('/')->with('success', '投稿を更新しました');
+    }
+
+    //画像の登録
     public function editImage(Post $post)
     {
         if (Auth::id() !== $post->user_id) {
             abort(403);
         }
 
-        return view('posts.image_edit', [
-            'post' => $post,
-        ]);
+        return view('posts.image_edit', compact('post'));
+    }
+
+    //削除処理
+    public function destroy(Post $post)
+    {
+        if (\Auth::id() === $post->user_id){
+            if ($post->image) {
+                Storage::disk('public')->delete($post->image);
+            }
+            $post->delete();
+        }
+        return back();
     }
 
     // 画像更新
