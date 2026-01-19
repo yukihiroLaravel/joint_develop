@@ -9,7 +9,6 @@ use App\User;
 use App\Post;
 use App\Tag;
 use App\Http\Requests\PostRequest; 
-use App\Http\Requests\UserRequest;
 use App\Http\Requests\ImageRequest; 
 
 class PostsController extends Controller
@@ -90,7 +89,7 @@ class PostsController extends Controller
     }
 
     // 更新処理
-    public function update(UserRequest $request, Post $post)
+    public function update(PostsRequest $request, Post $post)
     {
         // 投稿者本人かチェック
         if (Auth::id() !== $post->user_id) {

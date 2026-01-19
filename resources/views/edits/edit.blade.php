@@ -3,6 +3,8 @@
 
     <div class="container">
         <h3 class="mb-4">投稿の編集</h3>
+
+         @include('commons.error_messages')
         
             {{-- 更新フォーム --}}
             <form method="POST" action="{{ route('posts.update', $post) }}">
