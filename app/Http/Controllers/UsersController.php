@@ -31,7 +31,7 @@ class UsersController extends Controller
         }
         $user->save();
         
-        return redirect()->route('user.show',$id);
+        return redirect()->route('user.show',$id)->with('success','ユーザ情報を更新しました');
     }
     
     public function show($id)
@@ -85,7 +85,7 @@ class UsersController extends Controller
             $user->delete();
         }
 
-        return redirect('/');
+        return redirect('/')->with('danger','退会しました');
     }   
     public function favorites($id)
     {

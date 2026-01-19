@@ -88,20 +88,16 @@ class PostsController extends Controller
         if (!empty($tagsInput)) {
             $tagNames = preg_split('/[\s\r\n]+/', $tagsInput);
             $tagNames = preg_split('/[\s\r\n]+/u', $tagsInput, -1, PREG_SPLIT_NO_EMPTY);
+        
             $tagIds = [];
             foreach ($tagNames as $name) {
-                if ($name === '') {
-                    continue;
-                }
-                $tag = Tag::firstOrCreate([
-                    'name' => $name,
-                ]);
+                if ($name === '') continue;
+                $tag = Tag::firstOrCreate(['name' => $name]);
                 $tagIds[] = $tag->id;
             }
-            // 投稿とタグを紐付け
             $post->tags()->sync($tagIds);
         }
-        return back();
+        return back()->with('success','投稿しました');
     }
 
     public function edit($id)
@@ -136,7 +132,7 @@ class PostsController extends Controller
                 $post->tags()->sync($tagIds);
             }
         }
-        return redirect('/');
+        return redirect('/')->with('success','投稿を更新しました');
     }
     
     public function destroy($id)
@@ -147,6 +143,6 @@ class PostsController extends Controller
             $post->delete();
         }
 
-        return redirect('/')->with('success', '投稿を削除しました');
+        return redirect('/')->with('danger', '投稿を削除しました');
     }
 }
