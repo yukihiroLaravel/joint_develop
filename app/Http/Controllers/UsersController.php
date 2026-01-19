@@ -95,14 +95,8 @@ class UsersController extends Controller
             $user->delete();
         }
 
-<<<<<<< HEAD
-        return redirect('/');
-    }
-
-=======
         return redirect('/')->with('danger','退会しました');
     }   
->>>>>>> develop_b_shimotsuki_sna
     public function favorites($id)
     {
         if (\Auth::id() != $id) { return redirect('/'); }
