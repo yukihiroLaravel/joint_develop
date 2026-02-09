@@ -11,10 +11,6 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::get('/', 'PostsController@index');
 
 // ユーザ新規登録
