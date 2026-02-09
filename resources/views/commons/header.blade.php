@@ -10,7 +10,7 @@
                     <li class="nav-item"><a href="" class="nav-link text-light">ログインユーザ名</a></li>
                     <li class="nav-item"><a href="" class="nav-link text-light">ログアウト</a></li>
                     <li class="nav-item"><a href="" class="nav-link text-light">ログイン</a></li>
-                    <li class="nav-item"><a href="" class="nav-link text-light">新規ユーザ登録</a></li>
+                    <li class="nav-item"><a href="{{ route('signup') }}" class="nav-link text-light">新規ユーザ登録</a></li>
         </div>
     </nav>
 </header>
