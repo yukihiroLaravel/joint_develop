@@ -12,19 +12,19 @@ class PostsTableSeeder extends Seeder
     public function run()
     {
         DB::table('posts')->insert([
-            'comment' => 'テストです1',
+            'content' => 'テストです1',
             'user_id' => '1',
         ]);
         DB::table('posts')->insert([
-            'comment' => 'テストです2',
+            'content' => 'テストです2',
             'user_id' => '2',
         ]);
         DB::table('posts')->insert([
-            'comment' => 'テストです3',
+            'content' => 'テストです3',
             'user_id' => '3',
         ]);
         DB::table('posts')->insert([
-            'comment' => 'テストです4',
+            'content' => 'テストです4',
             'user_id' => '4',
         ]);
     }
