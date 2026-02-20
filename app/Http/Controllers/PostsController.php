@@ -9,8 +9,8 @@ class PostsController extends Controller
 {
     public function index()
     {
-        // 全投稿を最新順で1ページに2件表示するように取得
-        $posts = Post::latest()->paginate(2);
+        // 全投稿を最新順で1ページに10件表示するように取得
+        $posts = Post::latest()->paginate(10);
 
         // 'welcome' ビューに $posts を渡す
         return view('welcome', compact('posts'));
