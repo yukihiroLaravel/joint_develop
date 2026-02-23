@@ -17,4 +17,13 @@
                 </div>
             </form>
         </div>
+
+    <h5 class="text-center mb-3">＜投稿一覧＞</h5>
+
+    @include('posts.post')
+
+<div class="d-flex justify-content-center mt-4">
+    {{ $posts->links() }}
+</div>
+
 @endsection
