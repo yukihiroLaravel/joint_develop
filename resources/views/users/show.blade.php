@@ -21,5 +21,6 @@
                 <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li>
             </ul>
         </div>
+        include('posts.post')
     </div>
 @endsection
