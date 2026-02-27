@@ -16,6 +16,7 @@ class PostsController extends Controller
         return view('welcome', compact('posts'));
     }
 
+/*
     public function store(Request $request)
     {
         // バリデーション
@@ -31,7 +32,9 @@ class PostsController extends Controller
         // トップページにリダイレクト
         return back();
     }
+*/
 
+/*
     public function update(Request $request, $id)
     {
         $post = Post::findOrFail($id);
@@ -48,6 +51,7 @@ class PostsController extends Controller
 
         return back();
     }
+*/
 
     public function destroy($id)
     {
