@@ -15,4 +15,49 @@ class PostsController extends Controller
         // 'welcome' ビューに $posts を渡す
         return view('welcome', compact('posts'));
     }
+
+    public function store(Request $request)
+    {
+        // バリデーション
+        $request->validate([
+            'content' => 'required|max:140',
+        ]);
+
+        // 投稿の保存
+        $request->user()->posts()->create([
+            'content' => $request->content,
+        ]);
+
+        // トップページにリダイレクト
+        return back();
+    }
+
+    public function update(Request $request, $id)
+    {
+        $post = Post::findOrFail($id);
+
+        // 自分の投稿かチェック
+        if ($request->user()->id === $post->user_id) {
+            $request->validate([
+                'content' => 'required|max:140',
+            ]);
+
+            $post->content = $request->content;
+            $post->save();
+        }
+
+        return back();
+    }
+
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+
+        // 自分の投稿かチェック
+        if (\Auth::id() === $post->user_id) {
+            $post->delete();
+        }
+
+        return back();
+    }
 }
