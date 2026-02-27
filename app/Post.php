@@ -12,6 +12,9 @@ class Post extends Model
     /**
      * この投稿を所有するユーザーを取得（リレーション）
      */
+
+    protected $fillable = ['content'];
+    
     public function user()
     {
         return $this->belongsTo(User::class);

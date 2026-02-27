@@ -16,3 +16,19 @@ class PostsController extends Controller
         return view('welcome', compact('posts'));
     }
 }
+
+public function store(Request $request)
+{
+    // バリデーション
+    $request->validate([
+        'content' => 'required|max:140',
+    ]);
+
+    //ログインユーザーの投稿として保存
+    $request->user()->posts()->create([
+        'content' => $request->content,
+    ]);
+
+    // 前の画面に戻る
+    return back();
+}
