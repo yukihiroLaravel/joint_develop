@@ -17,9 +17,9 @@ class PostsController extends Controller
     }
 }
 
-public function store(Request $request)
+public function store(PostRequest $request)
 {
-    // バリデーション
+    // バリデーション 　　PostRequest のファイルを作る
     $request->validate([
         'content' => 'required|max:140',
     ]);
