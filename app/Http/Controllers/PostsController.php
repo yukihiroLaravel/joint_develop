@@ -15,4 +15,16 @@ class PostsController extends Controller
         // 'welcome' ビューに $posts を渡す
         return view('welcome', compact('posts'));
     }
+
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+
+        // 自分の投稿かチェック
+        if (\Auth::id() === $post->user_id) {
+            $post->delete();
+        }
+
+        return back();
+    }
 }

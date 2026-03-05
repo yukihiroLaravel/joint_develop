@@ -17,6 +17,10 @@ Route::get('/', 'PostsController@index');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
+// ログイン後のみ可能な操作
+Route::group(['middleware' => 'auth'], function () {
+    Route::delete('post/{id}', 'PostsController@destroy')->name('post.destroy');
+});
 //ユーザ詳細
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
