@@ -24,3 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('post/{id}', 'PostsController@update')->name('post.update');
     Route::delete('post/{id}', 'PostsController@destroy')->name('post.destroy');
 });
+//ユーザ詳細
+Route::prefix('users')->group(function () {
+    Route::get('{id}', 'UsersController@show')->name('user.show');
+});
