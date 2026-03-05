@@ -16,6 +16,48 @@ class PostsController extends Controller
         return view('welcome', compact('posts'));
     }
 
+    public function store(Request $request)
+    {
+        $request->validate([
+            'content' => 'required|max:140',
+        ]);
+
+        $request->user()->posts()->create([
+            'content' => $request->content,
+        ]);
+
+        return back();
+    }
+
+    public function edit($id)
+    {
+        $post = Post::findOrFail($id);
+
+        if (\Auth::id() === $post->user_id) {
+            return view('posts.edit', [
+                'post' => $post,
+            ]);
+        }
+
+        return redirect('/');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'content' => 'required|max:140',
+        ]);
+
+        $post = Post::findOrFail($id);
+
+        if (\Auth::id() === $post->user_id) {
+            $post->content = $request->content;
+            $post->save();
+        }
+
+        return redirect('/');
+    }
+
     public function destroy($id)
     {
         $post = Post::findOrFail($id);

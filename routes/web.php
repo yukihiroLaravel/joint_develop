@@ -19,5 +19,8 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 // ログイン後のみ可能な操作
 Route::group(['middleware' => 'auth'], function () {
+    Route::post('post', 'PostsController@store')->name('post.store');
+    Route::get('post/{id}/edit', 'PostsController@edit')->name('post.edit');
+    Route::put('post/{id}', 'PostsController@update')->name('post.update');
     Route::delete('post/{id}', 'PostsController@destroy')->name('post.destroy');
 });
