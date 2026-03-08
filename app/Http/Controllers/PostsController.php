@@ -19,13 +19,13 @@ class PostsController extends Controller
 
     public function store(PostRequest $request)
     {
-    //ログインユーザーの投稿として保存
-    $request->user()->posts()->create([
+        //ログインユーザーの投稿として保存
+        $request->user()->posts()->create([
         'content' => $request->content,
     ]);
 
-    // 前の画面に戻る
-    return back();
+        // 前の画面に戻る
+        return back();
     }
 
 }
