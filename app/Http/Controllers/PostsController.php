@@ -21,11 +21,22 @@ class PostsController extends Controller
     {
         //ログインユーザーの投稿として保存
         $request->user()->posts()->create([
-        'content' => $request->content,
-    ]);
+            'content' => $request->content,
+        ]);
 
         // 前の画面に戻る
         return back();
     }
 
+    public function destroy($id)
+    {
+        $post = Post::findOrFail($id);
+
+        // 自分の投稿かチェック
+        if (\Auth::id() === $post->user_id) {
+            $post->delete();
+        }
+
+        return back();
+    }
 }
