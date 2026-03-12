@@ -4,13 +4,10 @@ namespace App\Http\Controllers;
 use App\User;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\UserUpdateRequest;
 
 class UsersController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     public function show($id)
     {
@@ -36,30 +33,20 @@ class UsersController extends Controller
         return redirect('/');
     }
 
-    public function update(Request $request, $id)
+    public function update(UserUpdateRequest $request, $id)
     {
-        // バリデーション
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,'.$id,
-            'password' => 'nullable|string|min:8|confirmed',
-        ]);
-
         $user = User::findOrFail($id);
 
-        // ログイン中のユーザと更新対象のユーザが一致するかチェック
-        if (\Auth::id() === (int)$id) {
-            $user->name = $request->name;
-            $user->email = $request->email;
-            
-            // パスワードが入力された時のみ更新
-            if ($request->password) {
-                $user->password = bcrypt($request->password);
-            }
-            
-            $user->save();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        
+        // パスワードが入力された時のみ更新
+        if ($request->password) {
+            $user->password = bcrypt($request->password);
         }
+        
+        $user->save();
 
-        return redirect('/');
+        return redirect()->route('user.show', ['id' => $user->id]);
     }
 }

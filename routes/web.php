@@ -25,14 +25,11 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::group(['middleware' => 'auth'], function () {
     Route::delete('post/{id}', 'PostsController@destroy')->name('post.destroy');
 });
-//ユーザ詳細
-// http://localhost:8080/users/{id} でユーザ詳細表示
+// ユーザ詳細
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
-    // （user_edit）ユーザ情報_編集画面表示（get）  
-    // http://localhost:8080/users/{id}/edit でユーザ編集画面表示
+    // ユーザ情報_編集画面表示 
     Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
-    // （user_edit）ユーザ情報_更新（put） 
-    // http://localhost:8080/users/{id} でユーザ編集更新
+    // ユーザ情報_更新 
     Route::put('{id}', 'UsersController@update')->name('user.update');
 });
