@@ -33,3 +33,5 @@ Route::prefix('users')->group(function () {
     // ユーザ情報_更新 
     Route::put('{id}', 'UsersController@update')->name('user.update');
 });
+
+Route::post('posts', 'PostsController@store')->name('posts.store');
