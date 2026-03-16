@@ -24,6 +24,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 // ログイン後のみ可能な操作
 Route::group(['middleware' => 'auth'], function () {
     Route::delete('post/{id}', 'PostsController@destroy')->name('post.destroy');
+    Route::delete('users/{id}', 'UsersController@destroy')->name('user.delete');
 });
 //ユーザ詳細
 Route::prefix('users')->group(function () {

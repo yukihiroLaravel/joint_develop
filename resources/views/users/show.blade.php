@@ -7,9 +7,10 @@
                     <h3 class="card-title text-light">{{ $user->name }}</h3>
                 </div>
                 <div class="card-body">
-                    <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 300) }}" alt="ユーザのアバター画像">
+                    <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 180) }}" alt="ユーザのアバター画像">
                         <div class="mt-3">
                             <a href="" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                            @include('users.delete')
                         </div>
                 </div>
             </div>
