@@ -24,14 +24,16 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 // ログイン後のみ可能な操作
 Route::group(['middleware' => 'auth'], function () {
     Route::delete('post/{id}', 'PostsController@destroy')->name('post.destroy');
+    
+    // ユーザ情報_編集画面表示 
+    Route::get('users/{id}/edit', 'UsersController@edit')->name('user.edit');
+    // ユーザ情報_更新 
+    Route::put('users/{id}', 'UsersController@update')->name('user.update');
 });
+
 // ユーザ詳細
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
-    // ユーザ情報_編集画面表示 
-    Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
-    // ユーザ情報_更新 
-    Route::put('{id}', 'UsersController@update')->name('user.update');
 });
 
 Route::post('posts', 'PostsController@store')->name('posts.store');
