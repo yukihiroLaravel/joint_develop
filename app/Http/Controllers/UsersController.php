@@ -49,4 +49,22 @@ class UsersController extends Controller
 
         return redirect()->route('user.show', ['id' => $user->id]);
     }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+
+        // ログイン中のユーザーIDと、削除対象のユーザーIDが一致するかチェック
+        if (\Auth::id() === $user->id) {
+        // 1. そのユーザーに紐付いている投稿をすべて削除する
+            $user->posts()->delete();
+            
+            // 2. ユーザー本人を削除する
+            $user->delete();
+            \Auth::logout();
+        }
+
+        // トップページへリダイレクト（ユーザーが消えるので、ログアウト状態になります）
+        return redirect('/');
+    }
 }
