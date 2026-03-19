@@ -46,10 +46,10 @@
                 </div>
                 <div class="modal-footer d-flex justify-content-between">
                     {{-- 退会機能が必要な場合はここにフォームを作成します --}}
-                    <form action="" method="POST">
+                    <form action="{{ route('user.delete', ['id' => $user->id]) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger" disabled>退会する</button>
+                        <button type="submit" class="btn btn-danger">退会する</button>
                     </form>
                     <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
                 </div>

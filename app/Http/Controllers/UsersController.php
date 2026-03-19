@@ -56,9 +56,15 @@ class UsersController extends Controller
 
         // ログイン中のユーザーIDと、削除対象のユーザーIDが一致するかチェック
         if (\Auth::id() === $user->id) {
+        // 1. そのユーザーに紐付いている投稿をすべて削除する
+            $user->posts()->delete();
+            
+            // 2. ユーザー本人を削除する
             $user->delete();
+            \Auth::logout();
         }
-        // トップページへリダイレクト
+
+        // トップページへリダイレクト（ユーザーが消えるので、ログアウト状態になります）
         return redirect('/');
     }
 }
