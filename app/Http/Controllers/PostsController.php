@@ -35,6 +35,7 @@ class PostsController extends Controller
         // 自分の投稿かチェック
         if (\Auth::id() === $post->user_id) {
             $post->delete();
+            return back()->with('danger', '投稿を削除しました。');
         }
 
         return back();
