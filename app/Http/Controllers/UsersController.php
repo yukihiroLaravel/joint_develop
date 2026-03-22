@@ -47,7 +47,7 @@ class UsersController extends Controller
         
         $user->save();
 
-        return redirect()->route('user.show', ['id' => $user->id]);
+        return redirect()->route('user.show', $user->id)->with('success', 'ユーザー情報を更新しました。');    
     }
 
     public function destroy($id)
@@ -63,8 +63,6 @@ class UsersController extends Controller
             $user->delete();
             \Auth::logout();
         }
-
-        // トップページへリダイレクト（ユーザーが消えるので、ログアウト状態になります）
         return redirect('/');
     }
 }

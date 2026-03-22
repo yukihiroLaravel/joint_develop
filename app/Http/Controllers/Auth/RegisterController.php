@@ -70,4 +70,11 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+ /**
+     * 登録完了後の処理
+     */
+    protected function registered(\Illuminate\Http\Request $request, $user)
+    {
+        return redirect($this->redirectPath())->with('success', '新規登録が完了しました！');
+    }
 }
