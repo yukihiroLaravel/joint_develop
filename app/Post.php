@@ -7,11 +7,13 @@ use Illuminate\Database\Eloquent\SoftDeletes; // 論理削除機能をインポ�
 
 class Post extends Model
 {
-    use SoftDeletes; // 論理削除を有効化
-    protected $fillable = ['content'];
-
+    use SoftDeletes;
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function favoriteUsers()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'post_id', 'user_id')->withTimestamps();
     }
 }

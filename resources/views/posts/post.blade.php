@@ -23,6 +23,30 @@
                             日付未設定
                         @endif
                         </p>
+                        
+                        {{-- いいねボタン群 --}}
+                        <div class="d-flex align-items-center mb-3">
+                            {{-- ログインしている場合のみボタンを表示 --}}
+                            @if (Auth::check())
+                                @if (Auth::user()->isFavorite($post->id))
+                                    {{-- すでに「いいね」している場合は「いいね解除」ボタン --}}
+                                    <form method="POST" action="{{ route('unfavorite', $post->id) }}" class="mr-2">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-success btn-sm">いいねを外す</button>
+                                    </form>
+                                @else
+                                    {{-- まだ「いいね」していない場合は「いいね」ボタン --}}
+                                    <form method="POST" action="{{ route('favorite', $post->id) }}" class="mr-2">
+                                        @csrf
+                                        <button type="submit" class="btn btn-outline-success btn-sm">いいね！</button>
+                                    </form>
+                                @endif
+                            @endif
+                            
+                            {{-- いいね数の表示（全員共通）リンクに変更 --}}
+                            <a href="{{ route('post.favorites', $post->id) }}" class="badge badge-pill badge-success">いいね数 {{ $post->favoriteUsers()->count() }}</a>
+                        </div>
                     </div>
                     @if (Auth::id() === $post->user_id)
                     <div class="d-flex justify-content-between w-75 pb-3 m-auto">

@@ -39,4 +39,19 @@ class PostsController extends Controller
 
         return back();
     }
+
+    public function favorites($id)
+    {
+        // 投稿を取得
+        $post = Post::findOrFail($id);
+        
+        // この投稿を「いいね」したユーザーの一覧をページネーションで取得
+        $favoriteUsers = $post->favoriteUsers()->paginate(20);
+        
+        // 取得したデータをビューに渡す
+        return view('posts.favorites', [
+            'post' => $post,
+            'favoriteUsers' => $favoriteUsers,
+        ]);
+    }
 }

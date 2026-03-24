@@ -29,11 +29,20 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('users/{id}/edit', 'UsersController@edit')->name('user.edit');
     // ユーザ情報_更新 
     Route::put('users/{id}', 'UsersController@update')->name('user.update');
+    // いいね
+    Route::group(['prefix' => 'posts/{id}'],function(){
+        Route::post('favorite','FavoriteController@store')->name('favorite');
+        Route::delete('unfavorite','FavoriteController@destroy')->name('unfavorite');
+    });
 });
 
-// ユーザ詳細
-Route::prefix('users')->group(function () {
-    Route::get('{id}', 'UsersController@show')->name('user.show');
+// ユーザ一覧と詳細・お気に入り
+Route::get('users', 'UsersController@index')->name('users'); 
+
+Route::group(['prefix' => 'users/{id}'],function(){
+    Route::get('', 'UsersController@show')->name('user.show');
+    Route::get('favorites','UsersController@favorites')->name('user.favorites');
 });
 
 Route::post('posts', 'PostsController@store')->name('posts.store');
+Route::get('posts/{id}/favorites', 'PostsController@favorites')->name('post.favorites');
