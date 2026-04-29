@@ -11,7 +11,6 @@ class PostTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::statement('ALTER TABLE posts AUTO_INCREMENT = 1');
         DB::table('posts')->insert([
             'id' => 1,
             'user_id' => 1,
