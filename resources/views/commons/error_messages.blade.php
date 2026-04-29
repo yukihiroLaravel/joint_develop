@@ -4,4 +4,5 @@
             <li class="ml-4">{{ $error }}</li>
         @endforeach
     </ul>
+@else エラーメッセージが入る場所
 @endif
