@@ -7,10 +7,12 @@
                     <h3 class="card-title text-light">{{ $user->name }}</h3>
                 </div>
                 <div class="card-body">
-                    <img class="mr-2 rounded-circle" src="{{ Gravatar::src($user->email, 248) }}" alt="ユーザのアバター画像">
+                    <img class="rounded-circle" src="{{ Gravatar::src($user->email, 200) }}" alt="ユーザのアバター画像" style="display: block; margin: 0 auto">
+                    @if(Auth::check() && $user->id === Auth::user()->id)
                         <div class="mt-3">
                             <a href="" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                         </div>
+                    @endif
                 </div>
             </div>
         </aside>
