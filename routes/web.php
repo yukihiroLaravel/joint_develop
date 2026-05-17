@@ -26,3 +26,11 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::prefix('users')->group( function() {
     Route::get('{id}', 'UsersController@show')->name('user.show');
 });
+
+// 投稿編集画面・更新
+Route::group(['middleware' => 'auth'], function() {
+    Route::prefix('posts')->group( function() {
+        Route::get('{id}/edit', 'PostsController@edit')->name('content.edit');
+        Route::put('{id}', 'PostsController@update')->name('content.update');
+    });
+});
