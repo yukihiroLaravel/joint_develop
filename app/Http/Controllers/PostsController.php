@@ -18,11 +18,15 @@ class PostsController extends Controller
     {
         $user = \Auth::user();
         $post = Post::findOrFail($id);
-        $data = [
-            'user' => $user,
-            'post' => $post,
-        ];
-        return view('posts.edit', $data);
+        if ($user->id === $post->user_id) {
+            $data = [
+                'user' => $user,
+                'post' => $post,
+            ];
+            return view('posts.edit', $data);
+        } else {
+            return back();
+        }
     }
 
     public function update(PostRequest $request, $id)
@@ -31,11 +35,7 @@ class PostsController extends Controller
         $post = Post::findOrFail($id);
         $post->content = $request->content;
         $post->save();
-        $data = [
-            'user' => $user,
-            'post' => $post,
-        ];    
-        return view('posts.show', $data);
+        return redirect('/');
     }
 
 }

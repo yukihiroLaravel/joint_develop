@@ -30,7 +30,7 @@ Route::prefix('users')->group( function() {
 // 投稿編集画面・更新
 Route::group(['middleware' => 'auth'], function() {
     Route::prefix('posts')->group( function() {
-        Route::get('{id}/edit', 'PostsController@edit')->name('content.edit');
-        Route::put('{id}', 'PostsController@update')->name('content.update');
+        Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
+        Route::put('{id}', 'PostsController@update')->name('post.update');
     });
 });
