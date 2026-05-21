@@ -2,13 +2,7 @@
 @section('content')
     <h2 class="mt-5">投稿を編集する</h2>
     <form method="POST" action="{{ route('post.update', $post->id) }}">
-        @if (count($errors) > 0)
-            <ul class="alert alert-danger" role="alert">
-                @foreach ($errors->all() as $error)
-                    <li class="ml-4">{{ $error }}</li>
-                @endforeach
-            </ul>
-        @endif
+        @include('commons.error_messages')
         @csrf
         @method('PUT')
         <div class="form-group">

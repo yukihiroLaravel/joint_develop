@@ -31,7 +31,6 @@ class PostsController extends Controller
 
     public function update(PostRequest $request, $id)
     {
-        $user = \Auth::user();
         $post = Post::findOrFail($id);
         $post->content = $request->content;
         $post->save();
