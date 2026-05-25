@@ -27,10 +27,11 @@ Route::prefix('users')->group( function() {
     Route::get('{id}', 'UsersController@show')->name('user.show');
 });
 
-// 投稿編集画面・更新
+// ログイン後に可能な処理のグループ
 Route::group(['middleware' => 'auth'], function() {
+    Route::delete('users/{id}', 'UsersController@destroy')->name('user.delete'); //退会
     Route::prefix('posts')->group( function() {
-        Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
-        Route::put('{id}', 'PostsController@update')->name('post.update');
+        Route::get('{id}/edit', 'PostsController@edit')->name('post.edit'); //投稿編集
+        Route::put('{id}', 'PostsController@update')->name('post.update'); //投稿更新
     });
 });

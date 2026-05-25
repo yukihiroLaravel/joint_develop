@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Post;
 
 class UsersController extends Controller
 {
@@ -13,5 +14,15 @@ class UsersController extends Controller
         return view('users.show', [
             'user' => $user,
         ]);
+    }
+
+    // ユーザ退会
+    public function destroy($id)
+    {
+        $user = \Auth::user();
+        if ($id === $user->id) {
+            $user->delete();
+        }
+        return redirect('/');
     }
 }
