@@ -19,7 +19,7 @@ class UsersController extends Controller
     public function destroy($id)
     {
         $user = \Auth::user();
-        if ($id === $user->id) {
+        if ($id == $user->id) {
             $user->delete();
         }
         return redirect('/');
