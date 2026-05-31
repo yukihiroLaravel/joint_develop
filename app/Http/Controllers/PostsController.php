@@ -14,7 +14,17 @@ class PostsController extends Controller
         return view('welcome');
     }
 
-    public function edit($id)
+    public function store(PostRequest $request)    // 投稿新規作成
+    {
+        $user = \Auth::user();
+        $post = new Post;
+        $post->user_id = $user->id;
+        $post->content = $request->content;
+        $post->save();
+        return back();
+    }
+
+    public function edit($id)   // 投稿編集画面の表示
     {
         $user = \Auth::user();
         $post = Post::findOrFail($id);
@@ -29,7 +39,7 @@ class PostsController extends Controller
         }
     }
 
-    public function update(PostRequest $request, $id)
+    public function update(PostRequest $request, $id)   // 投稿更新
     {
         $post = Post::findOrFail($id);
         $post->content = $request->content;
