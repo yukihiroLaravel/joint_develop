@@ -29,9 +29,9 @@ Route::prefix('users')->group( function() {
 
 // ログイン後に可能な処理のグループ
 Route::group(['middleware' => 'auth'], function() {
-    Route::post('', 'PostsController@create')->name('post.create'); //投稿新規作成
     Route::delete('users/{id}', 'UsersController@destroy')->name('user.delete'); //退会
     Route::prefix('posts')->group( function() {
+        Route::post('', 'PostsController@store')->name('post.store'); //投稿新規作成
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit'); //投稿編集
         Route::put('{id}', 'PostsController@update')->name('post.update'); //投稿更新
     });

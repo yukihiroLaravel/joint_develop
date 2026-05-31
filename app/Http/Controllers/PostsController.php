@@ -14,7 +14,7 @@ class PostsController extends Controller
         return view('welcome');
     }
 
-    public function create(PostRequest $request)    // 投稿新規作成
+    public function store(PostRequest $request)    // 投稿新規作成
     {
         $user = \Auth::user();
         $post = new Post;
