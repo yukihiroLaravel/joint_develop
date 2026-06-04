@@ -20,4 +20,5 @@
             </form>
             @endif
         </div>
+        @include('posts.posts')
 @endsection
