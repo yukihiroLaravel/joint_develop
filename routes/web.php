@@ -29,7 +29,11 @@ Route::prefix('users')->group( function() {
 
 // ログイン後に可能な処理のグループ
 Route::group(['middleware' => 'auth'], function() {
-    Route::delete('users/{id}', 'UsersController@destroy')->name('user.delete'); //退会
+    Route::prefix('users/{id}')->group( function() {
+        Route::post('', 'FollowController@store')->name('follow'); // フォローする
+        Route::delete('', 'FollowController@destroy')->name('unfollow'); // フォロー解除
+        Route::delete('', 'UsersController@destroy')->name('user.delete'); //退会
+    });
     Route::prefix('posts')->group( function() {
         Route::post('', 'PostsController@store')->name('post.store'); //投稿新規作成
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit'); //投稿編集
