@@ -8,14 +8,18 @@
                 </div>
                 <div class="card-body">
                     <img class="rounded-circle" src="{{ Gravatar::src($user->email, 200) }}" alt="ユーザのアバター画像" style="display: block; margin: 0 auto">
-                    @if(Auth::check() && $user->id === Auth::user()->id)
-                        <div class="mt-3">
-                            <a href="" class="btn btn-primary btn-block">ユーザ情報の編集</a>
-                        </div>
-                        <!-- 退会する」ボタン 一時的にここに記載 -->
-                        <div class="mt-3">
-                            <a href="" class="btn btn-danger btn-block" data-toggle="modal" data-target="#deleteConfirmModal">退会する</a>
-                        </div>
+                    @if(Auth::check())
+                        @if($user->id === Auth::user()->id)
+                            <div class="mt-3">
+                                <a href="" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                            </div>
+                            <!-- 退会する」ボタン 一時的にここに記載 -->
+                            <div class="mt-3">
+                                <a href="" class="btn btn-danger btn-block" data-toggle="modal" data-target="#deleteConfirmModal">退会する</a>
+                            </div>
+                        @else
+                            @include('follow.follow', ['user' => $user])
+                        @endif
                     @endif
                 </div>
             </div>
