@@ -12,6 +12,12 @@ class FollowsTableSeeder extends Seeder
     public function run()
     {
         for($i = 1; $i<=9; $i++) {
+            if($i >= 2) {
+                DB::table('follows')->insert([
+                    'following' => $i,
+                    'followed' => $i-1
+                ]);
+            }
             DB::table('follows')->insert([
                 'following' => $i,
                 'followed' => $i+1
@@ -21,12 +27,6 @@ class FollowsTableSeeder extends Seeder
                     'following' => $i,
                     'followed' => $i+2
                 ]);
-                if ($i <= 7) {
-                    DB::table('follows')->insert([
-                        'following' => $i,
-                        'followed' => $i+3
-                    ]);
-                }
             }
         }
     }

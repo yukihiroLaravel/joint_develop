@@ -75,7 +75,7 @@ class User extends Authenticatable
         if ($exist) {
             return false;
         } else {
-            $this->followee()->attach($id);
+            $this->follows()->attach($id);
             return true;
         }
     }
@@ -84,7 +84,7 @@ class User extends Authenticatable
     {
         $exist = $this->isFollowing($id);
         if ($exist) {
-            $this->follower()->detach($id);
+            $this->follows()->detach($id);
             return true;
         } else {
             return false;
@@ -94,12 +94,6 @@ class User extends Authenticatable
     public function isFollowing($id)
     {
         return $this->followee()->where('following', Auth::id())->where('followed', $id);
-    }
-
-    // ログインユーザが対象ユーザにフォローされているか判定
-    public function isFollowed($id)
-    {
-        return $this->follower()->where('followed', Auth::id())->where('following', $id);
     }
 
 }
