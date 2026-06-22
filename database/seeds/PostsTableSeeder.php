@@ -13,23 +13,51 @@ class PostsTableSeeder extends Seeder
     {
          DB::table('posts')->insert([
             'user_id' => 1,
-            'post_text' => 'テスト投稿１です',
-        
+            'content' => 'テスト投稿１です',
+        ]);
+         DB::table('posts')->insert([
+            'user_id' => 1,
+            'content' => 'テスト投稿２です',
          ]);
          DB::table('posts')->insert([
             'user_id' => 1,
-            'post_text' => 'テスト投稿２です',
-        
+            'content' => 'テスト投稿３です',
          ]);
          DB::table('posts')->insert([
-            'user_id' => 1,
-            'post_text' => 'テスト投稿３です',
-         
+            'user_id' => 2,
+            'content' => 'テスト投稿４です',
          ]);
          DB::table('posts')->insert([
-            'user_id' => 1,
-            'post_text' => 'テスト投稿４です',
-         
+            'user_id' => 2,
+            'content' => 'テスト投稿５です',
+        ]);
+         DB::table('posts')->insert([
+            'user_id' => 2,
+            'content' => 'テスト投稿６です',
+         ]);
+         DB::table('posts')->insert([
+            'user_id' => 3,
+            'content' => 'テスト投稿７です',
+         ]);
+         DB::table('posts')->insert([
+            'user_id' => 3,
+            'content' => 'テスト投稿８です',
+         ]);
+         DB::table('posts')->insert([
+            'user_id' => 3,
+            'content' => 'テスト投稿９です',
+        ]);
+         DB::table('posts')->insert([
+            'user_id' => 4,
+            'content' => 'テスト投稿１０です',
+         ]);
+         DB::table('posts')->insert([
+            'user_id' => 4,
+            'content' => 'テスト投稿１１です',
+         ]);
+         DB::table('posts')->insert([
+            'user_id' => 4,
+            'content' => 'テスト投稿１２です',
          ]);
     }
 }
