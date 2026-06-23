@@ -12,3 +12,9 @@
 */
 
 Route::get('/', 'UsersController@index');
+
+// ユーザ新規登録画面を表示
+Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+
+// ユーザ新規登録処理
+Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
