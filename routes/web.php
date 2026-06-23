@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'UsersController@index');
 
 // ユーザ新規登録画面を表示
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
