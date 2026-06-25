@@ -1,19 +1,39 @@
-<div class="row mt-5">
-    @foreach ($posts as $post)
-        <div class="col-lg-4 mb-5">
-            <div class="card h-100 text-left">
-                <div class="card-body">
-                    <p class="card-text">
+<ul class="list-unstyled">
+    @forelse ($posts as $post)
+        <li class="mb-3 text-center">
+            <div class="text-left d-inline-block w-75 mb-2">
+                <img
+                    class="mr-2 rounded-circle"
+                    src="{{ Gravatar::src($post->user->email, 55) }}"
+                    alt="{{ $post->user->name }}のアバター画像"
+                >
+
+                <p class="mt-3 mb-0 d-inline-block">
+                    <a href="{{ route('user.show', $post->user->id) }}">
+                        {{ $post->user->name }}
+                    </a>
+                </p>
+            </div>
+
+            <div>
+                <div class="text-left d-inline-block w-75">
+                    <p class="mb-2">
                         {{ $post->content }}
                     </p>
-                </div>
 
-                <div class="card-footer text-muted">
-                    {{ $post->created_at }}
+                    <p class="text-muted">
+                        {{ $post->created_at }}
+                    </p>
                 </div>
             </div>
-        </div>
-    @endforeach
-</div>
+        </li>
+    @empty
+        <li class="text-center">
+            投稿はありません。
+        </li>
+    @endforelse
+</ul>
 
-{{ $posts->links('pagination::bootstrap-4') }}
+<div class="m-auto" style="width: fit-content">
+    {{ $posts->links('pagination::bootstrap-4') }}
+</div>

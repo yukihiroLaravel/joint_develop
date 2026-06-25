@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\User;
-// use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
@@ -18,14 +17,12 @@ class UsersController extends Controller
 
         $posts = $user->posts()
             ->orderBy('id', 'desc')
-            ->paginate(9);
+            ->paginate(10);
 
         $data = [
             'user' => $user,
             'posts' => $posts,
         ];
-
-        $data += $this->userCounts($user);
 
         return view('users.show', $data);
     }
