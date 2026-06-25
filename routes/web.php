@@ -11,7 +11,13 @@
 |
 */
 
+// ユーザ
 Route::get('/', 'UsersController@index');
+
+Route::prefix('users')->group(function () {
+    // ユーザ詳細画面を表示
+    Route::get('{id}', 'UsersController@show')->name('user.show');
+});
 
 // ユーザ新規登録画面を表示
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');

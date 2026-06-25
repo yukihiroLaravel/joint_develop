@@ -8,6 +8,18 @@
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
                     <li class="nav-item"><a href="" class="nav-link text-light">ログインユーザ名</a></li>
+
+                    @if (Auth::check())
+                        <li class="nav-item">
+                            <a
+                                href="{{ route('user.show', Auth::id()) }}"
+                                class="nav-link text-light"
+                            >
+                                マイページ
+                            </a>
+                        </li>
+                    @endif
+
                     <li class="nav-item"><a href="" class="nav-link text-light">ログアウト</a></li>
                     <li class="nav-item"><a href="" class="nav-link text-light">ログイン</a></li>
                     <li class="nav-item"><a href="{{ route('signup') }}" class="nav-link text-light">新規ユーザ登録</a></li>
