@@ -20,9 +20,10 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-// マイページ
-Route::get('users/{id}', 'UsersController@show')
-    ->name('user.show');
+Route::prefix('users')->group(function () {
+    // ユーザ詳細画面を表示
+    Route::get('{id}', 'UsersController@show')->name('user.show');
+});
 
 // トップページ
 Route::get('/', 'UsersController@index');
