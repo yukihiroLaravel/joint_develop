@@ -14,6 +14,10 @@
 // 投稿一覧(ログイン前)
 Route::get('/', 'PostsController@index')->name('posts');
 
+// ユーザ新規登録
+Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+
 //検証用 あとで削除//////////////////////
 // use Illuminate\Support\Facades\Auth;
 
@@ -21,7 +25,7 @@ Route::get('/', 'PostsController@index')->name('posts');
 //     Auth::loginUsingId($id);
 //     return redirect('/');
 // });
-Route::get('/test-logout', function () {
-    Auth::logout();
-    return redirect('/');
-});
+// Route::get('/test-logout', function () {
+//     Auth::logout();
+//     return redirect('/');
+// });
