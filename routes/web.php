@@ -11,6 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// 投稿一覧(ログイン前)
+Route::get('/', 'PostsController@index')->name('posts');
+
+//検証用 あとで削除//////////////////////
+// use Illuminate\Support\Facades\Auth;
+
+// Route::get('/test-login/{id}', function ($id) {
+//     Auth::loginUsingId($id);
+//     return redirect('/');
+// });
+Route::get('/test-logout', function () {
+    Auth::logout();
+    return redirect('/');
 });
