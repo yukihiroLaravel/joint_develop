@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
-use Illuminate\Http\Request;
+use App\Http\Requests\UpdatePostRequest;
 use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
@@ -21,7 +21,7 @@ class PostsController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
+    public function update(UpdatePostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
 
@@ -29,12 +29,9 @@ class PostsController extends Controller
             abort(403);
         }
 
-        $validated = $request->validate([
-            'content' => 'required|string|max:140',
-        ]);
+        $validated = $request->validated();
 
         $post->content = $validated['content'];
-
         $post->save();
 
         return redirect('/');
