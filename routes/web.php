@@ -11,8 +11,12 @@
 |
 */
 
-// ユーザ新規登録
+// トップページ
+Route::get('/', 'UsersController@index');
+// ユーザ新規登録画面を表示
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+
+// ユーザ新規登録処理
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 // ログイン、ログアウト
@@ -25,5 +29,8 @@ Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('user.show');
 });
 
-// トップページ
-Route::get('/', 'UsersController@index');
+// 投稿
+Route::prefix('posts')->middleware('auth')->group(function () {
+    Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
+    Route::put('{id}', 'PostsController@update')->name('post.update');
+});
