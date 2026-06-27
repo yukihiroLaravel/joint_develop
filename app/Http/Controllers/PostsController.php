@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
-use App\Http\Requests\UpdatePostRequest;
+use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
@@ -21,7 +21,7 @@ class PostsController extends Controller
         ]);
     }
 
-    public function update(UpdatePostRequest $request, $id)
+    public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
 
