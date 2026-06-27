@@ -30,7 +30,9 @@
                         >
 
                         @error('name')
+                        <div class="text-danger">
                             <p>{{ $message }}</p>
+                        </div>
                         @enderror
                     </div>
 
@@ -48,7 +50,9 @@
                         >
 
                         @error('email')
+                        <div class="text-danger">
                             <p>{{ $message }}</p>
+                        </div>
                         @enderror
                     </div>
 
@@ -65,7 +69,9 @@
                         >
 
                         @error('password')
+                        <div class="text-danger">
                             <p>{{ $message }}</p>
+                        </div>
                         @enderror
                     </div>
 
