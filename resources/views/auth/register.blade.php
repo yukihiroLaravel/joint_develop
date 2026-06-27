@@ -30,7 +30,9 @@
                         >
 
                         @error('name')
-                            <p>{{ $message }}</p>
+                            <div class="alert alert-danger mt-2">
+                                {{ $message }}
+                            </div>
                         @enderror
                     </div>
 
@@ -48,7 +50,9 @@
                         >
 
                         @error('email')
-                            <p>{{ $message }}</p>
+                            <div class="alert alert-danger mt-2">
+                                {{ $message }}
+                            </div>
                         @enderror
                     </div>
 
@@ -65,7 +69,9 @@
                         >
 
                         @error('password')
-                            <p>{{ $message }}</p>
+                            <div class="alert alert-danger mt-2">
+                                {{ $message }}
+                            </div>
                         @enderror
                     </div>
 

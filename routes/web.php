@@ -24,3 +24,9 @@ Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('sign
 
 // ユーザ新規登録処理
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+
+// 投稿
+Route::prefix('posts')->middleware('auth')->group(function () {
+    Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
+    Route::put('{id}', 'PostsController@update')->name('post.update');
+});
