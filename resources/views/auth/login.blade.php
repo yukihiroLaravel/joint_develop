@@ -25,7 +25,7 @@
                                 <div class="form-group">
                                     <label for="password">パスワード</label>
                                     <input id="password" type="password" class="form-control" name="password" value="{{ old('password') }}">
-                                        @error('email')
+                                        @error('password')
                                             <div class="alert alert-danger mt-2">
                                                 {{ $message }}
                                             </div>
