@@ -14,86 +14,67 @@
             <div class="col-sm-6 offset-sm-3">
                 <form
                     method="POST"
-                    action="{{ route('signup.post') }}"
-                >
+                    action="{{ route('signup.post') }}">
                     @csrf
 
                     <div class="form-group">
                         <label for="name">名前</label>
-
-                        <input
-                            id="name"
-                            type="text"
-                            class="form-control"
-                            name="name"
-                            value="{{ old('name') }}"
-                        >
+                            <input
+                                id="name"
+                                type="text"
+                                class="form-control"
+                                name="name"
+                                value="{{ old('name') }}">
 
                         @error('name')
-                        <div class="alert alert-danger mt-2">
-                            {{ $message }}
-                        </div>
+                            <div class="alert alert-danger mt-2">
+                                {{ $message }}
+                            </div>
                         @enderror
                     </div>
-
-                    <div class="form-group">
-                        <label for="email">
-                            メールアドレス
-                        </label>
-
-                        <input
-                            id="email"
-                            type="email"
-                            class="form-control"
-                            name="email"
-                            value="{{ old('email') }}"
-                        >
+                        <div class="form-group">
+                            <label for="email">メールアドレス</label>
+                                <input
+                                    id="email"
+                                    type="email"
+                                    class="form-control"
+                                    name="email"
+                                    value="{{ old('email') }}">
 
                         @error('email')
-                        <div class="alert alert-danger mt-2">
-                            {{ $message }}
-                        </div>
+                            <div class="alert alert-danger mt-2">
+                                {{ $message }}
+                            </div>
                         @enderror
                     </div>
+                        <div class="form-group">
+                        <label for="password">パスワード</label>
+                            <input
+                                id="password"
+                                type="password"
+                                class="form-control"
+                                name="password">
 
-                    <div class="form-group">
-                        <label for="password">
-                            パスワード
-                        </label>
-
-                        <input
-                            id="password"
-                            type="password"
-                            class="form-control"
-                            name="password"
-                        >
-
-                        @error('password')
-                        <div class="alert alert-danger mt-2">
-                            {{ $message }}
+                                @error('password')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                         </div>
-                        @enderror
-                    </div>
 
-                    <div class="form-group">
-                        <label for="password_confirmation">
-                            パスワード確認
-                        </label>
+                            <div class="form-group">
+                                <labe for="password_confirmation">パスワード確認</labe>
+                                    <input
+                                        id="password_confirmation"
+                                        type="password"
+                                        class="form-control"
+                                        name="password_confirmation">
+                            </div>
 
-                        <input
-                            id="password_confirmation"
-                            type="password"
-                            class="form-control"
-                            name="password_confirmation"
-                        >
-                    </div>
-
-                    <button
-                        type="submit"
-                        class="btn btn-primary mt-2"
-                    >
-                        新規登録
-                    </button>
+                        <button
+                            type="submit"
+                            class="btn btn-primary mt-2">新規登録
+                        </button>
                 </form>
             </div>
         </div>
