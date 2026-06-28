@@ -11,19 +11,23 @@
 |
 */
 
-// ユーザ
+// トップページ
 Route::get('/', 'UsersController@index');
-
-Route::prefix('users')->group(function () {
-    // ユーザ詳細画面を表示
-    Route::get('{id}', 'UsersController@show')->name('user.show');
-});
-
 // ユーザ新規登録画面を表示
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 
 // ユーザ新規登録処理
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+
+// ログイン、ログアウト
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login.post');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::prefix('users')->group(function () {
+    // ユーザ詳細画面を表示
+    Route::get('{id}', 'UsersController@show')->name('user.show');
+});
 
 // 投稿
 Route::prefix('posts')->middleware('auth')->group(function () {
