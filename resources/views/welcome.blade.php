@@ -18,6 +18,6 @@
             </form>
         </div>
 
-        @include('posts.post2', ['posts' => $posts])
+        @include('posts.posts', ['posts' => $posts])
        
 @endsection
