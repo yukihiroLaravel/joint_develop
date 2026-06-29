@@ -11,9 +11,13 @@
 |
 */
 
+<<<<<<< HEAD
 // 投稿一覧
 Route::get('/', 'PostsController@index')->name('posts');
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+=======
+Route::get('/', 'PostsController@index');
+>>>>>>> 301d37908ca4d4a9e480f54ec8d89cfddb98938b
