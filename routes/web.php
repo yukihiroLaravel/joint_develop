@@ -13,6 +13,10 @@
 
 // 投稿一覧
 Route::get('/', 'PostsController@index')->name('posts');
+// ユーザー詳細
+Route::prefix('posts')->group(function () {
+    Route::get('{id}', 'PostsController@show')->name('posts.show');
+});
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
