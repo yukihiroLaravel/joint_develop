@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<!-- 投稿一覧 -->
-@include('posts.posts', ['posts' => $posts ])
-=======
 @extends('layouts.app')
 @section('content')
     <div class="center jumbotron bg-info">
@@ -21,5 +17,6 @@
                 </div>
             </form>
         </div>
+    <!-- 投稿一覧 -->
+    @include('posts.posts', ['posts' => $posts ])
 @endsection
->>>>>>> 301d37908ca4d4a9e480f54ec8d89cfddb98938b
