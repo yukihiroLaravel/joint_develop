@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Post;
 
 class PostsController extends Controller
@@ -22,6 +23,6 @@ class PostsController extends Controller
             'user' => $user,
             'posts' => $posts,
         ];
-        return view('users.show',$data);
+        return view('posts.show',$data);
     }
 }

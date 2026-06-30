@@ -1,3 +1,5 @@
+@extends('layouts.app')
+@section('content')
 <div class="row">
         <aside class="col-sm-4 mb-5">
             <div class="card bg-info">
@@ -21,3 +23,4 @@
             @include('posts.posts', ['user' => $user, 'posts' => $posts])
         </div>
     </div>
+@endsection

@@ -3,7 +3,7 @@
         <li class="mb-3 text-center">
             <div class="d-inline-block w-75 mb-2 text-left">
                 <img class="rounded-circle mr-2" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
-                <p class="d-inline-block mb-0 mt-3"><a href="">{{ $post->user->name }}</a></p>
+                <p class="d-inline-block mb-0 mt-3"><a href="{{ route('posts.show', $post->user->id) }}">{{ $post->user->name }}</a></p>
             </div>
             <div class="">
                 <div class="d-inline-block w-75 text-left">
