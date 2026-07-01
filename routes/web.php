@@ -27,6 +27,8 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::prefix('users')->group(function () {
     // ユーザ詳細画面を表示
     Route::get('{id}', 'UsersController@show')->name('user.show');
+    // ユーザ退会処理
+    Route::delete('{id}', 'UsersController@destroy')->name('user.destroy')->middleware('auth');
 });
 
 // 投稿

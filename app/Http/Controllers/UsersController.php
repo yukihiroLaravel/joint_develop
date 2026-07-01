@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -25,5 +27,24 @@ class UsersController extends Controller
         ];
 
         return view('users.show', $data);
+    }
+
+    public function destroy(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        if (Auth::id() !== $user->id) {
+            abort(403);
+        }
+
+        $user->posts()->delete();
+        $user->delete();
+
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }
