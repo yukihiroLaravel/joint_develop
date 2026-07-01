@@ -14,8 +14,8 @@
 // 投稿一覧
 Route::get('/', 'PostsController@index')->name('posts');
 // ユーザー詳細
-Route::prefix('posts')->group(function () {
-    Route::get('{id}', 'PostsController@show')->name('posts.show');
+Route::prefix('users')->group(function () {
+    Route::get('{id}', 'UsersController@show')->name('users.show');
 });
 
 // ユーザ新規登録
