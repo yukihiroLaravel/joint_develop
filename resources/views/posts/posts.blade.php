@@ -33,6 +33,17 @@
                         >
                             編集する
                         </a>
+                        <form
+                            method="POST"
+                            action="{{ route('post.destroy', $post->id) }}"
+                        >
+                            @csrf
+                            @method('DELETE')
+
+                            <button type="submit" class="btn btn-danger">
+                            この投稿を削除する
+                            </button>
+                        </form>
                     </div>
                 @endif
             </div>
