@@ -37,7 +37,6 @@ class UsersController extends Controller
             abort(403);
         }
 
-        $user->posts()->delete();
         $user->delete();
 
         Auth::logout();
