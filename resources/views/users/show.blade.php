@@ -69,6 +69,27 @@
                                 </div>
                             </div>
                         </div>
+                    @elseif (Auth::check())
+                      <div class="mt-3">
+                        @if (Auth::user()->isFollowing($user->id))
+                          <form method="POST" action="{{ route('user.unfollow', $user->id) }}">
+                            @csrf
+                            @method('DELETE')
+
+                            <button type="submit" class="btn btn-danger btn-block">
+                              フォロー解除
+                            </button>
+                          </form>
+                        @else
+                          <form method="POST" action="{{ route('user.follow', $user->id) }}">
+                            @csrf
+
+                            <button type="submit" class="btn btn-primary btn-block">
+                              フォロー
+                            </button>
+                          </form>
+                        @endif
+                      </div>
                     @endif
                 </div>
             </div>
@@ -86,19 +107,38 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a
+                        href="{{ route('user.followings', $user->id) }}"
+                        class="nav-link {{ Request::is('users/' . $user->id . '/followings') ? 'active' : '' }}"
+                    >
                         フォロー中
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a
+                        href="{{ route('user.followers', $user->id) }}"
+                        class="nav-link {{ Request::is('users/' . $user->id . '/followers') ? 'active' : '' }}"
+                    >
                         フォロワー
                     </a>
                 </li>
             </ul>
 
-            @include('posts.posts', ['posts' => $posts])
+            @if ($type === 'timeline')
+              @include('posts.posts', ['posts' => $posts])
+            @elseif ($type === 'followings')
+              @include('users.users', [
+                'users' => $users,
+                'emptyMessage' => 'フォロー中のユーザはいません。'
+              ])
+            @elseif ($type === 'followers')
+              @include('users.users', [
+                'users' => $users,
+                'emptyMessage' => 'フォロワーはいません。'
+              ])
+            @endif
+
         </div>
     </div>
 @endsection

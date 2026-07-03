@@ -24,6 +24,37 @@ class UsersController extends Controller
         $data = [
             'user' => $user,
             'posts' => $posts,
+            'type' => 'timeline',
+        ];
+
+        return view('users.show', $data);
+    }
+
+    public function followings($id)
+    {
+        $user = User::findOrFail($id);
+
+        $followings = $user->followings()->paginate(10);
+
+        $data = [
+            'user' => $user,
+            'users' => $followings,
+            'type' => 'followings',
+        ];
+
+        return view('users.show', $data);
+    }
+
+    public function followers($id)
+    {
+        $user = User::findOrFail($id);
+
+        $followers = $user->followers()->paginate(10);
+
+        $data = [
+            'user' => $user,
+            'users' => $followers,
+            'type' => 'followers',
         ];
 
         return view('users.show', $data);
