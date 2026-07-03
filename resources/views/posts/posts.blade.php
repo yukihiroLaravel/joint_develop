@@ -27,24 +27,14 @@
                 </div>
                 @if (Auth::check() && Auth::id() === $post->user_id)
                     <div class="d-flex justify-content-end w-75 pb-3 m-auto">
-                        <a
-                            href="{{ route('post.edit', $post->id) }}"
-                            class="btn btn-primary"
-                        >
-                            編集する
-                        </a>
-                        <form
-                            method="POST"
-                            action="{{ route('post.destroy', $post->id) }}"
-                        >
+                        <form method="POST" action="{{ route('post.destroy', $post->id) }}">
                             @csrf
                             @method('DELETE')
-
-                            <button type="submit" class="btn btn-danger">
-                            この投稿を削除する
-                            </button>
+                            <button type="submit" class="btn btn-danger">削除</button>
                         </form>
-                    </div>
+                        <a href="{{ route('post.edit', $post->id) }}"
+                            class="btn btn-primary">編集する</a>
+                        </div>
                 @endif
             </div>
         </li>
