@@ -27,6 +27,14 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::prefix('users')->group(function () {
     // ユーザ詳細画面を表示
     Route::get('{id}', 'UsersController@show')->name('user.show');
+    // フォロー中一覧
+    Route::get('{id}/followings', 'UsersController@followings')->name('user.followings');
+    // フォロワー一覧
+    Route::get('{id}/followers', 'UsersController@followers')->name('user.followers');
+    // フォロー実行
+    Route::post('{id}/follow', 'FollowsController@store')->name('user.follow')->middleware('auth');
+    // フォロー解除
+    Route::delete('{id}/unfollow', 'FollowsController@destroy')->name('user.unfollow')->middleware('auth');
     // ユーザ退会処理
     Route::delete('{id}', 'UsersController@destroy')->name('user.destroy')->middleware('auth');
 });
