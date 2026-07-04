@@ -30,6 +30,16 @@ Route::prefix('users')->group(function () {
     // ユーザ編集画面・更新
     Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
     Route::put('{id}', 'UsersController@update')->name('user.update');
+    // フォロー中一覧
+    Route::get('{id}/followings', 'UsersController@followings')->name('user.followings');
+    // フォロワー一覧
+    Route::get('{id}/followers', 'UsersController@followers')->name('user.followers');
+    // フォロー実行
+    Route::post('{id}/follow', 'FollowsController@store')->name('user.follow')->middleware('auth');
+    // フォロー解除
+    Route::delete('{id}/unfollow', 'FollowsController@destroy')->name('user.unfollow')->middleware('auth');
+    // ユーザ退会処理
+    Route::delete('{id}', 'UsersController@destroy')->name('user.destroy')->middleware('auth');
 });
 
 // 投稿
