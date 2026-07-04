@@ -26,7 +26,7 @@
                     </p>
                 </div>
                 @if (Auth::check() && Auth::id() === $post->user_id)
-                    <div class="d-flex justify-content-end w-75 pb-3 m-auto">
+                    <div class="d-flex justify-content-between w-75 pb-3 m-auto">
                         <form method="POST" action="{{ route('post.destroy', $post->id) }}">
                             @csrf
                             @method('DELETE')
