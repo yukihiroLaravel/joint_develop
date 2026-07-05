@@ -28,8 +28,8 @@ Route::prefix('users')->group(function () {
     // ユーザ詳細画面を表示
     Route::get('{id}', 'UsersController@show')->name('user.show');
     // ユーザ編集画面・更新
-    Route::get('{id}/edit', 'UsersController@edit')->name('user.edit');
-    Route::put('{id}', 'UsersController@update')->name('user.update');
+    Route::get('{id}/edit', 'UsersController@edit')->name('user.edit')->middleware('auth');
+    Route::put('{id}', 'UsersController@update')->name('user.update')->middleware('auth');
     // フォロー中一覧
     Route::get('{id}/followings', 'UsersController@followings')->name('user.followings');
     // フォロワー一覧

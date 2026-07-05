@@ -33,8 +33,12 @@ class UsersController extends Controller
 
     public function edit($id)
     {
-        $user = \Auth::user();
         $user = User::findOrFail($id);
+
+        if (Auth::id() !== $user->id) {
+            abort(403);
+        }
+
         $data=[
             'user' => $user,
         ];
@@ -45,12 +49,18 @@ class UsersController extends Controller
     public function update(UserRequest $request, $id)
     {
         $user = User::findOrFail($id);
+
+         if (Auth::id() !== $user->id) {
+            abort(403);
+        }
+
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
         return back();
     }
+    
     public function followings($id)
     {
         $user = User::findOrFail($id);

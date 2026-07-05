@@ -8,16 +8,37 @@
         <div class="form-group">
             <label for="name">ユーザ名</label>
             <input class="form-control" value="{{ old('name', $user->name) }}" name="name" />
+
+            @error('name')
+                            <div class="alert alert-danger mt-2">
+                                {{ $message }}
+                            </div>
+                        @enderror
+
         </div>
 
         <div class="form-group">
             <label for="email">メールアドレス</label>
             <input class="form-control" value="{{ old('email', $user->email) }}" name="email" />
+
+             @error('email')
+                            <div class="alert alert-danger mt-2">
+                                {{ $message }}
+                            </div>
+                        @enderror
+
         </div>
 
         <div class="form-group">
             <label for="password">パスワード</label>
             <input class="form-control" type="password" name="password" />
+
+             @error('password')
+                            <div class="alert alert-danger mt-2">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                        
         </div>
 
         <div class="form-group">
