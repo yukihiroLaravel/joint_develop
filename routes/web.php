@@ -15,10 +15,11 @@
 Route::get('/', 'PostsController@index')->name('posts');
 
 // ログイン機能完成後に有効化
-// Route::group(['middleware' => 'auth'],   function () {
+// Route::group(['middleware' => 'auth'], function () {
 Route::prefix('users')->group(function () {
-    // ユーザー詳細
+    // ユーザ詳細
     Route::get('{id}', 'UsersController@show')->name('users.show');
+    // ユーザ編集・更新
     Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
     Route::put('{id}', 'UsersController@update')->name('users.update');
 });

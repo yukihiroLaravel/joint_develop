@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -21,9 +22,9 @@ class UsersController extends Controller
     // ユーザ情報編集画面
     public function edit($id)
     {
-        // if (Auth::id() !== (int)$id) {
-        //     return redirect()->route('login'); // ログインページへ
-        // }
+        if (Auth::id() !== (int)$id) {
+            abort(403, 'このユーザは編集権限がありません。');
+        }
 
         $user = User::findOrFail($id);
         $data = [
@@ -35,10 +36,9 @@ class UsersController extends Controller
     // ユーザ情報更新
     public function update(UserRequest $request, $id)
     {
-
-        // if (Auth::id() !== (int)$id) {
-        //     return redirect()->route('login'); // ログインページへ
-        // }
+        if (Auth::id() !== (int)$id) {
+            abort(403, 'このユーザは編集権限がありません。');
+        }
 
         $user = User::findOrFail($id);
         $user->name = $request->name;
