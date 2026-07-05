@@ -16,10 +16,16 @@ Route::get('/', 'PostsController@index')->name('posts');
 // 新規投稿
 Route::post('posts', 'PostsController@store')->name('posts.store');
 
-// ユーザー詳細
+// ログイン機能完成後に有効化
+// Route::group(['middleware' => 'auth'], function () {
 Route::prefix('users')->group(function () {
+    // ユーザ詳細
     Route::get('{id}', 'UsersController@show')->name('users.show');
+    // ユーザ編集・更新
+    Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
+    Route::put('{id}', 'UsersController@update')->name('users.update');
 });
+// });
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
