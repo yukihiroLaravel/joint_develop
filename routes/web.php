@@ -13,6 +13,9 @@
 
 // 投稿一覧
 Route::get('/', 'PostsController@index')->name('posts');
+// 新規投稿
+Route::post('posts', 'PostsController@store')->name('posts.store');
+
 // ユーザー詳細
 Route::prefix('users')->group(function () {
     Route::get('{id}', 'UsersController@show')->name('users.show');
