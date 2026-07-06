@@ -58,4 +58,13 @@ class PostsController extends Controller
 
         return redirect("/");
     }
+
+    public function store(PostRequest $request)
+    {
+        $request->user()->posts()->create([
+            'content' => $request->content,
+        ]);
+
+        return back();
+    }
 }
