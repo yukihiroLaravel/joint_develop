@@ -13,11 +13,11 @@
 
 // 投稿一覧
 Route::get('/', 'PostsController@index')->name('posts');
-// 新規投稿
-Route::post('posts', 'PostsController@store')->name('posts.store');
 
 // ログイン機能完成後に有効化
 // Route::group(['middleware' => 'auth'], function () {
+// 新規投稿
+Route::post('posts', 'PostsController@store')->name('posts.store');
 Route::prefix('users')->group(function () {
     // ユーザ詳細
     Route::get('{id}', 'UsersController@show')->name('users.show');
