@@ -18,4 +18,10 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // 投稿に対するリアクション一覧を取得
+    public function reactions()
+    {
+        return $this->hasMany(Reaction::class);
+    }
 }

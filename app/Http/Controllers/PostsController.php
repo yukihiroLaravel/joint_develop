@@ -17,6 +17,39 @@ class PostsController extends Controller
         ]);
     }
 
+    public function show($id)
+    {
+        $post = Post::findOrFail($id);
+
+        // リアクション集計表示でも同じ順番を使うため、資料の並び順に合わせる
+        $reactionTypes = [
+            'relatable' => 'あるある',
+            'dont_mind' => 'ドンマイ',
+            'same' => '自分もやった',
+            'nice_try' => 'ナイストライ',
+            'next_time' => '次はいける',
+        ];
+
+        $myReaction = $post->reactions()
+            ->where('user_id', Auth::id())
+            ->first();
+
+        $encouragementReactions = $post->reactions()
+            ->with('user')
+            ->whereHas('user')
+            ->whereNotNull('encouragement')
+            ->where('encouragement', '<>', '')
+            ->orderBy('updated_at', 'desc')
+            ->get();
+
+        return view('posts.show', [
+            'post' => $post,
+            'reactionTypes' => $reactionTypes,
+            'myReaction' => $myReaction,
+            'encouragementReactions' => $encouragementReactions,
+        ]);
+    }
+
     public function edit($id)
     {
         $post = Post::findOrFail($id);
