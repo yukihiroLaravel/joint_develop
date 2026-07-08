@@ -9,8 +9,6 @@
     <h5 class="text-center mb-3">"今日のやらかし"についてシェアしよう！</h5>
 
         @if (Auth::check())
-            <div class="w-75 m-auto"></div>
-
             <div class="text-center mb-3">
                 <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
                     @csrf
