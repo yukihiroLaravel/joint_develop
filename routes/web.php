@@ -14,20 +14,19 @@
 // 投稿一覧
 Route::get('/', 'PostsController@index')->name('posts');
 
-// Route::prefix('posts')->middleware('auth')->group(function () { //login機能が実装されたらこちらを有効化し、下を削除
-Route::prefix('posts')->group(function () {
-    // Route::get('{id}/edit', 'PostsController@edit')->name('posts.edit'); //西川さんが追加することを想定
-    // Route::put('{id}', 'PostsController@update')->name('posts.update'); //西川さんが追加することを想定
-    Route::delete('{id}', 'PostsController@destroy')->name('posts.delete');
-});
+// ユーザ詳細
+Route::get('users/{id}', 'UsersController@show')->name('users.show');
 
+// ログイン後機能  ※ログイン機能完成後に有効化
+// Route::group(['middleware' => 'auth'], function () {
+// 新規投稿
+Route::post('posts', 'PostsController@store')->name('posts.store');
 Route::prefix('users')->group(function () {
-    // ユーザ詳細
-    Route::get('{id}', 'UsersController@show')->name('users.show');
     // ユーザ編集・更新
-    Route::get('{id}/edit', 'UsersController@edit')->name('users.edit'); //->middleware('auth') login機能が実装されたら入れる
-    Route::put('{id}', 'UsersController@update')->name('users.update'); //->middleware('auth') login機能が実装されたら入れる
+    Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
+    Route::put('{id}', 'UsersController@update')->name('users.update');
 });
+// });
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
