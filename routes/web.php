@@ -44,6 +44,14 @@ Route::prefix('users')->group(function () {
 
 // 投稿
 Route::prefix('posts')->middleware('auth')->group(function () {
+    Route::get('{id}', 'PostsController@show')->name('post.show');
+
+    Route::prefix('{id}/reactions')->group(function () {
+        Route::post('', 'ReactionsController@store')->name('reaction.store');
+        Route::post('encouragement', 'ReactionsController@encourage')->name('reaction.encourage');
+        Route::delete('', 'ReactionsController@destroy')->name('reaction.destroy');
+    });
+
     Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
     Route::put('{id}', 'PostsController@update')->name('post.update');
     Route::delete('{id}', 'PostsController@destroy')->name('post.destroy');
