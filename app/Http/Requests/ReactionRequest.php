@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Reaction;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ReactionRequest extends FormRequest
@@ -24,7 +25,7 @@ class ReactionRequest extends FormRequest
     public function rules()
     {
         return [
-            'reaction_type' => 'nullable|in:relatable,dont_mind,same,nice_try,next_time',
+            'reaction_type' => 'nullable|in:' . implode(',', array_keys(Reaction::TYPES)),
             'encouragement' => 'nullable|string|max:30',
         ];
     }

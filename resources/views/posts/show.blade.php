@@ -49,33 +49,31 @@
                 {{ $myReaction ? 'リアクションは変更できるよ' : 'あなたのリアクションを選んでね' }}
             </p>
 
+            <form id="reactionForm" method="POST">
+                @csrf
+            </form>
+
             <div class="d-flex flex-wrap mb-3">
                 @foreach ($reactionTypes as $type => $label)
-                    <form
-                        method="POST"
-                        action="{{ route('reaction.store', $post->id) }}"
-                        class="mr-3 mb-3"
+                    <button
+                        type="submit"
+                        form="reactionForm"
+                        formaction="{{ route('reaction.store', $post->id) }}"
+                        name="reaction_type"
+                        value="{{ $type }}"
+                        class="btn p-3 shadow-sm d-flex flex-column align-items-center mr-3 mb-3 {{ optional($myReaction)->reaction_type === $type ? '' : 'btn-light' }}"
+                        style="width: 150px; {{ optional($myReaction)->reaction_type === $type ? 'background-color: #ffe4ec; border-color: #f5a8bd;' : '' }}"
                     >
-                        @csrf
-
-                        <button
-                            type="submit"
-                            name="reaction_type"
-                            value="{{ $type }}"
-                            class="btn p-3 shadow-sm d-flex flex-column align-items-center {{ optional($myReaction)->reaction_type === $type ? '' : 'btn-light' }}"
-                            style="width: 150px; {{ optional($myReaction)->reaction_type === $type ? 'background-color: #ffe4ec; border-color: #f5a8bd;' : '' }}"
+                        <img
+                            src="{{ asset('images/reactions/' . $type . '.png') }}"
+                            alt="{{ $label }}"
+                            style="width: 96px; height: 96px; object-fit: contain;"
                         >
-                            <img
-                                src="{{ asset('images/reactions/' . $type . '.png') }}"
-                                alt="{{ $label }}"
-                                style="width: 96px; height: 96px; object-fit: contain;"
-                            >
 
-                            <small class="mt-2">
-                                {{ $label }}
-                            </small>
-                        </button>
-                    </form>
+                        <small class="mt-2">
+                            {{ $label }}
+                        </small>
+                    </button>
                 @endforeach
             </div>
 
@@ -108,61 +106,63 @@
                 </form>
             @endif
 
-            <form method="POST" action="{{ route('reaction.encourage', $post->id) }}">
-                @csrf
+            <div class="form-group">
+                <label for="encouragement" class="font-weight-bold h5">
+                    ひとことハゲマシ
+                </label>
 
-                <div class="form-group">
-                    <label for="encouragement" class="font-weight-bold h5">
-                        ひとことハゲマシ
-                    </label>
+                @if (! optional($myReaction)->encouragement)
+                    <p class="text-muted mb-2">
+                        ハゲますこともできます！
+                    </p>
+                @endif
 
-                    @if (! optional($myReaction)->encouragement)
-                        <p class="text-muted mb-2">
-                            ハゲますこともできます！
+                @if (optional($myReaction)->encouragement)
+                    <div class="border-left pl-3 py-2 mb-3" style="border-left-width: 4px !important; border-left-color: #f5a8bd !important;">
+                        <p class="font-weight-bold mb-1">
+                            あなたからのハゲマシ
                         </p>
-                    @endif
 
-                    @if (optional($myReaction)->encouragement)
-                        <div class="border-left pl-3 py-2 mb-3" style="border-left-width: 4px !important; border-left-color: #f5a8bd !important;">
-                            <p class="font-weight-bold mb-1">
-                                あなたからのハゲマシ
-                            </p>
+                        <p class="mb-0">
+                            {{ $myReaction->encouragement }}
+                        </p>
+                    </div>
+                @endif
 
-                            <p class="mb-0">
-                                {{ $myReaction->encouragement }}
-                            </p>
-                        </div>
-                    @endif
+                <input
+                    id="encouragement"
+                    type="text"
+                    name="encouragement"
+                    form="reactionForm"
+                    class="form-control"
+                    maxlength="30"
+                    value="{{ old('encouragement') }}"
+                    placeholder="30文字以内で入力できます"
+                >
 
-                    <input
-                        id="encouragement"
-                        type="text"
-                        name="encouragement"
-                        class="form-control"
-                        maxlength="30"
-                        value="{{ old('encouragement') }}"
-                        placeholder="30文字以内で入力できます"
-                    >
+                @error('encouragement')
+                    <div class="alert alert-danger mt-2">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
 
-                    @error('encouragement')
-                        <div class="alert alert-danger mt-2">
-                            {{ $message }}
-                        </div>
-                    @enderror
-                </div>
+            <div class="d-flex align-items-center">
+                <button
+                    type="submit"
+                    form="reactionForm"
+                    formaction="{{ route('reaction.encourage', $post->id) }}"
+                    class="btn btn-primary mr-3"
+                >
+                    ハゲます
+                </button>
 
-                <div class="d-flex align-items-center">
-                    <button type="submit" class="btn btn-primary mr-3">
-                        ハゲます
-                    </button>
-
-                    @if (optional($myReaction)->encouragement)
-                        <span class="text-muted">
-                            ※ハゲマシが更新されます
-                        </span>
-                    @endif
-                </div>
-            </form>
+                @if (optional($myReaction)->encouragement)
+                    <span class="text-muted">
+                        ※ハゲマシが更新されます
+                    </span>
+                @endif
+            </div>
         </div>
 
         @if ($encouragementReactions->count() > 0)

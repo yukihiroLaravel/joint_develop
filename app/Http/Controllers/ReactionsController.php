@@ -28,7 +28,9 @@ class ReactionsController extends Controller
             ]
         );
 
-        return back()->with('status', 'リアクションが更新されました。ありがとう！');
+        return back()
+            ->withInput($request->only('encouragement'))    
+            ->with('status', 'リアクションが更新されました。ありがとう！');
     }
 
     public function encourage(ReactionRequest $request, $id)
@@ -42,13 +44,13 @@ class ReactionsController extends Controller
         if (! $reaction) {
             return back()->withErrors([
                 'encouragement' => '先にリアクションを選んでね！',
-            ]);
+            ])->withInput();
         }
 
         if (! $request->filled('encouragement')) {
             return back()->withErrors([
                 'encouragement' => 'ひとことハゲマシを入力してね！',
-            ]);
+            ])->withInput();
         }
 
         $reaction->encouragement = $request->encouragement;

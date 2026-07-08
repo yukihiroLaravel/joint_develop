@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Reaction;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,14 +22,8 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
 
-        // リアクション集計表示でも同じ順番を使うため、資料の並び順に合わせる
-        $reactionTypes = [
-            'relatable' => 'あるある',
-            'dont_mind' => 'ドンマイ',
-            'same' => '自分もやった',
-            'nice_try' => 'ナイストライ',
-            'next_time' => '次はいける',
-        ];
+        // リアクション集計表示でも同じ順番を使うため、資料の並び順に合わせる（Reactionモデル内で定数化）
+        $reactionTypes = Reaction::TYPES;
 
         $myReaction = $post->reactions()
             ->where('user_id', Auth::id())
