@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
         <div class="text-center">
-            <h1>Topic Posts</h1>
+            <h1>Positive Oops</h1>
         </div>
 
         <div class="text-center">
