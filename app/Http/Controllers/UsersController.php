@@ -48,4 +48,14 @@ class UsersController extends Controller
 
         return redirect()->route('users.show', $id);
     }
+
+    // ユーザー退会
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        if ((\Auth::id() === $user->id)) {
+            $user->delete();
+        }
+        return redirect()->route('posts');
+    }
 }

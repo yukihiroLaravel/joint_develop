@@ -18,12 +18,15 @@ Route::get('/', 'PostsController@index')->name('posts');
 // Route::group(['middleware' => 'auth'], function () {
 // 新規投稿
 Route::post('posts', 'PostsController@store')->name('posts.store');
+
 Route::prefix('users')->group(function () {
     // ユーザ詳細
     Route::get('{id}', 'UsersController@show')->name('users.show');
     // ユーザ編集・更新
     Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
     Route::put('{id}', 'UsersController@update')->name('users.update');
+    // ユーザ退会
+    Route::delete('{id}', 'UsersController@destroy')->name('users.destroy');
 });
 // });
 
