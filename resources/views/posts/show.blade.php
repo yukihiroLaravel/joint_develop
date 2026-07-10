@@ -138,6 +138,7 @@
                     maxlength="30"
                     value="{{ old('encouragement') }}"
                     placeholder="30文字以内で入力できます"
+                    onkeydown="if (event.key === 'Enter' && !event.isComposing) { event.preventDefault(); document.getElementById('encouragementSubmitButton').click(); }"
                 >
 
                 @error('encouragement')
@@ -149,6 +150,7 @@
 
             <div class="d-flex align-items-center">
                 <button
+                    id="encouragementSubmitButton"
                     type="submit"
                     form="reactionForm"
                     formaction="{{ route('reaction.encourage', $post->id) }}"
