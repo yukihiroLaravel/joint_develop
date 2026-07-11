@@ -11,7 +11,8 @@
     </div>
     <div class="row mt-5 mb-5">
         <div class="col-sm-6 offset-sm-3">
-            <form method="" action="">
+            <form method="" action="{{ route('login.post') }}">
+                @csrf
                 <div class="form-group">
                     <label for="email">メールアドレス</label>
                     <input id="email" type="text" class="form-control" name="" value="">
