@@ -126,7 +126,7 @@
             </ul>
 
             @if ($type === 'timeline')
-              @include('posts.posts', ['posts' => $posts])
+              @include('posts.posts', ['posts' => $posts, 'reactionTypes' => $reactionTypes,])
             @elseif ($type === 'followings')
               @include('users.users', [
                 'users' => $users,

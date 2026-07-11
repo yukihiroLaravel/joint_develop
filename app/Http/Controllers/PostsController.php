@@ -59,11 +59,11 @@ class PostsController extends Controller
             }
 
         //リアクション種類別件数から最多リアクションを取得する(Minami)
-            $maxReactionType = [];
-            $maxReactionCount = $reactionCounts->max();
+            $maxReactionTypes = [];
+            $maxReactionCount = $reactionCounts->max() ?? 0;
 
             foreach ($reactionCounts as $type => $count) {
-                if ($count === $maxReactionCount) {
+                if ($count === $maxReactionCount && $count > 0) {
                     $maxReactionTypes[] = $type;
                 }
             }
