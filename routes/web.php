@@ -14,13 +14,17 @@
 // 投稿一覧
 Route::get('/', 'PostsController@index')->name('posts');
 
-// ログイン機能完成後に有効化
+// ユーザ詳細
+Route::get('users/{id}', 'UsersController@show')->name('users.show');
+
+// ログイン後機能  ※ログイン機能完成後に有効化
 // Route::group(['middleware' => 'auth'], function () {
 // 新規投稿
 Route::post('posts', 'PostsController@store')->name('posts.store');
+// 投稿削除
+Route::delete('posts/{id}', 'PostsController@destroy')->name('post.delete');
+
 Route::prefix('users')->group(function () {
-    // ユーザ詳細
-    Route::get('{id}', 'UsersController@show')->name('users.show');
     // ユーザ編集・更新
     Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
     Route::put('{id}', 'UsersController@update')->name('users.update');
