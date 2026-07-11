@@ -24,4 +24,15 @@ class PostsController extends Controller
         $post->save();
         return back();
     }
+
+    // 投稿削除
+    public function destroy($postId)
+    {
+        $post = Post::findOrFail($postId);
+        if (\Auth::id() !== $post->user_id) {
+            abort(403, 'このユーザは削除権限がありません。');
+        }
+        $post->delete();
+        return back();
+    }
 }

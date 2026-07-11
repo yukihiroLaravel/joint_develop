@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
-    public function show($id)
+    public function show($userId)
     {
-        $user = User::findOrFail($id);
+        $user = User::findOrFail($userId);
         $posts = $user->posts()->orderBy('id', 'desc')->paginate(10);
         $data=[
             'user' => $user,
@@ -20,13 +20,13 @@ class UsersController extends Controller
     }
 
     // ユーザ情報編集画面
-    public function edit($id)
+    public function edit($userId)
     {
-        if (Auth::id() !== (int)$id) {
+        if (Auth::id() !== (int)$userId) {
             abort(403, 'このユーザは編集権限がありません。');
         }
 
-        $user = User::findOrFail($id);
+        $user = User::findOrFail($userId);
         $data = [
             'user' => $user,
         ];
@@ -34,19 +34,18 @@ class UsersController extends Controller
     }
 
     // ユーザ情報更新
-    public function update(UserRequest $request, $id)
+    public function update(UserRequest $request, $userId)
     {
-        if (Auth::id() !== (int)$id) {
+        if (Auth::id() !== (int)$userId) {
             abort(403, 'このユーザは編集権限がありません。');
         }
 
-        $user = User::findOrFail($id);
+        $user = User::findOrFail($userId);
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-
-        return redirect()->route('users.show', $id);
+        return redirect()->route('users.show', $userId);
     }
 
     // ユーザー退会
