@@ -42,6 +42,70 @@
             {{ $post->created_at }}
         </p>
 
+        <div class="border rounded p-4 mb-5 bg-light">
+
+            <h5 class="font-weight-bold mb-3">
+                リアクション集計
+            </h5>
+
+            <div class="mb-3">
+                <p class="font-weight-bold">
+                リアクション総数：{{ $totalReactions }}件
+                </p>
+
+                @foreach ($reactionTypes as $type => $label)
+                    <div class="d-flex align-items-center mb-2">
+
+                        <img
+                            src="{{ asset('images/reactions/' . $type . '.png') }}"
+                            alt="{{ $label }}"
+                            class="mr-2"
+                            style="width: 40px; height: 40px; object-fit: contain;"
+                        >
+
+                        <div>
+                            <span class="font-weight-bold">
+                                {{ $label }}
+                            </span>
+
+                            <span class="ml-2">
+                                {{ $reactionCounts[$type] ?? 0 }}件
+                                ({{ $reactionPercentages[$type] ?? 0 }}%)
+                            </span>
+                        </div>
+                    </div>
+                @endforeach
+
+            @if ($maxReactionCount > 0)
+                <div class="font-weight-bold">
+                    最多リアクション:
+
+                    @foreach ($maxReactionTypes as $type)
+                        <div class="d-flex align-items-center mt-2">
+
+                            <img
+                                src="{{ asset('images/reactions/' . $type . '.png') }}"
+                                alt="{{ $reactionTypes[$type] }}"
+                                style="width: 40px; height: 40px;"
+                                class="mr-2"
+                            >
+
+                            <span>
+                                {{ $reactionTypes[$type] }}
+                                ({{ $maxReactionCount }}件)
+                            </span>
+                        </div>
+                    @endforeach
+                </div>
+
+            @else
+                <p>
+                    まだリアクションはありません
+                </p>
+            @endif
+            </div>
+        </div>
+
         <div class="mt-5">
             <h4 class="font-weight-bold">リアクション</h4>
 
@@ -62,19 +126,24 @@
                         name="reaction_type"
                         value="{{ $type }}"
                         class="btn p-3 shadow-sm d-flex flex-column align-items-center mr-3 mb-3 {{ optional($myReaction)->reaction_type === $type ? '' : 'btn-light' }}"
-                        style="width: 150px; {{ optional($myReaction)->reaction_type === $type ? 'background-color: #ffe4ec; border-color: #f5a8bd;' : '' }}"
+                        style="width: 130px; {{ optional($myReaction)->reaction_type === $type ? 'background-color: #ffe4ec; border-color: #f5a8bd;' : '' }}"
                     >
                         <img
                             src="{{ asset('images/reactions/' . $type . '.png') }}"
                             alt="{{ $label }}"
-                            style="width: 96px; height: 96px; object-fit: contain;"
+                            style="width: 80px; height: 80px; object-fit: contain;"
                         >
 
                         <small class="mt-2">
                             {{ $label }}
                         </small>
+
+                        <small class="mt-1 font-weight-bold">
+                            {{ $reactionCounts[$type] ?? 0 }}件
+                        </small>
                     </button>
                 @endforeach
+
             </div>
 
             @error('reaction_type')

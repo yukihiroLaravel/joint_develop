@@ -18,8 +18,25 @@
             <div>
                 <div class="text-left d-inline-block w-75">
                     <p class="mb-2">
-                        {{ $post->content }}
+                        <a href="{{ route('post.show', $post->id) }}">
+                            {{ $post->content }}
+                        </a>
                     </p>
+
+                    <div class="d-flex align-items-center mt-2 mb-2">
+                        @foreach ($reactionTypes as $type => $label)
+                            <div class="mr-3 text-center">
+                                <img
+                                    src="{{ asset('images/reactions/' .$type . '.png') }}"
+                                    alt="{{ $label }}"
+                                    style="width: 32px; height: 32px;"
+                                >
+                                <div>
+                                    {{ $post->reactions->where('reaction_type', $type)->count() }}
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
 
                     <p class="text-muted">
                         {{ $post->created_at }}

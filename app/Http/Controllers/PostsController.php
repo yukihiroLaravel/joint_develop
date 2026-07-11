@@ -12,9 +12,20 @@ class PostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('id','desc')->paginate(10);
+      // 投稿一覧表示用に投稿者情報とリアクション情報を取得する（Minami）
+        $posts = Post::with(['user', 'reactions'])
+            ->orderBy('id','desc')
+            ->paginate(10);
+
+      // リアクション種類一覧をViewに渡すため取得する（Minami）
+        $reactionTypes = Reaction::TYPES;
+
         return view('welcome',[
+            //投稿一覧をviewに渡す
             'posts' => $posts,
+
+            // リアクション種類一覧をViewに渡す（Minami）
+            'reactionTypes' => $reactionTypes,
         ]);
     }
 
@@ -25,11 +36,43 @@ class PostsController extends Controller
         // リアクション集計表示でも同じ順番を使うため、資料の並び順に合わせる（Reactionモデル内で定数化）
         $reactionTypes = Reaction::TYPES;
 
-        $myReaction = $post->reactions()
+        //リアクション総数を取得する(Minami)
+        $totalReactions = $post->reactions()->count();
+
+        //リアクション種類別件数を取得(Minami)
+            $reactionCounts = $post->reactions()
+            ->select('reaction_type')
+            ->selectRaw('count(*) as count')
+            ->groupBy('reaction_type')
+            ->pluck('count', 'reaction_type');
+
+        // リアクション総数をもとに、種類ごとの割合(%)を計算する(Minami)
+            $reactionPercentages = [];
+
+            foreach ($reactionTypes as $type => $label) {
+                if ($totalReactions > 0) {
+                    $reactionPercentages[$type] = round(
+                        (($reactionCounts[$type] ?? 0) / $totalReactions) * 100);
+                } else {
+                    $reactionPercentages[$type] = 0;
+                }
+            }
+
+        //リアクション種類別件数から最多リアクションを取得する(Minami)
+            $maxReactionType = [];
+            $maxReactionCount = $reactionCounts->max();
+
+            foreach ($reactionCounts as $type => $count) {
+                if ($count === $maxReactionCount) {
+                    $maxReactionTypes[] = $type;
+                }
+            }
+
+            $myReaction = $post->reactions()
             ->where('user_id', Auth::id())
             ->first();
 
-        $encouragementReactions = $post->reactions()
+            $encouragementReactions = $post->reactions()
             ->with('user')
             ->whereHas('user')
             ->whereNotNull('encouragement')
@@ -37,11 +80,28 @@ class PostsController extends Controller
             ->orderBy('updated_at', 'desc')
             ->get();
 
-        return view('posts.show', [
+            return view('posts.show', [
             'post' => $post,
             'reactionTypes' => $reactionTypes,
+
+            // リアクション総数をviewに渡す(Minami)
+            'totalReactions' => $totalReactions,
+
+            // リアクション種類別件数をviewに渡す(Minami)
+            'reactionCounts' => $reactionCounts,
+
+            // リアクション種類別の割合(%)をviewに渡す（Minami）
+            'reactionPercentages' => $reactionPercentages,
+
+            //  最多リアクションの種類をviewに渡す(Minami)
+            'maxReactionTypes' => $maxReactionTypes,
+
+            //  最多リアクションの件数をviewに渡す(Minami)
+            'maxReactionCount' => $maxReactionCount,
+
             'myReaction' => $myReaction,
             'encouragementReactions' => $encouragementReactions,
+
         ]);
     }
 
