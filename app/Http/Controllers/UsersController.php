@@ -45,7 +45,16 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-
         return redirect()->route('users.show', $userId);
+    }
+
+    // ユーザー退会
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        if (\Auth::id() === $user->id) {
+            $user->delete();
+        }
+        return redirect()->route('posts');
     }
 }

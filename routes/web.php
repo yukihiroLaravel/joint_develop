@@ -23,11 +23,12 @@ Route::get('users/{id}', 'UsersController@show')->name('users.show');
 Route::post('posts', 'PostsController@store')->name('posts.store');
 // 投稿削除
 Route::delete('posts/{id}', 'PostsController@destroy')->name('post.delete');
-
 Route::prefix('users')->group(function () {
     // ユーザ編集・更新
     Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
     Route::put('{id}', 'UsersController@update')->name('users.update');
+    // ユーザ退会
+    Route::delete('{id}', 'UsersController@destroy')->name('users.destroy');
 });
 // });
 
