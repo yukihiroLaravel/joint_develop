@@ -10,7 +10,7 @@ class PostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('id', 'desc')->paginate(10);
+        $posts = Post::with('reactions')->orderBy('id', 'desc')->paginate(10); //reactionも同時に取得
         return view('welcome', [
             'posts' => $posts,
         ]);
