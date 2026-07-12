@@ -70,26 +70,26 @@
                             </div>
                         </div>
                     @elseif (Auth::check())
-                      <div class="mt-3">
-                        @if (Auth::user()->isFollowing($user->id))
-                          <form method="POST" action="{{ route('user.unfollow', $user->id) }}">
-                            @csrf
-                            @method('DELETE')
+                        <div class="mt-3">
+                            @if (Auth::user()->isFollowing($user->id))
+                                <form method="POST" action="{{ route('user.unfollow', $user->id) }}">
+                                    @csrf
+                                    @method('DELETE')
 
-                            <button type="submit" class="btn btn-danger btn-block">
-                              フォロー解除
-                            </button>
-                          </form>
-                        @else
-                          <form method="POST" action="{{ route('user.follow', $user->id) }}">
-                            @csrf
+                                    <button type="submit" class="btn btn-danger btn-block">
+                                        フォロー解除
+                                    </button>
+                                </form>
+                            @else
+                                <form method="POST" action="{{ route('user.follow', $user->id) }}">
+                                    @csrf
 
-                            <button type="submit" class="btn btn-primary btn-block">
-                              フォロー
-                            </button>
-                          </form>
-                        @endif
-                      </div>
+                                    <button type="submit" class="btn btn-primary btn-block">
+                                        フォロー
+                                    </button>
+                                </form>
+                            @endif
+                        </div>
                     @endif
                 </div>
             </div>
@@ -126,17 +126,20 @@
             </ul>
 
             @if ($type === 'timeline')
-              @include('posts.posts', ['posts' => $posts, 'reactionTypes' => $reactionTypes,])
+                @include('posts.posts', [
+                    'posts' => $posts,
+                    'reactionTypes' => $reactionTypes,
+                ])
             @elseif ($type === 'followings')
-              @include('users.users', [
-                'users' => $users,
-                'emptyMessage' => 'フォロー中のユーザはいません。'
-              ])
+                @include('users.users', [
+                    'users' => $users,
+                    'emptyMessage' => 'フォロー中のユーザはいません。'
+                ])
             @elseif ($type === 'followers')
-              @include('users.users', [
-                'users' => $users,
-                'emptyMessage' => 'フォロワーはいません。'
-              ])
+                @include('users.users', [
+                    'users' => $users,
+                    'emptyMessage' => 'フォロワーはいません。'
+                ])
             @endif
 
         </div>

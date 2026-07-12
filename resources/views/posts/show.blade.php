@@ -125,8 +125,8 @@
                         formaction="{{ route('reaction.store', $post->id) }}"
                         name="reaction_type"
                         value="{{ $type }}"
-                        class="btn p-3 shadow-sm d-flex flex-column align-items-center mr-3 mb-3 {{ optional($myReaction)->reaction_type === $type ? '' : 'btn-light' }}"
-                        style="width: 130px; {{ optional($myReaction)->reaction_type === $type ? 'background-color: #ffe4ec; border-color: #f5a8bd;' : '' }}"
+                        class="btn p-3 shadow-sm d-flex flex-column align-items-center mr-2 mb-3 {{ optional($myReaction)->reaction_type === $type ? '' : 'btn-light' }}"
+                        style="width: 120px; {{ optional($myReaction)->reaction_type === $type ? 'background-color: #ffe4ec; border-color: #f5a8bd;' : '' }}"
                     >
                         <img
                             src="{{ asset('images/reactions/' . $type . '.png') }}"
