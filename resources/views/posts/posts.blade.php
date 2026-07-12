@@ -31,9 +31,16 @@
                                     alt="{{ $label }}"
                                     style="width: 32px; height: 32px;"
                                 >
+                                @php
+                                    $count = $post->reactions->where('reaction_type', $type)->count();
+                                @endphp
+
                                 <div>
-                                    {{ $post->reactions->where('reaction_type', $type)->count() }}
+                                    @if ($count > 0)
+                                        {{ $count }}
+                                    @endif
                                 </div>
+
                             </div>
                         @endforeach
                     </div>

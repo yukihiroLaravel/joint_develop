@@ -12,16 +12,16 @@ class PostsController extends Controller
 {
     public function index()
     {
-      // 投稿一覧表示用に投稿者情報とリアクション情報を取得する（Minami）
+        // 投稿一覧表示用に投稿者情報とリアクション情報を取得する（Minami）
         $posts = Post::with(['user', 'reactions'])
-            ->orderBy('id','desc')
+            ->orderBy('id', 'desc')
             ->paginate(10);
 
-      // リアクション種類一覧をViewに渡すため取得する（Minami）
+        // リアクション種類一覧をViewに渡すため取得する（Minami）
         $reactionTypes = Reaction::TYPES;
 
-        return view('welcome',[
-            //投稿一覧をviewに渡す
+        return view('welcome', [
+            // 投稿一覧をviewに渡す
             'posts' => $posts,
 
             // リアクション種類一覧をViewに渡す（Minami）
@@ -36,43 +36,44 @@ class PostsController extends Controller
         // リアクション集計表示でも同じ順番を使うため、資料の並び順に合わせる（Reactionモデル内で定数化）
         $reactionTypes = Reaction::TYPES;
 
-        //リアクション総数を取得する(Minami)
+        // リアクション総数を取得する(Minami)
         $totalReactions = $post->reactions()->count();
 
-        //リアクション種類別件数を取得(Minami)
-            $reactionCounts = $post->reactions()
+        // リアクション種類別件数を取得(Minami)
+        $reactionCounts = $post->reactions()
             ->select('reaction_type')
             ->selectRaw('count(*) as count')
             ->groupBy('reaction_type')
             ->pluck('count', 'reaction_type');
 
         // リアクション総数をもとに、種類ごとの割合(%)を計算する(Minami)
-            $reactionPercentages = [];
+        $reactionPercentages = [];
 
-            foreach ($reactionTypes as $type => $label) {
-                if ($totalReactions > 0) {
-                    $reactionPercentages[$type] = round(
-                        (($reactionCounts[$type] ?? 0) / $totalReactions) * 100);
-                } else {
-                    $reactionPercentages[$type] = 0;
-                }
+        foreach ($reactionTypes as $type => $label) {
+            if ($totalReactions > 0) {
+                $reactionPercentages[$type] = round(
+                    (($reactionCounts[$type] ?? 0) / $totalReactions) * 100
+                );
+            } else {
+                $reactionPercentages[$type] = 0;
             }
+        }
 
-        //リアクション種類別件数から最多リアクションを取得する(Minami)
-            $maxReactionTypes = [];
-            $maxReactionCount = $reactionCounts->max() ?? 0;
+        // リアクション種類別件数から最多リアクションを取得する(Minami)
+        $maxReactionTypes = [];
+        $maxReactionCount = $reactionCounts->max() ?? 0;
 
-            foreach ($reactionCounts as $type => $count) {
-                if ($count === $maxReactionCount && $count > 0) {
-                    $maxReactionTypes[] = $type;
-                }
+        foreach ($reactionCounts as $type => $count) {
+            if ($count === $maxReactionCount && $count > 0) {
+                $maxReactionTypes[] = $type;
             }
+        }
 
-            $myReaction = $post->reactions()
+        $myReaction = $post->reactions()
             ->where('user_id', Auth::id())
             ->first();
 
-            $encouragementReactions = $post->reactions()
+        $encouragementReactions = $post->reactions()
             ->with('user')
             ->whereHas('user')
             ->whereNotNull('encouragement')
@@ -80,7 +81,7 @@ class PostsController extends Controller
             ->orderBy('updated_at', 'desc')
             ->get();
 
-            return view('posts.show', [
+        return view('posts.show', [
             'post' => $post,
             'reactionTypes' => $reactionTypes,
 
@@ -93,15 +94,14 @@ class PostsController extends Controller
             // リアクション種類別の割合(%)をviewに渡す（Minami）
             'reactionPercentages' => $reactionPercentages,
 
-            //  最多リアクションの種類をviewに渡す(Minami)
+            // 最多リアクションの種類をviewに渡す(Minami)
             'maxReactionTypes' => $maxReactionTypes,
 
-            //  最多リアクションの件数をviewに渡す(Minami)
+            // 最多リアクションの件数をviewに渡す(Minami)
             'maxReactionCount' => $maxReactionCount,
 
             'myReaction' => $myReaction,
             'encouragementReactions' => $encouragementReactions,
-
         ]);
     }
 
