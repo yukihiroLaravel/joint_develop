@@ -6,6 +6,7 @@ use App\User;
 use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Reaction;
 
 class UsersController extends Controller
 {
@@ -22,10 +23,15 @@ class UsersController extends Controller
             ->orderBy('id', 'desc')
             ->paginate(10);
 
+        //リアクション種類一覧をviewに渡すため取得する(Minami)
+        $reactionTypes = Reaction::TYPES;  // ←変数を作る
+
         $data = [
             'user' => $user,
             'posts' => $posts,
             'type' => 'timeline',
+        // リアクション種類一覧をViewに渡す(Minami)
+            'reactionTypes' => $reactionTypes,  // ←viewに渡す
         ];
 
         return view('users.show', $data);
