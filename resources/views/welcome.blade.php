@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('content')
-    <div class="center jumbotron bg-info">
-        <div class="text-center text-white mt-2 pt-1">
-            <h1><i class="pr-3"></i>Positive Oops</h1>
-        </div>
+    <div class="text-center py-2">
+    <h1>
+        <img src="{{ asset('images/main-logo.png') }}" alt="Topic Posts" class="img-fluid" style="max-height: 240px;">
+    </h1>
     </div>
 
     <h5 class="text-center mb-3">"今日のやらかし"についてシェアしよう！</h5>

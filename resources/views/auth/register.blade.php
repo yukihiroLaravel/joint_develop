@@ -1,7 +1,14 @@
 @extends('layouts.app')
 @section('content')
-        <div class="text-center">
-            <h1>Positive Oops</h1>
+        <div class="text-center py-3">
+            <a href="/">
+            <img 
+                src="{{ asset('images/main-logo.png') }}" 
+                alt="Positive Oops" 
+                class="img-fluid" 
+                style="max-height: 90px; width: auto;"
+            >
+            </a>
         </div>
 
         <div class="text-center">
