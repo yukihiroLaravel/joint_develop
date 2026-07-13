@@ -150,6 +150,12 @@ return [
         'name' => '名前',
         'email' => 'メールアドレス',
         'password' => 'パスワード',
+        // リアクション機能の属性名を日本語化(Minami)
+        'reaction_type' => 'リアクション',
+        // ひとことハゲマシ入力の属性名を日本語化(Minami)
+        'encouragement' => 'ひとことハゲマシ',
+        // 投稿入力の属性名を日本語化(Minami)
+        'content' => '投稿内容',
     ],
 
 ];
