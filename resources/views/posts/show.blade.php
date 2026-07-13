@@ -42,67 +42,143 @@
             {{ $post->created_at }}
         </p>
 
+        @php
+            $reactionColors = [
+                'relatable' => '#8edff2',
+                'dont_mind' => '#f7a8a8',
+                'same' => '#f4a261',
+                'nice_try' => '#f6c453',
+                'next_time' => '#7bcfa6',
+            ];
+
+            $donutStart = 0;
+            $donutSegments = [];
+
+            foreach ($reactionTypes as $type => $label) {
+                $count = $reactionCounts[$type] ?? 0;
+
+                if ($totalReactions > 0 && $count > 0) {
+                    $donutEnd = $donutStart + (($count / $totalReactions) * 100);
+                    $donutSegments[] = ($reactionColors[$type] ?? '#adb5bd') . ' ' . $donutStart . '% ' . $donutEnd . '%';
+                    $donutStart = $donutEnd;
+                }
+            }
+
+            $donutBackground = count($donutSegments) > 0
+                ? 'conic-gradient(' . implode(', ', $donutSegments) . ')'
+                : 'conic-gradient(#e9ecef 0% 100%)';
+        @endphp
+
         <div class="border rounded p-4 mb-5 bg-light">
 
             <h5 class="font-weight-bold mb-3">
                 リアクション集計
             </h5>
 
-            <div class="mb-3">
-                <p class="font-weight-bold">
-                リアクション総数：{{ $totalReactions }}件
-                </p>
+            <div class="row align-items-center">
+                <div class="col-md-7 mb-4 mb-md-0">
+                    <p class="font-weight-bold">
+                        リアクション総数：{{ $totalReactions }}件
+                    </p>
 
-                @foreach ($reactionTypes as $type => $label)
-                    <div class="d-flex align-items-center mb-2">
+                    @foreach ($reactionTypes as $type => $label)
+                        <div class="d-flex align-items-center mb-2">
+                            <img
+                                src="{{ asset('images/reactions/' . $type . '.png') }}"
+                                alt="{{ $label }}"
+                                class="mr-2"
+                                style="width: 40px; height: 40px; object-fit: contain;"
+                            >
 
-                        <img
-                            src="{{ asset('images/reactions/' . $type . '.png') }}"
-                            alt="{{ $label }}"
-                            class="mr-2"
-                            style="width: 40px; height: 40px; object-fit: contain;"
+                            <div>
+                                <span class="font-weight-bold">
+                                    {{ $label }}
+                                </span>
+
+                                <span class="ml-2">
+                                    {{ $reactionCounts[$type] ?? 0 }}件
+                                    ({{ $reactionPercentages[$type] ?? 0 }}%)
+                                </span>
+                            </div>
+                        </div>
+                    @endforeach
+
+                    @if ($maxReactionCount > 0)
+                        <div class="font-weight-bold mt-3">
+                            最多リアクション:
+
+                            @foreach ($maxReactionTypes as $type)
+                                <div class="d-flex align-items-center mt-2">
+                                    <img
+                                        src="{{ asset('images/reactions/' . $type . '.png') }}"
+                                        alt="{{ $reactionTypes[$type] }}"
+                                        style="width: 40px; height: 40px;"
+                                        class="mr-2"
+                                    >
+
+                                    <span>
+                                        {{ $reactionTypes[$type] }}
+                                        ({{ $maxReactionCount }}件)
+                                    </span>
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <p>
+                            まだリアクションはありません
+                        </p>
+                    @endif
+                </div>
+
+                <div class="col-md-5 d-flex flex-column align-items-center">
+                    <p class="font-weight-bold mb-3">
+                        リアクション割合
+                    </p>
+
+                    <div
+                        class="rounded-circle d-flex align-items-center justify-content-center mb-4"
+                        style="width: 220px; height: 220px; background: {{ $donutBackground }};"
+                    >
+                        <div
+                            class="rounded-circle bg-light d-flex flex-column align-items-center justify-content-center shadow-sm"
+                            style="width: 130px; height: 130px;"
                         >
-
-                        <div>
-                            <span class="font-weight-bold">
-                                {{ $label }}
+                            <span class="text-muted small">
+                                計
                             </span>
 
-                            <span class="ml-2">
-                                {{ $reactionCounts[$type] ?? 0 }}件
-                                ({{ $reactionPercentages[$type] ?? 0 }}%)
+                            <span class="font-weight-bold h4 mb-0">
+                                {{ $totalReactions }}
+                            </span>
+
+                            <span class="text-muted">
+                                件
                             </span>
                         </div>
                     </div>
-                @endforeach
 
-            @if ($maxReactionCount > 0)
-                <div class="font-weight-bold">
-                    最多リアクション:
+                    <div class="w-100" style="max-width: 260px;">
+                        @foreach ($reactionTypes as $type => $label)
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+                                <div class="d-flex align-items-center">
+                                    <span
+                                        class="rounded-circle d-inline-block flex-shrink-0 mr-2"
+                                        style="width: 12px; height: 12px; background-color: {{ $reactionColors[$type] ?? '#adb5bd' }};"
+                                    ></span>
 
-                    @foreach ($maxReactionTypes as $type)
-                        <div class="d-flex align-items-center mt-2">
+                                    <span class="font-weight-bold">
+                                        {{ $label }}
+                                    </span>
+                                </div>
 
-                            <img
-                                src="{{ asset('images/reactions/' . $type . '.png') }}"
-                                alt="{{ $reactionTypes[$type] }}"
-                                style="width: 40px; height: 40px;"
-                                class="mr-2"
-                            >
-
-                            <span>
-                                {{ $reactionTypes[$type] }}
-                                ({{ $maxReactionCount }}件)
-                            </span>
-                        </div>
-                    @endforeach
+                                <span class="text-nowrap">
+                                    {{ $reactionCounts[$type] ?? 0 }}件
+                                    ({{ $reactionPercentages[$type] ?? 0 }}%)
+                                </span>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-
-            @else
-                <p>
-                    まだリアクションはありません
-                </p>
-            @endif
             </div>
         </div>
 
