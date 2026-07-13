@@ -1,5 +1,18 @@
 <header class="mb-5">
-    <nav class="navbar navbar-expand-sm navbar-dark bg-info">
+    <nav class="navbar navbar-expand-sm navbar-light" style="background-color: #d8f3dc;">
+    <style>
+        .navbar-light .navbar-brand {
+            color: #557a6b !important; 
+            font-weight: bold;
+        }   
+
+        .navbar-light .navbar-nav .nav-link {
+            color: #557a6b !important; 
+        }
+        .navbar-light .navbar-nav .nav-link:hover {
+            color: #111111 !important; 
+        }
+    </style>
         <a class="navbar-brand" href="/">Positive Oops</a>
 
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
