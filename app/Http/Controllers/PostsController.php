@@ -35,6 +35,7 @@ class PostsController extends Controller
 
         // リアクション集計表示でも同じ順番を使うため、資料の並び順に合わせる（Reactionモデル内で定数化）
         $reactionTypes = Reaction::TYPES;
+        $reactionColors = Reaction::COLORS;
 
         // リアクション総数を取得する(Minami)
         $totalReactions = $post->reactions()->count();
@@ -84,6 +85,7 @@ class PostsController extends Controller
         return view('posts.show', [
             'post' => $post,
             'reactionTypes' => $reactionTypes,
+            'reactionColors' => $reactionColors,
 
             // リアクション総数をviewに渡す(Minami)
             'totalReactions' => $totalReactions,

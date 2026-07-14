@@ -43,14 +43,6 @@
         </p>
 
         @php
-            $reactionColors = [
-                'relatable' => '#8edff2',
-                'dont_mind' => '#f7a8a8',
-                'same' => '#f4a261',
-                'nice_try' => '#f6c453',
-                'next_time' => '#7bcfa6',
-            ];
-
             $donutStart = 0;
             $donutSegments = [];
 
