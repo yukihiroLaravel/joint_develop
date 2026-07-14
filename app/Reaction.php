@@ -20,6 +20,14 @@ class Reaction extends Model
         self::TYPE_NEXT_TIME => '次はいける',
     ];
 
+    const COLORS = [
+        self::TYPE_RELATABLE => '#8edff2',
+        self::TYPE_DONT_MIND => '#f7a8a8',
+        self::TYPE_SAME => '#f4a261',
+        self::TYPE_NICE_TRY => '#f6c453',
+        self::TYPE_NEXT_TIME => '#7bcfa6',
+    ];
+
     protected $fillable = [
         'post_id',
         'user_id',
