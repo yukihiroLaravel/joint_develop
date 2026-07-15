@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Reaction;
-use Illuminate\Http\Request;
+use App\Http\Requests\ReactionRequest;
 
 class ReactionsController extends Controller
 {
     // すでにリアクションがあればリアクションを削除、なければ追加するメソッド
-    public function toggle(Request $request, $postId)
+    public function toggle(ReactionRequest $request, $postId)
     {
         // ログインしていなければ何もしない
         if (!\Auth::check()) {
@@ -17,16 +17,13 @@ class ReactionsController extends Controller
 
         $post = \App\Post::findOrFail($postId);
 
-        $request->validate([
-            'type' => 'nullable|in:heart', // 現在は、空か'heart'のみ
-        ]);
         $type = $request->input('type', 'heart'); // 現在は'heart'をデフォルトとする
 
         // ログインしているユーザーが押したリアクション かつ、今回リアクションしようとしている投稿、
         // かつ 同じtypeの投稿を取得
         // 1件もなければnull
         $reaction = Reaction::where('user_id', \Auth::id())
-            ->where('post_id', $postId)
+            ->where('post_id', $post->id)
             ->where('type', $type)
             ->first();
 
@@ -35,7 +32,7 @@ class ReactionsController extends Controller
         } else {
             $reaction = new Reaction();
             $reaction->user_id = \Auth::id();
-            $reaction->post_id = $postId;
+            $reaction->post_id = $post->id;
             $reaction->type = $type;
             $reaction->save();
         }

@@ -2,6 +2,9 @@
     @csrf
     <button type="submit" class="btn p-0">
         <span class="reaction-emoji {{ $post->isReactedBy(\Auth::id()) ? '' : 'is-inactive' }}">❤️</span>
-        <span class="reaction-count">{{ $post->reactions->count() > 0 ? $post->reactions->count() : '' }}</span>
+        @php
+        $reactionCount = $post->reactions->count();
+        @endphp
+        <span class="reaction-count">{{ $reactionCount > 0 ? $reactionCount : '' }}</span>
     </button>
 </form>
