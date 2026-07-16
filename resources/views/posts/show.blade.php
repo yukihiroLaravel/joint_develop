@@ -18,6 +18,20 @@
             <p class="mb-0">
                 {{ $post->content }}
             </p>
+
+            @if ($post->tags->isNotEmpty())
+                <div class="mt-3">
+                    @foreach ($post->tags as $tag)
+                        <a
+                            href="{{ route('tag.show', $tag->id) }}"
+                            class="badge mr-1"
+                            style="background-color: #97b7a4; color: #ffffff;"
+                        >
+                            #{{ $tag->name }}
+                        </a>
+                    @endforeach
+                </div>
+            @endif
         </div>
 
         <div class="mb-3 d-flex align-items-center">
