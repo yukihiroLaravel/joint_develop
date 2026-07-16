@@ -30,6 +30,46 @@
             </div>
         @endif
 
+        <div class="w-75 m-auto mb-4">
+            <h4 class="font-weight-bold" style="color:#FFD700;">
+                🏆 人気ランキング
+            </h4>
+
+            @forelse ($rankingPosts as $index => $post)
+                <div class="p-3 mb-2 bg-light w-75 mx-auto">
+                    <div class="font-weight-bold mb-2">
+                        @if ($index === 0)
+                            <span class="text-warning">🥇 1位</span>
+                        @elseif ($index === 1)
+                            <span class="text-secondary">🥈 2位</span>
+                        @elseif ($index === 2)
+                            <span style="color:#cd7f32;">🥉 3位</span>
+                        @endif
+                    </div>
+
+                    <a href="{{ route('post.show', $post->id) }}">
+                        {{ $post->content }}
+                    </a>
+
+                    <div class="small text-muted">
+                        投稿者:
+                        <span class="font-weight-bold text-dark">
+                            "{{ $post->user->name }}
+                        </span>
+                    </div>
+
+                    <div class="text-muted">
+                        リアクション数：
+                        <span class="font-weight-bold text-success">
+                            {{ $post->reactions_count }}件
+                        </span>
+                    </div>
+                </div>
+            @empty
+                <p>ランキングはまだありません。</p>
+            @endforelse
+        </div>
+
         @include('posts.posts', ['posts' => $posts])
 
 @endsection

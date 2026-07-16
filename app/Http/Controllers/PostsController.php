@@ -17,7 +17,14 @@ class PostsController extends Controller
             ->orderBy('id', 'desc')
             ->paginate(10);
 
-        // リアクション種類一覧をViewに渡すため取得する（Minami）
+        // ランキング表示用にリアクション数の多い投稿を取得する(Minami)
+        $rankingPosts = Post::with('user')
+            ->withCount('reactions')
+            ->orderBy('reactions_count', 'desc')
+            ->take(3)
+            ->get();
+
+            // リアクション種類一覧をViewに渡すため取得する（Minami）
         $reactionTypes = Reaction::TYPES;
 
         return view('welcome', [
@@ -26,6 +33,9 @@ class PostsController extends Controller
 
             // リアクション種類一覧をViewに渡す（Minami）
             'reactionTypes' => $reactionTypes,
+
+            // ランキング一覧をviewに渡す(Minami)
+            'rankingPosts' => $rankingPosts,
         ]);
     }
 
