@@ -138,20 +138,7 @@ class PostsController extends Controller
         // 整形済みのタグ名を取得
         $tagNames = $request->tagNames();
 
-        // 投稿に紐づけるタグIDを格納
-        $tagIds = [];
-
-        foreach ($tagNames as $tagName) {
-            // 同名タグがあれば取得、なければ新規作成
-            $tag = Tag::firstOrCreate([
-                'name' => $tagName,
-            ]);
-
-            $tagIds[] = $tag->id;
-        }
-
-        // 編集後のタグ構成に合わせて紐づきを同期
-        $post->tags()->sync($tagIds);
+        $this->syncTags($post, $tagNames);
 
         return redirect('/');
     }
@@ -181,6 +168,13 @@ class PostsController extends Controller
         // 整形済みのタグ名を取得
         $tagNames = $request->tagNames();
 
+        $this->syncTags($post, $tagNames);
+
+        return back();
+    }
+
+    private function syncTags(Post $post, array $tagNames)
+    {
         // 投稿に紐づけるタグIDを格納
         $tagIds = [];
 
@@ -193,9 +187,7 @@ class PostsController extends Controller
             $tagIds[] = $tag->id;
         }
 
-        // 投稿とタグを中間テーブルで紐付け
+        // 投稿とタグの紐づきを同期
         $post->tags()->sync($tagIds);
-
-        return back();
     }
 }

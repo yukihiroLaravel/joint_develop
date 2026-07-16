@@ -73,9 +73,12 @@ class PostRequest extends FormRequest
         // 配列をCollectionに変換
         $tags = collect($tags);
 
-        // 各タグの前後の空白と、先頭の#を除去
+        // 各タグの前後の半角・全角スペースと、先頭の#を除去
         $tags = $tags->map(function ($tag) {
-            return ltrim(trim($tag), '#');
+            $tag = preg_replace('/^[\s　]+|[\s　]+$/u', '', $tag);
+            $tag = ltrim($tag, '#');
+
+            return preg_replace('/^[\s　]+|[\s　]+$/u', '', $tag);
         });
 
         // 空のタグを除去
