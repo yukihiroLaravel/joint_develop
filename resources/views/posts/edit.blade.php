@@ -21,6 +21,31 @@
             @enderror
         </div>
 
+        <div class="form-group">
+            <label for="tags">
+                タグ
+            </label>
+
+            <input
+                type="text"
+                id="tags"
+                name="tags"
+                class="form-control"
+                value="{{ old('tags', $post->tags->pluck('name')->implode(', ')) }}"
+                placeholder="例：仕事, うっかり, 勘違い"
+            >
+
+            <small class="form-text text-muted">
+                タグはカンマ区切りで3個まで、1個につき20文字以内で入力してください。
+            </small>
+
+            @error('tags')
+                <div class="alert alert-danger mt-2">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
         <button type="submit" class="btn btn-primary">
             更新する
         </button>

@@ -24,4 +24,10 @@ class Post extends Model
     {
         return $this->hasMany(Reaction::class);
     }
+
+    // 投稿に付いているタグを取得
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class)->withTimestamps();
+    }
 }
