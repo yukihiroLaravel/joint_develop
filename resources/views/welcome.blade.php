@@ -14,17 +14,43 @@
                     @csrf
 
                     <div class="form-group">
-                        <textarea class="form-control" name="content" rows="3"></textarea>
+                        <textarea class="form-control" name="content" rows="3">{{ old('content') }}</textarea>
 
                     @error('content')
                         <div class='alert alert-danger mt-2 text-left'>
                             {{ $message}}
                         </div>
                     @enderror
+                        
+                    </div>
 
-                        <div class="text-left mt-3">
-                            <button type="submit" class="btn btn-primary">やらかしをシェア</button>
-                        </div>
+                    <div class="form-group text-left">
+                        <label for="tags">
+                            タグ
+                        </label>
+
+                        <input
+                            type="text"
+                            id="tags"
+                            name="tags"
+                            class="form-control"
+                            value="{{ old('tags') }}"
+                            placeholder="例：仕事, うっかり, 勘違い"
+                        >
+
+                        <small class="form-text text-muted">
+                            タグはカンマ区切りで3個まで、1個につき20文字以内で入力してください。
+                        </small>
+
+                        @error('tags')
+                            <div class="alert alert-danger mt-2">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+
+                    <div class="text-left mt-3">
+                        <button type="submit" class="btn btn-primary">やらかしをシェア</button>
                     </div>
                 </form>
             </div>

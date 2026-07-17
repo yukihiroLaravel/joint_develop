@@ -23,6 +23,20 @@
                         </a>
                     </p>
 
+                    @if ($post->tags->isNotEmpty())
+                        <div class="mb-2">
+                            @foreach ($post->tags as $tag)
+                                <a
+                                    href="{{ route('tag.show', $tag->id) }}"
+                                    class="badge mr-1"
+                                    style="background-color: #97b7a4; color: #ffffff;"
+                                >
+                                    #{{ $tag->name }}
+                                </a>
+                            @endforeach
+                        </div>
+                    @endif
+
                     <div class="d-flex align-items-center mt-2 mb-2">
                         @foreach ($reactionTypes as $type => $label)
                             <div class="mr-3 text-center">
