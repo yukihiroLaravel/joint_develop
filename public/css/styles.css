@@ -1,0 +1,14 @@
+/* .brand-logo {
+    font-family: 'Kaisei Opti', serif;
+    font-weight: 700;
+} */
+
+.reaction-emoji.is-inactive {
+    filter: grayscale(100%) opacity(0.5);
+}
+
+.reaction-count {
+    display: inline-block;
+    min-width: 1em;
+    text-align: left;
+}

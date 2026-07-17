@@ -23,6 +23,9 @@ Route::get('users/{id}', 'UsersController@show')->name('users.show');
 Route::post('posts', 'PostsController@store')->name('posts.store');
 // 投稿削除
 Route::delete('posts/{id}', 'PostsController@destroy')->name('post.delete');
+// リアクション
+Route::post('posts/{id}/reaction', 'ReactionsController@toggle')->name('reaction.toggle');
+
 Route::prefix('users')->group(function () {
     // ユーザ編集・更新
     Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
