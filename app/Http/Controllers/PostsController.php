@@ -10,12 +10,16 @@ use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
-    public function index()
-    {
+    public function index(Request $request)
+    {   
+        $search = $request->search;
+
         // 投稿一覧表示用に投稿者情報とリアクション情報を取得する（Minami）
         $posts = Post::with(['user', 'reactions'])
+            ->search($search)
             ->orderBy('id', 'desc')
-            ->paginate(10);
+            ->paginate(10)
+            ->appends($request->all());
 
         // リアクション種類一覧をViewに渡すため取得する（Minami）
         $reactionTypes = Reaction::TYPES;
