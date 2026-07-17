@@ -29,6 +29,10 @@ Route::prefix('users')->group(function () {
     Route::put('{id}', 'UsersController@update')->name('users.update');
     // ユーザ退会
     Route::delete('{id}', 'UsersController@destroy')->name('users.destroy');
+    // ユーザーのフォロー
+    Route::post('users/{id}', 'FollowController@store')->name('users.follow');
+    // ユーザーのフォロー解除
+Route::delete('users/{id}', 'FollowController@destroy')->name('users.unfollow');
 });
 // });
 
