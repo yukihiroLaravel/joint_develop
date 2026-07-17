@@ -35,15 +35,29 @@
                 🏆 人気ランキング
             </h4>
 
+            @php
+                $rank = 0;
+                $previousCount = null;
+            @endphp
+
             @forelse ($rankingPosts as $index => $post)
+                @php
+                    if ($post->reactions_count !== $previousCount) {
+                        $rank = $index + 1;
+                        $previousCount = $post->reactions_count;
+                    }
+                @endphp
+
                 <div class="p-3 mb-2 bg-light w-75 mx-auto">
                     <div class="font-weight-bold mb-2">
-                        @if ($index === 0)
+                        @if ($rank === 1)
                             <span class="text-warning">🥇 1位</span>
-                        @elseif ($index === 1)
+                        @elseif ($rank === 2)
                             <span class="text-secondary">🥈 2位</span>
-                        @elseif ($index === 2)
+                        @elseif ($rank === 3)
                             <span style="color:#cd7f32;">🥉 3位</span>
+                        @else
+                            <span>{{ $rank }}位</span>
                         @endif
                     </div>
 
@@ -54,7 +68,7 @@
                     <div class="small text-muted">
                         投稿者:
                         <span class="font-weight-bold text-dark">
-                            "{{ $post->user->name }}
+                            {{ $post->user->name }}
                         </span>
                     </div>
 
@@ -66,7 +80,7 @@
                     </div>
                 </div>
             @empty
-                <p>ランキングはまだありません。</p>
+                <p>まだリアクションがありません。</p>
             @endforelse
         </div>
 
