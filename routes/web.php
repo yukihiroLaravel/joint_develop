@@ -33,9 +33,9 @@ Route::prefix('users')->group(function () {
     // ユーザ退会
     Route::delete('{id}', 'UsersController@destroy')->name('users.destroy');
     // ユーザーのフォロー
-    Route::post('users/{id}', 'FollowController@store')->name('users.follow');
+    Route::post('{id}/follow', 'FollowController@store')->name('users.follow');
     // ユーザーのフォロー解除
-Route::delete('users/{id}', 'FollowController@destroy')->name('users.unfollow');
+    Route::delete('{id}/follow', 'FollowController@destroy')->name('users.unfollow');
 });
 // });
 

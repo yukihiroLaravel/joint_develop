@@ -10,6 +10,7 @@
                     <img class="rounded-circle img-fluid" src="{{ Gravatar::src($user->email, 300) }}" alt="{{ $user->name }}">
                     <div class="mt-3">
                         <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                        @include('followers.follow_button')
                     </div>
                 </div>
             </div>

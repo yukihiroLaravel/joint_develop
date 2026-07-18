@@ -71,23 +71,23 @@ class User extends Authenticatable
     }
 
     // ユーザーをフォローする(後ほどidを修正)
-    public function follow($UserId)
+    public function follow($userId)
     {
-        $exist = $this->isFollowing($UserId);
+        $exist = $this->isFollowing($userId);
         if ($exist) {
             return false;
         } else {
-            $this->followings()->attach($UserId);
+            $this->followings()->attach($userId);
             return true;
         }
     }
 
     // ユーザーのフォローをはずす(後ほどidを修正)
-    public function unfollow($UserId)
+    public function unfollow($userId)
     {
-        $exist = $this->isFollowing($UserId);
+        $exist = $this->isFollowing($userId);
         if ($exist) {
-            $this->followings()->detach($UserId);
+            $this->followings()->detach($userId);
             return true;
         } else {
             return false;
@@ -95,8 +95,8 @@ class User extends Authenticatable
     }
 
     // フォローの判定をしてくれる
-    public function isFollowing($UserId)
+    public function isFollowing($userId)
     {
-        return $this->followings()->where('users.id', $UserId)->exists();
+        return $this->followings()->where('users.id', $userId)->exists();
     }
 }
