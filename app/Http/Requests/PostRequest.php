@@ -53,7 +53,7 @@ class PostRequest extends FormRequest
     public function attributes()
     {
         return [
-            'content' => '投稿',
+            'content' => '投稿内容',
             'tags' => 'タグ',
         ];
     }

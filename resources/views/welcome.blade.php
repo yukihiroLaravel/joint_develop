@@ -16,11 +16,12 @@
                     <div class="form-group">
                         <textarea class="form-control" name="content" rows="3">{{ old('content') }}</textarea>
 
-                        @error('content')
-                            <div class='alert alert-danger mt-2'>
-                                {{ $message}}
-                            </div>
-                        @enderror
+                    @error('content')
+                        <div class='alert alert-danger mt-2 text-left'>
+                            {{ $message}}
+                        </div>
+                    @enderror
+                        
                     </div>
 
                     <div class="form-group text-left">
@@ -54,6 +55,36 @@
                 </form>
             </div>
         @endif
+
+        <div class="d-flex justify-content-center mb-4">
+            <div class="w-75">
+                <form action="{{ route('posts.index') }}" method="GET">
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            name="search" 
+                            class="form-control" 
+                            placeholder="キーワードを入力して検索..." 
+                            value="{{ request('search') }}"
+                        >
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="submit">
+                                <i class="fas fa-search"></i> 検索
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                @if(request('search'))
+                    <div class="mt-2 d-flex justify-content-between align-items-center">
+                        <p class="text-muted small mb-0">
+                            <strong>「{{ request('search') }}」</strong> の検索結果 ({{ $posts->total() }}件)
+                        </p>
+                        <a href="{{ route('posts.index') }}" class="btn btn-sm btn-link text-secondary p-0">検索をクリア</a>
+                    </div>
+                @endif
+            </div>
+        </div>
 
         @include('posts.posts', ['posts' => $posts])
 

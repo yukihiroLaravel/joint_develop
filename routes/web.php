@@ -12,7 +12,7 @@
 */
 
 // トップページ
-Route::get('/', 'PostsController@index');
+Route::get('/', 'PostsController@index')->name('posts.index');
 
 // タグ別投稿一覧
 Route::get('tags/{id}', 'TagsController@show')->name('tag.show');
