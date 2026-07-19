@@ -5,10 +5,12 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -36,4 +38,65 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function reactions()
+    {
+        return $this->hasMany(Reaction::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($user) {
+            $user->posts()->delete();
+        });
+    }
+
+    // フォローしているユーザー一覧を取得
+    public function followings()
+    {
+        return $this->belongsToMany(User::class,'follows','following_id','followed_id')->withTimestamps();
+    }
+
+    // 自分をフォローしているユーザー一覧を取得
+    public function followers()
+    {
+        return $this->belongsToMany(User::class,'follows','followed_id','following_id')->withTimestamps();
+    }
+
+    // ユーザーをフォローする(後ほどidを修正)
+    public function follow($userId)
+    {
+        $exist = $this->isFollowing($userId);
+        if ($exist) {
+            return false;
+        } else {
+            $this->followings()->attach($userId);
+            return true;
+        }
+    }
+
+    // ユーザーのフォローをはずす(後ほどidを修正)
+    public function unfollow($userId)
+    {
+        $exist = $this->isFollowing($userId);
+        if ($exist) {
+            $this->followings()->detach($userId);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // フォローの判定をしてくれる
+    public function isFollowing($userId)
+    {
+        return $this->followings()->where('users.id', $userId)->exists();
+    }
 }
