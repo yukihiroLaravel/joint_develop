@@ -49,9 +49,9 @@ class UsersController extends Controller
     }
 
     // ユーザー退会
-    public function destroy($id)
+    public function destroy($userId)
     {
-        $user = User::findOrFail($id);
+        $user = User::findOrFail($userId);
         if (\Auth::id() === $user->id) {
             $user->delete();
         }

@@ -37,6 +37,10 @@ Route::prefix('users')->group(function () {
     Route::put('{id}', 'UsersController@update')->name('users.update');
     // ユーザ退会
     Route::delete('{id}', 'UsersController@destroy')->name('users.destroy');
+    // ユーザーのフォロー
+    Route::post('{id}/follow', 'FollowController@store')->name('users.follow');
+    // ユーザーのフォロー解除
+    Route::delete('{id}/follow', 'FollowController@destroy')->name('users.unfollow');
 });
 // });
 
@@ -44,7 +48,10 @@ Route::prefix('users')->group(function () {
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
-
+// ログイン
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login.post');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // ▼▼▼ テスト用（動作確認用の仮ログイン）コミット前に削除すること ▼▼▼
 Route::get('/test-login/{id}', function ($id) {
