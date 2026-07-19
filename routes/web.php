@@ -17,32 +17,33 @@ Route::get('/', 'PostsController@index')->name('posts');
 // ユーザ詳細
 Route::get('users/{id}', 'UsersController@show')->name('users.show');
 
-// ログイン後機能  ※ログイン機能完成後に有効化
-// Route::group(['middleware' => 'auth'], function () {
-// 新規投稿
-Route::post('posts', 'PostsController@store')->name('posts.store');
-// 投稿削除
-Route::delete('posts/{id}', 'PostsController@destroy')->name('post.delete');
-// 投稿編集画面表示
-Route::get('posts/{id}/edit', 'PostsController@edit')->name('post.edit');
-// 投稿更新
-Route::put('posts/{id}', 'PostsController@update')->name('post.update');
+// ログイン後機能
+Route::group(['middleware' => 'auth'], function () {
+    Route::prefix('posts')->group(function () {
+        // 新規投稿
+        Route::post('/', 'PostsController@store')->name('posts.store');
+        // 投稿削除
+        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
+        // 投稿編集画面表示
+        Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
+        // 投稿更新
+        Route::put('{id}', 'PostsController@update')->name('post.update');
+        // リアクション
+        Route::post('{id}/reaction', 'ReactionsController@toggle')->name('reaction.toggle');
+    });
 
-// リアクション
-Route::post('posts/{id}/reaction', 'ReactionsController@toggle')->name('reaction.toggle');
-
-Route::prefix('users')->group(function () {
-    // ユーザ編集・更新
-    Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
-    Route::put('{id}', 'UsersController@update')->name('users.update');
-    // ユーザ退会
-    Route::delete('{id}', 'UsersController@destroy')->name('users.destroy');
-    // ユーザーのフォロー
-    Route::post('{id}/follow', 'FollowController@store')->name('users.follow');
-    // ユーザーのフォロー解除
-    Route::delete('{id}/follow', 'FollowController@destroy')->name('users.unfollow');
+    Route::prefix('users')->group(function () {
+        // ユーザ編集・更新
+        Route::get('{id}/edit', 'UsersController@edit')->name('users.edit');
+        Route::put('{id}', 'UsersController@update')->name('users.update');
+        // ユーザ退会
+        Route::delete('{id}', 'UsersController@destroy')->name('users.destroy');
+        // ユーザーのフォロー
+        Route::post('{id}/follow', 'FollowController@store')->name('users.follow');
+        // ユーザーのフォロー解除
+        Route::delete('{id}/follow', 'FollowController@destroy')->name('users.unfollow');
+    });
 });
-// });
 
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
