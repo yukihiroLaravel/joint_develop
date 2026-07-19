@@ -53,14 +53,3 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-
-// ▼▼▼ テスト用（動作確認用の仮ログイン）コミット前に削除すること ▼▼▼
-Route::get('/test-login/{id}', function ($id) {
-    \Illuminate\Support\Facades\Auth::loginUsingId($id);
-    return redirect('/');
-});
-Route::get('/test-logout', function () {
-    \Illuminate\Support\Facades\Auth::logout();
-    return redirect('/');
-});
-// ▲▲▲ テスト用ここまで ▲▲▲

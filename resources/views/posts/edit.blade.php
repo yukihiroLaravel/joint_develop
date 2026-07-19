@@ -5,7 +5,6 @@
     <form method="POST" action="{{ route('post.update', $post->id) }}">
         @csrf
         @method('PUT')
-        <input type="hidden" name="from" value="{{ $from }}">
         <div class="form-group">
             <textarea id="content" class="form-control" name="content" rows="4">{{ old('content', $post->content) }}</textarea>
         </div>
