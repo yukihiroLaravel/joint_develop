@@ -23,6 +23,11 @@ Route::get('users/{id}', 'UsersController@show')->name('users.show');
 Route::post('posts', 'PostsController@store')->name('posts.store');
 // 投稿削除
 Route::delete('posts/{id}', 'PostsController@destroy')->name('post.delete');
+// 投稿編集画面表示
+Route::get('posts/{id}/edit', 'PostsController@edit')->name('post.edit');
+// 投稿更新
+Route::put('posts/{id}', 'PostsController@update')->name('post.update');
+
 // リアクション
 Route::post('posts/{id}/reaction', 'ReactionsController@toggle')->name('reaction.toggle');
 
@@ -38,3 +43,16 @@ Route::prefix('users')->group(function () {
 // ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+
+
+
+// ▼▼▼ テスト用（動作確認用の仮ログイン）コミット前に削除すること ▼▼▼
+Route::get('/test-login/{id}', function ($id) {
+    \Illuminate\Support\Facades\Auth::loginUsingId($id);
+    return redirect('/');
+});
+Route::get('/test-logout', function () {
+    \Illuminate\Support\Facades\Auth::logout();
+    return redirect('/');
+});
+// ▲▲▲ テスト用ここまで ▲▲▲
