@@ -16,6 +16,10 @@ Route::get('/', 'PostsController@index')->name('posts');
 
 // ユーザ詳細
 Route::get('users/{id}', 'UsersController@show')->name('users.show');
+// フォロー中一覧
+Route::get('users/{id}/followings', 'UsersController@followings')->name('users.followings');
+// フォロワー一覧
+Route::get('users/{id}/followers', 'UsersController@followers')->name('users.followers');
 
 // ログイン後機能  ※ログイン機能完成後に有効化
 // Route::group(['middleware' => 'auth'], function () {

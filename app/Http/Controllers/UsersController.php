@@ -15,6 +15,7 @@ class UsersController extends Controller
         $data=[
             'user' => $user,
             'posts' => $posts,
+            'tab' => 'timeline',
         ];
         return view('users.show',$data);
     }
@@ -56,5 +57,37 @@ class UsersController extends Controller
             $user->delete();
         }
         return redirect()->route('posts');
+    }
+
+    // フォロー中一覧のメソッド
+    public function followings($id)
+    {
+        $user = User::findOrFail($id);
+
+        $followings = $user->followings()->paginate(10);
+
+        $data = [
+            'user' => $user,
+            'followings' => $followings,
+            'tab' => 'followings',
+        ];
+
+        return view('users.show', $data);
+    }
+
+    // フォロワー一覧
+    public function followers($id)
+    {
+        $user = User::findOrFail($id);
+
+        $followers = $user->followers()->paginate(10);
+
+        $data = [
+            'user' => $user,
+            'followers' => $followers,
+            'tab' => 'followers',
+        ];
+
+        return view('users.show', $data);
     }
 }
