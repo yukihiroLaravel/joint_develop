@@ -21,7 +21,7 @@
                             {{ $message}}
                         </div>
                     @enderror
-                        
+
                     </div>
 
                     <div class="form-group text-left">
@@ -86,6 +86,60 @@
             </div>
         </div>
 
+        <div class="w-75 m-auto mb-4">
+            <h4 class="font-weight-bold" style="color:#FFD700;">
+                🏆 人気ランキング
+            </h4>
+
+            @php
+                $rank = 0;
+                $previousCount = null;
+            @endphp
+
+            @forelse ($rankingPosts as $index => $post)
+                @php
+                    if ($post->reactions_count !== $previousCount) {
+                        $rank = $index + 1;
+                        $previousCount = $post->reactions_count;
+                    }
+                @endphp
+
+                <div class="p-3 mb-2 bg-light w-75 mx-auto">
+                    <div class="font-weight-bold mb-2">
+                        @if ($rank === 1)
+                            <span class="text-warning">🥇 1位</span>
+                        @elseif ($rank === 2)
+                            <span class="text-secondary">🥈 2位</span>
+                        @elseif ($rank === 3)
+                            <span style="color:#cd7f32;">🥉 3位</span>
+                        @else
+                            <span>{{ $rank }}位</span>
+                        @endif
+                    </div>
+
+                    <a href="{{ route('post.show', $post->id) }}">
+                        {{ $post->content }}
+                    </a>
+
+                    <div class="small text-muted">
+                        投稿者:
+                        <span class="font-weight-bold text-dark">
+                            {{ $post->user->name }}
+                        </span>
+                    </div>
+
+                    <div class="text-muted">
+                        リアクション数：
+                        <span class="font-weight-bold text-success">
+                            {{ $post->reactions_count }}件
+                        </span>
+                    </div>
+                </div>
+            @empty
+                <p>まだリアクションがありません。</p>
+            @endforelse
+
+        </div>
         @include('posts.posts', ['posts' => $posts])
 
 @endsection
