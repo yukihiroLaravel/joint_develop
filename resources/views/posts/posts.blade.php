@@ -7,7 +7,7 @@
         </div>
         <div class="">
             <div class="d-inline-block w-75 text-left">
-                <p class="mb-2">{{ $post->content }}</p>
+                <p class="mb-2 text-break">{{ $post->content }}</p>
                 <div class="d-flex justify-content-between">
                     <p class="text-muted">{{ $post->created_at }}</p>
                     @include('reactions.reaction_button',['post' => $post])
@@ -20,7 +20,7 @@
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">削除</button>
                 </form>
-                <a href="" class="btn btn-primary">編集する</a>
+                <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">編集する</a>
                 @endif
             </div>
         </div>
