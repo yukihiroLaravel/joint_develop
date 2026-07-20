@@ -21,7 +21,7 @@
                             {{ $message}}
                         </div>
                     @enderror
-                        
+
                     </div>
 
                     <div class="form-group text-left">
@@ -139,6 +139,7 @@
                 <p>まだリアクションがありません。</p>
             @endforelse
 
+        </div>
         @include('posts.posts', ['posts' => $posts])
 
 @endsection

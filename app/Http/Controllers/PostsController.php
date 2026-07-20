@@ -47,7 +47,8 @@ class PostsController extends Controller
 
     public function show($id)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::with(['user', 'tags', 'reactions'])
+            ->findOrFail($id);
 
         // リアクション集計表示でも同じ順番を使うため、資料の並び順に合わせる（Reactionモデル内で定数化）
         $reactionTypes = Reaction::TYPES;
