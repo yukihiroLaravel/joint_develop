@@ -20,6 +20,7 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
 
         $posts = $user->posts()
+            ->with(['user', 'reactions', 'tags'])
             ->orderBy('id', 'desc')
             ->paginate(10);
 

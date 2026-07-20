@@ -4,18 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\Tag;
 use App\Reaction;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
-    public function index()
-    {
+    public function index(Request $request)
+    {   
+        $search = $request->search;
+
         // 投稿一覧表示用に投稿者情報とリアクション情報を取得する（Minami）
-        $posts = Post::with(['user', 'reactions'])
+        $posts = Post::with(['user', 'reactions', 'tags'])
+            ->search($search)
             ->orderBy('id', 'desc')
-            ->paginate(10);
+            ->paginate(10)
+            ->appends($request->all());
 
         // ランキング表示用にリアクション数の多い投稿を取得する(Minami)
         $rankingPosts = Post::with('user')
@@ -141,8 +146,14 @@ class PostsController extends Controller
 
         $validated = $request->validated();
 
+        // 投稿本文を更新
         $post->content = $validated['content'];
         $post->save();
+
+        // 整形済みのタグ名を取得
+        $tagNames = $request->tagNames();
+
+        $this->syncTags($post, $tagNames);
 
         return redirect('/');
     }
@@ -162,10 +173,36 @@ class PostsController extends Controller
 
     public function store(PostRequest $request)
     {
-        $request->user()->posts()->create([
-            'content' => $request->content,
+        $validated = $request->validated();
+
+        // 投稿を保存
+        $post = $request->user()->posts()->create([
+            'content' => $validated['content'],
         ]);
 
+        // 整形済みのタグ名を取得
+        $tagNames = $request->tagNames();
+
+        $this->syncTags($post, $tagNames);
+
         return back();
+    }
+
+    private function syncTags(Post $post, array $tagNames)
+    {
+        // 投稿に紐づけるタグIDを格納
+        $tagIds = [];
+
+        foreach ($tagNames as $tagName) {
+            // 同名タグがあれば取得、なければ新規作成
+            $tag = Tag::firstOrCreate([
+                'name' => $tagName,
+            ]);
+
+            $tagIds[] = $tag->id;
+        }
+
+        // 投稿とタグの紐づきを同期
+        $post->tags()->sync($tagIds);
     }
 }

@@ -24,4 +24,20 @@ class Post extends Model
     {
         return $this->hasMany(Reaction::class);
     }
+
+    // キーワード検索
+    public function scopeSearch($query, $search)
+    {
+        if (!empty($search)) {
+            $query->where('content', 'LIKE', '%' . $search . '%');
+        }
+
+        return $query;
+    } 
+       
+    // 投稿に付いているタグを取得
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class)->withTimestamps();
+    }
 }
