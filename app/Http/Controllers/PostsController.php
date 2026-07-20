@@ -35,4 +35,34 @@ class PostsController extends Controller
         $post->delete();
         return back();
     }
+
+    // 投稿編集画面表示
+    public function edit($postId)
+    {
+        $post = Post::findOrFail($postId);
+
+        if (\Auth::id() !== $post->user_id) {
+            abort(403, 'このユーザは編集権限がありません。');
+        }
+
+        $data = [
+            'post' => $post,
+        ];
+        return view('posts.edit', $data);
+    }
+
+    // 投稿更新
+    public function update(PostsRequest $request, $postId)
+    {
+        $post = Post::findOrFail($postId);
+
+        if (\Auth::id() !== $post->user_id) {
+            abort(403, 'このユーザは編集権限がありません。');
+        }
+
+        $post->content = $request->content;
+        $post->save();
+
+        return redirect()->route('posts');
+    }
 }
