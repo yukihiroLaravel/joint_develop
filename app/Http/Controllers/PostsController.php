@@ -33,6 +33,10 @@ class PostsController extends Controller
             // リアクション種類一覧をViewに渡すため取得する（Minami）
         $reactionTypes = Reaction::TYPES;
 
+        // タグ入力の自動補完用に既存タグ名を取得
+        $tagSuggestions = Tag::orderBy('name')
+            ->pluck('name');
+
         return view('welcome', [
             // 投稿一覧をviewに渡す
             'posts' => $posts,
@@ -42,6 +46,9 @@ class PostsController extends Controller
 
             // ランキング一覧をviewに渡す(Minami)
             'rankingPosts' => $rankingPosts,
+
+            // タグ入力の自動補完候補をViewに渡す
+            'tagSuggestions' => $tagSuggestions,
         ]);
     }
 
@@ -132,8 +139,13 @@ class PostsController extends Controller
             abort(403);
         }
 
+        // タグ入力の自動補完用に既存タグ名を取得
+        $tagSuggestions = Tag::orderBy('name')
+            ->pluck('name');
+
         return view('posts.edit', [
             'post' => $post,
+            'tagSuggestions' => $tagSuggestions,
         ]);
     }
 
