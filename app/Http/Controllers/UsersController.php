@@ -60,32 +60,32 @@ class UsersController extends Controller
     }
 
     // フォロー中一覧のメソッド
-    public function followings($id)
+    public function followings($userId)
     {
-        $user = User::findOrFail($id);
+        $user = User::findOrFail($userId);
 
         $followings = $user->followings()->paginate(10);
 
         $data = [
-            'user' => $user,
-            'followings' => $followings,
-            'tab' => 'followings',
+        'user' => $user,
+        'followings' => $followings,
+        'tab' => 'followings',
         ];
 
         return view('users.show', $data);
     }
 
     // フォロワー一覧
-    public function followers($id)
+    public function followers($userId)
     {
-        $user = User::findOrFail($id);
+        $user = User::findOrFail($userId);
 
         $followers = $user->followers()->paginate(10);
 
         $data = [
-            'user' => $user,
-            'followers' => $followers,
-            'tab' => 'followers',
+        'user' => $user,
+        'followers' => $followers,
+        'tab' => 'followers',
         ];
 
         return view('users.show', $data);
