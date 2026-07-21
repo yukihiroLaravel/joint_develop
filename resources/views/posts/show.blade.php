@@ -35,11 +35,22 @@
         </div>
 
         <div class="mb-3 d-flex align-items-center">
-            <img
-                class="mr-3 rounded-circle"
-                src="{{ Gravatar::src($post->user->email, 55) }}"
-                alt="{{ $post->user->name }}のアバター画像"
-            >
+
+            @if ($post->user->avatar)
+                <img
+                    class="mr-3 rounded-circle"
+                    src="{{ asset('images/avatars/' . $post->user->avatar) }}"
+                    alt="{{ $post->user->name }}のアバター画像"
+                    width="55"
+                    height="55"
+                >
+            @else
+                <img
+                    class="mr-3 rounded-circle"
+                    src="{{ Gravatar::src($post->user->email, 55) }}"
+                    alt="{{ $post->user->name }}のアバター画像"
+                >
+            @endif
 
             <div>
                 <p class="font-weight-bold mb-1">
