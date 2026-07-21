@@ -1,10 +1,11 @@
 @extends('layouts.app')
 @section('content')
     <h2 class="mt-5 mb-3">ユーザ情報を編集する</h2>
-    <form method="POST" action="{{ route('user.update', $user->id) }}">
+    <form method="POST" action="{{ route('user.update', $user->id) }}"
+        enctype="multipart/form-data">
         @csrf
         @method('PUT')
-        
+
         <div class="form-group">
             <label for="name">ユーザ名</label>
             <input class="form-control" value="{{ old('name', $user->name) }}" name="name" />
@@ -21,7 +22,7 @@
             <label for="email">メールアドレス</label>
             <input class="form-control" value="{{ old('email', $user->email) }}" name="email" />
 
-             @error('email')
+            @error('email')
                             <div class="alert alert-danger mt-2">
                                 {{ $message }}
                             </div>
@@ -30,15 +31,32 @@
         </div>
 
         <div class="form-group">
+            <label for="avatar">プロフィール画像</label>
+            <input
+                type="file"
+                class="form-control-file"
+                id="avatar"
+                name="avatar"
+                accept="image/*">
+
+            @error('avatar')
+                <div class="aleat aleat-danger mt-2">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+
+
+        <div class="form-group">
             <label for="password">パスワード</label>
             <input class="form-control" type="password" name="password" />
 
-             @error('password')
+            @error('password')
                             <div class="alert alert-danger mt-2">
                                 {{ $message }}
                             </div>
                         @enderror
-                        
+
         </div>
 
         <div class="form-group">
