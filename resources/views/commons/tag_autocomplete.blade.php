@@ -51,7 +51,7 @@
         const tagSuggestions = JSON.parse(dataElement.textContent);
         let isComposing = false;
 
-        // タグ名の前後の空白と先頭の#を除去
+        // 各タグの前後の半角・全角スペースと、先頭の#を除去
         function normalizeTag(tag) {
             return tag.trim().replace(/^#+/, '').trim();
         }
