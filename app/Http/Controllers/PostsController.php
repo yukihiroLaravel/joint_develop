@@ -8,6 +8,7 @@ use App\Tag;
 use App\Reaction;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
@@ -147,6 +148,23 @@ class PostsController extends Controller
 
         $validated = $request->validated();
 
+        //画像を削除するチェックボックスがONの場合
+        if ($request->has('delete_image') && $request->input('delete_image') == '1') {
+            if ($post->image_path) {
+                Storage::disk('public')->delete($post->image_path);
+                $post->image_path = null;
+            }
+        }
+
+        //新しい画像がアップロードされた場合　変更・差し替え
+        if ($request->hasFile('image')) {
+            if ($post->image_path) {
+                Storage::disk('public')->delete($post->image_path);
+            }
+            $path = $request->file('image')->store('posts', 'public');
+            $post->image_path = $path;
+    }
+
         // 投稿本文を更新
         $post->content = $validated['content'];
         $post->save();
@@ -167,6 +185,10 @@ class PostsController extends Controller
             abort(403);
         }
 
+        if ($post->image_path) {
+        Storage::disk('public')->delete($post->image_path);
+        }
+
         $post->delete();
 
         return redirect("/");
@@ -176,9 +198,15 @@ class PostsController extends Controller
     {
         $validated = $request->validated();
 
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('posts', 'public');
+        }
+
         // 投稿を保存
         $post = $request->user()->posts()->create([
             'content' => $validated['content'],
+            'image_path' => $imagePath,
         ]);
 
         // 整形済みのタグ名を取得

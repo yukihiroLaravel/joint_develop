@@ -32,6 +32,18 @@
                     @endforeach
                 </div>
             @endif
+            
+            @if ($post->image_path)
+                <div class="mt-3">
+                    <img 
+                        src="{{ asset('storage/' . $post->image_path) }}" 
+                        alt="添付画像" 
+                        class="img-fluid rounded border bg-white" 
+                        style="max-height: 400px; width: auto; object-fit: contain;"
+                    >
+                </div>
+            @endif
+
         </div>
 
         <div class="mb-3 d-flex align-items-center">
