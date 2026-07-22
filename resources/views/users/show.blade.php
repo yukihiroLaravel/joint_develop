@@ -25,13 +25,13 @@
             @include('posts.posts', ['posts' => $posts])
         @elseif ($tab == 'followings')
             @include('followers.followings', [
-            'followings' => $followings,
-            'emptyMessage' => 'フォロー中のユーザーはいません。'
+                'followings' => $followings,
+                'emptyMessage' => 'フォロー中のユーザーはいません。'
             ])
         @elseif ($tab == 'followers')
             @include('followers.followers', [
-            'followers' => $followers,
-            'emptyMessage' => 'フォロワーはいません。'
+                'followers' => $followers,
+                'emptyMessage' => 'フォロワーはいません。'
             ])
         @endif
         </div>

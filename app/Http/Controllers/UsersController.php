@@ -67,9 +67,9 @@ class UsersController extends Controller
         $followings = $user->followings()->paginate(10);
 
         $data = [
-        'user' => $user,
-        'followings' => $followings,
-        'tab' => 'followings',
+            'user' => $user,
+            'followings' => $followings,
+            'tab' => 'followings',
         ];
 
         return view('users.show', $data);
@@ -83,9 +83,9 @@ class UsersController extends Controller
         $followers = $user->followers()->paginate(10);
 
         $data = [
-        'user' => $user,
-        'followers' => $followers,
-        'tab' => 'followers',
+            'user' => $user,
+            'followers' => $followers,
+            'tab' => 'followers',
         ];
 
         return view('users.show', $data);
