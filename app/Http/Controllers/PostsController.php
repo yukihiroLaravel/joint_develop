@@ -160,10 +160,10 @@ class PostsController extends Controller
         if ($request->hasFile('image')) {
             if ($post->image_path) {
                 Storage::disk('public')->delete($post->image_path);
-            }
-            $path = $request->file('image')->store('posts', 'public');
-            $post->image_path = $path;
-    }
+                }
+                $path = $request->file('image')->store('posts', 'public');
+                $post->image_path = $path;
+        }
 
         // 投稿本文を更新
         $post->content = $validated['content'];
@@ -185,9 +185,9 @@ class PostsController extends Controller
             abort(403);
         }
 
-        if ($post->image_path) {
-        Storage::disk('public')->delete($post->image_path);
-        }
+            if ($post->image_path) {
+            Storage::disk('public')->delete($post->image_path);
+            }
 
         $post->delete();
 
