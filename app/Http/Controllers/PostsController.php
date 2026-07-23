@@ -185,9 +185,9 @@ class PostsController extends Controller
             abort(403);
         }
 
-            if ($post->image_path) {
+        if ($post->image_path) {
             Storage::disk('public')->delete($post->image_path);
-            }
+        }
 
         $post->delete();
 
