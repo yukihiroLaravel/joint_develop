@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Tag;
 use App\Reaction;
+use App\User;
 use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,14 +14,86 @@ class PostsController extends Controller
 {
     public function index(Request $request)
     {   
-        $search = $request->search;
+        // 検索キーワードの前後にある半角・全角空白を除去して取得
+        $search = preg_replace('/^[\s　]+|[\s　]+$/u', '', (string) $request->input('search', ''));
 
-        // 投稿一覧表示用に投稿者情報とリアクション情報を取得する（Minami）
-        $posts = Post::with(['user', 'reactions', 'tags'])
-            ->search($search)
-            ->orderBy('id', 'desc')
-            ->paginate(10)
-            ->appends($request->all());
+        // 検索対象を取得。指定がない場合は、既存仕様と同じ投稿検索に
+        $scope = $request->input('scope', 'posts');
+
+        // ログイン済みユーザーだけ、ハゲマシを検索・表示できる
+        $canSearchEncouragements = Auth::check();
+
+        // 検索対象の値と、画面に表示する名称を対応付け
+        $scopeLabels = [
+            'posts' => '投稿',
+            'users' => 'ユーザー名',
+        ];
+
+        // ハゲマシ本文は通常閲覧と同じく、ログイン済みユーザーだけに公開する
+        if ($canSearchEncouragements) {
+            $scopeLabels['encouragements'] = 'ひとことハゲマシ';
+        }
+
+        $scopeLabels['all'] = 'すべて';
+
+        // 想定外の検索対象がURLで指定された場合は、投稿検索として扱う
+        if (! array_key_exists($scope, $scopeLabels)) {
+            $scope = 'posts';
+        }
+
+        // 空欄検索かどうかを、View側の表示切り替えに利用
+        $hasSearch = $search !== '';
+
+        // 検索欄が送信されたかどうかを取得する
+        $hasSearchInput = $request->has('search');
+
+        // 空欄または空白だけで検索された場合に、Viewでメッセージを表示する
+        $isEmptySearch = $hasSearchInput && ! $hasSearch;
+
+        // 検索対象ではない結果はnullのままにし、View側で表示しない
+        $posts = null;
+        $users = null;
+        $encouragements = null;
+
+        if ($hasSearch) {
+            // 投稿・すべて検索では、既存の投稿本文検索を利用
+            if (in_array($scope, ['posts', 'all'], true)) {
+                $posts = Post::with(['user', 'reactions', 'tags'])
+                    ->search($search)
+                    ->orderBy('id', 'desc')
+                    ->paginate(10, ['*'], 'post_page')
+                    ->appends($request->except('post_page'));
+            }
+
+            // ユーザー名・すべて検索では、ユーザー名の部分一致で検索
+            if (in_array($scope, ['users', 'all'], true)) {
+                $users = User::where('name', 'LIKE', '%' . $search . '%')
+                    ->orderBy('id', 'desc')
+                    ->paginate(10, ['*'], 'user_page')
+                    ->appends($request->except('user_page'));
+            }
+
+            // ハゲマシ・すべて検索では、空欄以外のハゲマシ本文を部分一致で検索
+            if ($canSearchEncouragements && in_array($scope, ['encouragements', 'all'], true)) {
+                $encouragements = Reaction::with(['post.user', 'user'])
+                    // 削除済み投稿・退会済みユーザーに紐づくハゲマシは表示しない
+                    ->whereHas('post')
+                    ->whereHas('user')
+                    ->whereNotNull('encouragement')
+                    ->where('encouragement', '<>', '')
+                    ->where('encouragement', 'LIKE', '%' . $search . '%')
+                    ->orderBy('updated_at', 'desc')
+                    ->paginate(10, ['*'], 'encouragement_page')
+                    ->appends($request->except('encouragement_page'));
+            }
+        } else {
+            // 投稿一覧表示用に投稿者情報とリアクション情報を取得する（Minami）
+            $posts = Post::with(['user', 'reactions', 'tags'])
+                ->search($search)
+                ->orderBy('id', 'desc')
+                ->paginate(10)
+                ->appends($request->all());
+        }
 
         // ランキング表示用にリアクション数の多い投稿を取得する(Minami)
         $rankingPosts = Post::with('user')
@@ -30,7 +103,7 @@ class PostsController extends Controller
             ->take(3)
             ->get();
 
-            // リアクション種類一覧をViewに渡すため取得する（Minami）
+        // リアクション種類一覧をViewに渡すため取得する（Minami）
         $reactionTypes = Reaction::TYPES;
 
         // タグ入力の自動補完用に既存タグ名を取得
@@ -40,6 +113,20 @@ class PostsController extends Controller
         return view('welcome', [
             // 投稿一覧をviewに渡す
             'posts' => $posts,
+
+            // ユーザー名検索結果をViewに渡す
+            'users' => $users,
+
+            // ひとことハゲマシ検索結果をViewに渡す
+            'encouragements' => $encouragements,
+
+            // 検索キーワード・対象・検索中かどうかをViewに渡す
+            'search' => $search,
+            'scope' => $scope,
+            'scopeLabels' => $scopeLabels,
+            'hasSearch' => $hasSearch,
+            'canSearchEncouragements' => $canSearchEncouragements,
+            'isEmptySearch' => $isEmptySearch,
 
             // リアクション種類一覧をViewに渡す（Minami）
             'reactionTypes' => $reactionTypes,

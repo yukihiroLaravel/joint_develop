@@ -33,37 +33,47 @@
                     </div>
                 </form>
             </div>
+        @else
+            {{-- 未ログイン時は、投稿と検索の利用条件を案内する --}}
+            <div class="text-center mb-3">
+                <p class="mb-1">
+                    ログインすると「やらかし」を投稿できます。
+                </p>
+                <p class="text-muted mb-0">
+                    検索はログインしなくてもご利用いただけます。
+                </p>
+            </div>
         @endif
 
-        <div class="d-flex justify-content-center mb-4">
-            <div class="w-75">
-                <form action="{{ route('posts.index') }}" method="GET">
-                    <div class="input-group">
-                        <input 
-                            type="text" 
-                            name="search" 
-                            class="form-control" 
-                            placeholder="キーワードを入力して検索..." 
-                            value="{{ request('search') }}"
-                        >
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="submit">
-                                <i class="fas fa-search"></i> 検索
-                            </button>
-                        </div>
-                    </div>
-                </form>
+        {{-- 検索フォームは共通パーツを利用 --}}
+        @include('commons.search_form', [
+            'search' => $search,
+            'scope' => $scope,
+            'scopeLabels' => $scopeLabels,
+        ])
 
-                @if(request('search'))
-                    <div class="mt-2 d-flex justify-content-between align-items-center">
-                        <p class="text-muted small mb-0">
-                            <strong>「{{ request('search') }}」</strong> の検索結果 ({{ $posts->total() }}件)
-                        </p>
-                        <a href="{{ route('posts.index') }}" class="btn btn-sm btn-link text-secondary p-0">検索をクリア</a>
-                    </div>
-                @endif
+        {{-- 空欄検索のときだけ、入力を促すメッセージを表示する --}}
+        @if ($isEmptySearch)
+            <div class="w-75 m-auto">
+                <div class="alert alert-warning" role="alert">
+                    検索キーワードを入力してください。
+                </div>
             </div>
-        </div>
+        @endif
+
+        {{-- 検索しているときだけ、ランキングより先に検索結果を表示 --}}
+        @if ($hasSearch)
+            @include('commons.search_results', [
+                'search' => $search,
+                'scope' => $scope,
+                'scopeLabels' => $scopeLabels,
+                'canSearchEncouragements' => $canSearchEncouragements,
+                'posts' => $posts,
+                'users' => $users,
+                'encouragements' => $encouragements,
+                'reactionTypes' => $reactionTypes,
+            ])
+        @endif
 
         <div class="w-75 m-auto mb-4">
             <h4 class="font-weight-bold" style="color:#FFD700;">
@@ -119,6 +129,9 @@
             @endforelse
 
         </div>
-        @include('posts.posts', ['posts' => $posts])
+        {{-- 検索していない通常のトップページでだけ、投稿一覧を表示 --}}
+        @if (! $hasSearch)
+            @include('posts.posts', ['posts' => $posts])
+        @endif
 
 @endsection
