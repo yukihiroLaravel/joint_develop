@@ -160,9 +160,9 @@ class PostsController extends Controller
         if ($request->hasFile('image')) {
             if ($post->image_path) {
                 Storage::disk('public')->delete($post->image_path);
-                }
-                $path = $request->file('image')->store('posts', 'public');
-                $post->image_path = $path;
+            }
+            $path = $request->file('image')->store('posts', 'public');
+            $post->image_path = $path;
         }
 
         // 投稿本文を更新
