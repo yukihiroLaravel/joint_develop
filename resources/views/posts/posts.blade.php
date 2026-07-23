@@ -48,6 +48,19 @@
                         </div>
                     @endif
 
+                    @if ($post->image_path)
+                        <div class="mt-2 mb-3 text-left">
+                            <a href="{{ route('post.show', $post->id) }}">
+                                <img 
+                                    src="{{ asset('storage/' . $post->image_path) }}" 
+                                    alt="添付画像" 
+                                    class="img-fluid rounded border" 
+                                    style="max-height: 280px; width: auto; object-fit: contain;"
+                                >
+                            </a>
+                        </div>
+                    @endif
+
                     <div class="d-flex align-items-center mt-2 mb-2">
                         @foreach ($reactionTypes as $type => $label)
                             <div class="mr-3 text-center">

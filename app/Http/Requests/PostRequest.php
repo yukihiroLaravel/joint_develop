@@ -25,6 +25,7 @@ class PostRequest extends FormRequest
     {
         return [
             'content' => 'required|string|max:140',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'tags' => [
                 'nullable',
                 'string',
@@ -55,6 +56,7 @@ class PostRequest extends FormRequest
         return [
             'content' => '投稿内容',
             'tags' => 'タグ',
+            'image' => '添付画像',
         ];
     }
 

@@ -10,7 +10,7 @@
 
         @if (Auth::check())
             <div class="text-center mb-3">
-                <form method="POST" action="{{ route('post.store') }}" class="d-inline-block w-75">
+                <form method="POST" action="{{ route('post.store') }}" enctype="multipart/form-data" class="d-inline-block w-75">
                     @csrf
 
                     <div class="form-group">
@@ -28,6 +28,30 @@
                         'tagValue' => old('tags'),
                     ])
 
+                    <div class="form-group text-left">
+                        <label for="image">
+                            画像を添付（任意）
+                        </label>
+
+                        <input 
+                        type="file" 
+                        class="form-control-file" 
+                        id="image" 
+                        name="image" 
+                        accept="image/*"
+                        >
+                     
+                        <small class="form-text text-muted">
+                            対応形式: jpeg, png, jpg, gif（最大2MBまで）
+                         </small>
+                        
+                         @error('image')
+                            <div class="alert alert-danger mt-2">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                    
                     <div class="text-left mt-3">
                         <button type="submit" class="btn btn-primary">やらかしをシェア</button>
                     </div>
