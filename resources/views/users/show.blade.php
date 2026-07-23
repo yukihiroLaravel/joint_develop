@@ -2,7 +2,7 @@
 @section('content')
 <div class="row">
         <aside class="col-sm-4 mb-5">
-            <!-- design-update: カード背景を白っぽく変更 -->
+            <!-- design-update: カード背景色を変更 -->
             <div class="card du-profile-card">
                 <div class="card-header">
                     <h3 class="card-title mb-0">{{ $user->name }}</h3>
@@ -18,7 +18,7 @@
                     {{-- design-update: 「ユーザ情報の編集」は本人のみに表示（元は全員に表示されていた） --}}
                     @if (Auth::id() === $user->id)
                     <div class="mt-3">
-                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary btn-block">ユーザ情報の編集</a>
+                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-primary du-btn-link d-block text-center">ユーザ情報の編集</a>
                     </div>
                     @endif
                 </div>
@@ -27,9 +27,6 @@
         <div class="col-sm-8">
             <!-- design-update: タブをボックス型からアンダーライン型に変更 -->
             <ul class="nav du-profile-tabs nav-justified mb-3">
-                <!-- <li class="nav-item"><a href="" class="nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}">タイムライン</a></li> -->
-                <!-- <li class="nav-item"><a href="#" class="nav-link">フォロー中</a></li> -->
-                <!-- <li class="nav-item"><a href="#" class="nav-link">フォロワー</a></li> -->
             <!-- <ul class="nav nav-tabs nav-justified mb-3"> -->
                 <li class="nav-item"><a href="{{ route('users.show', $user->id) }}" class="nav-link {{ Request::is('users/'. $user->id) ? 'active' : '' }}">タイムライン</a></li>
                 <li class="nav-item"><a href="{{ route('users.followings', $user->id) }}" class="nav-link {{ Request::is('users/' . $user->id . '/followings') ? 'active' : '' }}">フォロー中</a></li>

@@ -11,7 +11,7 @@
                     <a href="{{ route('users.show', $post->user->id) }}" class="du-post-user-name">{{ $post->user->name }}</a>
                     {{-- design-update: フォロー状態表示は見た目のみのダミー（実際のフォロー判定・機能は未接続）。他ユーザーの投稿には「フォロー中」ラベルのみ表示 --}}
                     @if (Auth::check() && Auth::id() !== $post->user_id)
-                    <button type="button" class="du-follow-pill is-following du-follow-pill-sm ml-1">フォロー中</button>
+                    <span class="du-follow-pill is-following du-follow-pill-sm du-btn-link ml-1">フォロー中</span>
                     @endif
                     {{-- design-update: 投稿日時を相対時間表示に変更。元のフル日時表示はコメントアウトで保持 --}}
                     {{-- <span class="du-post-time">{{ $post->created_at }}</span> --}}
@@ -39,12 +39,12 @@
             </div>
             @endif
         </div>
-        {{-- design-update: カテゴリ機能は未実装のため、投稿IDから決定的に選んだダミーのカテゴリを表示（見た目のみ） --}}
+        {{-- design-update: カテゴリ機能は未実装のため、一部の投稿にダミーのカテゴリを表示（見た目のみ） --}}
         @php
             $duCategories = ['マイスポット', '今日の空／気分', 'お役立ち情報', 'マイルーティン', '今日のごはん・おやつ', '珍しい名字・地名', 'とりあえずつぶやきたい', 'Laravelとか'];
             $duCategory = $duCategories[$post->id % count($duCategories)];
         @endphp
-        <span class="du-tag-pill du-tag-pill-sm du-post-category">{{ $duCategory }}</span>
+        <span class="du-tag-pill du-tag-pill-sm du-post-category">#{{ $duCategory }}</span>
         <div class="du-reaction-row">
             @include('reactions.reaction_button',['post' => $post])
             {{-- design-update: 複数リアクション・コメント機能は未実装のため装飾アイコンのみ（数字なし・クリック不可） --}}
