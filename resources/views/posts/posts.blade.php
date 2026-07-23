@@ -6,7 +6,7 @@
                 @if($post->user->avatar)
                     <img
                         class="mr-2 rounded-circle"
-                        src="{{ asset('images/avatars/' . $post->user->avatar) }}"
+                        src="{{ asset('storage/' . $post->user->avatar) }}"
                         alt="{{ $post->user->name }}のアバター画像"
                         width="55"
                         height="55"

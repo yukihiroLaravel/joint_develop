@@ -15,7 +15,7 @@
                     @if ($user->avatar)
                         <img
                             class="rounded-circle img-fluid d-block mx-auto"
-                            src="{{ asset('images/avatars/' . $user->avatar) }}"
+                            src="{{ asset('storage/' . $user->avatar) }}"
                             alt="{{ $user->name }}のアバター画像"
                         >
                     @else

@@ -65,10 +65,8 @@ class UsersController extends Controller
         $user->email = $request->email;
 
         if ($request->hasFile('avatar')) {
-            $file = $request->file('avatar');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('images/avatars'), $fileName);
-            $user->avatar = $fileName;
+            $path = $request->file('avatar')->store('avatars', 'public');
+            $user->avatar = $path;
         }
 
         if ($request->password) {
