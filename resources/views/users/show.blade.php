@@ -11,11 +11,21 @@
                 </div>
 
                 <div class="card-body">
-                    <img
-                        class="rounded-circle img-fluid d-block mx-auto"
-                        src="{{ Gravatar::src($user->email, 300) }}"
-                        alt="{{ $user->name }}のアバター画像"
-                    >
+
+                    @if ($user->avatar)
+                        <img
+                            class="rounded-circle img-fluid d-block mx-auto"
+                            src="{{ asset('storage/' . $user->avatar) }}"
+                            alt="{{ $user->name }}のアバター画像"
+                        >
+                    @else
+                        <img
+                            class="rounded-circle img-fluid d-block mx-auto"
+                            src="{{ Gravatar::src($user->email, 300) }}"
+                            alt="{{ $user->name }}のアバター画像"
+                        >
+                    @endif
+
 
                     @if (Auth::check() && Auth::id() === $user->id)
                         <div class="mt-3">

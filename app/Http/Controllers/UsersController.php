@@ -57,17 +57,26 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
 
-         if (Auth::id() !== $user->id) {
+        if (Auth::id() !== $user->id) {
             abort(403);
         }
 
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = bcrypt($request->password);
+
+        if ($request->hasFile('avatar')) {
+            $path = $request->file('avatar')->store('avatars', 'public');
+            $user->avatar = $path;
+        }
+
+        if ($request->password) {
+            $user->password = bcrypt($request->password);
+        }
+
         $user->save();
-        return back();
+        return redirect()->route('user.show', $user->id);
     }
-    
+
     public function followings($id)
     {
         $user = User::findOrFail($id);
