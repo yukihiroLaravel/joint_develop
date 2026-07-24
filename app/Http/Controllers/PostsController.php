@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Post;
+use Illuminate\Http\Request;
 use App\Http\Requests\PostsRequest;
 
 class PostsController extends Controller
@@ -64,5 +65,21 @@ class PostsController extends Controller
         $post->save();
 
         return redirect()->route('posts');
+    }
+
+    //検索機能
+
+    public function search(Request $request)
+    {
+        $query = Post::query();
+
+        $keyword = $request->input('keyword');
+        if (!empty($keyword)) {
+        $query->where('content', 'LIKE', "%{$keyword}%");
+        }
+
+        $posts = $query->paginate(10);
+
+        return view('welcome', ['posts' => $posts, 'keyword' => $keyword]);
     }
 }
