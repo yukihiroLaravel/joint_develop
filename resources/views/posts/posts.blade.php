@@ -9,11 +9,11 @@
                 <span class="du-avatar-initial du-post-avatar du-avatar-c{{ $post->user->id % 6 }}">{{ mb_substr($post->user->name, 0, 1) }}</span>
                 <div>
                     <a href="{{ route('users.show', $post->user->id) }}" class="du-post-user-name">{{ $post->user->name }}</a>
-                    {{-- design-update: フォロー状態表示は見た目のみのダミー（実際のフォロー判定・機能は未接続）。他ユーザーの投稿には「フォロー中」ラベルのみ表示 --}}
+                    {{-- design-update: フォロー状態表示は見た目のみのダミー（実際のフォロー判定・機能は未実装）。他ユーザーの投稿には「フォロー中」ラベルのみ表示 --}}
                     @if (Auth::check() && Auth::id() !== $post->user_id)
                     <span class="du-follow-pill is-following du-follow-pill-sm du-btn-link ml-1">フォロー中</span>
                     @endif
-                    {{-- design-update: 投稿日時を相対時間表示に変更。元のフル日時表示はコメントアウトで保持 --}}
+                    {{-- design-update: 投稿日時を相対時間表示に変更。元のフル日時表示はコメントアウトで残している --}}
                     {{-- <span class="du-post-time">{{ $post->created_at }}</span> --}}
                     <span class="du-post-time">{{ $post->created_at->locale('ja')->diffForHumans() }}</span>
                 </div>

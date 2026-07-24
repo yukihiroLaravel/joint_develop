@@ -1,16 +1,7 @@
 /* =========================================================
-   design-update: ミントカラーパレットでの見た目変更
-   対象ブランチ: feature/hirokoK/design_update
-   ※ タグ/検索/複数リアクション/画像投稿は見た目のみで未実装
-
-   ---- 色を追加・変更する人へ ----
-   1. 新しい色はまずこの:root内の変数として定義し、CSS内では
-      hexを直書きせず var(--du-xxx) を参照すること。
-   2. 既存の色と近い色を追加したくなったら、先に既存変数
-      （特に-soft/-dark系）で代用できないか確認する。
-   3. 変数名は「用途」ではなく「色そのもの」を表す名前にする
-      （例: --du-button-color ではなく --du-blue）。
-      用途がわかる名前はクラス名の方でつける。
+   design-update: デザイン変更案 v2.0
+   ブランチ: feature/hirokoK/design_update
+   ※ タグ/検索など一部は見た目のみで未実装
    ========================================================= */
 :root {
     /* ベースカラー（teal） */
@@ -20,7 +11,7 @@
     --du-primary-ring: rgba(105, 184, 178, 0.25);
     --du-primary-tint: rgba(78, 155, 149, 0.15);
 
-    /* サブカラー（青。落ち着いた青が欲しい場面で使用） */
+    /* サブカラー（青系） */
     --du-blue: #4A7FB5;
     --du-blue-soft: #5B8FA8;
 
@@ -43,7 +34,7 @@ body {
     padding-top: 90px;
 }
 
-/* design-update: ヘッダーの影。固定表示自体はBootstrap標準の.fixed-topを使うため、ここでは影の追加のみ行う */
+/* design-update: ヘッダーの影 */
 .du-header-shadow {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
@@ -67,8 +58,7 @@ body {
     align-items: center;
 }
 
-/* design-update: サイトロゴ画像。ヘッダーでは小さく、ジャンボトロン・ログイン等の見出しでは大きく表示するため
-   基本サイズをここで定義し、大きく出す場面は文脈セレクタでサイズを上書きする */
+/* design-update: サイトロゴ画像 headerのサイズ */
 .du-logo-mark {
     width: 24px;
     height: 24px;
@@ -150,7 +140,7 @@ body {
     border-top: none;
 }
 
-/* design-update: 著作権表記がスマホ幅でも折り返して収まるように変更。フォントはZen Maru Gothicを適用 */
+/* design-update: フッターのテキスト */
 .du-footer .navbar-brand {
     color: #fff;
     font-size: 0.85rem;
@@ -213,6 +203,34 @@ body {
     background-color: var(--du-blue);
     border-color: var(--du-blue);
     color: #fff;
+    opacity: 0.8;
+}
+
+/* design-update: 退会する等の削除系アクションは、Bootstrap標準の赤ではなくサイトの--du-dangerに統一（形状はBootstrap標準のまま） */
+.btn-danger.du-btn-danger {
+    background-color: var(--du-danger);
+    border-color: var(--du-danger);
+}
+
+.btn-danger.du-btn-danger:hover,
+.btn-danger.du-btn-danger:focus,
+.btn-danger.du-btn-danger:active {
+    opacity: 0.8;
+}
+
+/* design-update: Bootstrap標準ボタン(.btn)と組み合わせる場合のグレー反転（モーダルの「閉じる」等）。ピル形状と組み合わせる場合は.du-follow-pill.du-btn-mutedを使用 */
+.btn.du-btn-muted {
+    background-color: var(--du-card);
+    border: 1px solid var(--du-muted);
+    color: var(--du-muted);
+}
+
+.btn.du-btn-muted:hover,
+.btn.du-btn-muted:focus,
+.btn.du-btn-muted:active {
+    background-color: var(--du-card);
+    border-color: var(--du-muted);
+    color: var(--du-muted);
     opacity: 0.8;
 }
 
@@ -301,7 +319,7 @@ body {
     margin-bottom: 0.3rem;
 }
 
-/* design-update: 「画像を追加」はピル形状にせず、ラベルと同じ枠なしのプレーンな見た目に変更（枠線がないため-outlineではなく-plainと命名） */
+/* design-update: 「画像を追加」はピル形状にせず、ラベルと同じ枠なしのプレーンな見た目に変更 */
 /* design-update: 画像プレビュー欄（200px）と幅を揃え、真下に配置したときに列が揃って見えるようにする */
 /* design-update: 画像プレビューのすぐ下・左寄せになるよう調整 */
 .du-btn-plain {
@@ -345,7 +363,6 @@ body {
 }
 
 /* design-update: 最大文字幅に合わせて縮めるため、選択肢のカテゴリ欄はwidth:100%を上書きしてauto幅にする */
-/* design-update: プレースホルダー文字が入りきっていなかったためフォントサイズを縮小 */
 /* design-update: Bootstrapのform-control固定高さのままだと文字下部が見切れていたため、高さを内容に合わせて自動調整 */
 select.du-hashtag-input {
     width: auto;
@@ -362,13 +379,14 @@ select.du-hashtag-input {
     box-shadow: 0 0 0 0.15rem var(--du-primary-ring);
 }
 
-/* ===== ボタン共通（丸ピル形状。teal=du-btn-primary / 青=du-btn-link / グレー反転=du-btn-muted / 枠なし=du-btn-plain） ===== */
+/* ===== ボタン共通（丸ピル形状。teal=du-btn-primary / 青=du-btn-link / グレー反転=du-btn-muted / 枠なし=du-btn-plain / 赤=du-btn-danger） ===== */
 /* design-update: クリック時にブラウザ標準の青いフォーカスリングが出ないように。
-   キーボード操作（Tabキー）でのフォーカスは:focus-visibleで引き続き表示されるため、アクセシビリティは維持している */
+   キーボード操作（Tabキー）でのフォーカスは:focus-visibleで引き続き表示されるため、アクセシビリティは維持 */
 .du-btn-primary:focus:not(:focus-visible),
 .du-btn-link:focus:not(:focus-visible),
 .du-btn-muted:focus:not(:focus-visible),
 .du-btn-plain:focus:not(:focus-visible),
+.du-btn-danger:focus:not(:focus-visible),
 .du-follow-pill:focus:not(:focus-visible) {
     outline: none;
 }
@@ -397,7 +415,7 @@ select.du-hashtag-input {
 }
 
 /* ===== 検索・タグ ===== */
-/* design-update: カード化をやめ、他要素と幅を揃えたプレーンな行に変更（見た目のみ、機能なし） */
+/* design-update: 他要素と幅を揃えたプレーンな行に変更（見た目のみ、機能なし） */
 /* design-update: 内側の.rowが持つマイナスマージンを相殺するため左右に15pxのpaddingを設定 */
 .du-filter-bar {
     padding: 1rem 15px;
@@ -570,7 +588,7 @@ a {
     flex-direction: column;
 }
 
-/* design-update: 投稿一覧の画像欄（見た目のみ・機能なし、任意項目のためレイアウトが崩れないようflexで分岐）。背景色はグレー */
+/* design-update: 投稿一覧の画像欄（見た目のみ・機能なし、任意項目のためレイアウトが崩れないようflexで分岐）*/
 /* design-update: 投稿フォームの画像プレビューと同じ4:3のアスペクト比に統一 */
 .du-post-image {
     display: flex;
@@ -634,7 +652,7 @@ a {
 }
 
 /* ===== ユーザ詳細ページ ===== */
-/* design-update: プロフィールカードの背景をbg-info(ブルー)から白っぽく変更 */
+/* design-update: プロフィールカードの背景色を変更 */
 .du-profile-card {
     background-color: var(--du-card);
     border: 1px solid var(--du-border);
@@ -750,7 +768,7 @@ a {
     color: #fff;
 }
 
-/* design-update: 「フォローする」ボタンも投稿する/更新するボタンと同じ青に（形はdu-follow-pillのまま、色だけ変更） */
+/* design-update: 「フォローする」ボタンも投稿する/更新するボタンと同じ青に変更 */
 .du-follow-pill.du-btn-link {
     background-color: var(--du-blue);
     border-color: var(--du-blue);
@@ -763,7 +781,7 @@ a {
     opacity: 0.8;
 }
 
-/* design-update: 投稿一覧の「フォロー中」バッジも青に。表示のみなのでホバーでも見た目は変えない */
+/* design-update: 投稿一覧の「フォロー中」バッジの色指定。表示のみなのでホバーでも見た目は変えない */
 .du-follow-pill-sm.is-following.du-btn-link,
 .du-follow-pill-sm.is-following.du-btn-link:hover {
     background-color: var(--du-blue);
@@ -771,7 +789,7 @@ a {
     color: #fff;
 }
 
-/* design-update: 「フォロー解除」はあまり目立たせたくないため、塗りつぶしではなくグレーの反転（白地+グレー枠線・文字）に */
+/* design-update: 「フォロー解除」ボタン、目立たない色の指定 */
 .du-follow-pill.du-btn-muted {
     background-color: var(--du-card);
     border-color: var(--du-muted);

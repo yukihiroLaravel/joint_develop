@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<!-- design-update: ジャンボトロンをヘッダーと同色に変更（ログイン有無にかかわらず常時表示）、ロゴを追加 -->
+<!-- design-update: ジャンボトロンをヘッダーと同色に変更、ロゴを追加 -->
 <div class="center jumbotron du-hero">
     <div class="text-center mt-2 pt-1">
         <h1 class="du-font-title">今日のつぶやき<img src="/images/logo.svg" alt="今日のつぶやきロゴ" class="du-logo-mark"></h1>

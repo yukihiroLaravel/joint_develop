@@ -24,7 +24,7 @@
                     <i class="fas fa-image"></i>
                     <span>画像プレビュー</span>
                 </div>
-                <!-- design-update: 画像投稿機能は未実装。送信されないボタン -->
+                <!-- design-update: 画像投稿機能は未実装 -->
                 <button type="button" class="du-btn-plain mt-1"><i class="fas fa-image mr-1"></i>画像を追加</button>
             </div>
             {{-- design-update: タグを自由に追加できるハッシュタグ欄。カテゴリ選択ドロップダウンを試すため一旦コメントアウト --}}
@@ -41,7 +41,7 @@
                 </div>
             </div>
             --}}
-            <!-- design-update: カテゴリ選択ドロップダウンに変更（見た目のみ・機能なし。選択しても投稿には反映されない） -->
+            <!-- design-update: カテゴリ選択ドロップダウンに変更（見た目のみ・未実装） -->
             <div class="flex-grow-1 mt-3 mt-md-0 ml-md-3">
                 <select class="form-control du-hashtag-input">
                     <option>カテゴリを選択（任意）</option>
