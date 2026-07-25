@@ -5,6 +5,13 @@
             <h1><i class="pr-3"></i>Topic Posts</h1>
         </div>
     </div>
+
+    @if (session('success'))
+        <div class="alert alert-success text-center">
+            {{ session('success') }}
+        </div>
+    @endif
+
     @if (Auth::check())
     <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5>
         <div class="w-75 m-auto">@include('commons.error_messages')</div>
