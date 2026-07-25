@@ -33,7 +33,7 @@ class PostsController extends Controller
             abort(403, 'このユーザは削除権限がありません。');
         }
         $post->delete();
-        return back();
+        return back()->with('success', '削除しました！');
     }
 
     // 投稿編集画面表示
@@ -63,6 +63,6 @@ class PostsController extends Controller
         $post->content = $request->content;
         $post->save();
 
-        return redirect()->route('posts');
+        return redirect()->route('posts')->with('success', '更新しました！');
     }
 }

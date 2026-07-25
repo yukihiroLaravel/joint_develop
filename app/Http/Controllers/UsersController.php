@@ -46,7 +46,7 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-        return redirect()->route('users.show', $userId);
+        return redirect()->route('users.show', $userId)->with('success', 'ユーザ情報を更新しました！');
     }
 
     // ユーザー退会
@@ -56,7 +56,7 @@ class UsersController extends Controller
         if (\Auth::id() === $user->id) {
             $user->delete();
         }
-        return redirect()->route('posts');
+        return redirect()->route('posts')->with('success', '退会しました！');
     }
 
     // フォロー中一覧のメソッド
