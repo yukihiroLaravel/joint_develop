@@ -50,51 +50,6 @@ class PostsController extends Controller
         // 空欄または空白だけで検索された場合に、Viewでメッセージを表示する
         $isEmptySearch = $hasSearchInput && ! $hasSearch;
 
-        // 検索対象ではない結果はnullのままにし、View側で表示しない
-        $posts = null;
-        $users = null;
-        $encouragements = null;
-
-        if ($hasSearch) {
-            // 投稿・すべて検索では、既存の投稿本文検索を利用
-            if (in_array($scope, ['posts', 'all'], true)) {
-                $posts = Post::with(['user', 'reactions', 'tags'])
-                    ->search($search)
-                    ->orderBy('id', 'desc')
-                    ->paginate(10, ['*'], 'post_page')
-                    ->appends($request->except('post_page'));
-            }
-
-            // ユーザー名・すべて検索では、ユーザー名の部分一致で検索
-            if (in_array($scope, ['users', 'all'], true)) {
-                $users = User::where('name', 'LIKE', '%' . $search . '%')
-                    ->orderBy('id', 'desc')
-                    ->paginate(10, ['*'], 'user_page')
-                    ->appends($request->except('user_page'));
-            }
-
-            // ハゲマシ・すべて検索では、空欄以外のハゲマシ本文を部分一致で検索
-            if ($canSearchEncouragements && in_array($scope, ['encouragements', 'all'], true)) {
-                $encouragements = Reaction::with(['post.user', 'user'])
-                    // 削除済み投稿・退会済みユーザーに紐づくハゲマシは表示しない
-                    ->whereHas('post')
-                    ->whereHas('user')
-                    ->whereNotNull('encouragement')
-                    ->where('encouragement', '<>', '')
-                    ->where('encouragement', 'LIKE', '%' . $search . '%')
-                    ->orderBy('updated_at', 'desc')
-                    ->paginate(10, ['*'], 'encouragement_page')
-                    ->appends($request->except('encouragement_page'));
-            }
-        } else {
-            // 投稿一覧表示用に投稿者情報とリアクション情報を取得する（Minami）
-            $posts = Post::with(['user', 'reactions', 'tags'])
-                ->search($search)
-                ->orderBy('id', 'desc')
-                ->paginate(10)
-                ->appends($request->all());
-        }
-
         // ランキング表示用にリアクション数の多い投稿を取得する(Minami)
         $rankingPosts = Post::with('user')
             ->withCount('reactions')
@@ -110,16 +65,8 @@ class PostsController extends Controller
         $tagSuggestions = Tag::orderBy('name')
             ->pluck('name');
 
-        return view('welcome', [
-            // 投稿一覧をviewに渡す
-            'posts' => $posts,
-
-            // ユーザー名検索結果をViewに渡す
-            'users' => $users,
-
-            // ひとことハゲマシ検索結果をViewに渡す
-            'encouragements' => $encouragements,
-
+        // 通常表示・検索表示の両方でViewに渡す共通データをまとめる
+        $viewData = [
             // 検索キーワード・対象・検索中かどうかをViewに渡す
             'search' => $search,
             'scope' => $scope,
@@ -136,7 +83,74 @@ class PostsController extends Controller
 
             // タグ入力の自動補完候補をViewに渡す
             'tagSuggestions' => $tagSuggestions,
-        ]);
+        ];
+
+        if (! $hasSearch) {
+            // 投稿一覧表示用に投稿者情報とリアクション情報を取得する（Minami）
+            $posts = Post::with(['user', 'reactions', 'tags'])
+                ->search($search)
+                ->orderBy('id', 'desc')
+                ->paginate(10)
+                ->appends($request->all());
+
+            return view('welcome', array_merge($viewData, [
+                // 投稿一覧をviewに渡す
+                'posts' => $posts,
+
+                // ユーザー名検索結果をViewに渡す
+                'users' => null,
+
+                // ひとことハゲマシ検索結果をViewに渡す
+                'encouragements' => null,
+            ]));
+        }
+
+        // 検索対象ではない結果はnullのままにし、View側で表示しない
+        $posts = null;
+        $users = null;
+        $encouragements = null;
+
+        // 投稿・すべて検索では、既存の投稿本文検索を利用
+        if (in_array($scope, ['posts', 'all'], true)) {
+            $posts = Post::with(['user', 'reactions', 'tags'])
+                ->search($search)
+                ->orderBy('id', 'desc')
+                ->paginate(10, ['*'], 'post_page')
+                ->appends($request->except('post_page'));
+        }
+
+        // ユーザー名・すべて検索では、ユーザー名の部分一致で検索
+        if (in_array($scope, ['users', 'all'], true)) {
+            $users = User::where('name', 'LIKE', '%' . $search . '%')
+                ->orderBy('id', 'desc')
+                ->paginate(10, ['*'], 'user_page')
+                ->appends($request->except('user_page'));
+        }
+
+        // ハゲマシ・すべて検索では、空欄以外のハゲマシ本文を部分一致で検索
+        if ($canSearchEncouragements && in_array($scope, ['encouragements', 'all'], true)) {
+            $encouragements = Reaction::with(['post.user', 'user'])
+                // 削除済み投稿・退会済みユーザーに紐づくハゲマシは表示しない
+                ->whereHas('post')
+                ->whereHas('user')
+                ->whereNotNull('encouragement')
+                ->where('encouragement', '<>', '')
+                ->where('encouragement', 'LIKE', '%' . $search . '%')
+                ->orderBy('updated_at', 'desc')
+                ->paginate(10, ['*'], 'encouragement_page')
+                ->appends($request->except('encouragement_page'));
+        }
+
+        return view('welcome', array_merge($viewData, [
+            // 投稿一覧をviewに渡す
+            'posts' => $posts,
+
+            // ユーザー名検索結果をViewに渡す
+            'users' => $users,
+
+            // ひとことハゲマシ検索結果をViewに渡す
+            'encouragements' => $encouragements,
+        ]));
     }
 
     public function show($id)
