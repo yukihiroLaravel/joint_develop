@@ -7,6 +7,7 @@ use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Reaction;
+use App\Post;
 
 class UsersController extends Controller
 {
@@ -19,8 +20,12 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $posts = $user->posts()
-            ->with(['user', 'reactions', 'tags'])
+        $userIds = $user->followings()->pluck('users.id')->toArray();
+
+        $userIds[] = $user->id;
+
+        $posts = Post::with(['user','reactions','tags'])
+            ->whereIn('user_id', $userIds)
             ->orderBy('id', 'desc')
             ->paginate(10);
 
