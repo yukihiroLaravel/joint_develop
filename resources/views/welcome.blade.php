@@ -22,7 +22,7 @@
     @endif
     <div class="text-center">
         <form action="{{ route('posts.search') }}" method="GET">
-            <input type="text" name="keyword">
+            <input type="text" name="keyword" value="{{ $keyword ?? '' }}">
             <input type="submit" value="検索">
         </form>
     </div>

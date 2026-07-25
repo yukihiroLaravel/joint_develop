@@ -68,14 +68,22 @@ class PostsController extends Controller
     }
 
     //検索機能
-
-    public function search(Request $request)
+        public function search(Request $request)
     {
         $query = Post::query();
 
         $keyword = $request->input('keyword');
+
         if (!empty($keyword)) {
-        $query->where('content', 'LIKE', "%{$keyword}%");
+            $keyword = mb_convert_kana($keyword, 's');
+            
+            $keywordArray = preg_split('/[\s]+/', $keyword);
+
+            $query->where(function ($q) use ($keywordArray) {
+                foreach ($keywordArray as $word) {
+                    $q->orWhere('content', 'like', "%{$word}%");
+                }
+            });
         }
 
         $posts = $query->paginate(10);
