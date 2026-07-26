@@ -1,19 +1,65 @@
-<ul class="list-unstyled">
+<ul class="list-unstyled w-75 m-auto">
     @foreach ($posts as $post)
-    <li class="mb-3 text-center">
-        <div class="d-inline-block w-75 mb-2 text-left">
-            <img class="rounded-circle mr-2" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
-            <p class="d-inline-block mb-0 mt-3"><a href="{{ route('users.show', $post->user->id) }}">{{ $post->user->name }}</a></p>
-        </div>
-        <div class="">
-            <div class="d-inline-block w-75 text-left">
-                <p class="mb-2 text-break">{{ $post->content }}</p>
-                <div class="d-flex justify-content-between">
-                    <p class="text-muted">{{ $post->created_at }}</p>
-                    @include('reactions.reaction_button',['post' => $post])
+    <li class="mb-4 text-left du-post-card">
+        <div class="d-flex justify-content-between align-items-start flex-wrap">
+            <div class="d-flex align-items-center">
+                {{-- design-update: Gravatarから、丸+頭文字のアバターに変更。Gravatar版はコメントアウトで保持 --}}
+                {{-- <img class="du-post-avatar" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像"> --}}
+                <span class="du-avatar-initial du-post-avatar du-avatar-c{{ $post->user->id % 6 }}">{{ mb_substr($post->user->name, 0, 1) }}</span>
+                <div>
+                    <a href="{{ route('users.show', $post->user->id) }}" class="du-post-user-name">{{ $post->user->name }}</a>
+
+                    <span class="du-post-time">{{ $post->created_at }}</span>
                 </div>
             </div>
-            <div class="d-flex justify-content-between w-75 m-auto pb-3">
+            @if (Auth::id() === $post->user_id)
+            <div class="du-post-actions">
+                <a href="{{ route('post.edit', $post->id) }}" class="du-post-action-link"><i class="fas fa-pen mr-1"></i>編集</a>
+                <form method="POST" action="{{ route('post.delete', $post->id) }}" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="du-post-action-link du-post-action-danger"><i class="fas fa-trash mr-1"></i>削除</button>
+                </form>
+            </div>
+            @endif
+        </div>
+
+        <!-- <div class="d-inline-block w-75 mb-2 text-left d-flex justify-content-between">
+                <div>
+                    <img class="rounded-circle mr-2" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
+                    <p class="d-inline-block mb-0 mt-3"><a href="{{ route('users.show', $post->user->id) }}">{{ $post->user->name }}</a></p>
+                    <p class="text-muted">{{ $post->created_at }}</p>
+                </div>
+                <div class="d-flex justify-content-between w-75 m-auto pt-3">
+                    @if (Auth::id() === $post->user_id)
+                    <form method="POST" action="{{ route('post.delete', $post->id) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">削除</button>
+                    </form>
+                    <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">編集する</a>
+                    @endif
+                </div>
+
+            </div> -->
+        <div class="">
+            <div class="d-inline-block w-75 text-left">
+                <div class="d-flex justify-content-between">
+                    <!-- <p class="text-muted">{{ $post->created_at }}</p> -->
+
+                </div>
+            </div>
+            <!-- 画像投稿の機能追加時　いったんここに追記 -->
+            <div class="du-post-body">
+                <p class="du-post-content text-break flex-grow-1">{{ $post->content }}</p>
+                @if ($post->image !== null)
+                <div class=""><img class="du-post-image" src="{{asset('storage/' . $post->image)}}" alt="投稿画像">
+                </div>
+                @endif
+            </div>
+            <!-- 画像投稿の機能追加時　ここまで -->
+            <!-- ボタンを上記に変更 -->
+            <!-- <div class="d-flex justify-content-between w-75 m-auto pt-3">
                 @if (Auth::id() === $post->user_id)
                 <form method="POST" action="{{ route('post.delete', $post->id) }}">
                     @csrf
@@ -22,7 +68,10 @@
                 </form>
                 <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary">編集する</a>
                 @endif
-            </div>
+            </div> -->
+        </div>
+        <div class="du-reaction-row d-flex justify-content-start">
+            @include('reactions.reaction_button',['post' => $post])
         </div>
     </li>
     @endforeach

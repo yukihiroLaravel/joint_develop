@@ -21,6 +21,11 @@ class PostsController extends Controller
         $post = new Post;
         $post->content = $request->content;
         $post->user_id = $request->user()->id;
+
+        // 画像アップロード（新規）
+        $imagePath = $this->storeImage($request);
+        $post->image = $imagePath;
+
         $post->save();
         return back();
     }
@@ -61,8 +66,26 @@ class PostsController extends Controller
         }
 
         $post->content = $request->content;
+
+        // 画像アップロード(更新)
+        $imagePath = $this->storeImage($request);
+        // アップされていれば画像パスを保存、nullの時は何もしない
+        if ($imagePath) {
+            $post->image = $imagePath;
+        }
+
         $post->save();
 
         return redirect()->route('posts');
+    }
+
+    // 画像アップロード機能：投稿画像ファイルを保存して保存先のパスを返す
+    private function storeImage(PostsRequest $request)
+    {
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('post_images', 'public');
+            return $imagePath;
+        }
+        return null;
     }
 }

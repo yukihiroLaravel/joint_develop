@@ -1,14 +1,826 @@
-/* .brand-logo {
+/* =========================================================
+   design-update: デザイン変更
+   ========================================================= */
+:root {
+    /* ベースカラー（teal） */
+    --du-primary: #69B8B2;
+    --du-primary-dark: #4E9B95;
+    /* du-primary系のうっすら色付き背景（フォーカスリング・ホバー背景用） */
+    --du-primary-ring: rgba(105, 184, 178, 0.25);
+    --du-primary-tint: rgba(78, 155, 149, 0.15);
+
+    /* サブカラー（青） */
+    --du-blue: #4A7FB5;
+    --du-blue-soft: #5B8FA8;
+
+    /* 警告色 */
+    --du-danger: #c0392b;
+
+    /* ニュートラル（背景・文字・枠線） */
+    --du-bg: #FAFAF8;
+    --du-card: #FFFFFF;
+    --du-text: #4A4A4A;
+    --du-border: #E6E6E0;
+    --du-muted: #9A9A9A;
+}
+
+body {
+    background-color: var(--du-bg);
+    color: var(--du-text);
+    font-family: 'Noto Sans JP', sans-serif;
+    /* design-update: ヘッダー固定化に伴い、コンテンツがヘッダーに隠れないよう上部余白を確保 */
+    /* padding-top: 90px; */
+}
+
+/* design-update: ヘッダーの影 */
+.du-header-shadow {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.du-font-title {
     font-family: 'Kaisei Opti', serif;
     font-weight: 700;
-} */
+}
 
-.reaction-emoji.is-inactive {
+/* ===== ヘッダー ===== */
+.du-header {
+    background-color: var(--du-primary);
+    border-bottom: 1px solid var(--du-border);
+}
+
+.du-header .du-logo {
+    color: #fff !important;
+    font-size: 1.25rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* design-update: サイトロゴ画像。ヘッダーでは小さく、ジャンボトロン・ログイン等の見出しでは大きく表示するため
+   基本サイズをここで定義し、大きく出す場面は文脈セレクタでサイズを上書きする */
+.du-logo-mark {
+    width: 24px;
+    height: 24px;
+    margin-left: 0.4rem;
+}
+
+.du-hero .du-logo-mark,
+.du-auth-header .du-logo-mark {
+    width: 60px;
+    height: 60px;
+    margin-left: 0.5rem;
+}
+
+/* design-update: ロゴ以外のヘッダーテキストにZen Maru Gothicを適用 */
+.du-header .nav-link {
+    color: #fff !important;
+    font-family: 'Zen Maru Gothic', sans-serif;
+}
+
+/* Gravatarから、丸+頭文字のシンプルなアイコンに変更 */
+.du-avatar-initial {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--du-primary);
+    color: #fff;
+    font-weight: 700;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* design-update: ユーザーごとに色を変えるためのパレット（user->id % 6 で割り当て） */
+.du-avatar-c0 {
+    background-color: #69B8B2;
+}
+
+.du-avatar-c1 {
+    background-color: #E08E79;
+}
+
+.du-avatar-c2 {
+    background-color: #8E7CC3;
+}
+
+.du-avatar-c3 {
+    background-color: #D9A94E;
+}
+
+.du-avatar-c4 {
+    background-color: #6FA8DC;
+}
+
+.du-avatar-c5 {
+    background-color: #7FB77E;
+}
+
+.du-header .du-user-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+    margin-right: 0.4rem;
+}
+
+.du-header .du-user-name {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* design-update: ヘッダーのリンクはログアウト状態も含めホバー時に太字（色は変えない） */
+.du-header .nav-link:hover {
+    text-decoration: none;
+    font-weight: 700;
+    color: #fff !important;
+}
+
+/* ===== フッター（ヘッダーと同色に変更） ===== */
+.du-footer {
+    background-color: var(--du-primary);
+    border-top: none;
+}
+
+/* design-update: 著作権表記がスマホ幅でも折り返して収まるように変更。フォントはZen Maru Gothicを適用 */
+.du-footer .navbar-brand {
+    color: #fff;
+    font-size: 0.85rem;
+    white-space: normal;
+    text-align: center;
+    font-family: 'Zen Maru Gothic', sans-serif;
+}
+
+/* ===== ジャンボトロン（常時表示・ヘッダーと同色） ===== */
+.du-hero {
+    background-color: var(--du-primary);
+    color: #fff;
+    border-radius: 0.75rem;
+}
+
+.du-hero h1 {
+    font-weight: 700;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===== ログイン・新規ユーザ登録 ===== */
+/* design-update: ログイン・新規ユーザ登録の見出しはフォントのみ変更 */
+.du-auth-title {
+    font-family: 'Zen Maru Gothic', sans-serif;
+}
+
+/* design-update: 落ち着いた青のテキストリンク（新規ユーザ登録はこちら、等）。ボタン版は.du-btn-link */
+.du-text-link {
+    color: var(--du-blue);
+}
+
+.du-text-link:hover {
+    color: var(--du-blue-soft);
+}
+
+/* design-update: 青ボタン。ログイン・新規登録・ユーザ情報編集はBootstrap標準の形状のまま色のみ変更、
+   投稿する等の丸ピル形状(du-btn-primary)と組み合わせたときは、その形状のまま色だけ青にする */
+.btn-primary.du-btn-link {
+    background-color: var(--du-blue);
+    border-color: var(--du-blue);
+}
+
+.btn-primary.du-btn-link:hover,
+.btn-primary.du-btn-link:focus,
+.btn-primary.du-btn-link:active {
+    opacity: 0.8;
+}
+
+.du-btn-primary.du-btn-link {
+    background-color: var(--du-blue);
+    border-color: var(--du-blue);
+}
+
+.du-btn-primary.du-btn-link:hover,
+.du-btn-primary.du-btn-link:focus,
+.du-btn-primary.du-btn-link:active {
+    background-color: var(--du-blue);
+    border-color: var(--du-blue);
+    color: #fff;
+    opacity: 0.8;
+}
+
+/* design-update: 退会する等の削除系アクションは、Bootstrap標準の赤ではなくサイトの--du-dangerに統一（形状はBootstrap標準のまま） */
+.btn-danger.du-btn-danger {
+    background-color: var(--du-danger);
+    border-color: var(--du-danger);
+}
+
+.btn-danger.du-btn-danger:hover,
+.btn-danger.du-btn-danger:focus,
+.btn-danger.du-btn-danger:active {
+    opacity: 0.8;
+}
+
+/* design-update: Bootstrap標準ボタン(.btn)と組み合わせる場合のグレー反転（モーダルの「閉じる」等）。ピル形状と組み合わせる場合は.du-follow-pill.du-btn-mutedを使用 */
+.btn.du-btn-muted {
+    background-color: var(--du-card);
+    border: 1px solid var(--du-muted);
+    color: var(--du-muted);
+}
+
+.btn.du-btn-muted:hover,
+.btn.du-btn-muted:focus,
+.btn.du-btn-muted:active {
+    background-color: var(--du-card);
+    border-color: var(--du-muted);
+    color: var(--du-muted);
+    opacity: 0.8;
+}
+
+/* design-update: スマホでは見出しが大きすぎるため縮小 */
+@media (max-width: 575.98px) {
+    .du-auth-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .du-auth-header .du-logo-mark {
+        width: 40px;
+        height: 40px;
+    }
+
+    .du-auth-title {
+        font-size: 1.4rem;
+    }
+}
+
+/* ===== 投稿フォーム（カード） ===== */
+.du-composer-card {
+    background-color: var(--du-card);
+    border: 1px solid var(--du-border);
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    padding: 1.25rem 1.5rem;
+}
+
+.du-composer-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+    margin-right: 0.6rem;
+}
+
+/* Zen Maru Gothic に変更 */
+.du-composer-title {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--du-text);
+}
+
+.du-composer-textarea {
+    border: 1px solid var(--du-border);
+    border-radius: 0.6rem;
+    resize: vertical;
+}
+
+.du-composer-textarea:focus {
+    border-color: var(--du-primary);
+    box-shadow: 0 0 0 0.15rem var(--du-primary-ring);
+}
+
+.du-char-counter {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--du-muted);
+}
+
+.du-composer-toolbar {
+    margin-top: 0.75rem;
+}
+
+/* design-update: 画像を入れる箇所（見た目のみ・機能なし）。PCはテキストエリアと横並び、スマホは縦積み */
+/* design-update: サムネイルサイズのプレビュー枠に変更（4:3固定）。PC・スマホともにテキストエリアの下に表示するため、幅は最大200pxに固定 */
+.du-image-drop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 200px;
+    aspect-ratio: 4 / 3;
+    border: 1px dashed var(--du-border);
+    border-radius: 0.6rem;
+    color: var(--du-muted);
+    font-size: 0.75rem;
+    flex-shrink: 0;
+}
+
+.du-image-drop i {
+    font-size: 1.4rem;
+    margin-bottom: 0.3rem;
+}
+
+/* design-update: 「画像を追加」ボタンで使用 */
+.du-btn-plain {
+    background: none;
+    border: none;
+    color: var(--du-text);
+    padding: 0.3rem 0;
+    font-size: 0.8rem;
+    width: 100%;
+    text-align: left;
+}
+
+/* design-update: 画像投稿の欄をまとめ */
+.du-image-column {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+    flex-shrink: 0;
+}
+
+/* design-update: 「編集」リンクのホバー色と同じグレーに変更 */
+.du-btn-plain:hover {
+    color: var(--du-muted);
+}
+
+/* design-update: タグを自由に追加できるハッシュタグ欄（見た目のみ・機能なし） */
+.du-hashtag-label {
+    display: block;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--du-text);
+}
+
+.du-hashtag-input {
+    background-color: var(--du-card);
+    border: 1px solid var(--du-border);
+    border-radius: 0.6rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+}
+
+/* design-update: 最大文字幅に合わせて縮めるため、選択肢のカテゴリ欄はwidth:100%を上書きしてauto幅にする */
+/* design-update: Bootstrapのform-control固定高さのままだと文字下部が見切れていたため、高さを内容に合わせて自動調整 */
+select.du-hashtag-input {
+    width: auto;
+    max-width: 100%;
+    font-size: 0.75rem;
+    height: 32px;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    line-height: 1.4;
+}
+
+.du-hashtag-input:focus {
+    border-color: var(--du-primary);
+    box-shadow: 0 0 0 0.15rem var(--du-primary-ring);
+}
+
+/* ===== ボタン共通（丸ピル形状。teal=du-btn-primary / 青=du-btn-link / グレー反転=du-btn-muted / 枠なし=du-btn-plain / 赤=du-btn-danger） ===== */
+/* design-update: クリック時にブラウザ標準の青いフォーカスリングが出ないように。
+   キーボード操作（Tabキー）でのフォーカスは:focus-visibleで引き続き表示されるため、アクセシビリティは維持 */
+.du-btn-primary:focus:not(:focus-visible),
+.du-btn-link:focus:not(:focus-visible),
+.du-btn-muted:focus:not(:focus-visible),
+.du-btn-plain:focus:not(:focus-visible),
+.du-btn-danger:focus:not(:focus-visible),
+.du-follow-pill:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* design-update: ボタンの状態（通常/ホバー/押下/無効）を仕様書に合わせて定義。ホバーは色反転 */
+.du-btn-primary {
+    background-color: var(--du-primary);
+    border: 2px solid var(--du-primary);
+    color: #fff;
+    border-radius: 999px;
+    padding: 0.4rem 1.5rem;
+    font-weight: 700;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.du-btn-primary:hover {
+    background-color: #fff;
+    border-color: var(--du-primary);
+    color: var(--du-primary);
+}
+
+.du-btn-primary:active {
+    background-color: var(--du-primary-dark);
+    border-color: var(--du-primary-dark);
+    color: #fff;
+}
+
+/* ===== 検索・タグ ===== */
+/* design-update: 他要素と幅を揃えたプレーンな行に変更（見た目のみ、機能なし） */
+/* design-update: 内側の.rowが持つマイナスマージンを相殺するため左右に15pxのpaddingを設定 */
+.du-filter-bar {
+    padding: 1rem 15px;
+}
+
+/* design-update: 投稿フォームと検索・タグ行の境目をわかりやすくする薄い区切り線 */
+.du-section-divider {
+    border: none;
+    border-top: 1px solid var(--du-border);
+}
+
+/* design-update: 検索フォーム */
+.du-search-input {
+    background-color: var(--du-card);
+    border: 1px solid var(--du-border);
+    border-radius: 1rem;
+    padding: 0.5rem 2.6rem 0.5rem 1rem;
+    font-size: 0.8rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.du-search-input:focus {
+    border-color: var(--du-primary-dark);
+    box-shadow: 0 0 0 0.15rem var(--du-primary-ring);
+}
+
+/* design-update: 検索ボタンをボックス内右側に配置（見た目のみ・機能なし） */
+.du-search-wrap {
+    position: relative;
+}
+
+.du-search-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.6rem;
+    background-color: var(--du-primary);
+    border: none;
+    border-radius: 0 1rem 1rem 0;
+    color: #fff;
+}
+
+.du-search-btn:hover {
+    background-color: var(--du-primary-dark);
+}
+
+/* design-update: タグの状態（通常/ホバー/選択中）を定義 */
+.du-tag-pill {
+    display: inline-block;
+    background-color: var(--du-card);
+    border: 1px solid var(--du-primary);
+    border-radius: 999px;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.85rem;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    color: var(--du-primary-dark);
+    margin: 0.2rem 0.3rem 0.2rem 0;
+    white-space: nowrap;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.du-tag-pill:hover {
+    /* design-update: ホバー背景をフォントと同系色の薄い色に変更 */
+    background-color: var(--du-primary-tint);
+    border-color: var(--du-primary);
+    text-decoration: none;
+    color: var(--du-primary-dark);
+}
+
+/* design-update: ハッシュタグ欄のタグボタンは他のタグピルより小さめ */
+.du-tag-pill-sm {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.7rem;
+}
+
+/* ===== 投稿カード ===== */
+/* design-update: 同じ投稿一覧をトップページ（幅広）とユーザ詳細ページ（サイドバーがあり狭い）の両方で使うため、
+   画面幅ではなくカード自体の幅で画像の横並び/縦積みを切り替えるコンテナクエリの基点にする */
+.du-post-card {
+    background-color: var(--du-card);
+    border: 1px solid var(--du-border);
+    border-radius: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    padding: 1.25rem 1.5rem;
+    container-type: inline-size;
+}
+
+.du-post-avatar {
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+    margin-right: 0.6rem;
+}
+
+/* design-update: リンク・ユーザ名にZen Maru Gothicを適用 */
+a {
+    font-family: 'Zen Maru Gothic', sans-serif;
+}
+
+.du-post-user-name {
+    font-weight: 700;
+    color: var(--du-text);
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 1.1rem;
+}
+
+/* design-update: ユーザー名ホバー時は太字に変更（色・下線は変えない） */
+.du-post-user-name:hover {
+    font-weight: 700;
+    color: var(--du-text);
+}
+
+.du-post-time {
+    color: var(--du-muted);
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+}
+
+/* design-update: 通常時は色つき、ホバー時はミュートグレー。編集はメインカラーではなく黒系(--du-text)を使用 */
+.du-post-actions .du-post-action-link {
+    color: var(--du-text);
+    font-size: 0.85rem;
+    margin-left: 0.9rem;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.du-post-actions .du-post-action-link:hover {
+    color: var(--du-muted);
+    text-decoration: none;
+}
+
+.du-post-actions .du-post-action-danger {
+    color: var(--du-danger);
+}
+
+.du-post-actions .du-post-action-danger:hover {
+    color: var(--du-muted);
+}
+
+/* design-update: 投稿文にZen Maru Gothicを適用 */
+.du-post-content {
+    margin-top: 0.75rem;
+    margin-bottom: 0;
+    white-space: pre-wrap;
+    font-family: 'Zen Maru Gothic', sans-serif;
+}
+
+/* design-update: カテゴリ機能は未実装のため、投稿文の下にダミー表示するカテゴリバッジ */
+.du-post-category {
+    display: inline-block;
+    margin-top: 0.6rem;
+}
+
+/* design-update: カテゴリ表示は装飾のみのため、.du-tag-pillのホバー効果を打ち消す */
+.du-post-category:hover {
+    background-color: var(--du-card);
+    border-color: var(--du-primary);
+    color: var(--du-primary-dark);
+}
+
+/* design-update: 投稿文+画像欄のレイアウト。デフォルトは縦積み、カード自体の幅が600px以上のときだけ横並びにする（コンテナクエリ） */
+.du-post-body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* design-update: 投稿一覧の画像欄（見た目のみ・機能なし、任意項目のためレイアウトが崩れないようflexで分岐）*/
+/* design-update: 投稿フォームの画像プレビューと同じ4:3のアスペクト比に統一 */
+.du-post-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 240px;
+    aspect-ratio: 4/ 3;
+    object-fit: cover;
+    object-position: top;
+    margin-top: 0.5rem;
+    background-color: var(--du-border);
+    border-radius: 0.6rem;
+    color: var(--du-muted);
+    font-size: 1.8rem;
+    flex-shrink: 0;
+}
+
+/* design-update: カードの幅が600px以上のときだけ画像をテキストの右に横並び表示（トップページ用）。600px未満（ユーザ詳細ページ等の狭いカラム）ではテキストの下に表示 */
+@container (min-width: 600px) {
+    .du-post-body {
+        flex-direction: row;
+    }
+
+    .du-post-image {
+        width: 200px;
+        margin-top: 0;
+        margin-left: 1rem;
+    }
+}
+
+/* ===== リアクション ===== */
+.du-reaction-row {
+    margin-top: 0.75rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* design-update: 命名をdu-プレフィックスに統一（元はreaction-emoji/reaction-count） */
+.du-reaction-emoji.is-inactive {
     filter: grayscale(100%) opacity(0.5);
 }
 
-.reaction-count {
+.du-reaction-count {
     display: inline-block;
     min-width: 1em;
     text-align: left;
+}
+
+.du-reaction-decorative {
+    color: var(--du-muted);
+    font-size: 1rem;
+    margin-right: 0.9rem;
+    opacity: 0.6;
+    cursor: default;
+}
+
+/* design-update: コメントアイコンをリアクション群と区別するための区切り */
+.du-reaction-divider {
+    color: var(--du-border);
+    margin-right: 0.9rem;
+}
+
+/* ===== ユーザ詳細ページ ===== */
+/* design-update: プロフィールカードの背景色を変更 */
+.du-profile-card {
+    background-color: var(--du-card);
+    border: 1px solid var(--du-border);
+}
+
+/* design-update: ユーザー名の箱の背景をティールに変更 */
+.du-profile-card .card-header {
+    background-color: var(--du-primary);
+    border-bottom: none;
+}
+
+.du-profile-card .card-title {
+    color: #fff;
+    font-family: 'Zen Maru Gothic', sans-serif;
+}
+
+/* design-update: プロフィールページの大きいアバター（丸+頭文字）。中央寄せのためblock+flexに変更。カード幅が200pxより狭いときにはみ出さないよう幅に応じて縮小 */
+.du-profile-avatar {
+    display: flex;
+    width: 100%;
+    max-width: 200px;
+    aspect-ratio: 1 / 1;
+    height: auto;
+    font-size: min(4rem, 18vw);
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* design-update: タブをボックス型からアンダーライン型に変更 */
+.du-profile-tabs {
+    border-bottom: 1px solid var(--du-border);
+}
+
+/* design-update: フォロー中・フォロワー一覧のアバター（丸+頭文字） */
+.du-follow-avatar {
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+/* design-update: フォロー中・フォロワー一覧の名前。Bootstrap既定の青リンクではなく本文色に統一 */
+.du-follow-name {
+    color: var(--du-text);
+    font-size: 1.1rem;
+}
+
+/* design-update: ユーザー名ホバー時は太字に変更（色・下線は変えない） */
+.du-follow-name:hover {
+    font-weight: 700;
+    color: var(--du-text);
+}
+
+.du-profile-tabs .nav-link {
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--du-muted);
+    font-weight: 700;
+    padding: 0.6rem 1rem;
+}
+
+.du-profile-tabs .nav-link.active {
+    background: none;
+    border-bottom-color: var(--du-primary);
+    color: var(--du-text);
+}
+
+/* design-update: フォロー状態ピル（ユーザー名の隣やアバター下に表示）。「フォローする」はホバーで色反転。大きさは投稿するボタン(du-btn-primary)に合わせる */
+.du-follow-pill {
+    display: inline-block;
+    background-color: var(--du-primary);
+    border: 2px solid var(--du-primary);
+    border-radius: 999px;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.4rem 1.5rem;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* design-update: 投稿一覧で名前の右に表示する小さめのダミーピル（見た目のみ・機能なし・クリック不可） */
+.du-follow-pill-sm {
+    font-size: 0.7rem;
+    padding: 0.1rem 0.6rem;
+    vertical-align: middle;
+    cursor: default;
+}
+
+.du-follow-pill:hover {
+    background-color: #fff;
+    border-color: var(--du-primary);
+    color: var(--du-primary);
+}
+
+/* design-update: 白抜き文字（ティール背景+白文字）に変更 */
+.du-follow-pill.is-following {
+    background-color: var(--du-primary-dark);
+    border-color: var(--du-primary-dark);
+    color: #fff;
+}
+
+.du-follow-pill.is-following:hover {
+    background-color: #fff;
+    border-color: var(--du-primary-dark);
+    color: var(--du-primary-dark);
+}
+
+/* design-update: 投稿一覧の「フォロー中」は表示のみ（クリック不可）のため、ホバーでも見た目を変えない */
+.du-follow-pill-sm.is-following:hover {
+    background-color: var(--du-primary-dark);
+    border-color: var(--du-primary-dark);
+    color: #fff;
+}
+
+/* design-update: 「フォローする」ボタンも投稿する/更新するボタンと同じ青に変更 */
+.du-follow-pill.du-btn-link {
+    background-color: var(--du-blue);
+    border-color: var(--du-blue);
+}
+
+.du-follow-pill.du-btn-link:hover {
+    background-color: var(--du-blue);
+    border-color: var(--du-blue);
+    color: #fff;
+    opacity: 0.8;
+}
+
+/* design-update: 投稿一覧の「フォロー中」バッジの色指定。表示のみなのでホバーでも見た目は変えない */
+.du-follow-pill-sm.is-following.du-btn-link,
+.du-follow-pill-sm.is-following.du-btn-link:hover {
+    background-color: var(--du-blue);
+    border-color: var(--du-blue);
+    color: #fff;
+}
+
+/* design-update: 「フォロー解除」ボタン、目立たない色の指定 */
+.du-follow-pill.du-btn-muted {
+    background-color: var(--du-card);
+    border-color: var(--du-muted);
+    color: var(--du-muted);
+}
+
+.du-follow-pill.du-btn-muted:hover {
+    background-color: var(--du-card);
+    border-color: var(--du-muted);
+    color: var(--du-muted);
+    opacity: 0.8;
+}
+
+/* ===== ページネーション ===== */
+/* design-update: ページネーション（Bootstrapデフォルトの青系）をメインカラーに変更 */
+.pagination .page-link {
+    color: var(--du-primary-dark);
+}
+
+/* design-update: ページネーションのホバー（フォントと同系色の薄い色）と同じ配色に統一 */
+.pagination .page-link:hover {
+    color: var(--du-primary-dark);
+    background-color: var(--du-primary-tint);
+    border-color: var(--du-primary);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--du-primary);
+    border-color: var(--du-primary);
+    color: #fff;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: var(--du-muted);
 }

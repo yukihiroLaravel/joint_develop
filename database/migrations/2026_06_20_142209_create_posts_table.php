@@ -1,4 +1,4 @@
-id<?php
+<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -17,6 +17,7 @@ class CreatePostsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned()->index();
             $table->string('content', 140);
+            $table->string('image')->nullable();
             $table->timestamps();
             $table->softDeletes();
             // 外部キー制約
