@@ -52,10 +52,13 @@ class UsersController extends Controller
     // ユーザー退会
     public function destroy($userId)
     {
-        $user = User::findOrFail($userId);
-        if (\Auth::id() === $user->id) {
-            $user->delete();
+        if (Auth::id() !== (int)$userId) {
+            abort(403, 'このユーザは編集権限がありません。');
         }
+
+        $user = User::findOrFail($userId);
+        $user->delete();
+
         return redirect()->route('posts')->with('success', '退会しました！');
     }
 
