@@ -11,14 +11,11 @@
 |
 */
 
-// 投稿一覧
+// 投稿一覧,投稿検索
 Route::get('/', 'PostsController@index')->name('posts');
 
 // ユーザ詳細
 Route::get('users/{id}', 'UsersController@show')->name('users.show');
-
-// 投稿機能
-Route::get('posts/search', 'PostsController@search')->name('posts.search');
 
 // ログイン後機能
 Route::group(['middleware' => 'auth'], function () {
