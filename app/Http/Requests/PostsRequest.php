@@ -25,8 +25,7 @@ class PostsRequest extends FormRequest
     {
         return [
             'content' => 'required|max:140',
-            // 'image' => 'image|max:2048' // 画像ファイルかをチェック、最大2MB
-            'image' => 'mimes:jpeg,png,gif,webp,svg|max:2048' // 画像ファイルかをチェック、最大2MB
+            'image' => 'image|max:2048' // 画像ファイルかをチェック、最大2MB
         ];
     }
 

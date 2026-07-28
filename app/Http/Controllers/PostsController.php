@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Post;
 use App\Http\Requests\PostsRequest;
+use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
@@ -16,6 +17,7 @@ class PostsController extends Controller
         ]);
     }
 
+    // 新規投稿
     public function store(PostsRequest $request)
     {
         $post = new Post;
@@ -23,7 +25,7 @@ class PostsController extends Controller
         $post->user_id = $request->user()->id;
 
         // 画像アップロード（新規）
-        $imagePath = $this->storeImage($request);
+        $imagePath = $this->storeImage($request->file('image'));
         $post->image = $imagePath;
 
         $post->save();
@@ -64,28 +66,48 @@ class PostsController extends Controller
         if (\Auth::id() !== $post->user_id) {
             abort(403, 'このユーザは編集権限がありません。');
         }
-
+        // テキスト内容を一時保存
         $post->content = $request->content;
 
-        // 画像アップロード(更新)
-        $imagePath = $this->storeImage($request);
-        // アップされていれば画像パスを保存、nullの時は何もしない
+        // 画像アップロード(更新)---------------------------------//
+        // アップされた情報を一時保存
+        $imagePath = $this->storeImage($request->file('image')); // アップされた画像ファイルをstrageに保存してパスを取得
+        $imageDeleteFlag = $request->delete_image; // 削除フラグを取得
+
         if ($imagePath) {
+            // ファイルがアップされていたら、古い画像があれば削除し、新しいパスを設定
+            if ($post->image) {
+                $this->deleteImage($post->image);
+            }
             $post->image = $imagePath;
+        } elseif ($imageDeleteFlag) {
+            // ファイルがアップされておらず、削除フラグがonなら古い画像を削除
+            if ($post->image) {
+                $this->deleteImage($post->image);
+            }
+            $post->image = null;
         }
+        //ファイルアップも削除フラグもなければ、$post->imageは変更せずそのまま
+        // 画像アップロード(更新) ここまで-------------------------//
 
         $post->save();
 
         return redirect()->route('posts');
     }
 
-    // 画像アップロード機能：投稿画像ファイルを保存して保存先のパスを返す
-    private function storeImage(PostsRequest $request)
+    // 投稿画像ファイルを保存して保存先のパスを返すメソッド
+    private function storeImage($file)
     {
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('post_images', 'public');
-            return $imagePath;
+        if ($file) {
+            return $file->store('post_images', 'public');
         }
         return null;
+    }
+    // strage内にある指定パスの画像を削除するメソッド
+    private function deleteImage(?string $imagePath)
+    {
+        if ($imagePath) {
+            Storage::disk('public')->delete($imagePath);
+        }
     }
 }
