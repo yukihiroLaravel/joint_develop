@@ -20,6 +20,12 @@
             </form>
         </div>
     @endif
+    <div class="text-center">
+        <form action="{{ route('posts') }}" method="GET">
+            <input type="text" name="keyword" value="{{ $keyword ?? '' }}">
+            <input type="submit" value="検索">
+        </form>
+    </div>
     <!-- 投稿一覧 -->
     @include('posts.posts', ['posts' => $posts ])
 @endsection
