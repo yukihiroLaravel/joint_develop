@@ -12,6 +12,7 @@
 <body>
     @include('commons.header')
     <div class="container">
+        @include('commons.flash_message')
         @yield('content')
     </div>
     @include('commons.footer')

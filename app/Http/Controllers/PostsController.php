@@ -4,17 +4,34 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Post;
+use Illuminate\Http\Request;
 use App\Http\Requests\PostsRequest;
 use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
-    public function index()
+    //投稿一覧表示,検索機能
+    public function index(Request $request)
     {
-        $posts = Post::with('reactions')->orderBy('id', 'desc')->paginate(10); //reactionも同時に取得
-        return view('welcome', [
-            'posts' => $posts,
-        ]);
+        $query = Post::with('reactions');
+
+        $keyword = $request->input('keyword');
+
+        if (!empty($keyword)) {
+            $keyword = mb_convert_kana($keyword, 's');
+
+            $keywordArray = preg_split('/[\s]+/', $keyword);
+
+            $query->where(function ($q) use ($keywordArray) {
+                foreach ($keywordArray as $word) {
+                    $q->orWhere('content', 'like', "%{$word}%");
+                }
+            });
+        }
+
+        $posts = $query->orderBy('id', 'desc')->paginate(10);
+
+        return view('welcome', ['posts' => $posts, 'keyword' => $keyword]);
     }
 
     // 新規投稿
@@ -29,7 +46,7 @@ class PostsController extends Controller
         $post->image = $imagePath;
 
         $post->save();
-        return back();
+        return back()->with('success', '投稿しました！');
     }
 
     // 投稿削除
@@ -40,7 +57,7 @@ class PostsController extends Controller
             abort(403, 'このユーザは削除権限がありません。');
         }
         $post->delete();
-        return back();
+        return back()->with('success', '削除しました！');
     }
 
     // 投稿編集画面表示
@@ -92,7 +109,7 @@ class PostsController extends Controller
 
         $post->save();
 
-        return redirect()->route('posts');
+        return redirect()->route('posts')->with('success', '更新しました！');
     }
 
     // 投稿画像ファイルを保存して保存先のパスを返すメソッド
