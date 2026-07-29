@@ -32,13 +32,13 @@
                     @endforeach
                 </div>
             @endif
-            
+
             @if ($post->image_path)
                 <div class="mt-3">
-                    <img 
-                        src="{{ asset('storage/' . $post->image_path) }}" 
-                        alt="添付画像" 
-                        class="img-fluid rounded border bg-white" 
+                    <img
+                        src="{{ asset('storage/' . $post->image_path) }}"
+                        alt="添付画像"
+                        class="img-fluid rounded border bg-white"
                         style="max-height: 400px; width: auto; object-fit: contain;"
                     >
                 </div>
@@ -359,13 +359,112 @@
                                 {{ $reaction->encouragement }}
                             </p>
 
-                            <small class="text-muted">
-                                by
-                                <a href="{{ route('user.show', $reaction->user->id) }}">
-                                    {{ $reaction->user->name }}
-                                </a>
-                            </small>
-                        </div>
+                            @if ($reaction->replies->count() > 0)
+                                <div class="mt-3 pl-3 border-left">
+                                    <p class="font-weight-bold mb-2">
+                                        返信
+                                    </p>
+
+                                    @foreach ($reaction->replies as $reply)
+                                        <div class="mb-2">
+                                            <p class="mb-1">
+                                                {{ $reply->content }}
+                                            </p>
+
+                                            <small class="text-muted">
+                                                by
+                                                <a href="{{ route('user.show', $reply->user->id) }}">
+                                                    {{ $reply->user->name }}
+                                                </a>
+                                            </small>
+
+                                            @if (Auth::id() === $reply->user_id)
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-sm btn-outline-primary mt-2"
+                                                    onclick="document.getElementById('edit-reply-{{ $reply->id }}').style.display='block'"
+                                                >
+                                                    編集
+                                                </button>
+                                            @endif
+
+                                            @if (Auth::id() === $reply->user_id)
+                                                <form
+                                                    id="edit-reply-{{ $reply->id }}"
+                                                    method="POST"
+                                                    action="{{ route('reaction_replies.update', [$post->id, $reaction->id, $reply->id]) }}"
+                                                    class="mt-2"
+                                                    
+                                                >
+                                                    @csrf
+                                                    @method('PUT')
+
+                                                    <input
+                                                        type="text"
+                                                        name="content"
+                                                        class="form-control mb-2"
+                                                        value="{{ $reply->content }}"
+                                                        maxlength="100"
+                                                    >
+
+                                                    <button type="submit" class="btn btn-sm btn-primary">
+                                                        更新
+                                                    </button>
+
+                                                    @error('content')
+                                                        <div class="alert alert-danger mt-2">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </form>
+                                            @endif
+
+                                            @if (Auth::id() === $reply->user_id)
+                                                <form
+                                                    method="POST"
+                                                    action="{{ route('reaction_replies.destroy', [$post->id, $reaction->id, $reply->id] ) }}"
+                                                    class="mt-2"
+                                                >
+                                                    @csrf
+                                                    @method('DELETE')
+
+                                                    <button
+                                                        type="submit"
+                                                        class="btn btn-sm btn-danger"
+                                                        onclick="return confirm('この返信を削除しますか？')"
+                                                    >
+                                                        削除
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
+
+                        <form method="POST" action="{{ route('reaction_replies.store', [$post->id, $reaction->id]) }}">
+                            @csrf
+
+                            <div class="form-group mt-3">
+                                <input
+                                    type="text"
+                                    name="content"
+                                    class="form-control"
+                                    maxlength="100"
+                                    placeholder="返信を書く（100文字以内) "
+                                >
+
+                                @error('content')
+                                    <div class="alert alert-danger mt-2">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+                                返信する
+                            </button>
+                        </form>
                     </div>
                 @endforeach
             </div>
