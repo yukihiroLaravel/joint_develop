@@ -7,7 +7,11 @@
         </div>
         <div class="">
             <div class="d-inline-block w-75 text-left">
-                <p class="mb-2 text-break">{{ $post->content }}</p>
+                <p class="mb-2 text-break">
+                    <a href="{{ route('posts.show', $post->id) }}">
+                        {{ $post->content }}
+                    </a>
+                </p>
                 <div class="d-flex justify-content-between">
                     <p class="text-muted">{{ $post->created_at }}</p>
                     @include('reactions.reaction_button',['post' => $post])
