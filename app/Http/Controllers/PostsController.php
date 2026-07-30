@@ -298,13 +298,12 @@ class PostsController extends Controller
             abort(403);
         }
 
-        if ($post->image_path) {
-            Storage::disk('public')->delete($post->image_path);
-        }
+        $post->deleted_reason = Post::DELETED_REASON_USER_POST;
+        $post->save();
 
         $post->delete();
 
-        return redirect("/");
+        return redirect('/');
     }
 
     public function store(PostRequest $request)
