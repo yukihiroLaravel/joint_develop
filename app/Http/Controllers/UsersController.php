@@ -79,7 +79,7 @@ class UsersController extends Controller
         }
 
         $user->save();
-        return redirect()->route('user.show', $user->id);
+        return redirect()->route('user.show', $user->id)->with('flash_message', 'ユーザ情報を更新しました！');
     }
 
     public function followings($id)
