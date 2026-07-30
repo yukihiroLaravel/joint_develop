@@ -27,6 +27,10 @@
                 @if (Auth::check())
                     <li class="nav-item"><a href= "{{ route('user.show', Auth::id()) }}" class="nav-link text-light">マイページ：{{ Auth::user()->name }}</a></li>
 
+                    @if (Auth::user()->is_admin)
+                        <li class="nav-item"><a href="{{ route('admin.index') }}" class="nav-link text-light">管理者画面</a></li>
+                    @endif
+
                     <li class="nav-item"><a href="{{ route('logout') }}" class="nav-link text-light">ログアウト</a></li>
                 @else
                     <li class="nav-item"><a href="{{ route('login') }}" class="nav-link text-light">

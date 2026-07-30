@@ -37,6 +37,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_admin' => 'boolean',
     ];
 
     protected static function boot()
@@ -44,6 +45,10 @@ class User extends Authenticatable
         parent::boot();
 
         static::deleting(function ($user) {
+            $user->posts()->update([
+                'deleted_reason' => Post::DELETED_REASON_ACCOUNT_WITHDRAWAL,
+            ]);
+
             $user->posts()->delete();
         });
     }
