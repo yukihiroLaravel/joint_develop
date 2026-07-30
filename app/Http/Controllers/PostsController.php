@@ -56,6 +56,7 @@ class PostsController extends Controller
         if (\Auth::id() !== $post->user_id) {
             abort(403, 'このユーザは削除権限がありません。');
         }
+        $this->deleteImage($post->image);
         $post->delete();
         return back()->with('success', '削除しました！');
     }
@@ -91,20 +92,21 @@ class PostsController extends Controller
         $imagePath = $this->storeImage($request->file('image')); // アップされた画像ファイルをstrageに保存してパスを取得
         $imageDeleteFlag = $request->delete_image; // 削除フラグを取得
 
+        // strage内の既存の画像削除
+        // 新規ファイルあり または 削除フラグON で、かつ既に画像が保存されている場合
+        if (($imagePath || $imageDeleteFlag) && $post->image) {
+            $this->deleteImage($post->image);
+        }
+
+        // 画像のパスの設定
+        // 新規ファイルがある場合、新しい画像のパスを設定
         if ($imagePath) {
-            // ファイルがアップされていたら、古い画像があれば削除し、新しいパスを設定
-            if ($post->image) {
-                $this->deleteImage($post->image);
-            }
             $post->image = $imagePath;
         } elseif ($imageDeleteFlag) {
-            // ファイルがアップされておらず、削除フラグがonなら古い画像を削除
-            if ($post->image) {
-                $this->deleteImage($post->image);
-            }
+            // 新規ファイルがなく、削除フラグがonであればnullを設定
             $post->image = null;
         }
-        //ファイルアップも削除フラグもなければ、$post->imageは変更せずそのまま
+        // 新規ファイルも削除フラグもなければ、$post->imageは変更せずそのまま
         // 画像アップロード(更新) ここまで-------------------------//
 
         $post->save();
@@ -120,6 +122,7 @@ class PostsController extends Controller
         }
         return null;
     }
+
     // strage内にある指定パスの画像を削除するメソッド
     private function deleteImage(?string $imagePath)
     {
