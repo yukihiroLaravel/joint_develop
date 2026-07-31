@@ -10,20 +10,22 @@ use Illuminate\Support\Facades\Auth;
 
 class ReactionRepliesController extends Controller
 {
-    public function store(ReactionReplyRequest $request, $reactionId)
+    public function store(ReactionReplyRequest $request, $id, $reactionId)
     {
         $reaction = Reaction::findOrFail($reactionId);
 
-        ReactionReply::create([
+        $reply = ReactionReply::create([
             'reaction_id' => $reaction->id,
             'user_id' => Auth::id(),
             'content' => $request->content,
         ]);
 
-        return redirect()->back();
+
+
+        return redirect('/posts/' . $id);
     }
 
-    public function destroy($replyId)
+    public function destroy($id, $reactionId, $replyId)
     {
         $reply = ReactionReply::findOrFail($replyId);
 
@@ -37,7 +39,7 @@ class ReactionRepliesController extends Controller
         return redirect()->back();
     }
 
-    public function update(ReactionReplyRequest $request, $replyId)
+    public function update(ReactionReplyRequest $request, $id, $reactionId, $replyId)
     {
         $reply = ReactionReply::findOrFail($replyId);
 
