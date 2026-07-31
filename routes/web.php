@@ -61,3 +61,16 @@ Route::prefix('posts')->middleware('auth')->group(function () {
     Route::delete('{id}', 'PostsController@destroy')->name('post.destroy');
     Route::post('', 'PostsController@store')->name('post.store');
 });
+
+// 管理者
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+    Route::get('/', 'AdminController@index')->name('admin.index');
+    Route::get('users', 'AdminController@users')->name('admin.users');
+    Route::get('posts', 'AdminController@posts')->name('admin.posts');
+    Route::delete('users/{id}', 'AdminController@destroyUser')->name('admin.users.destroy');
+    Route::patch('users/{id}/restore', 'AdminController@restoreUser')->name('admin.users.restore');
+    Route::delete('posts/{id}', 'AdminController@destroyPost')->name('admin.posts.destroy');
+    Route::patch('posts/{id}/restore', 'AdminController@restorePost')->name('admin.posts.restore');
+    Route::delete('posts/{id}/force', 'AdminController@forceDeletePost')->name('admin.posts.force-delete');
+    Route::delete('users/{id}/force', 'AdminController@forceDeleteUser')->name('admin.users.force-delete');
+});

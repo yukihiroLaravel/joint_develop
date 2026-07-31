@@ -48,7 +48,7 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
 
         if (Auth::id() !== $user->id) {
-            abort(403);
+            return back()->with('error_message', '他のユーザのプロフィールは編集できません。');
         }
 
         $data=[
@@ -63,7 +63,7 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
 
         if (Auth::id() !== $user->id) {
-            abort(403);
+            return back()->with('error_message', '他のユーザのプロフィールは更新できません。');
         }
 
         $user->name = $request->name;
@@ -117,7 +117,7 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
 
         if (Auth::id() !== $user->id) {
-            abort(403);
+            return back()->with('error_message', '他のユーザアカウントは削除できません。');
         }
 
         $user->delete();
@@ -127,6 +127,6 @@ class UsersController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/')->with('flash_message', '退会手続きが完了しました。ご利用ありがとうございました。');
     }
 }

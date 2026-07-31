@@ -20,6 +20,7 @@ class CreatePostsTable extends Migration
             $table->string('image_path')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->string('deleted_reason', 50)->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

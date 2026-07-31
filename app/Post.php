@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
+    const DELETED_REASON_USER_POST = 'user_post_delete';
+    const DELETED_REASON_ADMIN_POST = 'admin_post_delete';
+    const DELETED_REASON_ACCOUNT_WITHDRAWAL = 'account_withdrawal';
+
     use SoftDeletes;
 
     protected $fillable = [
