@@ -3,18 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ReactionReplyRequest;
 use App\Reaction;
 use App\ReactionReply;
 use Illuminate\Support\Facades\Auth;
 
 class ReactionRepliesController extends Controller
 {
-    public function store(Request $request, $reactionId)
+    public function store(ReactionReplyRequest $request, $reactionId)
     {
-        $request->validate([
-            'content' => 'required|string|max:100',
-        ]);
-
         $reaction = Reaction::findOrFail($reactionId);
 
         ReactionReply::create([
@@ -26,7 +23,7 @@ class ReactionRepliesController extends Controller
         return redirect()->back();
     }
 
-    public function destroy($id, $reactionId, $replyId)
+    public function destroy($replyId)
     {
         $reply = ReactionReply::findOrFail($replyId);
 
@@ -40,13 +37,8 @@ class ReactionRepliesController extends Controller
         return redirect()->back();
     }
 
-    public function update(Request $request, $id, $reactionId, $replyId)
+    public function update(ReactionReplyRequest $request, $replyId)
     {
-
-        $request->validate([
-            'content' => 'required|string|max:100',
-        ]);
-
         $reply = ReactionReply::findOrFail($replyId);
 
         //  本人だけ更新可能
@@ -57,7 +49,7 @@ class ReactionRepliesController extends Controller
 
             $reply->update([
                 'content' => $request->content,
-                ]);
+            ]);
 
                 return redirect()->back();
     }

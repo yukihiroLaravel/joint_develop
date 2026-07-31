@@ -58,10 +58,10 @@ Route::prefix('posts')->middleware('auth')->group(function () {
         Route::post('{reaction}/replies', 'ReactionRepliesController@store')
             ->name('reaction_replies.store');
         //  ハゲマシへの返信削除
-            Route::delete('{reaction}/replies/{reply}', 'ReactionRepliesController@destroy')
+        Route::delete('{reaction}/replies/{reply}', 'ReactionRepliesController@destroy')
             ->name('reaction_replies.destroy');
         //  ハゲマシへの返信更新
-            Route::put('{reaction}/replies/{reply}', 'ReactionRepliesController@update')
+        Route::put('{reaction}/replies/{reply}', 'ReactionRepliesController@update')
             ->name('reaction_replies.update');
     });
 

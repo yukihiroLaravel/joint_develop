@@ -346,7 +346,7 @@
                 <h4 class="font-weight-bold">みんなからのポジティブ</h4>
 
                 @foreach ($encouragementReactions as $reaction)
-                    <div class="border rounded p-3 mb-3 d-flex align-items-center">
+                    <div class="border rounded p-3 mb-3">
                         <img
                             src="{{ asset('images/reactions/' . $reaction->reaction_type . '.png') }}"
                             alt="{{ $reactionTypes[$reaction->reaction_type] }}"
@@ -394,7 +394,8 @@
                                                     method="POST"
                                                     action="{{ route('reaction_replies.update', [$post->id, $reaction->id, $reply->id]) }}"
                                                     class="mt-2"
-                                                    
+                                                    style="display:none;"
+
                                                 >
                                                     @csrf
                                                     @method('PUT')
@@ -442,29 +443,30 @@
                                 </div>
                             @endif
 
-                        <form method="POST" action="{{ route('reaction_replies.store', [$post->id, $reaction->id]) }}">
+                            <form method="POST" action="{{ route('reaction_replies.store',          [$post->id, $reaction->id]) }}">
                             @csrf
 
-                            <div class="form-group mt-3">
-                                <input
-                                    type="text"
-                                    name="content"
-                                    class="form-control"
-                                    maxlength="100"
-                                    placeholder="返信を書く（100文字以内) "
-                                >
+                                <div class="form-group mt-3">
+                                    <input
+                                        type="text"
+                                        name="content"
+                                        class="form-control"
+                                        maxlength="100"
+                                        placeholder="返信を書く（100文字以内) "
+                                    >
 
-                                @error('content')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
+                                    @error('content')
+                                        <div class="alert alert-danger mt-2">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
 
-                            <button type="submit" class="btn btn-primary">
-                                返信する
-                            </button>
-                        </form>
+                                <button type="submit" class="btn btn-primary">
+                                    返信する
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 @endforeach
             </div>

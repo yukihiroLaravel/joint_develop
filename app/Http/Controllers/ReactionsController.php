@@ -29,7 +29,7 @@ class ReactionsController extends Controller
         );
 
         return back()
-            ->withInput($request->only('encouragement'))    
+            ->withInput($request->only('encouragement'))
             ->with('status', 'リアクションが更新されました。ありがとう！');
     }
 
