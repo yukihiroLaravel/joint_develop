@@ -8,6 +8,12 @@
         <div class="">
             <div class="d-inline-block w-75 text-left">
                 <p class="mb-2 text-break">{{ $post->content }}</p>
+                {{-- 画像アップロード --}}
+                @if ($post->image !== null)
+                <div class="mb-2">
+                    <img class="img-fluid rounded post-image" src="{{ asset('storage/' . $post->image) }}" alt="投稿画像">
+                </div>
+                @endif
                 <div class="d-flex justify-content-between">
                     <p class="text-muted">{{ $post->created_at }}</p>
                     @include('reactions.reaction_button',['post' => $post])
