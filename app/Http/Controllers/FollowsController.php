@@ -10,13 +10,13 @@ class FollowsController extends Controller
     {
         Auth::user()->follow($id);
 
-        return back();
+        return back()->with('flash_message', 'フォローしました！');
     }
 
     public function destroy($id)
     {
         Auth::user()->unfollow($id);
 
-        return back();
+        return back()->with('flash_message', 'フォローを解除しました。');
     }
 }

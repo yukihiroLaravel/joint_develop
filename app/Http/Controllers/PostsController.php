@@ -287,7 +287,7 @@ class PostsController extends Controller
 
         $this->syncTags($post, $tagNames);
 
-        return redirect('/');
+        return redirect('/')->with('flash_message', '投稿を更新しました！');
     }
 
     public function destroy($id)
@@ -303,7 +303,7 @@ class PostsController extends Controller
 
         $post->delete();
 
-        return redirect('/');
+        return redirect("/")->with('flash_message', '投稿を削除しました。');
     }
 
     public function store(PostRequest $request)
@@ -326,7 +326,7 @@ class PostsController extends Controller
 
         $this->syncTags($post, $tagNames);
 
-        return back();
+        return back()->with('flash_message', '投稿を作成しました！');
     }
 
     private function syncTags(Post $post, array $tagNames)
