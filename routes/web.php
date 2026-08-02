@@ -11,7 +11,7 @@
 |
 */
 
-// 投稿一覧
+// 投稿一覧,投稿検索
 Route::get('/', 'PostsController@index')->name('posts');
 
 // ユーザ詳細

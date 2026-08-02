@@ -29,16 +29,12 @@
             </div>
             @endif
         </div>
-        {{-- design-update: 画像は任意のため、投稿ごとに画像の有無で崩れないようflexで分岐。画像投稿は未実装のため、id%4==0の投稿にのみダミー画像を表示（デモ用） --}}
-        {{-- design-update: 画面幅ではなくカード自体の幅で横並び/縦積みを切り替えるため、コンテナクエリ用のdu-post-bodyを使用（同じ投稿一覧をトップページとユーザ詳細ページの狭いカラムの両方で使うため） --}}
-        <div class="du-post-body">
-            <p class="du-post-content text-break flex-grow-1">{{ $post->content }}</p>
-            @if ($post->id % 4 === 0)
-            <div class="du-post-image">
-                <i class="fas fa-image"></i>
-            </div>
-            @endif
+        <p class="du-post-content text-break">{{ $post->content }}</p>
+        @if ($post->image !== null)
+        <div class="mb-2">
+            <img class="img-fluid rounded post-image" src="{{ asset('storage/' . $post->image) }}" alt="投稿画像">
         </div>
+        @endif
         {{-- design-update: カテゴリ機能は未実装のため、一部の投稿にダミーのカテゴリを表示（見た目のみ） --}}
         @php
             $duCategories = ['マイスポット', '今日の空／気分', 'お役立ち情報', 'マイルーティン', '今日のごはん・おやつ', '珍しい名字・地名', 'とりあえずつぶやきたい', 'Laravelとか'];
@@ -59,4 +55,4 @@
     </li>
     @endforeach
 </ul>
-<div class="m-auto" style="width: fit-content">{{ $posts->links('pagination::bootstrap-4') }}</div>
+<div class="m-auto" style="width: fit-content">{{ $posts->appends(request()->query())->links('pagination::bootstrap-4') }}</div>

@@ -10,7 +10,7 @@
 {{-- design-update: 見出しは投稿フォームカードの見出しと重複するためコメントアウト --}}
 {{-- <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5> --}}
 
-<!-- design-update: 投稿フォームをカードデザインに変更。画像追加ボタン・タグ選択は見た目のみで未実装 -->
+<!-- design-update: 投稿フォームをカードデザインに変更 -->
 <div class="du-composer-card w-75 mx-auto mb-4">
     <div class="d-flex align-items-center mb-3">
         {{-- design-update: Gravatarから、丸+頭文字のアバターに変更。Gravatar版はコメントアウトで保持 --}}
@@ -19,23 +19,19 @@
         <span class="du-composer-title">つぶやきたくなったらつぶやくところ</span>
     </div>
     @include('commons.error_messages')
-    <form method="post" action="{{ route('posts.store') }}">
+    <form method="post" action="{{ route('posts.store') }}" enctype="multipart/form-data">
         @csrf
         <!-- design-update: テキストエリア 文字数カウントjavaScript-->
         <div class="form-group position-relative mb-2">
-            <textarea class="form-control du-composer-textarea" name="content" rows="4" maxlength="140" placeholder="140文字以内でなにかつぶやいてみよう。" id="du-post-content" data-char-count-target="du-char-count">{{ old('content') }}</textarea>
+            <textarea class="form-control du-composer-textarea" name="content" rows="4" placeholder="140文字以内でなにかつぶやいてみよう。" id="du-post-content" data-char-count-target="du-char-count" data-char-count-max="140">{{ old('content') }}</textarea>
             <span class="du-char-counter"><span id="du-char-count">0</span>/140</span>
         </div>
-        <!-- design-update: 画像プレビュー＋画像追加ボタン（機能未実装） -->
-        <div class="d-flex flex-column flex-md-row align-items-md-end mb-3">
-            <div class="du-image-column">
-                <div class="du-image-drop">
-                    <i class="fas fa-image"></i>
-                    <span>画像プレビュー</span>
-                </div>
-                <!-- design-update: 画像投稿機能（機能未実装） -->
-                <button type="button" class="du-btn-plain mt-1"><i class="fas fa-image mr-1"></i>画像を追加</button>
-            </div>
+        <!-- 画像アップロード -->
+        <div class="form-group mt-2">
+            <label for="image" class="mb-1 d-block"><i class="fas fa-image mr-1"></i>画像を追加(任意 2MBまで)</label>
+            <input type="file" name="image" id="image" class="file-image-input">
+            <button type="button" id="image-clear" class="btn btn-light d-none btn-outline-secondary btn-sm btn-small">×解除</button>
+        </div>
             {{-- design-update: タグを自由に追加できるハッシュタグ欄。カテゴリ選択ドロップダウンを試すため一旦コメントアウト --}}
             {{--
             <div class="flex-grow-1 mt-3 mt-md-0 ml-md-3">
@@ -63,7 +59,6 @@
                     <option>Laravelとか</option>
                 </select>
             </div>
-        </div>
         <div class="d-flex justify-content-end du-composer-toolbar">
             <button type="submit" class="du-btn-primary du-btn-link">投稿する</button>
         </div>
@@ -73,14 +68,15 @@
 <hr class="du-section-divider w-75 mx-auto mt-4 mb-4">
 @endif
 
-<!-- design-update: 検索窓・タグ絞り込み行を新規追加（機能未実装） -->
+<!-- design-update: 検索窓・タグ絞り込み行を新規追加 -->
 <div class="du-filter-bar w-75 mx-auto mb-4">
     <div class="row align-items-center">
         <!-- design-update: スマホ幅で確実に全幅スタックさせるため col-12 を追加 -->
         <div class="col-12 col-md-4 mb-2 mb-md-0 du-search-wrap">
-            <input type="text" class="form-control du-search-input" placeholder="キーワードで検索（例：ごはん、空、Laravel）">
-            <!-- design-update: 検索ボタン（機能未実装） -->
-            <button type="button" class="du-search-btn"><i class="fas fa-search"></i></button>
+            <form action="{{ route('posts') }}" method="GET">
+                <input type="text" name="keyword" class="form-control du-search-input" placeholder="キーワードで検索（例：ごはん、空、Laravel）" value="{{ $keyword ?? '' }}">
+                <button type="submit" class="du-search-btn"><i class="fas fa-search"></i></button>
+            </form>
         </div>
         <div class="col-12 col-md-8">
             <!-- design-update: タグ検索用 （機能未実装） -->

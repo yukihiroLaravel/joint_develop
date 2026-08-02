@@ -1,6 +1,22 @@
+/* 投稿画像 */
+.post-image {
+    height: 200px;
+    width: auto;
+    object-fit: contain;
+}
+
+.file-image-input {
+    font-size: 0.8rem;
+}
+
+.btn.btn-small {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
+    border: none;
+}
+
 /* =========================================================
    design-update: デザイン変更案 v2.0
-   ブランチ: feature/hirokoK/design_update
    ※ タグ/検索など一部は見た目のみで未実装
    ========================================================= */
 :root {
@@ -293,6 +309,10 @@ body {
     color: var(--du-muted);
 }
 
+.du-char-counter.is-over-limit {
+    color: var(--du-danger);
+}
+
 .du-composer-toolbar {
     margin-top: 0.75rem;
 }
@@ -582,41 +602,6 @@ a {
     color: var(--du-primary-dark);
 }
 
-/* design-update: 投稿文+画像欄のレイアウト。デフォルトは縦積み、カード自体の幅が600px以上のときだけ横並びにする（コンテナクエリ） */
-.du-post-body {
-    display: flex;
-    flex-direction: column;
-}
-
-/* design-update: 投稿一覧の画像欄（見た目のみ・機能なし、任意項目のためレイアウトが崩れないようflexで分岐）*/
-/* design-update: 投稿フォームの画像プレビューと同じ4:3のアスペクト比に統一 */
-.du-post-image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    max-width: 200px;
-    aspect-ratio: 4 / 3;
-    margin-top: 0.5rem;
-    background-color: var(--du-border);
-    border-radius: 0.6rem;
-    color: var(--du-muted);
-    font-size: 1.8rem;
-    flex-shrink: 0;
-}
-
-/* design-update: カードの幅が600px以上のときだけ画像をテキストの右に横並び表示（トップページ用）。600px未満（ユーザ詳細ページ等の狭いカラム）ではテキストの下に表示 */
-@container (min-width: 600px) {
-    .du-post-body {
-        flex-direction: row;
-    }
-
-    .du-post-image {
-        width: 200px;
-        margin-top: 0;
-        margin-left: 1rem;
-    }
-}
 
 /* ===== リアクション ===== */
 .du-reaction-row {
@@ -676,7 +661,7 @@ a {
     max-width: 200px;
     aspect-ratio: 1 / 1;
     height: auto;
-    font-size: min(4rem, 18vw);
+    font-size: clamp(2rem, 18vw, 4rem);
     margin: 0 auto;
     overflow: hidden;
 }

@@ -46,17 +46,20 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-        return redirect()->route('users.show', $userId);
+        return redirect()->route('users.show', $userId)->with('success', 'ユーザ情報を更新しました！');
     }
 
     // ユーザー退会
     public function destroy($userId)
     {
-        $user = User::findOrFail($userId);
-        if (\Auth::id() === $user->id) {
-            $user->delete();
+        if (Auth::id() !== (int)$userId) {
+            abort(403, 'このユーザは編集権限がありません。');
         }
-        return redirect()->route('posts');
+
+        $user = User::findOrFail($userId);
+        $user->delete();
+
+        return redirect()->route('posts')->with('success', '退会しました！');
     }
 
     // フォロー中一覧のメソッド
