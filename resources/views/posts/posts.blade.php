@@ -7,6 +7,14 @@
         </div>
         <div class="">
             <div class="d-inline-block w-75 text-left">
+                {{-- 投稿のタグ --}}
+                @if ($post->tags->isNotEmpty())
+                <div class="mb-2">
+                @foreach ($post->tags as $tag)
+                    <span class="badge badge-secondary mr-1">{{ $tag->type }}</span>
+                @endforeach
+                </div>
+                @endif
                 <p class="mb-2 text-break">{{ $post->content }}</p>
                 {{-- 画像アップロード --}}
                 @if ($post->image !== null)

@@ -21,6 +21,14 @@
             <button type="button" id="image-clear" class="btn btn-light d-none btn-outline-secondary btn-sm btn-small">×解除</button>
 
         </div>
+        <div class="form-group mt-2">
+            @foreach ($tags as $tag)
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" class="form-check-input" name="tags[]" value="{{ $tag->id }}" id="tag-{{ $tag->id }}">
+                    <label class="form-check-label" for="tag-{{ $tag->id }}">{{ $tag->type }}</label>
+                </div>
+            @endforeach
+        </div>
         <div class="text-left mt-3">
             <button type="submit" class="btn btn-primary">投稿する</button>
         </div>
