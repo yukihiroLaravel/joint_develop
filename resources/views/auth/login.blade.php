@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<!-- design-update: ジャンボトロンにはせず、ヘッダーと同じロゴ+文字のみ表示 -->
+<!-- design-update: タイトル+ロゴのみ表示 -->
 <div class="text-center mt-2 pt-1 du-auth-header">
     <h1 class="du-font-title">今日のつぶやき<img src="/images/logo.svg" alt="今日のつぶやきロゴ" class="du-logo-mark"></h1>
 </div>

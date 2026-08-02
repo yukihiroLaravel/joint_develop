@@ -1,4 +1,4 @@
-<ul class="list-unstyled w-75 m-auto">
+<ul class="list-unstyled w-75 du-feed-list m-auto">
     @forelse($followings as $following)
         <li class="mb-3">
             <div class="d-flex align-items-center">

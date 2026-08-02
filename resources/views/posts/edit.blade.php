@@ -34,34 +34,6 @@
             <button type="button" id="image-clear" class="btn btn-light d-none btn-outline-secondary btn-sm btn-small">×解除</button>
         </div>
         @endif
-        {{-- design-update: タグを自由に追加できるハッシュタグ欄。カテゴリ選択ドロップダウンを試すため一旦コメントアウト --}}
-        {{--
-        <div class="flex-grow-1 mt-3 mt-md-0 ml-md-3">
-            <label class="du-hashtag-label mb-1">ハッシュタグ</label>
-            <input type="text" class="form-control du-hashtag-input" placeholder="#ハッシュタグを追加する">
-            <div class="mt-2">
-                <span class="du-tag-pill du-tag-pill-sm">#マイスポット</span>
-                <span class="du-tag-pill du-tag-pill-sm">#今日の空／気分</span>
-                <span class="du-tag-pill du-tag-pill-sm">#お役立ち情報</span>
-                <span class="du-tag-pill du-tag-pill-sm">#マイルーティン</span>
-                <span class="du-tag-pill du-tag-pill-sm">#今日のごはん・おやつ</span>
-            </div>
-        </div>
-        --}}
-        <!-- design-update: カテゴリ選択ドロップダウンに変更（見た目のみ・未実装） -->
-        <div class="flex-grow-1 mt-3 mt-md-0 ml-md-3">
-            <select class="form-control du-hashtag-input">
-                <option>カテゴリを選択（任意）</option>
-                <option>マイスポット</option>
-                <option>今日の空／気分</option>
-                <option>お役立ち情報</option>
-                <option>マイルーティン</option>
-                <option>今日のごはん・おやつ</option>
-                <option>珍しい名字・地名</option>
-                <option>とりあえずつぶやきたい</option>
-                <option>Laravelとか</option>
-            </select>
-        </div>
         <div class="d-flex justify-content-end du-composer-toolbar">
             <button type="submit" class="du-btn-primary du-btn-link">更新する</button>
         </div>

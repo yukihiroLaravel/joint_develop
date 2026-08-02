@@ -1,14 +1,13 @@
 @extends('layouts.app')
 @section('content')
-<!-- design-update: ジャンボトロンをヘッダーと同色に変更、ロゴを追加 -->
+<!-- design-update: ジャンボトロンをヘッダーと同色に変更、ロゴ追加 -->
 <div class="center jumbotron du-hero">
     <div class="text-center mt-2 pt-1">
-        <h1 class="du-font-title">今日のつぶやき<img src="/images/logo.svg" alt="今日のつぶやきロゴ" class="du-logo-mark"></h1>
+        <h1 class="du-font-title"><span class="du-hero-title-part">今日の</span><span class="du-hero-title-part">つぶやき</span><img src="/images/logo.svg" alt="今日のつぶやきロゴ" class="du-logo-mark"></h1>
     </div>
 </div>
 @if (Auth::check())
-{{-- design-update: 見出しは投稿フォームカードの見出しと重複するためコメントアウト --}}
-<h5 class="text-center du-composer-heading mb-3">つぶやきたくなったらつぶやくところ</h5>
+<h5 class="text-center du-composer-heading mb-3">つぶやきたくなったら<br class="d-block d-sm-none">つぶやくところ</h5>
 
 <!-- design-update: 投稿フォームをカードデザインに変更 -->
 <div class="du-composer-card w-75 mx-auto mb-4">
@@ -26,52 +25,10 @@
             <input type="file" name="image" id="image" class="file-image-input">
             <button type="button" id="image-clear" class="btn btn-light d-none btn-outline-secondary btn-sm btn-small">×解除</button>
         </div>
-        {{-- design-update: タグを自由に追加できるハッシュタグ欄。一旦コメントアウト --}}
-        <!-- {{-- -->
-        <div class="flex-grow-1 mt-3 mt-md-0 ml-md-3">
-            <label class="form-label">タグを選択</label>
-            <div>
-                <!-- @foreach($allTags as $tag) -->
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="tags[]" value="tagid" id="tag-id">
-                    <label class="form-check-label" for="tag-id">tag->name</label>
-                </div>
-                <!-- @endforeach -->
-<!-- @foreach($allTags as $tag)
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="tags[]" value="{{ $tag->id }}" id="tag{{ $tag->id }}">
-                    <label class="form-check-label" for="tag{{ $tag->id }}">{{ $tag->name }}</label>
-                </div>
-                @endforeach -->
-            </div>
-<!-- <input type="text" class="form-control du-hashtag-input" placeholder="ハッシュタグを追加する"> -->
-<!-- <div class="mt-2">
-            <span class="du-tag-pill du-tag-pill-sm">#マイスポット</span>
-            <span class="du-tag-pill du-tag-pill-sm">#今日の空／気分</span>
-            <span class="du-tag-pill du-tag-pill-sm">#お役立ち情報</span>
-            <span class="du-tag-pill du-tag-pill-sm">#マイルーティン</span>
-            <span class="du-tag-pill du-tag-pill-sm">#今日のごはん・おやつ</span>
-        </div> -->
+        <div class="d-flex justify-content-end du-composer-toolbar">
+            <button type="submit" class="du-btn-primary du-btn-link">投稿する</button>
         </div>
-<!-- --}} -->
-<!-- design-update: カテゴリ選択ドロップダウン（（機能未実装）） -->
-<!-- <div class="flex-grow-1 mt-3 mt-md-0 ml-md-3">
-    <select class="form-control du-hashtag-input">
-        <option>カテゴリを選択（任意）</option>
-        <option>マイスポット</option>
-        <option>今日の空／気分</option>
-        <option>お役立ち情報</option>
-        <option>マイルーティン</option>
-        <option>今日のごはん・おやつ</option>
-        <option>珍しい名字・地名</option>
-        <option>とりあえずつぶやきたい</option>
-        <option>Laravelとか</option>
-    </select>
-</div> -->
-<div class="d-flex justify-content-end du-composer-toolbar">
-    <button type="submit" class="du-btn-primary du-btn-link">投稿する</button>
-</div>
-</form>
+    </form>
 </div>
 <!-- design-update: 投稿フォームと検索・タグ行の境目をわかりやすくするための区切り線 -->
 <hr class="du-section-divider w-75 mx-auto mt-4 mb-4">
@@ -80,14 +37,14 @@
 <!-- design-update: 検索窓・タグ絞り込み行を新規追加 -->
 <div class="du-filter-bar w-75 mx-auto mb-4">
     <div class="row align-items-center">
-        <!-- design-update: スマホ幅で確実に全幅スタックさせるため col-12 を追加 -->
-        <div class="col-12 col-md-4 mb-2 mb-md-0 du-search-wrap">
+        <!-- design-update: 検索窓とタグをPC・スマホともに縦積みで表示（col-12のみ） -->
+        <div class="col-12 mb-2 du-search-wrap">
             <form action="{{ route('posts') }}" method="GET">
-                <input type="text" name="keyword" class="form-control du-search-input" placeholder="キーワードで検索（例：ごはん、空、Laravel）" value="{{ $keyword ?? '' }}">
+                <input type="text" name="keyword" class="form-control du-search-input" placeholder="キーワードで検索（例：ごはん、Laravel、etc.）" value="{{ $keyword ?? '' }}">
                 <button type="submit" class="du-search-btn"><i class="fas fa-search"></i></button>
             </form>
         </div>
-        <div class="col-12 col-md-8">
+        <div class="col-12">
             <!-- design-update: タグ検索用 （機能未実装） -->
             <a href="#" class="du-tag-pill du-tag-pill-sm" onclick="return false;">#マイスポット</a>
             <a href="#" class="du-tag-pill du-tag-pill-sm" onclick="return false;">#今日の空／気分</a>

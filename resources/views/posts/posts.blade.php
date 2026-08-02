@@ -1,5 +1,5 @@
 <!-- design-update: 投稿一覧をカードデザインに変更 -->
-<ul class="list-unstyled w-75 m-auto">
+<ul class="list-unstyled w-75 du-feed-list m-auto">
     @foreach ($posts as $post)
     <li class="du-post-card mb-4 text-left">
         <div class="d-flex justify-content-between align-items-start flex-wrap">
