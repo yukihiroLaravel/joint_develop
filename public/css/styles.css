@@ -1,8 +1,3 @@
-/* .brand-logo {
-    font-family: 'Kaisei Opti', serif;
-    font-weight: 700;
-} */
-
 .reaction-emoji.is-inactive {
     filter: grayscale(100%) opacity(0.5);
 }
@@ -11,4 +6,21 @@
     display: inline-block;
     min-width: 1em;
     text-align: left;
+}
+
+/* 投稿画像 */
+.post-image {
+    height: 200px;
+    width: auto;
+    object-fit: contain;
+}
+
+.file-image-input {
+    font-size: 0.8rem;
+}
+
+.btn.btn-small {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.5rem;
+    border: none;
 }
