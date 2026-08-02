@@ -367,7 +367,7 @@
 
                                     @foreach ($reaction->replies as $reply)
                                         <div class="mb-2">
-                                            <p class="mb-1">
+                                            <p class="mb-1 text-break">
                                                 {{ $reply->content }}
                                             </p>
 
@@ -400,13 +400,12 @@
                                                     @csrf
                                                     @method('PUT')
 
-                                                    <input
-                                                        type="text"
+                                                    <textarea
                                                         name="content"
                                                         class="form-control mb-2"
-                                                        value="{{ $reply->content }}"
+                                                        rows="3"
                                                         maxlength="100"
-                                                    >
+                                                        >{{ $reply->content }}</textarea>
 
                                                     <button type="submit" class="btn btn-sm btn-primary">
                                                         更新
@@ -447,13 +446,13 @@
                             @csrf
 
                                 <div class="form-group mt-3">
-                                    <input
-                                        type="text"
+                                    <textarea
                                         name="content"
                                         class="form-control"
+                                        rows="2"
                                         maxlength="100"
                                         placeholder="返信を書く（100文字以内) "
-                                    >
+                                    ></textarea>
 
                                     @error('content')
                                         <div class="alert alert-danger mt-2">

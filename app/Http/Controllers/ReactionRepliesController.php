@@ -14,15 +14,13 @@ class ReactionRepliesController extends Controller
     {
         $reaction = Reaction::findOrFail($reactionId);
 
-        $reply = ReactionReply::create([
+        ReactionReply::create([
             'reaction_id' => $reaction->id,
             'user_id' => Auth::id(),
             'content' => $request->content,
         ]);
 
-
-
-        return redirect('/posts/' . $id);
+        return redirect()->route('post.show', ['id' => $id]);
     }
 
     public function destroy($id, $reactionId, $replyId)
@@ -44,15 +42,14 @@ class ReactionRepliesController extends Controller
         $reply = ReactionReply::findOrFail($replyId);
 
         //  本人だけ更新可能
-        if (Auth::id() !== $reply->user_id)
-            {
-                abort(403);
-            }
+        if (Auth::id() !== $reply->user_id) {
+            abort(403);
+        }
 
-            $reply->update([
-                'content' => $request->content,
-            ]);
+        $reply->update([
+            'content' => $request->content,
+        ]);
 
-                return redirect()->back();
+        return redirect()->back();
     }
 }
