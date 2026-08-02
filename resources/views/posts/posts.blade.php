@@ -4,7 +4,7 @@
     <li class="du-post-card mb-4 text-left">
         <div class="d-flex justify-content-between align-items-start flex-wrap">
             <div class="d-flex align-items-center">
-                {{-- design-update: Gravatarから、丸+頭文字のアバターに変更。Gravatar版はコメントアウトで保持 --}}
+                {{-- design-update: Gravatarから、丸+頭文字のアバターに変更。Gravatar版はコメントアウト --}}
                 {{-- <img class="du-post-avatar" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像"> --}}
                 <span class="du-avatar-initial du-post-avatar du-avatar-c{{ $post->user->id % 6 }}">{{ mb_substr($post->user->name, 0, 1) }}</span>
                 <div>
@@ -31,14 +31,14 @@
         </div>
         <p class="du-post-content text-break">{{ $post->content }}</p>
         @if ($post->image !== null)
-        <div class="mb-2">
+        <div class="mt-2 mb-2">
             <img class="img-fluid rounded post-image" src="{{ asset('storage/' . $post->image) }}" alt="投稿画像">
         </div>
         @endif
         {{-- design-update: カテゴリ機能は未実装のため、一部の投稿にダミーのカテゴリを表示（見た目のみ） --}}
         @php
-            $duCategories = ['マイスポット', '今日の空／気分', 'お役立ち情報', 'マイルーティン', '今日のごはん・おやつ', '珍しい名字・地名', 'とりあえずつぶやきたい', 'Laravelとか'];
-            $duCategory = $duCategories[$post->id % count($duCategories)];
+        $duCategories = ['マイスポット', '今日の空／気分', 'お役立ち情報', 'マイルーティン', '今日のごはん・おやつ', '珍しい名字・地名', 'とりあえずつぶやきたい', 'Laravelとか'];
+        $duCategory = $duCategories[$post->id % count($duCategories)];
         @endphp
         <span class="du-tag-pill du-tag-pill-sm du-post-category">#{{ $duCategory }}</span>
         <div class="du-reaction-row">

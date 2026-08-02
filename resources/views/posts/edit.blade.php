@@ -1,13 +1,9 @@
 @extends('layouts.app')
 @section('content')
+<h2 class="text-center du-composer-heading mt-4 mb-3">投稿を編集する</h2>
+
 <!-- design-update: 編集画面をトップページの投稿フォームと同じカードデザインに統一 -->
-<div class="du-composer-card w-75 mx-auto mt-4 mb-4">
-    <div class="d-flex align-items-center mb-3">
-        {{-- design-update: Gravatarから、丸+頭文字のアバターに変更。Gravatar版はコメントアウトで保持 --}}
-        {{-- <img class="du-composer-avatar" src="{{ Gravatar::src(Auth::user()->email, 40) }}" alt="ユーザのアバター画像"> --}}
-        <span class="du-avatar-initial du-composer-avatar du-avatar-c{{ Auth::id() % 6 }}">{{ mb_substr(Auth::user()->name, 0, 1) }}</span>
-        <span class="du-composer-title">投稿を編集する</span>
-    </div>
+<div class="du-composer-card w-75 mx-auto mb-4">
     @include('commons.error_messages')
     <form method="POST" action="{{ route('post.update', $post->id) }}" enctype="multipart/form-data">
         @csrf

@@ -16,8 +16,7 @@
 }
 
 /* =========================================================
-   design-update: デザイン変更案 v2.0
-   ※ タグ/検索など一部は見た目のみで未実装
+    design-update: デザイン変更
    ========================================================= */
 :root {
     /* ベースカラー（teal） */
@@ -143,7 +142,7 @@ body {
     align-items: center;
 }
 
-/* design-update: ヘッダーのリンクはログアウト状態も含めホバー時に太字（色は変えない） */
+/* design-update: ヘッダーのリンク ホバー時に太字 */
 .du-header .nav-link:hover {
     text-decoration: none;
     font-weight: 700;
@@ -163,6 +162,8 @@ body {
     white-space: normal;
     text-align: center;
     font-family: 'Zen Maru Gothic', sans-serif;
+    margin-top: .7rem;
+    margin-bottom: .7rem;
 }
 
 /* ===== ジャンボトロン（常時表示・ヘッダーと同色） ===== */
@@ -282,12 +283,13 @@ body {
     margin-right: 0.6rem;
 }
 
-/* Zen Maru Gothic に変更 */
-.du-composer-title {
+/* design-update: 投稿フォームカードの上に置く見出し（Zen Maru Gothic）。旧du-composer-titleから改名・カード外に移動 */
+.du-composer-heading {
     font-family: 'Zen Maru Gothic', sans-serif;
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     color: var(--du-text);
+    letter-spacing: 0.05em;
 }
 
 .du-composer-textarea {
@@ -340,8 +342,6 @@ body {
 }
 
 /* design-update: 「画像を追加」はピル形状にせず、ラベルと同じ枠なしのプレーンな見た目に変更 */
-/* design-update: 画像プレビュー欄（200px）と幅を揃え、真下に配置したときに列が揃って見えるようにする */
-/* design-update: 画像プレビューのすぐ下・左寄せになるよう調整 */
 .du-btn-plain {
     background: none;
     border: none;
@@ -540,10 +540,10 @@ a {
 }
 
 .du-post-user-name {
-    font-weight: 700;
+    font-weight: 500;
     color: var(--du-text);
     font-family: 'Zen Maru Gothic', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
 }
 
 /* design-update: ユーザー名ホバー時は太字に変更（色・下線は変えない） */
@@ -581,12 +581,12 @@ a {
     color: var(--du-muted);
 }
 
-/* design-update: 投稿文にZen Maru Gothicを適用 */
+/* design-update: 投稿文のフォント */
 .du-post-content {
     margin-top: 0.75rem;
     margin-bottom: 0;
     white-space: pre-wrap;
-    font-family: 'Zen Maru Gothic', sans-serif;
+    font-family: 'Noto Sans JP', sans-serif;
 }
 
 /* design-update: カテゴリ機能は未実装のため、投稿文の下にダミー表示するカテゴリバッジ */
@@ -652,6 +652,7 @@ a {
 .du-profile-card .card-title {
     color: #fff;
     font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 1.5em;
 }
 
 /* design-update: プロフィールページの大きいアバター（丸+頭文字）。中央寄せのためblock+flexに変更。カード幅が200pxより狭いときにはみ出さないよう幅に応じて縮小 */

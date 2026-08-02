@@ -8,16 +8,10 @@
 </div>
 @if (Auth::check())
 {{-- design-update: 見出しは投稿フォームカードの見出しと重複するためコメントアウト --}}
-{{-- <h5 class="text-center mb-3">"○○"について140字以内で会話しよう！</h5> --}}
+<h5 class="text-center du-composer-heading mb-3">つぶやきたくなったらつぶやくところ</h5>
 
 <!-- design-update: 投稿フォームをカードデザインに変更 -->
 <div class="du-composer-card w-75 mx-auto mb-4">
-    <div class="d-flex align-items-center mb-3">
-        {{-- design-update: Gravatarから、丸+頭文字のアバターに変更。Gravatar版はコメントアウトで保持 --}}
-        {{-- <img class="du-composer-avatar" src="{{ Gravatar::src(Auth::user()->email, 40) }}" alt="ユーザのアバター画像"> --}}
-        <span class="du-avatar-initial du-composer-avatar du-avatar-c{{ Auth::id() % 6 }}">{{ mb_substr(Auth::user()->name, 0, 1) }}</span>
-        <span class="du-composer-title">つぶやきたくなったらつぶやくところ</span>
-    </div>
     @include('commons.error_messages')
     <form method="post" action="{{ route('posts.store') }}" enctype="multipart/form-data">
         @csrf
@@ -32,37 +26,52 @@
             <input type="file" name="image" id="image" class="file-image-input">
             <button type="button" id="image-clear" class="btn btn-light d-none btn-outline-secondary btn-sm btn-small">×解除</button>
         </div>
-            {{-- design-update: タグを自由に追加できるハッシュタグ欄。カテゴリ選択ドロップダウンを試すため一旦コメントアウト --}}
-            {{--
-            <div class="flex-grow-1 mt-3 mt-md-0 ml-md-3">
-                <input type="text" class="form-control du-hashtag-input" placeholder="ハッシュタグを追加する">
-                <div class="mt-2">
-                    <span class="du-tag-pill du-tag-pill-sm">#マイスポット</span>
-                    <span class="du-tag-pill du-tag-pill-sm">#今日の空／気分</span>
-                    <span class="du-tag-pill du-tag-pill-sm">#お役立ち情報</span>
-                    <span class="du-tag-pill du-tag-pill-sm">#マイルーティン</span>
-                    <span class="du-tag-pill du-tag-pill-sm">#今日のごはん・おやつ</span>
+        {{-- design-update: タグを自由に追加できるハッシュタグ欄。一旦コメントアウト --}}
+        <!-- {{-- -->
+        <div class="flex-grow-1 mt-3 mt-md-0 ml-md-3">
+            <label class="form-label">タグを選択</label>
+            <div>
+                <!-- @foreach($allTags as $tag) -->
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="tags[]" value="tagid" id="tag-id">
+                    <label class="form-check-label" for="tag-id">tag->name</label>
                 </div>
+                <!-- @endforeach -->
+<!-- @foreach($allTags as $tag)
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="tags[]" value="{{ $tag->id }}" id="tag{{ $tag->id }}">
+                    <label class="form-check-label" for="tag{{ $tag->id }}">{{ $tag->name }}</label>
+                </div>
+                @endforeach -->
             </div>
-            --}}
-            <!-- design-update: カテゴリ選択ドロップダウン（（機能未実装）） -->
-            <div class="flex-grow-1 mt-3 mt-md-0 ml-md-3">
-                <select class="form-control du-hashtag-input">
-                    <option>カテゴリを選択（任意）</option>
-                    <option>マイスポット</option>
-                    <option>今日の空／気分</option>
-                    <option>お役立ち情報</option>
-                    <option>マイルーティン</option>
-                    <option>今日のごはん・おやつ</option>
-                    <option>珍しい名字・地名</option>
-                    <option>とりあえずつぶやきたい</option>
-                    <option>Laravelとか</option>
-                </select>
-            </div>
-        <div class="d-flex justify-content-end du-composer-toolbar">
-            <button type="submit" class="du-btn-primary du-btn-link">投稿する</button>
+<!-- <input type="text" class="form-control du-hashtag-input" placeholder="ハッシュタグを追加する"> -->
+<!-- <div class="mt-2">
+            <span class="du-tag-pill du-tag-pill-sm">#マイスポット</span>
+            <span class="du-tag-pill du-tag-pill-sm">#今日の空／気分</span>
+            <span class="du-tag-pill du-tag-pill-sm">#お役立ち情報</span>
+            <span class="du-tag-pill du-tag-pill-sm">#マイルーティン</span>
+            <span class="du-tag-pill du-tag-pill-sm">#今日のごはん・おやつ</span>
+        </div> -->
         </div>
-    </form>
+<!-- --}} -->
+<!-- design-update: カテゴリ選択ドロップダウン（（機能未実装）） -->
+<!-- <div class="flex-grow-1 mt-3 mt-md-0 ml-md-3">
+    <select class="form-control du-hashtag-input">
+        <option>カテゴリを選択（任意）</option>
+        <option>マイスポット</option>
+        <option>今日の空／気分</option>
+        <option>お役立ち情報</option>
+        <option>マイルーティン</option>
+        <option>今日のごはん・おやつ</option>
+        <option>珍しい名字・地名</option>
+        <option>とりあえずつぶやきたい</option>
+        <option>Laravelとか</option>
+    </select>
+</div> -->
+<div class="d-flex justify-content-end du-composer-toolbar">
+    <button type="submit" class="du-btn-primary du-btn-link">投稿する</button>
+</div>
+</form>
 </div>
 <!-- design-update: 投稿フォームと検索・タグ行の境目をわかりやすくするための区切り線 -->
 <hr class="du-section-divider w-75 mx-auto mt-4 mb-4">
