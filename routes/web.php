@@ -69,8 +69,16 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('posts', 'AdminController@posts')->name('admin.posts');
     Route::delete('users/{id}', 'AdminController@destroyUser')->name('admin.users.destroy');
     Route::patch('users/{id}/restore', 'AdminController@restoreUser')->name('admin.users.restore');
+    Route::patch('users/{id}/grant-admin', 'AdminController@grantAdmin')->name('admin.users.grant-admin');
     Route::delete('posts/{id}', 'AdminController@destroyPost')->name('admin.posts.destroy');
     Route::patch('posts/{id}/restore', 'AdminController@restorePost')->name('admin.posts.restore');
     Route::delete('posts/{id}/force', 'AdminController@forceDeletePost')->name('admin.posts.force-delete');
     Route::delete('users/{id}/force', 'AdminController@forceDeleteUser')->name('admin.users.force-delete');
+    // 管理者アカウント管理
+    Route::get('admins', 'AdminUserController@index')->name('admin.admins.index');
+    Route::get('admins/create', 'AdminUserController@create')->name('admin.admins.create');
+    Route::post('admins', 'AdminUserController@store')->name('admin.admins.store');
+    Route::get('admins/{id}/edit', 'AdminUserController@edit')->name('admin.admins.edit');
+    Route::put('admins/{id}', 'AdminUserController@update')->name('admin.admins.update');
+    Route::patch('admins/{id}/revoke', 'AdminUserController@revoke')->name('admin.admins.revoke');
 });
