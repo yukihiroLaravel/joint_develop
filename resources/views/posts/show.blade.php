@@ -392,7 +392,7 @@
                                                 <form
                                                     id="edit-reply-{{ $reply->id }}"
                                                     method="POST"
-                                                    action="{{ route('reaction_replies.update', [$post->id, $reaction->id, $reply->id]) }}"
+                                                    action="{{ route('reaction_replies.update', $reply->id) }}"
                                                     class="mt-2"
                                                     style="display:none;"
 
@@ -422,7 +422,7 @@
                                             @if (Auth::id() === $reply->user_id)
                                                 <form
                                                     method="POST"
-                                                    action="{{ route('reaction_replies.destroy', [$post->id, $reaction->id, $reply->id] ) }}"
+                                                    action="{{ route('reaction_replies.destroy', $reply->id) }}"
                                                     class="mt-2"
                                                 >
                                                     @csrf

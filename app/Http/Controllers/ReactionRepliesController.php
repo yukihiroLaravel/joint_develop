@@ -23,7 +23,7 @@ class ReactionRepliesController extends Controller
         return redirect()->route('post.show', ['id' => $id]);
     }
 
-    public function destroy($id, $reactionId, $replyId)
+    public function destroy($replyId)
     {
         $reply = ReactionReply::findOrFail($replyId);
 
@@ -37,7 +37,7 @@ class ReactionRepliesController extends Controller
         return redirect()->back();
     }
 
-    public function update(ReactionReplyRequest $request, $id, $reactionId, $replyId)
+    public function update(ReactionReplyRequest $request, $replyId)
     {
         $reply = ReactionReply::findOrFail($replyId);
 
