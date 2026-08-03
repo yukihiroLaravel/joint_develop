@@ -1,4 +1,4 @@
-<!-- design-update: 左：テキストとロゴ表示。右：ログイン中は丸+頭文字アイコンを表示。画面上部に固定表示 -->
+{{-- design-update: 左：テキストとロゴ表示。右：ログイン中は丸+頭文字アイコンを表示。画面上部に固定表示 --}}
 <header class="fixed-top du-header-shadow">
     <nav class="navbar navbar-expand-sm navbar-dark du-header">
         <a class="navbar-brand du-logo du-font-title" href="/">今日のつぶやき<img src="/images/logo.svg" alt="今日のつぶやきロゴ" class="du-logo-mark"></a>

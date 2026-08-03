@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<!-- design-update: 見出しのフォントとボタンの色を変更 -->
+{{-- design-update: 見出しのフォントとボタンの色を変更 --}}
 <div class="text-center">
     <h2 class="du-auth-title text-left d-inline-block mt-5 mb-3">ユーザ情報を編集する</h2>
 </div>
