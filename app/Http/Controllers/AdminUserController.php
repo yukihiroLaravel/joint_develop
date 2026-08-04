@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminUserRequest;
 use App\User;
+use App\Post;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -72,6 +74,37 @@ class AdminUserController extends Controller
 
         $admin->is_admin = false;
         $admin->save();
+
+        return redirect()->route('admin.admins.index');
+    }
+    
+    public function forceDelete($id)
+    {
+        $admin = User::where('is_admin', true)->findOrFail($id);
+
+        if (Auth::id() === $admin->id) {
+            abort(403);
+        }
+
+        if (User::where('is_admin', true)->count() <= 1) {
+            abort(403);
+        }
+
+        $posts = Post::withTrashed()
+            ->where('user_id', $admin->id)
+            ->get();
+
+        foreach ($posts as $post) {
+            if ($post->image_path) {
+                Storage::disk('public')->delete($post->image_path);
+            }
+        }
+
+        if ($admin->avatar) {
+            Storage::disk('public')->delete($admin->avatar);
+        }
+
+        $admin->forceDelete();
 
         return redirect()->route('admin.admins.index');
     }

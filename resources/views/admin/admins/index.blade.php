@@ -56,6 +56,20 @@
                                         権限を外す
                                     </button>
                                 </form>
+
+                                <form
+                                    method="POST"
+                                    action="{{ route('admin.admins.force-delete', $admin->id) }}"
+                                    class="d-inline"
+                                    onsubmit="return confirm('この管理者アカウントを完全削除しますか？投稿・リアクション・画像も元に戻せません。');"
+                                >
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit" class="btn btn-sm btn-dark">
+                                        完全削除
+                                    </button>
+                                </form>
                             @else
                                 <span class="text-muted">-</span>
                             @endif
