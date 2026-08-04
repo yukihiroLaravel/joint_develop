@@ -32,10 +32,10 @@ class PostsController extends Controller
         }
 
         $posts = $query->orderBy('id', 'desc')->paginate(10);
-        // 投稿の際にタグを表示
-        $tags = Tag::all();
+        // タグを表示
+        $allTags = Tag::all();
 
-        return view('welcome', ['posts' => $posts, 'keyword' => $keyword, 'tags' => $tags]);
+        return view('welcome', ['posts' => $posts, 'keyword' => $keyword, 'allTags' => $allTags]);
     }
 
     // 新規投稿
