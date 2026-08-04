@@ -54,7 +54,18 @@ Route::prefix('posts')->middleware('auth')->group(function () {
         Route::post('', 'ReactionsController@store')->name('reaction.store');
         Route::post('encouragement', 'ReactionsController@encourage')->name('reaction.encourage');
         Route::delete('', 'ReactionsController@destroy')->name('reaction.destroy');
+        //  ハゲマシへの返信投稿
+        Route::post('{reaction}/replies', 'ReactionRepliesController@store')
+            ->name('reaction_replies.store');
     });
+
+    // ハゲマシへの返信削除
+    Route::delete('replies/{replyId}', 'ReactionRepliesController@destroy')
+        ->name('reaction_replies.destroy');
+
+    // ハゲマシへの返信更新
+    Route::put('replies/{replyId}', 'ReactionRepliesController@update')
+        ->name('reaction_replies.update');
 
     Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
     Route::put('{id}', 'PostsController@update')->name('post.update');

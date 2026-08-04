@@ -201,7 +201,7 @@ class PostsController extends Controller
             ->first();
 
         $encouragementReactions = $post->reactions()
-            ->with('user')
+            ->with(['user', 'replies.user'])
             ->whereHas('user')
             ->whereNotNull('encouragement')
             ->where('encouragement', '<>', '')
