@@ -53,7 +53,6 @@ Route::prefix('posts')->middleware('auth')->group(function () {
     Route::prefix('{id}/reactions')->group(function () {
         Route::post('', 'ReactionsController@store')->name('reaction.store');
         Route::post('encouragement', 'ReactionsController@encourage')->name('reaction.encourage');
-        Route::delete('', 'ReactionsController@destroy')->name('reaction.destroy');
         //  ハゲマシへの返信投稿
         Route::post('{reaction}/replies', 'ReactionRepliesController@store')
             ->name('reaction_replies.store');
