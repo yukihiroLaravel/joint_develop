@@ -67,7 +67,22 @@
                             @elseif (! $user->is_admin)
                                 <form
                                     method="POST"
+                                    action="{{ route('admin.users.grant-admin', $user->id) }}"
+                                    class="d-inline"
+                                    onsubmit="return confirm('このユーザーを管理者にしますか？');"
+                                >
+                                    @csrf
+                                    @method('PATCH')
+
+                                    <button type="submit" class="btn btn-sm btn-primary">
+                                        管理者にする
+                                    </button>
+                                </form>
+
+                                <form
+                                    method="POST"
                                     action="{{ route('admin.users.destroy', $user->id) }}"
+                                    class="d-inline"
                                     onsubmit="return confirm('このユーザーを強制退会させますか？');"
                                 >
                                     @csrf

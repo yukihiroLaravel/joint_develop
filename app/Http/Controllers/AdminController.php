@@ -137,4 +137,18 @@ class AdminController extends Controller
 
         return redirect()->route('admin.users');
     }
+
+    public function grantAdmin($id)
+    {
+        $user = User::findOrFail($id);
+
+        if ($user->is_admin) {
+            abort(403);
+        }
+
+        $user->is_admin = true;
+        $user->save();
+
+        return redirect()->route('admin.users');
+    }
 }
