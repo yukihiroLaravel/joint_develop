@@ -6,6 +6,7 @@ use App\Post;
 use App\Reaction;
 use App\Http\Requests\ReactionRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\ReactionReceived;
 
 class ReactionsController extends Controller
 {
@@ -27,6 +28,12 @@ class ReactionsController extends Controller
                 'encouragement' => optional($reaction)->encouragement,
             ]
         );
+
+        if (! $reaction && $post->user_id !== Auth::id()) {
+            $post->user->notify(
+                new ReactionReceived($post, Auth::user(), $request->reaction_type)
+            );
+        }
 
         return back()
             ->withInput($request->only('encouragement'))
