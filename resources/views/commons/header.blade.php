@@ -27,6 +27,8 @@
                 @if (Auth::check())
                     <li class="nav-item"><a href= "{{ route('user.show', Auth::id()) }}" class="nav-link text-light">マイページ：{{ Auth::user()->name }}</a></li>
 
+                    @include('commons.notification_bell')
+
                     @if (Auth::user()->is_admin)
                         <li class="nav-item"><a href="{{ route('admin.index') }}" class="nav-link text-light">管理者画面</a></li>
                     @endif

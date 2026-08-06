@@ -46,6 +46,12 @@ Route::prefix('users')->group(function () {
     Route::delete('{id}', 'UsersController@destroy')->name('user.destroy')->middleware('auth');
 });
 
+// 通知
+Route::prefix('notifications')->middleware('auth')->group(function () {
+    Route::get('', 'NotificationsController@index')->name('notifications.index');
+    Route::patch('{id}/read', 'NotificationsController@markNotificationAsRead')->name('notifications.read');
+});
+
 // 投稿
 Route::prefix('posts')->middleware('auth')->group(function () {
     Route::get('{id}', 'PostsController@show')->name('post.show');
