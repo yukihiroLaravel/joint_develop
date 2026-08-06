@@ -45,7 +45,7 @@ function setupCharCounter(textarea) {
 }
 
 // ページトップへ戻るボタン
-var scrollToTopButton = document.getElementById('scroll-to-top');
+var scrollToTopButton = document.querySelector('.js-scroll-to-top');
 if (scrollToTopButton) {
     window.addEventListener('scroll', function () {
         if (window.scrollY > 300) { // スクロール位置が300pxを超えたら表示
@@ -62,7 +62,7 @@ if (scrollToTopButton) {
 
 // リアクションを押した時に同じ位置に移動する
 // 1.リアクションフォーム送信時に位置を保存
-document.querySelectorAll('.reaction-form').forEach(function (form) {
+document.querySelectorAll('.js-reaction-form').forEach(function (form) {
     form.addEventListener('submit', function () {
         sessionStorage.setItem('scrollPosition', window.scrollY);
     });

@@ -618,8 +618,7 @@ body {
     text-decoration: none;
 }
 
-/* design-update: チェック時・選択中（タグ検索リンク）は塗りつぶし表示に反転 */
-.du-tag-checkbox:checked+.du-tag-pill-label,
+/* design-update: 選択中（タグ検索リンク）は塗りつぶし表示に反転 */
 .du-tag-pill-label.is-active {
     background-color: var(--du-primary);
     border-color: var(--du-primary);
@@ -631,9 +630,48 @@ body {
     color: #fff;
 }
 
-.du-tag-checkbox:focus-visible+.du-tag-pill-label {
-    outline: 2px solid var(--du-primary-dark);
+/* design-update: 投稿フォームのタグ選択（チェックボックス）。検索の絞り込みタグ（teal）と区別するため青系にする */
+.du-tag-select-pill {
+    display: inline-block;
+    background-color: var(--du-card);
+    border: 1px solid var(--du-blue);
+    border-radius: 999px;
+    padding: 0.2rem 0.7rem;
+    font-size: 0.75rem;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    color: var(--du-blue);
+    margin: 0.2rem 0.3rem 0.2rem 0;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.du-tag-select-pill:hover {
+    background-color: var(--du-blue-soft);
+    color: #fff;
+}
+
+.du-tag-checkbox:checked+.du-tag-select-pill {
+    background-color: var(--du-blue);
+    border-color: var(--du-blue);
+    color: #fff;
+}
+
+.du-tag-checkbox:focus-visible+.du-tag-select-pill {
+    outline: 2px solid var(--du-blue);
     outline-offset: 2px;
+}
+
+/* design-update: 投稿カード内のタグ表示。検索欄の絞り込みタグ（枠線+白背景）と区別するため、枠なし+塗りつぶしのコンパクトな見た目にする */
+.du-post-tag-pill {
+    display: inline-block;
+    background-color: var(--du-primary-tint);
+    border: none;
+    border-radius: 999px;
+    padding: 0.1rem 0.5rem;
+    font-size: 0.7rem;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    color: var(--du-primary-dark);
+    margin: 0.1rem 0.2rem 0.1rem 0;
 }
 
 /* ===== 投稿カード ===== */
