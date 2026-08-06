@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Post;
+use App\Tag;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostsRequest;
 use Illuminate\Support\Facades\Storage;
@@ -14,6 +15,7 @@ class PostsController extends Controller
     public function index(Request $request)
     {
         $query = Post::with('reactions');
+        $query->with('tags');
 
         $keyword = $request->input('keyword');
 
@@ -30,8 +32,10 @@ class PostsController extends Controller
         }
 
         $posts = $query->orderBy('id', 'desc')->paginate(10);
+        // タグを表示
+        $allTags = Tag::all();
 
-        return view('welcome', ['posts' => $posts, 'keyword' => $keyword]);
+        return view('welcome', ['posts' => $posts, 'keyword' => $keyword, 'allTags' => $allTags]);
     }
 
     // 新規投稿
@@ -46,6 +50,11 @@ class PostsController extends Controller
         $post->image = $imagePath;
 
         $post->save();
+
+        // タグ付け
+        // 投稿にタグを紐付ける(チェックボックスで選択されたタグIDの配列をそのまま渡す)
+        $post->tags()->attach($request->tags ?? []);
+
         return back()->with('success', '投稿しました！');
     }
 

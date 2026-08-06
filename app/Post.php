@@ -24,4 +24,10 @@ class Post extends Model
     {
         return $this->reactions->contains('user_id', $userId);
     }
+
+    // タグの情報を取得
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag'); 
+    }
 }

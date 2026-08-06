@@ -12,6 +12,14 @@
             </div>
             <span class="du-post-time">{{ $post->created_at->format('Y/m/d H:i') }}</span>
         </div>
+         {{-- 投稿のタグ --}}
+            @if ($post->tags->isNotEmpty())
+                <div class="mb-2">
+                @foreach ($post->tags as $tag)
+                    <span class="badge badge-secondary mr-1">{{ $tag->type }}</span>
+                @endforeach
+                </div>
+            @endif
         <p class="du-post-content text-break">{{ $post->content }}</p>
         @if ($post->image !== null)
         <div class="mt-2 mb-2">
