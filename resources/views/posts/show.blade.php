@@ -259,27 +259,6 @@
 
             {{-- To Minamiさん：上の各ボタンの下にリアクション集計をそれぞれ表示させるイメージかと思います --}}
 
-            @if ($myReaction)
-                <form
-                    method="POST"
-                    action="{{ route('reaction.destroy', $post->id) }}"
-                    class="mb-4 d-flex align-items-center"
-                >
-                    @csrf
-                    @method('DELETE')
-
-                    <button type="submit" class="btn btn-danger mr-3">
-                        リアクションを取り消す
-                    </button>
-
-                    @if ($myReaction->encouragement)
-                        <span class="text-muted">
-                            ※ハゲマシも消えます
-                        </span>
-                    @endif
-                </form>
-            @endif
-
             <div class="form-group">
                 <label for="encouragement" class="font-weight-bold h5">
                     ひとことハゲマシ
