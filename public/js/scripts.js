@@ -43,3 +43,34 @@ function setupCharCounter(textarea) {
     textarea.addEventListener('input', updateCount);
     updateCount();
 }
+
+// ページトップへ戻るボタン
+var scrollToTopButton = document.getElementById('scroll-to-top');
+if (scrollToTopButton) {
+    window.addEventListener('scroll', function () {
+        if (window.scrollY > 300) { // スクロール位置が300pxを超えたら表示
+            scrollToTopButton.classList.add('is-visible');
+        } else {
+            scrollToTopButton.classList.remove('is-visible');
+        }
+    });
+
+    scrollToTopButton.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // スムーズにトップへスクロール
+    });
+}
+
+// リアクションを押した時に同じ位置に移動する
+// 1.リアクションフォーム送信時に位置を保存
+document.querySelectorAll('.reaction-form').forEach(function (form) {
+    form.addEventListener('submit', function () {
+        sessionStorage.setItem('scrollPosition', window.scrollY);
+    });
+});
+
+// 2.ページ読み込み時に位置を復元
+var savedScrollPosition =  sessionStorage.getItem('scrollPosition');
+if (savedScrollPosition) {
+    window.scrollTo({ top: parseInt(savedScrollPosition), behavior: 'auto' });
+    sessionStorage.removeItem('scrollPosition');
+}

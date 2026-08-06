@@ -154,8 +154,167 @@ body {
     white-space: normal;
     text-align: center;
     font-family: 'Zen Maru Gothic', sans-serif;
-    margin-top: .5rem;
-    margin-bottom: .5rem;
+}
+
+/* design-update: topに戻るボタンを右下に固定表示 */
+.scroll-to-top {
+    position: fixed;
+    bottom: 60px;
+    right: 40px;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s ease, visibility .3s ease;
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+.scroll-to-top.is-visible {
+    opacity: 1;
+    visibility: visible;
+    animation: scroll-to-top-bounce 6s linear infinite;
+}
+
+.scroll-to-top-icon {
+    height: 90px;
+    width: auto;
+}
+
+/* design-update: スマホ幅ではトップに戻るボタンを画面端に寄せる */
+@media (max-width: 575.98px) {
+    .scroll-to-top {
+        right: 16px;
+    }
+
+    .scroll-to-top-icon {
+        height: 70px;
+        width: auto;
+    }
+}
+
+.scroll-to-top::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    right: 50%;
+    transform: translateX(50%);
+    margin-bottom: 8px;
+    padding: 4px 8px;
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    font-size: 0.75rem;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 600;
+    white-space: nowrap;
+    border-radius: 4px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease;
+}
+
+.scroll-to-top:hover::after {
+    opacity: 1;
+}
+
+@keyframes scroll-to-top-bounce {
+
+    0%,
+    100% {
+        transform: translate(-24px, 0);
+    }
+
+    4.17% {
+        transform: translate(-20px, -14px);
+    }
+
+    8.33% {
+        transform: translate(-16px, -20px);
+    }
+
+    12.5% {
+        transform: translate(-12px, -14px);
+    }
+
+    16.67% {
+        transform: translate(-8px, 0);
+    }
+
+    20.83% {
+        transform: translate(-4px, -14px);
+    }
+
+    25% {
+        transform: translate(0, -20px);
+    }
+
+    29.17% {
+        transform: translate(4px, -14px);
+    }
+
+    33.33% {
+        transform: translate(8px, 0);
+    }
+
+    37.5% {
+        transform: translate(12px, -14px);
+    }
+
+    41.67% {
+        transform: translate(16px, -20px);
+    }
+
+    45.83% {
+        transform: translate(20px, -14px);
+    }
+
+    50% {
+        transform: translate(24px, 0);
+    }
+
+    54.17% {
+        transform: translate(20px, -14px);
+    }
+
+    58.33% {
+        transform: translate(16px, -20px);
+    }
+
+    62.5% {
+        transform: translate(12px, -14px);
+    }
+
+    66.67% {
+        transform: translate(8px, 0);
+    }
+
+    70.83% {
+        transform: translate(4px, -14px);
+    }
+
+    75% {
+        transform: translate(0, -20px);
+    }
+
+    79.17% {
+        transform: translate(-4px, -14px);
+    }
+
+    83.33% {
+        transform: translate(-8px, 0);
+    }
+
+    87.5% {
+        transform: translate(-12px, -14px);
+    }
+
+    91.67% {
+        transform: translate(-16px, -20px);
+    }
+
+    95.83% {
+        transform: translate(-20px, -14px);
+    }
 }
 
 /* ===== ジャンボトロン（常時表示・ヘッダーと同色） ===== */
@@ -332,8 +491,14 @@ body {
 .du-btn-link:focus:not(:focus-visible),
 .du-btn-muted:focus:not(:focus-visible),
 .du-btn-danger:focus:not(:focus-visible),
-.du-follow-pill:focus:not(:focus-visible) {
+.du-follow-pill:focus:not(:focus-visible),
+.scroll-to-top:focus:not(:focus-visible) {
     outline: none;
+}
+
+.reaction-btn:focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
 }
 
 /* design-update: ボタンの状態（通常/ホバー/押下）を定義 */
@@ -596,6 +761,15 @@ a {
 /* design-update: 未リアクション時はグレーアウト */
 .du-reaction-emoji.is-inactive {
     filter: grayscale(100%) opacity(0.5);
+}
+
+.du-reaction-emoji {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.reaction-btn:hover .du-reaction-emoji {
+    transform: translateY(-3px);
 }
 
 .du-reaction-count {

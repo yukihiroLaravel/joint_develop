@@ -16,7 +16,7 @@
         @csrf
         {{-- design-update: テキストエリア 文字数カウントjavaScript--}}
         <div class="form-group position-relative mb-2">
-            <textarea class="form-control du-composer-textarea" name="content" rows="4" placeholder="140文字以内でなにかつぶやいてみよう。" id="du-post-content" data-char-count-target="du-char-count" data-char-count-max="140">{{ old('content') }}</textarea>
+            <textarea class="form-control du-composer-textarea" name="content" rows="5" placeholder="140文字以内でなにかつぶやいてみよう。" id="du-post-content" data-char-count-target="du-char-count" data-char-count-max="140">{{ old('content') }}</textarea>
             <span class="du-char-counter"><span id="du-char-count">0</span>/140</span>
         </div>
         {{-- 画像アップロード --}}
