@@ -35,7 +35,6 @@
 </div>
 <hr class="du-section-divider w-75 mx-auto mt-4 mb-4">
 @endif
-
 {{-- 検索エリア --}}
 <div class="du-filter-bar w-75 mx-auto mb-4">
     <div class="du-keyword-search-wrap">
@@ -57,15 +56,11 @@
                 - あくまで参考なので、書き方は変えてOK！
             --}}
         <div class="du-tag-filter">
-            {{-- design-update: 見た目確認用のサンプル3個（実装時はこの形のまま、下の$allTagsのループに差し替え） --}}
-            <a href="#" class="du-tag-pill-label">#サンプル1</a>
-            <a href="#" class="du-tag-pill-label">#サンプル2</a>
-            <a href="#" class="du-tag-pill-label">#サンプル3</a>
-
+            {{-- design-update: 見た目確認用のサンプルを削除し、下の$allTagsのループに差し替え） --}}
             @isset($allTags)
             @foreach ($allTags as $tag)
             @php $isActive = in_array($tag->id, request('tags', [])); @endphp
-            <a href="{{ route('posts', ['tags' => [$tag->id]]) }}" class="du-tag-pill-label{{ $isActive ? ' is-active' : '' }}">#{{ $tag->name }}</a>
+            <a href="{{ route('posts', ['tags' => [$tag->id]]) }}" class="du-tag-pill-label{{ $isActive ? ' is-active' : '' }}">#{{ $tag->type }}</a>
             @endforeach
             @endisset
         </div>

@@ -25,7 +25,8 @@ class PostsRequest extends FormRequest
     {
         return [
             'content' => 'required|max:140',
-            'image' => 'mimes:jpeg,jpg,png,webp|max:2048' // 画像ファイル形式を指定、最大2MB
+            'image' => 'mimes:jpeg,jpg,png,webp|max:2048', // 画像ファイル形式を指定、最大2MB
+            'tags' => 'array|max:3' // タグを投稿する際に0~3個まで選択できる
         ];
     }
 
