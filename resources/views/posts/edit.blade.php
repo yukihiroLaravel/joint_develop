@@ -10,7 +10,7 @@
         @method('PUT')
         {{-- design-update: テキストエリア --}}
         <div class="form-group position-relative mb-2">
-            <textarea class="form-control du-composer-textarea" name="content" rows="4" id="du-edit-content" data-char-count-target="du-edit-char-count" data-char-count-max="140">{{ old('content', $post->content) }}</textarea>
+            <textarea class="form-control du-composer-textarea" name="content" rows="5" id="du-edit-content" data-char-count-target="du-edit-char-count" data-char-count-max="140">{{ old('content', $post->content) }}</textarea>
             <span class="du-char-counter"><span id="du-edit-char-count">0</span>/140</span>
         </div>
         {{-- 画像アップロード --}}
