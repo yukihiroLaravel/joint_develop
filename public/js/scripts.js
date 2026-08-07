@@ -64,13 +64,13 @@ if (scrollToTopButton) {
 // 1.リアクションフォーム送信時に位置を保存
 document.querySelectorAll('.js-reaction-form').forEach(function (form) {
     form.addEventListener('submit', function () {
-        sessionStorage.setItem('scrollPosition', window.scrollY);
+        sessionStorage.setItem('reactionScrollPosition', window.scrollY);
     });
 });
 
 // 2.ページ読み込み時に位置を復元
-var savedScrollPosition =  sessionStorage.getItem('scrollPosition');
+var savedScrollPosition = sessionStorage.getItem('reactionScrollPosition');
 if (savedScrollPosition) {
-    window.scrollTo({ top: parseInt(savedScrollPosition), behavior: 'auto' });
-    sessionStorage.removeItem('scrollPosition');
+    window.scrollTo({ top: parseInt(savedScrollPosition, 10), behavior: 'auto' });
+    sessionStorage.removeItem('reactionScrollPosition');
 }
