@@ -33,14 +33,46 @@
                             画像を添付（任意）
                         </label>
 
-                        <input 
-                        type="file" 
-                        class="form-control-file" 
-                        id="image" 
-                        name="image" 
-                        accept="image/*"
+                        <div id="drop-area" class="border rounded p-4 text-center bg-light" style="cursor:pointer;">
+                            <p class="mb-2">📷</p>
+                            <p class="mb-1">
+                                ここに画像をドラッグ＆ドロップ
+                            </p>
+                            <small class="text-muted">
+                                またはクリックして画像を選択
+                             </small>
+
+                            <input 
+                            type="file" 
+                            id="image" 
+                            name="image" 
+                            accept="image/*"
+                            hidden
+                            >
+                        </div>
+
+                        <img
+                            id="preview"
+                            class="img-fluid mt-3 d-none"
+                            style="
+                                width:100%;
+                                max-width:500px;
+                                height:300px;
+                                object-fit:contain;
+                                background:#f8f9fa;
+                                border:1px solid #ddd;
+                                border-radius:8px;
+                            "
                         >
-                     
+
+                        <button
+                            type="button"
+                            id="remove-image"
+                            class="btn btn-sm btn-outline-danger mt-2 d-none"
+                        >
+                            × 画像を削除
+                        </button>
+
                         <small class="form-text text-muted">
                             対応形式: jpeg, png, jpg, gif（最大2MBまで）
                          </small>
@@ -159,3 +191,71 @@
         @endif
 
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+           
+    const dropArea = document.getElementById('drop-area');
+    const imageInput = document.getElementById('image');
+    const preview = document.getElementById('preview');
+    const removeButton = document.getElementById('remove-image');
+
+     if (!dropArea || !imageInput || !preview) {
+        return;
+    }
+
+    dropArea.addEventListener('click', function () {
+        imageInput.click();
+    });
+
+    imageInput.addEventListener('change', function () {
+        previewImage(this.files[0]);
+    });
+
+    function previewImage(file) {
+        if (!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.classList.remove('d-none');
+            removeButton.classList.remove('d-none');
+        };
+
+        reader.readAsDataURL(file);
+    }
+
+    dropArea.addEventListener('dragover', function (e) {
+        e.preventDefault();
+        dropArea.classList.add('border-primary');
+    });
+
+    dropArea.addEventListener('dragleave', function () {
+        dropArea.classList.remove('border-primary');
+    });
+
+    dropArea.addEventListener('drop', function (e) {
+        e.preventDefault();
+
+        dropArea.classList.remove('border-primary');
+
+        const files = e.dataTransfer.files;
+
+        if (files.length > 0) {
+            imageInput.files = files;
+            previewImage(files[0]);
+        }
+    });
+
+    removeButton.addEventListener('click', function () {
+        imageInput.value = '';
+        preview.src = '';
+        preview.classList.add('d-none');
+        removeButton.classList.add('d-none');
+    });
+
+});
+</script>
+@endpush
