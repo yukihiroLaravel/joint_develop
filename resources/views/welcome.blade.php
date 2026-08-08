@@ -51,28 +51,29 @@
                             >
                         </div>
 
-                        <img
-                            id="preview"
-                            class="img-fluid mt-3 d-none"
-                            style="
+                        <div class="text-center mt-3">
+                            <img
+                                id="preview"
+                                class="img-fluid d-none"
+                                style="
                                 width:100%;
                                 max-width:500px;
                                 height:300px;
                                 object-fit:contain;
-                                background:#f8f9fa;
-                                border:1px solid #ddd;
-                                border-radius:8px;
-                            "
-                        >
+                                "
+                            >
 
-                        <button
-                            type="button"
-                            id="remove-image"
-                            class="btn btn-sm btn-outline-danger mt-2 d-none"
-                        >
-                            × 画像を削除
-                        </button>
-
+                            <div class="mt-2">
+                                <button
+                                    type="button"
+                                    id="remove-image"
+                                    class="btn btn-sm btn-outline-danger d-none"
+                                >
+                                    × 画像を削除
+                                </button>
+                            </div>
+                        </div>
+                     
                         <small class="form-text text-muted">
                             対応形式: jpeg, png, jpg, gif（最大2MBまで）
                          </small>

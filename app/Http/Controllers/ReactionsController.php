@@ -6,6 +6,7 @@ use App\Post;
 use App\Reaction;
 use App\Http\Requests\ReactionRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\ReactionReceived;
 
 class ReactionsController extends Controller
 {
@@ -17,6 +18,14 @@ class ReactionsController extends Controller
             ->where('user_id', Auth::id())
             ->first();
 
+        //  同じリアクションは解除する
+        if ($reaction && $reaction->reaction_type === $request->reaction_type) {
+            $reaction->delete();
+
+            return back()
+                ->with('status', 'リアクションを解除しました。');
+        }
+
         Reaction::updateOrCreate(
             [
                 'post_id' => $post->id,
@@ -27,6 +36,12 @@ class ReactionsController extends Controller
                 'encouragement' => optional($reaction)->encouragement,
             ]
         );
+
+        if (! $reaction && $post->user_id !== Auth::id()) {
+            $post->user->notify(
+                new ReactionReceived($post, Auth::user(), $request->reaction_type)
+            );
+        }
 
         return back()
             ->withInput($request->only('encouragement'))
@@ -57,18 +72,5 @@ class ReactionsController extends Controller
         $reaction->save();
 
         return back()->with('status', 'ひとことハゲマシが送られました。ありがとう！');
-    }
-
-    public function destroy($id)
-    {
-        $post = Post::findOrFail($id);
-
-        $reaction = $post->reactions()
-            ->where('user_id', Auth::id())
-            ->firstOrFail();
-
-        $reaction->delete();
-
-        return back()->with('status', 'リアクションを取り消しました。');
     }
 }

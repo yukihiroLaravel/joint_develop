@@ -46,6 +46,12 @@ Route::prefix('users')->group(function () {
     Route::delete('{id}', 'UsersController@destroy')->name('user.destroy')->middleware('auth');
 });
 
+// 通知
+Route::prefix('notifications')->middleware('auth')->group(function () {
+    Route::get('', 'NotificationsController@index')->name('notifications.index');
+    Route::patch('{id}/read', 'NotificationsController@markNotificationAsRead')->name('notifications.read');
+});
+
 // 投稿
 Route::prefix('posts')->middleware('auth')->group(function () {
     Route::get('{id}', 'PostsController@show')->name('post.show');
@@ -53,7 +59,6 @@ Route::prefix('posts')->middleware('auth')->group(function () {
     Route::prefix('{id}/reactions')->group(function () {
         Route::post('', 'ReactionsController@store')->name('reaction.store');
         Route::post('encouragement', 'ReactionsController@encourage')->name('reaction.encourage');
-        Route::delete('', 'ReactionsController@destroy')->name('reaction.destroy');
         //  ハゲマシへの返信投稿
         Route::post('{reaction}/replies', 'ReactionRepliesController@store')
             ->name('reaction_replies.store');
@@ -76,12 +81,32 @@ Route::prefix('posts')->middleware('auth')->group(function () {
 // 管理者
 Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/', 'AdminController@index')->name('admin.index');
-    Route::get('users', 'AdminController@users')->name('admin.users');
-    Route::get('posts', 'AdminController@posts')->name('admin.posts');
-    Route::delete('users/{id}', 'AdminController@destroyUser')->name('admin.users.destroy');
-    Route::patch('users/{id}/restore', 'AdminController@restoreUser')->name('admin.users.restore');
-    Route::delete('posts/{id}', 'AdminController@destroyPost')->name('admin.posts.destroy');
-    Route::patch('posts/{id}/restore', 'AdminController@restorePost')->name('admin.posts.restore');
-    Route::delete('posts/{id}/force', 'AdminController@forceDeletePost')->name('admin.posts.force-delete');
-    Route::delete('users/{id}/force', 'AdminController@forceDeleteUser')->name('admin.users.force-delete');
+
+    // ユーザー管理
+    Route::prefix('users')->group(function () {
+        Route::get('', 'AdminController@users')->name('admin.users');
+        Route::delete('{id}', 'AdminController@destroyUser')->name('admin.users.destroy');
+        Route::patch('{id}/restore', 'AdminController@restoreUser')->name('admin.users.restore');
+        Route::patch('{id}/grant-admin', 'AdminController@grantAdmin')->name('admin.users.grant-admin');
+        Route::delete('{id}/force', 'AdminController@forceDeleteUser')->name('admin.users.force-delete');
+    });
+
+    // 投稿管理
+    Route::prefix('posts')->group(function () {
+        Route::get('', 'AdminController@posts')->name('admin.posts');
+        Route::delete('{id}', 'AdminController@destroyPost')->name('admin.posts.destroy');
+        Route::patch('{id}/restore', 'AdminController@restorePost')->name('admin.posts.restore');
+        Route::delete('{id}/force', 'AdminController@forceDeletePost')->name('admin.posts.force-delete');
+    });
+
+    // 管理者アカウント管理
+    Route::prefix('admins')->group(function () {
+        Route::get('', 'AdminUserController@index')->name('admin.admins.index');
+        Route::get('create', 'AdminUserController@create')->name('admin.admins.create');
+        Route::post('', 'AdminUserController@store')->name('admin.admins.store');
+        Route::get('{id}/edit', 'AdminUserController@edit')->name('admin.admins.edit');
+        Route::put('{id}', 'AdminUserController@update')->name('admin.admins.update');
+        Route::patch('{id}/revoke', 'AdminUserController@revoke')->name('admin.admins.revoke');
+        Route::delete('{id}/force', 'AdminUserController@forceDelete')->name('admin.admins.force-delete');
+    });
 });
