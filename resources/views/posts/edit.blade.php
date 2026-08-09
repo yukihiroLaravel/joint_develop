@@ -7,19 +7,23 @@
         @method('PUT')
 
         <div class="form-group">
-            <textarea
-                id="content"
-                class="form-control"
-                name="content"
-                rows="5"
-            >{{ old('content', $post->content) }}</textarea>
+            <textarea id="content" class="form-control js-character-count" name="content" rows="5">{{ old('content', $post->content) }}
+            </textarea>
+
+            <div class="text-right mt-1">
+                <small>
+                    <span class="js-character-count-display">{{ mb_strlen(old('content', $post->content)) }}</span> / 140文字
+                </small>
+            </div>
+
+            <div class="js-character-count-error alert alert-danger mt-2" style="display: none;"></div>
 
             @error('content')
                 <div class="alert alert-danger mt-2">
                     {{ $message }}
                 </div>
             @enderror
-        </div>
+            </div>
 
         @include('commons.tag_autocomplete', [
             'tagValue' => old(
@@ -34,10 +38,10 @@
             @if ($post->image_path)
                 <div class="mb-3">
                     <p class="small text-muted mb-1">現在の画像:</p>
-                    <img 
-                        src="{{ asset('storage/' . $post->image_path) }}" 
-                        alt="現在の添付画像" 
-                        class="img-fluid rounded border bg-white mb-2" 
+                    <img
+                        src="{{ asset('storage/' . $post->image_path) }}"
+                        alt="現在の添付画像"
+                        class="img-fluid rounded border bg-white mb-2"
                         style="max-height: 150px; width: auto; object-fit: contain;"
                     >
                     <div class="form-check">
@@ -61,7 +65,7 @@
                 </div>
             @enderror
         </div>
-        
+
         <button type="submit" class="btn btn-primary">
             更新する
         </button>

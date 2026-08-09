@@ -14,7 +14,16 @@
                     @csrf
 
                     <div class="form-group">
-                        <textarea class="form-control" name="content" rows="3">{{ old('content') }}</textarea>
+                        <textarea
+                            class="form-control js-character-count" name="content" rows="3">{{ old('content') }}</textarea>
+
+                        <div class="text-right mt-1">
+                            <small>
+                                <span class="js-character-count-display">0</span> / 140文字
+                            </small>
+                        </div>
+
+                        <div class="js-character-count-error text-danger mt-1"></div>
 
                     @error('content')
                         <div class='alert alert-danger mt-2 text-left'>
@@ -33,25 +42,24 @@
                             画像を添付（任意）
                         </label>
 
-                        <input 
-                        type="file" 
-                        class="form-control-file" 
-                        id="image" 
-                        name="image" 
-                        accept="image/*"
-                        >
-                     
+                        <input
+                        type="file"
+                        class="form-control-file"
+                        id="image"
+                        name="image"
+                        accept="image/*">
+
                         <small class="form-text text-muted">
                             対応形式: jpeg, png, jpg, gif（最大2MBまで）
-                         </small>
-                        
-                         @error('image')
+                        </small>
+
+                        @error('image')
                             <div class="alert alert-danger mt-2">
                                 {{ $message }}
                             </div>
                         @enderror
                     </div>
-                    
+
                     <div class="text-left mt-3">
                         <button type="submit" class="btn btn-primary">やらかしをシェア</button>
                     </div>
@@ -157,5 +165,4 @@
         @if (! $hasSearch)
             @include('posts.posts', ['posts' => $posts])
         @endif
-
 @endsection
