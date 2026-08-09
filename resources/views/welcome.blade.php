@@ -48,19 +48,22 @@
     </div>
     <div class="du-tag-search-wrap">
         {{-- design-update: タグ検索 --}}
-        {{-- design-update: タグ絞り込み（見た目のみ）。リンク形式で、クリックしたら即そのタグで検索結果に遷移する想定。
-                - 実装時参考:
-                - コントローラから $allTags（id, name を持つコレクション）を渡すと表示（未指定の間は何も表示しません）
-                - リンク先は posts 検索結果に tags[] クエリを付けた形にしています（コントローラ側でタグ絞り込みを実装）
-                - 選択中のタグは is-active クラスを付与して選択状態表示にする
-                - あくまで参考なので、書き方は変えてOK！
-            --}}
         <div class="du-tag-filter">
             {{-- design-update: 見た目確認用のサンプルを削除し、下の$allTagsのループに差し替え） --}}
             @isset($allTags)
             @foreach ($allTags as $tag)
-            @php $isActive = in_array($tag->id, request('tags', [])); @endphp
-            <a href="{{ route('posts', ['tags' => [$tag->id]]) }}" class="du-tag-pill-label{{ $isActive ? ' is-active' : '' }}">#{{ $tag->type }}</a>
+            @php 
+                $currentTags = request('tags', []);
+                if (in_array($tag->id, $currentTags)) {
+                    // すでに選択中 → 外す（トグルでOFFにする）
+                    $newTags = array_diff($currentTags, [$tag->id]);
+                } else {
+                    // 未選択 → 追加する
+                    $newTags = array_merge($currentTags, [$tag->id]);
+                }
+                $isActive = in_array($tag->id, $currentTags); 
+            @endphp
+            <a href="{{ route('posts', ['tags' => array_values($newTags), 'keyword' => request('keyword')]) }}" class="du-tag-pill-label{{ $isActive ? ' is-active' : '' }}">#{{ $tag->type }}</a>
             @endforeach
             @endisset
         </div>
