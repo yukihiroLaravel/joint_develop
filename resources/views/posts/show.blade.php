@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+
+    {{-- リアクションドーナツ専用の見た目を読み込む --}}
+    @include('posts.partials.reaction_donut_style')
+
     <div class="w-75 m-auto">
         <h2 class="mt-5 mb-4">やっちゃった詳細</h2>
 
@@ -105,7 +109,7 @@
             </h5>
 
             <div class="row align-items-center">
-                <div class="col-md-7 mb-4 mb-md-0">
+                <div class="col-md-6 mb-4 mb-md-0">
                     <p class="font-weight-bold">
                         リアクション総数：{{ $totalReactions }}件
                     </p>
@@ -159,55 +163,8 @@
                     @endif
                 </div>
 
-                <div class="col-md-5 d-flex flex-column align-items-center">
-                    <p class="font-weight-bold mb-3">
-                        リアクション割合
-                    </p>
-
-                    <div
-                        class="rounded-circle d-flex align-items-center justify-content-center mb-4"
-                        style="width: 220px; height: 220px; background: {{ $donutBackground }};"
-                    >
-                        <div
-                            class="rounded-circle bg-light d-flex flex-column align-items-center justify-content-center shadow-sm"
-                            style="width: 130px; height: 130px;"
-                        >
-                            <span class="text-muted small">
-                                計
-                            </span>
-
-                            <span class="font-weight-bold h4 mb-0">
-                                {{ $totalReactions }}
-                            </span>
-
-                            <span class="text-muted">
-                                件
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="w-100" style="max-width: 260px;">
-                        @foreach ($reactionTypes as $type => $label)
-                            <div class="d-flex align-items-center justify-content-between mb-2">
-                                <div class="d-flex align-items-center">
-                                    <span
-                                        class="rounded-circle d-inline-block flex-shrink-0 mr-2"
-                                        style="width: 12px; height: 12px; background-color: {{ $reactionColors[$type] ?? '#adb5bd' }};"
-                                    ></span>
-
-                                    <span class="font-weight-bold">
-                                        {{ $label }}
-                                    </span>
-                                </div>
-
-                                <span class="text-nowrap">
-                                    {{ $reactionCounts[$type] ?? 0 }}件
-                                    ({{ $reactionPercentages[$type] ?? 0 }}%)
-                                </span>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
+                {{-- 集計カード右側に、ドーナツ部品を配置する --}}
+                @include('posts.partials.reaction_donut')
             </div>
         </div>
 
@@ -461,3 +418,6 @@
         </div>
     </div>
 @endsection
+
+{{-- リアクションドーナツ専用JavaScriptを読み込む --}}
+@include('posts.partials.reaction_donut_script')
