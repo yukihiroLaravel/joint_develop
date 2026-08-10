@@ -24,7 +24,7 @@
         <p class="text-muted">
             {{ $post->created_at }}
         </p>
-
+        @include('reactions.reaction_button', ['post' => $post])
     </div>
 </div>
 
