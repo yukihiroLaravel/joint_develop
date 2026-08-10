@@ -211,6 +211,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     imageInput.addEventListener('change', function () {
+        if (this.files.length > 1) {
+            alert('画像は1枚だけ選択してください。');
+            this.value = '';
+            return;
+        }
+
         previewImage(this.files[0]);
     });
 
@@ -244,7 +250,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const files = e.dataTransfer.files;
 
-        if (files.length > 0) {
+        if (files.length > 1) {
+            alert('画像は1枚だけ選択してください。');
+            return;
+        }
+
+        if (files.length === 1) {
             imageInput.files = files;
             previewImage(files[0]);
         }
