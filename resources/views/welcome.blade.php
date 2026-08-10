@@ -44,6 +44,10 @@
                 <input type="text" name="keyword" class="form-control du-search-input" placeholder="キーワードで検索（例：ごはん、Laravel、etc.）" value="{{ $keyword ?? '' }}">
                 <button type="submit" class="du-search-btn"><i class="fas fa-search"></i></button>
             </div>
+            {{-- タグをクリックしたまま、投稿検索をかけた時にタグの情報が残る処理 --}}
+            @foreach (request('tags', []) as $tag)
+                <input type="hidden" name="tags[]" value="{{ $tag }}">
+            @endforeach
         </form>
     </div>
     <div class="du-tag-search-wrap">

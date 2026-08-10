@@ -39,7 +39,7 @@ class PostsController extends Controller
             $query->where(function ($q) use ($search_tags) {
                 foreach ($search_tags as $tag) {
                     $q->orWhereHas('tags', function ($q2) use ($tag) {
-                    $q2->where('tags.id', $tag);
+                        $q2->where('tags.id', $tag);
                     });
                 }
             });
@@ -95,6 +95,7 @@ class PostsController extends Controller
         $data = [
             'post' => $post,
         ];
+        
         return view('posts.edit', $data);
     }
 
