@@ -35,7 +35,6 @@ class PostsController extends Controller
 
         // tags検索は「関連するtagsテーブル」をループしながら見ている処理
         if (!empty($search_tags)) {
-
             $query->where(function ($q) use ($search_tags) {
                 foreach ($search_tags as $tag) {
                     $q->orWhereHas('tags', function ($q2) use ($tag) {
@@ -95,7 +94,7 @@ class PostsController extends Controller
         $data = [
             'post' => $post,
         ];
-        
+
         return view('posts.edit', $data);
     }
 
