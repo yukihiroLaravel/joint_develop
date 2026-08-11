@@ -10,6 +10,6 @@
 @isset($allTags)
 @foreach ($allTags as $tag)
 <input type="checkbox" class="du-tag-checkbox" name="tags[]" value="{{ $tag->id }}" id="{{ $tagIdPrefix }}{{ $tag->id }}">
-<label class="du-tag-select-pill" for="{{ $tagIdPrefix }}{{ $tag->id }}">#{{ $tag->type }}</label>
+<label class="du-tag-pill-label" for="{{ $tagIdPrefix }}{{ $tag->id }}">#{{ $tag->type }}</label>
 @endforeach
 @endisset
