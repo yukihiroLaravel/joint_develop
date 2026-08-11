@@ -18,7 +18,9 @@ class PostsController extends Controller
         $query->with('tags');
 
         $keyword = $request->input('keyword');
+        $search_tags = $request->input('tags');
 
+        // keyword検索は「content」というカラムの中身をループしながら見ている処理
         if (!empty($keyword)) {
             $keyword = mb_convert_kana($keyword, 's');
 
@@ -31,11 +33,21 @@ class PostsController extends Controller
             });
         }
 
+        // tags検索は「関連するtagsテーブル」をループしながら見ている処理
+        if (!empty($search_tags)) {
+            $query->where(function ($q) use ($search_tags) {
+                foreach ($search_tags as $tag) {
+                    $q->orWhereHas('tags', function ($q2) use ($tag) {
+                        $q2->where('tags.id', $tag);
+                    });
+                }
+            });
+        }
+
         $posts = $query->orderBy('id', 'desc')->paginate(10);
-        // タグを表示
         $allTags = Tag::all();
 
-        return view('welcome', ['posts' => $posts, 'keyword' => $keyword, 'allTags' => $allTags]);
+        return view('welcome', ['posts' => $posts, 'keyword' => $keyword, 'allTags' => $allTags, 'search_tags' => $search_tags]);
     }
 
     // 新規投稿
@@ -82,6 +94,7 @@ class PostsController extends Controller
         $data = [
             'post' => $post,
         ];
+
         return view('posts.edit', $data);
     }
 

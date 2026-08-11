@@ -147,6 +147,7 @@ return [
         'email' => 'メールアドレス',
         'password' => 'パスワード',
         'tags' => 'タグ',
+        'content' => '投稿内容',
     ],
 
 ];
