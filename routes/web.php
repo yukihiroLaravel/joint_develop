@@ -16,18 +16,21 @@ Route::get('/', 'PostsController@index')->name('posts');
 
 // ユーザ詳細
 Route::get('users/{id}', 'UsersController@show')->name('users.show');
+        
+// 投稿詳細
+Route::get('post/{id}', 'PostsController@show')->name('posts.show');
 
 // ログイン後機能
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function () {
         // 新規投稿
         Route::post('/', 'PostsController@store')->name('posts.store');
-        // 投稿削除
-        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
         // 投稿編集画面表示
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         // 投稿更新
         Route::put('{id}', 'PostsController@update')->name('post.update');
+        // 投稿削除
+        Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
         // リアクション
         Route::post('{id}/reaction', 'ReactionsController@toggle')->name('reaction.toggle');
     });

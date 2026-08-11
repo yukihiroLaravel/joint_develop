@@ -136,6 +136,16 @@ class PostsController extends Controller
         return redirect()->route('posts')->with('success', '更新しました！');
     }
 
+    // 投稿詳細表示
+    public function show($postId)
+    {
+        $post = Post::with('user')->findOrFail($postId);
+
+        return view('posts.show', [
+            'post' => $post,
+        ]);
+    }
+    
     // 投稿画像ファイルを保存して保存先のパスを返すメソッド
     private function storeImage($file)
     {

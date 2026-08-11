@@ -20,7 +20,9 @@
             @endforeach
         </div>
         @endif
-        <p class="du-post-content text-break">{{ $post->content }}</p>
+        <p class="du-post-content text-break">
+            <a href="{{ route('posts.show', $post->id) }}">{{ $post->content }}</a>
+        </p>
         @if ($post->image !== null)
         <div class="mt-2 mb-2">
             <img class="img-fluid rounded du-post-image" src="{{ asset('storage/' . $post->image) }}" alt="投稿画像">
