@@ -42,7 +42,8 @@
             width: 220px;
         }
 
-        #reaction-donut-chart .reaction-donut-annotation {
+        #reaction-donut-chart .reaction-donut-annotation,
+        #reaction-donut-chart .reaction-donut-line {
             display: none;
         }
     }
