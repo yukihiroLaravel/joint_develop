@@ -18,7 +18,7 @@ Route::get('/', 'PostsController@index')->name('posts');
 Route::get('users/{id}', 'UsersController@show')->name('users.show');
         
 // 投稿詳細
-Route::get('{id}', 'PostsController@show')->name('posts.show');
+Route::get('post/{id}', 'PostsController@show')->name('posts.show');
 
 // ログイン後機能
 Route::group(['middleware' => 'auth'], function () {

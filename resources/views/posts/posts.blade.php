@@ -21,9 +21,7 @@
         </div>
         @endif
         <p class="du-post-content text-break">
-            <a href="{{ route('posts.show', $post->id) }}">
-                {{ $post->content }}
-            </a>
+            <a href="{{ route('posts.show', $post->id) }}">{{ $post->content }}</a>
         </p>
         @if ($post->image !== null)
         <div class="mt-2 mb-2">
