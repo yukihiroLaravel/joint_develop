@@ -38,6 +38,8 @@ Route::prefix('users')->group(function () {
     Route::get('{id}/followings', 'UsersController@followings')->name('user.followings');
     // フォロワー一覧
     Route::get('{id}/followers', 'UsersController@followers')->name('user.followers');
+    // リアクション集計
+    Route::get('{id}/reactions', 'UsersController@reactions')->name('user.reactions');
     // フォロー実行
     Route::post('{id}/follow', 'FollowsController@store')->name('user.follow')->middleware('auth');
     // フォロー解除

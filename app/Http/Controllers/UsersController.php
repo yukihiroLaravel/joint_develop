@@ -43,6 +43,30 @@ class UsersController extends Controller
         return view('users.show', $data);
     }
 
+    public function reactions($id)
+    {
+        $user = User::findOrFail($id);
+
+        $reactionTypes = Reaction::TYPES;
+
+        $reactionCounts = Reaction::whereHas('post', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })
+            ->select('reaction_type')
+            ->selectRaw('COUNT(*) as count')
+            ->groupBy('reaction_type')
+            ->pluck('count', 'reaction_type');
+
+        $data = [
+            'user' => $user,
+            'type' => 'reactions',
+            'reactionTypes' => $reactionTypes,
+            'reactionCounts' => $reactionCounts,
+        ];
+
+        return view('users.show', $data);
+    }
+
     public function edit($id)
     {
         $user = User::findOrFail($id);
