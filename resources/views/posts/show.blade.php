@@ -245,11 +245,21 @@
                     name="encouragement"
                     form="reactionForm"
                     class="form-control"
-                    maxlength="30"
                     value="{{ old('encouragement') }}"
                     placeholder="30文字以内で入力できます"
                     onkeydown="if (event.key === 'Enter' && !event.isComposing) { event.preventDefault(); document.getElementById('encouragementSubmitButton').click(); }"
                 >
+
+                <div class="text-right text-muted small mt-1">
+                    <span id="encouragement-count">0</span> / 30文字
+                </div>
+
+                <div
+                    id="encouragement-error"
+                    class="alert alert-danger mt-2 d-none"
+                >
+                    30文字以内で入力してください。
+                </div>
 
                 @error('encouragement')
                     <div class="alert alert-danger mt-2">
@@ -384,11 +394,19 @@
                                 <div class="form-group mt-3">
                                     <textarea
                                         name="content"
-                                        class="form-control"
+                                        class="form-control reply-content"
                                         rows="2"
                                         maxlength="100"
                                         placeholder="返信を書く（100文字以内) "
                                     ></textarea>
+
+                                    <small class="d-block text-right text-muted mt-1">
+                                        <span class="reply-character-count">0</span> / 100文字
+                                    </small>
+                                    
+                                    <div class="alert alert-danger mt-2 d-none reply-character-error">
+                                        100文字以内で入力してください。
+                                    </div>
 
                                     @error('content')
                                         <div class="alert alert-danger mt-2">
@@ -397,7 +415,7 @@
                                     @enderror
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary reply-submit-button">
                                     返信する
                                 </button>
                             </form>
@@ -421,3 +439,76 @@
 
 {{-- リアクションドーナツ専用JavaScriptを読み込む --}}
 @include('posts.partials.reaction_donut_script')
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const encouragement = document.getElementById('encouragement');
+    const encouragementCount = document.getElementById('encouragement-count');
+    const encouragementError = document.getElementById('encouragement-error');
+    const submitButton = document.getElementById('encouragementSubmitButton');
+
+    if (encouragement && encouragementCount && encouragementError && submitButton) {
+
+        function updateEncouragementCount() {
+            const count = encouragement.value.length;
+
+            encouragementCount.textContent = count;
+
+            if (count > 30) {
+                encouragementCount.classList.add('text-danger');
+                encouragementError.classList.remove('d-none');
+                submitButton.disabled = true;
+            } else {
+                encouragementCount.classList.remove('text-danger');
+                encouragementError.classList.add('d-none');
+                submitButton.disabled = false;
+            }
+        }
+
+        encouragement.addEventListener('input', updateEncouragementCount);
+
+        updateEncouragementCount();
+    }
+
+    document.querySelectorAll('.reply-content').forEach(function (textarea) {
+
+        const form = textarea.closest('form');
+
+        if (!form) {
+        return;
+        }
+
+        const counter = form.querySelector('.reply-character-count');
+        const error = form.querySelector('.reply-character-error');
+        const submitButton = form.querySelector('.reply-submit-button');
+
+        if (!counter || !error || !submitButton) {
+            return;
+        }
+
+        function updateReplyCount() {
+            const count = textarea.value.length;
+
+            counter.textContent = count;
+
+            if (count > 100) {
+                counter.classList.add('text-danger');
+                error.classList.remove('d-none');
+                submitButton.disabled = true;
+            } else {
+                counter.classList.remove('text-danger');
+                error.classList.add('d-none');
+                submitButton.disabled = false;
+            }
+        }
+
+        textarea.addEventListener('input', updateReplyCount);
+
+        updateReplyCount();
+    });
+
+});
+</script>
+@endpush
