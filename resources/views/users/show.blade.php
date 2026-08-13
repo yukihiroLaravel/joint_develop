@@ -133,6 +133,16 @@
                         フォロワー
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a
+                        href="{{ route('user.reactions', $user->id) }}"
+                        class="nav-link {{ Request::is('users/' . $user->id . '/reactions') ? 'active' : '' }}"
+                    >
+                        リアクション
+                    </a>
+                </li>
+
             </ul>
 
             @if ($type === 'timeline')
@@ -150,6 +160,32 @@
                     'users' => $users,
                     'emptyMessage' => 'フォロワーはいません。'
                 ])
+            
+            @elseif ($type === 'reactions')
+                <h4 class="mb-3">リアクション集計</h4>
+
+                @foreach ($reactionTypes as $typeKey => $label)
+                    <div class="d-flex align-items-center justify-content-between border-bottom py-3">
+
+                        <div class="d-flex align-items-center">
+                            <img
+                                src="{{ asset('images/reactions/' . $typeKey . '.png') }}"
+                                alt="{{ $label }}"
+                                style="width: 50px; height: 50px; object-fit: contain;"
+                                class="mr-3"
+                            >
+
+                            <span class="font-weight-bold">
+                                {{ $label }}
+                            </span>
+                        </div>
+
+                        <span class="font-weight-bold">
+                            {{ $reactionCounts[$typeKey] ?? 0 }}件
+                        </span>
+
+                    </div>
+                @endforeach    
             @endif
 
         </div>
