@@ -674,6 +674,11 @@ body {
     margin: 0.1rem 0.2rem 0.1rem 0;
 }
 
+/* design-update: タグ選択上限メッセージは警告色で表示 */
+.du-tag-limit-message {
+    color: var(--du-danger);
+}
+
 /* ===== 投稿カード ===== */
 .du-post-card {
     background-color: var(--du-card);

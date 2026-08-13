@@ -34,8 +34,8 @@
             <button type="button" id="image-clear" class="btn btn-light d-none btn-outline-secondary btn-sm du-btn-small">×解除</button>
         </div>
         @endif
-        <div class="form-group mt-2 du-composer-tag-wrap">
-            {{-- タグ実装時に追加  --}}
+        <div class="form-group mt-2 du-composer-tag-wrap js-tag-select-wrap">
+            {{-- タグ選択 --}}
             @include('posts.tag_checkboxes', ['tagIdPrefix' => 'edit-tag-'])
         </div>
         <div class="d-flex justify-content-end du-composer-toolbar">
