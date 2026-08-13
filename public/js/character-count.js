@@ -7,29 +7,36 @@ document.addEventListener('DOMContentLoaded', function () {
         const form = textarea.closest('form');
         const submitButton = form.querySelector('button[type="submit"]');
         const originalButtonText = submitButton.textContent.trim();
+        const maxLength = Number(textarea.dataset.maxLength);
 
         function checkLength() {
             const length = textarea.value.length;
 
             count.textContent = length;
 
-            if (length > 140) {
-                error.textContent = '投稿内容は140文字以内で入力してください。';
-                error.style.display = 'block';
+            if (length > maxLength) {
+                if (error) {
+                    error.textContent = `投稿内容は${maxLength}文字以内で入力してください。`;
+                    error.style.display = 'block';
+                }
 
-                submitButton.textContent = '140文字以内にしてください';
+                submitButton.textContent = originalButtonText;
                 submitButton.classList.remove('btn-primary');
-                submitButton.classList.add('btn-danger');
+                submitButton.classList.add('btn-secondary');
+                submitButton.disabled = true;
 
                 return false;
             }
 
-            error.textContent = '';
-            error.style.display = 'none';
+            if (error) {
+                error.textContent = '';
+                error.style.display = 'none';
+            }
 
             submitButton.textContent = originalButtonText;
-            submitButton.classList.remove('btn-danger');
+            submitButton.classList.remove('btn-secondary');
             submitButton.classList.add('btn-primary');
+            submitButton.disabled = false;
 
             return true;
         }

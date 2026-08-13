@@ -7,12 +7,11 @@
         @method('PUT')
 
         <div class="form-group">
-            <textarea id="content" class="form-control js-character-count" name="content" rows="5">{{ old('content', $post->content) }}
-            </textarea>
+            <textarea id="content" class="form-control js-character-count" name="content" rows="5" data-max-length="100">{{ old('content', $post->content) }}</textarea>
 
             <div class="text-right mt-1">
                 <small>
-                    <span class="js-character-count-display">{{ mb_strlen(old('content', $post->content)) }}</span> / 140文字
+                    <span class="js-character-count-display">{{ mb_strlen(old('content', $post->content)) }}</span> / 100文字
                 </small>
             </div>
 

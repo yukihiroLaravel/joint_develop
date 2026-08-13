@@ -379,22 +379,18 @@
                                                     @csrf
                                                     @method('PUT')
 
-                                                    <textarea
-                                                        name="content"
-                                                        class="form-control mb-2 js-character-count"
-                                                        rows="3"
-                                                        maxlength="100"
-                                                        >{{ $reply->content }}
-                                                    </textarea>
+                                                    <textarea name="content" class="form-control mb-2 js-character-count" rows="3" maxlength="100" data-max-length="100">{{ $reply->content }}</textarea>
 
                                                     <div class="text-right mb-2">
                                                         <small>
                                                             <span class="js-character-count-display">
-                                                                {{ mb_strlen($reply-content) }}
+                                                                {{ mb_strlen($reply->content) }}
                                                             </span>
                                                             /100文字
                                                         </small>
                                                     </div>
+
+                                                    <div class="js-character-count-error text-danger mb-2"></div>
 
                                                     <button type="submit" class="btn btn-sm btn-primary">
                                                         更新
@@ -435,19 +431,15 @@
                             @csrf
 
                                 <div class="form-group mt-3">
-                                    <textarea
-                                        name="content"
-                                        class="form-control js-character-count"
-                                        rows="2"
-                                        maxlength="100"
-                                        placeholder="返信を書く（100文字以内) ">
-                                    </textarea>
+                                    <textarea name="content" class="form-control js-character-count" rows="2" maxlength="100" data-max-length="100" placeholder="返信を書く（100文字以内) "></textarea>
 
                                     <div class="text-right mt-1">
                                         <small>
                                             <span class="js-character-count-display">0</span>  / 100文字
                                         </small>
                                     </div>
+
+                                    <div class="js-character-count-error text-danger mt-1"></div>
 
                                     @error('content')
                                         <div class="alert alert-danger mt-2">

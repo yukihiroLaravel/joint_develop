@@ -15,11 +15,11 @@
 
                     <div class="form-group">
                         <textarea
-                            class="form-control js-character-count" name="content" rows="3">{{ old('content') }}</textarea>
+                            class="form-control js-character-count" name="content" rows="3" data-max-length="100">{{ old('content') }}</textarea>
 
                         <div class="text-right mt-1">
                             <small>
-                                <span class="js-character-count-display">0</span> / 140文字
+                                <span class="js-character-count-display">0</span> / 100文字
                             </small>
                         </div>
 
