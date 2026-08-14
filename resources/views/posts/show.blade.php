@@ -396,7 +396,6 @@
                                         name="content"
                                         class="form-control reply-content"
                                         rows="2"
-                                        maxlength="100"
                                         placeholder="返信を書く（100文字以内) "
                                     ></textarea>
 
