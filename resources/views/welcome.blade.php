@@ -25,7 +25,7 @@
             <input type="file" name="image" id="image" class="du-file-image-input">
             <button type="button" id="image-clear" class="btn btn-light d-none btn-outline-secondary btn-sm du-btn-small">×解除</button>
         </div>
-        <div class="form-group mt-2 du-composer-tag-wrap">
+        <div class="form-group mt-2 du-composer-tag-wrap js-tag-select-wrap">
             @include('posts.tag_checkboxes', ['tagIdPrefix' => 'post-tag-'])
         </div>
         <div class="d-flex justify-content-end du-composer-toolbar">
@@ -53,10 +53,9 @@
     <div class="du-tag-search-wrap">
         {{-- design-update: タグ検索 --}}
         <div class="du-tag-filter">
-            {{-- design-update: 見た目確認用のサンプルを削除し、下の$allTagsのループに差し替え） --}}
             @isset($allTags)
             @foreach ($allTags as $tag)
-            @php 
+            @php
                 $currentTags = request('tags', []);
                 if (in_array($tag->id, $currentTags)) {
                     // すでに選択中 → 外す（トグルでOFFにする）
@@ -65,7 +64,7 @@
                     // 未選択 → 追加する
                     $newTags = array_merge($currentTags, [$tag->id]);
                 }
-                $isActive = in_array($tag->id, $currentTags); 
+                $isActive = in_array($tag->id, $currentTags);
             @endphp
             <a href="{{ route('posts', ['tags' => array_values($newTags), 'keyword' => request('keyword')]) }}" class="du-tag-pill-label{{ $isActive ? ' is-active' : '' }}">#{{ $tag->type }}</a>
             @endforeach
