@@ -21,5 +21,6 @@
         <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"></script>
         @stack('scripts')
         @include('commons.notification_script')
+        <script src="{{ asset('js/character-count.js') }}"></script>
     </body>
 </html>

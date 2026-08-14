@@ -14,7 +14,16 @@
                     @csrf
 
                     <div class="form-group">
-                        <textarea class="form-control" name="content" rows="3">{{ old('content') }}</textarea>
+                        <textarea
+                            class="form-control js-character-count" name="content" rows="3" data-max-length="100">{{ old('content') }}</textarea>
+
+                        <div class="text-right mt-1">
+                            <small>
+                                <span class="js-character-count-display">0</span> / 100文字
+                            </small>
+                        </div>
+
+                        <div class="js-character-count-error text-danger mt-1"></div>
 
                     @error('content')
                         <div class='alert alert-danger mt-2 text-left'>
@@ -40,12 +49,12 @@
                             </p>
                             <small class="text-muted">
                                 またはクリックして画像を選択
-                             </small>
+                            </small>
 
-                            <input 
-                            type="file" 
-                            id="image" 
-                            name="image" 
+                            <input
+                            type="file"
+                            id="image"
+                            name="image"
                             accept="image/*"
                             hidden
                             >
@@ -73,18 +82,18 @@
                                 </button>
                             </div>
                         </div>
-                     
+
                         <small class="form-text text-muted">
                             対応形式: jpeg, png, jpg, gif（最大2MBまで）
-                         </small>
-                        
-                         @error('image')
+                        </small>
+
+                        @error('image')
                             <div class="alert alert-danger mt-2">
                                 {{ $message }}
                             </div>
                         @enderror
                     </div>
-                    
+
                     <div class="text-left mt-3">
                         <button type="submit" class="btn btn-primary">やらかしをシェア</button>
                     </div>
@@ -196,13 +205,13 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-           
+
     const dropArea = document.getElementById('drop-area');
     const imageInput = document.getElementById('image');
     const preview = document.getElementById('preview');
     const removeButton = document.getElementById('remove-image');
 
-     if (!dropArea || !imageInput || !preview) {
+    if (!dropArea || !imageInput || !preview) {
         return;
     }
 
