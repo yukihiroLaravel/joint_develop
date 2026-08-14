@@ -45,7 +45,8 @@ class ReactionsController extends Controller
 
         return back()
             ->withInput($request->only('encouragement'))
-            ->with('status', 'リアクションが更新されました。ありがとう！');
+            ->with('status', 'リアクションが更新されました。ありがとう！')
+            ->with('reaction_confetti', $request->reaction_type);
     }
 
     public function encourage(ReactionRequest $request, $id)
