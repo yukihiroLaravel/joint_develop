@@ -16,7 +16,7 @@
         @if ($post->tags->isNotEmpty())
         <div class="mb-2">
             @foreach ($post->tags as $tag)
-            <span class="du-post-tag-pill">#{{ $tag->type }}</span>
+            <span class="badge badge-secondary mr-1">{{ $tag->type }}</span>
             @endforeach
         </div>
         @endif
