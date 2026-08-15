@@ -136,10 +136,16 @@ body {
     align-items: center;
 }
 
+/* design-update: Bootstrap標準のa:hover下線を、hover非対応環境（スマホのタップ含む）で打ち消す */
 .du-header .nav-link:hover {
     text-decoration: none;
-    font-weight: 700;
-    color: #fff !important;
+}
+
+@media(hover: hover) {
+    .du-header .nav-link:hover {
+        font-weight: 700;
+        color: #fff !important;
+    }
 }
 
 /* ===== フッター（ヘッダーと同色に変更） ===== */
@@ -213,8 +219,10 @@ body {
     transition: opacity .2s ease;
 }
 
-.scroll-to-top:hover::after {
-    opacity: 1;
+@media(hover: hover) {
+    .scroll-to-top:hover::after {
+        opacity: 1;
+    }
 }
 
 @keyframes scroll-to-top-bounce {
@@ -349,17 +357,12 @@ body {
     color: var(--du-blue);
 }
 
-.du-text-link:hover {
-    color: var(--du-blue-soft);
-}
-
 /* design-update: ログイン・新規登録・ユーザ情報編集はBootstrap標準の形状のまま色のみ変更 */
 .btn-primary.du-btn-link {
     background-color: var(--du-blue);
     border-color: var(--du-blue);
 }
 
-.btn-primary.du-btn-link:hover,
 .btn-primary.du-btn-link:focus,
 .btn-primary.du-btn-link:active {
     opacity: 0.8;
@@ -370,7 +373,6 @@ body {
     border-color: var(--du-blue);
 }
 
-.du-btn-primary.du-btn-link:hover,
 .du-btn-primary.du-btn-link:focus,
 .du-btn-primary.du-btn-link:active {
     background-color: var(--du-blue);
@@ -385,7 +387,6 @@ body {
     border-color: var(--du-danger);
 }
 
-.btn-danger.du-btn-danger:hover,
 .btn-danger.du-btn-danger:focus,
 .btn-danger.du-btn-danger:active {
     opacity: 0.8;
@@ -398,13 +399,40 @@ body {
     color: var(--du-muted);
 }
 
-.btn.du-btn-muted:hover,
 .btn.du-btn-muted:focus,
 .btn.du-btn-muted:active {
     background-color: var(--du-card);
     border-color: var(--du-muted);
     color: var(--du-muted);
     opacity: 0.8;
+}
+
+@media(hover: hover) {
+    .du-text-link:hover {
+        color: var(--du-blue-soft);
+    }
+
+    .btn-primary.du-btn-link:hover {
+        opacity: 0.8;
+    }
+
+    .du-btn-primary.du-btn-link:hover {
+        background-color: var(--du-blue);
+        border-color: var(--du-blue);
+        color: #fff;
+        opacity: 0.8;
+    }
+
+    .btn-danger.du-btn-danger:hover {
+        opacity: 0.8;
+    }
+
+    .btn.du-btn-muted:hover {
+        background-color: var(--du-card);
+        border-color: var(--du-muted);
+        color: var(--du-muted);
+        opacity: 0.8;
+    }
 }
 
 /* design-update: スマホでは見出しが大きすぎるため縮小 */
@@ -512,10 +540,12 @@ body {
     transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-.du-btn-primary:hover {
-    background-color: #fff;
-    border-color: var(--du-primary);
-    color: var(--du-primary);
+@media(hover: hover) {
+    .du-btn-primary:hover {
+        background-color: #fff;
+        border-color: var(--du-primary);
+        color: var(--du-primary);
+    }
 }
 
 .du-btn-primary:active {
@@ -560,9 +590,6 @@ body {
     position: relative;
 }
 
-/* design-update: タグ検索の余白調整用 */
-.du-tag-search-wrap {}
-
 /* design-update: 検索ボタンを入力欄の右端に重ねて配置 */
 .du-search-btn {
     position: absolute;
@@ -577,10 +604,6 @@ body {
     border: none;
     border-radius: 0 1rem 1rem 0;
     color: #fff;
-}
-
-.du-search-btn:hover {
-    background-color: var(--du-primary-dark);
 }
 
 /* design-update: タグ絞り込み用チェックボックス。inputは非表示にし、隣接するlabelをピルとして表示 */
@@ -612,9 +635,7 @@ body {
     text-decoration: none;
 }
 
-.du-tag-pill-label:hover {
-    background-color: var(--du-primary-tint);
-    color: var(--du-primary-dark);
+.du-tag-pill-label:active {
     text-decoration: none;
 }
 
@@ -622,11 +643,6 @@ body {
 .du-tag-pill-label.is-active {
     background-color: var(--du-primary);
     border-color: var(--du-primary);
-    color: #fff;
-}
-
-.du-tag-pill-label.is-active:hover {
-    background-color: var(--du-primary);
     color: #fff;
 }
 
@@ -645,11 +661,6 @@ body {
     transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-.du-tag-select-pill:hover {
-    background-color: var(--du-blue-soft);
-    color: #fff;
-}
-
 .du-tag-checkbox:checked+.du-tag-select-pill {
     background-color: var(--du-blue);
     border-color: var(--du-blue);
@@ -659,6 +670,32 @@ body {
 .du-tag-checkbox:focus-visible+.du-tag-select-pill {
     outline: 2px solid var(--du-blue);
     outline-offset: 2px;
+}
+
+/* design-update: Bootstrap標準のa:hover下線を、hover非対応環境（スマホのタップ含む）でも常時打ち消す */
+.du-tag-pill-label:hover {
+    text-decoration: none;
+}
+
+@media(hover: hover) {
+    .du-search-btn:hover {
+        background-color: var(--du-primary-dark);
+    }
+
+    .du-tag-pill-label:hover {
+        background-color: var(--du-primary-tint);
+        color: var(--du-primary-dark);
+    }
+
+    .du-tag-pill-label.is-active:hover {
+        background-color: var(--du-primary);
+        color: #fff;
+    }
+
+    .du-tag-select-pill:hover {
+        background-color: var(--du-blue);
+        color: #fff;
+    }
 }
 
 /* design-update: 投稿カード内のタグ表示。検索欄の絞り込みタグ（枠線+白背景）と区別するため、枠なし+塗りつぶしのコンパクトな見た目にする */
@@ -733,17 +770,18 @@ a {
     font-family: 'Zen Maru Gothic', sans-serif;
 }
 
+/* design-update: 投稿詳細ページでアバターを少し大きく表示 */
+.du-post-avatar-lg {
+    width: 56px;
+    height: 56px;
+    font-size: 1.4rem;
+}
+
 .du-post-user-name {
     font-weight: 500;
     color: var(--du-text);
     font-family: 'Zen Maru Gothic', sans-serif;
     font-size: 1.2rem;
-}
-
-/* design-update: ユーザー名ホバー時は太字に変更（色・下線は変えない） */
-.du-post-user-name:hover {
-    font-weight: 700;
-    color: var(--du-text);
 }
 
 /* design-update: カード右上に配置 */
@@ -767,17 +805,8 @@ a {
     padding: 0;
 }
 
-.du-post-actions .du-post-action-link:hover {
-    color: var(--du-muted);
-    text-decoration: none;
-}
-
 .du-post-actions .du-post-action-danger {
     color: var(--du-danger);
-}
-
-.du-post-actions .du-post-action-danger:hover {
-    color: var(--du-muted);
 }
 
 .du-post-content {
@@ -785,12 +814,35 @@ a {
     margin-bottom: 0;
     white-space: pre-wrap;
     font-family: 'Noto Sans JP', sans-serif;
+    color: var(--du-text);
+    text-decoration: none;
 }
 
 .du-post-image {
     height: 200px;
     width: auto;
     object-fit: contain;
+}
+
+/* design-update: Bootstrap標準のa:hover下線を、hover非対応環境（スマホのタップ含む）でも常時打ち消す */
+.du-post-actions .du-post-action-link:hover,
+.du-post-link:hover {
+    text-decoration: none;
+}
+
+@media(hover: hover) {
+    .du-post-user-name:hover {
+        font-weight: 700;
+        color: var(--du-text);
+    }
+
+    .du-post-actions .du-post-action-link:hover {
+        color: var(--du-muted);
+    }
+
+    .du-post-actions .du-post-action-danger:hover {
+        color: var(--du-muted);
+    }
 }
 
 /* ===== リアクション ===== */
@@ -811,8 +863,10 @@ a {
     transition: transform 0.3s ease;
 }
 
-.reaction-btn:hover .du-reaction-emoji {
-    transform: translateY(-3px);
+@media(hover: hover) {
+    .reaction-btn:hover .du-reaction-emoji {
+        transform: translateY(-3px);
+    }
 }
 
 .du-reaction-count {
@@ -839,6 +893,11 @@ a {
     font-size: 1.5em;
 }
 
+/* design-update: アバターの実サイズを基準にfont-sizeを決めるため、親をコンテナクエリの基準にする */
+.du-profile-card .card-body {
+    container-type: inline-size;
+}
+
 /* design-update: プロフィールページの大きいアバター（丸+頭文字） */
 .du-profile-avatar {
     display: flex;
@@ -846,9 +905,16 @@ a {
     max-width: 100%;
     aspect-ratio: 1 / 1;
     height: auto;
-    font-size: clamp(2rem, 18vw, 4rem);
+    font-size: clamp(2rem, 40cqw, 6rem);
     margin: 0 auto;
     overflow: hidden;
+}
+
+/* design-update: フォロー中・フォロワー一覧カード */
+.du-follow-list-item {
+    background-color: var(--du-card);
+    border-radius: 0.25rem;
+    padding: 0.75rem 1rem;
 }
 
 /* design-update: フォロー中・フォロワー一覧のアバター（丸+頭文字） */
@@ -863,12 +929,6 @@ a {
 .du-follow-name {
     color: var(--du-text);
     font-size: 1.1rem;
-}
-
-/* design-update: ユーザー名ホバー時は太字（色・下線は変えない） */
-.du-follow-name:hover {
-    font-weight: 700;
-    color: var(--du-text);
 }
 
 .du-profile-tabs .nav-link {
@@ -909,12 +969,6 @@ a {
     transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-.du-follow-pill:hover {
-    background-color: #fff;
-    border-color: var(--du-primary);
-    color: var(--du-primary);
-}
-
 /* design-update: 白抜き文字（ティール背景+白文字）に変更 */
 .du-follow-pill.is-following {
     background-color: var(--du-primary-dark);
@@ -922,23 +976,10 @@ a {
     color: #fff;
 }
 
-.du-follow-pill.is-following:hover {
-    background-color: #fff;
-    border-color: var(--du-primary-dark);
-    color: var(--du-primary-dark);
-}
-
 /* design-update: 「フォローする」ボタンも投稿する/更新するボタンと同じ青に変更 */
 .du-follow-pill.du-btn-link {
     background-color: var(--du-blue);
     border-color: var(--du-blue);
-}
-
-.du-follow-pill.du-btn-link:hover {
-    background-color: var(--du-blue);
-    border-color: var(--du-blue);
-    color: #fff;
-    opacity: 0.8;
 }
 
 /* design-update: 「フォロー解除」ボタンは「フォローする」の色反転（白背景+青文字） */
@@ -948,24 +989,50 @@ a {
     color: var(--du-blue);
 }
 
-.du-follow-pill.du-btn-muted:hover {
-    background-color: var(--du-blue);
-    border-color: var(--du-blue);
-    color: #fff;
-    opacity: 0.8;
-}
-
 /* design-update: 「フォロー中」ボタンは、普段は「フォロー中」、ホバー時だけ「フォロー解除」に表示を切り替え */
 .du-follow-pill.is-following .du-follow-label-hover {
     display: none;
 }
 
-.du-follow-pill.is-following:hover .du-follow-label-default {
-    display: none;
-}
+@media(hover: hover) {
+    .du-follow-name:hover {
+        font-weight: 700;
+        color: var(--du-text);
+    }
 
-.du-follow-pill.is-following:hover .du-follow-label-hover {
-    display: inline;
+    .du-follow-pill:hover {
+        background-color: #fff;
+        border-color: var(--du-primary);
+        color: var(--du-primary);
+    }
+
+    .du-follow-pill.is-following:hover {
+        background-color: #fff;
+        border-color: var(--du-primary-dark);
+        color: var(--du-primary-dark);
+    }
+
+    .du-follow-pill.du-btn-link:hover {
+        background-color: var(--du-blue);
+        border-color: var(--du-blue);
+        color: #fff;
+        opacity: 0.8;
+    }
+
+    .du-follow-pill.du-btn-muted:hover {
+        background-color: var(--du-blue);
+        border-color: var(--du-blue);
+        color: #fff;
+        opacity: 0.8;
+    }
+
+    .du-follow-pill.is-following:hover .du-follow-label-default {
+        display: none;
+    }
+
+    .du-follow-pill.is-following:hover .du-follow-label-hover {
+        display: inline;
+    }
 }
 
 /* ===== ページネーション ===== */
@@ -974,10 +1041,12 @@ a {
 }
 
 /* design-update: ページネーションのホバー（フォントと同系色の薄い色）と同じ配色に統一 */
-.pagination .page-link:hover {
-    color: var(--du-primary-dark);
-    background-color: var(--du-primary-tint);
-    border-color: var(--du-primary);
+@media(hover: hover) {
+    .pagination .page-link:hover {
+        color: var(--du-primary-dark);
+        background-color: var(--du-primary-tint);
+        border-color: var(--du-primary);
+    }
 }
 
 .pagination .page-item.active .page-link {

@@ -16,14 +16,14 @@
         @csrf
         {{-- design-update: テキストエリア 文字数カウントjavaScript--}}
         <div class="form-group position-relative mb-2">
-            <textarea class="form-control du-composer-textarea" name="content" rows="5" placeholder="140文字以内でなにかつぶやいてみよう。" id="du-post-content" data-char-count-target="du-char-count" data-char-count-max="140">{{ old('content') }}</textarea>
+            <textarea class="form-control du-composer-textarea" name="content" rows="5" placeholder="140文字以内でなにかつぶやいてみよう。" data-char-count-target="du-char-count" data-char-count-max="140">{{ old('content') }}</textarea>
             <span class="du-char-counter"><span id="du-char-count">0</span>/140</span>
         </div>
         {{-- 画像アップロード --}}
         <div class="form-group mt-2">
             <label for="image" class="mb-1 d-block"><i class="fas fa-image mr-1"></i>画像を追加(任意 2MBまで)</label>
             <input type="file" name="image" id="image" class="du-file-image-input">
-            <button type="button" id="image-clear" class="btn btn-light d-none btn-outline-secondary btn-sm du-btn-small">×解除</button>
+            <button type="button" id="image-clear" class="btn d-none btn-outline-secondary btn-sm du-btn-small">×解除</button>
         </div>
         <div class="form-group mt-2 du-composer-tag-wrap js-tag-select-wrap">
             @include('posts.tag_checkboxes', ['tagIdPrefix' => 'post-tag-'])
@@ -50,7 +50,6 @@
             @endforeach
         </form>
     </div>
-    <div class="du-tag-search-wrap">
         {{-- design-update: タグ検索 --}}
         <div class="du-tag-filter">
             @isset($allTags)
@@ -70,7 +69,6 @@
             @endforeach
             @endisset
         </div>
-    </div>
 </div>
 
 {{-- 投稿一覧 --}}

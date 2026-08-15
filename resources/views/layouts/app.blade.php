@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>今日のつぶやき</title>
+    <link rel="icon" href="{{ asset('images/favicon.svg') }}" type="image/svg+xml" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     {{-- design-update: デザイン用フォント（Kaisei Opti=ヘッダー/ジャンボトロン用 / Zen Maru Gothic=つぶやき文・投稿文用 / Noto Sans JP=本文用）を追加 --}}

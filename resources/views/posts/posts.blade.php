@@ -14,20 +14,22 @@
         </div>
         {{-- 投稿のタグ --}}
         @if ($post->tags->isNotEmpty())
-        <div class="mb-2">
+        <div class="mt-2 mb-2">
             @foreach ($post->tags as $tag)
             <span class="du-post-tag-pill">#{{ $tag->type }}</span>
             @endforeach
         </div>
         @endif
-        <p class="du-post-content text-break">
-            <a href="{{ route('posts.show', $post->id) }}">{{ $post->content }}</a>
-        </p>
-        @if ($post->image !== null)
-        <div class="mt-2 mb-2">
-            <img class="img-fluid rounded du-post-image" src="{{ asset('storage/' . $post->image) }}" alt="投稿画像">
-        </div>
-        @endif
+
+        <a class="d-block du-post-link" href="{{ route('posts.show', $post->id) }}">
+            <p class="du-post-content text-break">{{ $post->content }}</p>
+            @if ($post->image !== null)
+            <div class="mt-2 mb-2">
+                <img class="img-fluid rounded du-post-image" src="{{ asset('storage/' . $post->image) }}" alt="投稿画像">
+            </div>
+            @endif
+        </a>
+
         <div class="du-reaction-row">
             @include('reactions.reaction_button',['post' => $post])
             @if (Auth::id() === $post->user_id)
