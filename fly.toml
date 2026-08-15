@@ -22,7 +22,7 @@ console_command = 'php /var/www/html/artisan tinker'
 
 [[mounts]]
   source = "todaytweet_storage"
-  destination = "/var/www/html/storage"
+  destination = "/var/www/html/storage/app/public"
 
 [http_service]
   internal_port = 8080
