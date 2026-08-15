@@ -74,3 +74,37 @@ if (savedScrollPosition) {
     window.scrollTo({ top: parseInt(savedScrollPosition, 10), behavior: 'auto' });
     sessionStorage.removeItem('reactionScrollPosition');
 }
+
+// 投稿フォームのタグ選択上限（3つを超えて選んだら4つ目の選択を解除しメッセージ表示）
+var TAG_SELECT_MAX = 3;
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.js-tag-select-wrap').forEach(setupTagSelectionLimit);
+});
+
+function setupTagSelectionLimit(tagWrap) {
+    var checkboxes = tagWrap.querySelectorAll('.js-tag-checkbox-limit');
+    var message = createTagLimitMessage();
+    tagWrap.appendChild(message);
+
+    checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
+            var checkedCount = tagWrap.querySelectorAll('.js-tag-checkbox-limit:checked').length;
+
+            if (checkedCount > TAG_SELECT_MAX) {
+                checkbox.checked = false; // 4つ目の選択を解除
+                message.classList.remove('d-none');
+                return;
+            }
+
+            message.classList.add('d-none');
+        });
+    });
+}
+
+function createTagLimitMessage() {
+    var message = document.createElement('p');
+    message.className = 'du-tag-limit-message js-tag-limit-message d-none small mt-1';
+    message.textContent = 'タグの選択は' + TAG_SELECT_MAX + 'つまでだよ。';
+    return message;
+}
