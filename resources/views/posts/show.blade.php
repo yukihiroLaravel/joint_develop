@@ -5,8 +5,18 @@
     {{-- リアクションドーナツ専用の見た目を読み込む --}}
     @include('posts.partials.reaction_donut_style')
 
+    {{-- 投稿詳細画面専用の見た目を読み込む --}}
+    @include('posts.partials.post_detail_style')
+
     <div class="w-75 m-auto">
-        <h2 class="mt-5 mb-4">やっちゃった詳細</h2>
+        <h1 class="mt-3 mb-4 text-center">
+            <img
+                src="{{ asset('images/post-logo.png') }}"
+                alt=""
+                class="img-fluid post-detail-logo"
+            >
+            <span class="sr-only">やっちゃった詳細</span>
+        </h1>
 
         @if (session('status'))
             <div class="alert alert-success">
@@ -14,39 +24,47 @@
             </div>
         @endif
 
-        <div class="border rounded p-4 mb-3 bg-light">
-            <p class="font-weight-bold mb-3">
-                やっちゃった内容
-            </p>
-
-            <p class="mb-0">
-                {{ $post->content }}
-            </p>
-
-            @if ($post->tags->isNotEmpty())
-                <div class="mt-3">
-                    @foreach ($post->tags as $tag)
-                        <a
-                            href="{{ route('tag.show', $tag->id) }}"
-                            class="badge mr-1"
-                            style="background-color: #97b7a4; color: #ffffff;"
-                        >
-                            #{{ $tag->name }}
-                        </a>
-                    @endforeach
-                </div>
-            @endif
-
-            @if ($post->image_path)
-                <div class="mt-3">
-                    <img
-                        src="{{ asset('storage/' . $post->image_path) }}"
-                        alt="添付画像"
-                        class="img-fluid rounded border bg-white"
-                        style="max-height: 400px; width: auto; object-fit: contain;"
+        <div
+            class="post-detail-main-card rounded mb-3 shadow-sm"
+        >
+            <div class="post-detail-main-card-body p-4">
+                <p class="mb-3">
+                    <span
+                        class="post-detail-main-label d-inline-block px-3 py-1 rounded-pill font-weight-bold"
                     >
-                </div>
-            @endif
+                        やっちゃった内容
+                    </span>
+                </p>
+
+                <p class="post-detail-main-content mb-0">
+                    {{ $post->content }}
+                </p>
+
+                @if ($post->tags->isNotEmpty())
+                    <div class="mt-3">
+                        @foreach ($post->tags as $tag)
+                            <a
+                                href="{{ route('tag.show', $tag->id) }}"
+                                class="badge mr-1"
+                                style="background-color: #97b7a4; color: #ffffff;"
+                            >
+                                #{{ $tag->name }}
+                            </a>
+                        @endforeach
+                    </div>
+                @endif
+
+                @if ($post->image_path)
+                    <div class="mt-3">
+                        <img
+                            src="{{ asset('storage/' . $post->image_path) }}"
+                            alt="添付画像"
+                            class="img-fluid rounded border bg-white"
+                            style="max-height: 400px; width: auto; object-fit: contain;"
+                        >
+                    </div>
+                @endif
+            </div>
 
         </div>
 
@@ -102,16 +120,21 @@
                 : 'conic-gradient(#e9ecef 0% 100%)';
         @endphp
 
-        <div class="border rounded p-4 mb-5 bg-light">
+        <div
+            class="post-detail-reaction-panel rounded p-4 mb-5 shadow-sm"
+        >
 
-            <h5 class="font-weight-bold mb-3">
+            <h5 class="post-detail-reaction-heading font-weight-bold mb-3">
                 リアクション集計
             </h5>
 
             <div class="row align-items-center">
                 <div class="col-md-6 mb-4 mb-md-0">
-                    <p class="font-weight-bold">
-                        リアクション総数：{{ $totalReactions }}件
+                    <p class="font-weight-bold d-flex align-items-baseline">
+                        <span>リアクション総数：</span>
+                        <span class="post-detail-reaction-total text-success">
+                            {{ $totalReactions }}件
+                        </span>
                     </p>
 
                     @foreach ($reactionTypes as $type => $label)
@@ -168,8 +191,10 @@
             </div>
         </div>
 
-        <div class="mt-5">
-            <h4 class="font-weight-bold">リアクション</h4>
+        <div
+            class="post-detail-reaction-panel mt-5 rounded p-4 shadow-sm"
+        >
+            <h4 class="post-detail-reaction-heading font-weight-bold">リアクション</h4>
 
             <p class="text-muted mb-3">
                 {{ $myReaction ? 'リアクションは変更できるよ' : 'あなたのリアクションを選んでね' }}
@@ -187,7 +212,7 @@
                         formaction="{{ route('reaction.store', $post->id) }}"
                         name="reaction_type"
                         value="{{ $type }}"
-                        class="btn p-3 shadow-sm d-flex flex-column align-items-center mr-2 mb-3 {{ optional($myReaction)->reaction_type === $type ? '' : 'btn-light' }}"
+                        class="reaction-button btn p-3 shadow-sm d-flex flex-column align-items-center mr-2 mb-3 {{ optional($myReaction)->reaction_type === $type ? '' : 'btn-light' }}"
                         style="width: 120px; {{ optional($myReaction)->reaction_type === $type ? 'background-color: #ffe4ec; border-color: #f5a8bd;' : '' }}"
                     >
                         <img
@@ -216,8 +241,13 @@
 
             {{-- To Minamiさん：上の各ボタンの下にリアクション集計をそれぞれ表示させるイメージかと思います --}}
 
-            <div class="form-group">
-                <label for="encouragement" class="font-weight-bold h5">
+            <div
+                class="post-detail-encouragement-panel form-group rounded p-4 mt-4 shadow-sm"
+            >
+                <label
+                    for="encouragement"
+                    class="post-detail-encouragement-label font-weight-bold h5 d-inline-block px-3 py-1 rounded-pill"
+                >
                     ひとことハゲマシ
                 </label>
 
@@ -288,11 +318,19 @@
         </div>
 
         @if ($encouragementReactions->count() > 0)
-            <div class="mt-5">
-                <h4 class="font-weight-bold">みんなからのポジティブ</h4>
+            <div
+                class="post-detail-positive-panel mt-5 rounded p-4 shadow-sm"
+            >
+                <h4
+                    class="post-detail-positive-heading font-weight-bold mb-4"
+                >
+                    みんなからのポジティブ
+                </h4>
 
                 @foreach ($encouragementReactions as $reaction)
-                    <div class="border rounded p-3 mb-3">
+                    <div
+                        class="post-detail-positive-card border rounded p-3 mb-3 bg-white shadow-sm"
+                    >
                         <img
                             src="{{ asset('images/reactions/' . $reaction->reaction_type . '.png') }}"
                             alt="{{ $reactionTypes[$reaction->reaction_type] }}"
@@ -346,12 +384,18 @@
                                                     @csrf
                                                     @method('PUT')
 
-                                                    <textarea
-                                                        name="content"
-                                                        class="form-control mb-2"
-                                                        rows="3"
-                                                        maxlength="100"
-                                                        >{{ $reply->content }}</textarea>
+                                                    <textarea name="content" class="form-control mb-2 js-character-count" rows="3" maxlength="100" data-max-length="100">{{ $reply->content }}</textarea>
+
+                                                    <div class="text-right mb-2">
+                                                        <small>
+                                                            <span class="js-character-count-display">
+                                                                {{ mb_strlen($reply->content) }}
+                                                            </span>
+                                                            /100文字
+                                                        </small>
+                                                    </div>
+
+                                                    <div class="js-character-count-error text-danger mb-2"></div>
 
                                                     <button type="submit" class="btn btn-sm btn-primary">
                                                         更新
@@ -447,6 +491,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const encouragementCount = document.getElementById('encouragement-count');
     const encouragementError = document.getElementById('encouragement-error');
     const submitButton = document.getElementById('encouragementSubmitButton');
+    const reactionButtons = document.querySelectorAll('.reaction-button');
 
     if (encouragement && encouragementCount && encouragementError && submitButton) {
 
@@ -459,10 +504,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 encouragementCount.classList.add('text-danger');
                 encouragementError.classList.remove('d-none');
                 submitButton.disabled = true;
+
+                reactionButtons.forEach(function (button) {
+                    button.disabled = true;
+                });
+
             } else {
                 encouragementCount.classList.remove('text-danger');
                 encouragementError.classList.add('d-none');
                 submitButton.disabled = false;
+
+                reactionButtons.forEach(function (button) {
+                    button.disabled = false;
+                 });                
             }
         }
 
@@ -511,3 +565,9 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 @endpush
+{{-- リアクション成功時だけ紙吹雪を読み込む --}}
+@if (session()->has('reaction_confetti'))
+    @include('posts.partials.reaction_confetti_script', [
+        'reactionType' => session('reaction_confetti'),
+    ])
+@endif
