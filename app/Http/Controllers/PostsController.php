@@ -53,8 +53,8 @@ class PostsController extends Controller
 
         // ランキング表示用にリアクション数の多い投稿を取得する(Minami)
         $rankingPosts = Post::with('user')
+            ->has('reactions')
             ->withCount('reactions')
-            ->having('reactions_count', '>', 0)
             ->orderBy('reactions_count', 'desc')
             ->take(3)
             ->get();
