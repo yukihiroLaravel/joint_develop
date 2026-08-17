@@ -21,7 +21,7 @@
         <div class="form-group mt-2">
             <label for="image" class="mb-1 d-block"><i class="fas fa-image mr-1"></i>画像を変更</label>
             <input type="file" name="image" id="image" class="du-file-image-input">
-            <button type="button" id="image-clear" class="btn btn-light d-none btn-outline-secondary btn-sm du-btn-small">×解除</button>
+            <button type="button" id="image-clear" class="btn d-none btn-outline-secondary btn-sm du-btn-small">×解除</button>
             <div class="form-group mt-2">
                 <label for="delete_image" class="mb-1 d-inline bg-primary-subtle"><i class="fas fa-solid fa-times mr-1 "></i><span>画像を削除</span></label>
                 <input type="checkbox" name="delete_image" id="delete_image">
@@ -31,7 +31,7 @@
         <div class="form-group mt-2">
             <label for="image" class="mb-1 d-block "><i class="fas fa-image mr-1"></i>画像を追加(任意 2MBまで)</label>
             <input type="file" name="image" id="image" class="du-file-image-input">
-            <button type="button" id="image-clear" class="btn btn-light d-none btn-outline-secondary btn-sm du-btn-small">×解除</button>
+            <button type="button" id="image-clear" class="btn d-none btn-outline-secondary btn-sm du-btn-small">×解除</button>
         </div>
         @endif
         <div class="form-group mt-2 du-composer-tag-wrap js-tag-select-wrap">

@@ -1,6 +1,6 @@
 <ul class="list-unstyled w-75 du-feed-list m-auto">
     @forelse($followers as $follower)
-        <li class="mb-3">
+        <li class="du-follow-list-item mb-3">
             <div class="d-flex align-items-center">
                 {{-- design-update: 丸+頭文字のアイコンに変更 --}}
                 <span class="du-avatar-initial du-follow-avatar mr-3 du-avatar-c{{ $follower->id % 6 }}">{{ mb_substr($follower->name, 0, 1) }}</span>
