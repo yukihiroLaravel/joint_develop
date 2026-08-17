@@ -91,8 +91,12 @@ class PostsController extends Controller
             abort(403, 'このユーザは編集権限がありません。');
         }
 
+        // 全タグの情報を取得
+        $allTags = Tag::all();
+
         $data = [
             'post' => $post,
+            'allTags' => $allTags,
         ];
 
         return view('posts.edit', $data);
@@ -132,6 +136,9 @@ class PostsController extends Controller
         // 画像アップロード(更新) ここまで-------------------------//
 
         $post->save();
+
+        // タグの紐付けを更新
+        $post->tags()->sync($request->tags ?? []);
 
         return redirect()->route('posts')->with('success', '更新しました！');
     }
