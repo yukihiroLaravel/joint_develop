@@ -141,8 +141,10 @@
             ])
         @endif
 
-        <div class="w-75 m-auto mb-4">
-            <h4 class="font-weight-bold" style="color:#FFD700;">
+        <div class="ranking-section">
+
+            <div class="mb-4">
+            <h4 class="font-weight-bold ranking-title" style="color:#000000;">
                 🏆 人気ランキング
             </h4>
 
@@ -172,7 +174,7 @@
                         @endif
                     </div>
 
-                    <a href="{{ route('post.show', $post->id) }}">
+                    <a href="{{ route('post.show', $post->id) }}"style="color: #111111 !important;">
                         {{ $post->content }}
                     </a>
 
@@ -194,9 +196,14 @@
                 <p>まだリアクションがありません。</p>
             @endforelse
 
+            </div>
         </div>
         {{-- 検索していない通常のトップページでだけ、投稿一覧を表示 --}}
         @if (! $hasSearch)
+            <div class="post-topic">
+                今日のやらかし
+            </div>
+
             @include('posts.posts', ['posts' => $posts])
         @endif
 

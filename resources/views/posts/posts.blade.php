@@ -1,6 +1,6 @@
 <ul class="list-unstyled">
     @forelse ($posts as $post)
-        <li class="mb-3 text-center">
+        <li class="post-card mb-3 text-center">
             <div class="text-left d-inline-block w-75 mb-2">
 
                 @if($post->user->avatar)
@@ -19,8 +19,8 @@
                     >
                 @endif
 
-                <p class="mt-3 mb-0 d-inline-block">
-                    <a href="{{ route('user.show', $post->user->id) }}">
+                <p class="mt-3 mb-0 d-inline-block font-weight-bold">
+                    <a href="{{ route('user.show', $post->user->id) }}" style="color: #111111 !important;">
                         {{ $post->user->name }}
                     </a>
                 </p>
@@ -29,7 +29,7 @@
             <div>
                 <div class="text-left d-inline-block w-75">
                     <p class="mb-2">
-                        <a href="{{ route('post.show', $post->id) }}">
+                        <a href="{{ route('post.show', $post->id) }}" style="color: #111111 !important;">
                             {{ $post->content }}
                         </a>
                     </p>
@@ -61,9 +61,9 @@
                         </div>
                     @endif
 
-                    <div class="d-flex align-items-center mt-2 mb-2">
+                    <div class="reaction-list align-items-center mt-2 mb-2">
                         @foreach ($reactionTypes as $type => $label)
-                            <div class="mr-3 text-center">
+                            <div class="reaction-item mr-3 text-center">
                                 <img
                                     src="{{ asset('images/reactions/' .$type . '.png') }}"
                                     alt="{{ $label }}"

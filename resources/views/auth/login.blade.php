@@ -38,9 +38,9 @@
                                             </div>
                                         @enderror
                                 </div>
-                                    <button type="submit" class="btn btn-primary mt-2">ログイン</button>
+                                    <button type="submit" class="btn login-button mt-2">ログイン</button>
                         </form>
-                                <div class="mt-2"><a href="{{ route('signup') }}">新規ユーザ登録する？</a>
+                                <div class="mt-2"><a href="{{ route('signup') }}" style="color: #111111 !important; font-weight: 600;">新規ユーザ登録する？</a>
                                 </div>
                     </div>
                 </div>

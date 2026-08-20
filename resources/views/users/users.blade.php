@@ -1,4 +1,4 @@
-<ul class="list-unstyled">
+<ul class="list-unstyled user-list-summary">
     @forelse ($users as $listUser)
         <li class="mb-3 text-center">
             <div class="text-left d-inline-block w-75 mb-2">

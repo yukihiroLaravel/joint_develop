@@ -1,0 +1,107 @@
+body {
+    background-image: url('/images/sky-background.jpeg') !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.post-card {
+    background-color: rgba(255, 255, 255, 0.65);
+    border-radius: 14px;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+}
+
+.reaction-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.reaction-item {
+    flex-shrink: 0;
+}
+
+.login-button {
+    background-color: #ffffff;
+    color: #222222;
+    font-weight: 600;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.login-button:hover {
+    background-color: #8fd3f4;
+    color: #111111;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.post-topic {
+    display: table;
+    margin: 25px auto 15px 12%;
+    padding: 6px 15px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #222222;
+    background-color: rgba(255, 255, 255, 0.65);
+    border-radius: 12px;
+    white-space: nowrap;
+}
+
+@media (max-width: 576px) {
+    .post-topic {
+        margin: 20px 0 15px 5%;
+        padding: 5px 10px;
+        font-size: 18px;
+    }
+}
+
+.ranking-section {
+    width: 65%;
+    margin: 0 auto 25px;
+    padding: 12px;
+    background-color: rgba(255, 255, 255, 0.45);
+    border-radius: 14px;
+}
+
+.ranking-title {
+    margin-left: 0 0 15px 0;
+    text-align: left;
+}
+
+.reaction-summary {
+    background-color: rgba(255, 255, 255, 0.55);
+    border-radius: 14px;
+    padding: 15px;
+}
+
+.user-list-summary {
+    background-color: rgba(255, 255, 255, 0.7) !important;
+    border-radius: 14px !important;
+    padding: 20px !important;
+}
+
+.profile-card {
+    background-color: rgba(255, 255, 255, 0.55) !important;
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.profile-card .card-header {
+    background-color: rgba(90, 180, 230, 0.55);
+    border-bottom: none;
+}
+
+.profile-card .card-title {
+    color: #222222 !important;
+    font-weight: bold;
+}
