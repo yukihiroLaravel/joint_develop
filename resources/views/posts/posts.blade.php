@@ -1,6 +1,7 @@
 <ul class="list-unstyled">
     @forelse ($posts as $post)
         <li class="post-card mb-3 text-center">
+
             <div class="text-left d-inline-block w-75 mb-2">
 
                 @if($post->user->avatar)

@@ -5,7 +5,7 @@
         <aside class="col-sm-4 mb-5">
             <div class="card profile-card">
                 <div class="card-header">
-                    <h3 class="card-title text-light">
+                    <h3 class="card-title" style="color:#557a6b;">
                         {{ $user->name }}
                     </h3>
                 </div>
