@@ -1,4 +1,6 @@
-<ul class="list-unstyled">
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/posts.css') }}">
+@endpush<ul class="list-unstyled">
     @forelse ($posts as $post)
         <li class="post-card mb-3 text-center">
 

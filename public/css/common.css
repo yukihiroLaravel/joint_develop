@@ -1,0 +1,39 @@
+/* 共通ボタン */
+.login-button {
+    background-color: #ffffff;
+    color: #222222;
+    font-weight: 600;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.login-button:hover {
+    background-color: #8fd3f4;
+    color: #111111;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.user-list-summary {
+    background-color: rgba(255, 255, 255, 0.7) !important;
+    border-radius: 14px !important;
+    padding: 20px !important;
+}
+
+.profile-card {
+    background-color: rgba(255, 255, 255, 0.55) !important;
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.profile-card .card-header {
+    background-color: rgba(90, 180, 230, 0.55);
+    border-bottom: none;
+}
+
+.profile-card .card-title {
+    color: #222222 !important;
+    font-weight: bold;
+}

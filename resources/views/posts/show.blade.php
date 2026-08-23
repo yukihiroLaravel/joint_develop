@@ -1,12 +1,13 @@
 @extends('layouts.app')
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/post-detail.css') }}">
+@endpush
+
 @section('content')
 
     {{-- リアクションドーナツ専用の見た目を読み込む --}}
     @include('posts.partials.reaction_donut_style')
-
-    {{-- 投稿詳細画面専用の見た目を読み込む --}}
-    @include('posts.partials.post_detail_style')
 
     <div class="w-75 m-auto">
         <h1 class="mt-3 mb-4 text-center">
@@ -68,38 +69,45 @@
 
         </div>
 
-        <div class="mb-3 d-flex align-items-center">
+            <div class="post-detail-meta mb-4">
 
-            @if ($post->user->avatar)
-                <img
-                    class="mr-3 rounded-circle"
-                    src="{{ asset('storage/' . $post->user->avatar) }}"
-                    alt="{{ $post->user->name }}のアバター画像"
-                    width="55"
-                    height="55"
-                >
-            @else
-                <img
-                    class="mr-3 rounded-circle"
-                    src="{{ Gravatar::src($post->user->email, 55) }}"
-                    alt="{{ $post->user->name }}のアバター画像"
-                >
-            @endif
+                <div class="post-detail-user mb-3 d-flex align-items-center">
 
-            <div>
-                <p class="font-weight-bold mb-1">
-                    やっちゃった人
-                </p>
+                    @if ($post->user->avatar)
+                        <img
+                            class="mr-3 rounded-circle"
+                            src="{{ asset('storage/' . $post->user->avatar) }}"
+                            alt="{{ $post->user->name }}のアバター画像"
+                            width="55"
+                            height="55"
+                        >
+                    @else
+                        <img
+                            class="mr-3 rounded-circle"
+                            src="{{ Gravatar::src($post->user->email, 55) }}"
+                            alt="{{ $post->user->name }}のアバター画像"
+                        >
+                    @endif
 
-                <a href="{{ route('user.show', $post->user->id) }}">
-                    {{ $post->user->name }}
-                </a>
+                    <div>
+                        <p class="post-detail-user-label mb-1">
+                            やっちゃった人
+                    </p>
+
+                        <a
+                            href="{{ route('user.show', $post->user->id) }}"
+                            class="post-detail-user-name"
+                        >
+                            {{ $post->user->name }}
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="post-detail-created-at">
+                    {{ $post->created_at }}
+                </div>
             </div>
-        </div>
-
-        <p class="text-muted">
-            {{ $post->created_at }}
-        </p>
 
         @php
             $donutStart = 0;
@@ -468,7 +476,7 @@
             </div>
         @endif
 
-        <div class="mt-4">
+        <div class="post-navigation">
             <a href="/" class="btn btn-secondary mr-2">
                 トップへ
             </a>
