@@ -1,5 +1,5 @@
 <div class="form-group text-left position-relative">
-    <label for="tags">
+    <label for="tags" class="tag-label">
         タグ
     </label>
 
@@ -23,7 +23,7 @@
         role="listbox"
     ></div>
 
-    <small class="form-text text-muted">
+    <small class="form-text tag-help-text">
         タグはカンマ区切りで3個まで、1個につき20文字以内で入力してください。
     </small>
 

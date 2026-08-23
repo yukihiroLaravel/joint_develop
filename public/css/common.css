@@ -37,3 +37,40 @@
     color: #222222 !important;
     font-weight: bold;
 }
+
+/* タグ入力 */
+.tag-label {
+    font-weight: bold;
+}
+
+.tag-help-text {
+    color: #111111;
+}
+
+/* タグ入力 */
+.tag-label {
+    font-weight: bold;
+}
+
+.tag-help-text {
+    color: #000000;
+}
+
+/* 画像添付 */
+.image-label {
+    font-weight: bold;
+}
+
+.image-help-text {
+    color: #000000;
+}
+
+/* 投稿フォーム */
+.post-form-heading {
+    color: #000000;
+    font-weight: bold;
+}
+
+.character-count-text {
+    color: #000000;
+}

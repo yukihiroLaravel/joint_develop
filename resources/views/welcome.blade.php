@@ -6,7 +6,7 @@
     </h1>
     </div>
 
-    <h5 class="text-center mb-3">"今日のやらかし"についてシェアしよう！</h5>
+    <h5 class="post-form-heading text-center mb-3">"今日のやらかし"についてシェアしよう！</h5>
 
         @if (Auth::check())
             <div class="text-center mb-3">
@@ -18,7 +18,7 @@
                             class="form-control js-character-count" name="content" rows="3" data-max-length="100">{{ old('content') }}</textarea>
 
                         <div class="text-right mt-1">
-                            <small>
+                            <small class="character-count-text">
                                 <span class="js-character-count-display">0</span> / 100文字
                             </small>
                         </div>
@@ -38,7 +38,7 @@
                     ])
 
                     <div class="form-group text-left">
-                        <label for="image">
+                        <label for="image" class="image-label">
                             画像を添付（任意）
                         </label>
 
@@ -83,7 +83,7 @@
                             </div>
                         </div>
 
-                        <small class="form-text text-muted">
+                        <small class="form-text image-help-text">
                             対応形式: jpeg, png, jpg, gif（最大2MBまで）
                         </small>
 
