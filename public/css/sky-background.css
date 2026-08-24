@@ -1,0 +1,12 @@
+body {
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.1),
+            rgba(255, 255, 255, 0.3)
+        ),
+        url('/images/sky-background.jpeg') !important;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+}
