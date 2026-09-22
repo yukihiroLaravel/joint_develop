@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Auth\RegisterController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,8 +11,10 @@ use App\Http\Controllers\Auth\RegisterController;
 |
 */
 
-//Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
-//Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
+//ユーザ新規登録
+Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
-Route::get('signup', [RegisterController::class, 'showRegistrationForm'])->name('signup');
-Route::post('signup', [RegisterController::class, 'register'])->name('signup.post');
+Route::get('/', 'UsersController@index');
+
+
