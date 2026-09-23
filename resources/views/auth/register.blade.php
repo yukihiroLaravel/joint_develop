@@ -20,7 +20,7 @@
                 </div>
                 <div class="form-group">
                     <label for="email">メールアドレス</label>
-                    <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}">
+                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
                 </div>
                 <div class="form-group">
                     <label for="password">パスワード</label>
