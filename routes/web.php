@@ -16,7 +16,7 @@ Route::get('/', 'PostsController@index')->name('posts');
 
 // ユーザ詳細
 Route::get('users/{id}', 'UsersController@show')->name('users.show');
-        
+
 // 投稿詳細
 Route::get('post/{id}', 'PostsController@show')->name('posts.show');
 
@@ -33,6 +33,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
         // リアクション
         Route::post('{id}/reaction', 'ReactionsController@toggle')->name('reaction.toggle');
+        // コメント投稿
+        Route::post('{id}/comment', 'CommentsController@store')->name('comment.store');
+        // コメント削除
+        Route::delete('{id}/comment/{commentId}', 'CommentsController@destroy')->name('comment.delete');
     });
 
     Route::prefix('users')->group(function () {

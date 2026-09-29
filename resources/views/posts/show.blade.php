@@ -27,7 +27,7 @@
             <img class="img-fluid rounded du-post-image" src="{{ asset('storage/' . $post->image) }}" alt="投稿画像">
         </div>
         @endif
-        <div class="du-reaction-row">
+        <div class="du-reaction-row pb-3">
             @include('reactions.reaction_button', ['post' => $post])
             @if (Auth::id() === $post->user_id)
             <div class="du-post-actions">
@@ -40,6 +40,9 @@
             </div>
             @endif
         </div>
-</div>
+        @include('commons.error_messages')
+        @include('comments.comments_form', ['post' => $post, 'parentId' => null])
+        @include('comments.comments', ['post' => $post])
+    </div>
 
 @endsection

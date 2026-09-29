@@ -30,4 +30,10 @@ class Post extends Model
     {
         return $this->belongsToMany('App\Tag'); 
     }
+
+    // コメントの情報を取得 $post->comments
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
