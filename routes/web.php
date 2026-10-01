@@ -16,5 +16,7 @@ Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('sign
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 Route::get('/', 'PostsController@index');
-
-
+//ログイン後
+Route::prefix('users')->group(function(){
+    Route::get('{id}', 'PostsController@show')->name('users.show');
+});
