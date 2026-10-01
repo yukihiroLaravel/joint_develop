@@ -1,6 +1,5 @@
 {{-- @extends('layouts.app') --}}
 {{-- @section('content') --}}
-    @include('commons.error_messages')
     <div class="row">
         <aside class="col-sm-4 mb-5">
             <div class="card bg-info">
