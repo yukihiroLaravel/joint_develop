@@ -26,11 +26,16 @@ class PostsController extends Controller
 
         return view('users.show', $data);
     }
+
     // 投稿の編集
     public function edit($id)
     {
         $user = \Auth::user();
         $post = Post::findOrFail($id);
+
+        if ($post->user_id !== $user->id) {
+            abort(403);
+        }
         $data = [
             'user' => $user,
             'post' => $post,
@@ -38,12 +43,13 @@ class PostsController extends Controller
 
         return view('posts.edit', $data);
     }
+
     // 投稿の更新
     public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
 
-        if($post->user_id !== $request->user()->id){
+        if ($post->user_id !== $request->user()->id) {
             abort(403);
         }
         $post->content = $request->content;
