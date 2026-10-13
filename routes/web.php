@@ -11,25 +11,25 @@
 |
 */
 
-//ユーザ新規登録
+// ユーザ新規登録
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 Route::get('/', 'PostsController@index');
 
-//ユーザ詳細
+// ユーザ詳細
 Route::prefix('users')->group(function(){
     Route::get('{id}', 'PostsController@show')->name('users.show');
 });
 
-//ログイン後
-//投稿編集画面・更新処理
+// ログイン後
+// 投稿編集画面・更新処理
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function(){
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
     });
 
-    //ユーザ退会
+    // ユーザ退会
     Route::delete('users/{id}', 'UsersController@destroy')->name('user.destroy');
 });
