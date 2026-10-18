@@ -1214,10 +1214,6 @@ ul.comment-replies.is-indented {
     margin-right: 0.25rem;
 }
 
-.comment-container {
-    margin-bottom: 1rem;
-}
-
 .comment-edit-icons {
     display: inline-block;
 }
@@ -1232,3 +1228,16 @@ ul.comment-replies.is-indented {
 .post-comment-link:hover {
     text-decoration: none;
 }
+
+/* 返信のまとまりに縦線を引く（インデントする階層だけ） */
+ul.comment-replies.is-indented {
+    border-left: 2px solid var(--du-border);
+    margin-left: 0.75rem;
+}
+
+/* 親コメント同士の間に区切り線を入れる（2つ目以降の親コメントの上） */
+ul.comment-root>li.comment-list-item+li.comment-list-item {
+    border-top: 1px solid var(--du-border);
+    padding-top: 1rem;
+}
+        

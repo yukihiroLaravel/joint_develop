@@ -1,8 +1,8 @@
 @php
-    $maxIndentDepth = 2; // インデントする最大の階層(これより深い返信はフラットに表示)
+    $maxIndentDepth = 3; // インデントする最大の階層(これより深い返信はフラットに表示)
 @endphp
 <li class="comment-list-item">
-    <div class="comment-container mb-2 mt-2">
+    <div class="comment-container mb-3 mt-2">
         <div class="comment-user d-flex justify-content-between">
             <a class="d-flex align-items-center" href="{{ route('users.show', $comment->user->id) }}">
                 <span
@@ -26,7 +26,8 @@
             </p>
             {{-- 返信/編集/削除ボタンの行 --}}
             <div class="comment-actions d-flex align-items-center">
-                {{-- TODO: コメントへのリアクション（後日実装） --}}
+                {{-- コメントへのリアクション --}}
+                @include('comments.comment_reaction_button', ['post' => $post, 'comment' => $comment])
                 <div class="comment-action-icons ml-auto">
                     {{-- 返信（ログイン中のみ） --}}
                     @auth

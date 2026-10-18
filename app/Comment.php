@@ -36,4 +36,15 @@ class Comment extends Model
     {
         return $this->hasMany(Comment::class, 'parent_id')->oldest();
     }
+
+    public function reactions()
+    {
+        return $this->hasMany(CommentReaction::class);
+    }
+
+    // ユーザがリアクション済か判定
+    public function isReactedBy($userId)
+    {
+        return $this->reactions->contains('user_id', $userId);
+    }
 }

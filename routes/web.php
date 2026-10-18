@@ -40,6 +40,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}/comment/{commentId}', 'CommentsController@destroy')->name('comment.delete');
         // コメント更新
         Route::put('{id}/comment/{commentId}', 'CommentsController@update')->name('comment.update');
+        // コメントへのリアクション
+        Route::post('{id}/comment/{commentId}/reaction', 'CommentReactionsController@toggle')->name('comment.reaction.toggle');
     });
 
     Route::prefix('users')->group(function () {
