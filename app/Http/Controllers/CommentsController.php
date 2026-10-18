@@ -31,6 +31,27 @@ class CommentsController extends Controller
         return back()->with('success', 'コメントを投稿しました！');
     }
 
+    // コメント更新
+    public function update(CommentsRequest $request, $postId, $commentId)
+    {
+        $post = Post::findOrFail($postId);
+        $comment = Comment::findOrFail($commentId);
+
+        // コメントがこの投稿のものか確認
+        if ($comment->post_id !== $post->id) {
+            abort(404, 'コメントが存在しません。');
+        }
+        // コメントの投稿者か確認
+        if ($comment->user_id !== \Auth::id()) {
+            abort(403, '更新権限がありません。');
+        }
+        // コメントを更新
+        $comment->content = $request->content;
+        $comment->save();
+
+        return back()->with('success', 'コメントを更新しました！');
+    }
+
     // コメント削除
     public function destroy($postId, $commentId)
     {
@@ -47,6 +68,6 @@ class CommentsController extends Controller
         }
         // コメントを削除
         $comment->delete();
-        return back()->with('success', 'コメントを削除しました!');
+        return back()->with('success', 'コメントを削除しました！');
     }
 }

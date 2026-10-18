@@ -34,6 +34,6 @@ class Comment extends Model
     // 子コメントの情報を取得 $comment->children
     public function children()
     {
-        return $this->hasMany(Comment::class, 'parent_id');
+        return $this->hasMany(Comment::class, 'parent_id')->oldest();
     }
 }

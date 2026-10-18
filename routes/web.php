@@ -33,10 +33,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('{id}', 'PostsController@destroy')->name('post.delete');
         // リアクション
         Route::post('{id}/reaction', 'ReactionsController@toggle')->name('reaction.toggle');
+
         // コメント投稿
         Route::post('{id}/comment', 'CommentsController@store')->name('comment.store');
         // コメント削除
         Route::delete('{id}/comment/{commentId}', 'CommentsController@destroy')->name('comment.delete');
+        // コメント更新
+        Route::put('{id}/comment/{commentId}', 'CommentsController@update')->name('comment.update');
     });
 
     Route::prefix('users')->group(function () {

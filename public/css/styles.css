@@ -22,6 +22,7 @@
     --du-text: #4A4A4A;
     --du-border: #E6E6E0;
     --du-muted: #9A9A9A;
+    --du-white: #FFFFFF;
 }
 
 body {
@@ -132,9 +133,10 @@ body {
 }
 
 .du-avatar-initial.du-comment-avatar {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     font-size: 0.75rem;
+    font-family: 'Noto Sans JP', sans-serif;
 }
 
 .comment-user a {
@@ -143,7 +145,7 @@ body {
 
 
 .comment-user-name {
-     /* 位置を上に調整 */
+    /* 位置を上に調整 */
     position: relative;
     top: -2px;
 
@@ -1078,17 +1080,64 @@ a {
 }
 
 /* コメント */
+.comment-title {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    padding-inline: 0.5rem;
+    color: var(--du-white);
+    background-color: var(--du-primary);
+}
+
 ul.comments-list,
 ul.comments-list>li {
     list-style-type: none;
-}
-
-ul.comments-list {
+    margin-bottom: 1rem;
     padding-left: 0;
 }
 
-ul.comments-list>li {
-    padding-left: 1rem;
+ul.comments-list.comment-root {
+    padding-left: 0.5rem;
+}
+
+.reaction-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.comment-icon {
+    display: inline-block;
+    font-size: 1.3rem;
+    color: var(--du-text);
+    transition: transform 0.3s ease;
+}
+
+@media(hover: hover) {
+    .link-comment-icon:hover .comment-icon,
+    .btn-comment-icon:hover .comment-icon {
+        transform: translateY(-3px);
+    }
+}
+
+.comment-count {
+    font-size: 1rem;
+    color: var(--du-text);
+    display: inline-block;
+    min-width: 1em;
+    text-align: left;
+}
+
+/* コメントへの返信のインデント */
+ul.comment-replies.is-indented {
+    padding-left: 1.75rem;
+}
+
+/* スマホの時のインデントは小さくする */
+@media (max-width: 576px) {
+    ul.comment-replies.is-indented {
+        padding-left: 1rem;
+    }
 }
 
 .comment-notExist {
@@ -1097,26 +1146,89 @@ ul.comments-list>li {
 }
 
 .comment-date {
-    font-size: 0.75rem; /* 12px */
+    font-size: 0.75rem;
+    /* 12px */
 }
 
 .comment-input,
 .comment-content {
     font-size: 0.875rem;
-    /* 14px */
+    margin-bottom: 0;
 }
 
-.btn-comment {
+.comment-text {
+    white-space: pre-wrap;
+    /* 改行を保持して折り返す */
+}
+
+.btn-comment-post {
     font-size: 0.85rem;
     font-weight: 400;
     padding: 0.27rem 0.75rem;
 }
 
-.btn-delete {
-    width: 50px;
-    display: inline-block;
-    border:none;
+.btn-reply-post,
+.btn-edit-reply-post {
     font-size: 0.75rem;
-    background-color: transparent;
+    font-weight: 400;
+    padding: 0.2rem 0.75rem;
+}
+
+.btn-comment-cancel,
+.btn-edit-reply-cancel {
+    font-size: 0.7rem;
+    font-weight: 400;
+    padding: 0.2rem 0.75rem;
+    color: var(--du-text);
+    text-decoration: none;
+}
+
+.btn-comment-icon,
+.link-comment-icon,
+.icon-reply,
+.icon-edit,
+.icon-delete {
+    border: none;
+    background: none;
+    font-size: 0.875rem;
+    color: var(--du-text);
+}
+
+.icon-delete {
     color: var(--du-danger);
+}
+
+/* マウスでクリックしたときのフォーカス枠を消す(キーボード操作のときは表示する) */
+.btn-comment-icon:focus:not(:focus-visible),
+.link-comment-icon:focus:not(:focus-visible),
+.icon-reply:focus:not(:focus-visible),
+.icon-edit:focus:not(:focus-visible),
+.icon-delete:focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+}
+
+.comment-reply-to {
+    font-size: 0.75rem;
+    color: var(--du-muted);
+    margin-right: 0.25rem;
+}
+
+.comment-container {
+    margin-bottom: 1rem;
+}
+
+.comment-edit-icons {
+    display: inline-block;
+}
+
+/* 投稿一覧のコメント数リンク: リンクの見た目を消して、詳細ページのボタンとそろえる */
+.post-comment-link {
+    font-family: 'Noto Sans JP', sans-serif;
+    display: inline-block;
+}
+
+/* Bootstrap標準のa:hoverの色・下線を打ち消す(hover非対応環境のタップ時も含む) */
+.post-comment-link:hover {
+    text-decoration: none;
 }
