@@ -8,6 +8,14 @@
                 </div>
                 <div class="card-body text-center">
                     <img class="rounded-circle w-75" src="{{ Gravatar::src($user->email, 300) }}" alt="ユーザのアバター画像">
+                    {{-- フォローボタン(自分以外のユーザ詳細ページにのみ表示) --}}
+                    @if (Auth::check() && Auth::id() !== $user->id)
+                        <div class="mt-3">
+                            <button type="button" class="btn btn-dark rounded-pill px-4 font-weight-bold">
+                                フォロー<i class="fas fa-user-plus ml-2"></i>
+                            </button>
+                        </div>
+                    @endif
                     <div class="mt-3">
                         <a href="#" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                     </div>
