@@ -10,11 +10,6 @@ class ReactionsController extends Controller
     // すでにリアクションがあればリアクションを削除、なければ追加するメソッド
     public function toggle(ReactionRequest $request, $postId)
     {
-        // ログインしていなければ何もしない
-        if (!\Auth::check()) {
-            return back();
-        }
-
         $post = \App\Post::findOrFail($postId);
 
         $type = $request->input('type', 'heart'); // 現在は'heart'をデフォルトとする
