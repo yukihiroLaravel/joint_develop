@@ -11,8 +11,11 @@
             <textarea name="content" class="form-control comment-input" rows="2" placeholder="コメントを入力...">{{ old('edit_comment_id') === null && old('parent_id') == $parentId ? old('content') : '' }}</textarea>
             </div>
             <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-link btn-comment-cancel" data-toggle="collapse"
-                    data-target="#{{ $collapseId }}">キャンセル</button>
+                {{-- 親コメントの場合はキャンセルボタン非表示 --}}
+                @if ($parentId !== null)
+                    <button type="button" class="btn btn-link btn-comment-cancel" data-toggle="collapse"
+                        data-target="#{{ $collapseId }}">キャンセル</button>
+                @endif
                 <button type="submit" {{-- 親コメントの時はコメント投稿、返信の時は返信と表示 --}}
                     class="btn d-flex justify-content-end du-btn-primary du-btn-link {{ $parentId ? 'btn-reply-post' : 'btn-comment-post' }}">{{ $parentId ? '返信' : 'コメント投稿' }}</button>
             </div>
