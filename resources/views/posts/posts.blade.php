@@ -31,7 +31,14 @@
         </a>
 
         <div class="du-reaction-row">
-            @include('reactions.reaction_button',['post' => $post])
+            <div class="reaction-container">
+                @include('reactions.reaction_button',['post' => $post])
+                {{-- コメント数（投稿詳細へのリンク） --}}
+                <a href="{{ route('posts.show', $post->id) }}" class="link-comment-icon post-comment-link" aria-label="コメントを見る" title="コメント">
+                    <span class="comment-icon"><i class="far fa-comments"></i></span>
+                    <span class="comment-count">{{ $post->comments_count > 0 ? $post->comments_count : '' }}</span>
+                </a>
+            </div>
             @if (Auth::id() === $post->user_id)
             <div class="du-post-actions">
                 <a href="{{ route('post.edit', $post->id) }}" class="du-post-action-link"><i class="fas fa-pen mr-1"></i>編集</a>

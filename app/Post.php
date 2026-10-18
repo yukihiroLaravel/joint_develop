@@ -30,4 +30,16 @@ class Post extends Model
     {
         return $this->belongsToMany('App\Tag'); 
     }
+
+    // コメントの情報を取得 $post->comments
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    // 最上位のコメント(投稿への直接のコメント)を取得 $post->topLevelComments
+    public function topLevelComments()
+    {
+        return $this->hasMany(Comment::class)->whereNull('parent_id')->oldest();
+    }
 }
