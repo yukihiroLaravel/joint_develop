@@ -41,6 +41,16 @@ class User extends Authenticatable
 
     public function posts()
     {
-        return $this->hasMany(post::class);
+        return $this->hasMany(Post::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        // ユーザ退会時に、そのユーザの投稿も削除する
+        static::deleting(function ($user) {
+            $user->posts()->delete();
+        });
     }
 }

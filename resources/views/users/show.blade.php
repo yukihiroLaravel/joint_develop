@@ -11,6 +11,27 @@
                     <div class="mt-3">
                         <a href="#" class="btn btn-primary btn-block">ユーザ情報の編集</a>
                     </div>
+                    {{-- 一時的にユーザ詳細画面に退会ボタンを表示 --}}
+                    @if (Auth::id() === $user->id)
+                        <button type="button" class="btn btn-danger btn-block mt-3" data-toggle="modal" data-target="#withdrawModal">退会する</button>
+
+                        <div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header"><h5 class="modal-title">確認</h5></div>
+                                    <div class="modal-body">本当に退会しますか？</div>
+                                    <div class="modal-footer justify-content-between">
+                                        <form method="POST" action="{{ route('user.destroy', $user->id) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-block">退会する</button>
+                                        </form>
+                                        <button type="button" class="btn btn-link text-dark" data-dismiss="modal">閉じる</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </aside>
