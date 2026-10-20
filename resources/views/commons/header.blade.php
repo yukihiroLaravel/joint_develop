@@ -1,10 +1,3 @@
-<head>
-    <meta charset="utf-8">
-    <title>Topic Posts</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>
-
 <header class="mb-5">
     <nav class="navbar navbar-expand-sm navbar-dark bg-info">
         <a class="navbar-brand" href="/">Topic Posts</a>
@@ -14,8 +7,18 @@
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
-                    <li class="nav-item"><a href="{{route('signup')}}" class="nav-link text-light">ログイン</a></li>
-                    <li class="nav-item"><a href="" class="nav-link text-light">新規ユーザ登録</a></li>
-                        </div>
+                @if (Auth::check())
+                    <li class="nav-item">
+                        <a href="" class="nav-link text-light">{{ Auth::user()->name }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('logout') }}" class="nav-link text-light">ログアウト</a>
+                    </li>
+                @else
+                    <li class="nav-item"><a href="{{ route('login') }}" class="nav-link text-light">ログイン</a></li>
+                    <li class="nav-item"><a href="{{ route('signup') }}" class="nav-link text-light">新規ユーザ登録</a></li>
+                @endif
+            </ul>
+        </div>
     </nav>
 </header>
