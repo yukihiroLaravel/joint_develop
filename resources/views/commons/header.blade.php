@@ -9,7 +9,7 @@
             <ul class="navbar-nav">
                 @if (Auth::check())
                     <li class="nav-item">
-                        <a href="" class="nav-link text-light">{{ Auth::user()->name }}</a>
+                        <a href="{{ route('users.show', Auth::id()) }}" class="nav-link text-light">{{ Auth::user()->name }}</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('logout') }}" class="nav-link text-light">ログアウト</a>

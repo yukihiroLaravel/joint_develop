@@ -24,6 +24,8 @@ Route::get('/', 'PostsController@index');
 // ユーザ詳細
 Route::prefix('users')->group(function(){
     Route::get('{id}', 'PostsController@show')->name('users.show');
+    Route::get('{id}/followings', 'UserFollowController@followings')->name('users.followings');
+    Route::get('{id}/followers', 'UserFollowController@followers')->name('users.followers');
 });
 
 // ログイン後
@@ -36,4 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // ユーザ退会
     Route::delete('users/{id}', 'UsersController@destroy')->name('user.destroy');
+    // フォロー・フォロー解除
+    Route::post('users/{id}/follow', 'UserFollowController@store')->name('user.follow');
+    Route::delete('users/{id}/unfollow', 'UserFollowController@destroy')->name('user.unfollow');
 });

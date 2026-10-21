@@ -1,4 +1,3 @@
-
 <ul class="list-unstyled">
     <li class="mb-3 text-center">
         @foreach ($posts as $post)
@@ -10,7 +9,7 @@
                 <p class="mb-2">{{$post->content}}</p>
                 <p class="text-muted">{{$post->updated_at}}</p>
             </div>
-        @endforeach    
+        @endforeach
     </li>
 </ul>
 <div class="m-auto" style="width: fit-content">
