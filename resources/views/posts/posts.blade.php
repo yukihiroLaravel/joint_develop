@@ -8,6 +8,15 @@
             <div class="text-left d-inline-block w-75">
                 <p class="mb-2">{{$post->content}}</p>
                 <p class="text-muted">{{$post->updated_at}}</p>
+                @if (Auth::id() == $post->user_id)
+                    <div class="text-right">
+                        <form method="POST" action="{{ route('post.destroy', $post->id) }}" onsubmit="return confirm('本当に削除しますか？');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm">削除</button>
+                        </form>
+                    </div>
+                @endif
             </div>
         @endforeach
     </li>
