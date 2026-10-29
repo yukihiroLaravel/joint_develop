@@ -13,4 +13,10 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // この投稿にいいね！したユーザ
+    public function likedUsers()
+    {
+        return $this->belongsToMany(User::class, 'likes')->withTimestamps();
+    }
 }

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -48,8 +49,15 @@ class User extends Authenticatable
     {
         parent::boot();
 
-        // ユーザ退会時に、そのユーザの投稿も削除する
         static::deleting(function ($user) {
+            // ① 自分の投稿に付いたいいね！を削除(論理削除済みの投稿も含める)
+            DB::table('likes')
+                ->whereIn('post_id', $user->posts()->withTrashed()->pluck('id'))
+                ->delete();
+            // ② 自分が付けたいいね！を削除
+            DB::table('likes')->where('user_id', $user->id)->delete();
+
+            // ユーザ退会時に、そのユーザの投稿も削除する
             $user->posts()->delete();
             $user->followings()->detach(); // 自分がフォローしているユーザとの関係を削除
             $user->followers()->detach(); // 自分をフォローしているユーザとの関係を削除
@@ -95,5 +103,11 @@ class User extends Authenticatable
     public function isFollowing($userId)
     {
         return $this->followings()->where('followed_id', $userId)->exists();
+    }
+
+    // いいね！した投稿
+    public function likes()
+    {
+        return $this->belongsToMany(Post::class, 'likes')->withTimestamps();
     }
 }
