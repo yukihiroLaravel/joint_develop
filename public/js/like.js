@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', function () {
             var isLiked = button.dataset.liked === '1';
             var url = isLiked ? button.dataset.unlikeUrl : button.dataset.likeUrl;
 
+            button.disabled = true; // 通信中はボタンを押せないようにする
+
             fetch(url, {
                 method: isLiked ? 'DELETE' : 'POST',
                 headers: {
@@ -30,6 +32,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 .catch(function () {
                     alert('通信に失敗しました。もう一度お試しください。');
+                })
+                .finally(function () {
+                    button.disabled = false; // 成功でも失敗でも、ボタンを押せる状態に戻す
                 });
         });
     });
