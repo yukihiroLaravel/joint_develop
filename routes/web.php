@@ -29,11 +29,14 @@ Route::prefix('users')->group(function(){
 });
 
 // ログイン後
-// 投稿編集画面・更新処理
 Route::group(['middleware' => 'auth'], function () {
     Route::prefix('posts')->group(function(){
+        // 投稿編集画面・更新処理
         Route::get('{id}/edit', 'PostsController@edit')->name('post.edit');
         Route::put('{id}', 'PostsController@update')->name('post.update');
+        // いいね!・いいね!解除
+        Route::post('{id}/like', 'PostLikeController@store')->name('post.like');
+        Route::delete('{id}/unlike', 'PostLikeController@destroy')->name('post.unlike');
         //投稿削除
         Route::delete('{id}', 'PostsController@destroy')->name('post.destroy');
     });
