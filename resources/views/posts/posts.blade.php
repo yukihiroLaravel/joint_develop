@@ -24,6 +24,15 @@
                     @endif
                     <span class="like-count" data-post-id="{{ $post->id }}">{{ $post->likes_count }}</span>
                 </div>
+                @if (Auth::id() == $post->user_id)
+                    <div class="text-right">
+                        <form method="POST" action="{{ route('post.destroy', $post->id) }}" onsubmit="return confirm('本当に削除しますか？');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger btn-sm">削除</button>
+                        </form>
+                    </div>
+                @endif
             </div>
         @endforeach
     </li>

@@ -37,6 +37,8 @@ Route::group(['middleware' => 'auth'], function () {
         // いいね!・いいね!解除
         Route::post('{id}/like', 'PostLikeController@store')->name('post.like');
         Route::delete('{id}/unlike', 'PostLikeController@destroy')->name('post.unlike');
+        //投稿削除
+        Route::delete('{id}', 'PostsController@destroy')->name('post.destroy');
     });
 
     // ユーザ退会
