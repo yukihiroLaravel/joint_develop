@@ -40,4 +40,16 @@ class PostLikeController extends Controller
             'count' => $post->likedUsers()->count(),
         ]);
     }
+
+    // いいね!ランキング画面
+    public function show()
+    {
+        $posts = Post::with('user')
+            ->withCount('likedUsers as likes_count')
+            ->orderBy('likes_count', 'desc')
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+
+        return view('posts.like_ranking', ['posts' => $posts]);
+    }
 }

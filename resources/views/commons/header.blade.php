@@ -5,7 +5,11 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="nav-bar">
-            <ul class="navbar-nav mr-auto"></ul>
+            <ul class="navbar-nav mr-auto"> </ul>
+             <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="{{ route('ranking.show') }}" class="nav-link text-light">いいね!ランキング</a>
+                </li>
             <ul class="navbar-nav">
                 @if (Auth::check())
                     <li class="nav-item">

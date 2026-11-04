@@ -21,6 +21,9 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/', 'PostsController@index');
 
+// いいね!ランキング画面
+Route::get('ranking', 'PostLikeController@show')->name('ranking.show');
+
 // ユーザ詳細
 Route::prefix('users')->group(function(){
     Route::get('{id}', 'PostsController@show')->name('users.show');
