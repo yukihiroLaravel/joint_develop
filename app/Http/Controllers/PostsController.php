@@ -15,12 +15,21 @@ class PostsController extends Controller
         $posts = Post::with('user')
             ->withCount('likedUsers as likes_count')
             ->orderBy('id', 'desc')
-            ->paginate(9);
+            ->paginate(10);
 
         return view('welcome', [
             'posts' => $posts,
             'likedPostIds' => $this->likedPostIds($posts),
         ]);
+    }
+
+    public function store(PostRequest $request)
+    {
+        $request->user()->posts()->create([
+            'content' => $request->content,
+        ]);
+
+        return redirect('/')->with('success', '投稿しました');
     }
 
     public function show($id)
