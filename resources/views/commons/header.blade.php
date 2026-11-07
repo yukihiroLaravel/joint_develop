@@ -7,6 +7,11 @@
         <div class="collapse navbar-collapse" id="nav-bar">
             <ul class="navbar-nav mr-auto"></ul>
             <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="{{ route('ranking.show') }}" class="nav-link text-light">いいね!ランキング</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
                 @if (Auth::check())
                     <li class="nav-item">
                         <a href="{{ route('users.show', Auth::id()) }}" class="nav-link text-light">{{ Auth::user()->name }}</a>

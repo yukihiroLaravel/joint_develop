@@ -24,7 +24,7 @@ class LikesTableSeeder extends Seeder
             // 投稿者以外のユーザの中から、投稿ごとに、いいね数が変わるように選ぶ
             $likers = $userIds->reject(function ($userId) use ($post) {
                 return $userId == $post->user_id;
-            })->values()->take($index % 4); // 0~3人
+            })->values()->take($index % 10); // 0~9人
 
             foreach ($likers as $userId) {
                 $likes[] = [
