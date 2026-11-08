@@ -5,7 +5,7 @@
                 <img class="mr-2 rounded-circle" src="{{ Gravatar::src($post->user->email, 55) }}" alt="ユーザのアバター画像">
                 <p class="mt-3 mb-0 d-inline-block"><a href="{{ route('users.show', ['id' => $post->user_id]) }}">{{$post->user->name}}</a></p>
             </div>
-            <div class="text-left d-inline-block w-75">
+            <div class="text-left d-inline-block w-75 mb-4">
                 <p class="mb-2">{{$post->content}}</p>
                 <p class="text-muted">{{$post->updated_at}}</p>
                 <div class="mb-3">
@@ -25,12 +25,13 @@
                     <span class="like-count" data-post-id="{{ $post->id }}">{{ $post->likes_count }}</span>
                 </div>
                 @if (Auth::id() == $post->user_id)
-                    <div class="text-right">
+                    <div class="d-flex justify-content-between">
                         <form method="POST" action="{{ route('post.destroy', $post->id) }}" onsubmit="return confirm('本当に削除しますか？');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm">削除</button>
                         </form>
+                        <a href="{{ route('post.edit', $post->id) }}" class="btn btn-primary btn-sm">編集する</a>
                     </div>
                 @endif
             </div>
