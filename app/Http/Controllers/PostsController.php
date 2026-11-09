@@ -16,6 +16,7 @@ class PostsController extends Controller
     {
         $query = Post::with('reactions');
         $query->with('tags');
+        $query->withCount('comments');
 
         $keyword = $request->input('keyword');
         $search_tags = $request->input('tags');
@@ -78,8 +79,9 @@ class PostsController extends Controller
             abort(403, 'このユーザは削除権限がありません。');
         }
         $this->deleteImage($post->image);
+        $post->comments()->delete();
         $post->delete();
-        return back()->with('success', '削除しました！');
+        return redirect()->route('posts')->with('success', '削除しました！'); // 投稿削除後は投稿一覧へリダイレクト
     }
 
     // 投稿編集画面表示
@@ -152,7 +154,7 @@ class PostsController extends Controller
             'post' => $post,
         ]);
     }
-    
+
     // 投稿画像ファイルを保存して保存先のパスを返すメソッド
     private function storeImage($file)
     {

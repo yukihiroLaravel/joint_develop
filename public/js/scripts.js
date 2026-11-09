@@ -108,3 +108,12 @@ function createTagLimitMessage() {
     message.textContent = 'タグの選択は' + TAG_SELECT_MAX + 'つまでだよ。';
     return message;
 }
+
+// コメント削除前の確認ダイアログ
+document.querySelectorAll('.js-comment-delete-form').forEach(function (commentForm) {
+    commentForm.addEventListener('submit', function (e) {
+        if (confirm('本当に削除しますか？') === false) {
+            e.preventDefault(); // キャンセルなら送信を止める
+        }
+    });
+});

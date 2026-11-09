@@ -49,11 +49,22 @@ class User extends Authenticatable
         return $this->hasMany(Reaction::class);
     }
 
+    // ユーザのコメントを取得
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     protected static function boot()
     {
         parent::boot();
 
         static::deleting(function ($user) {
+            // 退会するユーザのコメント（返信）を削除
+            $user->comments()->delete();
+            // 退会するユーザの投稿についたコメントを削除
+            Comment::whereIn('post_id', $user->posts()->pluck('id'))->delete();
+            // 退会するユーザの投稿を削除
             $user->posts()->delete();
         });
     }
