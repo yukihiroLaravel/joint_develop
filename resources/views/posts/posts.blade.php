@@ -39,7 +39,7 @@
     </li>
 </ul>
 <div class="m-auto" style="width: fit-content">
-    {{ $posts->links('pagination::bootstrap-4') }}
+    {{ $posts->appends(['keyword' => request('keyword')])->links('pagination::bootstrap-4') }}
 </div>
 @push('scripts')
     <script src="{{ asset('js/like.js') }}"></script>

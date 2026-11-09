@@ -10,12 +10,20 @@ use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::with('user')
-            ->withCount('likedUsers as likes_count')
-            ->orderBy('id', 'desc')
-            ->paginate(10);
+        $keyword = trim((string) $request->query('keyword', ''));
+
+        $query = Post::with('user')
+            ->withCount('likedUsers as likes_count');
+
+        if ($keyword !== '') {
+            // LIKE の特殊文字(| % _)をエスケープ文字 | でエスケープして、入力した文字どおりに検索する
+            $escaped = str_replace(['|', '%', '_'], ['||', '|%', '|_'], $keyword);
+            $query->whereRaw("content like ? escape '|'", ['%' . $escaped . '%']);
+        }
+
+        $posts = $query->orderBy('id', 'desc')->paginate(10);
 
         return view('welcome', [
             'posts' => $posts,
