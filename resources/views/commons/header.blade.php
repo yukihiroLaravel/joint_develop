@@ -5,7 +5,10 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="nav-bar">
-            <ul class="navbar-nav mr-auto"></ul>
+            <form method="GET" action="{{ url('/') }}" class="form-inline mx-auto my-2 my-sm-0">
+                <input type="search" name="keyword" value="{{ is_string(request('keyword')) }}" class="form-control form-control-sm mr-2" placeholder="投稿を検索" aria-label="投稿を検索">
+                <button type="submit" class="btn btn-light btn-sm">検索</button>
+            </form>
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a href="{{ route('ranking.show') }}" class="nav-link text-light">いいね!ランキング</a>
