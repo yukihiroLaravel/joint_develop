@@ -12,7 +12,8 @@ class PostsController extends Controller
 {
     public function index(Request $request)
     {
-        $keyword = trim((string) $request->query('keyword', ''));
+        $keyword = $request->query('keyword');
+        $keyword = is_string($keyword) ? trim($keyword) : '';
 
         $query = Post::with('user')
             ->withCount('likedUsers as likes_count');
