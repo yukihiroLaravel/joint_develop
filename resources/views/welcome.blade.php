@@ -26,5 +26,9 @@
     </div>
 @endif
 
+@if ($posts->isEmpty())
+    <p class="text-center text-muted">該当する投稿がありません</p>
+@endif
+
 @include('posts.posts')
 @endsection
